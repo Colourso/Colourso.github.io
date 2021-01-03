@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>STL专题-stack、queue 栈与队列 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-03-17 10:58">
+      星期日, 三月 17日 2019, 10:58 上午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><img src="lanqiao-6/6.jpg" srcset="/img/loading.gif" alt="引图"></p>
+<center>栈与队列😁</center>
+<a id="more"></a>
+
+
+<p>学习视频来源 <a target="_blank" rel="noopener" href="https://study.163.com/course/courseMain.htm?courseId=1004996013" title="2018NEUQ-ACM蓝桥杯培训">网易云课堂：2018NEUQ-ACM蓝桥杯培训</a></p>
+<hr>
+<h2 id="stack——栈"><a href="#stack——栈" class="headerlink" title="stack——栈"></a>stack——栈</h2><p>头文件 <code>#include &lt;stack&gt;</code></p>
+<p>栈是实现了先进后出的一种容器，元素的插入与删除都只能在栈的顶部来完成</p>
+<h3 id="stack的构造"><a href="#stack的构造" class="headerlink" title="stack的构造"></a>stack的构造</h3><pre><code>stack&lt;TYPE&gt; stkName;//其中TYPE可以是任何类型，包括自定义类型与指针类型</code></pre>
+<p>拷贝构造</p>
+<pre><code>stack&lt;int&gt; s1;
+stack&lt;int&gt; s2(s1);    //拷贝s1并构造s2
+stack&lt;int&gt; s3;
+s3 = s1;        //将s1的值赋给s3</code></pre>
+<h3 id="stack的函数"><a href="#stack的函数" class="headerlink" title="stack的函数"></a>stack的函数</h3><ul>
+<li><p>empty() 堆栈为空，则返回真 </p>
+</li>
+<li><p>pop() 移除栈顶元素 </p>
+</li>
+<li><p>push(elem) 在栈顶增加元素elem </p>
+</li>
+<li><p>size() 返回栈中元素数目 </p>
+</li>
+<li><p>top() 返回栈顶元素 </p>
+</li>
+</ul>
+<p>注意：对一个空栈执行pop操作会导致程序异常而结束，所以要先用empty进行判断。</p>
+<h3 id="stack的应用"><a href="#stack的应用" class="headerlink" title="stack的应用"></a>stack的应用</h3><ol>
+<li><p>递归算法</p>
+</li>
+<li><p>括号匹配检测</p>
+</li>
+<li><p>DFS算法</p>
+</li>
+</ol>
+<h2 id="queue——队列"><a href="#queue——队列" class="headerlink" title="queue——队列"></a>queue——队列</h2><p>头文件 <code>#include &lt;queue&gt;</code></p>
+<p>队列是一种先进先出的容器，元素的插入在队尾进行，元素的删除在队首进行，类似于日常生活中的排队。</p>
+<h3 id="queue的构造"><a href="#queue的构造" class="headerlink" title="queue的构造"></a>queue的构造</h3><pre><code>queue&lt;TYPE&gt; quName;//其中TYPE可以是任何类型，包括自定义类型与指针类型</code></pre>
+<p>构造方法与stack相同。</p>
+<h3 id="queue的函数"><a href="#queue的函数" class="headerlink" title="queue的函数"></a>queue的函数</h3><ul>
+<li><p>back() 返回最后一个元素 </p>
+</li>
+<li><p>empty() 如果队列空则返回真 </p>
+</li>
+<li><p>front() 返回第一个元素 </p>
+</li>
+<li><p>pop() 删除第一个元素 </p>
+</li>
+<li><p>push(elem) 在末尾加入一个元素 </p>
+</li>
+<li><p>size() 返回队列中元素的个数 </p>
+</li>
+</ul>
+<p>注意：对一个空队列执行pop操作会导致程序异常而结束，所以要先用empty进行判断。</p>
+<h3 id="queue的应用"><a href="#queue的应用" class="headerlink" title="queue的应用"></a>queue的应用</h3><ol>
+<li><p>BFS算法</p>
+</li>
+<li><p>保存暂时不用的数据</p>
+</li>
+</ol>
+<h2 id="例题：NEUQOJ-1689-火车调度问题-截止现在此题目无法做"><a href="#例题：NEUQOJ-1689-火车调度问题-截止现在此题目无法做" class="headerlink" title="例题：NEUQOJ-1689 火车调度问题(截止现在此题目无法做)"></a>例题：NEUQOJ-1689 火车调度问题(截止现在此题目无法做)</h2><blockquote>
+<p><strong>题目描述</strong>：</p>
+<p>粗心的塔学长现在是火车站的调度员，看看现在的惨状吧，列车车厢的顺序竟然完全是乱的！为避免塔学长登上明天的UC头条，车站划分给塔塔一段如图所示的铁路，你能帮助塔塔把车厢的顺序调整好吗？</p>
+<p>其中，A为入口，B为出口，S为中转盲端。所有铁道均为单轨单向式：列车行驶的方向只能是从A到S，再从S到B；另外，不允许超车。因为车厢可在S中驻留，所以它们从B端驶出的次序，可能与从A端驶入的次序不同。不过S的容量有限，同时驻留的车厢不得超过m节。</p>
+<p>列车由编号依次为{1, 2, …, n}的n节车厢组成。塔塔希望知道，按照以上交通规则，这些车厢能否以{a1, a2, …, an}的次序，重新排列后从B端驶出。如果可行，应该以怎样的次序操作?</p>
+<p><img src="lanqiao-6/stack.png" srcset="/img/loading.gif" alt="引图"></p>
+<p><strong>输入</strong>：</p>
+<p>共两行。<br>第一行为两个整数n，m。<br>第二行为以空格分隔的n个整数，保证为{1, 2, …, n}的一个排列，表示待判断可行性的驶出序列{a1，a2，…，an}。</p>
+<p><strong>输出</strong>：</p>
+<p>若驶出序列可行，则输出操作序列，其中push表示车厢从A进入S，pop表示车厢从S进入B，每个操作占一行。<br>若不可行，则输出“震惊！昨天小汤河火车站竟然。。。”。</p>
+<p><strong>样例输入</strong></p>
+<p>5 2</p>
+<p>1 2 3 5 4<br><strong>样例输出</strong></p>
+<p>push<br>pop<br>push<br>pop<br>push<br>pop<br>push<br>push<br>pop<br>pop</p>
+</blockquote>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>题目就是一道对栈进行操作的问题，给定初始状态A与最终状态B，限定栈的大小，来判断是否实现该操作。核心问题在于如何进行判断，这一部分的逻辑不容易处理。</p>
+<ol>
+<li><p>设置两个变量来表示对A，B的判断进度，然后判断当前A与B的首元是否相同，如果相同并且栈不满的话，push再pop达成目标。</p>
+</li>
+<li><p>不满足上述条件的话，判断当前栈顶元素是否与B的首元相同，相同的话pop。</p>
+</li>
+<li><p>还不满足上述条件的话，将A的首元去入栈，push。</p>
+</li>
+<li><p>上述三种条件都不满足的话，无法达成目标，结束。</p>
+</li>
+</ol>
+<h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><pre><code class="hljs CPP"><span class="hljs-comment">//仅是个人思路，因OJ这道题无法做，故未经程序检验</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stack&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-keyword">int</span> n，m;<span class="hljs-comment">//接收火车数量以及栈的大小</span>
+    <span class="hljs-keyword">int</span> a[<span class="hljs-number">1000</span>];<span class="hljs-comment">//接收火车调度后的状态</span>
+    <span class="hljs-keyword">int</span> a1[<span class="hljs-number">1000</span>];<span class="hljs-comment">//接收栈的操作状态，1表示Push。0表示pop</span>
+    <span class="hljs-keyword">int</span> ntp = <span class="hljs-number">0</span>;<span class="hljs-comment">//计数栈的操作步数</span>
+    <span class="hljs-built_in">stack</span>&lt;<span class="hljs-keyword">int</span>&gt; s;<span class="hljs-comment">//构造栈</span>
+    <span class="hljs-built_in">cin</span>&gt;&gt;n&gt;&gt;m;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;i&lt;=n;i++)
+    &#123;
+        <span class="hljs-built_in">cin</span>&gt;&gt;a[i];
+    &#125;
+    <span class="hljs-keyword">int</span> A = <span class="hljs-number">1</span>;<span class="hljs-comment">//原始火车的判断进度</span>
+    <span class="hljs-keyword">int</span> B = <span class="hljs-number">1</span>;<span class="hljs-comment">//结束后火车的判断进度</span>
+    <span class="hljs-keyword">int</span> flag = <span class="hljs-number">1</span>;<span class="hljs-comment">//判断条件</span>
+    <span class="hljs-keyword">while</span>(B&lt;=n &amp;&amp; flag)
+    &#123;
+        <span class="hljs-keyword">if</span>(A == a[B]&amp;&amp;s.size()&lt;m)
+        &#123;
+            ++A;++B;
+            a1[ntp++] = <span class="hljs-number">1</span>;
+            a1[ntp++] = <span class="hljs-number">0</span>;
+        &#125;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(!s.empty()&amp;&amp;s.top()==a[B])
+        &#123;
+            s.pop();
+            a1[ntp++] = <span class="hljs-number">0</span>;
+            ++B;
+        &#125;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(A&lt;=n &amp;&amp; s.size()&lt;m)
+        &#123;
+            s.push(A++);
+            a1[ntp++] = <span class="hljs-number">1</span>;
+        &#125;
+        <span class="hljs-keyword">else</span> flag = <span class="hljs-number">0</span>;
+    &#125;
+    <span class="hljs-keyword">if</span>(flag == <span class="hljs-number">0</span>) <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&quot;震惊！昨天小汤河火车站竟然。。。&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+    <span class="hljs-keyword">else</span>
+    &#123;
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> q = <span class="hljs-number">0</span>;q&lt;ntp;q++)
+        &#123;
+            <span class="hljs-keyword">if</span>(a1[q] == <span class="hljs-number">1</span>) <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&quot;push&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+            <span class="hljs-keyword">else</span> <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&quot;pop&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+        &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre>
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/C-C/">C/C++</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/">蓝桥杯</a>
+                    
+                      <a class="hover-with-bg" href="/tags/STL/">STL</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/lanqiao-dfs/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">蓝桥杯-DFS深度应用与模板</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/lanqiao-5/">
+                        <span class="hidden-mobile">STL专题-set 集合</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/lanqiao-6/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "STL专题-stack、queue 栈与队列&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

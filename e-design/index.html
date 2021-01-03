@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>一位十进制加减法计算器(电路+连线)|数电课设 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-07-11 21:59">
+      星期四, 七月 11日 2019, 9:59 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><strong>概览</strong>：一位十进制加减法计算器的设计思路，Multisim仿真以及最后的实物联接。</p>
+<a id="more"></a>
+
+<h2 id="设计要求"><a href="#设计要求" class="headerlink" title="设计要求"></a>设计要求</h2><p>设计一个一位数的十进制的加减法计算器，能够显示输入的数值以及最终的计算结果。</p>
+<p><img src="e-design%5Ce-chart.png" srcset="/img/loading.gif" alt="电路框图"></p>
+<h2 id="提供器件"><a href="#提供器件" class="headerlink" title="提供器件"></a>提供器件</h2><pre><code class="hljs ada">一片 <span class="hljs-number">74</span>LS04  <span class="hljs-comment">---- 六输入反相器</span>
+一片 <span class="hljs-number">74</span>LS08  <span class="hljs-comment">---- 二输入四与门</span>
+三片 <span class="hljs-number">74</span>LS47  <span class="hljs-comment">---- BCD-7段数码管译码器</span>
+一片 <span class="hljs-number">74</span>LS54  <span class="hljs-comment">---- 与或非门</span>
+两片 <span class="hljs-number">74</span>LS86  <span class="hljs-comment">---- 二输入四异或门</span>
+两片 <span class="hljs-number">74</span>LS283 <span class="hljs-comment">---- 四位超前进位加法器</span>
+
+四个 共阳极数码管 <span class="hljs-comment">---- 显示数字</span>
+十个 <span class="hljs-number">5.1</span>千欧电阻
+五个 <span class="hljs-number">300</span>欧电阻
+三个 四位拨码开关
+一个 四节电池盒
+一块 面包板</code></pre>
+<h2 id="加法运算思路"><a href="#加法运算思路" class="headerlink" title="加法运算思路"></a>加法运算思路</h2><p>两个一位十进制的数相加一共有 <code>0 - 18</code>  这十九种结果。</p>
+<p>输入方式的话只能够选择通过四位拨码开关调整输入，即输入的 <code>0-9</code> 都是二进制代码表示的。</p>
+<p>实验要求要<strong>显示输入的数字</strong>，直接可以 <code>四位拨码开关</code> 直接连接 <code>74LS47</code> 芯片，这个芯片直接连接 <code>共阳极数码管</code> 就可以显示我们输入的每一个数字。</p>
+<p>加法要通过 <code>74LS283</code> 这个芯片求得结果，如果直接把输入的两个数接到 <code>74LS283</code> 的两个四输入端口处的话，计算的结果直接就是 <code>0 - 18</code>  的二进制BCD码，但是与之对应的共阳极数码管就会显示出现问题。</p>
+<p>要求其中的一个数码管 <code>不显示</code> 或者显示 <code>1</code> ，另一个数码管要显示 <code>0 - 9</code> 之间的数。那么设计电路就要根据<strong>两数加和的结果对应的二进制码</strong>以及<strong>数码管显示数字对应的二进制码</strong>之间的关系进行设计。</p>
+<p>以下是两者对应的关系：</p>
+<p><img src="e-design%5Csum.png" srcset="/img/loading.gif"></p>
+<p>设第二个数码管的四个二进制码使用字母D、C、B、A来进行表示，而两数加和结果的四个二进制码使用S3、S2、S1、S0来表示，进位使用C0来表示。</p>
+<p>那么 <code>0-9</code> 之间的数两者之间的转换方式就是 ： <code>DCBA = S3S2S1S0 + 0000</code>。</p>
+<p>剩余 <code>10-18</code> 之间的数两者之间的转换方式是 :   <code>DCBA = S3S2S1S0 + 0110</code>。</p>
+<p>第一个数码管是否显示使用字母A进行表示，<code>A=1</code>代表显示，<code>A=0</code>代表不显示。</p>
+<p>从上面的关系表中可以推倒得出 <code>A = S3·S2 + S3·S1 + C0</code>。<strong>即当S3、S2都为1，或者S3、S1都为1或者进位的结果C0为1时，第一个数码管需要显示1，其余情况不显示。</strong></p>
+<p>为了便于实现电路，可将计算出的A值带入到上面数字的计算公式。因此结果如下：</p>
+<blockquote>
+<p>那么 <code>0-9</code> 之间的数两者之间的转换方式就是 ： <code>DCBA = S3S2S1S0 + 0AA0</code>。此时A=0</p>
+<p>剩余 <code>10-18</code> 之间的数两者之间的转换方式是 :   <code>DCBA = S3S2S1S0 + 0AA0</code>。此时A=1</p>
+</blockquote>
+<h2 id="共阳极数码管的特殊显示"><a href="#共阳极数码管的特殊显示" class="headerlink" title="共阳极数码管的特殊显示"></a>共阳极数码管的特殊显示</h2><p><img src="e-design%5Cled.png" srcset="/img/loading.gif"></p>
+<p>注意我的数码管是<strong>顺时针旋转90度</strong>放置的，在Multisim上进行测试，得到了上图的结果.</p>
+<h2 id="加法电路图"><a href="#加法电路图" class="headerlink" title="加法电路图"></a>加法电路图</h2><p><img src="e-design%5Cjiafa.png" srcset="/img/loading.gif" alt="一位十进制加法计算器"></p>
+<p>图中U2、U3是两个输入的数字的显示器，U9组合U8是最后的结果显示。</p>
+<p>两个四位拨码开关来控制输入的数字，并直接显示输入的数字。</p>
+<p>关于上面控制U9数码管显示的电路连接，是因为给定的器件不能够直接连接，所以变换公式后进行连接。</p>
+<p>做到后面发现因为芯片数量的限制，为完成整个电路图，最好使用74LS54芯片。</p>
+<p><img src="e-design%5Cjiafa2.png" srcset="/img/loading.gif"></p>
+<h2 id="减法运算思路"><a href="#减法运算思路" class="headerlink" title="减法运算思路"></a>减法运算思路</h2><p>两个一位十进制数的加法运算结果是 <code>-9 ~ 9</code> 这19种结果。</p>
+<p>输入方式依旧是通过四位拨码开关调整输入，即输入的 <code>0-9</code> 都是二进制代码表示的。</p>
+<p>但是减法运算与加法运算有一些不同，减法运算是通过<strong>补码</strong>进行计算的，且最终的计算结果也是补码的形式。也就是说涉及两个过程，一是从原码到补码的运算过程，二是从补码到原码的运算过程。</p>
+<h3 id="原码到补码"><a href="#原码到补码" class="headerlink" title="原码到补码"></a>原码到补码</h3><p>通过<strong>四位拨码开关</strong>调整输入的结果就是原码，原码到补码的运算是 <strong>原码数值位取反，然后加1</strong>。由于数字是0-9之间，9占据了四位二进制码，而且输入的上限也是4位，就不再考虑符号位的事情。</p>
+<p>那么两个数A、B的相减的计算公式就是 <code>A - B = A + B反 + 1</code>.</p>
+<p>则利用已经有的芯片，上述公式中B反可以通过输入<strong>B的每一位与1进行异或</strong>操作取得<code>反码</code>。<code>加1</code>可以通过<code>74LS283</code>芯片的进位输入端C0来设置实现。(虽然提供了反相器，但是只有六个，加上后面的取反操作根本不够使用，同时为了电路设计，使用异或是唯一的选择。)</p>
+<h3 id="补码到原码"><a href="#补码到原码" class="headerlink" title="补码到原码"></a>补码到原码</h3><p>从补码到原码，依旧可以<strong>采用数值为取反，然后加1</strong>。取反操作同样是采用与1异或的操作，<code>加1</code>同样通过<code>74LS283</code>芯片的进位输入端C0来设置实现。</p>
+<p>设计电路就要根据<strong>结果即进位输出和补码</strong>以及<strong>数码管显示数字对应的二进制码</strong>之间的关系进行设计。</p>
+<p><img src="e-design%5Csub.png" srcset="/img/loading.gif"></p>
+<p>从上图可以看出进行减法操作时，当进位输出<code>C4的结果为0</code>时，第一个数码管要显示<strong>负号</strong>。</p>
+<p>分析从74LS283的运算结果到数码管输出需要的结果，<code>0-9</code>时无需变化，而<code>-1 - -9</code>时则需要从补码转换到原码，即需要<strong>数值为取反再加1</strong>。</p>
+<p>因为取反操作可以通过与1做异或进行操作，而且为了方便电路设计，这里的异或操作可以和<strong>进位输出端C4的取反</strong>进行异或。一举两得。<code>加1</code>通过进位输入端C0进行，即C0端连接第一个74LS283的进位输出端的取反。</p>
+<h2 id="减法电路图"><a href="#减法电路图" class="headerlink" title="减法电路图"></a>减法电路图</h2><p><img src="e-design%5Cjianfa.png" srcset="/img/loading.gif"></p>
+<p>此电路图是在上面加法电路图的基础上进行修改的。只是删去了加法电路的实现部分，此外增加开关S3，它的开关拨为1时表示<strong>进行减法操作</strong>，同时提供 <code>1</code> 来<strong>给被减数进行异或求反的操作</strong>。</p>
+<h2 id="加减法合并电路图"><a href="#加减法合并电路图" class="headerlink" title="加减法合并电路图"></a>加减法合并电路图</h2><p>加减法的控制是通过开关进行的，组合时要求加法电路和减法电路互相不干扰。</p>
+<ol>
+<li>第二个数减法时要转化成补码，加法时不变，所以需要通过<code>74LS86</code>芯片进行异或，与1异或取反，与0异或不变。可以将<code>74LS86</code>芯片的异或门的一端引脚接加减法开关。</li>
+<li>第一个全加器做加法运算时进位输入C0无任何值，而减法运算时需要通过C0端进行加1操作。</li>
+<li>加法电路中用到的<code>74LS54</code>芯片在加法时应当不起任何作用。</li>
+<li>第二个全加器做加法运算时进位输入C0无任何值，而做减法运算时通过第一个<code>74LS283</code>的结果为负数时，第二处的<code>74LS86</code>芯片应当异或门起作用。</li>
+<li>对于加法来说的第二个74LS283芯片的加<code>0110</code>的操作对减法无效。且第二个74LS283芯片的C0输入加法时一直无效。</li>
+<li>显示第一个结果的共阳极数码在加法和减法时应当显示对应的值。</li>
+</ol>
+<p>以上这一部分融合的时候都是要考虑的。通过控制加减法的开关来影响上述大部分的操作。</p>
+<p><img src="e-design%5Cjiajian.png" srcset="/img/loading.gif"></p>
+<p>不太会排版，所以非常难看，但是功能全部实现了。</p>
+<p>最后连线的实物结果</p>
+<p><img src="e-design%5Cjieguo.jpg" srcset="/img/loading.gif"></p>
+<p>连线已经非常努力了😭，从开设设计到最后的实物图连接完成，再到最后的debug阶段，直到最后的成功显示，花了大概三天时间，真的有些累。</p>
+<h2 id="文件下载"><a href="#文件下载" class="headerlink" title="文件下载"></a>文件下载</h2><p>2020-09-20链接更新</p>
+<p>蓝奏云： <a target="_blank" rel="noopener" href="https://colourso.lanzous.com/iGKNMgs8oof">https://colourso.lanzous.com/iGKNMgs8oof</a><br>密码:1qyq</p>
+<p>百度云：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1WqNTEL1lwBR6H46RXRkC0Q">https://pan.baidu.com/s/1WqNTEL1lwBR6H46RXRkC0Q</a> </p>
+<p>提取码:9675</p>
+<p>内含Multisim电路仿真图以及实际连线时会用到的芯片引脚图。</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Other/">Other</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/">文件下载</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/linux-vim/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">vim编辑器的使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/linux-base/">
+                        <span class="hidden-mobile">Linux基础命令</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/e-design/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "一位十进制加减法计算器(电路+连线)|数电课设&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

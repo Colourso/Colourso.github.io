@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>数据结构课课设———四维数组 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-01-11 13:26">
+      星期五, 一月 11日 2019, 1:26 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      75
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>这是我的数据结构课程设计，搬运至博客做一份保存，也把弄清楚的一些知识记录下来。</p>
+<a id="more"></a>
+
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><ol>
+<li>按照行优先顺序将输入的数据建成4维数组，按照列优先顺序输出结果；</li>
+<li>给出任意处的元素值，并给出对应的一维数组中的序号；</li>
+<li>用 <code>squeeze</code> 函数来消除数组中的”孤维”，即大小等于1的维，从而起到降维的作用；</li>
+<li>用 <code>sub2ind</code> 函数将下标转换为单一索引数值；</li>
+<li>用 <code>ind2sub</code> 函数将数组的单一索引数值转换为数组的下标。</li>
+</ol>
+<h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><h3 id="1-行优先存储与列优先存储"><a href="#1-行优先存储与列优先存储" class="headerlink" title="1.行优先存储与列优先存储"></a>1.行优先存储与列优先存储</h3><p>说到存储，计算机的存储方式只有两种，<strong>物理结构</strong>——顺序存储结构和链式存储结构。而一切数据结构中的类型，如栈、队列、二叉树、图等都是使用这两种存储结构进行实现与表示的，这些结构都是<strong>逻辑上的结构</strong>，同样的，数组，无论多少维度都是采用这两种物理结构实现的，其在内存之中都只是一堆连续或者不连续的数据。</p>
+<p>对于多维数组来说，存储的顺序可以不同，因为其下标不止一个，存储数据的先后次序也就可以不一样。</p>
+<p>举个栗子，二维数组。行优先存储，优先存储每一行，依次向后，对应的下标变换为<code>a[0][0]</code>至<code>a[0][1]</code>至<code>a[0][2]</code>…。低下标先开始变化，直至结束。因此，<strong>以行序为主序存储方式也称为低下标优先</strong>。C语言采用的就是这种方式。</p>
+<p><img src="%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E8%AF%BE%E8%AE%BE%E2%80%94%E2%80%94%E2%80%94%E5%9B%9B%E7%BB%B4%E6%95%B0%E7%BB%84/%E4%BD%8E%E4%B8%8B%E6%A0%87%E4%BC%98%E5%85%88.png" srcset="/img/loading.gif" alt="低下标优先"></p>
+<p>列优先存储，优先存储每一列，依次向后，对应的下标变换为<code>a[0][0]</code>至<code>a[1][0]</code>至<code>a[2][0]</code>…。高下标先开始变化，直至结束。因此，<strong>以列序为主序存储方式也称为高下标优先</strong>。Matlab采用的就是这种方式。</p>
+<p><img src="%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E8%AF%BE%E8%AE%BE%E2%80%94%E2%80%94%E2%80%94%E5%9B%9B%E7%BB%B4%E6%95%B0%E7%BB%84/%E9%AB%98%E4%B8%8B%E6%A0%87%E4%BC%98%E5%85%88.png" srcset="/img/loading.gif" alt="高下标优先"></p>
+<p>参考链接</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/baiyu9821179/article/details/74852984">行优先存储和列优先存储</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Canhui_WANG/article/details/52242496">行优先和列优先的原则问题——Matlab</a></p>
+</blockquote>
+<h3 id="2-C语言多维数组的理解"><a href="#2-C语言多维数组的理解" class="headerlink" title="2.C语言多维数组的理解"></a>2.C语言多维数组的理解</h3><p>C语言数组，是一个用于存储固定大小的相同类型元素的集合。</p>
+<pre><code>int a[4] = &#123;0,1,2,3&#125;;
+int b[2][4] = &#123;
+                &#123;0,1,2,3&#125;,
+                &#123;4,5,6,7&#125;
+              &#125;;</code></pre>
+<p>如上所示的一维数组，基本元素是<code>int</code>类型的数据，这个数组可称为<strong>int类型数据的数组</strong>。而二维数组，基本元素是<code>int</code>类型数据的数组，这个数组可称为<strong>一维数组的数组</strong>。同理，n维数组的基本元素就是n-1维数组。</p>
+<p>声明数组 <code>int c[3][4][5];</code> 表示数组 c 包含三个元素: <code>c[0],c[1],c[2]</code> ，而这每一个元素又都是二维数组，而每一个二维数组又包含四个元素——一维数组。</p>
+<p>参考链接</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://c.biancheng.net/view/356.html">C语言多维数组，以及多维数组中的二维数组</a></p>
+</blockquote>
+<h3 id="3-几个名词：维度、维界与孤维（未找到定义，自己的理解）"><a href="#3-几个名词：维度、维界与孤维（未找到定义，自己的理解）" class="headerlink" title="3.几个名词：维度、维界与孤维（未找到定义，自己的理解）"></a>3.几个名词：维度、维界与孤维（未找到定义，自己的理解）</h3><ul>
+<li><p>维度：几维数组对应的维度就是几。如 <code>int c[3][4][5];</code> 是三维数组。</p>
+</li>
+<li><p>维界：对应每一个维度的范围，一般下界为0。如 <code>int c[3][4][5];</code> ，其第三维维界为0至2。</p>
+</li>
+<li><p>孤维，就是维界只能存储数量为1的维度，如 <code>int c[3][1][5];</code> ，共能存放15个数据，而<code>int c[3][5];</code> 也是存放15个数据，故可以消除孤维，来简化多维数组。</p>
+</li>
+</ul>
+<h2 id="数据结构与核心算法"><a href="#数据结构与核心算法" class="headerlink" title="数据结构与核心算法"></a>数据结构与核心算法</h2><h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p>采用<strong>顺序存储</strong>的方式来存储数组：</p>
+<ol>
+<li>一旦建立数组，数组存储的数量和结构中的元素之间的关系不需要再发生变化。</li>
+<li>不需要插入和删除操作，还需要实现随机存取（<code>时间复杂度为O(1)</code>）。</li>
+</ol>
+<pre><code class="hljs CPP"><span class="hljs-comment">//参考自《数据结构》清华大学出版社 严蔚敏</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span>&#123;</span>
+	ElemType * base;	<span class="hljs-comment">//元素基址,ElemType为此数组要存储的数据类型</span>
+	<span class="hljs-keyword">int</span> dim;			<span class="hljs-comment">//维数</span>
+	<span class="hljs-keyword">int</span> elemtotal;		<span class="hljs-comment">//总数</span>
+	<span class="hljs-keyword">int</span> * bounds;		<span class="hljs-comment">//数组各个维界</span>
+	<span class="hljs-keyword">int</span> * constants;	<span class="hljs-comment">//映像函数常量基址，参看映像函数⬇</span>
+&#125;Array;</code></pre> 
+
+<h3 id="核心算法——映像函数"><a href="#核心算法——映像函数" class="headerlink" title="核心算法——映像函数"></a>核心算法——映像函数</h3><p>映像函数是为了便于计算多维下标对应的内存基址。由于四维数组只是逻辑上的四维数组，其在内存上的真实分配情况也只是顺序存储结构，为了实现四维数组随机存取的特点，就要使用映像函数求得其地址。故上述结构体中 <code>int * constants</code> 的存在就是为了使得计算方便。</p>
+<p>例如：<code>int c[3][4][5]</code> 这个三维数组，按照行优先存储，下标(1,2,3)对应的基址如何求得呢？<br><code>LOC(1，2，3) = 首元素基址 + 1 * 4 * 5 + 2 * 5 + 5 * 1</code> 。而这里的 <code>int * constants</code> 就是把<strong>每一个维度能存储的元素个数</strong>存储了下来。对于 <code>int c[3][4][5]</code> 它的第三维包含三个元素 <code>c[0][4][5]、c[1][4][5]、c[2][4][5]</code>，每个元素都能存储 <code>4 * 5 = 20</code> 个元素，第三维下标为1，故<code>1 * 4 *5 = 20</code> ,其余同理。</p>
+<p>故使用 <code>int * constants</code> 来作为映像函数常量基址，每个 <code>A.constands[i]</code> 代表比 <code>dim - i</code> 低一维的所有元素的个数。</p>
+<pre><code class="hljs CPP">A.constants = (<span class="hljs-keyword">int</span> *)<span class="hljs-built_in">malloc</span>(A.dim * <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>));
+A.constants[A.dim - <span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = A.dim - <span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">0</span>; --i)
+&#123;
+	A.constants[i] = A.bounds[i + <span class="hljs-number">1</span>] * A.constants[i + <span class="hljs-number">1</span>];
+&#125;</code></pre> 
+
+<p>映像函数如下图<br><img src="%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E8%AF%BE%E8%AE%BE%E2%80%94%E2%80%94%E2%80%94%E5%9B%9B%E7%BB%B4%E6%95%B0%E7%BB%84/%E6%98%A0%E5%83%8F%E5%87%BD%E6%95%B0.png" srcset="/img/loading.gif" alt="映像函数"></p>
+<p>计算方法，求四维下标(a,b,c,d)对应的基址：</p>
+<pre><code class="hljs CPP">ind = base + A.constants[<span class="hljs-number">0</span>] * a + A.constants[<span class="hljs-number">1</span>] * b + A.constants[<span class="hljs-number">2</span>] * c + A.constants[<span class="hljs-number">3</span>] * d;</code></pre> 
+
+<p>参考链接</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/121166265.html" title="百度知道">C语言中什么是数组映像函数常量基址</a></p>
+</blockquote>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><p>我的代码分文件编程，<code>Array.h</code> 是关于数据结构的定义与声明，<code>Array.cpp</code> 是关于<code>Array.h</code> 内函数的实现，<code>main.cpp</code> 是运用这些函数进行流程控制之后的演示。编译环境是<code>VS2013</code>。</p>
+<h3 id="Array-h"><a href="#Array-h" class="headerlink" title="Array.h"></a>Array.h</h3><pre><code class="hljs CPP"><span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once	<span class="hljs-comment">//防止头文件重复</span></span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> OK 1</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> ERROR 0</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> OVERFLO -1</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> MAX 8		<span class="hljs-comment">//维界最大值为8</span></span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;conio.h&gt;</span></span>
+
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">int</span> ElemType;
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">int</span> Status;
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span>&#123;</span>
+	ElemType * base;	<span class="hljs-comment">//元素基址</span>
+	<span class="hljs-keyword">int</span> dim;			<span class="hljs-comment">//维数</span>
+	<span class="hljs-keyword">int</span> elemtotal;		<span class="hljs-comment">//总数</span>
+	<span class="hljs-keyword">int</span> * bounds;		<span class="hljs-comment">//数组各个维界</span>
+	<span class="hljs-keyword">int</span> * constants;	<span class="hljs-comment">//映像函数常量基址</span>
+&#125;Array;
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span>&#123;</span>
+	<span class="hljs-keyword">int</span> a;
+	<span class="hljs-keyword">int</span> b;
+	<span class="hljs-keyword">int</span> c;
+	<span class="hljs-keyword">int</span> d;
+&#125;Sub;<span class="hljs-comment">//四维数组下标结构体</span>
+
+<span class="hljs-comment">//1.建立数组</span>
+<span class="hljs-function">Status <span class="hljs-title">InitArray</span><span class="hljs-params">(Array &amp;A, <span class="hljs-keyword">int</span> dim, <span class="hljs-keyword">int</span> *boundary)</span></span>;
+
+<span class="hljs-comment">//2.按照行优先顺序存储数据</span>
+<span class="hljs-function">Status <span class="hljs-title">ValueArray</span><span class="hljs-params">(Array &amp;A)</span></span>;
+
+<span class="hljs-comment">//3.行优先顺序输出结果</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PrintArrayByRow</span><span class="hljs-params">(Array &amp;A)</span></span>;
+
+<span class="hljs-comment">//4.列优先顺序输出结果</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PrintArrayByCol</span><span class="hljs-params">(Array &amp;A)</span></span>;
+
+<span class="hljs-comment">//5.给定下标求取对应下标的元素</span>
+<span class="hljs-function">Status <span class="hljs-title">GetValue</span><span class="hljs-params">(Array A, Sub sub,ElemType &amp;elem)</span></span>;
+
+<span class="hljs-comment">//6.给定下标求取对应一维数组的序号（sub2ind）</span>
+<span class="hljs-function">Status <span class="hljs-title">sub2ind</span><span class="hljs-params">(Array A,Sub sub,<span class="hljs-keyword">int</span> &amp;ind)</span></span>;
+
+<span class="hljs-comment">//7.给定一位数组的单一索引值抓换成数组下标（ind2sub）</span>
+<span class="hljs-function">Status <span class="hljs-title">ind2sub</span><span class="hljs-params">(Array A, <span class="hljs-keyword">int</span> ind, Sub &amp;sub)</span></span>;
+
+<span class="hljs-comment">//8.消除孤维（squeeze）</span>
+<span class="hljs-function">Status <span class="hljs-title">squeeze</span><span class="hljs-params">(Array A, Array &amp;B)</span></span>;
+
+<span class="hljs-comment">//9.显示当前数组信息</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ShowDate</span><span class="hljs-params">(Array A)</span></span>;
+
+<span class="hljs-comment">//10.销毁数组</span>
+<span class="hljs-function">Status <span class="hljs-title">DestroyArray</span><span class="hljs-params">(Array &amp;A)</span></span>;</code></pre> 
+
+<h3 id="Array-cpp"><a href="#Array-cpp" class="headerlink" title="Array.cpp"></a>Array.cpp</h3><pre><code class="hljs CPP"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Array.h&quot;</span></span>
+
+<span class="hljs-comment">//1.建立数组</span>
+<span class="hljs-function">Status <span class="hljs-title">InitArray</span><span class="hljs-params">(Array &amp;A, <span class="hljs-keyword">int</span> dim, <span class="hljs-keyword">int</span> *boundary)</span><span class="hljs-comment">//此处的boundary形参为数组，便于在main函数中检验数据是否正常，便于传参。</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">if</span> (dim&lt;<span class="hljs-number">0</span> || dim&gt;MAX) <span class="hljs-keyword">return</span> ERROR;
+	A.dim = dim;
+	A.bounds = (<span class="hljs-keyword">int</span> *)<span class="hljs-built_in">malloc</span>(dim*<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>));
+	<span class="hljs-keyword">if</span> (!A.bounds) <span class="hljs-built_in">exit</span>(OVERFLO);
+	A.elemtotal = <span class="hljs-number">1</span>;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; dim; ++i)
+	&#123;
+		A.bounds[i] = boundary[i];
+		A.elemtotal *= A.bounds[i];
+	&#125;
+	A.base = (ElemType *)<span class="hljs-built_in">malloc</span>(A.elemtotal * <span class="hljs-keyword">sizeof</span>(ElemType));
+	<span class="hljs-keyword">if</span> (!A.base) <span class="hljs-built_in">exit</span>(OVERFLO);
+	A.constants = (<span class="hljs-keyword">int</span> *)<span class="hljs-built_in">malloc</span>(A.dim * <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>));
+	<span class="hljs-keyword">if</span> (!A.constants) <span class="hljs-built_in">exit</span>(OVERFLO);
+	A.constants[A.dim - <span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = A.dim - <span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">0</span>; --i)
+	&#123;
+		A.constants[i] = A.bounds[i + <span class="hljs-number">1</span>] * A.constants[i + <span class="hljs-number">1</span>];
+	&#125;
+	<span class="hljs-keyword">return</span> OK;
+&#125;
+
+<span class="hljs-comment">//2.按照行优先顺序存储数据</span>
+<span class="hljs-function">Status <span class="hljs-title">ValueArray</span><span class="hljs-params">(Array &amp;A)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;您一共要输入 &quot;</span> &lt;&lt; A.elemtotal &lt;&lt; <span class="hljs-string">&quot; 个数据（int类型）&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; A.elemtotal; ++i)
+	&#123;
+		<span class="hljs-built_in">cin</span> &gt;&gt; A.base[i];
+	&#125;
+	<span class="hljs-keyword">return</span> OK;
+&#125;
+
+<span class="hljs-comment">//3.行优先顺序输出结果</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PrintArrayByRow</span><span class="hljs-params">(Array &amp;A)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;按照行优先顺序输出结果&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; A.elemtotal; ++i)
+	&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; A.base[i]&lt;&lt;<span class="hljs-string">&quot; &quot;</span>;
+	&#125;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+&#125;
+
+<span class="hljs-comment">//4.列优先顺序输出结果</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PrintArrayByCol</span><span class="hljs-params">(Array &amp;A)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-comment">//本程序采用的是行优先存储方式创建的，对于所谓的列优先输出，因为列优先也就是高下标优先，所以按照高下标的遍历方式，依次将四维下标转换成一维基址(sub2ind函数)，然后输出。</span>
+	<span class="hljs-keyword">int</span> ind;
+	Sub sub;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;按照列优先顺序输出结果&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-keyword">for</span> (sub.d = <span class="hljs-number">0</span>; sub.d &lt; A.bounds[<span class="hljs-number">3</span>]; ++sub.d)
+	&#123;
+		<span class="hljs-keyword">for</span> (sub.c = <span class="hljs-number">0</span>; sub.c &lt; A.bounds[<span class="hljs-number">2</span>]; ++sub.c)
+		&#123;
+			<span class="hljs-keyword">for</span> (sub.b = <span class="hljs-number">0</span>; sub.b &lt; A.bounds[<span class="hljs-number">1</span>]; ++sub.b)
+			&#123;
+				<span class="hljs-keyword">for</span> (sub.a = <span class="hljs-number">0</span>; sub.a &lt; A.bounds[<span class="hljs-number">0</span>]; ++sub.a)
+				&#123;
+					sub2ind(A, sub, ind);
+					<span class="hljs-built_in">cout</span> &lt;&lt; A.base[ind] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
+				&#125;
+			&#125;
+		&#125;
+	&#125;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+&#125;
+
+<span class="hljs-comment">//5.给定下标求取对应下标的元素</span>
+<span class="hljs-function">Status <span class="hljs-title">GetValue</span><span class="hljs-params">(Array A, Sub sub, ElemType &amp;elem)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">if</span> ((sub.a&lt;<span class="hljs-number">0</span> || sub.a&gt;A.bounds[<span class="hljs-number">0</span>] - <span class="hljs-number">1</span>) || (sub.b&lt;<span class="hljs-number">0</span> || sub.b&gt;A.bounds[<span class="hljs-number">1</span>] - <span class="hljs-number">1</span>) || (sub.c&lt;<span class="hljs-number">0</span> || sub.c&gt;A.bounds[<span class="hljs-number">2</span>] - <span class="hljs-number">1</span>) || (sub.d&lt;<span class="hljs-number">0</span> || sub.d&gt;A.bounds[<span class="hljs-number">3</span>] - <span class="hljs-number">1</span>)) <span class="hljs-keyword">return</span> ERROR;
+	<span class="hljs-keyword">int</span> ind;
+	sub2ind(A, sub, ind);
+	elem = A.base[ind];
+	<span class="hljs-keyword">return</span> OK;
+&#125;
+
+<span class="hljs-comment">//6.给定下标求取对应一维数组的序号（sub2ind）</span>
+<span class="hljs-function">Status <span class="hljs-title">sub2ind</span><span class="hljs-params">(Array A, Sub sub, <span class="hljs-keyword">int</span> &amp;ind)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">if</span> ((sub.a&lt;<span class="hljs-number">0</span> || sub.a&gt;A.bounds[<span class="hljs-number">0</span>] - <span class="hljs-number">1</span>) || (sub.b&lt;<span class="hljs-number">0</span> || sub.b&gt;A.bounds[<span class="hljs-number">1</span>] - <span class="hljs-number">1</span>) || (sub.c&lt;<span class="hljs-number">0</span> || sub.c&gt;A.bounds[<span class="hljs-number">2</span>] - <span class="hljs-number">1</span>) || (sub.d&lt;<span class="hljs-number">0</span> || sub.d&gt;A.bounds[<span class="hljs-number">3</span>] - <span class="hljs-number">1</span>)) <span class="hljs-keyword">return</span> ERROR;
+	ind = <span class="hljs-number">0</span>;
+	ind += A.constants[<span class="hljs-number">0</span>] * sub.a;
+	ind += A.constants[<span class="hljs-number">1</span>] * sub.b;
+	ind += A.constants[<span class="hljs-number">2</span>] * sub.c;
+	ind += A.constants[<span class="hljs-number">3</span>] * sub.d;
+	<span class="hljs-keyword">return</span> OK;
+&#125;
+
+<span class="hljs-comment">//7.给定一位数组的单一索引值抓换成数组下标（ind2sub）</span>
+<span class="hljs-function">Status <span class="hljs-title">ind2sub</span><span class="hljs-params">(Array A, <span class="hljs-keyword">int</span> ind, Sub &amp;sub)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-comment">//相关解释请参看底下注意事项第7条</span>
+	<span class="hljs-keyword">if</span> (ind&lt;<span class="hljs-number">0</span> || ind&gt;A.elemtotal - <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> ERROR;
+	sub.a = ind / A.constants[<span class="hljs-number">0</span>];
+	sub.b = (ind % A.constants[<span class="hljs-number">0</span>]) / (A.constants[<span class="hljs-number">1</span>]);
+	sub.c = ((ind % A.constants[<span class="hljs-number">0</span>]) % (A.constants[<span class="hljs-number">1</span>])) / A.constants[<span class="hljs-number">2</span>];
+	sub.d = (((ind % A.constants[<span class="hljs-number">0</span>]) % (A.constants[<span class="hljs-number">1</span>])) % A.constants[<span class="hljs-number">2</span>]) % A.constants[<span class="hljs-number">2</span>];
+	<span class="hljs-keyword">return</span> OK;
+&#125;
+
+<span class="hljs-comment">//8.消除孤维（squeeze）</span>
+<span class="hljs-function">Status <span class="hljs-title">squeeze</span><span class="hljs-params">(Array A,Array &amp;B)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">bool</span> is = <span class="hljs-literal">false</span>;
+	<span class="hljs-keyword">int</span> dim = A.dim;
+	<span class="hljs-keyword">int</span> boundary[MAX];
+	<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; A.dim; ++i)
+	&#123;
+		<span class="hljs-keyword">if</span> (A.bounds[i] == <span class="hljs-number">1</span>)
+		&#123;
+			is = <span class="hljs-literal">true</span>;
+			--dim;
+		&#125;
+		<span class="hljs-keyword">else</span>&#123;
+			boundary[j] = A.bounds[i];
+			++j;
+		&#125;
+	&#125;
+	<span class="hljs-keyword">if</span> (!is) <span class="hljs-keyword">return</span> ERROR;
+	<span class="hljs-keyword">else</span>&#123;
+		<span class="hljs-keyword">if</span> (dim == <span class="hljs-number">0</span>) <span class="hljs-comment">//防止全是1维界的情况</span>
+		&#123;
+			dim = <span class="hljs-number">1</span>;
+			boundary[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;
+		&#125;
+		InitArray(B, dim, boundary);
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; A.elemtotal; ++i)
+		&#123;
+			B.base[i] = A.base[i];
+		&#125;
+		<span class="hljs-keyword">return</span> OK;
+	&#125;
+&#125;
+
+<span class="hljs-comment">//9.显示当前数组信息</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ShowDate</span><span class="hljs-params">(Array A)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;-------------------------------------------&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;                当前数组信息                  &quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;\t维数：&quot;</span> &lt;&lt; A.dim &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;\t形如A[a][b][c][d]这样的形式，当前数组对应的各维维度是&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; A.dim; ++i)
+	&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt;<span class="hljs-string">&quot;\t&quot;</span>&lt;&lt; <span class="hljs-keyword">char</span>(<span class="hljs-string">&#x27;a&#x27;</span> + i) &lt;&lt; <span class="hljs-string">&quot; :&quot;</span> &lt;&lt; A.bounds[i] &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;\t数据总数是&quot;</span> &lt;&lt; A.elemtotal &lt;&lt; <span class="hljs-built_in">endl</span>&lt;&lt;<span class="hljs-string">&quot;\t&quot;</span>;
+	PrintArrayByRow(A);
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;----------------------END------------------&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+&#125;
+
+<span class="hljs-comment">//10.销毁数组</span>
+<span class="hljs-function">Status <span class="hljs-title">DestroyArray</span><span class="hljs-params">(Array &amp;A)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">if</span> (!A.base) <span class="hljs-keyword">return</span> ERROR;
+	<span class="hljs-built_in">free</span>(A.base); A.base = <span class="hljs-literal">NULL</span>;
+	<span class="hljs-keyword">if</span> (!A.bounds) <span class="hljs-keyword">return</span> ERROR;
+	<span class="hljs-built_in">free</span>(A.bounds); A.bounds = <span class="hljs-literal">NULL</span>;
+	<span class="hljs-keyword">if</span> (!A.constants) <span class="hljs-keyword">return</span> ERROR;
+	<span class="hljs-built_in">free</span>(A.constants); A.constants = <span class="hljs-literal">NULL</span>;
+	<span class="hljs-keyword">return</span> OK;
+&#125;</code></pre> 
+
+<h3 id="main-cpp"><a href="#main-cpp" class="headerlink" title="main.cpp"></a>main.cpp</h3><pre><code class="hljs CPP"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Array.h&quot;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	system(<span class="hljs-string">&quot;color 3E&quot;</span>);<span class="hljs-comment">//设置控制台背景颜色和字体颜色</span>
+	<span class="hljs-keyword">int</span> inso;<span class="hljs-comment">//需要输入的值，用于流程控制</span>
+	<span class="hljs-keyword">int</span> inso1;<span class="hljs-comment">//需要输入的值，用于流程控制</span>
+	<span class="hljs-keyword">char</span> ch;<span class="hljs-comment">//需要输入的值，用于流程控制</span>
+	Array A;
+	A.elemtotal = <span class="hljs-number">0</span>;<span class="hljs-comment">//用于判断是否创建了四维数组，便于流程控制</span>
+	Array B;
+	Sub sub;<span class="hljs-comment">//定义一个四维数据</span>
+	<span class="hljs-keyword">int</span> ind;<span class="hljs-comment">//定义一个一维数据</span>
+	<span class="hljs-keyword">bool</span> creat = <span class="hljs-literal">false</span>;<span class="hljs-comment">//用于判断降维数组是否成功</span>
+	ElemType elem;<span class="hljs-comment">//定义一个数组元素类型的数据</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;\t欢迎使用四维数组程序&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>)
+	&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;+------------------------------------------+&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;|\t1.创建四维数组                     |&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;|\t2.查看四维数组信息                 |&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;|\t3.输入下标查看四维数组值           |&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;|\t4.按照行优先顺序打印               |&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;|\t5.按照列优先顺序打印               |&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;|\t6.将下标转换为单一索引数值；       |&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;|\t7.将单一索引数值转换为数组的下标； |&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;|\t8.降维\t\t                   |&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;|\t9.退出\t\t                   |&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;+------------------------------------------+&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;请输入相关序号执行操作&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Input:&quot;</span>;
+		<span class="hljs-built_in">cin</span> &gt;&gt; inso;
+		<span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>)
+		&#123;
+			<span class="hljs-keyword">if</span> (inso == <span class="hljs-number">1</span>)
+			&#123;
+				system(<span class="hljs-string">&quot;cls&quot;</span>);
+				<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;将创建形如 A[a][b][c][d] 形式的四维数组，请依次输入个维度对应的维界值\n各维对应的值应当大于零！请严格输入&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+				<span class="hljs-keyword">int</span> boundary[MAX];<span class="hljs-comment">//存放各个维度对应的维界</span>
+				<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">4</span>; ++i)
+				&#123;
+					<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;\t&quot;</span> &lt;&lt; <span class="hljs-keyword">char</span>(<span class="hljs-string">&#x27;a&#x27;</span> + i) &lt;&lt; <span class="hljs-string">&quot; :&quot;</span>;
+					too: <span class="hljs-built_in">cin</span> &gt;&gt; inso1;
+					<span class="hljs-keyword">if</span> (inso1 &lt;= <span class="hljs-number">0</span>)
+					&#123;
+						<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;输入错误，不符合要求，请重新输入:&quot;</span>;
+						<span class="hljs-keyword">goto</span> too;
+					&#125;
+					boundary[i] = inso1;
+				&#125;
+				InitArray(A, <span class="hljs-number">4</span>, boundary);<span class="hljs-comment">//数组作为参数传入</span>
+				ValueArray(A);
+				<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;-----四维数组创建成功!-----&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+				<span class="hljs-keyword">break</span>;
+			&#125;
+			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (inso == <span class="hljs-number">2</span>)
+			&#123;
+				system(<span class="hljs-string">&quot;cls&quot;</span>);
+				<span class="hljs-keyword">if</span> (A.elemtotal == <span class="hljs-number">0</span>)
+				&#123;
+					<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; 四维数组还未创建，请您前去创建四维数组！&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+					<span class="hljs-keyword">break</span>;
+				&#125;
+				<span class="hljs-keyword">else</span> ShowDate(A);
+				<span class="hljs-keyword">break</span>;
+			&#125;
+			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(inso == <span class="hljs-number">3</span>)&#123;
+				system(<span class="hljs-string">&quot;cls&quot;</span>);
+				<span class="hljs-keyword">if</span> (A.elemtotal == <span class="hljs-number">0</span>)
+				&#123;
+					<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; 四维数组还未创建，请您前去创建四维数组！&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+					<span class="hljs-keyword">break</span>;
+				&#125;
+				<span class="hljs-keyword">else</span>&#123;
+					<span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>)
+					&#123;
+						<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; 请输入你要查看的下标值，共四个数据&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+						<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; 形如 A[a][b][c][d] ，各个下标对应的取值范围&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+						<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; a: 0 - &quot;</span> &lt;&lt; A.bounds[<span class="hljs-number">0</span>]<span class="hljs-number">-1</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+						<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; b: 0 - &quot;</span> &lt;&lt; A.bounds[<span class="hljs-number">1</span>]<span class="hljs-number">-1</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+						<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; c: 0 - &quot;</span> &lt;&lt; A.bounds[<span class="hljs-number">2</span>]<span class="hljs-number">-1</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+						<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; d: 0 - &quot;</span> &lt;&lt; A.bounds[<span class="hljs-number">3</span>]<span class="hljs-number">-1</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+						<span class="hljs-built_in">cin</span> &gt;&gt; sub.a &gt;&gt; sub.b &gt;&gt; sub.c &gt;&gt; sub.d;
+						<span class="hljs-keyword">if</span> (GetValue(A, sub, elem))
+						&#123;
+							<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; 下标 A[&quot;</span> &lt;&lt; sub.a &lt;&lt; <span class="hljs-string">&quot;][&quot;</span> &lt;&lt; sub.b &lt;&lt; <span class="hljs-string">&quot;][&quot;</span> &lt;&lt; sub.c &lt;&lt; <span class="hljs-string">&quot;][&quot;</span> &lt;&lt; sub.d &lt;&lt; <span class="hljs-string">&quot;]对应的值为: &quot;</span> &lt;&lt; elem &lt;&lt; <span class="hljs-built_in">endl</span>;
+							<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;是否继续查看？（N键退出查看，其余键继续）:&quot;</span>;
+							<span class="hljs-built_in">cin</span> &gt;&gt; ch;
+							<span class="hljs-keyword">if</span> (ch == <span class="hljs-string">&#x27;n&#x27;</span> || ch == <span class="hljs-string">&#x27;N&#x27;</span>)
+								<span class="hljs-keyword">break</span>;
+						&#125;
+						<span class="hljs-keyword">else</span>&#123;
+							<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; 您输入的数据有误，请重新输入&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+						&#125;
+					&#125;
+					<span class="hljs-keyword">break</span>;
+				&#125;
+			&#125;
+			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (inso == <span class="hljs-number">4</span>)
+			&#123;
+				system(<span class="hljs-string">&quot;cls&quot;</span>);
+				<span class="hljs-keyword">if</span> (A.elemtotal == <span class="hljs-number">0</span>)
+				&#123;
+					<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; 四维数组还未创建，请您前去创建四维数组！&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+					<span class="hljs-keyword">break</span>;
+				&#125;
+				<span class="hljs-keyword">else</span>&#123;
+					PrintArrayByRow(A);
+					<span class="hljs-keyword">break</span>;
+				&#125;
+			&#125;
+			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (inso == <span class="hljs-number">5</span>)
+			&#123;
+				system(<span class="hljs-string">&quot;cls&quot;</span>);
+				<span class="hljs-keyword">if</span> (A.elemtotal == <span class="hljs-number">0</span>)
+				&#123;
+					<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; 四维数组还未创建，请您前去创建四维数组！&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+					<span class="hljs-keyword">break</span>;
+				&#125;
+				<span class="hljs-keyword">else</span>&#123;
+					PrintArrayByCol(A);
+					<span class="hljs-keyword">break</span>;
+				&#125;
+			&#125;
+			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (inso == <span class="hljs-number">6</span>)&#123;
+				system(<span class="hljs-string">&quot;cls&quot;</span>);
+				<span class="hljs-keyword">if</span> (A.elemtotal == <span class="hljs-number">0</span>)
+				&#123;
+					<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; 四维数组还未创建，请您前去创建四维数组！&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+					<span class="hljs-keyword">break</span>;
+				&#125;
+				<span class="hljs-keyword">else</span>&#123;
+					<span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>)
+					&#123;
+						<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; 请输入你要转换的下标值，共四个数据&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+						<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; 形如 A[a][b][c][d] ，各个下标对应的取值范围&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+						<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; a: 0 - &quot;</span> &lt;&lt; A.bounds[<span class="hljs-number">0</span>] - <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+						<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; b: 0 - &quot;</span> &lt;&lt; A.bounds[<span class="hljs-number">1</span>] - <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+						<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; c: 0 - &quot;</span> &lt;&lt; A.bounds[<span class="hljs-number">2</span>] - <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+						<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; d: 0 - &quot;</span> &lt;&lt; A.bounds[<span class="hljs-number">3</span>] - <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+						<span class="hljs-built_in">cin</span> &gt;&gt; sub.a &gt;&gt; sub.b &gt;&gt; sub.c &gt;&gt; sub.d;
+						<span class="hljs-keyword">if</span> (sub2ind(A, sub, ind) == OK)
+						&#123;
+							<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; 下标 A[&quot;</span> &lt;&lt; sub.a &lt;&lt; <span class="hljs-string">&quot;][&quot;</span> &lt;&lt; sub.b &lt;&lt; <span class="hljs-string">&quot;][&quot;</span> &lt;&lt; sub.c &lt;&lt; <span class="hljs-string">&quot;][&quot;</span> &lt;&lt; sub.d &lt;&lt; <span class="hljs-string">&quot;]对应的索引值为: &quot;</span> &lt;&lt; ind &lt;&lt; <span class="hljs-built_in">endl</span>;
+							<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;是否继续转换？（N键退出转换，其余键继续）:&quot;</span>;
+							<span class="hljs-built_in">cin</span> &gt;&gt; ch;
+							<span class="hljs-keyword">if</span> (ch == <span class="hljs-string">&#x27;n&#x27;</span> || ch == <span class="hljs-string">&#x27;N&#x27;</span>)
+								<span class="hljs-keyword">break</span>;
+						&#125;
+						<span class="hljs-keyword">else</span>&#123;
+							<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; 您输入的下标值不符合要求，请重新输入&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+						&#125;
+						
+					&#125;
+					<span class="hljs-keyword">break</span>;
+				&#125;
+			&#125;
+			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (inso == <span class="hljs-number">7</span>)&#123;
+				system(<span class="hljs-string">&quot;cls&quot;</span>);
+				<span class="hljs-keyword">if</span> (A.elemtotal == <span class="hljs-number">0</span>)
+				&#123;
+					<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; 四维数组还未创建，请您前去创建四维数组！&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+					<span class="hljs-keyword">break</span>;
+				&#125;
+				<span class="hljs-keyword">else</span>&#123;
+					<span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>)
+					&#123;
+						<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; 请输入你要转换的索引值，范围： 0 - &quot;</span> &lt;&lt;A.elemtotal<span class="hljs-number">-1</span>&lt;&lt; <span class="hljs-built_in">endl</span>;
+						<span class="hljs-built_in">cin</span> &gt;&gt; ind;
+						<span class="hljs-keyword">if</span> (ind2sub(A, ind, sub) == OK)
+						&#123;
+							<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; 索引值: &quot;</span> &lt;&lt; ind &lt;&lt; <span class="hljs-string">&quot; 对应的下标未 A[&quot;</span> &lt;&lt; sub.a &lt;&lt; <span class="hljs-string">&quot;][&quot;</span> &lt;&lt; sub.b &lt;&lt; <span class="hljs-string">&quot;][&quot;</span> &lt;&lt; sub.c &lt;&lt; <span class="hljs-string">&quot;][&quot;</span> &lt;&lt; sub.d &lt;&lt; <span class="hljs-string">&quot;] &quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+							<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;是否继续转换？（N键退出转换，其余键继续）:&quot;</span>;
+							<span class="hljs-built_in">cin</span> &gt;&gt; ch;
+							<span class="hljs-keyword">if</span> (ch == <span class="hljs-string">&#x27;n&#x27;</span> || ch == <span class="hljs-string">&#x27;N&#x27;</span>)
+								<span class="hljs-keyword">break</span>;
+						&#125;
+						<span class="hljs-keyword">else</span>&#123;
+							<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;您输入的索引值不符合范围，请重新输入&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+						&#125;
+					&#125;
+					<span class="hljs-keyword">break</span>;
+				&#125;
+			&#125;
+			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (inso == <span class="hljs-number">8</span>)
+			&#123;
+				system(<span class="hljs-string">&quot;cls&quot;</span>);
+				<span class="hljs-keyword">if</span> (A.elemtotal == <span class="hljs-number">0</span>)
+				&#123;
+					<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot; 四维数组还未创建，请您前去创建四维数组！&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+					<span class="hljs-keyword">break</span>;
+				&#125;
+				<span class="hljs-keyword">else</span>&#123;
+					<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;执行降维操作&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+					<span class="hljs-keyword">if</span> (squeeze(A, B) == ERROR) <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;本数组无维数为1的维度，无法降维&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+					<span class="hljs-keyword">else</span>
+					&#123;
+						creat = <span class="hljs-literal">true</span>;
+						ShowDate(B);
+					&#125;
+					<span class="hljs-keyword">break</span>;
+				&#125;
+			&#125;
+			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (inso == <span class="hljs-number">9</span>)
+			&#123;
+				<span class="hljs-keyword">if</span> (A.elemtotal != <span class="hljs-number">0</span>)
+				&#123;
+					DestroyArray(A);
+				&#125;
+
+				<span class="hljs-keyword">if</span> (creat == <span class="hljs-literal">true</span>)
+				&#123;
+					DestroyArray(B);
+				&#125;
+				system(<span class="hljs-string">&quot;cls&quot;</span>);
+				<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;  谢谢使用，再见！\n按任意键继续....&quot;</span>;
+				_getch();
+				<span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);
+			&#125;
+			<span class="hljs-keyword">else</span>&#123;
+				<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;您输入的字符有误，请重新输入&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+				<span class="hljs-keyword">break</span>;
+			&#125;
+		&#125;
+	&#125;
+&#125;</code></pre> 
+
+<h3 id="另：一些注意事项"><a href="#另：一些注意事项" class="headerlink" title="另：一些注意事项"></a>另：一些注意事项</h3><ol>
+<li>数组的维界是严格大于0的，所以维界值要格外注意。</li>
+<li>本程序采用的是行优先存储方式创建的，对于所谓的列优先输出，因为列优先也就是高下标优先，所以按照高下标的遍历方式，依次将四维下标转换成一维基址(<code>sub2ind函数</code>)，然后输出。</li>
+<li>销毁空间时，如果那段空间本来就没有被 <code>malloc</code> 分配内存，就会报错，所以 <code>main.cpp</code> 中的流程9有两个判断语句。</li>
+<li>Array.h里定义的大部分函数返回值都是 <code>Status</code> ，这是为了便于 <code>main.cpp</code> 里的流程控制，因为判断数据是否正确写在 <code>main.cpp</code> 里回过于冗杂，也为了不让计算产生莫名奇妙的值，所以这些函数刚开始都是判断数据是否合理，不合理就不会继续进行计算。</li>
+<li>本程序的大部分函数都不可扩展，参数直接写死了，只能对四维坐标进行操作，尤其是数组被降维之后，对应 低于四维数组 的操作函数寥寥无几，设计函数是应当注意！</li>
+<li>消除孤维的时候要注意，如果都是1维，就要最后保留一个维度，为1维。</li>
+<li>关于 <code>ind2sub函数</code>（单一索引值转换成四维数组下标）的计算问题。刚开始稀里糊涂的写了上去，发现没啥问题，也没细想，写博客的时候又觉得有点不对劲，现在终于弄明白了。参看<code>函数sub2ind</code>的计算，简化式<code>ind = A * (constants[0]) + B * (constants[1]) + C*(constants[2]) + D *(constants[3]);</code>ABCD为四维数组下标。由此进行逆推，<code>A = ind / constants[0]; </code>，那是因为其余部分的值<code>B * (constants[1]) + C*(constants[2]) + D *(constants[3])</code>除以 <code>constants[0]</code> 都要小于1。</li>
+</ol>
+<h2 id="功能展示"><a href="#功能展示" class="headerlink" title="功能展示"></a>功能展示</h2><p>比较辣鸡，展示部分功能。</p>
+<h3 id="起始界面"><a href="#起始界面" class="headerlink" title="起始界面"></a>起始界面</h3><p><img src="%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E8%AF%BE%E8%AE%BE%E2%80%94%E2%80%94%E2%80%94%E5%9B%9B%E7%BB%B4%E6%95%B0%E7%BB%84/%E8%B5%B7%E5%A7%8B%E7%95%8C%E9%9D%A2.png" srcset="/img/loading.gif" alt="起始界面"></p>
+<h3 id="创建四维数组"><a href="#创建四维数组" class="headerlink" title="创建四维数组"></a>创建四维数组</h3><p><img src="%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E8%AF%BE%E8%AE%BE%E2%80%94%E2%80%94%E2%80%94%E5%9B%9B%E7%BB%B4%E6%95%B0%E7%BB%84/%E5%88%9B%E5%BB%BA%E5%9B%9B%E7%BB%B4%E6%95%B0%E7%BB%84.png" srcset="/img/loading.gif" alt="创建四维数组"></p>
+<h3 id="查看当前数组信息"><a href="#查看当前数组信息" class="headerlink" title="查看当前数组信息"></a>查看当前数组信息</h3><p><img src="%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E8%AF%BE%E8%AE%BE%E2%80%94%E2%80%94%E2%80%94%E5%9B%9B%E7%BB%B4%E6%95%B0%E7%BB%84/%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E6%95%B0%E7%BB%84%E4%BF%A1%E6%81%AF.png" srcset="/img/loading.gif" alt="查看当前数组信息"></p>
+<h3 id="下标转换为索引值"><a href="#下标转换为索引值" class="headerlink" title="下标转换为索引值"></a>下标转换为索引值</h3><p><img src="%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E8%AF%BE%E8%AE%BE%E2%80%94%E2%80%94%E2%80%94%E5%9B%9B%E7%BB%B4%E6%95%B0%E7%BB%84/%E4%B8%8B%E6%A0%87%E8%BD%AC%E6%8D%A2%E4%B8%BA%E7%B4%A2%E5%BC%95%E5%80%BC.png" srcset="/img/loading.gif" alt="下标转换为索引值"></p>
+<h3 id="降维操作"><a href="#降维操作" class="headerlink" title="降维操作"></a>降维操作</h3><p><img src="%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E8%AF%BE%E8%AE%BE%E2%80%94%E2%80%94%E2%80%94%E5%9B%9B%E7%BB%B4%E6%95%B0%E7%BB%84/%E9%99%8D%E7%BB%B4%E6%93%8D%E4%BD%9C.png" srcset="/img/loading.gif" alt="降维操作"></p>
+<h2 id="完结感言"><a href="#完结感言" class="headerlink" title="完结感言"></a>完结感言</h2><p>本次课设的难度一般，想清楚该怎么做后，几个小时就可以做完。但与之相比，课设的报告书，还有这篇博客都是非常的费时间。自己也挺菜的，函数写成了那个样子，没法复用，也得感谢严蔚敏老师的《数据结构》提供了非常好的数据结构与方法，但是为了一些操作的方便就没有使用原书中的用到的<code>stdarg.h</code> 和变参方法。太菜了，继续努力吧！</p>
+<h2 id="END-2019-1-11-22-24-36"><a href="#END-2019-1-11-22-24-36" class="headerlink" title="END! 2019/1/11 22:24:36"></a>END! 2019/1/11 22:24:36</h2><hr>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/C-C/">C/C++</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/set-up-blog/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">使用Hexo+Github搭建博客与优化扩展</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/C++%E5%8E%86%E5%8F%B2/">
+                        <span class="hidden-mobile">C++一些相关知识（慢慢补充）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E8%AF%BE%E8%AE%BE%E2%80%94%E2%80%94%E2%80%94%E5%9B%9B%E7%BB%B4%E6%95%B0%E7%BB%84/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "数据结构课课设———四维数组&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

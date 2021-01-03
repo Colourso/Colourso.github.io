@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>CSS语法总结 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-05-09 10:05">
+      星期六, 五月 9日 2020, 10:05 上午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      39
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><strong>概览</strong>：CSS的语法，使用方式，各种选择器，伪类与伪元素，字体、文本与背景样式设置，以及盒模型相关知识点。</p>
+<a id="more"></a>
+
+<hr>
+<p><strong>预警</strong>：本文是我于<font color="red">2020年5月总结的</font> <font color="gree">2018年7月我所学的</font> <font color="blue">2016年的前端课程</font>，简言之可能时效性比较差，可能落后于当今的技术，小心阅读~</p>
+<blockquote>
+<p>前端课程链接：<a target="_blank" rel="noopener" href="http://www.atguigu.com/download_detail.shtml?v=63">李立超 —— 尚硅谷_HTML&amp;CSS核心基础</a></p>
+</blockquote>
+<hr>
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><p>CSS —— 层叠样式表，可对网页进行装饰。</p>
+<p>在前端中，<strong>HTML负责结构，CSS负责表现，JS则负责行为</strong>。</p>
+<h2 id="CSS使用方式"><a href="#CSS使用方式" class="headerlink" title="CSS使用方式"></a>CSS使用方式</h2><h3 id="1-内联样式-嵌入式样式（不推荐）"><a href="#1-内联样式-嵌入式样式（不推荐）" class="headerlink" title="1.内联样式|嵌入式样式（不推荐）"></a>1.内联样式|嵌入式样式（不推荐）</h3><p>直接将CSS样式写在标签的style属性中。</p>
+<ul>
+<li>内联样式只对当前元素的内容起作用，不方便复用。</li>
+<li>这样导致结构与表现耦合，不方便后期维护。</li>
+</ul>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color:red; font-size:20px;&quot;</span>&gt;</span>谁知盘中餐，粒粒皆辛苦。<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+<h3 id="2-内部样式表"><a href="#2-内部样式表" class="headerlink" title="2.内部样式表"></a>2.内部样式表</h3><p>将CSS样式表写在HTML文件的head标签中，然后通过CSS选择器来选中指定元素。</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span>
+        p&#123;
+<span class="css">            <span class="hljs-selector-tag">color</span><span class="hljs-selector-pseudo">:red</span>;</span>
+<span class="css">            <span class="hljs-selector-tag">background-color</span><span class="hljs-selector-pseudo">:red</span>;</span>
+        &#125;
+    <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span></code></pre>
+<h3 id="3-外部样式表（推荐）"><a href="#3-外部样式表（推荐）" class="headerlink" title="3.外部样式表（推荐）"></a>3.外部样式表（推荐）</h3><p>将CSS样式表写在外部文件<code>.css</code>之中，然后在HTML的head标签中使用<code>&lt;link /&gt;</code>标签来引入到当前页面。</p>
+<ul>
+<li>将CSS样式统一编写到外部的样式表中，完全使结构与表现分离，使样式表可以在不同的页面中使用。</li>
+<li>最大限度的可以使样式进行复用，可以利用浏览器的缓存，加快用户访问的速度，提高用户的体验。</li>
+</ul>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span> = <span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">type</span> = <span class="hljs-string">&quot;text/css&quot;</span> <span class="hljs-attr">href</span> = <span class="hljs-string">&quot;demo.css&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span></code></pre>
+<h3 id="4-优先级顺序"><a href="#4-优先级顺序" class="headerlink" title="4.优先级顺序"></a>4.优先级顺序</h3><p>由高到低：</p>
+<ol>
+<li>内联样式</li>
+<li>内部样式表</li>
+<li>外部样式表</li>
+<li>浏览器默认样式</li>
+</ol>
+<h2 id="CSS语法"><a href="#CSS语法" class="headerlink" title="CSS语法"></a>CSS语法</h2><p>注释：<code>/*  */</code></p>
+<p>CSS的基本语法由<strong>选择器</strong>和<strong>声明块</strong>两部分组成。</p>
+<ul>
+<li><strong>选择器</strong>：用来指定页面中的元素，然后将会把声明块里的声明样式作用到该元素上。</li>
+<li><strong>声明块</strong>：紧跟在选择器之后，使用一对大括号<code>&#123;&#125;</code>括起来，内容是名值对的形式，名值之间使用冒号<code>:</code>链接，多个名值对间使用分号<code>;</code>分隔。</li>
+</ul>
+<pre><code class="hljs css"><span class="hljs-comment">/*将作用于页面中所有的p标签的内容*/</span>
+<span class="hljs-selector-tag">p</span>&#123;
+	<span class="hljs-attribute">color</span>:red;
+	<span class="hljs-attribute">background-color</span>:red;
+&#125;</code></pre>
+<ul>
+<li>如果采用<strong>内部样式表</strong>的方式，则<code>&lt;style&gt; &lt;/style&gt;</code>中的内容属于CSS所有。不允许写html中的内容，包括html的注释<code>&lt;!-- --&gt;</code>.</li>
+<li>CSS规定，如果属性名称是两个或者两个以上的单词组成时，单词之间用<code>-</code>隔开，例如背景颜色：<code>background-color</code>。</li>
+</ul>
+<h2 id="常见选择器"><a href="#常见选择器" class="headerlink" title="常见选择器"></a>常见选择器</h2><h3 id="id选择器"><a href="#id选择器" class="headerlink" title="id选择器"></a>id选择器</h3><p>通过id属性值来选中元素。</p>
+<p>语法：<code>#idname&#123;&#125;</code></p>
+<pre><code class="hljs css"><span class="hljs-selector-id">#ppp</span>&#123;
+	<span class="hljs-attribute">font-size</span>:<span class="hljs-number">20px</span>;
+&#125;</code></pre>
+<h3 id="class选择器"><a href="#class选择器" class="headerlink" title="class选择器"></a>class选择器</h3><p>通过class来选择一组元素。</p>
+<p>语法：<code> .classname&#123; &#125;</code></p>
+<pre><code class="hljs css"><span class="hljs-selector-class">.classname</span>&#123;
+    <span class="hljs-attribute">color</span>:red;
+&#125;</code></pre>
+<h3 id="通配选择器"><a href="#通配选择器" class="headerlink" title="通配选择器"></a>通配选择器</h3><p>选择页面所有的元素。</p>
+<p>语法：<code>*&#123;&#125;</code></p>
+<pre><code class="hljs css">*&#123;
+    <span class="hljs-attribute">color</span>:red;
+&#125;</code></pre>
+<h3 id="并集选择器"><a href="#并集选择器" class="headerlink" title="并集选择器"></a>并集选择器</h3><p>可同时选择多个元素。</p>
+<p>语法：<code>选择器1,选择器2,选择器n&#123;&#125;</code></p>
+<pre><code class="hljs css"><span class="hljs-comment">/*为id为pp，类为cll的标签以及h1标签设置样式*/</span>
+<span class="hljs-selector-id">#pp</span>,<span class="hljs-selector-class">.cll</span>,<span class="hljs-selector-tag">h1</span>&#123;
+    <span class="hljs-attribute">background-color</span>:red;
+&#125;</code></pre>
+<h3 id="复合选择器（交集选择器）"><a href="#复合选择器（交集选择器）" class="headerlink" title="复合选择器（交集选择器）"></a>复合选择器（交集选择器）</h3><p>选择<strong>同时满足</strong>几个选择器的元素。</p>
+<p>语法： <code>选择器1选择器2选择器3 &#123; &#125; </code>。中间无空格和其他符号。</p>
+<pre><code class="hljs css"><span class="hljs-comment">/*为class为cll的span元素设置一个背景颜色*/</span>
+<span class="hljs-selector-tag">span</span><span class="hljs-selector-class">.cll</span>&#123;
+    <span class="hljs-attribute">background-color</span>:yellow;
+&#125;</code></pre>
+<h3 id="后代元素选择器"><a href="#后代元素选择器" class="headerlink" title="后代元素选择器"></a>后代元素选择器</h3><p>选中指定元素的后代元素。</p>
+<p>语法：<code>祖先元素 后代元素&#123;&#125;</code>。中间使用空格隔开，后代元素可以写多个，使用空格隔开。</p>
+<ul>
+<li>注意是<strong>元素</strong>，而非选择器！</li>
+<li>但是可以使用id选择器代替元素。</li>
+</ul>
+<pre><code class="hljs css"><span class="hljs-selector-tag">div</span> <span class="hljs-selector-tag">p</span>&#123;
+	<span class="hljs-attribute">background-color</span>:red;
+&#125;</code></pre>
+<h3 id="子元素选择器"><a href="#子元素选择器" class="headerlink" title="子元素选择器"></a>子元素选择器</h3><p>选中指定父元素的指定子元素<br>语法：<code>祖先元素 &gt; 后代元素</code>.</p>
+<pre><code class="hljs css"><span class="hljs-selector-tag">div</span> &gt; <span class="hljs-selector-tag">p</span>&#123;
+	<span class="hljs-attribute">background-color</span>:blue;
+&#125;</code></pre>
+<h3 id="兄弟元素选择器"><a href="#兄弟元素选择器" class="headerlink" title="兄弟元素选择器"></a>兄弟元素选择器</h3><ul>
+<li>可以选定指定元素后面紧挨的兄弟元素。</li>
+</ul>
+<p>语法：<code>前一个元素 + 后一个元素&#123;&#125;</code></p>
+<ul>
+<li>选中指定元素身后所有的同一种兄弟元素。</li>
+</ul>
+<p>语法：<code>前一个元素 ~ 后边所有&#123;&#125;</code></p>
+<pre><code class="hljs css"><span class="hljs-comment">/*选中span后面所有的p元素*/</span>
+<span class="hljs-selector-tag">span</span> ~ <span class="hljs-selector-tag">p</span>&#123;
+    <span class="hljs-attribute">background-color</span>:red;
+&#125;</code></pre>
+<h3 id="选择器的优先级"><a href="#选择器的优先级" class="headerlink" title="选择器的优先级"></a>选择器的优先级</h3><p>当多个选择器发生冲突时，根据优先级来选择设置样式。</p>
+<p>从高到低依次是：</p>
+<ol>
+<li>内联样式即嵌入式样式</li>
+<li>id选择器</li>
+<li>类与伪类</li>
+<li>元素选择器</li>
+<li>通配选择器</li>
+</ol>
+<h2 id="伪元素与伪类"><a href="#伪元素与伪类" class="headerlink" title="伪元素与伪类"></a>伪元素与伪类</h2><p>伪类专门用来表示一种<strong>特殊的状态</strong>。如：访问过的超链接。如获取焦点的文本框。用伪类可以为这些特殊元素设置特殊的状态。<br>有时候，你需要选择本身没有标签，但是仍然易于识别的网页部位，比如段落首行或鼠标滑过的连接。CSS为他们提供一些选择器：伪类和伪元素。</p>
+<h3 id="链接的四个伪类"><a href="#链接的四个伪类" class="headerlink" title="链接的四个伪类"></a>链接的四个伪类</h3><ul>
+<li>正常链接：<code>a:link</code></li>
+<li>访问过的链接：<code>a:visited</code></li>
+<li>鼠标滑过的链接：<code>a:hover</code></li>
+<li>正在点击的链接：<code>a:active</code></li>
+</ul>
+<p>注意：</p>
+<ol>
+<li><code>visited</code>由于涉及隐私，只能够修改字体颜色。</li>
+<li><code>hover</code>和<code>active</code>这两个也可以给其他元素使用。比如p标签。</li>
+<li>这四个伪类的优先级是相同的，但一般按照上面的次序写，否则<code>link</code> 与<code>visited</code> 这两个伪类会覆盖两外两个元素。<code>active</code>也会覆盖掉<code>hover</code>。</li>
+</ol>
+<h3 id="否定伪类"><a href="#否定伪类" class="headerlink" title="否定伪类"></a>否定伪类</h3><p>可以从已经选中的元素中剔除某些元素。</p>
+<p>语法：<code>:not(选择器)</code></p>
+<pre><code class="hljs css"><span class="hljs-comment">/*为所有p标签设置背景颜色，除了class为hello的*/</span>
+<span class="hljs-selector-tag">p</span><span class="hljs-selector-pseudo">:not(.hello)</span>&#123;
+    <span class="hljs-attribute">backgorund-color</span>:red;
+&#125;</code></pre>
+<h3 id="其他伪类"><a href="#其他伪类" class="headerlink" title="其他伪类"></a>其他伪类</h3><ol>
+<li><code>input:focus&#123;&#125;</code> ——获取焦点</li>
+<li><code>p::selection&#123; &#125;</code> ——为选中的文字设置样式。额外注意是有两个冒号。但是在火狐中不太好用，火狐使用<code>-moz-selection</code>，建议都写上。</li>
+</ol>
+<h3 id="伪元素"><a href="#伪元素" class="headerlink" title="伪元素"></a>伪元素</h3><p>使用伪元素来表示元素的一些特殊位置。</p>
+<ul>
+<li><code>p:first-letter&#123;&#125;</code>：表示p中的第一个字</li>
+<li><code>p:first-line&#123;&#125;</code>：表示第一行</li>
+<li><code>before</code>与<code>after</code>表示元素的最前边与最后边。<ul>
+<li>例如<code>&lt;p&gt;Hello&lt;/p&gt;</code>中before指p标签与H之间的位置。</li>
+<li><code>before</code>与<code>after</code>使用时要结合<code>content</code>添加一些元素，并且content添加的文本内容一般无法被鼠标选中。</li>
+</ul>
+</li>
+</ul>
+<pre><code class="hljs css"><span class="hljs-selector-tag">p</span><span class="hljs-selector-pseudo">:before</span>&#123;
+	<span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;出现且无法被选中&quot;</span>;
+    <span class="hljs-attribute">color</span>:red;
+&#125;</code></pre>
+<h2 id="字体样式设置"><a href="#字体样式设置" class="headerlink" title="字体样式设置"></a>字体样式设置</h2><p><img src="CSS-learn/font.png" srcset="/img/loading.gif"></p>
+<h3 id="字体属性简写"><a href="#字体属性简写" class="headerlink" title="字体属性简写"></a>字体属性简写</h3><p>即一次同时设置多个字体样式。</p>
+<p>语法：<code>font: 加粗 斜体 小型大写 大小/行高 字体</code>。</p>
+<ul>
+<li> 加粗 斜体 小型大写这几个顺序无所谓，也可以不写。</li>
+<li>但是<strong>大小与字体必须要写且写到最后两个</strong>！</li>
+</ul>
+<pre><code class="hljs css"><span class="hljs-selector-class">.hello</span>&#123;
+    <span class="hljs-attribute">font</span>:bold italic small-caps <span class="hljs-number">15px</span> <span class="hljs-string">&quot;微软雅黑&quot;</span>;
+&#125;</code></pre>
+<h2 id="文本样式设置"><a href="#文本样式设置" class="headerlink" title="文本样式设置"></a>文本样式设置</h2><p><img src="CSS-learn/text1.png" srcset="/img/loading.gif"></p>
+<p><img src="CSS-learn/text2.png" srcset="/img/loading.gif"></p>
+<p><img src="CSS-learn/text3.png" srcset="/img/loading.gif"></p>
+<h2 id="背景样式设置"><a href="#背景样式设置" class="headerlink" title="背景样式设置"></a>背景样式设置</h2><p><img src="CSS-learn/bg.png" srcset="/img/loading.gif"></p>
+<h3 id="背景简写属性"><a href="#背景简写属性" class="headerlink" title="背景简写属性"></a>背景简写属性</h3><ul>
+<li>这里的简写没有任何顺序或者数量要求。即顺序随意，不写就使用默认值。</li>
+</ul>
+<pre><code class="hljs css"><span class="hljs-selector-class">.hello</span>&#123;
+    <span class="hljs-attribute">background</span>: <span class="hljs-number">#bfa</span> <span class="hljs-built_in">url</span>(img/<span class="hljs-number">3</span>.png) fixed no-repeat;
+&#125;</code></pre>
+<h2 id="透明-opacity"><a href="#透明-opacity" class="headerlink" title="透明 opacity"></a>透明 opacity</h2><p>用于设置元素的透明背景。</p>
+<p>需要指定一个0-1之间的值，0表示完全透明，1表示完全不透明，0.5表示半透明。</p>
+<ul>
+<li>opacity属性在IE8以下的浏览器中不支持。</li>
+</ul>
+<pre><code class="hljs css"><span class="hljs-selector-class">.hello</span>&#123;
+    <span class="hljs-attribute">opacity</span>:<span class="hljs-number">0.5</span>;
+&#125;</code></pre>
+<hr>
+<h2 id="盒子模型"><a href="#盒子模型" class="headerlink" title="盒子模型"></a>盒子模型</h2><p>CSS处理网页时，它认为每个元素都包含在一个不可见的盒子里。我们只需要将相应的盒子摆放到网页中相应的位置即可完成网页的布局。</p>
+<p>盒子模型包含四部分：</p>
+<ul>
+<li>内容区(content) </li>
+<li>内边距(padding)</li>
+<li>边框(border) </li>
+<li>外边距(margin)</li>
+</ul>
+<h3 id="内容区-content"><a href="#内容区-content" class="headerlink" title="内容区  content"></a>内容区  content</h3><p>内容区指的是盒子中放置内容的区域，也就是元素中的文本内容，子元素都是存在于内容区中的。</p>
+<p>如果没有为元素设置内边距和边框，则内容区大小默认和盒子大小是一致的。</p>
+<p>通过width和height两个属性可以设置内容区的大小，而不是整个盒子的大小。</p>
+<p>整个盒子可见框的大小由内容区、内边距和边框共同决定。</p>
+<p>width和height属性只适用于块元素。</p>
+<h3 id="边框-border"><a href="#边框-border" class="headerlink" title="边框 border"></a>边框 border</h3><p>边框是元素可见框的最外部。 </p>
+<p>边框三个必备属性：宽度<code>border-width </code> 、颜色<code>border-color</code> 、样式<code>border-style</code>。</p>
+<p>大部分浏览器的边框设置中宽度与颜色都有默认值，而style的默认值为none(无边框)。</p>
+<h3 id="内边距-padding"><a href="#内边距-padding" class="headerlink" title="内边距 padding"></a>内边距 padding</h3><p>内边距指的就是元素内容区与边框以内的空间。</p>
+<p>默认情况下width和height不包含padding的大小。 </p>
+<p>元素的背景会延伸到内边距。</p>
+<h3 id="外边距-margin"><a href="#外边距-margin" class="headerlink" title="外边距 margin"></a>外边距 margin</h3><p>外边距是元素边框与周围元素相距的空间</p>
+<p>外边距也可以设置成为负值，元素向相反的方向移动。</p>
+<h3 id="清除浏览器的默认样式"><a href="#清除浏览器的默认样式" class="headerlink" title="清除浏览器的默认样式"></a>清除浏览器的默认样式</h3><p>浏览器会为很多元素默认设置了一些默认的<code>margin</code>和<code>padding</code>。</p>
+<pre><code class="hljs css"><span class="hljs-comment">/*清除浏览器的默认样式*/</span>
+*&#123;
+    <span class="hljs-attribute">margin</span>:<span class="hljs-number">0</span>;
+    <span class="hljs-attribute">padding</span>:<span class="hljs-number">0</span>;
+&#125;</code></pre>
+<h3 id="内联元素的盒子模型"><a href="#内联元素的盒子模型" class="headerlink" title="内联元素的盒子模型"></a>内联元素的盒子模型</h3><ul>
+<li><p>内容区：内联元素不能设置width和height。</p>
+</li>
+<li><p>内边距：内联元素可以设置水平方向的内边距。</p>
+<ul>
+<li>对于垂直方向上的内边距，可以设置，但不会影响布局。数值过大只会覆盖掉其他元素</li>
+</ul>
+</li>
+<li><p>边框：内联元素可以设置边框，但是垂直的边框不会影响到页面的布局。</p>
+</li>
+</ul>
+<ul>
+<li>外边距：内联元素支持水平方向的外边距。对于竖直方向的外边距不支持。</li>
+</ul>
+<h3 id="display"><a href="#display" class="headerlink" title="display"></a>display</h3><p>作用：<strong>可以将元素设置为块元素或者内联元素等。</strong></p>
+<p><strong>一个块元素独占一行</strong>。而<strong>一个内联元素只占它内容对应的空间</strong>。并且<strong>一个内联元素不能设置宽高</strong>。</p>
+<ul>
+<li>inline：将一个元素作为内联元素显示。</li>
+<li>block：作为块元素显示。</li>
+<li>inline-block：转换成行内块元素，既可以设置宽高，又不会独占一行。</li>
+<li>none：不显示元素，且元素不会在页面中占据位置。</li>
+</ul>
+<pre><code class="hljs css"><span class="hljs-selector-tag">span</span>&#123;
+    <span class="hljs-attribute">dispaly</span>:block;
+    <span class="hljs-comment">/*设置宽高*/</span>
+    <span class="hljs-attribute">width</span>:<span class="hljs-number">500px</span>;
+    <span class="hljs-attribute">height</span>:<span class="hljs-number">500px</span>;
+&#125;</code></pre>
+<h3 id="visibility"><a href="#visibility" class="headerlink" title="visibility"></a>visibility</h3><p>作用：<strong>设置元素的可见状态</strong>。</p>
+<ul>
+<li>visible：默认值，显示。</li>
+<li>hidden：隐藏，不显示，但位置会保留在页面中。</li>
+</ul>
+<pre><code class="hljs css">&#123;
+    <span class="hljs-attribute">visibility</span>:hidden;
+&#125;</code></pre>
+<h3 id="overflow"><a href="#overflow" class="headerlink" title="overflow"></a>overflow</h3><p>作用：<strong>设置父元素如何处理溢出的内容</strong>。</p>
+<p>子元素默认存在于父元素内容区，如果子元素大小超过了父元素的内容区，就会发生溢出。</p>
+<ul>
+<li>visible：默认值，不对溢出内容做处理，元素会在父元素以外显示。</li>
+<li>hidden：溢出内容会被修剪，不显示。</li>
+<li>scroll：为父元素添加滚动条，且不论是否溢出，都会添加水平与垂直方向的滚动条。</li>
+<li>auto：根据需求自动添加滚动条。</li>
+</ul>
+<h3 id="文档流"><a href="#文档流" class="headerlink" title="文档流"></a>文档流</h3><p>文档流指的是文档中可现实的对象在排列时所占用的位置。</p>
+<p>将窗体自上而下分成一行行，并在每行中按从左至右的顺序排 放元素，即为文档流。</p>
+<p>也就是说在文档流中元素默认会紧贴到上一个元素的右边，如果右边不足以放下元素，元素则会另起一行，在新的一行中继续从左至右摆放。</p>
+<p>这样一来每一个块元素都会另起一行，那么我们如果想在文档流中进行布局就会变得比较麻烦。</p>
+<p>块元素：</p>
+<ul>
+<li>独占一行，块元素会自上向下排列。</li>
+<li>在文档流的默认宽度是父元素的100%</li>
+<li>高度默认由内容撑开。</li>
+</ul>
+<p>内联元素：</p>
+<ul>
+<li>默认只占据自身大小，默认从左到右排列。</li>
+<li>高度宽度都默认被内容撑开。</li>
+</ul>
+<h3 id="float"><a href="#float" class="headerlink" title="float"></a>float</h3><p>作用：使元素脱离原来的文档流，在父元素中浮动起来。</p>
+<ul>
+<li>none：默认值，默认在文档流中排列。</li>
+<li>left：向页面左侧浮动。</li>
+<li>right：向页面右侧浮动。</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li><p>块级元素和行内元素都可以浮动，当一个<strong>行内元素浮动以后将会自动变为一个块级元素</strong>。</p>
+</li>
+<li><p>当一个块级元素浮动以后，宽度会默认被内容撑开，所以<strong>当漂浮一个块级元素时我们都会为其指定一个宽度</strong>。</p>
+</li>
+<li><p>浮动的元素不会覆盖住文字。文字会自动环绕在浮动元素的周围。所以可以通过浮动来设置文字环绕图片的效果。</p>
+</li>
+<li><p>当一个元素浮动以后，<strong>其下方的元素会上移</strong>。元素中的内容将会围绕在元素的周围。</p>
+</li>
+<li><p>浮动会使元素完全脱离文本流，也就是不再在文档中在占用位置。</p>
+</li>
+<li><p>元素设置浮动以后，会一直向上漂浮直到遇到父元素的边界或者其他浮动元素。</p>
+</li>
+<li><p>元素浮动以后即完全脱离文档流，这时不会再影响父元素的高度。也就是浮动元素不会撑开父元素。</p>
+</li>
+<li><p>浮动元素<strong>默认会变为块元素</strong>，即使设置display:inline以后其依然是个块元素。</p>
+</li>
+</ul>
+<pre><code class="hljs css"><span class="hljs-selector-class">.s1</span>&#123;
+    <span class="hljs-comment">/*使span元素浮动*/</span>
+    <span class="hljs-attribute">float</span>:left;
+    <span class="hljs-attribute">width</span>:<span class="hljs-number">100px</span>;
+    <span class="hljs-attribute">height</span>:<span class="hljs-number">100px</span>;
+    <span class="hljs-attribute">background-color</span>:red;
+&#125;</code></pre>
+<h3 id="高度塌陷问题"><a href="#高度塌陷问题" class="headerlink" title="高度塌陷问题"></a>高度塌陷问题</h3><p>当子元素浮动以后，子元素脱离文档流，不再撑起父元素的高度，引起塌陷，而父元素下的所有元素将会上移，导致页面布局混乱。</p>
+<p>使用<code>clear</code>.</p>
+<p>作用：清除浮动元素对当前元素的影响。</p>
+<ul>
+<li>none：默认值，不清除影响。</li>
+<li>left：清除左侧浮动元素对当前元素带来的影响</li>
+<li>right：清除右侧浮动元素对当前元素带来的影响</li>
+<li>both：清除两侧浮动元素对当前元素带来的影响</li>
+</ul>
+<p>但单纯使用clear会在页面添加一个空白的多余结构，推荐结合after伪类解决高度塌陷问题。</p>
+<p>TIPS：可将要选中的元素添加<code>class=clearfix</code>。</p>
+<pre><code class="hljs css"><span class="hljs-comment">/*</span>
+<span class="hljs-comment">通过after的content来添加一个空白元素，设置为块元素，然后清除浮动。</span>
+<span class="hljs-comment">*/</span>
+<span class="hljs-selector-class">.clearfix</span>：<span class="hljs-selector-tag">after</span>&#123;
+    <span class="hljs-attribute">content</span>:<span class="hljs-string">&quot;&quot;</span>;
+    <span class="hljs-attribute">display</span>:block;
+    <span class="hljs-attribute">clear</span>:both;
+&#125;</code></pre>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%B0%8F%E7%99%BD%E6%96%87/">小白文</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/redis/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Redis的简单用法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/JSON/">
+                        <span class="hidden-mobile">JSON 一些简单知识</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/CSS-learn/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "CSS语法总结&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

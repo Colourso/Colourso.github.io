@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>C++基于EasyX制作贪吃蛇游戏（五）第三版文档 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-07-28 16:04">
+      星期二, 七月 28日 2020, 4:04 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      34
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>继续完善贪吃蛇，改用面向对象的思想完成代码，引入界面UI以及排行榜。</p>
+<a id="more"></a>
+
+<p>上接 <a target="_blank" rel="noopener" href="http://www.colourso.top/c-snake-pro3/">C++基于EasyX制作贪吃蛇游戏（三）第二版文档</a> 继续更新制作贪吃蛇游戏的一些相关设计。</p>
+<h2 id="程序展示"><a href="#程序展示" class="headerlink" title="程序展示"></a>程序展示</h2><p>以下是B站视频</p>
+<iframe src="//player.bilibili.com/player.html?aid=371573766&bvid=BV1fZ4y1T7xo&cid=218646009&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"    width="100%" style="height: 430px; max-width: 100%"> </iframe>
+
+<p>上面视频不能播放请移步：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1fZ4y1T7xo/">https://www.bilibili.com/video/BV1fZ4y1T7xo/</a></p>
+<h2 id="改用面向对象"><a href="#改用面向对象" class="headerlink" title="改用面向对象"></a>改用面向对象</h2><p>原先两版程序都是使用的面向过程方式编写的，函数以及全局变量在整个文件之中飘……，本次决定改用面向对象的方式重写代码，毕竟挺缺少面向对象的练习，可能写出来的代码不是很好，但是我会尽量去完善的。</p>
+<p>改用面向对象之后，我会尽力将绘制与数据计算这两者分开，不让两者混杂在一个函数内。所以重写的代码会改变以前两个版本的代码，不过核心流程还是一样的。</p>
+<h3 id="公共数据-common-h"><a href="#公共数据-common-h" class="headerlink" title="公共数据 common.h"></a>公共数据 common.h</h3><pre><code class="hljs c++"><span class="hljs-comment">//蛇的节点半径</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> SNAKE_RADIU 9</span>
+<span class="hljs-comment">//食物的半径</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> FOOD_RADIU 8</span>
+<span class="hljs-comment">//蛇的节点宽度</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> SNAKE_WIDTH 20</span>
+<span class="hljs-comment">//背景颜色，黑色</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> BG_COLOR 0</span>
+
+<span class="hljs-comment">//方向的枚举</span>
+<span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Dir</span> &#123;</span> DIR_UP = <span class="hljs-number">1</span>, DIR_RIGHT = <span class="hljs-number">2</span>, DIR_DOWN = <span class="hljs-number">3</span>, DIR_LEFT = <span class="hljs-number">4</span> &#125;;
+
+<span class="hljs-comment">//点的结构体</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Point</span> &#123;</span>
+	<span class="hljs-keyword">int</span> x;
+	<span class="hljs-keyword">int</span> y;
+
+	Point() :x(<span class="hljs-number">-1</span>), y(<span class="hljs-number">-1</span>) &#123;&#125;
+	Point(<span class="hljs-keyword">int</span> dx, <span class="hljs-keyword">int</span> dy) :x(dx), y(dy) &#123;&#125;
+	Point(<span class="hljs-keyword">const</span> Point&amp; point) :x(point.x), y(point.y) &#123;&#125;
+
+	<span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>==(<span class="hljs-keyword">const</span> Point&amp; point)
+	&#123;
+		<span class="hljs-keyword">return</span> (<span class="hljs-keyword">this</span>-&gt;x == point.x) &amp;&amp; (<span class="hljs-keyword">this</span>-&gt;y == point.y);
+	&#125;
+
+&#125;;
+
+<span class="hljs-comment">//记录游玩信息</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">PlayerMsg</span></span>
+<span class="hljs-class">&#123;</span>
+	<span class="hljs-keyword">int</span> id;
+	<span class="hljs-keyword">int</span> score;
+	<span class="hljs-keyword">int</span> len;
+	<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> r_time;	<span class="hljs-comment">//记录时间</span>
+
+	PlayerMsg()
+	&#123;
+		id = <span class="hljs-number">99</span>;
+		score = <span class="hljs-number">0</span>;
+		len = <span class="hljs-number">0</span>;
+		r_time = <span class="hljs-string">&quot;&quot;</span>;
+	&#125;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">SortPlayerMsg</span> </span>
+<span class="hljs-class">&#123;</span>
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-keyword">const</span> PlayerMsg &amp;msg1, <span class="hljs-keyword">const</span> PlayerMsg &amp;msg2)</span></span>
+<span class="hljs-function">	</span>&#123;
+		<span class="hljs-keyword">if</span> (msg1.score == msg2.score)
+		&#123;
+			<span class="hljs-keyword">return</span> msg1.r_time &gt; msg2.r_time;
+		&#125;
+		<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> msg1.score &gt; msg2.score;
+	&#125;
+&#125;;</code></pre>
+<p>公共数据头文件，定义以及存储一些常用的数据结构。</p>
+<p><code>Dir</code>是枚举方向类。</p>
+<p><code>Point</code>是点的结构体，重载了<code>==</code>操作符， 便于两个点集的比较。</p>
+<p><code>PlayerMes</code>是用来存储游玩信息。<code>SortPlayerMsg</code>重载了<code>()</code>操作符， 便于两个<code>PlayerMes</code>的<code>sort</code>排序。详情请看：<a target="_blank" rel="noopener" href="http://www.colourso.top/lanqiao-2/">STL专题-sort、reverse</a></p>
+<h3 id="Snake类的设计-——-贪吃蛇类"><a href="#Snake类的设计-——-贪吃蛇类" class="headerlink" title="Snake类的设计 —— 贪吃蛇类"></a>Snake类的设计 —— 贪吃蛇类</h3><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Snake</span></span>
+<span class="hljs-class">&#123;</span>
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> MinSpeed = <span class="hljs-number">1</span>;			<span class="hljs-comment">//蛇的最小速度</span>
+	<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> MaxSpeed = <span class="hljs-number">25</span>;		<span class="hljs-comment">//蛇的最大速度</span>
+	<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> OrgSpeed = <span class="hljs-number">15</span>;		<span class="hljs-comment">//蛇的原始速度</span>
+
+<span class="hljs-keyword">private</span>:
+	<span class="hljs-keyword">int</span> m_len;						<span class="hljs-comment">//蛇的长度</span>
+	<span class="hljs-keyword">int</span> m_speed;					<span class="hljs-comment">//蛇的速度</span>
+	Dir m_direction;				<span class="hljs-comment">//蛇的方向</span>
+	<span class="hljs-built_in">std</span>::<span class="hljs-built_in">list</span>&lt;Point&gt; m_snakelist;	<span class="hljs-comment">//蛇的链表</span>
+	Point m_tail;					<span class="hljs-comment">//蛇移动过后的尾部节点，主要用于吃食物</span>
+
+<span class="hljs-keyword">public</span>:
+	Snake();
+	~Snake();
+
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getLen</span><span class="hljs-params">()</span></span>;					<span class="hljs-comment">//获取长度</span>
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getSpeed</span><span class="hljs-params">()</span></span>;					<span class="hljs-comment">//获取速度</span>
+	<span class="hljs-function">Dir <span class="hljs-title">getDirection</span><span class="hljs-params">()</span></span>;				<span class="hljs-comment">//获取方向</span>
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">setSpeed</span><span class="hljs-params">(<span class="hljs-keyword">int</span> speed)</span></span>;		<span class="hljs-comment">//设置速度，设置成功返回true</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Move</span><span class="hljs-params">()</span></span>;					<span class="hljs-comment">//移动一节</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">EatFood</span><span class="hljs-params">()</span></span>;					<span class="hljs-comment">//吃食物</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ChangeDir</span><span class="hljs-params">(Dir dir)</span></span>;		<span class="hljs-comment">//改变方向</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Dead</span><span class="hljs-params">()</span></span>;					<span class="hljs-comment">//死亡</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">ColideWall</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left,<span class="hljs-keyword">int</span> top,<span class="hljs-keyword">int</span> right,<span class="hljs-keyword">int</span> bottom)</span></span>;	<span class="hljs-comment">//碰撞到墙</span>
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">ColideSnake</span><span class="hljs-params">()</span></span>;										<span class="hljs-comment">//碰撞到了自身</span>
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">ColideFood</span><span class="hljs-params">(Point point)</span></span>;							<span class="hljs-comment">//碰到了食物</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawSnake</span><span class="hljs-params">()</span></span>;				<span class="hljs-comment">//绘制蛇</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawSnakeHead</span><span class="hljs-params">(Point pos)</span></span>;	<span class="hljs-comment">//绘制蛇头</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawSnakeNode</span><span class="hljs-params">(Point pos)</span></span>;	<span class="hljs-comment">//绘制蛇的身体结点</span>
+    
+    <span class="hljs-function"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">list</span>&lt;Point&gt; <span class="hljs-title">GetSnakeAllNode</span><span class="hljs-params">()</span></span>;
+	
+&#125;;</code></pre>
+<p>贪吃蛇类，开始使用STL中的<code>list</code>作为蛇的链表，不再使用自定义的链表。链表中存储Point类型的值，及节点的横纵坐标。</p>
+<p>额外还需要蛇的方向、长度以及速度这几个参数。<code>Point m_tail;</code>参数在<code>EatFood()</code>函数那里进行说明。</p>
+<p>三个 <code>public const int</code> 的速度是预先设置好的速度等级，方便之后使用。</p>
+<ul>
+<li><code>bool setSpeed(int speed);</code>函数用于改变蛇的速度，如若改变的蛇的速度超过最大值，那就将蛇的速度设置为最大值；最小值同理。如果修改速度成功就返回<code>true</code>。</li>
+<li><code>void Move();</code>函数向蛇的方向移动一格，蛇的除蛇头以外的全部节点均<strong>向前复制一格</strong>。对应链表的操作可以用<strong>去除链表末尾的节点，复制链表头部的节点再插入头部，然后额外改变头部的值</strong>。</li>
+<li><code>void EatFood();    </code>函数主要描述蛇吃到食物之后的动作。在本游戏中，我设定蛇吃到食物后，尾部增长一格。因此需要一个变量来保存蛇刚刚走过的尾部节点，即<code>Point m_tail;</code>。蛇吃到食物后，将这个尾部节点加入链表即可。</li>
+<li><code>void ChangeDir(Dir dir);</code>改变方向，本来想起函数名为<code>setDir(Dir dir)</code>的，但是名字不太直观就换了。改变方向时，不是同方向或者不是反方向才能改变。</li>
+<li><code>void Dead();</code>死亡效果，因为蛇碰撞死后效果不太直观，就用随机函数改变一下各个节点的位置。但是效果很难看。</li>
+<li><code>ColideWall</code>、<code>ColideSnake</code>以及<code>ColideFood</code>来检测蛇的头部有没有碰撞到什么。</li>
+<li><code>std::list&lt;Point&gt; GetSnakeAllNode();</code>用于获取蛇的全部结点，主要用于食物生成检测时使用。</li>
+</ul>
+<h3 id="Food类的设计-——-食物类"><a href="#Food类的设计-——-食物类" class="headerlink" title="Food类的设计 —— 食物类"></a>Food类的设计 —— 食物类</h3><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Food</span></span>
+<span class="hljs-class">&#123;</span>
+<span class="hljs-keyword">private</span>:
+	Point m_pos;
+	<span class="hljs-keyword">bool</span> m_state;
+
+<span class="hljs-keyword">public</span>:
+	Food();
+
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">getState</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setState</span><span class="hljs-params">(<span class="hljs-keyword">bool</span> state)</span></span>;
+	<span class="hljs-function">Point <span class="hljs-title">getPos</span><span class="hljs-params">()</span></span>;				<span class="hljs-comment">//获取食物坐标</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Generate</span><span class="hljs-params">(Snake *snake)</span></span>;<span class="hljs-comment">//产生新的食物</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawFood</span><span class="hljs-params">()</span></span>;
+
+&#125;;</code></pre>
+<ul>
+<li>两个数据成员：食物位置以及食物状态。</li>
+<li><code>Food();</code>构造参数，其内设定了初始的食物位置，之后的位置需要使用<code>Generate</code>函数生成</li>
+<li><code>void Generate(Snake *snake);</code>生成食物函数，因为生成食物不能与蛇的节点重合，所以需要蛇的节点信息。</li>
+</ul>
+<h3 id="RankList类的设计-——-排行榜类"><a href="#RankList类的设计-——-排行榜类" class="headerlink" title="RankList类的设计 —— 排行榜类"></a>RankList类的设计 —— 排行榜类</h3><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RankList</span></span>
+<span class="hljs-class">&#123;</span>
+<span class="hljs-keyword">private</span>:
+	<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;PlayerMsg&gt; m_msg;
+	<span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> m_rankfile = <span class="hljs-string">&quot;retro&quot;</span>;
+	<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> MAX_RANK = <span class="hljs-number">10</span>;
+<span class="hljs-keyword">public</span>:
+	RankList();
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SaveMsg</span><span class="hljs-params">(PlayerMsg msg)</span></span>;
+	<span class="hljs-function"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;PlayerMsg&gt; <span class="hljs-title">getRankList</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SaveToRank</span><span class="hljs-params">()</span></span>;
+
+<span class="hljs-keyword">private</span>:
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">WriteTime</span><span class="hljs-params">(PlayerMsg &amp;msg)</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ReadFile</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">WriteFile</span><span class="hljs-params">()</span></span>;
+&#125;;</code></pre>
+<ul>
+<li>排行榜类主要作用是存储管理用户游玩结束之后的游戏数据，涉及了读写文件操作。</li>
+<li>使用<code>vector</code>来存储用户的游玩数据，上限是10条，即<code>MAX_RANK</code>。也就是排行榜只保存前10名的数据。固定的读写文件名为<code>retro</code>。</li>
+<li>私有函数中<code>void WriteTime(PlayerMsg &amp;msg);</code>来写入用户达成成绩的时间。<code>ReadFile()</code>读取配置文件数据，存入到<code>vector</code>中。<code>WriteFile()</code>将<code>vector</code>中的数据写回配置文件中。</li>
+<li>构造函数<code>RankList();</code>中调用<code>ReadFile()</code>来初始化<code>vector</code>。</li>
+<li><code>void SaveMsg(PlayerMsg msg);</code>是保存用户数据到<code>vector</code>中，如果其排名在10名之外，则不会保存成功。</li>
+<li><code>void SaveToRank();</code>是将<code>vector</code>中的数据写回文件，实际调用的是<code>WriteFile()</code>函数。</li>
+</ul>
+<h3 id="Game类的设计-——-游戏控制类"><a href="#Game类的设计-——-游戏控制类" class="headerlink" title="Game类的设计 —— 游戏控制类"></a>Game类的设计 —— 游戏控制类</h3><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Game</span></span>
+<span class="hljs-class">&#123;</span>
+<span class="hljs-keyword">private</span>:
+	<span class="hljs-keyword">int</span> m_GameState;			<span class="hljs-comment">//游戏状态,0在主UI，1在游戏中，2在排行榜，3在游戏规则中</span>
+	PlayerMsg m_msg;			<span class="hljs-comment">//游玩数据</span>
+	Snake *m_snake;				<span class="hljs-comment">//蛇</span>
+	Food *m_food;				<span class="hljs-comment">//食物</span>
+	RankList *m_ranklist;		<span class="hljs-comment">//排行榜</span>
+
+<span class="hljs-keyword">public</span>:
+	Game();
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Init</span><span class="hljs-params">()</span></span>;			<span class="hljs-comment">//初始化</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Run</span><span class="hljs-params">()</span></span>;				<span class="hljs-comment">//控制程序</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Close</span><span class="hljs-params">()</span></span>;			<span class="hljs-comment">//关闭程序，释放资源</span>
+
+<span class="hljs-keyword">private</span>:
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitData</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//初始化数据</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PlayGame</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//开始游戏</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ShowMainUI</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//展示主UI</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ShowRank</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//排行榜展示</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ShowRule</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//展示规则界面</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawGamePlay</span><span class="hljs-params">()</span></span>;	<span class="hljs-comment">//绘制初始游戏界面</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawScore</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//绘制分数</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawSnakeLen</span><span class="hljs-params">()</span></span>;	<span class="hljs-comment">//绘制长度</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawSpeed</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//绘制速度</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawRunning</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//绘制正在运行</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawPause</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//绘制暂停提示</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawRebegin</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//绘制重新开始</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawGameOver</span><span class="hljs-params">()</span></span>;	<span class="hljs-comment">//绘制游戏结束</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ChangeChooseUI</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> top, <span class="hljs-keyword">int</span> right, <span class="hljs-keyword">int</span> bottom, <span class="hljs-keyword">int</span> kind)</span></span>;<span class="hljs-comment">//修改选中的选项颜色</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ClearRegion</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> top, <span class="hljs-keyword">int</span> right, <span class="hljs-keyword">int</span> bottom)</span></span>;		<span class="hljs-comment">//使用背景色清除指定区域</span>
+&#125;;</code></pre>
+<p><code>Game</code>类是游戏的控制类，也是游戏的主体，所以融合了上述全部的类。</p>
+<p><code>Game</code>主要被用于主函数调用，所以只有构造函数以及三个函数是<code>public</code>，其余全部<code>private</code>。</p>
+<ul>
+<li><p>程序状态<code>m_GameState</code>，标识程序的运行状态，是在主界面？在游戏中？在排行榜中？还是在游戏帮助中，方便控制程序。</p>
+</li>
+<li><p><code>void Init();</code>初始化，主要是进行图形库的初始化。</p>
+</li>
+<li><p><code>void Close();</code>结束，主要是图形库释放资源。</p>
+</li>
+<li><p><code>void Run();</code>用来运行程序，展示UI，等待用户操作。</p>
+</li>
+<li><p>构造函数<code>Game();</code>主要是初始化一些数据，最主要的是设置程序状态<code>m_GameState</code>为0，以及初始化<code>RankList</code>，便于访问排行榜时可以看到数据。</p>
+</li>
+<li><p><code>InitData()</code>初始化一些在开始游戏时才需要用到的数据，比如<code>Snake</code>以及<code>Food</code>，重置<code>PlayMsg</code>，防止原来的数据对新开一局的数据产生干扰。</p>
+</li>
+<li><p><code>PlayGame()</code>则是游戏的控制函数，主要完成游戏中的全部控制，留在下面细说。</p>
+</li>
+<li><p><code>ChangeChooseUI</code>这个函数主要就是改变选中选项的效果，重新绘制这个按钮的样式，增加程序与用户的交互。</p>
+</li>
+</ul>
+<h2 id="UI设计"><a href="#UI设计" class="headerlink" title="UI设计"></a>UI设计</h2><img src="c-snake-pro5/mainui.png" srcset="/img/loading.gif" style="zoom:80%;" />
+
+<p>相较于之前的两版程序增加了UI，更加方便用户的控制，同时增加了鼠标的点选，更加直接。</p>
+<img src="c-snake-pro5/back.png" srcset="/img/loading.gif" style="zoom:80%;" />
+
+<p>例如上图左上角的返回键可以点击。</p>
+<h2 id="鼠标点击操作"><a href="#鼠标点击操作" class="headerlink" title="鼠标点击操作"></a>鼠标点击操作</h2><pre><code class="hljs c++"><span class="hljs-keyword">if</span> ((m_GameState == <span class="hljs-number">2</span> || m_GameState == <span class="hljs-number">3</span>) &amp;&amp; MouseHit()) <span class="hljs-comment">//在排行榜或者游戏帮助中点击</span>
+&#123;
+	MOUSEMSG mouse = GetMouseMsg();<span class="hljs-comment">//获取鼠标点击消息</span>
+	<span class="hljs-keyword">if</span> (mouse.mkLButton)			<span class="hljs-comment">//左键按下</span>
+	&#123;
+		<span class="hljs-keyword">if</span> (mouse.x &gt;= <span class="hljs-number">20</span> &amp;&amp; mouse.x &lt;= <span class="hljs-number">63</span> &amp;&amp; mouse.y &gt;= <span class="hljs-number">20</span> &amp;&amp; mouse.y &lt;= <span class="hljs-number">43</span>)
+		&#123;
+			<span class="hljs-comment">//点击返回选项</span>
+			ChangeChooseUI(<span class="hljs-number">20</span>, <span class="hljs-number">20</span>, <span class="hljs-number">63</span>, <span class="hljs-number">43</span>, <span class="hljs-number">5</span>);
+			Sleep(<span class="hljs-number">500</span>);
+			
+            FlushMouseMsgBuffer();<span class="hljs-comment">//清空鼠标消息缓冲区。</span>
+            
+			m_GameState = <span class="hljs-number">0</span>;
+			ShowMainUI();
+		&#125;
+	&#125;
+&#125;</code></pre>
+<ul>
+<li><code>MouseHit()</code>来检测有没有鼠标点击事件，有的话为true。</li>
+<li><code>GetMouseMsg()</code>来获取鼠标点击消息，返回一个<code>MOUSEMSG</code>类型的数据。</li>
+<li><code>FlushMouseMsgBuffer()</code>来清空鼠标消息缓冲区，防止残存的消息对其他函数产生干扰。</li>
+</ul>
+<h2 id="游戏控制-PlayGame"><a href="#游戏控制-PlayGame" class="headerlink" title="游戏控制 - PlayGame()"></a>游戏控制 - PlayGame()</h2><p>相较于前两版程序，我换用了重绘机制。原版程序使用的是仅消除蛇的尾端，局部擦除与重绘的方式。</p>
+<p>但是由于数据运算与绘制的分离，原版的方式不容易实现，于是现在使用的是每一次循环就重新绘制一次游戏界面的方式，也就是最常规的方式。</p>
+<p>以下是伪流程：</p>
+<pre><code class="hljs isbl"><span class="hljs-function"><span class="hljs-title">while</span>(<span class="hljs-variable"><span class="hljs-literal">true</span></span>)</span>
+&#123;
+	<span class="hljs-function"><span class="hljs-title">if</span>(检测食物是否存在)</span>
+	&#123;
+		不存在生成
+	&#125;
+	
+	<span class="hljs-function"><span class="hljs-title">if</span>(按键检测)</span>
+	&#123;
+		改变方向或者暂停程序
+	&#125;
+	
+	<span class="hljs-function"><span class="hljs-title">Move</span>();<span class="hljs-comment">//移动</span></span>
+<span class="hljs-function">	</span>
+<span class="hljs-function">	<span class="hljs-title">if</span>(吃到食物)</span>
+	&#123;
+		长度增加
+		分数增加
+		食物状态改变
+	&#125;
+	
+	<span class="hljs-function"><span class="hljs-title">if</span>(碰撞检测)</span>
+	&#123;
+		碰撞则死亡
+		...
+	&#125;
+	
+	清空区域
+	重绘蛇
+	
+	<span class="hljs-function"><span class="hljs-title"><span class="hljs-built_in">sleep</span></span>(<span class="hljs-number">200</span>);</span>
+<span class="hljs-function">	</span>
+<span class="hljs-function">&#125;</span></code></pre>
+<p>具体的内容可以在函数实现里看到</p>
+<h3 id="批量绘图"><a href="#批量绘图" class="headerlink" title="批量绘图"></a>批量绘图</h3><p>上述循环完成之后，界面每一次重新绘制都有些不太稳定，有闪烁的情况，这时就需要使用批量绘图。</p>
+<ul>
+<li><p><code>BeginBatchDraw();</code>开始批量绘图，其后的任何绘图操作暂时都不会进行绘制，直到执行 <code>FlushBatchDraw()</code> 或 <code>EndBatchDraw()</code> 才将之前的绘图输出。</p>
+</li>
+<li><p> <code>FlushBatchDraw()</code> 用于执行绘制任务。</p>
+</li>
+<li><p><code>EndBatchDraw()</code>结束批量绘图模式，并将还没有绘制的图完成绘制。</p>
+</li>
+</ul>
+<p>这三者加入到<code>PlayGame()</code>函数中，保证画面的流畅性。</p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>至此，面向对象版贪吃蛇程序完成。这版程序主要做了一些事情：</p>
+<ul>
+<li>改用面向对象方式编写程序</li>
+<li>换用蛇的数据结构为STL的<code>list</code>，操作更加方便。</li>
+<li>将数据运算与绘制操作分离</li>
+<li>增加UI与用户交互效果</li>
+<li>增加排行榜机制，使用了文件读写操作。</li>
+</ul>
+<p>一些不足：</p>
+<ul>
+<li>食物类的生成算法需要检测蛇的节点保证不覆盖，因此效率可能比较差，实际运行时会有卡顿现象。考虑后续引入多线程解决。</li>
+<li>UI还是挺难看的……</li>
+<li>等待补充……</li>
+</ul>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/C-C/">C/C++</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/c-snake-pro6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">C++基于EasyX制作贪吃蛇游戏（六）第三版代码与程序</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/telnet-with-java/">
+                        <span class="hidden-mobile">Java实现的Telnet协议 - 计算机网络课设</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/c-snake-pro5/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "C++基于EasyX制作贪吃蛇游戏（五）第三版文档&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

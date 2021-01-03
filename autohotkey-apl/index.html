@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>AutoHotkey应用 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-08-03 23:27">
+      星期一, 八月 3日 2020, 11:27 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><strong>概览</strong>：自用脚本分享以及明日方舟简单脚本。</p>
+<a id="more"></a>
+
+<p>语法参考这篇文章 <a href="www.colourso.top/autohotkey/">AutoHotkey入门 ~ Windows下自动化脚本</a></p>
+<hr>
+<h2 id="我的常用脚本（慢慢更新）"><a href="#我的常用脚本（慢慢更新）" class="headerlink" title="我的常用脚本（慢慢更新）"></a>我的常用脚本（慢慢更新）</h2><blockquote>
+<p>说明：部分脚本源自<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/103357456">https://zhuanlan.zhihu.com/p/103357456</a></p>
+</blockquote>
+<h3 id="1-脚本暂停-继续"><a href="#1-脚本暂停-继续" class="headerlink" title="1.脚本暂停/继续"></a>1.脚本暂停/继续</h3><p>暂停脚本，ctrl+esc，再按一次可继续脚本。</p>
+<pre><code class="hljs autohotkey"><span class="hljs-title">^Esc::</span>
+<span class="hljs-keyword">Pause</span>
+<span class="hljs-keyword">return</span></code></pre>
+<h3 id="2-获取选中文件的路径"><a href="#2-获取选中文件的路径" class="headerlink" title="2.获取选中文件的路径"></a>2.获取选中文件的路径</h3><p>用win+alt+c得到当前选中文件的路径</p>
+<pre><code class="hljs autohotkey"><span class="hljs-title">#!c::</span> 
+send ^c
+<span class="hljs-built_in">sleep,</span><span class="hljs-number">200</span>
+<span class="hljs-built_in">clipboard</span>=<span class="hljs-variable">%clipboard%</span> <span class="hljs-comment">;windows 复制的时候，剪贴板保存的是“路径”。只是路径不是字符串，只要转换成字符串就可以粘贴出来了</span>
+<span class="hljs-built_in">tooltip,</span><span class="hljs-variable">%clipboard%</span> <span class="hljs-comment">;提示文本</span>
+<span class="hljs-built_in">sleep,</span><span class="hljs-number">500</span>
+<span class="hljs-built_in">tooltip,</span>
+<span class="hljs-keyword">return</span></code></pre>
+<h3 id="3-窗口置顶（愿称之为最强）"><a href="#3-窗口置顶（愿称之为最强）" class="headerlink" title="3.窗口置顶（愿称之为最强）"></a>3.窗口置顶（愿称之为最强）</h3><blockquote>
+<p>脚本源自上面的那个知乎链接</p>
+</blockquote>
+<p>在当前窗口下，win+alt+enter，来置顶窗口，即保持窗口永远在最上方。</p>
+<pre><code class="hljs autohotkey"><span class="hljs-title">#!enter::</span> <span class="hljs-comment">;窗口置顶</span>
+    WinGet ow, id, A
+    WinTopToggle(ow)
+    <span class="hljs-keyword">return</span>
+WinTopToggle(w) &#123;
+ 
+<span class="hljs-built_in">    WinGetTitle,</span> oTitle, <span class="hljs-keyword">ahk_id</span> <span class="hljs-variable">%w%</span>
+<span class="hljs-built_in">    Winset,</span> AlwaysOnTop, Toggle, <span class="hljs-keyword">ahk_id</span> <span class="hljs-variable">%w%</span>
+<span class="hljs-built_in">    WinGet,</span> ExStyle, ExStyle, <span class="hljs-keyword">ahk_id</span> <span class="hljs-variable">%w%</span>
+    if (ExStyle &amp; <span class="hljs-number">0</span>x8)  <span class="hljs-comment">; 0x8 为 WS_EX_TOPMOST.在WinGet的帮助中</span>
+        oTop = 置顶
+    else
+        oTop = 取消置顶
+<span class="hljs-built_in">    tooltip %</span>oTitle% <span class="hljs-variable">%oTop%</span>
+<span class="hljs-built_in">    SetTimer,</span> RemoveToolTip, <span class="hljs-number">5000</span>
+    <span class="hljs-keyword">return</span>
+ 
+<span class="hljs-title">    RemoveToolTip:</span>
+<span class="hljs-built_in">    SetTimer,</span> RemoveToolTip, Off
+    ToolTip
+    <span class="hljs-keyword">return</span>
+&#125;</code></pre>
+<h3 id="4-重大考试倒计时"><a href="#4-重大考试倒计时" class="headerlink" title="4.重大考试倒计时"></a>4.重大考试倒计时</h3><p>用来显示距离一个重大考试还剩多长时间。win+alt+space</p>
+<pre><code class="hljs llvm">#<span class="hljs-title">!space</span>:: <span class="hljs-comment">;倒计时</span>
+
+var<span class="hljs-number">1</span> <span class="hljs-operator">=</span> <span class="hljs-number">20210120080000</span>	<span class="hljs-comment">;考试的时间，年月日时分秒</span>
+var<span class="hljs-number">2</span> :<span class="hljs-operator">=</span> <span class="hljs-variable">%A_Now</span>%		<span class="hljs-comment">;获取系统的规格时间</span>
+
+Envsub<span class="hljs-punctuation">,</span> var<span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-variable">%var2</span>%<span class="hljs-punctuation">,</span>days	<span class="hljs-comment">;按照day的形式相减，时间存储到var1</span>
+MsgBox<span class="hljs-punctuation">,</span><span class="hljs-number">4</span><span class="hljs-punctuation">,</span>倒计时<span class="hljs-punctuation">,</span>距离考试还有<span class="hljs-variable">%var1</span>%天，加油ᕦ(ò_ó)ᕤ
+
+return</code></pre>
+<h3 id="5-秒表倒计时"><a href="#5-秒表倒计时" class="headerlink" title="5.秒表倒计时"></a>5.秒表倒计时</h3><blockquote>
+<p>也源自知乎链接</p>
+</blockquote>
+<p>win+shift+t，输入多少秒，倒计时后弹窗。</p>
+<pre><code class="hljs gauss"><span class="hljs-meta">#+t:: ;计时器</span>
+InputBox, <span class="hljs-built_in">time</span>, 计时器, 请输入一个时间（单位是秒）
+<span class="hljs-built_in">time</span> := <span class="hljs-built_in">time</span>*<span class="hljs-number">1000</span>
+<span class="hljs-built_in">Sleep</span>,%<span class="hljs-built_in">time</span>%
+msgbox 时间到，ᕦ(ò_ó)ᕤ
+<span class="hljs-keyword">return</span></code></pre>
+<hr>
+<h2 id="明日方舟极简脚本"><a href="#明日方舟极简脚本" class="headerlink" title="明日方舟极简脚本"></a>明日方舟极简脚本</h2><p>脚本作用于：<strong>Win10下的MuMu模拟器</strong>。</p>
+<p>脚本功能：对于指定的关卡刷指定数量的次数。不过刷关卡期间，<strong>不能使用电脑做其他事情</strong>……。</p>
+<h3 id="脚本分析"><a href="#脚本分析" class="headerlink" title="脚本分析"></a>脚本分析</h3><p>等待用户的唤起。唤起之后接收用户的输入数据，对用户选定的关卡进行点击操作，通过预先的坐标，隔一定的时长进行点击即可。当刷完之后，弹出弹框告诉用户结束。</p>
+<p>主要问题在于获取固定的坐标方标软件点击。</p>
+<h3 id="使用Window-Spy来获取软件内部坐标"><a href="#使用Window-Spy来获取软件内部坐标" class="headerlink" title="使用Window Spy来获取软件内部坐标"></a>使用Window Spy来获取软件内部坐标</h3><p><strong>Window Spy</strong>： 一个软件，用于查看有关鼠标悬停在其上的窗口的信息。</p>
+<p>找到<code>Window Spy</code>的两种方式：</p>
+<p>第一种，点击开始按钮，找到AutoHotkey的位置，点击spy即可。</p>
+<p><img src="autohotkey-apl/spy1.png" srcset="/img/loading.gif"></p>
+<p>第二种，运行一个脚本，脚本里最好有能运行的语句。运行之后，右键点击状态栏的图标也能找到<code>Window Spy</code>。</p>
+<p>当运行这个软件之后，他就会默认在窗口的最前方，当你的鼠标点击其他软件时，Spy会自动检测识别出，并显示鼠标当前位置、该点的颜色等各种信息。</p>
+<p><img src="autohotkey-apl/getpos.png" srcset="/img/loading.gif"></p>
+<p>上图中主要用到的信息一个是当前窗口的标题：<code>明日方舟 - MuMu模拟器 </code>。</p>
+<p>另一个就是鼠标所在的位置信息，因为截图的缘故，没看到我的鼠标……</p>
+<p><code>Window</code>和<code>Client</code>所指的信息是当前鼠标相对于当前这个软件最左上角的坐标位置。而<code>Screen</code>是指的当前鼠标位于整个电脑屏幕左上角的坐标位置。</p>
+<blockquote>
+<p>windows软件一般默认以左上角为原点，水平向右为x轴递增方向。铅直向下为y轴递增方向。</p>
+</blockquote>
+<p>获取到软件以及软件内部的坐标，我们就可以通过模拟鼠标点击来实现脚本自动化执行。</p>
+<h3 id="普通关卡实例"><a href="#普通关卡实例" class="headerlink" title="普通关卡实例"></a>普通关卡实例</h3><p>普通关卡的刷材料步骤就是：(默认已经选中这一关的条件下)</p>
+<ol>
+<li>点击开始行动，进入到人员配置界面</li>
+<li>在人员配置界面点击开始行动。开始刷关卡。</li>
+<li>等待关卡刷完之后，点击屏幕，返回到关卡入口处。</li>
+</ol>
+<p><img src="autohotkey-apl/shua1.png" srcset="/img/loading.gif"></p>
+<p>上图就是默认选中关卡的状态，记得要有体力，以及确保勾选了<code>代理指挥</code>。</p>
+<p>然后在这个界面执行脚本，就可以自动刷材料了。</p>
+<p>以下是代码：</p>
+<pre><code class="hljs autoit"><span class="hljs-comment">;快捷键为 ctrl + alt + m</span>
+^!m::
+IfWinActive 明日方舟 - MuMu模拟器
+&#123;
+	CoordMode ,mouse,Window
+	
+	<span class="hljs-built_in">InputBox</span>, time, 计数, 请输入体力值以及单刷消耗值，使用小数点分隔
+
+	TimeArray := StrSplit(time, <span class="hljs-string">&quot;.&quot;</span>)
+	
+	a := TimeArray[<span class="hljs-number">1</span>]		<span class="hljs-comment">;数组是从1开始</span>
+	b := TimeArray[<span class="hljs-number">2</span>]
+	
+	times := a/b
+
+
+	times := <span class="hljs-built_in">Floor</span>(times)	<span class="hljs-comment">;Floor向下取整</span>
+	
+	alltime := times*<span class="hljs-number">3.1</span>
+	
+	<span class="hljs-built_in">MsgBox</span>,一共要进行%times%次，需要时间为%alltime%。
+
+  loop %times%
+  &#123;
+	<span class="hljs-built_in">Sleep</span> <span class="hljs-number">1000</span>
+	<span class="hljs-built_in">send</span> &#123;click <span class="hljs-number">1223</span>,<span class="hljs-number">781</span>&#125;	<span class="hljs-comment">;步骤1的坐标</span>
+	<span class="hljs-built_in">Sleep</span> <span class="hljs-number">3000</span>
+	<span class="hljs-built_in">send</span> &#123;click <span class="hljs-number">1246</span>,<span class="hljs-number">591</span>&#125;	<span class="hljs-comment">;步骤2的坐标</span>
+	<span class="hljs-built_in">Sleep</span> <span class="hljs-number">180000</span>			<span class="hljs-comment">;等待3分钟</span>
+	<span class="hljs-built_in">send</span> &#123;click <span class="hljs-number">790</span>,<span class="hljs-number">284</span>&#125;	<span class="hljs-comment">;步骤3的坐标</span>
+	<span class="hljs-built_in">Sleep</span> <span class="hljs-number">3000</span>
+  &#125;
+	<span class="hljs-built_in">MsgBox</span> 代理完成。
+&#125;
+<span class="hljs-keyword">return</span></code></pre>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>将上述脚本写入到你新建的脚本中。然后记得修改上面的坐标为自己电脑上的坐标，可能不一样，拿Spy检测以下位置，修改数值就可以了。</p>
+<p>而第三步骤刷完关卡时，只要点击材料上方的任何位置都能退出去，所以这个坐标可以随意设置，只要注意规则就行了。上面两个坐标要严格按照spy的值来设置。</p>
+<p>至于<code>Sleep 180000</code>表示等待3分钟，即关卡的代理时间，一般没有超过3分钟的关卡吧~(或许)，自己动态调整，这里的单位时毫秒，1秒 = 1000ms。</p>
+<p><img src="autohotkey-apl/shua2.png" srcset="/img/loading.gif"></p>
+<p>选好你要刷的关卡，然后运行脚本，要以<strong>管理员的身份运行！！！</strong>这一点很重要，具体原因是：</p>
+<blockquote>
+<p>当活动窗口以管理权限运行而当前脚本不是时, <strong>Send 在 Windows Vista 或更高版本中可能没有效果</strong>. 这是由于用户接口和特权分离的安全机制. </p>
+<p>而MUMU模拟器是以管理员身份运行的！</p>
+<p>来自参考文档：<a target="_blank" rel="noopener" href="http://ahkcn.sourceforge.net/docs/commands/Send.htm#SendPlay">http://ahkcn.sourceforge.net/docs/commands/Send.htm#SendPlay</a> </p>
+</blockquote>
+<p>在软件中同时按下<code>Ctrl</code>、<code>Alt</code>以及<code>m</code>键，将会弹出上图的弹框，输入你当前的体力值以及单刷的消耗值，使用小数点隔离开来，点击OK就会自动计算需要时间，之后就会自动开始刷了。</p>
+<h3 id="剿灭关卡的使用"><a href="#剿灭关卡的使用" class="headerlink" title="剿灭关卡的使用"></a>剿灭关卡的使用</h3><pre><code class="hljs autoit">^!q::
+	<span class="hljs-comment">;剿灭作战 15分中</span>
+
+IfWinActive 明日方舟 - MuMu模拟器
+&#123;
+	CoordMode ,mouse,Window
+	
+	<span class="hljs-built_in">InputBox</span>, time, 剿灭, 请输入体力值以及单刷消耗值，使用小数点分隔
+
+	TimeArray := StrSplit(time, <span class="hljs-string">&quot;.&quot;</span>)
+	
+	a := TimeArray[<span class="hljs-number">1</span>]		<span class="hljs-comment">;数组是从1开始</span>
+	b := TimeArray[<span class="hljs-number">2</span>]
+	
+	times := a/b
+
+
+	times := <span class="hljs-built_in">Floor</span>(times)	<span class="hljs-comment">;Floor向下取整</span>
+	
+	alltime := times*<span class="hljs-number">16</span>
+	
+	<span class="hljs-built_in">MsgBox</span>,一共要进行%times%次，需要时间为%alltime%。
+
+  loop %times%
+  &#123;
+	<span class="hljs-built_in">Sleep</span> <span class="hljs-number">1000</span>
+	<span class="hljs-built_in">send</span> &#123;click <span class="hljs-number">1223</span>,<span class="hljs-number">781</span>&#125;
+	<span class="hljs-built_in">Sleep</span> <span class="hljs-number">3000</span>
+	<span class="hljs-built_in">send</span> &#123;click <span class="hljs-number">1246</span>,<span class="hljs-number">591</span>&#125;
+	<span class="hljs-built_in">Sleep</span> <span class="hljs-number">930000</span>
+	<span class="hljs-built_in">send</span> &#123;click <span class="hljs-number">790</span>,<span class="hljs-number">284</span>&#125;
+	<span class="hljs-built_in">Sleep</span> <span class="hljs-number">10000</span>
+	<span class="hljs-built_in">send</span> &#123;click <span class="hljs-number">790</span>,<span class="hljs-number">284</span>&#125;
+	<span class="hljs-built_in">Sleep</span> <span class="hljs-number">10000</span>
+  &#125;
+	<span class="hljs-built_in">MsgBox</span> 代理完成。
+&#125;
+<span class="hljs-keyword">return</span></code></pre>
+<p>适用于第三张剿灭图。刷一次大概要15分钟，这么看这个游戏好浪费时间。</p>
+<p>大致操作和上面的普通关卡类似，预先选定好关卡，执行脚本就行了。</p>
+<p>上述的坐标就用上面介绍的方法修改。</p>
+<h3 id="最后的说明"><a href="#最后的说明" class="headerlink" title="最后的说明"></a>最后的说明</h3><p>简单来讲这个脚本功能很弱，只能刷固定的关卡，还需要用户计算好关卡的时间。</p>
+<p>没有任何检错机制，没有任何应对非常规问题的能力。比如如果网络不好，同步失败显示错误，它没法检测。例如代理失败等待用户确认，它没法检测。</p>
+<p>原本想尝试做图片识别的方式来优化流程的，但是总是有离奇的错误，图片识别失败，最后放弃了。</p>
+<p>简单来讲，勉强能用。</p>
+<p>后续不会再更新这个脚本了。</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Other/">Other</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/cpp-file/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">C++文件读写与操作</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/autohotkey/">
+                        <span class="hidden-mobile">AutoHotkey入门 ~ Windows下自动化脚本</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/autohotkey-apl/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "AutoHotkey应用&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

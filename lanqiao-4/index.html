@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>STL专题-map 映射 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-03-05 10:56">
+      星期二, 三月 5日 2019, 10:56 上午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><img src="lanqiao-4/4.jpg" srcset="/img/loading.gif" alt="引图"></p>
+<center>map👍</center>
+<a id="more"></a>
+
+<p>学习视频来源 <a target="_blank" rel="noopener" href="https://study.163.com/course/courseMain.htm?courseId=1004996013" title="2018NEUQ-ACM蓝桥杯培训">网易云课堂：2018NEUQ-ACM蓝桥杯培训</a></p>
+<h2 id="map——映射"><a href="#map——映射" class="headerlink" title="map——映射"></a>map——映射</h2><p>头文件 <code>#include &lt;map&gt;</code></p>
+<ul>
+<li><p>map是一个关联式容器，可以建立 <code>key(即first)</code> 到 <code>value(即second)</code> 的<strong>一对一的映射关系</strong>，由key映射到value。类似于函数的x到y，一对一。</p>
+</li>
+<li><p>map内部自建了一颗<strong>红黑二叉树</strong>，可以对数据进行<strong>自动排序</strong>，默认排序方式为字典序(从小到大)，故map内的数据都是<strong>有序</strong>的。</p>
+</li>
+</ul>
+<h3 id="map声明与初始化"><a href="#map声明与初始化" class="headerlink" title="map声明与初始化"></a>map声明与初始化</h3><p>构造</p>
+<pre><code>map&lt;int,string&gt; map_student;</code></pre>
+<p>这里构造了一个由int映射到string的map。这里key与value可以是任意数据类型，包括自定义的。</p>
+<p>插入数据</p>
+<pre><code>//方法1.类似数组的方式插入
+map_student[1] = &quot;liming&quot;; //1-&gt;&quot;liming&quot;
+//方法2.insert()函数
+map_student.insert(map&lt;int,string&gt;::value_type(2,&quot;zhangsan&quot;));
+//方法3.insert()函数
+map_student.insert(make_pair(3,&quot;lisi&quot;));
+//方法4.insert()函数
+map_student.insert(pair&lt;int,string&gt;(4,&quot;wangwu&quot;));
+
+//方法2、方法3、方法4返回值都是pair&lt;iterator,bool&gt;类型的值，通过返回值.second可查看是否插入成功。</code></pre>
+<p><strong>注意</strong></p>
+<p>insert()函数可以体现映射一一对应的特性，<strong>当map中的key值已经存在时，就不能再使用insert()插入数据了</strong>，即使代码存在也不会覆盖，但是使用数组的方式是可以<strong>覆盖原数据</strong>的。两种方式混合赋值时也是如此，数组方式可以覆盖。</p>
+<p>并且如果通过数组方式即直接map_student[5]这中方式去访问不存在的值的话，map会<strong>自动把这个访问的key插入到map容器中</strong>，而对应的value值则取其的默认值。</p>
+<h3 id="map基本操作"><a href="#map基本操作" class="headerlink" title="map基本操作"></a>map基本操作</h3><ul>
+<li><p>begin()——返回首部迭代器</p>
+</li>
+<li><p>end()——返回尾部的下一位置的迭代器</p>
+</li>
+<li><p>size()——返回容器内的元素个数</p>
+</li>
+<li><p>empty()——判空，空返回1，非空返回0；</p>
+</li>
+<li><p>find(n)——返回指向元素n的迭代器，未找到返回end()指向的迭代器</p>
+</li>
+<li><p>count(n)——统计n的出现次数(0或者1)</p>
+</li>
+</ul>
+<h3 id="map遍历操作"><a href="#map遍历操作" class="headerlink" title="map遍历操作"></a>map遍历操作</h3><pre><code class="hljs CPP"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;map&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+   <span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">string</span>,<span class="hljs-keyword">int</span>&gt; map_student;
+   <span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">string</span>,<span class="hljs-keyword">int</span>&gt;::iterator iter;
+
+   map_student[<span class="hljs-string">&quot;zhao&quot;</span>] = <span class="hljs-number">0</span>;<span class="hljs-comment">//[]内这样放也可以</span>
+   map_student[<span class="hljs-string">&quot;qian&quot;</span>] = <span class="hljs-number">1</span>;
+   map_student[<span class="hljs-string">&quot;sun&quot;</span>] = <span class="hljs-number">2</span>;
+   map_student.insert(<span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">string</span>,<span class="hljs-keyword">int</span>&gt;::value_type(<span class="hljs-string">&quot;sun&quot;</span>,<span class="hljs-number">3</span>));<span class="hljs-comment">//不会覆盖</span>
+   <span class="hljs-keyword">for</span>(iter = map_student.begin();iter!=map_student.end();iter++)
+   &#123;
+       <span class="hljs-built_in">cout</span>&lt;&lt;iter-&gt;first&lt;&lt;<span class="hljs-string">&quot;--&gt;&quot;</span>&lt;&lt;iter-&gt;second&lt;&lt;<span class="hljs-built_in">endl</span>;
+       <span class="hljs-comment">//cout&lt;&lt;iter-&gt;key&lt;&lt;&quot;--&gt;&quot;&lt;&lt;iter-&gt;value&lt;&lt;endl;map中没有key与value这两个变量！</span>
+   &#125;
+   <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&quot;---&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+   <span class="hljs-built_in">cout</span>&lt;&lt;map_student.find(<span class="hljs-string">&quot;sun&quot;</span>)-&gt;first&lt;&lt;<span class="hljs-string">&quot;--&gt;&quot;</span>&lt;&lt;map_student.find(<span class="hljs-string">&quot;sun&quot;</span>)-&gt;second&lt;&lt;<span class="hljs-built_in">endl</span>;
+   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;
+
+<span class="hljs-comment">//输出结果</span>
+qian--&gt;<span class="hljs-number">1</span>
+sun--&gt;<span class="hljs-number">2</span>
+zhao--&gt;<span class="hljs-number">0</span>
+---
+sun--&gt;<span class="hljs-number">2</span></code></pre>
+
+<h3 id="map应用"><a href="#map应用" class="headerlink" title="map应用"></a>map应用</h3><h4 id="去重"><a href="#去重" class="headerlink" title="去重"></a>去重</h4><p>利用映射一一对应的特性，将可能出现的<strong>重复数据设置为key值</strong>以达到去重的目的。</p>
+<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><p>map&lt;&gt;中有三个变量，第三个就是排序方式。如若不指定排序方式的话，map会默认按照<code>less&lt;Key&gt;</code>进行排序.</p>
+<p>进行<strong>降序排序</strong>输出</p>
+<pre><code class="hljs CPP"><span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">string</span>,<span class="hljs-keyword">int</span>,greater&lt;<span class="hljs-built_in">string</span>&gt; &gt;map_student;
+map_student[<span class="hljs-string">&quot;zhao&quot;</span>] = <span class="hljs-number">0</span>;
+map_student[<span class="hljs-string">&quot;qian&quot;</span>] = <span class="hljs-number">1</span>;
+map_student[<span class="hljs-string">&quot;sun&quot;</span>] = <span class="hljs-number">2</span>;
+<span class="hljs-keyword">for</span>(iter = map_student.begin();iter!=map_student.end();iter++)
+&#123;
+    <span class="hljs-built_in">cout</span>&lt;&lt;iter-&gt;first&lt;&lt;<span class="hljs-string">&quot;--&gt;&quot;</span>&lt;&lt;iter-&gt;second&lt;&lt;<span class="hljs-built_in">endl</span>;
+&#125;
+
+<span class="hljs-comment">//输出结果</span>
+zhao--&gt;<span class="hljs-number">0</span>
+sun--&gt;<span class="hljs-number">2</span>
+qian--&gt;<span class="hljs-number">1</span></code></pre>
+
+<p>自定义按照string的长短进行输出</p>
+<pre><code class="hljs CPP"><span class="hljs-comment">//与自定义sort()的方法类似</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">cmp</span></span>
+<span class="hljs-class">&#123;</span>
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-built_in">string</span> a,<span class="hljs-built_in">string</span> b)</span></span>
+<span class="hljs-function">    </span>&#123;
+          <span class="hljs-keyword">if</span>(a.length()!=b.length())
+          &#123;
+              <span class="hljs-keyword">return</span> a.length()&lt;b.length();<span class="hljs-comment">//从小到大</span>
+          &#125;
+        <span class="hljs-keyword">return</span> a&lt;b;
+    &#125;
+&#125;;
+<span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">string</span>,<span class="hljs-keyword">int</span>,cmp&gt; map_student;
+map_student[<span class="hljs-string">&quot;zhao&quot;</span>] = <span class="hljs-number">0</span>;
+map_student[<span class="hljs-string">&quot;qian&quot;</span>] = <span class="hljs-number">1</span>;
+map_student[<span class="hljs-string">&quot;sun&quot;</span>] = <span class="hljs-number">2</span>;
+<span class="hljs-keyword">for</span>(iter = map_student.begin();iter!=map_student.end();iter++)
+&#123;
+    <span class="hljs-built_in">cout</span>&lt;&lt;iter-&gt;first&lt;&lt;<span class="hljs-string">&quot;--&gt;&quot;</span>&lt;&lt;iter-&gt;second&lt;&lt;<span class="hljs-built_in">endl</span>;
+&#125;
+<span class="hljs-comment">//输出结果</span>
+sun--&gt;<span class="hljs-number">2</span>
+qian--&gt;<span class="hljs-number">1</span>
+zhao--&gt;<span class="hljs-number">0</span></code></pre>
+
+<h4 id="计数"><a href="#计数" class="headerlink" title="计数"></a>计数</h4><p>假设定义<code>map&lt;string,int&gt; s_map;</code>输入一个数据s，就可以将其对应的<code>map[s]++</code>。通过这样来进行计数。</p>
+<h3 id="map特点与使用场景"><a href="#map特点与使用场景" class="headerlink" title="map特点与使用场景"></a>map特点与使用场景</h3><ol>
+<li><p>自动建立key-&gt;value的对应关系，key与value可以使任何数据类型。</p>
+</li>
+<li><p>可以快速查找、删除记录，根据key值查找的复杂度很低。</p>
+</li>
+<li><p>key与value一一对应的关系可以用于去重操作。</p>
+</li>
+</ol>
+<p>可用于去重计数类题目，可打乱重新排列的问题，以及有清晰的一对一关系的问题。</p>
+<h2 id="例题：蓝桥杯2015年-密文搜索"><a href="#例题：蓝桥杯2015年-密文搜索" class="headerlink" title="例题：蓝桥杯2015年-密文搜索"></a>例题：蓝桥杯2015年-密文搜索</h2><blockquote>
+<p><strong>题目描述</strong>：</p>
+<p>福尔摩斯从X星收到一份资料，全部是小写字母组成。<br>他的助手提供了另一份资料：许多长度为8的密码列表。福尔摩斯发现，这些密码是被打乱后隐藏在先前那份资料中的。<br>请你编写一个程序，从第一份资料中搜索可能隐藏密码的位置。要考虑密码的所有排列可能性。</p>
+<p><strong>输入</strong>：</p>
+<p>输入第一行：一个字符串s，全部由小写字母组成，长度小于1024*1024<br>紧接着一行是一个整数n,表示以下有n行密码，1&lt;=n&lt;=1000<br>紧接着是n行字符串，都是小写字母组成，长度都为8</p>
+<p><strong>输出</strong>：</p>
+<p>一个整数, 表示每行密码的所有排列在s中匹配次数的总和。</p>
+<p><strong>样例输入</strong>：</p>
+<p>aaaabbbbaabbcccc</p>
+<p>2</p>
+<p>aaaabbbb</p>
+<p>abcabccc</p>
+<p><strong>样例输出</strong>：</p>
+<p>4</p>
+</blockquote>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>题目意思是对后面输入的密码进行打乱重组，只要能与原串的代码的连续的一部分相匹配就合格。考虑两点</p>
+<ol>
+<li><p>提取主串连续的8位去构建新的字符串。</p>
+<p> string( string &amp;str, size_type index, size_type length );<br> //构建一个新的字符串，从str中的以index为索引开始的子串，长度为length</p>
+</li>
+<li><p>两处字符串相互匹配。以为只要保证输入的密码能重组成为前面的资料(原串)就可以，所以不妨直接sort()排序，再比较两者的差异。</p>
+</li>
+<li><p>对输入的密码存储入 map&lt;string,int&gt; 之中，便于计数。</p>
+</li>
+</ol>
+<pre><code class="hljs CPP"><span class="hljs-comment">//测试环境 Code::Blocks 17.12</span>
+<span class="hljs-comment">//本代码没有在OJ测试过，因为找不到。。。</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;map&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-keyword">int</span> n;
+    <span class="hljs-built_in">string</span> s;
+    <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;<span class="hljs-comment">//最后的和值</span>
+    <span class="hljs-built_in">string</span> nstr[<span class="hljs-number">1000</span>];
+    <span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">string</span>,<span class="hljs-keyword">int</span>&gt; s_map;
+    <span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">string</span>,<span class="hljs-keyword">int</span>&gt;::iterator iter;
+    <span class="hljs-built_in">cin</span>&gt;&gt;s;<span class="hljs-comment">//输入首串字母</span>
+    <span class="hljs-built_in">cin</span>&gt;&gt;n;<span class="hljs-comment">//输入密码数量</span>
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)
+    &#123;
+        <span class="hljs-built_in">cin</span>&gt;&gt;nstr[i];
+        s_map[nstr[i]] = <span class="hljs-number">0</span>;
+    &#125;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;i&lt;s.length()<span class="hljs-number">-8</span>+<span class="hljs-number">1</span>;i++)
+    &#123;
+        <span class="hljs-built_in">string</span> s1 = <span class="hljs-built_in">string</span>(s,i,<span class="hljs-number">8</span>);<span class="hljs-comment">//截取部分string构建新的字符串</span>
+        sort(s1.begin(),s1.end());
+
+        <span class="hljs-keyword">for</span>(iter = s_map.begin();iter!=s_map.end();iter++)
+        &#123;
+            <span class="hljs-built_in">string</span> s2 = iter-&gt;first;
+            sort(s2.begin(),s2.end());
+
+            <span class="hljs-keyword">if</span>(s1 == s2) s_map[iter-&gt;first]++;
+        &#125;
+    &#125;
+    <span class="hljs-keyword">for</span>(iter = s_map.begin();iter!=s_map.end();iter++)
+    &#123;
+        sum += s_map[iter-&gt;first];
+    &#125;
+    <span class="hljs-built_in">cout</span>&lt;&lt;sum&lt;&lt;<span class="hljs-built_in">endl</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre>
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/C-C/">C/C++</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/">蓝桥杯</a>
+                    
+                      <a class="hover-with-bg" href="/tags/STL/">STL</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/lanqiao-5/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">STL专题-set 集合</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/operator/">
+                        <span class="hidden-mobile">C++操作符重载 operator</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/lanqiao-4/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "STL专题-map 映射&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

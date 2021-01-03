@@ -1,0 +1,2131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>C++基于EasyX制作贪吃蛇游戏（六）第三版代码与程序 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-07-30 21:08">
+      星期四, 七月 30日 2020, 9:08 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      86
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>上接<a target="_blank" rel="noopener" href="http://www.colourso.top/c-snake-pro5/">C++基于EasyX制作贪吃蛇游戏（五）第三版文档</a> ，本文是代码的实现。</p>
+<a id="more"></a>
+
+<h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><p>工具：VS2017</p>
+<p>依赖：EasyX Library for C++ (Ver:20200520(beta))</p>
+<h2 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h2><p>源代码可能有点多，但还是决定粘一份上来，底部会贴出网盘地址以及GIthub地址的。</p>
+<p><img src="c-snake-pro6/jiegou.png" srcset="/img/loading.gif"></p>
+<h3 id="common-h"><a href="#common-h" class="headerlink" title="common.h"></a>common.h</h3><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;conio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;graphics.h&gt;</span></span>
+
+<span class="hljs-comment">//蛇的节点半径</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> SNAKE_RADIU 9</span>
+<span class="hljs-comment">//食物的半径</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> FOOD_RADIU 8</span>
+
+<span class="hljs-comment">//蛇的节点宽度</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> SNAKE_WIDTH 20</span>
+
+<span class="hljs-comment">//COLORREF BG_COLOR = RGB(0,0,0);		//背景颜色为黑色</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> BG_COLOR 0</span>
+
+
+<span class="hljs-comment">//方向的枚举</span>
+<span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Dir</span> &#123;</span> DIR_UP = <span class="hljs-number">1</span>, DIR_RIGHT = <span class="hljs-number">2</span>, DIR_DOWN = <span class="hljs-number">3</span>, DIR_LEFT = <span class="hljs-number">4</span> &#125;;
+
+<span class="hljs-comment">//点的结构体</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Point</span> &#123;</span>
+	<span class="hljs-keyword">int</span> x;
+	<span class="hljs-keyword">int</span> y;
+
+	Point() :x(<span class="hljs-number">-1</span>), y(<span class="hljs-number">-1</span>) &#123;&#125;
+	Point(<span class="hljs-keyword">int</span> dx, <span class="hljs-keyword">int</span> dy) :x(dx), y(dy) &#123;&#125;
+	Point(<span class="hljs-keyword">const</span> Point&amp; point) :x(point.x), y(point.y) &#123;&#125;
+
+	<span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>==(<span class="hljs-keyword">const</span> Point&amp; point)
+	&#123;
+		<span class="hljs-keyword">return</span> (<span class="hljs-keyword">this</span>-&gt;x == point.x) &amp;&amp; (<span class="hljs-keyword">this</span>-&gt;y == point.y);
+	&#125;
+
+&#125;;
+
+<span class="hljs-comment">//记录游玩信息</span>
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">PlayerMsg</span></span>
+<span class="hljs-class">&#123;</span>
+	<span class="hljs-keyword">int</span> id;
+	<span class="hljs-keyword">int</span> score;
+	<span class="hljs-keyword">int</span> len;
+	<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> r_time;	<span class="hljs-comment">//记录时间</span>
+
+	PlayerMsg()
+	&#123;
+		id = <span class="hljs-number">99</span>;
+		score = <span class="hljs-number">0</span>;
+		len = <span class="hljs-number">0</span>;
+		r_time = <span class="hljs-string">&quot;&quot;</span>;
+	&#125;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">SortPlayerMsg</span> </span>
+<span class="hljs-class">&#123;</span>
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-keyword">const</span> PlayerMsg &amp;msg1, <span class="hljs-keyword">const</span> PlayerMsg &amp;msg2)</span></span>
+<span class="hljs-function">	</span>&#123;
+		<span class="hljs-keyword">if</span> (msg1.score == msg2.score)
+		&#123;
+			<span class="hljs-keyword">return</span> msg1.r_time &gt; msg2.r_time;
+		&#125;
+		<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> msg1.score &gt; msg2.score;
+	&#125;
+&#125;;</code></pre>
+<h3 id="Snake-h"><a href="#Snake-h" class="headerlink" title="Snake.h"></a>Snake.h</h3><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;common.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;list&gt;</span></span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Snake</span></span>
+<span class="hljs-class">&#123;</span>
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> MinSpeed = <span class="hljs-number">1</span>;			<span class="hljs-comment">//蛇的最小速度</span>
+	<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> MaxSpeed = <span class="hljs-number">25</span>;		<span class="hljs-comment">//蛇的最大速度</span>
+	<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> OrgSpeed = <span class="hljs-number">15</span>;		<span class="hljs-comment">//蛇的原始速度</span>
+
+<span class="hljs-keyword">private</span>:
+	<span class="hljs-keyword">int</span> m_len;						<span class="hljs-comment">//蛇的长度</span>
+	<span class="hljs-keyword">int</span> m_speed;					<span class="hljs-comment">//蛇的速度</span>
+	Dir m_direction;				<span class="hljs-comment">//蛇的方向</span>
+	<span class="hljs-built_in">std</span>::<span class="hljs-built_in">list</span>&lt;Point&gt; m_snakelist;	<span class="hljs-comment">//蛇的链表</span>
+	Point m_tail;					<span class="hljs-comment">//蛇移动过后的尾部节点，主要用于吃食物</span>
+
+<span class="hljs-keyword">public</span>:
+	Snake();
+
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getLen</span><span class="hljs-params">()</span></span>;					<span class="hljs-comment">//获取长度</span>
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getSpeed</span><span class="hljs-params">()</span></span>;					<span class="hljs-comment">//获取速度</span>
+	<span class="hljs-function">Dir <span class="hljs-title">getDirection</span><span class="hljs-params">()</span></span>;				<span class="hljs-comment">//获取方向</span>
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">setSpeed</span><span class="hljs-params">(<span class="hljs-keyword">int</span> speed)</span></span>;		<span class="hljs-comment">//设置速度，设置成功返回true</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Move</span><span class="hljs-params">()</span></span>;					<span class="hljs-comment">//移动一节</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">EatFood</span><span class="hljs-params">()</span></span>;					<span class="hljs-comment">//吃食物</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ChangeDir</span><span class="hljs-params">(Dir dir)</span></span>;		<span class="hljs-comment">//改变方向</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Dead</span><span class="hljs-params">()</span></span>;					<span class="hljs-comment">//死亡</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">ColideWall</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> top, <span class="hljs-keyword">int</span> right, <span class="hljs-keyword">int</span> bottom)</span></span>;	<span class="hljs-comment">//碰撞到墙</span>
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">ColideSnake</span><span class="hljs-params">()</span></span>;										<span class="hljs-comment">//碰撞到了自身</span>
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">ColideFood</span><span class="hljs-params">(Point point)</span></span>;							<span class="hljs-comment">//碰到了食物</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawSnake</span><span class="hljs-params">()</span></span>;				<span class="hljs-comment">//绘制蛇</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawSnakeHead</span><span class="hljs-params">(Point pos)</span></span>;	<span class="hljs-comment">//绘制蛇头</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawSnakeNode</span><span class="hljs-params">(Point pos)</span></span>;	<span class="hljs-comment">//绘制蛇的身体结点</span>
+
+	<span class="hljs-function"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">list</span>&lt;Point&gt; <span class="hljs-title">GetSnakeAllNode</span><span class="hljs-params">()</span></span>;
+&#125;;</code></pre>
+<h3 id="Snake-cpp"><a href="#Snake-cpp" class="headerlink" title="Snake.cpp"></a>Snake.cpp</h3><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Snake.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;ctime&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;graphics.h&gt;</span></span>
+
+Snake::Snake()
+&#123;
+	<span class="hljs-function">Point <span class="hljs-title">pos0</span><span class="hljs-params">(<span class="hljs-number">210</span>, <span class="hljs-number">230</span>)</span></span>;
+	<span class="hljs-function">Point <span class="hljs-title">pos1</span><span class="hljs-params">(<span class="hljs-number">190</span>, <span class="hljs-number">230</span>)</span></span>;
+	<span class="hljs-function">Point <span class="hljs-title">pos2</span><span class="hljs-params">(<span class="hljs-number">170</span>, <span class="hljs-number">230</span>)</span></span>;
+
+	<span class="hljs-keyword">this</span>-&gt;m_snakelist.push_back(pos0);
+	<span class="hljs-keyword">this</span>-&gt;m_snakelist.push_back(pos1);
+	<span class="hljs-keyword">this</span>-&gt;m_snakelist.push_back(pos2);
+
+	<span class="hljs-keyword">this</span>-&gt;m_direction = Dir::DIR_RIGHT;
+	<span class="hljs-keyword">this</span>-&gt;m_len = <span class="hljs-number">3</span>;
+	<span class="hljs-keyword">this</span>-&gt;m_speed = <span class="hljs-keyword">this</span>-&gt;OrgSpeed;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Snake::getLen</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;m_len;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Snake::getSpeed</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;m_speed;
+&#125;
+
+<span class="hljs-function">Dir <span class="hljs-title">Snake::getDirection</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;m_direction;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">Snake::setSpeed</span><span class="hljs-params">(<span class="hljs-keyword">int</span> speed)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">if</span> (speed &gt; <span class="hljs-keyword">this</span>-&gt;MaxSpeed)
+	&#123;
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>-&gt;m_speed != <span class="hljs-keyword">this</span>-&gt;MaxSpeed)
+		&#123;
+			<span class="hljs-keyword">this</span>-&gt;m_speed = <span class="hljs-keyword">this</span>-&gt;MaxSpeed;
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+		&#125;
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	&#125;
+	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (speed &lt; <span class="hljs-keyword">this</span>-&gt;MinSpeed)
+	&#123;
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>-&gt;m_speed != <span class="hljs-keyword">this</span>-&gt;MinSpeed)
+		&#123;
+			<span class="hljs-keyword">this</span>-&gt;m_speed = <span class="hljs-keyword">this</span>-&gt;MinSpeed;
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+		&#125;
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	&#125;
+	<span class="hljs-keyword">else</span>
+	&#123;
+		<span class="hljs-keyword">this</span>-&gt;m_speed = speed;
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Snake::Move</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">this</span>-&gt;m_tail = <span class="hljs-keyword">this</span>-&gt;m_snakelist.back();
+
+	<span class="hljs-comment">//移除最后一个节点，复制第一个节点两份</span>
+	<span class="hljs-keyword">this</span>-&gt;m_snakelist.pop_back();
+	Point headPos = <span class="hljs-keyword">this</span>-&gt;m_snakelist.front();
+	<span class="hljs-keyword">this</span>-&gt;m_snakelist.push_front(headPos);
+
+	<span class="hljs-keyword">switch</span> (<span class="hljs-keyword">this</span>-&gt;m_direction)
+	&#123;
+	<span class="hljs-keyword">case</span> Dir::DIR_UP:
+		<span class="hljs-keyword">this</span>-&gt;m_snakelist.begin()-&gt;y -= SNAKE_WIDTH;
+		<span class="hljs-keyword">break</span>;
+
+	<span class="hljs-keyword">case</span> Dir::DIR_RIGHT:
+		<span class="hljs-keyword">this</span>-&gt;m_snakelist.begin()-&gt;x += SNAKE_WIDTH;
+		<span class="hljs-keyword">break</span>;
+
+	<span class="hljs-keyword">case</span> Dir::DIR_DOWN:
+		<span class="hljs-keyword">this</span>-&gt;m_snakelist.begin()-&gt;y += SNAKE_WIDTH;
+		<span class="hljs-keyword">break</span>;
+	<span class="hljs-keyword">case</span> Dir::DIR_LEFT:
+		<span class="hljs-keyword">this</span>-&gt;m_snakelist.begin()-&gt;x -= SNAKE_WIDTH;
+		<span class="hljs-keyword">break</span>;
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Snake::EatFood</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-comment">//吃到食物尾部增长</span>
+	<span class="hljs-keyword">this</span>-&gt;m_snakelist.push_back(<span class="hljs-keyword">this</span>-&gt;m_tail);
+
+	<span class="hljs-keyword">this</span>-&gt;m_len += <span class="hljs-number">1</span>;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Snake::ChangeDir</span><span class="hljs-params">(Dir dir)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">switch</span> (dir)
+	&#123;
+	<span class="hljs-keyword">case</span> Dir::DIR_UP:
+	<span class="hljs-keyword">case</span> Dir::DIR_DOWN:
+		<span class="hljs-keyword">if</span> (m_direction != Dir::DIR_UP &amp;&amp; m_direction != Dir::DIR_DOWN)
+		&#123;
+			m_direction = dir;
+		&#125;
+		<span class="hljs-keyword">break</span>;
+	<span class="hljs-keyword">case</span> Dir::DIR_RIGHT:
+	<span class="hljs-keyword">case</span> Dir::DIR_LEFT:
+		<span class="hljs-keyword">if</span> (m_direction != Dir::DIR_RIGHT &amp;&amp; m_direction != Dir::DIR_LEFT)
+		&#123;
+			m_direction = dir;
+		&#125;
+		<span class="hljs-keyword">break</span>;
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Snake::Dead</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-comment">//TODO</span>
+	<span class="hljs-keyword">int</span> x = <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">int</span> y = <span class="hljs-number">0</span>;	<span class="hljs-comment">//x、y表示坐标的该变量</span>
+	<span class="hljs-keyword">int</span> z = <span class="hljs-number">0</span>;	<span class="hljs-comment">//z表示改变方向</span>
+
+	<span class="hljs-comment">//使用随机函数</span>
+	srand(time(<span class="hljs-number">0</span>));
+
+	<span class="hljs-built_in">std</span>::<span class="hljs-built_in">list</span>&lt;Point&gt;::iterator it = <span class="hljs-keyword">this</span>-&gt;m_snakelist.begin();
+	<span class="hljs-keyword">for</span> (; it != <span class="hljs-keyword">this</span>-&gt;m_snakelist.end(); ++it)
+	&#123;
+		x = (rand() % <span class="hljs-number">4</span>) * SNAKE_WIDTH;
+		y = (rand() % <span class="hljs-number">4</span>) * SNAKE_WIDTH;
+		z = (rand() % <span class="hljs-number">8</span>);
+
+		<span class="hljs-keyword">switch</span> (z)
+		&#123;
+		<span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:
+			<span class="hljs-comment">//右</span>
+			(*it).x += x;
+			<span class="hljs-keyword">break</span>;
+		<span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
+			<span class="hljs-comment">//下</span>
+			(*it).y += y;
+			<span class="hljs-keyword">break</span>;
+		<span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:
+			<span class="hljs-comment">//左</span>
+			(*it).x -= x;
+			<span class="hljs-keyword">break</span>;
+
+		<span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:
+			<span class="hljs-comment">//上</span>
+			(*it).y -= y;
+			<span class="hljs-keyword">break</span>;
+		<span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:
+			<span class="hljs-comment">//右下</span>
+			(*it).x += x;
+			(*it).y += y;
+			<span class="hljs-keyword">break</span>;
+		<span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:
+			<span class="hljs-comment">//左下</span>
+			(*it).x -= x;
+			(*it).y += y;
+			<span class="hljs-keyword">break</span>;
+		<span class="hljs-keyword">case</span> <span class="hljs-number">6</span>:
+			<span class="hljs-comment">//左上</span>
+			(*it).x -= x;
+			(*it).y -= y;
+			<span class="hljs-keyword">break</span>;
+
+		<span class="hljs-keyword">case</span> <span class="hljs-number">7</span>:
+			<span class="hljs-comment">//右上</span>
+			(*it).x += x;
+			(*it).y -= y;
+			<span class="hljs-keyword">break</span>;
+		&#125;
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">Snake::ColideWall</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> top, <span class="hljs-keyword">int</span> right, <span class="hljs-keyword">int</span> bottom)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">int</span> x = <span class="hljs-keyword">this</span>-&gt;m_snakelist.front().x;
+	<span class="hljs-keyword">int</span> y = <span class="hljs-keyword">this</span>-&gt;m_snakelist.front().y;
+	<span class="hljs-keyword">return</span> (x &lt; left || x &gt; right || y &lt; top || y &gt; bottom);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">Snake::ColideSnake</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+
+	<span class="hljs-keyword">if</span> (m_len &lt;= <span class="hljs-number">3</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+	<span class="hljs-built_in">std</span>::<span class="hljs-built_in">list</span>&lt;Point&gt;::iterator it = <span class="hljs-keyword">this</span>-&gt;m_snakelist.begin();
+
+	Point pos = *it;
+	Point next_pos;
+	it++;
+
+	<span class="hljs-keyword">while</span>(it != <span class="hljs-keyword">this</span>-&gt;m_snakelist.end())
+	&#123;
+		next_pos = *it;
+
+		<span class="hljs-keyword">if</span> (pos == next_pos)
+		&#123;
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+		&#125;
+
+		it++;
+	&#125;
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">Snake::ColideFood</span><span class="hljs-params">(Point point)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>-&gt;m_snakelist.front() == point)
+	&#123;
+		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+	&#125;
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Snake::DrawSnake</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-built_in">std</span>::<span class="hljs-built_in">list</span>&lt;Point&gt;::iterator it = <span class="hljs-keyword">this</span>-&gt;m_snakelist.begin();
+	<span class="hljs-keyword">for</span> (; it != <span class="hljs-keyword">this</span>-&gt;m_snakelist.end(); ++it)
+	&#123;
+		DrawSnakeNode(*it);
+	&#125;
+	DrawSnakeHead(<span class="hljs-keyword">this</span>-&gt;m_snakelist.front());
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Snake::DrawSnakeHead</span><span class="hljs-params">(Point pos)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-comment">//紫色，全填充，无边框的正方形</span>
+	setfillcolor(<span class="hljs-number">0xAA00AA</span>);
+	setfillstyle(BS_SOLID);
+	solidrectangle(pos.x - SNAKE_RADIU, pos.y + SNAKE_RADIU, pos.x + SNAKE_RADIU, pos.y - SNAKE_RADIU);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Snake::DrawSnakeNode</span><span class="hljs-params">(Point pos)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-comment">//绿色，全填充，无边框的正方形</span>
+	setfillcolor(GREEN);
+	setfillstyle(BS_SOLID);
+	solidrectangle(pos.x - SNAKE_RADIU, pos.y + SNAKE_RADIU, pos.x + SNAKE_RADIU, pos.y - SNAKE_RADIU);
+&#125;
+
+<span class="hljs-function"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">list</span>&lt;Point&gt; <span class="hljs-title">Snake::GetSnakeAllNode</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;m_snakelist;
+&#125;</code></pre>
+<h3 id="Food-h"><a href="#Food-h" class="headerlink" title="Food.h"></a>Food.h</h3><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;common.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Snake.h&quot;</span></span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Food</span></span>
+<span class="hljs-class">&#123;</span>
+<span class="hljs-keyword">private</span>:
+	Point m_pos;
+	<span class="hljs-keyword">bool</span> m_state;
+
+<span class="hljs-keyword">public</span>:
+	Food();
+
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">getState</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setState</span><span class="hljs-params">(<span class="hljs-keyword">bool</span> state)</span></span>;
+	<span class="hljs-function">Point <span class="hljs-title">getPos</span><span class="hljs-params">()</span></span>;				<span class="hljs-comment">//获取食物坐标</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Generate</span><span class="hljs-params">(Snake *snake)</span></span>;<span class="hljs-comment">//产生新的食物</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawFood</span><span class="hljs-params">()</span></span>;
+&#125;;</code></pre>
+<h3 id="Food-cpp"><a href="#Food-cpp" class="headerlink" title="Food.cpp"></a>Food.cpp</h3><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Food.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;ctime&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;graphics.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span>
+
+Food::Food()
+&#123;
+	<span class="hljs-comment">//初始化食物的数据</span>
+	<span class="hljs-keyword">this</span>-&gt;m_state = <span class="hljs-literal">true</span>;
+	<span class="hljs-keyword">this</span>-&gt;m_pos = Point(<span class="hljs-number">310</span>, <span class="hljs-number">230</span>);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">Food::getState</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;m_state;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Food::setState</span><span class="hljs-params">(<span class="hljs-keyword">bool</span> state)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">this</span>-&gt;m_state = state;
+&#125;
+
+<span class="hljs-function">Point <span class="hljs-title">Food::getPos</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;m_pos;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Food::Generate</span><span class="hljs-params">(Snake * snake)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-comment">//产生食物要求获取蛇的身体节点来检查是否生成的食物出现在了蛇的身上</span>
+	<span class="hljs-keyword">int</span> x = <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">int</span> y = <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">bool</span> isOk = <span class="hljs-literal">false</span>;
+
+	<span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>)
+	&#123;
+		<span class="hljs-comment">//使用随机函数产生食物</span>
+		srand(time(<span class="hljs-number">0</span>));
+		x = (rand() % <span class="hljs-number">24</span>) * <span class="hljs-number">20</span> + <span class="hljs-number">10</span>;
+		y = (rand() % <span class="hljs-number">24</span>) * <span class="hljs-number">20</span> + <span class="hljs-number">10</span>;
+
+		<span class="hljs-comment">//检查是否在蛇的身上</span>
+		isOk = <span class="hljs-number">1</span>;
+		
+		<span class="hljs-built_in">std</span>::<span class="hljs-built_in">list</span>&lt;Point&gt; pos = snake-&gt;GetSnakeAllNode();
+		<span class="hljs-built_in">std</span>::<span class="hljs-built_in">list</span>&lt;Point&gt;::iterator it = find(pos.begin(),pos.end(),Point(x,y));
+		<span class="hljs-comment">//find()需要用到Point的重载 == 操作符</span>
+
+
+		<span class="hljs-keyword">if</span> (it == pos.end())<span class="hljs-comment">//不在</span>
+		&#123;
+			<span class="hljs-keyword">this</span>-&gt;m_pos = Point(x,y);<span class="hljs-comment">//修改坐标</span>
+			<span class="hljs-keyword">this</span>-&gt;m_state = <span class="hljs-literal">true</span>;
+			<span class="hljs-keyword">return</span>;
+		&#125;
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Food::DrawFood</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-comment">//红色，全填充，无边框的圆</span>
+	setfillcolor(RED);
+	setfillstyle(BS_SOLID);
+	solidcircle(<span class="hljs-keyword">this</span>-&gt;m_pos.x, <span class="hljs-keyword">this</span>-&gt;m_pos.y, FOOD_RADIU);
+&#125;</code></pre>
+<h3 id="RankList-h"><a href="#RankList-h" class="headerlink" title="RankList.h"></a>RankList.h</h3><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;common.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RankList</span></span>
+<span class="hljs-class">&#123;</span>
+<span class="hljs-keyword">private</span>:
+	<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;PlayerMsg&gt; m_msg;
+	<span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> m_rankfile = <span class="hljs-string">&quot;retro&quot;</span>;
+	<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> MAX_RANK = <span class="hljs-number">10</span>;
+<span class="hljs-keyword">public</span>:
+	RankList();
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SaveMsg</span><span class="hljs-params">(PlayerMsg msg)</span></span>;
+	<span class="hljs-function"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;PlayerMsg&gt; <span class="hljs-title">getRankList</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SaveToRank</span><span class="hljs-params">()</span></span>;
+
+<span class="hljs-keyword">private</span>:
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">WriteTime</span><span class="hljs-params">(PlayerMsg &amp;msg)</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ReadFile</span><span class="hljs-params">()</span></span>;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">WriteFile</span><span class="hljs-params">()</span></span>;
+&#125;;</code></pre>
+<h3 id="RankList-cpp"><a href="#RankList-cpp" class="headerlink" title="RankList.cpp"></a>RankList.cpp</h3><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;RankList.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;ctime&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sstream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;fstream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span>
+
+RankList::RankList()
+&#123;
+	<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>-&gt;m_msg.empty())
+	&#123;
+		<span class="hljs-keyword">this</span>-&gt;m_msg.clear();
+	&#125;
+
+	ReadFile();
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">RankList::SaveMsg</span><span class="hljs-params">(PlayerMsg msg)</span></span>
+<span class="hljs-function"></span>&#123;
+	WriteTime(msg);		<span class="hljs-comment">//写入时间</span>
+
+	m_msg.push_back(msg);
+	<span class="hljs-built_in">std</span>::sort(m_msg.begin(), m_msg.end(), SortPlayerMsg());
+
+	<span class="hljs-keyword">if</span> (m_msg.size() &gt; <span class="hljs-keyword">this</span>-&gt;MAX_RANK)
+	&#123;
+		m_msg.pop_back();
+	&#125;
+
+	<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;PlayerMsg&gt;::iterator it = m_msg.begin();
+
+	<span class="hljs-comment">//修改id</span>
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; m_msg.size(); i++, it++)
+	&#123;
+		it-&gt;id = i + <span class="hljs-number">1</span>;
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;PlayerMsg&gt; <span class="hljs-title">RankList::getRankList</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;m_msg;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">RankList::SaveToRank</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	WriteFile();
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">RankList::WriteTime</span><span class="hljs-params">(PlayerMsg &amp; msg)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-comment">// 基于当前系统的当前日期/时间</span>
+	<span class="hljs-keyword">time_t</span> now = time(<span class="hljs-number">0</span>);		<span class="hljs-comment">//1970 到目前经过秒数</span>
+
+	tm *ltm = localtime(&amp;now);
+
+	<span class="hljs-built_in">std</span>::<span class="hljs-built_in">stringstream</span> sstream;
+
+	<span class="hljs-comment">// 输出 tm 结构的各个组成部分</span>
+	sstream &lt;&lt; ltm-&gt;tm_year + <span class="hljs-number">1900</span> - <span class="hljs-number">2000</span> &lt;&lt; <span class="hljs-string">&quot;-&quot;</span>;	<span class="hljs-comment">//年</span>
+	sstream &lt;&lt; ((ltm-&gt;tm_mon + <span class="hljs-number">1</span> &gt;= <span class="hljs-number">10</span>) ? <span class="hljs-string">&quot;&quot;</span> : <span class="hljs-string">&quot;0&quot;</span>) &lt;&lt; ltm-&gt;tm_mon + <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-string">&quot;-&quot;</span>;	<span class="hljs-comment">//月</span>
+	sstream &lt;&lt; ((ltm-&gt;tm_mday &gt;= <span class="hljs-number">10</span>) ? <span class="hljs-string">&quot;&quot;</span> : <span class="hljs-string">&quot;0&quot;</span>) &lt;&lt; ltm-&gt;tm_mday &lt;&lt; <span class="hljs-string">&quot;_&quot;</span>;	<span class="hljs-comment">//日</span>
+	sstream &lt;&lt; ((ltm-&gt;tm_hour &gt;= <span class="hljs-number">10</span>) ? <span class="hljs-string">&quot;&quot;</span> : <span class="hljs-string">&quot;0&quot;</span>) &lt;&lt; ltm-&gt;tm_hour &lt;&lt; <span class="hljs-string">&quot;:&quot;</span>;	<span class="hljs-comment">//时</span>
+	sstream &lt;&lt; ((ltm-&gt;tm_min &gt;= <span class="hljs-number">10</span>) ? <span class="hljs-string">&quot;&quot;</span> : <span class="hljs-string">&quot;0&quot;</span>) &lt;&lt; ltm-&gt;tm_min;	<span class="hljs-comment">//分</span>
+
+	msg.r_time = sstream.str();
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">RankList::ReadFile</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-built_in">std</span>::ifstream infile;
+
+	infile.open(m_rankfile, <span class="hljs-built_in">std</span>::ios::in | <span class="hljs-built_in">std</span>::ios::binary);
+
+	<span class="hljs-keyword">if</span> (!infile)
+	&#123;
+		<span class="hljs-comment">//如果文件不存在，则创建</span>
+		<span class="hljs-built_in">std</span>::ofstream os;
+		os.open(m_rankfile);		<span class="hljs-comment">//默认会创建</span>
+
+		<span class="hljs-keyword">if</span> (!os)
+		&#123;
+			<span class="hljs-comment">//如果创建失败，只能结束程序</span>
+			<span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);
+		&#125;
+
+		os.close();
+	&#125;
+	<span class="hljs-keyword">else</span> 
+	&#123;
+		<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> line;
+		<span class="hljs-built_in">std</span>::<span class="hljs-built_in">stringstream</span> stream;
+		<span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>;
+		PlayerMsg msg;
+
+		<span class="hljs-keyword">while</span> (<span class="hljs-built_in">std</span>::getline(infile, line))
+		&#123;
+			stream.clear();
+			stream.str(line);
+
+			stream &gt;&gt; msg.id &gt;&gt; msg.score &gt;&gt; msg.len &gt;&gt; msg.r_time;
+
+			m_msg.push_back(msg);
+
+			index++;
+		&#125;
+
+		<span class="hljs-built_in">std</span>::sort(m_msg.begin(), m_msg.end(), SortPlayerMsg());
+	&#125;
+
+	infile.close();
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">RankList::WriteFile</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-built_in">std</span>::ofstream outfile;
+	outfile.open(m_rankfile, <span class="hljs-built_in">std</span>::ios::out | <span class="hljs-built_in">std</span>::ios::binary); <span class="hljs-comment">//每次写文件都重新写一遍</span>
+
+	<span class="hljs-keyword">if</span> (!outfile)
+	&#123;
+		<span class="hljs-keyword">return</span>;
+	&#125;
+
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; m_msg.size(); ++i)
+	&#123;
+		outfile &lt;&lt; m_msg[i].id &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; m_msg[i].score &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; m_msg[i].len
+			&lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; m_msg[i].r_time &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+	&#125;
+
+	outfile.close();
+&#125;</code></pre>
+<h3 id="Game-h"><a href="#Game-h" class="headerlink" title="Game.h"></a>Game.h</h3><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;common.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Snake.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Food.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;RankList.h&quot;</span></span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Game</span></span>
+<span class="hljs-class">&#123;</span>
+<span class="hljs-keyword">private</span>:
+	<span class="hljs-keyword">int</span> m_GameState;			<span class="hljs-comment">//游戏状态,0在主UI，1在游戏中，2在排行榜，3在游戏规则中</span>
+	PlayerMsg m_msg;			<span class="hljs-comment">//游玩数据</span>
+	Snake *m_snake;				<span class="hljs-comment">//蛇</span>
+	Food *m_food;				<span class="hljs-comment">//食物</span>
+	RankList *m_ranklist;		<span class="hljs-comment">//排行榜</span>
+
+<span class="hljs-keyword">public</span>:
+	Game();
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Init</span><span class="hljs-params">()</span></span>;			<span class="hljs-comment">//初始化</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Run</span><span class="hljs-params">()</span></span>;				<span class="hljs-comment">//控制程序</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Close</span><span class="hljs-params">()</span></span>;			<span class="hljs-comment">//关闭程序，释放资源</span>
+
+<span class="hljs-keyword">private</span>:
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitData</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//初始化数据</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PlayGame</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//开始游戏</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ShowMainUI</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//展示主UI</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ShowRank</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//排行榜展示</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ShowRule</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//展示规则界面</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawGamePlay</span><span class="hljs-params">()</span></span>;	<span class="hljs-comment">//绘制初始游戏界面</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawScore</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//绘制分数</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawSnakeLen</span><span class="hljs-params">()</span></span>;	<span class="hljs-comment">//绘制长度</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawSpeed</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//绘制速度</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawRunning</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//绘制正在运行</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawPause</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//绘制暂停提示</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawRebegin</span><span class="hljs-params">()</span></span>;		<span class="hljs-comment">//绘制重新开始</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DrawGameOver</span><span class="hljs-params">()</span></span>;	<span class="hljs-comment">//绘制游戏结束</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ChangeChooseUI</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> top, <span class="hljs-keyword">int</span> right, <span class="hljs-keyword">int</span> bottom, <span class="hljs-keyword">int</span> kind)</span></span>;<span class="hljs-comment">//修改选中的选项颜色</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ClearRegion</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> top, <span class="hljs-keyword">int</span> right, <span class="hljs-keyword">int</span> bottom)</span></span>;		<span class="hljs-comment">//使用黑色清除指定区域</span>
+&#125;;</code></pre>
+<h3 id="Game-cpp"><a href="#Game-cpp" class="headerlink" title="Game.cpp"></a>Game.cpp</h3><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Game.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;conio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;graphics.h&gt;</span></span>
+
+Game::Game()
+&#123;
+	<span class="hljs-keyword">this</span>-&gt;m_snake = <span class="hljs-literal">nullptr</span>;
+	<span class="hljs-keyword">this</span>-&gt;m_food = <span class="hljs-literal">nullptr</span>;
+
+	<span class="hljs-keyword">this</span>-&gt;m_GameState = <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">this</span>-&gt;m_msg = PlayerMsg();
+	<span class="hljs-keyword">this</span>-&gt;m_ranklist = <span class="hljs-keyword">new</span> RankList();
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Game::Init</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	initgraph(<span class="hljs-number">640</span>, <span class="hljs-number">480</span>);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Game::Run</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	ShowMainUI();
+
+	<span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>)
+	&#123;
+		<span class="hljs-keyword">if</span> (m_GameState == <span class="hljs-number">0</span> &amp;&amp; MouseHit())	<span class="hljs-comment">//在主界面点击鼠标</span>
+		&#123;
+			MOUSEMSG mouse = GetMouseMsg();<span class="hljs-comment">//获取鼠标点击消息</span>
+			<span class="hljs-keyword">if</span> (mouse.mkLButton)
+			&#123;
+				<span class="hljs-keyword">if</span> (mouse.x &gt;= <span class="hljs-number">240</span> &amp;&amp; mouse.x &lt;= <span class="hljs-number">400</span> &amp;&amp; mouse.y &gt;= <span class="hljs-number">195</span> &amp;&amp; mouse.y &lt;= <span class="hljs-number">235</span>)
+				&#123;
+					<span class="hljs-comment">//如果点击到了开始选项</span>
+					ChangeChooseUI(<span class="hljs-number">240</span>, <span class="hljs-number">195</span>, <span class="hljs-number">400</span>, <span class="hljs-number">235</span>, <span class="hljs-number">1</span>);
+					m_GameState = <span class="hljs-number">1</span>;
+
+					FlushMouseMsgBuffer();<span class="hljs-comment">//清空鼠标消息缓冲区。</span>
+
+					Sleep(<span class="hljs-number">500</span>);
+					PlayGame();
+				&#125;
+				<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mouse.x &gt;= <span class="hljs-number">240</span> &amp;&amp; mouse.x &lt;= <span class="hljs-number">400</span> &amp;&amp; mouse.y &gt;= <span class="hljs-number">255</span> &amp;&amp; mouse.y &lt;= <span class="hljs-number">295</span>)
+				&#123;
+					<span class="hljs-comment">//排行榜选项</span>
+					ChangeChooseUI(<span class="hljs-number">240</span>, <span class="hljs-number">255</span>, <span class="hljs-number">400</span>, <span class="hljs-number">295</span>, <span class="hljs-number">2</span>);
+					m_GameState = <span class="hljs-number">2</span>;
+
+					FlushMouseMsgBuffer();<span class="hljs-comment">//清空鼠标消息缓冲区。</span>
+
+					Sleep(<span class="hljs-number">500</span>);
+					ShowRank();
+				&#125;
+				<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mouse.x &gt;= <span class="hljs-number">240</span> &amp;&amp; mouse.x &lt;= <span class="hljs-number">400</span> &amp;&amp; mouse.y &gt;= <span class="hljs-number">315</span> &amp;&amp; mouse.y &lt;= <span class="hljs-number">355</span>)
+				&#123;
+					<span class="hljs-comment">//帮助选项</span>
+					ChangeChooseUI(<span class="hljs-number">240</span>, <span class="hljs-number">315</span>, <span class="hljs-number">400</span>, <span class="hljs-number">355</span>, <span class="hljs-number">3</span>);
+					m_GameState = <span class="hljs-number">3</span>;
+
+					FlushMouseMsgBuffer();<span class="hljs-comment">//清空鼠标消息缓冲区。</span>
+
+					Sleep(<span class="hljs-number">500</span>);
+					ShowRule();
+				&#125;
+				<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mouse.x &gt;= <span class="hljs-number">240</span> &amp;&amp; mouse.x &lt;= <span class="hljs-number">400</span> &amp;&amp; mouse.y &gt;= <span class="hljs-number">375</span> &amp;&amp; mouse.y &lt;= <span class="hljs-number">415</span>)
+				&#123;
+					<span class="hljs-comment">//退出选项</span>
+					ChangeChooseUI(<span class="hljs-number">240</span>, <span class="hljs-number">375</span>, <span class="hljs-number">400</span>, <span class="hljs-number">415</span>, <span class="hljs-number">4</span>);
+					Sleep(<span class="hljs-number">1000</span>);
+					<span class="hljs-keyword">return</span>;
+				&#125;
+			&#125;
+		&#125;
+
+		<span class="hljs-keyword">if</span> ((m_GameState == <span class="hljs-number">2</span> || m_GameState == <span class="hljs-number">3</span>) &amp;&amp; MouseHit()) <span class="hljs-comment">//在排行榜或者游戏帮助中点击</span>
+		&#123;
+			MOUSEMSG mouse = GetMouseMsg();<span class="hljs-comment">//获取鼠标点击消息</span>
+			<span class="hljs-keyword">if</span> (mouse.mkLButton)
+			&#123;
+				<span class="hljs-keyword">if</span> (mouse.x &gt;= <span class="hljs-number">20</span> &amp;&amp; mouse.x &lt;= <span class="hljs-number">63</span> &amp;&amp; mouse.y &gt;= <span class="hljs-number">20</span> &amp;&amp; mouse.y &lt;= <span class="hljs-number">43</span>)
+				&#123;
+					<span class="hljs-comment">//点击返回选项</span>
+					ChangeChooseUI(<span class="hljs-number">20</span>, <span class="hljs-number">20</span>, <span class="hljs-number">63</span>, <span class="hljs-number">43</span>, <span class="hljs-number">5</span>);
+					Sleep(<span class="hljs-number">500</span>);
+
+					FlushMouseMsgBuffer();<span class="hljs-comment">//清空鼠标消息缓冲区。</span>
+
+					m_GameState = <span class="hljs-number">0</span>;
+					ShowMainUI();
+				&#125;
+			&#125;
+		&#125;
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Game::Close</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	closegraph();
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Game::InitData</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>-&gt;m_snake != <span class="hljs-literal">nullptr</span>)
+	&#123;
+		<span class="hljs-keyword">delete</span>(<span class="hljs-keyword">this</span>-&gt;m_snake);
+		<span class="hljs-keyword">this</span>-&gt;m_snake = <span class="hljs-literal">nullptr</span>;
+	&#125;
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>-&gt;m_food != <span class="hljs-literal">nullptr</span>)
+	&#123;
+		<span class="hljs-keyword">delete</span>(<span class="hljs-keyword">this</span>-&gt;m_food);
+		<span class="hljs-keyword">this</span>-&gt;m_food = <span class="hljs-literal">nullptr</span>;
+	&#125;
+
+	<span class="hljs-keyword">this</span>-&gt;m_msg = PlayerMsg();
+	<span class="hljs-keyword">this</span>-&gt;m_snake = <span class="hljs-keyword">new</span> Snake();
+	<span class="hljs-keyword">this</span>-&gt;m_food = <span class="hljs-keyword">new</span> Food();
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Game::PlayGame</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	InitData();
+	DrawGamePlay();
+
+	BeginBatchDraw();
+
+	<span class="hljs-keyword">bool</span> backMainUI = <span class="hljs-literal">false</span>;
+	<span class="hljs-keyword">bool</span> rePlayGame = <span class="hljs-literal">false</span>;
+	<span class="hljs-keyword">bool</span> changeShowData = <span class="hljs-literal">false</span>;
+
+	<span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>)
+	&#123;
+		changeShowData = <span class="hljs-literal">false</span>;
+		<span class="hljs-comment">//食物</span>
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>-&gt;m_food-&gt;getState() == <span class="hljs-literal">false</span>)
+		&#123;
+			m_food-&gt;Generate(<span class="hljs-keyword">this</span>-&gt;m_snake);
+			m_food-&gt;DrawFood();
+		&#125;
+
+		<span class="hljs-comment">//按键检测</span>
+		<span class="hljs-keyword">if</span> (_kbhit())
+		&#123;
+			<span class="hljs-keyword">char</span> key = _getch();
+			<span class="hljs-keyword">switch</span> (key)
+			&#123;
+			<span class="hljs-keyword">case</span> <span class="hljs-number">72</span>:  <span class="hljs-comment">//↑</span>
+			<span class="hljs-keyword">case</span> <span class="hljs-number">119</span>: <span class="hljs-comment">//w</span>
+				m_snake-&gt;ChangeDir(Dir::DIR_UP);
+				<span class="hljs-keyword">break</span>;
+			<span class="hljs-keyword">case</span> <span class="hljs-number">80</span>:  <span class="hljs-comment">//↓</span>
+			<span class="hljs-keyword">case</span> <span class="hljs-number">115</span>: <span class="hljs-comment">//s</span>
+				m_snake-&gt;ChangeDir(Dir::DIR_DOWN);
+				<span class="hljs-keyword">break</span>;
+			<span class="hljs-keyword">case</span> <span class="hljs-number">75</span>: <span class="hljs-comment">//←</span>
+			<span class="hljs-keyword">case</span> <span class="hljs-number">97</span>: <span class="hljs-comment">//a</span>
+				m_snake-&gt;ChangeDir(Dir::DIR_LEFT);
+				<span class="hljs-keyword">break</span>;
+			<span class="hljs-keyword">case</span> <span class="hljs-number">77</span>:  <span class="hljs-comment">//→</span>
+			<span class="hljs-keyword">case</span> <span class="hljs-number">100</span>: <span class="hljs-comment">//d</span>
+				m_snake-&gt;ChangeDir(Dir::DIR_RIGHT);
+				<span class="hljs-keyword">break</span>;
+			<span class="hljs-keyword">case</span> <span class="hljs-number">99</span>: <span class="hljs-comment">//c 加速</span>
+				changeShowData = m_snake-&gt;setSpeed(m_snake-&gt;getSpeed() + <span class="hljs-number">1</span>);
+				<span class="hljs-keyword">break</span>;
+			<span class="hljs-keyword">case</span> <span class="hljs-number">120</span>:<span class="hljs-comment">//x 减速</span>
+				changeShowData = m_snake-&gt;setSpeed(m_snake-&gt;getSpeed() - <span class="hljs-number">1</span>);
+				<span class="hljs-keyword">break</span>;
+			<span class="hljs-keyword">case</span> <span class="hljs-number">122</span>:<span class="hljs-comment">//z 回归原速</span>
+				changeShowData = m_snake-&gt;setSpeed(m_snake-&gt;OrgSpeed);
+				<span class="hljs-keyword">break</span>;
+			<span class="hljs-keyword">case</span> <span class="hljs-number">32</span>: <span class="hljs-comment">//空格暂停</span>
+				DrawPause();	<span class="hljs-comment">//状态区显示</span>
+				FlushBatchDraw();<span class="hljs-comment">//立即批量绘制</span>
+				<span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>)
+				&#123;
+					<span class="hljs-keyword">if</span> (_kbhit())
+					&#123;
+						<span class="hljs-keyword">char</span> key = _getch();
+						<span class="hljs-keyword">if</span> (key == <span class="hljs-number">32</span>)		<span class="hljs-comment">//按空格继续</span>
+						&#123;
+							ClearRegion(<span class="hljs-number">505</span>, <span class="hljs-number">240</span>, <span class="hljs-number">640</span>, <span class="hljs-number">480</span>);
+							DrawRunning();	<span class="hljs-comment">//绘制程序正在运行中</span>
+							FlushBatchDraw();<span class="hljs-comment">//立即批量绘制</span>
+							<span class="hljs-keyword">break</span>;
+						&#125;
+						<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (key == <span class="hljs-number">27</span>) <span class="hljs-comment">//esc键 退出</span>
+						&#123;
+							ChangeChooseUI(<span class="hljs-number">510</span>, <span class="hljs-number">347</span>, <span class="hljs-number">588</span>, <span class="hljs-number">373</span>, <span class="hljs-number">6</span>);
+							FlushBatchDraw();<span class="hljs-comment">//立即批量绘制</span>
+							Sleep(<span class="hljs-number">500</span>);
+
+							backMainUI = <span class="hljs-literal">true</span>;
+							<span class="hljs-keyword">break</span>;
+						&#125;
+					&#125;
+
+					<span class="hljs-keyword">if</span> (MouseHit())
+					&#123;
+						MOUSEMSG mouse = GetMouseMsg();<span class="hljs-comment">//获取鼠标点击消息</span>
+						<span class="hljs-keyword">if</span> (mouse.mkLButton)
+						&#123;
+							<span class="hljs-keyword">if</span> (mouse.x &gt;= <span class="hljs-number">510</span> &amp;&amp; mouse.x &lt;= <span class="hljs-number">588</span> &amp;&amp; mouse.y &gt;= <span class="hljs-number">347</span> &amp;&amp; mouse.y &lt;= <span class="hljs-number">373</span>)
+							&#123;
+								<span class="hljs-comment">//点击返回选项</span>
+								ChangeChooseUI(<span class="hljs-number">510</span>, <span class="hljs-number">347</span>, <span class="hljs-number">588</span>, <span class="hljs-number">373</span>, <span class="hljs-number">6</span>);
+								FlushBatchDraw();<span class="hljs-comment">//立即批量绘制</span>
+								Sleep(<span class="hljs-number">500</span>);
+
+								backMainUI = <span class="hljs-literal">true</span>;
+								<span class="hljs-keyword">break</span>;
+							&#125;
+						&#125;
+					&#125;
+				&#125;
+				<span class="hljs-keyword">break</span>;
+			&#125;
+
+			<span class="hljs-comment">//如果要回到主UI</span>
+			<span class="hljs-keyword">if</span> (backMainUI)
+			&#123;
+				FlushMouseMsgBuffer();<span class="hljs-comment">//清空鼠标消息缓冲区。</span>
+				<span class="hljs-keyword">break</span>;		<span class="hljs-comment">//跳出主循环</span>
+			&#125;
+		&#125;
+
+		<span class="hljs-comment">//更新显示数据</span>
+		<span class="hljs-keyword">if</span> (changeShowData)
+		&#123;
+			ClearRegion(<span class="hljs-number">505</span>, <span class="hljs-number">115</span>, <span class="hljs-number">640</span>, <span class="hljs-number">200</span>);
+			DrawScore();
+			DrawSnakeLen();
+			DrawSpeed();
+		&#125;
+
+		<span class="hljs-comment">//移动</span>
+		m_snake-&gt;Move();
+
+		<span class="hljs-comment">//吃食物</span>
+		<span class="hljs-keyword">if</span> (m_snake-&gt;ColideFood(m_food-&gt;getPos()))
+		&#123;
+			m_snake-&gt;EatFood();
+
+			<span class="hljs-keyword">this</span>-&gt;m_food-&gt;setState(<span class="hljs-literal">false</span>);
+
+			<span class="hljs-comment">//分数增加，长度增加</span>
+			<span class="hljs-keyword">this</span>-&gt;m_msg.score += <span class="hljs-number">10</span>;
+
+			<span class="hljs-comment">//更新数据</span>
+			ClearRegion(<span class="hljs-number">505</span>, <span class="hljs-number">115</span>, <span class="hljs-number">640</span>, <span class="hljs-number">200</span>);
+			DrawScore();
+			DrawSnakeLen();
+			DrawSpeed();
+		&#125;
+
+		<span class="hljs-comment">//碰撞检测</span>
+		<span class="hljs-keyword">if</span> (m_snake-&gt;ColideWall(<span class="hljs-number">10</span>, <span class="hljs-number">10</span>, <span class="hljs-number">470</span>, <span class="hljs-number">470</span>) || m_snake-&gt;ColideSnake())
+		&#123;
+			<span class="hljs-comment">////游戏结束</span>
+			m_snake-&gt;Dead();
+
+			<span class="hljs-comment">//清空游戏区，重绘死去的蛇</span>
+			ClearRegion(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">479</span>, <span class="hljs-number">480</span>);
+
+			m_snake-&gt;DrawSnake();
+
+			<span class="hljs-comment">//绘制重新开始</span>
+			DrawRebegin();
+
+			<span class="hljs-comment">//绘制GameOVer</span>
+			DrawGameOver();
+
+			FlushBatchDraw();<span class="hljs-comment">//批量绘制</span>
+
+			<span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>)
+			&#123;
+				<span class="hljs-keyword">if</span> (_kbhit())
+				&#123;
+					<span class="hljs-keyword">char</span> key = _getch();
+					<span class="hljs-keyword">if</span> (key == <span class="hljs-number">32</span>)		<span class="hljs-comment">//按空格继续</span>
+					&#123;
+						<span class="hljs-comment">//点击再来一局选项</span>
+						ChangeChooseUI(<span class="hljs-number">510</span>, <span class="hljs-number">397</span>, <span class="hljs-number">588</span>, <span class="hljs-number">423</span>, <span class="hljs-number">7</span>);
+						FlushBatchDraw();<span class="hljs-comment">//立即批量绘制</span>
+						Sleep(<span class="hljs-number">500</span>);
+
+						rePlayGame = <span class="hljs-literal">true</span>;
+						<span class="hljs-keyword">break</span>;
+					&#125;
+					<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (key == <span class="hljs-number">27</span>) <span class="hljs-comment">//esc键 退出</span>
+					&#123;
+						ChangeChooseUI(<span class="hljs-number">510</span>, <span class="hljs-number">347</span>, <span class="hljs-number">588</span>, <span class="hljs-number">373</span>, <span class="hljs-number">6</span>);
+						FlushBatchDraw();<span class="hljs-comment">//立即批量绘制</span>
+						Sleep(<span class="hljs-number">500</span>);
+
+						backMainUI = <span class="hljs-literal">true</span>;
+						<span class="hljs-keyword">break</span>;
+					&#125;
+				&#125;
+
+				<span class="hljs-keyword">if</span> (MouseHit())
+				&#123;
+					MOUSEMSG mouse = GetMouseMsg();<span class="hljs-comment">//获取鼠标点击消息</span>
+					<span class="hljs-keyword">if</span> (mouse.mkLButton)
+					&#123;
+						<span class="hljs-keyword">if</span> (mouse.x &gt;= <span class="hljs-number">510</span> &amp;&amp; mouse.x &lt;= <span class="hljs-number">588</span> &amp;&amp; mouse.y &gt;= <span class="hljs-number">347</span> &amp;&amp; mouse.y &lt;= <span class="hljs-number">373</span>)
+						&#123;
+							<span class="hljs-comment">//点击返回选项</span>
+							ChangeChooseUI(<span class="hljs-number">510</span>, <span class="hljs-number">347</span>, <span class="hljs-number">588</span>, <span class="hljs-number">373</span>, <span class="hljs-number">6</span>);
+							FlushBatchDraw();<span class="hljs-comment">//立即批量绘制</span>
+							Sleep(<span class="hljs-number">500</span>);
+
+							backMainUI = <span class="hljs-literal">true</span>;
+							<span class="hljs-keyword">break</span>;
+						&#125;
+						<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mouse.x &gt;= <span class="hljs-number">510</span> &amp;&amp; mouse.x &lt;= <span class="hljs-number">588</span> &amp;&amp; mouse.y &gt;= <span class="hljs-number">397</span> &amp;&amp; mouse.y &lt;= <span class="hljs-number">423</span>)
+						&#123;
+
+							<span class="hljs-comment">//点击再来一局选项</span>
+							ChangeChooseUI(<span class="hljs-number">510</span>, <span class="hljs-number">397</span>, <span class="hljs-number">588</span>, <span class="hljs-number">423</span>, <span class="hljs-number">7</span>);
+							FlushBatchDraw();<span class="hljs-comment">//立即批量绘制</span>
+							Sleep(<span class="hljs-number">500</span>);
+
+							rePlayGame = <span class="hljs-literal">true</span>;
+							<span class="hljs-keyword">break</span>;
+						&#125;
+					&#125;
+				&#125;
+			&#125;
+
+			<span class="hljs-comment">//如果要回到主UI</span>
+			<span class="hljs-keyword">if</span> (backMainUI)
+			&#123;
+				FlushMouseMsgBuffer();<span class="hljs-comment">//清空鼠标消息缓冲区。</span>
+				<span class="hljs-keyword">break</span>;		<span class="hljs-comment">//跳出主循环</span>
+			&#125;
+
+			<span class="hljs-comment">//如果要重新开始游戏</span>
+			<span class="hljs-keyword">if</span> (rePlayGame)
+			&#123;
+				FlushMouseMsgBuffer();<span class="hljs-comment">//清空鼠标消息缓冲区。</span>
+				<span class="hljs-keyword">break</span>;		<span class="hljs-comment">//跳出主循环</span>
+			&#125;
+		&#125;
+
+		<span class="hljs-comment">//清空屏幕</span>
+		setbkcolor(BG_COLOR);<span class="hljs-comment">//设置背景色</span>
+		ClearRegion(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">479</span>, <span class="hljs-number">480</span>);
+
+		<span class="hljs-keyword">this</span>-&gt;m_snake-&gt;DrawSnake();
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>-&gt;m_food-&gt;getState() == <span class="hljs-literal">true</span>)
+		&#123;
+			m_food-&gt;DrawFood();
+		&#125;
+
+		FlushBatchDraw();<span class="hljs-comment">//立即批量绘制</span>
+
+		<span class="hljs-keyword">int</span> sleep = <span class="hljs-number">30</span> - m_snake-&gt;getSpeed();
+		Sleep(sleep * <span class="hljs-number">10</span>);
+	&#125;
+
+	EndBatchDraw();<span class="hljs-comment">//结束批量绘制</span>
+
+	<span class="hljs-comment">//如果要回到主UI</span>
+	<span class="hljs-keyword">if</span> (backMainUI)
+	&#123;
+		m_msg.len = m_snake-&gt;getLen();
+
+		m_ranklist-&gt;SaveMsg(m_msg);
+		m_ranklist-&gt;SaveToRank();
+
+		m_GameState = <span class="hljs-number">0</span>;
+		ShowMainUI();
+	&#125;
+
+	<span class="hljs-comment">//如果要重新开始游戏</span>
+	<span class="hljs-keyword">if</span> (rePlayGame)
+	&#123;
+		m_msg.len = m_snake-&gt;getLen();
+
+		m_ranklist-&gt;SaveMsg(m_msg);
+		m_ranklist-&gt;SaveToRank();
+
+		PlayGame();
+	&#125;
+
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Game::ShowMainUI</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-comment">//清空屏幕</span>
+	setbkcolor(BG_COLOR);<span class="hljs-comment">//设置背景色</span>
+	cleardevice();
+
+	<span class="hljs-comment">/*--------------绘制标题----------*/</span>
+	settextstyle(<span class="hljs-number">80</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;微软雅黑&quot;</span>);
+	settextcolor(<span class="hljs-number">0XFFFFFF</span>);
+	outtextxy(<span class="hljs-number">230</span>, <span class="hljs-number">60</span>, <span class="hljs-string">L&quot;贪吃蛇&quot;</span>);
+
+	settextstyle(<span class="hljs-number">18</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;微软雅黑&quot;</span>);
+	outtextxy(<span class="hljs-number">380</span>, <span class="hljs-number">140</span>, <span class="hljs-string">L&quot;By Colourso&quot;</span>);
+
+	settextstyle(<span class="hljs-number">20</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;微软雅黑&quot;</span>);
+	settextcolor(<span class="hljs-number">0XFF5555</span>);
+	outtextxy(<span class="hljs-number">365</span>, <span class="hljs-number">160</span>, <span class="hljs-string">L&quot;(www.colourso.top)&quot;</span>);
+	settextcolor(<span class="hljs-number">0XFFFFFF</span>);
+
+	<span class="hljs-comment">/*--------------绘制选项----------*/</span>
+
+	setlinecolor(<span class="hljs-number">0xFF00FF</span>);
+	rectangle(<span class="hljs-number">240</span>, <span class="hljs-number">195</span>, <span class="hljs-number">400</span>, <span class="hljs-number">235</span>);
+	rectangle(<span class="hljs-number">240</span>, <span class="hljs-number">255</span>, <span class="hljs-number">400</span>, <span class="hljs-number">295</span>);
+	rectangle(<span class="hljs-number">240</span>, <span class="hljs-number">315</span>, <span class="hljs-number">400</span>, <span class="hljs-number">355</span>);
+	rectangle(<span class="hljs-number">240</span>, <span class="hljs-number">375</span>, <span class="hljs-number">400</span>, <span class="hljs-number">415</span>);
+
+
+	settextstyle(<span class="hljs-number">28</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;微软雅黑&quot;</span>);
+	settextcolor(<span class="hljs-number">0x55FFFF</span>);<span class="hljs-comment">//黄色</span>
+
+	outtextxy(<span class="hljs-number">297</span>, <span class="hljs-number">200</span>, <span class="hljs-string">L&quot;开始&quot;</span>);
+	outtextxy(<span class="hljs-number">287</span>, <span class="hljs-number">260</span>, <span class="hljs-string">L&quot;排行榜&quot;</span>);
+	outtextxy(<span class="hljs-number">297</span>, <span class="hljs-number">320</span>, <span class="hljs-string">L&quot;帮助&quot;</span>);
+	outtextxy(<span class="hljs-number">297</span>, <span class="hljs-number">380</span>, <span class="hljs-string">L&quot;退出&quot;</span>);
+
+	settextstyle(<span class="hljs-number">24</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;微软雅黑&quot;</span>);
+	settextcolor(<span class="hljs-number">0xAAAAAA</span>);
+	outtextxy(<span class="hljs-number">255</span>, <span class="hljs-number">450</span>, <span class="hljs-string">L&quot;(鼠标点击选项)&quot;</span>);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">CharToTCHAR</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> * _char, TCHAR * tchar)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">int</span> iLength;
+	iLength = MultiByteToWideChar(CP_UTF8, <span class="hljs-number">0</span>, _char, <span class="hljs-built_in">strlen</span>(_char) + <span class="hljs-number">1</span>, <span class="hljs-literal">NULL</span>, <span class="hljs-number">0</span>);
+	MultiByteToWideChar(CP_UTF8, <span class="hljs-number">0</span>, _char, <span class="hljs-built_in">strlen</span>(_char) + <span class="hljs-number">1</span>, tchar, iLength);
+
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Game::ShowRank</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-comment">//清空屏幕</span>
+	setbkcolor(BG_COLOR);<span class="hljs-comment">//设置背景色</span>
+	cleardevice();
+
+	<span class="hljs-comment">/*--------------绘制规则----------*/</span>
+	settextstyle(<span class="hljs-number">60</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;微软雅黑&quot;</span>);
+	settextcolor(<span class="hljs-number">0XFFFFFF</span>);
+	outtextxy(<span class="hljs-number">160</span>, <span class="hljs-number">40</span>, <span class="hljs-string">L&quot;贪吃蛇排行榜&quot;</span>);
+
+	<span class="hljs-comment">/*--------------绘制返回键----------*/</span>
+	setlinecolor(<span class="hljs-number">0xFFFFFF</span>);
+	rectangle(<span class="hljs-number">20</span>, <span class="hljs-number">20</span>, <span class="hljs-number">63</span>, <span class="hljs-number">43</span>);
+
+	settextcolor(<span class="hljs-number">0XFFFFFF</span>);
+	settextstyle(<span class="hljs-number">20</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;宋体&quot;</span>);
+	outtextxy(<span class="hljs-number">22</span>, <span class="hljs-number">22</span>, <span class="hljs-string">L&quot; ← &quot;</span>);
+
+	<span class="hljs-comment">/*---------------绘制排行榜信息---------------*/</span>
+	settextcolor(<span class="hljs-number">0XFFFFFF</span>);
+	settextstyle(<span class="hljs-number">20</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;宋体&quot;</span>);
+	outtextxy(<span class="hljs-number">140</span>, <span class="hljs-number">120</span>, <span class="hljs-string">L&quot;排名&quot;</span>);
+	outtextxy(<span class="hljs-number">240</span>, <span class="hljs-number">120</span>, <span class="hljs-string">L&quot;分数&quot;</span>);
+	outtextxy(<span class="hljs-number">340</span>, <span class="hljs-number">120</span>, <span class="hljs-string">L&quot;长度&quot;</span>);
+	outtextxy(<span class="hljs-number">490</span>, <span class="hljs-number">120</span>, <span class="hljs-string">L&quot;日期&quot;</span>);
+
+	<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;PlayerMsg&gt; msg = m_ranklist-&gt;getRankList();
+	<span class="hljs-keyword">if</span> (msg.size() == <span class="hljs-number">0</span>)
+	&#123;
+		settextcolor(<span class="hljs-number">0x5555FF</span>);
+		settextstyle(<span class="hljs-number">40</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;宋体&quot;</span>);
+		outtextxy(<span class="hljs-number">230</span>, <span class="hljs-number">200</span>, <span class="hljs-string">L&quot;暂无排名&quot;</span>);
+	&#125;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; msg.size(); ++i)
+	&#123;
+		<span class="hljs-keyword">if</span> (i == <span class="hljs-number">0</span>)
+		&#123;
+			settextcolor(<span class="hljs-number">0x5555FF</span>);
+			settextstyle(<span class="hljs-number">15</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;宋体&quot;</span>);
+		&#125;
+		<span class="hljs-keyword">else</span>
+		&#123;
+			settextcolor(<span class="hljs-number">0XFFFFFF</span>);
+			settextstyle(<span class="hljs-number">15</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;宋体&quot;</span>);
+		&#125;
+		TCHAR t[<span class="hljs-number">40</span>];
+		_stprintf_s(t, _T(<span class="hljs-string">&quot;%d&quot;</span>), msg[i].id);
+		outtextxy(<span class="hljs-number">145</span>, <span class="hljs-number">150</span> + <span class="hljs-number">30</span> * i, t);
+
+		_stprintf_s(t, _T(<span class="hljs-string">&quot;%d&quot;</span>), msg[i].score);
+		outtextxy(<span class="hljs-number">245</span>, <span class="hljs-number">150</span> + <span class="hljs-number">30</span> * i, t);
+
+		_stprintf_s(t, _T(<span class="hljs-string">&quot;%d&quot;</span>), msg[i].len);
+		outtextxy(<span class="hljs-number">345</span>, <span class="hljs-number">150</span> + <span class="hljs-number">30</span> * i, t);
+
+		<span class="hljs-comment">//_stprintf_s(t, _T(&quot;%s&quot;), msg[i].r_time.c_str());</span>
+		CharToTCHAR(msg[i].r_time.c_str(), t);
+		outtextxy(<span class="hljs-number">450</span>, <span class="hljs-number">150</span> + <span class="hljs-number">30</span> * i, t);
+
+		settextcolor(<span class="hljs-number">0XFFFFFF</span>);
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Game::ShowRule</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-comment">//清空屏幕</span>
+	setbkcolor(BG_COLOR);<span class="hljs-comment">//设置背景色黑色</span>
+	cleardevice();
+
+	<span class="hljs-comment">/*--------------绘制规则----------*/</span>
+	settextstyle(<span class="hljs-number">60</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;微软雅黑&quot;</span>);
+	settextcolor(<span class="hljs-number">0XFFFFFF</span>);
+	outtextxy(<span class="hljs-number">160</span>, <span class="hljs-number">40</span>, <span class="hljs-string">L&quot;贪吃蛇按键介绍&quot;</span>);
+
+	settextcolor(<span class="hljs-number">0XFFFFFF</span>);
+	settextstyle(<span class="hljs-number">20</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;宋体&quot;</span>);
+	outtextxy(<span class="hljs-number">230</span>, <span class="hljs-number">150</span>, <span class="hljs-string">L&quot;↑ ← ↓ → 控制方向&quot;</span>);
+	outtextxy(<span class="hljs-number">230</span>, <span class="hljs-number">180</span>, <span class="hljs-string">L&quot;w  a  s  d  控制方向&quot;</span>);
+	outtextxy(<span class="hljs-number">230</span>, <span class="hljs-number">210</span>, <span class="hljs-string">L&quot;速度等级1-25，默认12&quot;</span>);
+	outtextxy(<span class="hljs-number">240</span>, <span class="hljs-number">240</span>, <span class="hljs-string">L&quot;c键加速，x键减速&quot;</span>);
+	outtextxy(<span class="hljs-number">240</span>, <span class="hljs-number">270</span>, <span class="hljs-string">L&quot;z键恢复原始速度&quot;</span>);
+	outtextxy(<span class="hljs-number">240</span>, <span class="hljs-number">300</span>, <span class="hljs-string">L&quot;空格键暂停/继续&quot;</span>);
+
+	outtextxy(<span class="hljs-number">180</span>, <span class="hljs-number">350</span>, <span class="hljs-string">L&quot;请将输入法调至英文输入法状态下&quot;</span>);
+
+	<span class="hljs-comment">/*--------------绘制返回键----------*/</span>
+
+	setlinecolor(<span class="hljs-number">0xFFFFFF</span>);
+	rectangle(<span class="hljs-number">20</span>, <span class="hljs-number">20</span>, <span class="hljs-number">63</span>, <span class="hljs-number">43</span>);
+
+	settextcolor(<span class="hljs-number">0XFFFFFF</span>);
+	settextstyle(<span class="hljs-number">20</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;宋体&quot;</span>);
+	outtextxy(<span class="hljs-number">22</span>, <span class="hljs-number">22</span>, <span class="hljs-string">L&quot; ← &quot;</span>);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Game::DrawGamePlay</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-comment">//清空屏幕</span>
+	setbkcolor(BG_COLOR);<span class="hljs-comment">//设置背景色</span>
+	cleardevice();
+
+	<span class="hljs-comment">//画宽度为2的棕色实线，分割游戏区</span>
+	setlinecolor(BROWN);
+	setlinestyle(PS_SOLID, <span class="hljs-number">2</span>);
+	line(<span class="hljs-number">482</span>, <span class="hljs-number">0</span>, <span class="hljs-number">482</span>, <span class="hljs-number">480</span>);
+
+	<span class="hljs-comment">//画蛇和食物</span>
+	<span class="hljs-keyword">this</span>-&gt;m_snake-&gt;DrawSnake();
+
+	<span class="hljs-comment">//绘制分数</span>
+	DrawScore();
+
+	<span class="hljs-comment">//绘制蛇身长度</span>
+	DrawSnakeLen();
+
+	<span class="hljs-comment">//绘制速度</span>
+	DrawSpeed();
+
+	<span class="hljs-comment">//绘制游戏状态</span>
+	DrawRunning();
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Game::DrawScore</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	TCHAR s[] = _T(<span class="hljs-string">&quot;获得分数：&quot;</span>);
+	settextstyle(<span class="hljs-number">16</span>, <span class="hljs-number">0</span>, _T(<span class="hljs-string">&quot;宋体&quot;</span>));
+	settextcolor(<span class="hljs-number">0xFFFFFF</span>);<span class="hljs-comment">//白</span>
+	outtextxy(<span class="hljs-number">510</span>, <span class="hljs-number">120</span>, s);
+
+	settextcolor(<span class="hljs-number">0xFF5555</span>);<span class="hljs-comment">//亮蓝</span>
+	TCHAR t[<span class="hljs-number">5</span>];
+	_stprintf_s(t, _T(<span class="hljs-string">&quot;%d&quot;</span>), m_msg.score); <span class="hljs-comment">// 高版本 VC 推荐使用 _stprintf_s 函数</span>
+	outtextxy(<span class="hljs-number">590</span>, <span class="hljs-number">120</span>, t);
+	settextcolor(<span class="hljs-number">0xFFFFFF</span>);<span class="hljs-comment">//白</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Game::DrawSnakeLen</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	settextstyle(<span class="hljs-number">16</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;宋体&quot;</span>);
+	outtextxy(<span class="hljs-number">510</span>, <span class="hljs-number">150</span>, <span class="hljs-string">L&quot;蛇身长度：&quot;</span>);
+
+	settextcolor(<span class="hljs-number">0xFF55FF</span>);<span class="hljs-comment">//亮紫</span>
+	TCHAR t[<span class="hljs-number">5</span>];
+	_stprintf_s(t, _T(<span class="hljs-string">&quot;%d&quot;</span>), m_snake-&gt;getLen()); <span class="hljs-comment">// 高版本 VC 推荐使用 _stprintf_s 函数</span>
+	outtextxy(<span class="hljs-number">590</span>, <span class="hljs-number">150</span>, t);
+	settextcolor(<span class="hljs-number">0xFFFFFF</span>);<span class="hljs-comment">//白</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Game::DrawSpeed</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	TCHAR s[] = _T(<span class="hljs-string">&quot;当前速度：&quot;</span>);
+	settextstyle(<span class="hljs-number">16</span>, <span class="hljs-number">0</span>, _T(<span class="hljs-string">&quot;宋体&quot;</span>));
+	outtextxy(<span class="hljs-number">510</span>, <span class="hljs-number">180</span>, s);
+
+	<span class="hljs-keyword">int</span> speed = m_snake-&gt;getSpeed();<span class="hljs-comment">//速度等级显示为1 - 25</span>
+	<span class="hljs-keyword">if</span> (speed &lt;= <span class="hljs-number">9</span>)
+	&#123;
+		settextcolor(<span class="hljs-number">0x00AA00</span>);<span class="hljs-comment">//禄</span>
+	&#125;
+	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (speed &gt;= <span class="hljs-number">18</span>)
+	&#123;
+		settextcolor(<span class="hljs-number">0x0000AA</span>);<span class="hljs-comment">//红</span>
+	&#125;
+	<span class="hljs-keyword">else</span>
+	&#123;
+		settextcolor(<span class="hljs-number">0x55FFFF</span>);<span class="hljs-comment">//黄</span>
+	&#125;
+	TCHAR t[<span class="hljs-number">5</span>];
+	_stprintf_s(t, _T(<span class="hljs-string">&quot;%d&quot;</span>), speed); <span class="hljs-comment">// 高版本 VC 推荐使用 _stprintf_s 函数</span>
+	outtextxy(<span class="hljs-number">590</span>, <span class="hljs-number">180</span>, t);
+	settextcolor(<span class="hljs-number">0xFFFFFF</span>);<span class="hljs-comment">//白</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Game::DrawRunning</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	settextcolor(<span class="hljs-number">0x55FF55</span>);<span class="hljs-comment">//亮绿</span>
+	settextstyle(<span class="hljs-number">16</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;宋体&quot;</span>);
+	outtextxy(<span class="hljs-number">510</span>, <span class="hljs-number">250</span>, <span class="hljs-string">L&quot;游戏 运行&quot;</span>);
+	outtextxy(<span class="hljs-number">510</span>, <span class="hljs-number">280</span>, <span class="hljs-string">L&quot;祝玩的开心&quot;</span>);
+	settextcolor(<span class="hljs-number">0xFFFFFF</span>);<span class="hljs-comment">//白</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Game::DrawPause</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	settextcolor(<span class="hljs-number">0xFF55FF</span>);<span class="hljs-comment">//亮紫</span>
+	settextstyle(<span class="hljs-number">16</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;宋体&quot;</span>);
+	outtextxy(<span class="hljs-number">510</span>, <span class="hljs-number">250</span>, <span class="hljs-string">L&quot;游戏 暂停&quot;</span>);
+	outtextxy(<span class="hljs-number">510</span>, <span class="hljs-number">280</span>, <span class="hljs-string">L&quot;空格键继续&quot;</span>);
+	outtextxy(<span class="hljs-number">510</span>, <span class="hljs-number">310</span>, <span class="hljs-string">L&quot;Esc键退出&quot;</span>);
+	settextcolor(<span class="hljs-number">0xFFFFFF</span>);<span class="hljs-comment">//白</span>
+
+	setlinecolor(<span class="hljs-number">0xFFFFFF</span>);
+	rectangle(<span class="hljs-number">510</span>, <span class="hljs-number">347</span>, <span class="hljs-number">588</span>, <span class="hljs-number">373</span>);
+
+	settextcolor(<span class="hljs-number">0XFFFFFF</span>);
+	settextstyle(<span class="hljs-number">16</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;宋体&quot;</span>);
+	outtextxy(<span class="hljs-number">517</span>, <span class="hljs-number">352</span>, <span class="hljs-string">L&quot;退出游戏&quot;</span>);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Game::DrawRebegin</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	settextcolor(<span class="hljs-number">0x5555FF</span>);<span class="hljs-comment">//亮红</span>
+	settextstyle(<span class="hljs-number">16</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;宋体&quot;</span>);
+	outtextxy(<span class="hljs-number">510</span>, <span class="hljs-number">250</span>, <span class="hljs-string">L&quot;游戏 结束&quot;</span>);
+	outtextxy(<span class="hljs-number">510</span>, <span class="hljs-number">280</span>, <span class="hljs-string">L&quot;空格键再来一局&quot;</span>);
+	outtextxy(<span class="hljs-number">510</span>, <span class="hljs-number">310</span>, <span class="hljs-string">L&quot;Esc键退出&quot;</span>);
+	settextcolor(<span class="hljs-number">0xFFFFFF</span>);<span class="hljs-comment">//白</span>
+
+	setlinecolor(<span class="hljs-number">0xFFFFFF</span>);
+	rectangle(<span class="hljs-number">510</span>, <span class="hljs-number">347</span>, <span class="hljs-number">588</span>, <span class="hljs-number">373</span>);
+	rectangle(<span class="hljs-number">510</span>, <span class="hljs-number">397</span>, <span class="hljs-number">588</span>, <span class="hljs-number">423</span>);
+
+	settextcolor(<span class="hljs-number">0XFFFFFF</span>);
+	settextstyle(<span class="hljs-number">16</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;宋体&quot;</span>);
+	outtextxy(<span class="hljs-number">517</span>, <span class="hljs-number">352</span>, <span class="hljs-string">L&quot;退出游戏&quot;</span>);
+	outtextxy(<span class="hljs-number">517</span>, <span class="hljs-number">402</span>, <span class="hljs-string">L&quot;再来一局&quot;</span>);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Game::DrawGameOver</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	settextcolor(<span class="hljs-number">0xFFFFFF</span>);<span class="hljs-comment">//亮红</span>
+	settextstyle(<span class="hljs-number">48</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;宋体&quot;</span>);
+	outtextxy(<span class="hljs-number">170</span>, <span class="hljs-number">210</span>, <span class="hljs-string">L&quot;GAMEOVER&quot;</span>);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Game::ChangeChooseUI</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> top, <span class="hljs-keyword">int</span> right, <span class="hljs-keyword">int</span> bottom, <span class="hljs-keyword">int</span> kind)</span></span>
+<span class="hljs-function"></span>&#123;
+	setfillcolor(<span class="hljs-number">0XFFFFFF</span>);				<span class="hljs-comment">//使用白色填充这一区域</span>
+	fillrectangle(left, top, right, bottom);
+
+	setlinecolor(<span class="hljs-number">0x55FF55</span>);				<span class="hljs-comment">//画线边框设置为亮绿色</span>
+	rectangle(left, top, right, bottom);
+
+	settextstyle(<span class="hljs-number">28</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;微软雅黑&quot;</span>);
+	settextcolor(<span class="hljs-number">0xFF5555</span>);<span class="hljs-comment">//亮蓝色</span>
+
+	setbkcolor(<span class="hljs-number">0XFFFFFF</span>);				<span class="hljs-comment">//设置背景色为白色，文字的背景色就会变成白色</span>
+	<span class="hljs-keyword">switch</span> (kind)
+	&#123;
+	<span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
+		outtextxy(<span class="hljs-number">297</span>, <span class="hljs-number">200</span>, <span class="hljs-string">L&quot;开始&quot;</span>);
+		<span class="hljs-keyword">break</span>;
+	<span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:
+		outtextxy(<span class="hljs-number">287</span>, <span class="hljs-number">260</span>, <span class="hljs-string">L&quot;排行榜&quot;</span>);
+		<span class="hljs-keyword">break</span>;
+	<span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:
+		outtextxy(<span class="hljs-number">297</span>, <span class="hljs-number">320</span>, <span class="hljs-string">L&quot;帮助&quot;</span>);
+		<span class="hljs-keyword">break</span>;
+	<span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:
+		outtextxy(<span class="hljs-number">297</span>, <span class="hljs-number">380</span>, <span class="hljs-string">L&quot;退出&quot;</span>);
+		<span class="hljs-keyword">break</span>;
+	<span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:
+		settextcolor(<span class="hljs-number">0</span>);
+		settextstyle(<span class="hljs-number">20</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;宋体&quot;</span>);
+		outtextxy(<span class="hljs-number">22</span>, <span class="hljs-number">22</span>, <span class="hljs-string">L&quot; ← &quot;</span>);
+		<span class="hljs-keyword">break</span>;
+	<span class="hljs-keyword">case</span> <span class="hljs-number">6</span>:
+		settextcolor(<span class="hljs-number">0</span>);
+		settextstyle(<span class="hljs-number">16</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;宋体&quot;</span>);
+		outtextxy(<span class="hljs-number">517</span>, <span class="hljs-number">352</span>, <span class="hljs-string">L&quot;退出游戏&quot;</span>);
+		<span class="hljs-keyword">break</span>;
+	<span class="hljs-keyword">case</span> <span class="hljs-number">7</span>:
+		settextcolor(<span class="hljs-number">0</span>);
+		settextstyle(<span class="hljs-number">16</span>, <span class="hljs-number">0</span>, <span class="hljs-string">L&quot;宋体&quot;</span>);
+		outtextxy(<span class="hljs-number">517</span>, <span class="hljs-number">402</span>, <span class="hljs-string">L&quot;再来一局&quot;</span>);
+		<span class="hljs-keyword">break</span>;
+	&#125;
+	setbkcolor(BG_COLOR);	<span class="hljs-comment">//恢复背景色</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Game::ClearRegion</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> top, <span class="hljs-keyword">int</span> right, <span class="hljs-keyword">int</span> bottom)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-comment">//黑色，全填充，无边框的矩形</span>
+	setfillcolor(BG_COLOR);
+	setfillstyle(BS_SOLID);
+	solidrectangle(left, top, right, bottom);
+&#125;</code></pre>
+<h3 id="main-cpp"><a href="#main-cpp" class="headerlink" title="main.cpp"></a>main.cpp</h3><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Snake.h&quot;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;Game.h&quot;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	Game game;
+	game.Init();
+	game.Run();
+	game.Close();
+
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre>
+<h2 id="程序展示"><a href="#程序展示" class="headerlink" title="程序展示"></a>程序展示</h2><p>以下是B站视频</p>
+<iframe src="//player.bilibili.com/player.html?aid=371573766&bvid=BV1fZ4y1T7xo&cid=218646009&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"    width="100%" style="height: 430px; max-width: 100%"> </iframe>
+上面视频不能播放请移步：https://www.bilibili.com/video/BV1fZ4y1T7xo/
+
+<h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><p>百度链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1mUupX0KVOY7W3W2G_OyjmQ">https://pan.baidu.com/s/1mUupX0KVOY7W3W2G_OyjmQ</a><br>提取码：p7qi</p>
+<p>Github地址：<a target="_blank" rel="noopener" href="https://github.com/Colourso/Simple-CPP-project-by-Colourso/">https://github.com/Colourso/Simple-CPP-project-by-Colourso/</a></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/C-C/">C/C++</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/">文件下载</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/autohotkey/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">AutoHotkey入门 ~ Windows下自动化脚本</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/c-snake-pro5/">
+                        <span class="hidden-mobile">C++基于EasyX制作贪吃蛇游戏（五）第三版文档</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/c-snake-pro6/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "C++基于EasyX制作贪吃蛇游戏（六）第三版代码与程序&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>计算机网络——第三章 数据链路层 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-09-02 12:14">
+      星期一, 九月 2日 2019, 12:14 中午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      28
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><strong>概览</strong>：计算机网络数据链路层的两个基本概念(数据链路和帧)，三个基本问题，两种信道通信方式，以及对应的协议PPP或者CSMA/CD，以及以太网。</p>
+<a id="more"></a>
+
+<blockquote>
+<p>参照书籍：</p>
+<p><strong>《计算机网络(第七版)》——谢希仁编著</strong></p>
+<p><strong>《图解TCP/IP》第五版</strong></p>
+</blockquote>
+<hr>
+<h2 id="数据链路层的基本概念"><a href="#数据链路层的基本概念" class="headerlink" title="数据链路层的基本概念"></a>数据链路层的基本概念</h2><p><strong>链路</strong>：链路(link)是一个结点到相邻结点的物理线路段(有线或者无线)，中间没有任何其他的交换结点。</p>
+<p>而<strong>数据链路</strong>(data link)是在链路的基础上增加了一些必要的<strong>硬件</strong>(如网络适配器)和<strong>软件</strong>(通信协议的实现)。</p>
+<p>数据链路层的协议数据单位是<strong>帧</strong>。</p>
+<p><strong>数据链路层把网络层交下来的数据构成帧发送到链路上，以及把接收的帧中的数据取出并上交给网络层。</strong></p>
+<p><img src="network-chapter-3/zhen.png" srcset="/img/loading.gif"></p>
+<h2 id="数据链路层的三个基本问题"><a href="#数据链路层的三个基本问题" class="headerlink" title="数据链路层的三个基本问题"></a>数据链路层的三个基本问题</h2><h3 id="封装成帧"><a href="#封装成帧" class="headerlink" title="封装成帧"></a>封装成帧</h3><p>在一段数据的前后分别添加首部和尾部，然后就构成了一个帧。确定帧的界限。</p>
+<p>首部和尾部的一个重要作用就是进行<strong>帧定界</strong>。 </p>
+<p><img src="network-chapter-3/zhen1.png" srcset="/img/loading.gif"></p>
+<h3 id="透明传输"><a href="#透明传输" class="headerlink" title="透明传输"></a>透明传输</h3><p>当帧里含有SOH或者EOT这种控制字符的二进制码时，数据链路层会错误的找到帧的边界，而导致数据读取丢失等问题。</p>
+<p>而所谓透明传输是指无论什么样组合的比特数据都可以<strong>按照原样没有差错</strong>的通过数据链路层。</p>
+<p>解决方法——字节填充(byte stuffing)或字符填充(character stuffing)：</p>
+<p>发送端的数据链路层在数据中出现控制字符“SOH”或“EOT”的前面插入一个<strong>转义字符</strong>“ESC”(其十六进制编码是 1B)。</p>
+<p>接收端的数据链路层在将数据送往网络层之前<strong>删除</strong>插入的转义字符。</p>
+<p>如果转义字符也出现数据当中，那么应在转义字符前面插入一个转义字符。当接收端收到连续的两个转义字符时，就删除其中前面的一个。</p>
+<p><img src="network-chapter-3/esc.png" srcset="/img/loading.gif"></p>
+<h3 id="差错检测"><a href="#差错检测" class="headerlink" title="差错检测"></a>差错检测</h3><p>在传输过程中可能会产生<strong>比特差错</strong>：1 可能会变成 0 而 0 也可能变成 1。</p>
+<p>在一段时间内，传输错误的比特占所传输比特总数的比率称为<strong>误码率</strong> BER (Bit Error Rate)。</p>
+<p>在数据链路层传送的帧中，广泛使用了<strong>循环冗余检验 CRC</strong> 的检错技术。</p>
+<blockquote>
+<p>在发送端，先把数据划分为组。假定每组 k 个比特。 </p>
+<p>假设待传送的一组数据 M = 101001（现在 k = 6）。我们在 M 的后面再添加供差错检测用的 n 位冗余码一起发送。</p>
+<p>在数据后面添加上的冗余码称为<strong>帧检验序列 FCS</strong> (Frame Check Sequence)。</p>
+<p>仅用循环冗余检验 CRC 差错检测技术只能做到<strong>无差错接受</strong>(accept)——<strong>凡是接收端数据链路层接受的帧都没有传输差错（有差错的帧就丢弃而不接受）</strong></p>
+</blockquote>
+<h2 id="两种信道"><a href="#两种信道" class="headerlink" title="两种信道"></a>两种信道</h2><p>数据链路层使用的信道主要有以下两种类型：</p>
+<ul>
+<li><strong>点对点信道</strong>。这种信道使用<strong>一对一的点对点通信</strong>方式。</li>
+<li><strong>广播信道</strong>。这种信道使用<strong>一对多的广播通信</strong>方式，因此过程比较复杂。广播信道上连接的主机很多，因此必须使用专用的共享信道协议来协调这些主机的数据发送。 </li>
+</ul>
+<h2 id="点对点协议-PPP"><a href="#点对点协议-PPP" class="headerlink" title="点对点协议 PPP"></a>点对点协议 PPP</h2><blockquote>
+<p>现在全世界使用得最多的数据链路层协议是点对点协议 PPP (Point-to-Point Protocol)。</p>
+<p>用户使用拨号电话线接入因特网时，一般都是使用 PPP 协议。  </p>
+</blockquote>
+<h2 id="局域网-–-使用广播信道的数据链路层"><a href="#局域网-–-使用广播信道的数据链路层" class="headerlink" title="局域网 – 使用广播信道的数据链路层"></a>局域网 – 使用广播信道的数据链路层</h2><h3 id="局域网的优点"><a href="#局域网的优点" class="headerlink" title="局域网的优点"></a>局域网的优点</h3><ul>
+<li>具有<strong>广播功能</strong>，从一个站点可很方便地访问全网。局域网上的主机可共享连接在局域网上的各种硬件和软件资源。</li>
+<li>便于系统的扩展和逐渐地演变，各设备的位置可灵活调整和改变。</li>
+<li>提高了系统的可靠性、可用性和残存性。</li>
+</ul>
+<h3 id="共享信道技术"><a href="#共享信道技术" class="headerlink" title="共享信道技术"></a>共享信道技术</h3><p><img src="network-chapter-3/sharechannel.png" srcset="/img/loading.gif"></p>
+<p>静态划分信道<strong>代价高</strong>，不适用于局域网。</p>
+<p>动态媒体接入控制也叫做<strong>多点接入</strong>，特点是：信道并非在用户通信时固定分配给用户。</p>
+<p><strong>随机接入</strong>：所有的用户可随机发送信息，但如果多个用户同时发送消息就会产生冲突导致失败。而<strong>以太网</strong>就是属于随机接入。</p>
+<h3 id="适配器-–-计算机连接到局域网"><a href="#适配器-–-计算机连接到局域网" class="headerlink" title="适配器 – 计算机连接到局域网"></a>适配器 – 计算机连接到局域网</h3><p>计算机通过适配器和局域网进行通信 </p>
+<p><img src="network-chapter-3/communication.png" srcset="/img/loading.gif"></p>
+<p>网络接口板又称为<strong>通信适配器</strong>(adapter)或网络接口卡 <strong>NIC</strong> (Network Interface Card)，或“<strong>网卡</strong>”。 </p>
+<p><strong>适配器的重要功能</strong>：</p>
+<ul>
+<li>进行串行/并行转换。</li>
+<li>对数据进行缓存。</li>
+<li>在计算机的操作系统安装设备驱动程序。</li>
+<li>实现以太网协议。 </li>
+</ul>
+<h2 id="以太网"><a href="#以太网" class="headerlink" title="以太网"></a>以太网</h2><h3 id="在局域网的总线上实现一对一通信"><a href="#在局域网的总线上实现一对一通信" class="headerlink" title="在局域网的总线上实现一对一通信"></a>在局域网的总线上实现一对一通信</h3><p>最初的以太网是将许多计算机都连接到一根总线上。</p>
+<blockquote>
+<p>总线连接的局域网内B向D发送数据，实现一对一通信。</p>
+<p>总线上的每一个工作的计算机都能检测到 B 发送的数据信号。<br>由于只有计算机 D 的地址与数据帧首部写入的地址一致，因此只有 D 才接收这个数据帧。<br>其他所有的计算机（A, C 和 E）都检测到不是发送给它们的数据帧，因此就丢弃这个数据帧而不能够收下来。</p>
+</blockquote>
+<h3 id="以太网的两个重要措施"><a href="#以太网的两个重要措施" class="headerlink" title="以太网的两个重要措施"></a>以太网的两个重要措施</h3><ul>
+<li>采用较为灵活的<strong>无连接</strong>的工作方式，即不必先建立连接就可以直接发送数据。 </li>
+<li>以太网发送的数据都使用<strong>曼彻斯特编码</strong>(Manchester) </li>
+</ul>
+<p><strong>无连接的工作方式</strong>：以太网对发送的数据帧不进行编号，也不要求对方发回确认。所以以太网提供的服务是<strong>不可靠的交付</strong>，即尽最大努力的交付。差错的纠正由高层来决定。</p>
+<h3 id="CSMA-CD协议"><a href="#CSMA-CD协议" class="headerlink" title="CSMA/CD协议"></a>CSMA/CD协议</h3><p>载波监听多点接入/碰撞检测</p>
+<ul>
+<li><strong>多点接入</strong>：说明是<strong>总线型网络</strong>。表示许多计算机以多点接入的方式连接在一根总线上。</li>
+<li><strong>载波监听</strong>：用电子技术检测总线上有没有其他计算机发送的数据信号。</li>
+<li><strong>碰撞检测</strong>：<strong>边发送边监听</strong>。适配器边发送数据边检测信道上的信号电压的变化情况，以便判断自己在发送数据时其他站是否也再发送数据。如果有两个站在同时发送数据，那么信号就发生了<strong>失真</strong>，无法从中恢复出有用的信息。</li>
+</ul>
+<h3 id="以太网发送的不确定性"><a href="#以太网发送的不确定性" class="headerlink" title="以太网发送的不确定性"></a>以太网发送的不确定性</h3><p>即，一个以太网中，<strong>每一个站在自己发送数据之后的一段时间内，存在着遭遇碰撞的可能性</strong>。这一段时间是不确定的。</p>
+<p><img src="network-chapter-3/chuanboshiyan.png" srcset="/img/loading.gif"></p>
+<p>课本P87。</p>
+<p>在发送数据帧后最多经过以太网端到端的往返时间的这一段<strong>争用期</strong>。只要经过这一段争用期而没有检测到碰撞，才能肯定这次发送不会碰撞。</p>
+<p>以太网使用截断二进制指数退避算法来确定碰撞后<strong>重传</strong>的时机。</p>
+<h3 id="截断二进制指数退避算法"><a href="#截断二进制指数退避算法" class="headerlink" title="截断二进制指数退避算法"></a>截断二进制指数退避算法</h3><p>todo</p>
+<hr>
+<h2 id="OSI参考模型中的数据链路层"><a href="#OSI参考模型中的数据链路层" class="headerlink" title="OSI参考模型中的数据链路层"></a>OSI参考模型中的数据链路层</h2><p>数据链路层负责物理层面上互连的、节点之间的通信传输。例如与1个以太网相连的2个节点之间的通信。</p>
+<p><strong>主要功能</strong>：将0、1序列划分为具有意义的数据帧传送给对端(<strong>数据帧的生成与接受</strong>)。</p>
+<p>数据链路层的协议定义了通过通信媒介互连的设备之间传输的规范。</p>
+<h2 id="设备之间的数据传输"><a href="#设备之间的数据传输" class="headerlink" title="设备之间的数据传输"></a>设备之间的数据传输</h2><p><strong>各个设备之间在数据传输时，数据链路层和物理层都是必不可少的</strong>。</p>
+<p>因为计算机用0、1表示信息，而实际的通信媒介处理的却是电压的高低、光的闪灭以及电波的强弱等信号。</p>
+<p>物理层将这些信号与二进制的0、1进行转换。</p>
+<p>数据链路层将0、1序列集合为”帧“，然后再进行传输。</p>
+<h2 id="《图解TCP-IP》中的数据链路层"><a href="#《图解TCP-IP》中的数据链路层" class="headerlink" title="《图解TCP/IP》中的数据链路层"></a>《图解TCP/IP》中的数据链路层</h2><p><img src="network-chapter-3/tcpipOSI.png" srcset="/img/loading.gif"></p>
+<p>网卡层(网络接口层)及对应的数据链路层，是利用以太网中的数据链路层进行通信的，属于接口层。可以当作让NIC(网卡)起作用的“驱动程序”。</p>
+<blockquote>
+<p> TCP/IP对于OSI参考模型中的数据链路层及一下部分(物理层)未做定义，因为TCP/IP以这两层的功能是透明的为前提。</p>
+</blockquote>
+<h2 id="数据链路层的相关技术"><a href="#数据链路层的相关技术" class="headerlink" title="数据链路层的相关技术"></a>数据链路层的相关技术</h2><h3 id="MAC地址"><a href="#MAC地址" class="headerlink" title="MAC地址"></a>MAC地址</h3><p>MAC地址用于识别数据链路中互连的节点。</p>
+<p>MAC地址长为48比特，这是IEEE 802标准规定的全球地址，MAC地址会被固化到适配器(比如网卡)的ROM中，要求任何一个适配器的MAC地址都是唯一的，在全世界都不会有重复。</p>
+<p><img src="network-chapter-3/macaddress.png" srcset="/img/loading.gif"></p>
+<ul>
+<li>除了以太网，FDDI、ATM、无线LAN、蓝牙等都使用的相同规格的MAC地址。</li>
+</ul>
+<h3 id="共享介质型网络"><a href="#共享介质型网络" class="headerlink" title="共享介质型网络"></a>共享介质型网络</h3><p>指多个设备共享一个通信介质的一种网络。在这种方式下，设备之间使用同一个载波信道进行发送和接受。(基本采用半双工通信)。需要对介质进行访问控制。</p>
+<p>两种介质访问控制方式：<strong>争用方式</strong>和<strong>令牌传递方式</strong>。</p>
+<h4 id="争用方式"><a href="#争用方式" class="headerlink" title="争用方式"></a>争用方式</h4><p>争夺获取数据传输的权力，即<strong>先到先得</strong>。也叫做CSMA(载波监听多路访问)。</p>
+<ul>
+<li>如果多个站同时发送帧，则会产生<strong>冲突现象</strong>，也因此会导致网络拥堵与性能下降，</li>
+</ul>
+<p><img src="network-chapter-3/csma.png" srcset="/img/loading.gif"></p>
+<p>CSMA的改良版本——<strong>CSMA/CD方式</strong>(载波监听多路访问/碰撞检测)。</p>
+<p>CSMA/CD方式会要求每个站提前检查冲突，一旦发生冲突，则尽早释放信道。</p>
+<p><strong>CSMA/CD工作原理</strong>：</p>
+<ul>
+<li>如果载波信道上没有数据流动，则任何站都可以发送数据。</li>
+<li>检查是否会发生冲突。一旦发生冲突时，放弃发送数据，同时立即释放载波通道。</li>
+<li>放弃发送以后，随机延时一段时间，再重新争用介质，重新发送帧。</li>
+</ul>
+<p><img src="network-chapter-3/CSMACD.png" srcset="/img/loading.gif"></p>
+<h4 id="令牌传递方式"><a href="#令牌传递方式" class="headerlink" title="令牌传递方式"></a>令牌传递方式</h4><p>是沿着令牌环发送一种“令牌”的特殊报文，只有获得令牌的站才能发送数据。</p>
+<ul>
+<li>不会有冲突</li>
+<li>每个站都有通过平等循环获得令牌的机会。</li>
+</ul>
+<p><img src="network-chapter-3/token.png" srcset="/img/loading.gif"></p>
+<h3 id="非介质共享网络"><a href="#非介质共享网络" class="headerlink" title="非介质共享网络"></a>非介质共享网络</h3><p>发送端与接收端不共享通信介质，而是直连交换机，由<strong>交换机负责转发数据帧</strong>。(采用全双工通信方式)</p>
+<p><img src="network-chapter-3/exchange.png" srcset="/img/loading.gif"></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/network-chapter-4/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">计算机网络——第四章 网络层</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/network-chapter-2/">
+                        <span class="hidden-mobile">计算机网络——第二章 物理层</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/network-chapter-3/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "计算机网络——第三章 数据链路层&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

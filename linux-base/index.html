@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>Linux基础命令 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-07-07 22:34">
+      星期日, 七月 7日 2019, 10:34 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><strong>概览</strong>：Linux目录结构，Linux用户与用户组，文件目录操作命令，修改权限，文件查找以及压缩指令。</p>
+<a id="more"></a>
+
+<p><strong>Linux下一切皆文件。</strong></p>
+<h2 id="Linux的一般文件目录的颜色"><a href="#Linux的一般文件目录的颜色" class="headerlink" title="Linux的一般文件目录的颜色"></a>Linux的一般文件目录的颜色</h2><p>我使用的是<code>ubuntu-18.04.2</code>。</p>
+<pre><code class="hljs ada">白色 <span class="hljs-comment">-- 普通文件</span>
+绿色 <span class="hljs-comment">-- 可执行文件</span>
+红色 <span class="hljs-comment">-- 压缩文件</span>
+蓝色 <span class="hljs-comment">-- 目录文件</span>
+青色 <span class="hljs-comment">-- 链接文件</span>
+黄色 <span class="hljs-comment">-- 设备文件</span>
+灰色 <span class="hljs-comment">-- 其他文件</span></code></pre>
+<h2 id="Linux目录结构"><a href="#Linux目录结构" class="headerlink" title="Linux目录结构"></a>Linux目录结构</h2><p><img src="linux-base%5Clinux-catalog.png" srcset="/img/loading.gif"></p>
+<pre><code class="hljs jboss-cli"><span class="hljs-string">/root</span> : Linux超级用户的家目录
+<span class="hljs-string">/bin</span>: binary，二进制文件，有许多可执行程序。
+<span class="hljs-string">/dev</span>: device，设备。硬盘显卡等设备被抽象成为文件。
+<span class="hljs-string">/etc</span>：存放配置文件<span class="hljs-params">(/etc/password 密码文件，/etc/group 当前有哪些用户组)</span>
+<span class="hljs-string">/home</span>: linux操作系统所有用户的家目录。<span class="hljs-params">(/home/colorso 我的宿主目录)</span>
+<span class="hljs-string">/lib</span> : Linux运行时会加载的一些动态库
+<span class="hljs-string">/mnt</span> : 手动挂载的目录，比如嵌入式挂载U盘。
+<span class="hljs-string">/media</span> : 外设的自动挂载目录
+<span class="hljs-string">/usr</span> : unix system resourse 资源目录。里面有个games文件夹😁
+<span class="hljs-string">/opt</span> ： 安装的第三方应用程序
+<span class="hljs-string">/tmp</span> ： 存放临时文件，重启电脑时目录会清空</code></pre>
+<p>安装Ubuntu的时候就接触了/etc这个目录🙃</p>
+<h2 id="文件或者目录的相关命令"><a href="#文件或者目录的相关命令" class="headerlink" title="文件或者目录的相关命令"></a>文件或者目录的相关命令</h2><ul>
+<li><strong>ls</strong>  –  查看文件与目录</li>
+</ul>
+<p>ls命令可以查看一个文件夹之内的文件与目录。</p>
+<p>常用命令：</p>
+<pre><code class="hljs stata"><span class="hljs-keyword">ls</span> [<span class="hljs-keyword">dir</span>] 直接显示出<span class="hljs-keyword">dir</span>目录下的文件与文件夹，默认以文件名进行排序。
+<span class="hljs-keyword">ls</span> -al [<span class="hljs-keyword">dir</span>]  将<span class="hljs-keyword">dir</span>目录下的文件，包括隐藏文件以及各个文件的属性显示出来。</code></pre>
+<ul>
+<li><p><code>ll</code> 命令就是 <code>ls -l</code>  的简写，列出一长串数据，包含文件的属性和权限。</p>
+</li>
+<li><p>cd  –  切换目录</p>
+<pre><code class="hljs shell">cd dir #直接进入对应的目录
+cd /home/用户名 #进入home目录
+cd ~  #进入home目录
+cd #进入home目录，什么也不加</code></pre></li>
+<li><p><strong>cp</strong>  –  复制文件或者目录。</p>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">cp 要拷贝的文件/目录 到达的位置/文件</span>
+cp file file1(存在)  #file将会覆盖掉file1
+cp file file1(不存在)  #创建file1,将file中的内容拷贝到file1中
+cp file dir(目录、存在)  #拷贝file到dir目录中
+cp dir(存在) dir1(存在)  #将dir整个拷贝到dir1之中，也包括dir这一层目录
+cp dir(存在) dir1(不存在)  #创建 dir1这个目录，然后把dir中的内容拷贝到dir1之中，不包括dir。</code></pre></li>
+<li><p><strong>mv</strong> –  改名或者移动文件。</p>
+<pre><code class="hljs shell">mv file(存在) file1(不存在) # file文件改名
+mv dir(目录) dir1(不存在)   # dir目录改名
+mv file(文件) dir(存在目录)  # 移动文件file到目录dir中
+mv dir(目录存在) dir1(目录存在) # 目录dir移动到dir1目录中
+mv file(文件存在) file1(文件存在) # file文件会覆盖file1文件，并且file文件会被删除掉</code></pre></li>
+<li><p><strong>rm</strong> – 删除文件或者目录，删除目录时加上参数 <code>-r</code>。</p>
+<pre><code class="hljs shell">rm dir -r</code></pre></li>
+<li><p><strong>pwd</strong> – 输出当前所在用户路径</p>
+</li>
+<li><p><strong>mkdir</strong> – 创建目录</p>
+<pre><code class="hljs shell">mkdir dir #创建一个目录
+mkdir dir/dir1/dir2 #目录不存在或者创建多级目录时加上参数 -p</code></pre>
+
+</li>
+</ul>
+<h2 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h2><p>使用 <code>ll</code> 命令时可以看到每一个文件对应的类型。</p>
+<pre><code class="hljs stylus">-  代表普通文件
+d  代表目录
+l  代表符号链接，linkfile,类似于windows的快捷方式
+<span class="hljs-selector-tag">p</span>  代表管道
+s  代表套接字 socket
+c  代表字符设备，例如鼠标键盘
+<span class="hljs-selector-tag">b</span>  代表块设备，例如U盘硬盘</code></pre>
+<h2 id="用户与用户组"><a href="#用户与用户组" class="headerlink" title="用户与用户组"></a>用户与用户组</h2><p>Linux之下一切都是文件，并且Linux是多用户多任务的系统。</p>
+<p>通过用户身份、与该用户所支持的用户组的概念，可以帮助我们让多任务的Linux环境变得更容易管理。</p>
+<pre><code class="hljs pgsql"><span class="hljs-keyword">user</span>  <span class="hljs-comment">-- 文件所有者</span>
+<span class="hljs-keyword">group</span> <span class="hljs-comment">-- 文件所属组用户</span>
+others <span class="hljs-comment">-- 其他人</span></code></pre>
+<h2 id="修改文件、目录权限"><a href="#修改文件、目录权限" class="headerlink" title="修改文件、目录权限"></a>修改文件、目录权限</h2><h3 id="chmod-–-文字设定法"><a href="#chmod-–-文字设定法" class="headerlink" title="chmod – 文字设定法"></a>chmod – 文字设定法</h3><pre><code class="hljs brainfuck"><span class="hljs-comment">chmod</span>  <span class="hljs-comment">who</span><span class="hljs-title">[</span><span class="hljs-literal">+</span><span class="hljs-comment">|</span><span class="hljs-literal">-</span><span class="hljs-comment">|=</span><span class="hljs-title">]</span><span class="hljs-comment">mode</span>  <span class="hljs-comment">文件名</span>
+<span class="hljs-comment"></span>
+<span class="hljs-comment">这里的who指三种身份：u</span>--<span class="hljs-comment">代表user</span><span class="hljs-string">,</span><span class="hljs-comment">g</span> -- <span class="hljs-comment">group</span><span class="hljs-string">,</span><span class="hljs-comment">o</span> -- <span class="hljs-comment">other</span><span class="hljs-string">,</span>
+<span class="hljs-comment">				</span>  <span class="hljs-comment">a</span> -- <span class="hljs-comment">all</span><span class="hljs-string">,</span><span class="hljs-comment">不写时默认就是all。</span>
+<span class="hljs-comment"></span><span class="hljs-literal">+</span><span class="hljs-comment">、</span><span class="hljs-literal">-</span><span class="hljs-comment">、=，三种操作见名知意</span>
+<span class="hljs-comment">mode指修改的执行权限：r</span> -- <span class="hljs-comment">读，w</span> -- <span class="hljs-comment">写，</span> <span class="hljs-comment">x</span> -- <span class="hljs-comment">执行</span>
+<span class="hljs-comment">				</span>   <span class="hljs-literal">-</span> -- <span class="hljs-comment">表示没有任何权限</span></code></pre>
+<p><img src="linux-base%5Cchmod1.png" srcset="/img/loading.gif"></p>
+<p>上图表示去除test文件的文件所有者以及其他人的执行权限。</p>
+<ul>
+<li>并列的操作可以使用逗号进行分割：<code>chmod u+x,g-x test</code>.</li>
+</ul>
+<h3 id="chmod-–-数字设定法"><a href="#chmod-–-数字设定法" class="headerlink" title="chmod – 数字设定法"></a>chmod – 数字设定法</h3><pre><code class="hljs brainfuck"><span class="hljs-comment">chmod</span>  <span class="hljs-title">[</span><span class="hljs-literal">+</span><span class="hljs-comment">|</span><span class="hljs-literal">-</span><span class="hljs-comment">|=</span><span class="hljs-title">]</span><span class="hljs-comment">mode</span>  <span class="hljs-comment">文件名</span>
+<span class="hljs-comment"></span>
+<span class="hljs-comment"></span><span class="hljs-literal">+</span><span class="hljs-comment">、</span><span class="hljs-literal">-</span><span class="hljs-comment">、=，三种操作见名知意</span>
+<span class="hljs-comment">mode指修改的执行权限，只不过使用数字来代替：</span>
+<span class="hljs-comment">				r</span> -- <span class="hljs-comment">4，w</span> -- <span class="hljs-comment">2</span><span class="hljs-string">,</span> <span class="hljs-comment">x</span> -- <span class="hljs-comment">1，</span> <span class="hljs-literal">-</span> -- <span class="hljs-comment">0</span><span class="hljs-string">.</span></code></pre>
+<ul>
+<li>chmod 777 文件名  就表示为文件<code>加满</code>权限。</li>
+</ul>
+<p><img src="linux-base%5Cchmod2.png" srcset="/img/loading.gif"></p>
+<p>上图表示对test文件文件所有者加满权限，用户组和其他人只有执行权限。</p>
+<ul>
+<li><strong>如果一个目录没有执行权限，那么这个目录就无法进入</strong>。</li>
+</ul>
+<h3 id="chown-–-修改文件所有者或所属组"><a href="#chown-–-修改文件所有者或所属组" class="headerlink" title="chown – 修改文件所有者或所属组"></a>chown – 修改文件所有者或所属组</h3><ul>
+<li><code>chown  新的所有者  文件名</code></li>
+<li><code>chown  新的所有者:新的组  文件名</code></li>
+</ul>
+<h3 id="chgrp-–-修改文件所属组"><a href="#chgrp-–-修改文件所属组" class="headerlink" title="chgrp – 修改文件所属组"></a>chgrp – 修改文件所属组</h3><ul>
+<li><code>chgrp  新的组  文件名</code></li>
+</ul>
+<h2 id="文件的查找和检索"><a href="#文件的查找和检索" class="headerlink" title="文件的查找和检索"></a>文件的查找和检索</h2><h3 id="find指令"><a href="#find指令" class="headerlink" title="find指令"></a>find指令</h3><ul>
+<li><p>按照文件名进行查找</p>
+<pre><code class="hljs linux">find [dir] -name &quot;[names]&quot;
+dir -- 表示查找的目录
+names -- 表示查找的文件名</code></pre></li>
+<li><p>按照文件类型查找，linux一共就有7种文件类型</p>
+<pre><code class="hljs linux">find [dir] -type [types]
+dir -- 表示查找的目录
+types -- 表示查找的文件类型
+但是普通文件的对应符号不再是 ll 命令时看到的&#39;-&#39;，而是&#39;f&#39;，其余都相同</code></pre>
+<p><img src="linux-base/findtype.png" srcset="/img/loading.gif"></p>
+</li>
+<li><p>按照文件大小进行查找</p>
+<pre><code class="hljs lua"><span class="hljs-built_in">find</span> [dir] -size +<span class="hljs-number">10</span>M/<span class="hljs-number">-10</span>k/<span class="hljs-number">10</span>k
+dir <span class="hljs-comment">-- 表示查找的目录</span>
++<span class="hljs-number">10</span>M <span class="hljs-comment">-- 表示查找大于10M的文件，</span>
+<span class="hljs-number">-10</span>k <span class="hljs-comment">-- 表示查找小于10k的文件</span>
+<span class="hljs-number">10</span>k <span class="hljs-comment">-- 表示查找等于10k的文件</span></code></pre>
+<ul>
+<li><p>如何查找大于10k小于100k的文件–区间查找</p>
+<pre><code class="hljs arduino"><span class="hljs-built_in">find</span> -<span class="hljs-built_in">size</span> +<span class="hljs-number">10</span>k -<span class="hljs-built_in">size</span> <span class="hljs-number">-100</span>k</code></pre></li>
+</ul>
+</li>
+<li><p>按照日期查找</p>
+<pre><code class="hljs excel"><span class="hljs-built_in">find</span> [dir] -atime -<span class="hljs-built_in">n</span>/+<span class="hljs-built_in">n</span>
+
+创建日期  -ctime -<span class="hljs-built_in">n</span>/+<span class="hljs-built_in">n</span>
+修改日期  -mtime -<span class="hljs-built_in">n</span>/+<span class="hljs-built_in">n</span>
+访问日期  -atime -<span class="hljs-built_in">n</span>/+<span class="hljs-built_in">n</span>
+-<span class="hljs-built_in">n</span>  代表<span class="hljs-built_in">n</span>天之内
++<span class="hljs-built_in">n</span>  代表<span class="hljs-built_in">n</span>天之外</code></pre>
+<p><img src="linux-base/findtime.png" srcset="/img/loading.gif"></p>
+</li>
+<li><p>根据目录深度搜索</p>
+</li>
+<li><p>```<br>find [dir] -maxdepth/mindepth 3<br>dir – 表示查找的目录<br>maxdepth 3 – 表示最多搜索三层目录<br>mindepth 3 – 表示搜索目录从第三层开始更大的搜索</p>
+<pre><code class="hljs clean">
+  ![](linux-base/finddepth2.png)
+
+
+### grep指令 -- 查找文件里的内容
+</code></pre>
+<p>grep -r “查找的内容” [dir] -n</p>
+</li>
+<li><p>r 如果查询的范围内有目录就加上<br>dir 表示查找的目录</p>
+</li>
+<li><p>n  会显示找出的文件的内容在对应文件的第几行</p>
+<pre><code class="hljs autohotkey">
+## 压缩文件
+
+Linux常见的压缩格式是  `.gz` 、 `.bzip2` 。
+
+`.gz` 是 gzip程序压缩的文件， `.bzip2`  是bzip2程序压缩的文件。
+
+直接使用这两个程序可以进行压缩，但是功能不够强大（不能压缩目录）。
+
+### tar命令
+</code></pre>
+<p>参数：<br>   c  – 创建压缩文件<br>   x  – 释放压缩文件<br>   v  – 打印提示信息（可不写）<br>   f  – 指定压缩包的名字<br>   z  – 使用gzip压缩文件，文件最好命名为：-xxx.tar.gz<br>   j  – 使用bzip2压缩文件，文件最好命名为：-xxx.tar.bzip2</p>
+</li>
+</ul>
+<p>压缩<br>格式：tar [参数] [压缩包文件名] [原材料]<br>    tar zcvf test.tar.gz test.txt</p>
+<p>解压缩<br>格式：tar [参数] [压缩包文件名]<br>    tar zxcf test.tar.gz<br>    其后可接-C 解压目录，来指定解压放置的地点</p>
+<pre><code class="hljs clean">
+![](linux-base/tar.png)
+
+
+### rar命令
+
+需要安装  `sudo apt-get install rar`
+</code></pre>
+<p>压缩：<br>    rar a 压缩包名(不用指定后缀) 压缩内容<br>    rar a test test.txt<br>    如果压缩的内容包括目录，后面接 -r<br>解压缩<br>    rar x 压缩包名 解压目录<br>    rar x test aa/</p>
+<pre><code class="hljs clean">
+![](linux-base/rar.png)
+
+
+### zip/unzip命令
+</code></pre>
+<p>压缩<br>    zip 压缩包名(不用指定后缀) 压缩内容<br>    zip test test.txt<br>    如果压缩的内容包括目录，后面接 -r<br>解压缩<br>    unzip 压缩包名<br>    unzip test.zip<br>    解压至指定目录，后面接-d 指定目录</p>
+<p>```</p>
+<p><img src="linux-base/zip.png" srcset="/img/loading.gif"></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/e-design/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">一位十进制加减法计算器(电路+连线)|数电课设</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/ubuntu-set-up/">
+                        <span class="hidden-mobile">Linux--Ubuntu的安装|(win + linux)双系统</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/linux-base/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Linux基础命令&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

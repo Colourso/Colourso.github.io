@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>汇编语言（四）--指令的‘与数据有关的’寻址方式 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-04-14 17:48">
+      星期日, 四月 14日 2019, 5:48 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><strong>概览</strong>：三种与数据有关的寻址方式。</p>
+<a id="more"></a>
+
+<h2 id="寻址方式"><a href="#寻址方式" class="headerlink" title="寻址方式"></a>寻址方式</h2><p>寻址方式就是指令中提供操作数或者操作数地址的方式，即寻找操作数地址的方法。</p>
+<p>寻址方式分为<strong>与数据有关的寻址方式</strong>和<strong>与转移地址有关的寻址方式</strong>。</p>
+<p>与转移地址有关的寻址方式如 jmp la1，这样的转移指令、循环指令、子程序调用指令等与转移地址有关。其余指令的寻址方式都与数据有关。</p>
+<h2 id="数据操作数"><a href="#数据操作数" class="headerlink" title="数据操作数"></a>数据操作数</h2><p>数据有可能放在内存中，有可能放在CPU的寄存器中，还有可能直接写在指令中。</p>
+<p>如果不在内存中存放，操作数就没有逻辑地址的概念，CPU不用访问存储器就能够得到操作数。</p>
+<p>如果操作数在内存中，那么操作数的偏移地址以有效地址EA来表示。</p>
+<h2 id="寻址方式分类"><a href="#寻址方式分类" class="headerlink" title="寻址方式分类"></a>寻址方式分类</h2><p><img src="assembly-language-4/address-kinds.png" srcset="/img/loading.gif" alt="引图"></p>
+<h2 id="立即寻址方式"><a href="#立即寻址方式" class="headerlink" title="立即寻址方式"></a>立即寻址方式</h2><p>所要找的操作数(即<strong>立即数</strong>)直接写在指令中。</p>
+<p>立即数只能够出现在<strong>源操作数</strong>的地方！</p>
+<p>立即数的类型必须要和<strong>目的操作数的类型</strong>相一致！</p>
+<p>当然立即数是存在于指令中的，而指令是存在于代码段的。</p>
+<pre><code>mov ax,3060H
+mov al,21H</code></pre>
+<h2 id="寄存器寻址方式"><a href="#寄存器寻址方式" class="headerlink" title="寄存器寻址方式"></a>寄存器寻址方式</h2><p>操作数在寄存器中，在指令中指定寄存器名即可完成。</p>
+<p>CPU在寄存器中直接得到操作数，不用访问内存，这种寻址方式指令短，速度快，但是可用资源少。</p>
+<p>8位寄存器：AH、AL，BH、BL、CH、CL、DH、DL</p>
+<p>16位寄存器：AX、BX、CX、DX、SI、DI、BP、SP</p>
+<pre><code>mov ax,bx    ;都是16位，寄存器寻址
+mov al,ch    ;都是8位，寄存器寻址
+mov ax,4650H;目的操作数寄存器寻址，源操作数立即寻址</code></pre>
+<h2 id="存储器寻址方式"><a href="#存储器寻址方式" class="headerlink" title="存储器寻址方式"></a>存储器寻址方式</h2><p>操作数存放在内存中，想要得到操作数，CPU必须要经过系统总线访问存储器。</p>
+<p>而编写汇编程序时采用的时逻辑地址形式，故要计算<strong>有效地址EA</strong>(即逻辑地址里的<strong>偏移地址</strong>部分)。</p>
+<p>且对于双操作数指令，两个操作数不允许同时使用存储器寻址方式，即不允许两个操作数都是存储单元。？？</p>
+<h3 id="有效地址EA-–即逻辑地址里的偏移地址"><a href="#有效地址EA-–即逻辑地址里的偏移地址" class="headerlink" title="有效地址EA  –即逻辑地址里的偏移地址"></a>有效地址EA  –即逻辑地址里的偏移地址</h3><h3 id="直接寻址方式"><a href="#直接寻址方式" class="headerlink" title="直接寻址方式"></a>直接寻址方式</h3><pre><code>mov ax,ds:[2000H]</code></pre>
+<p><code>[]</code>内的数据为操作数的偏移地址，前缀<code>DS:</code>表示该单元在数据段。</p>
+<blockquote>
+<p>在用<strong>MASM工具</strong>汇编时，不写前面的前缀只写<code>[2000H]</code>，汇编会认为是立即数而非偏移地址！</p>
+<p>而在<strong>DEBUG工具</strong>中，使用A命令来写就不需要加前缀，默认是数据段。</p>
+</blockquote>
+<p>操作数的有效地址EA直接存放在指令中，CPU在取指令时直接取得操作数的有效地址，–故为直接寻址。</p>
+<h4 id="1-存储器读操作"><a href="#1-存储器读操作" class="headerlink" title="1.存储器读操作"></a>1.存储器读操作</h4><pre><code>MOV AX,DS:[2000H]</code></pre>
+<p>表示从数据段的2000H单元读一个字送入AX。</p>
+<p>有效地址EA = 2000H。物理地址 DS*10H + EA。</p>
+<p><img src="assembly-language-4/read-m.png" srcset="/img/loading.gif" alt="read memory"></p>
+<h4 id="2-存储器写操作"><a href="#2-存储器写操作" class="headerlink" title="2.存储器写操作"></a>2.存储器写操作</h4><pre><code>MOV DS:[4000H],AX</code></pre>
+<p>将AX中的字写入数据段的4000H单元。</p>
+<p>有效地址EA = 4000H。物理地址 DS*10H + EA。</p>
+<p><img src="assembly-language-4/write-m.png" srcset="/img/loading.gif" alt="write memory"></p>
+<h4 id="3-符号地址"><a href="#3-符号地址" class="headerlink" title="3.符号地址"></a>3.符号地址</h4><p>除了直接使用数值作为EA，还可以使用<strong>符号地址</strong>的形式，–<strong>即给存储单元起一个名字</strong>。</p>
+<p>在程序中使用符号地址，方便记忆和修改。</p>
+<pre><code>VALUE DW 2345H    ;使用DW定义一个字的符号VALUE=2345H
+MOV AX,VALUE    ;这里用不用中括号括起来都可以，段地址默认都是DS
+MOV AX,[VALUE]    ;</code></pre>
+<p>注意：使用EQU伪指令来指定符号地址，必须要加前缀指明哪个段！</p>
+<h4 id="4-段超越"><a href="#4-段超越" class="headerlink" title="4.段超越"></a>4.段超越</h4><p>即与存储器有关的寻址方式，默认段是数据段，但也可以放在其他三个段，这种就叫段超越。</p>
+<p>需要在指令中用前缀指出是哪个段！</p>
+<pre><code>VALUE EQU 1000H        ;EQU伪指令符号，表示VALUE=1000H
+MOV AX,DS:[VALUE]    ;指出存储单元在DS
+MOV AX,ES:[VALUE]    ;指出存储单元在ES</code></pre>
+<h3 id="寄存器间接寻址方式"><a href="#寄存器间接寻址方式" class="headerlink" title="寄存器间接寻址方式"></a>寄存器间接寻址方式</h3><pre><code>mov ax,[bx]</code></pre>
+<p>操作数放在内存中，但是操作数的EA在寄存器BX、BP、SI、DI之中，且操作数的段地址存放于DS或者SS。</p>
+<p>其中若有效地址由BX、SI、DI指出，则默认对应于数据段DS。</p>
+<p>若有效地址由BP指出，则对应于堆栈段SS。</p>
+<p><img src="assembly-language-4/indirect.png" srcset="/img/loading.gif" alt="indirect"></p>
+<p>EA是从寄存器中得到的，所以叫寄存器间接寻址方式。并且<strong>8086CPU只允许BX、BP、SI、DI这四个寄存器作为间址寄存器</strong>。</p>
+<pre><code>MOV AX,[CX]    ;错误</code></pre>
+<p>寄存器间接寻址方式适用于<strong>简单的表格处理</strong>。</p>
+<h3 id="寄存器相对寻址方式"><a href="#寄存器相对寻址方式" class="headerlink" title="寄存器相对寻址方式"></a>寄存器相对寻址方式</h3><pre><code>MOV AX,[BX+1234H]</code></pre>
+<p>操作数放在内存中，但是操作数的EA在寄存器的内容上再加上一个8位或者16位的位移量。</p>
+<p>同样，还是有效地址由BX、SI、DI指出，则默认对应于数据段DS。若由BP指出，则对应于堆栈段SS。</p>
+<p><img src="assembly-language-4/relative.png" srcset="/img/loading.gif" alt="relative"></p>
+<p>寄存器相对寻址方式常用于<strong>查表操作</strong>。</p>
+<h4 id="寄存器相对寻址方式的四种写法"><a href="#寄存器相对寻址方式的四种写法" class="headerlink" title="寄存器相对寻址方式的四种写法"></a>寄存器相对寻址方式的四种写法</h4><pre><code>MOV AX,[BX+1234H]    ;
+MOV AX,[BX+TOP]        ;TOP是符号地址，位移量
+MOV AX,[BX].1234H    ;位移量可用.连接
+MOV AX,TOP[BX]        ;TOP是符号地址，位移量</code></pre>
+<h3 id="基址变址寻址方式"><a href="#基址变址寻址方式" class="headerlink" title="基址变址寻址方式"></a>基址变址寻址方式</h3><pre><code>MOV AX,[BX+SI]</code></pre>
+<p>操作数存放在内存中，操作数的EA为一个基址寄存器(BX、BP)和变址寄存器(SI、DI)的和。</p>
+<p>故共有四种情况。</p>
+<p><img src="assembly-language-4/base.png" srcset="/img/loading.gif" alt="base"></p>
+<pre><code>MOV AH,ES:[SI+BX]    ;
+MOV AH,ES:[SI][BX]    ;两种写法都是可以的！
+MOV [BP+SI],CX
+MOV DL,SS:[BX+SI]</code></pre>
+<p>基址变址寻址方式可用于<strong>二维表的处理</strong>。</p>
+<h3 id="相对基址变址寻址方式"><a href="#相对基址变址寻址方式" class="headerlink" title="相对基址变址寻址方式"></a>相对基址变址寻址方式</h3><pre><code>MOV AX,[BX+SI+1234H]</code></pre>
+<p>操作数存放在内存中，操作数的EA为一个基址寄存器(BX、BP)与变址寄存器(SI、DI)以及一个位移量的和。</p>
+<p><img src="assembly-language-4/relativebase.png" srcset="/img/loading.gif" alt="relativebase"></p>
+<p>相对基址变址寻址方式可用于<strong>二维表的查找</strong>和<strong>栈处理</strong>。</p>
+<h4 id="相对基址变址寻址方式的几种写法"><a href="#相对基址变址寻址方式的几种写法" class="headerlink" title="相对基址变址寻址方式的几种写法"></a>相对基址变址寻址方式的几种写法</h4><pre><code>MOV AX,[BX+SI+1234H]    ;
+MOV AX,[BX+SI+TOP]        ;TOP是符号地址，位移量
+MOV AX,TOP[BX+SI]        ;TOP是符号地址，位移量
+MOV AX,TOP[BX][SI]        ;TOP是符号地址，位移量
+MOV AX,[BX+SI].1234H    ;位移量可用.连接</code></pre>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">汇编语言</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%B1%87%E7%BC%96/">汇编</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/sql-server-0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">SQL Server 2017与SQL Server Management Studio的安装(非实操)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/assembly-language-3/">
+                        <span class="hidden-mobile">汇编语言（三）--汇编指令与段的综述</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/assembly-language-4/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "汇编语言（四）--指令的‘与数据有关的’寻址方式&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

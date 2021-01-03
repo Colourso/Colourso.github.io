@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>AutoHotkey入门 ~ Windows下自动化脚本 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-08-03 22:55">
+      星期一, 八月 3日 2020, 10:55 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      25
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><strong>概览</strong>：自动化脚本AutoHotket语言相关基础知识。</p>
+<a id="more"></a>
+
+<h2 id="关于AutoHotKey"><a href="#关于AutoHotKey" class="headerlink" title="关于AutoHotKey"></a>关于AutoHotKey</h2><p>Windows的终极自动化脚本语言。</p>
+<p>官网： <a target="_blank" rel="noopener" href="https://www.autohotkey.com/">https://www.autohotkey.com/</a> </p>
+<p>使用AutoHotKey这个脚本语言可以很迅速方便的创建Windows下的便捷操作。例如一键打开多个网页，一键代替多个操作步骤。化繁为简，非常的方便好用。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>在上述官网下载<code>当前版本</code>即<code>Current Version</code>下载，我当前使用的版本还是1.xx的。</p>
+<p>下载后自行安装即可。</p>
+<h2 id="新建脚本与运行"><a href="#新建脚本与运行" class="headerlink" title="新建脚本与运行"></a>新建脚本与运行</h2><p>鼠标右键 –&gt; 新建，就能看到一个<code>AutoHotkey script</code>的选项，点击即可新建一个脚本。</p>
+<p>对这个脚本右键选择用文本编辑器打开即可。</p>
+<p>默认文件会有几行注释以及一些代码，没太搞懂啥意思，直接删掉脚本也能正常使用。</p>
+<p>在其中填入要执行的脚本代码，例如下面的入门代码<code>#space::Run www.baidu.com</code>。保存文件之后，双击脚本或者右键选择<code>Run Script</code>，脚本就会被执行，如果你的脚本编写有语法错误的话，会直接弹出提醒。</p>
+<p>脚本运行的话，你的状态栏那里就可以看到这个软件的图标。当你不需要运行这个脚本时，右键图标选择关闭退出即可。</p>
+<p>除此之外还有脚本转<code>.exe</code>，自行探究~</p>
+<h2 id="入门学习相关资料"><a href="#入门学习相关资料" class="headerlink" title="入门学习相关资料"></a>入门学习相关资料</h2><p>中文在线API： <a target="_blank" rel="noopener" href="https://wyagd001.github.io/zh-cn/docs/AutoHotkey.htm">https://wyagd001.github.io/zh-cn/docs/AutoHotkey.htm</a> </p>
+<p>此外，安装软件之后也会自带帮助文件<code>chm</code>，与<code>exe</code>文件放在一起，可自行查看，不过那是英文版本。</p>
+<p>除此之外，我还在知乎看到一位作者在分享他写好的一些脚本，涵盖面非常的广，链接：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/103357456">https://zhuanlan.zhihu.com/p/103357456</a></p>
+<p>以下内容是我在接触脚本时做的一点笔记，不太完整，并且比较杂乱。主要参考了上面的中文在线API链接。</p>
+<hr>
+<h2 id="入门第一行"><a href="#入门第一行" class="headerlink" title="入门第一行"></a>入门第一行</h2><pre><code class="hljs css"><span class="hljs-selector-id">#space</span><span class="hljs-selector-pseudo">::Run</span> <span class="hljs-selector-tag">www</span><span class="hljs-selector-class">.baidu</span><span class="hljs-selector-class">.com</span></code></pre>
+<ul>
+<li>这行代码表示同时按下Win+空格，浏览器就会自动打开百度的网址。</li>
+<li><code>#</code>代表Windows键，<code>space</code>表示空格键，组合起来表示Win+空格。</li>
+<li><code>::</code>双冒号表示，每次按下热键会执行其后面的操作。</li>
+<li><code>Run</code>命令后可以接程序、文档、URL或者快捷方式，这里后接网址会自动打开默认浏览器打开网址。</li>
+</ul>
+<pre><code class="hljs asciidoc"><span class="hljs-meta">::btw::by</span> the way</code></pre>
+<ul>
+<li>上述这种叫做热字串，当输入btw后面跟着空格或者逗号时，会自动将btw替换为by the way。</li>
+</ul>
+<h3 id="其他符号"><a href="#其他符号" class="headerlink" title="其他符号"></a>其他符号</h3><ul>
+<li><code>^</code>：表示<code>Control</code>，</li>
+<li><code>!</code>：表示<code>Alt</code>键。</li>
+<li><code>+</code>：表示<code>shift</code>。</li>
+</ul>
+<pre><code class="hljs dockerfile">;多行热键
+<span class="hljs-comment">#n::</span>
+<span class="hljs-keyword">Run</span><span class="bash"> www.baidu.com</span>
+<span class="hljs-keyword">Run</span><span class="bash"> Notepad.exe</span>
+return</code></pre>
+<ul>
+<li><code>RunWait</code>：与Run类似，表示脚本等到程序或者文档结束之后才能执行热键</li>
+</ul>
+<h2 id="发送键击"><a href="#发送键击" class="headerlink" title="发送键击"></a>发送键击</h2><p><code>send</code>命令可以发送键击到活动窗口（最前面的窗口）中。</p>
+<pre><code class="hljs rust">^!c::
+<span class="hljs-built_in">Send</span> 我爱你，&#123;Enter&#125;&#123;Tab&#125; 骗你的
+<span class="hljs-keyword">return</span></code></pre>
+<p>这段命令是，向当前的文本编辑器中输入两句话，<code>&#123;Enter&#125;</code>表示模拟按下回车键，<code>&#123;Tab&#125;</code>表示模拟按下缩进键。</p>
+<h2 id="鼠标点击"><a href="#鼠标点击" class="headerlink" title="鼠标点击"></a>鼠标点击</h2><p>发送鼠标点击到窗口。</p>
+<p>使用Window Spy来获取目标窗口中的位置，相对当前窗口左上角的位置。</p>
+<p>然后再<code>Click x,y</code>，模拟鼠标左击即可。</p>
+<p>Click里不支持表达式，对于变量来说，变量要加百分号。</p>
+<h2 id="激活与操作窗口"><a href="#激活与操作窗口" class="headerlink" title="激活与操作窗口"></a>激活与操作窗口</h2><p>激活窗口就是指使窗口位于最前边，可使用<code>WinActivate</code></p>
+<p><code>IfWinActive</code>：检查指定的窗口是否活动，后接窗口标题。</p>
+<p><code>IfWinNotActive</code>：</p>
+<pre><code class="hljs arduino">^!v::
+IfWinActive 入门.md - Typora
+&#123;
+	MsgBox Active!
+&#125;
+<span class="hljs-keyword">return</span></code></pre>
+<p><code>WinWaitActive</code>：等待指定窗口变为活动窗口。</p>
+<p><code>WinClose</code>：关闭指定窗口</p>
+<p><code>WinMove</code>：改变指定窗口的位置和/或大小。</p>
+<p><code>WinMinimize</code>, <code>WinMaximize</code>, <code>WinRestore</code> 分别最小化, 最大化或还原指定窗口.</p>
+<h2 id="获取用户输入或者提示"><a href="#获取用户输入或者提示" class="headerlink" title="获取用户输入或者提示"></a>获取用户输入或者提示</h2><p><code>MsgBox</code>：用于显示提示框</p>
+<p><code>InputBox</code>：提示用户输入字符串。</p>
+<pre><code class="hljs autohotkey"><span class="hljs-built_in">MsgBox,</span> <span class="hljs-number">4</span>, , Would you like to <span class="hljs-keyword">continue</span>?
+<span class="hljs-built_in">IfMsgBox,</span> No
+    <span class="hljs-keyword">return</span>
+<span class="hljs-comment">; 否则, 用户选择了是.</span>
+MsgBox You pressed YES.</code></pre>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>变量是脚本用来<strong>存储文本或数字的内存块</strong>. 只包含数字的变量 (可以含小数点) 在数学运算或比较时会被<strong>自动转换</strong>为数字.</p>
+<p>除了函数中的局部变量外, 所有的变量都是<strong>全局</strong>的; 即可以在脚本的任意位置读取或改变它们的内容. 此外, <strong>变量不需要声明</strong>; 简单地使用它们就可以让它们存在 (且每个变量都以空或空白开始).</p>
+<pre><code class="hljs applescript">^!b::
+MyVar1 = <span class="hljs-number">123</span>
+MyVar2 = <span class="hljs-keyword">my</span> <span class="hljs-built_in">string</span>
+<span class="hljs-keyword">if</span> MyVar2 = <span class="hljs-keyword">my</span> <span class="hljs-built_in">string</span>
+&#123;
+    MsgBox MyVar2 <span class="hljs-keyword">contains</span> <span class="hljs-keyword">the</span> <span class="hljs-built_in">string</span> <span class="hljs-string">&quot;my string&quot;</span>.
+&#125;
+<span class="hljs-keyword">if</span> MyVar1 &gt;= <span class="hljs-number">100</span>
+&#123;
+    MsgBox MyVar1 <span class="hljs-keyword">contains</span> %MyVar1%, which <span class="hljs-keyword">is</span> a <span class="hljs-built_in">number</span> <span class="hljs-keyword">greater than</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">equal</span> <span class="hljs-keyword">to</span> <span class="hljs-number">100.</span>
+&#125;
+<span class="hljs-built_in">return</span></code></pre>
+<ul>
+<li><code>%MyVar1%</code>用百分号包含变量，用于显示变量的内容。</li>
+<li><code>MyVarConcatenated = %MyVar1% %MyVar2%</code>则字符串为<code>123 my string</code></li>
+</ul>
+<p>使用<code>if</code>来比较两个变量的内容。</p>
+<pre><code class="hljs mel"><span class="hljs-keyword">if</span> (ItemCount &gt; ItemLimit)
+&#123;
+    MsgBox The value <span class="hljs-keyword">in</span> ItemCount, which is %ItemCount%, is greater than %ItemLimit%.
+&#125;</code></pre>
+<p> 注意上面例子的首行包含小括号. 小括号表示这个 if 语句包含表达式. 如果没有它们, 那行将被视为 “非表达式 if 语句”, 并且因此需要使用百分号括住 ItemLimit (这样的 if 语句被限制为只能包含简单的比较运算符, 而不能包含数学运算符或像 “AND” 和 “OR” 这样的联合运算符). </p>
+<h2 id="数学"><a href="#数学" class="headerlink" title="数学"></a>数学</h2><p>赋值：<code>:=</code>，冒号等号运算符</p>
+<pre><code class="hljs apache"><span class="hljs-attribute">NetPrice</span> := Price * (<span class="hljs-number">1</span> - Discount/<span class="hljs-number">100</span>)</code></pre>
+<h2 id="剪贴板"><a href="#剪贴板" class="headerlink" title="剪贴板"></a>剪贴板</h2><p><code> Clipboard</code> 变量是特殊变量, 因为它包含了 <code>Windows 剪贴板</code>中当前的文本. 即使如此, 它的用法也和普通变量一样. </p>
+<pre><code class="hljs autohotkey"><span class="hljs-built_in">MsgBox %</span><span class="hljs-built_in">clipboard</span>%
+<span class="hljs-comment">;显示剪切板的内容</span></code></pre>
+<p>替换剪切板内容</p>
+<pre><code class="hljs autohotkey"><span class="hljs-built_in">clipboard</span> = A line of text.`r`nA second line of text.`r`n</code></pre>
+<ul>
+<li>``r`加上n表示回车+换行。</li>
+</ul>
+<p>追加剪切板内容，就像变量一样</p>
+<pre><code class="hljs xquery">clipboard = <span class="hljs-meta">%clipboard</span>% And here <span class="hljs-literal">is</span> the <span class="hljs-type">text</span> <span class="hljs-keyword">to</span> append.</code></pre>
+<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><pre><code class="hljs mathematica"><span class="hljs-variable">Loop</span> <span class="hljs-number">3</span><span class="hljs-operator">;</span><span class="hljs-number">3</span>表示循环次数
+<span class="hljs-punctuation">&#123;</span>
+	<span class="hljs-built_in">Run</span> <span class="hljs-built_in">C</span><span class="hljs-operator">:</span>\<span class="hljs-built_in">Check</span> <span class="hljs-variable">Server</span> <span class="hljs-variable">Status</span><span class="hljs-operator">.</span><span class="hljs-variable">exe</span>
+	<span class="hljs-variable">Sleep</span> <span class="hljs-number">60000</span> <span class="hljs-operator">;</span>暂停 <span class="hljs-number">60</span> 秒<span class="hljs-operator">.</span>
+<span class="hljs-punctuation">&#125;</span></code></pre>
+<p> 当一个或多个条件改变时循环还可以终止它自己. 下面的例子中当用户按住 F1 键时会重复点击鼠标左键: </p>
+<pre><code class="hljs elixir"><span class="hljs-variable">$F1</span>::  ;把F1键设置为热键(<span class="hljs-variable">$符</span>号会有助于下面GetKeyState的<span class="hljs-string">&quot;P&quot;</span>模式).
+Loop  ;由于没有指定数字,所以这是个无限循环,直到遇到内部的<span class="hljs-string">&quot;break&quot;</span>或<span class="hljs-string">&quot;return&quot;</span>.
+&#123;
+    if <span class="hljs-keyword">not</span> GetKeyState(<span class="hljs-string">&quot;F1&quot;</span>, <span class="hljs-string">&quot;P&quot;</span>)  ;如果此状态为<span class="hljs-keyword">true</span>,那么用户实际已经释放了F1键.
+        <span class="hljs-keyword">break</span>  ;中断循环.
+    ;否则 (由于上面没有<span class="hljs-string">&quot;中断&quot;</span>),继续点击鼠标.
+    Click  ;在当前指针位置点击鼠标左键.
+&#125;
+<span class="hljs-keyword">return</span></code></pre>
+<p>while循环：</p>
+<pre><code class="hljs cpp">$F1::
+<span class="hljs-function"><span class="hljs-keyword">while</span> <span class="hljs-title">GetKeyState</span><span class="hljs-params">(<span class="hljs-string">&quot;F1&quot;</span>,<span class="hljs-string">&quot;P&quot;</span>)</span>  </span>;当F1键实际被按住时.
+&#123;
+    Click
+&#125;
+<span class="hljs-keyword">return</span></code></pre>
+<h2 id="操作文件"><a href="#操作文件" class="headerlink" title="操作文件"></a>操作文件</h2><p>要添加文本到文件的末尾 (或创建新文件), 请使用 FileAppend, 如下面的例子所示. 注意它使用 `n (换行符) 来开始新的文本行:</p>
+<pre><code class="hljs vhdl">FileAppend, A <span class="hljs-literal">line</span> <span class="hljs-keyword">of</span> <span class="hljs-literal">text</span> <span class="hljs-keyword">to</span> append.`n, C:\My Documents\My <span class="hljs-literal">Text</span> <span class="hljs-keyword">File</span>.txt</code></pre>
+<p>要覆盖现有的文件, 请在 FileAppend 之前使用 FileDelete. 例如：</p>
+<pre><code class="hljs mathematica"><span class="hljs-variable">FileDelete</span><span class="hljs-operator">,</span> <span class="hljs-built_in">C</span><span class="hljs-operator">:</span>\<span class="hljs-variable">My</span> <span class="hljs-variable">Documents</span>\<span class="hljs-variable">My</span> <span class="hljs-built_in">Text</span> <span class="hljs-built_in">File</span><span class="hljs-operator">.</span><span class="hljs-variable">txt</span></code></pre>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><pre><code class="hljs pgsql">^w::
+; 创建数组后, 初始为空:
+<span class="hljs-keyword">Array</span> := <span class="hljs-keyword">Object</span>()
+
+; 写入数据到数组:
+<span class="hljs-keyword">Loop</span>, <span class="hljs-keyword">Read</span>, C:\Users\colou\Desktop\list.txt ; 此循环获取文件中的每行, 一次一行.
+&#123;
+    <span class="hljs-keyword">Array</span>.<span class="hljs-keyword">Insert</span>(A_LoopReadLine) ; 添加此行到数组中.
+&#125;
+
+; 从数组中读取:
+; <span class="hljs-keyword">Loop</span> % <span class="hljs-keyword">Array</span>.MaxIndex()   ; 较传统的方式.
+<span class="hljs-keyword">for</span> <span class="hljs-keyword">index</span>, element <span class="hljs-keyword">in</span> <span class="hljs-keyword">Array</span> ; 在大多数情况下建议使用的方式.
+&#123;
+    ; 使用 &quot;Loop&quot;, 索引必须是连续的数字, 从 <span class="hljs-number">1</span> 到
+    ; 数组中元素的个数 (或者必须在循环中进行计算).
+    ; MsgBox % &quot;Element number &quot; . A_Index . &quot; is &quot; . <span class="hljs-keyword">Array</span>[A_Index]
+    
+    ; 使用“<span class="hljs-keyword">for</span>”，同时提供了索引（或“键”）及与它关联
+    ; 的值，并且索引可以是您选择的*任何*值。
+    MsgBox % &quot;Element number &quot; . <span class="hljs-keyword">index</span> . &quot; is &quot; . element
+&#125;
+<span class="hljs-keyword">return</span></code></pre>
+<h2 id="图片识别"><a href="#图片识别" class="headerlink" title="图片识别"></a>图片识别</h2><pre><code class="hljs autohotkey"><span class="hljs-title">^c::</span>
+<span class="hljs-built_in">ImageSearch,</span> FoundA, FoundB, <span class="hljs-number">0</span>,<span class="hljs-number">0</span>, <span class="hljs-built_in">A_ScreenWidth</span>, <span class="hljs-built_in">A_ScreenHeight</span>, C:\Users\colou\Desktop\end.png
+		if <span class="hljs-built_in">ErrorLevel</span> = <span class="hljs-number">0</span>
+			Sleep <span class="hljs-number">1500</span>
+<span class="hljs-built_in">			Click %</span>FoundA%,<span class="hljs-variable">%FoundB%</span>
+			MsgBox end.
+<span class="hljs-keyword">return</span></code></pre>
+<ul>
+<li>如果找到了图片，FoundA与FoundB用来存储坐标。</li>
+<li>0，0 表示起始的左上角的位置</li>
+<li>A_ScreenWidth, A_ScreenHeight表示右下角的坐标</li>
+<li>最后一个参数是路径</li>
+<li>如果找到了图片，ErrorLevel就为0.</li>
+</ul>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><ol>
+<li><p>命令和变量不区分大小写</p>
+</li>
+<li><p>命令中的第一个逗号可以省略，特殊请矿除外（首个参数为空，以<code>:=</code>或者<code>=</code>开始，或者命令单独处于延续片段的顶部）。</p>
+<pre><code class="hljs mercury">MsgBox This <span class="hljs-keyword">is</span> ok.
+MsgBox, This <span class="hljs-keyword">is</span> ok too.</code></pre>
+<h2 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h2></li>
+</ol>
+<p><code>A_Now</code>是当前系统时间</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Other/">Other</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/autohotkey-apl/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">AutoHotkey应用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/c-snake-pro6/">
+                        <span class="hidden-mobile">C++基于EasyX制作贪吃蛇游戏（六）第三版代码与程序</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/autohotkey/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "AutoHotkey入门 ~ Windows下自动化脚本&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>Java实现的Telnet协议 - 计算机网络课设 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-07-04 15:19">
+      星期六, 七月 4日 2020, 3:19 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      61
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><strong>概览</strong>：Java实现的Telnet协议，Telnet相关知识，操作协商细节，代码实现。</p>
+<a id="more"></a>
+
+<h2 id="课设题目"><a href="#课设题目" class="headerlink" title="课设题目"></a>课设题目</h2><p>设计题目：利用JAVA实现TELNET协议</p>
+<p>设计要求：TELNET协议允许用户用一台终端来访问远程的主机 ，它允许终端于主机之间以半双工的方式交换信息，可参阅RFC864[6-13]。本次设计要求利用JAVA实现TELNET协议的基本功能 。</p>
+<h2 id="Telnet相关知识"><a href="#Telnet相关知识" class="headerlink" title="Telnet相关知识"></a>Telnet相关知识</h2><p>Telnet协议是TCP/IP协议族中的一员，是Internet远程登陆服务的标准协议。Telnet协议的目的是提供一个相对通用的，双向的通信方法，允许界面终端设备和面向终端的过程能通过一个标准过程进行互相交互。应用Telnet协议能够把本地用户所使用的计算机变成远程主机系统的一个终端。</p>
+<p>Telnet协议具有如下的特点：Telnet协议可以适应于多个不同的操作系统，在Windows电脑上连接的Linux系统的机器可以传输命令，Telnet协议可以传输特定的控制命令，例如中止进程的命令等，并且由于Telnei两端的机器与操作系统之间的异构型，Telnet不能严格规定每一个Telnet连接的详细配置，故Telnet协议支持双方进行协商。</p>
+<p>Telnet协议主要由三部分组成：</p>
+<p>（1）网络虚拟终端 NVT；</p>
+<p>（2）操作协商定义；</p>
+<p>（3）协商有限自动机。</p>
+<h3 id="网络虚拟终端-NVT"><a href="#网络虚拟终端-NVT" class="headerlink" title="网络虚拟终端 NVT"></a>网络虚拟终端 NVT</h3><p>网络虚拟终端（NVT）是一种虚拟的终端设备，它被客户和服务器所采用，用来<strong>建立数据表示和解释的一致性</strong>。Telne使用网络虚拟终端字符集来处理异构系统的远程登录问题。网络虚拟终端字符集是一个通用接口， 在远程登陆连接上，客户软件将终端用户输入转化为标准的NVT数据和命令序列，经TCP连接传到远地机上的服务器，服务器再将NVT序列转换为原地系统的内部格式。这样终端键盘输入的异质性就被NVT所屏蔽，NVT这里实现了统一，只需要与NVT打交道即可。</p>
+<p><img src="telnet-with-java/nvt.png" srcset="/img/loading.gif"></p>
+<h3 id="Telnet的操作协商"><a href="#Telnet的操作协商" class="headerlink" title="Telnet的操作协商"></a>Telnet的操作协商</h3><p>TELNET协议允许通信机器协商会话过程中所使用的各种选项，通过一组标准过程来建立这些选项。协商选项的使用考虑了主计算机可提供超出虚拟终端服务范围的服务的可能性。例如窗口的大小、终端类型、字符回显等信息都要进行协商。</p>
+<p><img src="telnet-with-java/neg.png" srcset="/img/loading.gif"></p>
+<p>协商主要是通过Telnet指令来进行的，Telnet指令格式是：</p>
+<table>
+<thead>
+<tr>
+<th>IAC</th>
+<th>命令码</th>
+<th>选项码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>255</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>常见的命令码：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>码字(byte)</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EOF</td>
+<td>236</td>
+<td>文件结束符</td>
+</tr>
+<tr>
+<td>SUSP</td>
+<td>237</td>
+<td>挂起当前进程（作业控制）</td>
+</tr>
+<tr>
+<td>ABORT</td>
+<td>238</td>
+<td>异常终止进程</td>
+</tr>
+<tr>
+<td>EOR</td>
+<td>239</td>
+<td>记录结束符i</td>
+</tr>
+<tr>
+<td>NOP</td>
+<td>241</td>
+<td>无操作</td>
+</tr>
+<tr>
+<td>WILL</td>
+<td>251</td>
+<td>开始执行指示选项或证实设备现已经开始执行指示选项</td>
+</tr>
+<tr>
+<td>WONT</td>
+<td>252</td>
+<td>拒绝执行指示选项或证实设备现已开始执行指示选项。</td>
+</tr>
+<tr>
+<td>DO</td>
+<td>253</td>
+<td>另一方执行的请求，或者证实期望对方执行的请求</td>
+</tr>
+<tr>
+<td>DONT</td>
+<td>254</td>
+<td>另一方停止执行的命令，或者证实一方不再期待另一方执行的命令。</td>
+</tr>
+</tbody></table>
+<p>常见选项码：</p>
+<table>
+<thead>
+<tr>
+<th>选项标识(byte)</th>
+<th>名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>回显</td>
+</tr>
+<tr>
+<td>3</td>
+<td>抑制继续进行</td>
+</tr>
+<tr>
+<td>5</td>
+<td>状态</td>
+</tr>
+<tr>
+<td>6</td>
+<td>定时标记</td>
+</tr>
+<tr>
+<td>24</td>
+<td>终端类型</td>
+</tr>
+<tr>
+<td>31</td>
+<td>窗口大小</td>
+</tr>
+</tbody></table>
+<h3 id="选项协商的6种情况"><a href="#选项协商的6种情况" class="headerlink" title="选项协商的6种情况"></a>选项协商的6种情况</h3><p>进行协商有4中类型的请求：</p>
+<p>（1）WILL：发送方本身想激活某个选项。</p>
+<p>（2）DO：发送方想让接受端激活某个选项。</p>
+<p>（3）WONT：发送方本身想禁止某个选项。</p>
+<p>（4）DONT：发送方想让接受端去禁止某个选项。</p>
+<table>
+<thead>
+<tr>
+<th>发送者</th>
+<th>接收者</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>WILL</td>
+<td>DO</td>
+<td>发送者想激活某选项，接收者接受该选项请求</td>
+</tr>
+<tr>
+<td>WILL</td>
+<td>DONT</td>
+<td>发送者想激活某选项，接收者拒接该选项请求</td>
+</tr>
+<tr>
+<td>DO</td>
+<td>WILL</td>
+<td>发送者希望接收者激活某选项，接收者接受该请求</td>
+</tr>
+<tr>
+<td>DO</td>
+<td>WONT</td>
+<td>发送者希望接收者激活某选项，接收者拒绝该请求</td>
+</tr>
+<tr>
+<td>WONT</td>
+<td>DONT</td>
+<td>发送者希望使某选项无效，接收者必须接受该请求</td>
+</tr>
+<tr>
+<td>WONT</td>
+<td>WONT</td>
+<td>发送者希望对方使某选项无效，接收者必须接受该请求</td>
+</tr>
+</tbody></table>
+<h2 id="Linux开启Telnet"><a href="#Linux开启Telnet" class="headerlink" title="Linux开启Telnet"></a>Linux开启Telnet</h2><p>因为本次实验是拿一台虚拟机上的Linux作为服务器来做测试，所以需要开启Linux的Telnet服务。</p>
+<p>参考我的博文： <a target="_blank" rel="noopener" href="http://www.colourso.top/Linux-Telnet/">Linux-Telnet配置</a>  </p>
+<h2 id="Telnet的协商流程测试"><a href="#Telnet的协商流程测试" class="headerlink" title="Telnet的协商流程测试"></a>Telnet的协商流程测试</h2><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.io.InputStream;
+<span class="hljs-keyword">import</span> java.io.OutputStream;
+<span class="hljs-keyword">import</span> java.net.Socket;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+        <span class="hljs-comment">//尝试建立socket连接</span>
+        Socket telnetSocket = <span class="hljs-keyword">new</span> Socket(<span class="hljs-string">&quot;192.168.117.129&quot;</span>,<span class="hljs-number">23</span>);<span class="hljs-comment">//TCP,注意修改为自己的IP</span>
+
+        OutputStream outputStream = telnetSocket.getOutputStream();
+        InputStream inputStream = telnetSocket.getInputStream();
+
+        <span class="hljs-keyword">byte</span>[] bytes = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[<span class="hljs-number">1024</span>*<span class="hljs-number">8</span>];
+
+        <span class="hljs-keyword">int</span> len = inputStream.read(bytes);
+
+        System.out.println(<span class="hljs-string">&quot;第一次接收响应，接受到的回应长度为&quot;</span>+len);
+
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">0</span>;j&lt;len;j++)&#123;
+            <span class="hljs-keyword">int</span> x = byteToInt(bytes[j]);
+            System.out.println(x);
+        &#125;
+
+        <span class="hljs-comment">/*</span>
+<span class="hljs-comment">        第一次连接服务器，服务器会向客户端发送12个字节</span>
+<span class="hljs-comment">        Do-253表示期望对方执行的请求</span>
+<span class="hljs-comment">        1. 255 253 24：IAC Do 24表示终端类型</span>
+<span class="hljs-comment">        2. 255 253 32：IAC Do 32表示终端速度</span>
+<span class="hljs-comment">        3. 255 253 35：IAC Do 35表示X显示定位</span>
+<span class="hljs-comment">        4. 255 253 39：IAC Do 39不知道</span>
+<span class="hljs-comment">         */</span>
+
+        <span class="hljs-keyword">byte</span>[] first_responce = &#123;(<span class="hljs-keyword">byte</span>)<span class="hljs-number">255</span>,(<span class="hljs-keyword">byte</span>)<span class="hljs-number">252</span>,(<span class="hljs-keyword">byte</span>)<span class="hljs-number">24</span>,
+                (<span class="hljs-keyword">byte</span>)<span class="hljs-number">255</span>,(<span class="hljs-keyword">byte</span>)<span class="hljs-number">252</span>,(<span class="hljs-keyword">byte</span>)<span class="hljs-number">32</span>,
+                (<span class="hljs-keyword">byte</span>)<span class="hljs-number">255</span>,(<span class="hljs-keyword">byte</span>)<span class="hljs-number">252</span>,(<span class="hljs-keyword">byte</span>)<span class="hljs-number">35</span>,
+                (<span class="hljs-keyword">byte</span>)<span class="hljs-number">255</span>,(<span class="hljs-keyword">byte</span>)<span class="hljs-number">252</span>,(<span class="hljs-keyword">byte</span>)<span class="hljs-number">39</span>&#125;;
+
+        outputStream.write(first_responce);
+        outputStream.flush();
+
+        System.out.println(<span class="hljs-string">&quot;第一次发送过去了&quot;</span>);
+
+        <span class="hljs-comment">/*</span>
+<span class="hljs-comment">        第一次回应，拒绝掉服务器的全部请求</span>
+<span class="hljs-comment">        Won&#x27;t - 252表示拒绝执行指示选项</span>
+<span class="hljs-comment">        1. 255 252 24 IAC WONT 24 拒绝</span>
+<span class="hljs-comment">        2. 255 252 32 IAC WONT 32</span>
+<span class="hljs-comment">        3. 255 252 35 IAC WONT 35</span>
+<span class="hljs-comment">        4. 255 252 39 IAC WONT 39</span>
+<span class="hljs-comment">        */</span>
+
+        len = inputStream.read(bytes);
+
+        System.out.println(<span class="hljs-string">&quot;第二次接收响应，接受到的回应长度为&quot;</span>+len);
+
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">0</span>;j&lt;len;j++)&#123;
+            <span class="hljs-keyword">int</span> x = byteToInt(bytes[j]);
+            System.out.println(x);
+        &#125;
+
+        <span class="hljs-comment">/*</span>
+<span class="hljs-comment">        服务器第二次响应，继续向客户端发送15个字节</span>
+<span class="hljs-comment">        Will 表示自己请求使用的服务</span>
+<span class="hljs-comment">        Do -253表示期望对方执行的请求</span>
+<span class="hljs-comment">        1. 255 251 3：IAC Will 3表示抑制向前，</span>
+<span class="hljs-comment">        2. 255 253 1：IAC Do 1表示回显，期望客户端进行回显</span>
+<span class="hljs-comment">        3. 255 253 31：IAC Do 31表示窗口尺寸</span>
+<span class="hljs-comment">        4. 255 251 5：IAC Will 5表示状态</span>
+<span class="hljs-comment">        5. 255 253 33：IAC Do 33表示远程流控制 期望客户端进行远程流控制</span>
+<span class="hljs-comment">         */</span>
+
+        <span class="hljs-keyword">byte</span>[] second_responce = &#123;(<span class="hljs-keyword">byte</span>)<span class="hljs-number">255</span>,(<span class="hljs-keyword">byte</span>)<span class="hljs-number">253</span>,(<span class="hljs-keyword">byte</span>)<span class="hljs-number">3</span>,
+                (<span class="hljs-keyword">byte</span>)<span class="hljs-number">255</span>,(<span class="hljs-keyword">byte</span>)<span class="hljs-number">252</span>,(<span class="hljs-keyword">byte</span>)<span class="hljs-number">1</span>,
+                (<span class="hljs-keyword">byte</span>)<span class="hljs-number">255</span>,(<span class="hljs-keyword">byte</span>)<span class="hljs-number">252</span>,(<span class="hljs-keyword">byte</span>)<span class="hljs-number">31</span>,
+                (<span class="hljs-keyword">byte</span>)<span class="hljs-number">255</span>,(<span class="hljs-keyword">byte</span>)<span class="hljs-number">254</span>,(<span class="hljs-keyword">byte</span>)<span class="hljs-number">5</span>,
+                (<span class="hljs-keyword">byte</span>)<span class="hljs-number">255</span>,(<span class="hljs-keyword">byte</span>)<span class="hljs-number">252</span>,(<span class="hljs-keyword">byte</span>)<span class="hljs-number">33</span>&#125;;
+
+        outputStream.write(second_responce);<span class="hljs-comment">//发送给服务器</span>
+        outputStream.flush();
+
+        System.out.println(<span class="hljs-string">&quot;第二次发送过去了&quot;</span>);
+
+        <span class="hljs-comment">/*</span>
+<span class="hljs-comment">        第二次回应，拒绝掉服务器的全部请求</span>
+<span class="hljs-comment">        Won&#x27;t 表示拒绝执行指示选项</span>
+<span class="hljs-comment">        1. 255 253 3 Do 表示期望服务器开启抑制向前的功能</span>
+<span class="hljs-comment">        2. 255 252 1 Won&#x27;t 拒绝客户端回显</span>
+<span class="hljs-comment">        3. 255 252 31 拒绝客户端窗口尺寸</span>
+<span class="hljs-comment">        4. 255 254 5 Don&#x27;t 希望服务端禁止状态功能</span>
+<span class="hljs-comment">        5. 255 252 33 拒绝执行远程流控制</span>
+<span class="hljs-comment">        */</span>
+
+        len = inputStream.read(bytes);
+
+        System.out.println(<span class="hljs-string">&quot;第三次接收响应，接受到的回应长度为&quot;</span>+len);
+
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">0</span>;j&lt;len;j++)&#123;
+            <span class="hljs-keyword">int</span> x = byteToInt(bytes[j]);
+            System.out.println(x);
+        &#125;
+
+        <span class="hljs-comment">/*</span>
+<span class="hljs-comment">        服务器第三次响应，继续向客户端发送3个字节</span>
+<span class="hljs-comment">        Will 表示自己请求使用的服务</span>
+<span class="hljs-comment">        Do 表示期望对方执行的请求</span>
+<span class="hljs-comment">        1. 255 251 1：IAC Will 1表示服务器请求回显</span>
+<span class="hljs-comment">         */</span>
+
+        <span class="hljs-keyword">byte</span>[] three_responce = &#123;(<span class="hljs-keyword">byte</span>)<span class="hljs-number">255</span>,(<span class="hljs-keyword">byte</span>)<span class="hljs-number">253</span>,(<span class="hljs-keyword">byte</span>)<span class="hljs-number">1</span>&#125;;
+
+        outputStream.write(three_responce);
+        outputStream.flush();
+
+        System.out.println(<span class="hljs-string">&quot;第三次发送过去了&quot;</span>);
+
+        <span class="hljs-comment">/*</span>
+<span class="hljs-comment">        第三次回应，表示赞成服务器使用回显</span>
+<span class="hljs-comment">        1. 255 253 1</span>
+<span class="hljs-comment">         */</span>
+
+        System.out.println(<span class="hljs-string">&quot;-----------&quot;</span>);
+
+        len = inputStream.read(bytes);
+
+        System.out.println(<span class="hljs-string">&quot;第四次接收响应&quot;</span>);
+
+        String str = <span class="hljs-keyword">new</span> String(bytes,<span class="hljs-number">0</span>,len,<span class="hljs-string">&quot;UTF-8&quot;</span>);
+        System.out.println(str);
+
+        <span class="hljs-comment">//接收到登陆信息</span>
+    &#125;
+
+    <span class="hljs-comment">//byte转int</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">byteToInt</span><span class="hljs-params">(<span class="hljs-keyword">byte</span> b)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> x = b &amp; <span class="hljs-number">0xff</span>;
+        <span class="hljs-keyword">return</span> x;
+    &#125;
+&#125;</code></pre>
+<p>当程序与虚拟机中的linux建立连接之后，服务器会立刻发送协商信息给程序，接收信息后进行协商即可。具体的协商过程都在代码与注释中。</p>
+<h2 id="Telnet协商自动机"><a href="#Telnet协商自动机" class="headerlink" title="Telnet协商自动机"></a>Telnet协商自动机</h2><p>协商自动机是我在看别人的博客时发现的名词，就拿来用了。协商自动机的主要任务是，对于服务器发送过来的数据，分辨清楚它是协商消息还就是普通的数据。</p>
+<p>如果是协商消息的话，就根据预先设置好的策略，进行回复，如果是数据的话，就展示给用户。</p>
+<p>这解析服务器数据的过程就像是读取文件获得固定内容或者编译器读取代码那样。</p>
+<pre><code class="hljs java"><span class="hljs-comment">//检测接收到的数据是协商还是数据，进行协商，处理并返回数据</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">negotiate</span><span class="hljs-params">(<span class="hljs-keyword">byte</span> buf[],<span class="hljs-keyword">int</span> lens)</span> <span class="hljs-keyword">throws</span> IOException</span>&#123;
+
+    <span class="hljs-keyword">byte</span> front = (<span class="hljs-keyword">byte</span>)<span class="hljs-number">0</span>;<span class="hljs-comment">//用来存储当前正在解析的buf[]中的数据</span>
+
+    List&lt;Byte&gt; databuf = <span class="hljs-keyword">new</span> ArrayList&lt;Byte&gt;(); <span class="hljs-comment">//存储数据</span>
+    List&lt;Byte&gt; negbuf = <span class="hljs-keyword">new</span> ArrayList&lt;Byte&gt;();  <span class="hljs-comment">//存储协商命令</span>
+
+    <span class="hljs-keyword">int</span> seg_offset = <span class="hljs-number">0</span>; <span class="hljs-comment">//记录处理的位置</span>
+
+    <span class="hljs-keyword">byte</span> neg_state = STATE_DATA;<span class="hljs-comment">//协商状态，表明解析数据类型</span>
+
+    <span class="hljs-keyword">while</span>(seg_offset &lt; lens)&#123;
+
+        <span class="hljs-comment">//获取到当前要处理的字节</span>
+        front = buf[seg_offset];
+        seg_offset++;
+
+        <span class="hljs-keyword">switch</span> (neg_state)&#123;
+            <span class="hljs-keyword">case</span> STATE_DATA:<span class="hljs-comment">//是数据</span>
+                <span class="hljs-keyword">if</span>(front == IAC)&#123;<span class="hljs-comment">//255</span>
+                    neg_state = STATE_IAC;
+                    negbuf.add(IAC);<span class="hljs-comment">//加入到待回复的数组中</span>
+                &#125;
+                <span class="hljs-keyword">else</span>&#123;
+                    databuf.add(front);
+                &#125;
+                <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> STATE_IAC:<span class="hljs-comment">//是IAC</span>
+                <span class="hljs-keyword">switch</span>(front)&#123;
+                    <span class="hljs-keyword">case</span> WILL:
+                        <span class="hljs-comment">//IAC后接WILL</span>
+                        neg_state = STATE_IACWILL;
+                        <span class="hljs-keyword">break</span>;
+                    <span class="hljs-keyword">case</span> WONT:
+                        neg_state = STATE_IACWONT;
+                        <span class="hljs-keyword">break</span>;
+                    <span class="hljs-keyword">case</span> DONT:
+                        neg_state = STATE_IACDONT;
+                        <span class="hljs-keyword">break</span>;
+                    <span class="hljs-keyword">case</span> DO:
+                        neg_state = STATE_IACDO;
+                        <span class="hljs-keyword">break</span>;
+                    <span class="hljs-keyword">default</span>:<span class="hljs-comment">//其它情况都是数据类型</span>
+                        <span class="hljs-comment">//<span class="hljs-doctag">TODO:</span>有可能读出了IAC但是，实际上只是一个单独的字符</span>
+                        neg_state = STATE_DATA;
+                        databuf.add(IAC);
+                        <span class="hljs-keyword">break</span>;
+                &#125;
+                <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> STATE_IACWILL:<span class="hljs-comment">//如果是协商类型 IAC WILL，表示服务器自己想做的服务</span>
+                <span class="hljs-keyword">switch</span> (front)&#123;
+                    <span class="hljs-comment">//这里如果是功能1 ECHO或者功能3 E3是选择DO，其他都是DONT</span>
+                    <span class="hljs-keyword">case</span> TELOPT_ECHO:
+                        <span class="hljs-comment">//negbuf[] = TELOPT_ECHO;</span>
+                        <span class="hljs-comment">//TODO： 记得继续往下</span>
+                        negbuf.add(DO);
+                        negbuf.add(TELOPT_ECHO);
+                        neg_state = STATE_DATA;
+                        <span class="hljs-keyword">break</span>;
+                    <span class="hljs-keyword">case</span> TELOPT_E3:
+                        negbuf.add(DO);
+                        negbuf.add(TELOPT_E3);
+                        neg_state = STATE_DATA;
+                        <span class="hljs-keyword">break</span>;
+                    <span class="hljs-keyword">default</span>:
+                        <span class="hljs-comment">//其他情况都先拒绝</span>
+                        negbuf.add(DONT);
+                        negbuf.add(front);
+                        neg_state = STATE_DATA;
+                        <span class="hljs-keyword">break</span>;
+                &#125;
+                <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> STATE_IACDO:<span class="hljs-comment">//如果协商类型是IAC DO，表示服务器期待客户端做某事</span>
+                <span class="hljs-comment">//对于服务器发送的DO请求，全部使用WONT拒绝</span>
+                negbuf.add(WONT);
+                negbuf.add(front);
+                neg_state = STATE_DATA;
+                <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> STATE_IACWONT:<span class="hljs-comment">//如果协商类型是IAC WONT，表示服务器拒绝执行我的请求</span>
+                <span class="hljs-comment">//实际上服务器并没有发过这种请求，不做处理</span>
+            <span class="hljs-keyword">case</span> STATE_IACDONT:<span class="hljs-comment">//如果协商类型是IAC DONT，表示服务器不希望我做某些请求</span>
+                <span class="hljs-comment">//服务器也没有发送过这种请求，不处理</span>
+                neg_state  =STATE_DATA;
+                <span class="hljs-keyword">break</span>;
+        &#125;
+
+    &#125;
+
+    <span class="hljs-comment">//回应服务器的协商</span>
+    <span class="hljs-keyword">if</span>(!negbuf.isEmpty() &amp;&amp; (negbuf.size() % <span class="hljs-number">3</span> == <span class="hljs-number">0</span>))&#123;
+        Byte[] bytes = negbuf.toArray(<span class="hljs-keyword">new</span> Byte[negbuf.size()]);<span class="hljs-comment">//ArrayList转Byte[]数组</span>
+        <span class="hljs-keyword">byte</span>[] responce = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[negbuf.size()];
+        ByteTobyte(bytes,responce); <span class="hljs-comment">//转为byte[]</span>
+        send(responce);             <span class="hljs-comment">//发送数据</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    &#125;
+
+    <span class="hljs-comment">//如果没有协商而是数据的话，通过函数返回</span>
+    <span class="hljs-keyword">if</span>(databuf != <span class="hljs-keyword">null</span>)&#123;
+        Byte[] bytes = databuf.toArray(<span class="hljs-keyword">new</span> Byte[databuf.size()]);<span class="hljs-comment">//ArrayList转Byte[]数组</span>
+        <span class="hljs-keyword">byte</span>[] message = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[databuf.size()];
+        ByteTobyte(bytes,message);<span class="hljs-comment">//转为byte[]</span>
+        String str = <span class="hljs-keyword">new</span> String(message,<span class="hljs-number">0</span>,databuf.size(),<span class="hljs-string">&quot;UTF-8&quot;</span>);
+        <span class="hljs-keyword">return</span> str;
+    &#125;
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+&#125;</code></pre>
+<p>协商自动机执行的结果是，对于服务器发送的协商，程序解析完成后，根据预先设置的情况，向服务器发送协商结果。如果是服务器发送来的数据，就显示到控制台。</p>
+<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><h3 id="TelnetClient-java"><a href="#TelnetClient-java" class="headerlink" title="TelnetClient.java"></a>TelnetClient.java</h3><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.io.InputStream;
+<span class="hljs-keyword">import</span> java.io.OutputStream;
+<span class="hljs-keyword">import</span> java.net.Socket;
+<span class="hljs-keyword">import</span> java.util.ArrayList;
+<span class="hljs-keyword">import</span> java.util.List;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TelnetClient</span> </span>&#123;
+
+    <span class="hljs-keyword">private</span> Socket telnetSocket;
+    <span class="hljs-keyword">private</span> OutputStream outputStream;
+    <span class="hljs-keyword">private</span> InputStream inputStream;
+
+    <span class="hljs-comment">/*-------------协商状态常数-------------*/</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span> STATE_DATA = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span> STATE_IAC = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span> STATE_IACWILL = <span class="hljs-number">2</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span> STATE_IACWONT = <span class="hljs-number">3</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span> STATE_IACDO = <span class="hljs-number">4</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span> STATE_IACDONT = <span class="hljs-number">5</span>;
+
+    <span class="hljs-comment">/*-------------协商过程中用到的数据-------------*/</span>
+    <span class="hljs-comment">//IAC - init sequence for telnet negotiation.telnet协商的初始化序列</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span> IAC = (<span class="hljs-keyword">byte</span>) <span class="hljs-number">255</span>;
+
+    <span class="hljs-comment">//EF [IAC] WILL 开始执行指示选项或证实设备现已开始执行指示选项</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span> WILL = (<span class="hljs-keyword">byte</span>) <span class="hljs-number">251</span>;
+
+    <span class="hljs-comment">//FB [IAC] WON&#x27;T  拒绝执行指示选项或拒绝计息执行指示选项</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span> WONT = (<span class="hljs-keyword">byte</span>) <span class="hljs-number">252</span>;
+
+    <span class="hljs-comment">//FC [IAC] DO 另一方执行的请求，或者证实期望对方执行的请求，指示选项</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span> DO = (<span class="hljs-keyword">byte</span>) <span class="hljs-number">253</span>;
+
+    <span class="hljs-comment">//FD [IAC] DON&#x27;T  另一方停止执行的命令，或者证实乙方不再期待另一方执行的命令，指示选项</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span> DONT = (<span class="hljs-keyword">byte</span>) <span class="hljs-number">254</span>;
+
+    <span class="hljs-comment">//FO Telnet option: echo text 回显字符 RFC:857</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span> TELOPT_ECHO = (<span class="hljs-keyword">byte</span>) <span class="hljs-number">1</span>;  <span class="hljs-comment">/* echo on/off */</span>
+
+    <span class="hljs-comment">//一次传送一个字符方式</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span> TELOPT_E3 = (<span class="hljs-keyword">byte</span>) <span class="hljs-number">3</span>;
+
+    <span class="hljs-comment">//与特定的主机建立telnet连接</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">link</span><span class="hljs-params">(String host,<span class="hljs-keyword">int</span> port)</span> <span class="hljs-keyword">throws</span> IOException</span>&#123;
+        telnetSocket = <span class="hljs-keyword">new</span> Socket(host,port);
+        outputStream = telnetSocket.getOutputStream();
+        inputStream = telnetSocket.getInputStream();
+
+        <span class="hljs-keyword">byte</span>[] bytes = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[<span class="hljs-number">1024</span>*<span class="hljs-number">8</span>];
+        <span class="hljs-keyword">int</span> len = <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>)&#123;
+            len = inputStream.read(bytes);
+            String str = negotiate(bytes,len);
+
+            <span class="hljs-keyword">if</span>(str != <span class="hljs-keyword">null</span>)&#123;
+<span class="hljs-comment">//                len = inputStream.read(bytes);</span>
+<span class="hljs-comment">//                String str1 = negotiate(bytes,len);</span>
+<span class="hljs-comment">//                str += str1;</span>
+                System.out.print(str);
+                <span class="hljs-keyword">break</span>;
+            &#125;
+        &#125;
+    &#125;
+
+    <span class="hljs-comment">//发送数据给服务器</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">send</span><span class="hljs-params">(<span class="hljs-keyword">byte</span>[] bytes)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+        outputStream.write(bytes);
+        outputStream.flush();
+    &#125;
+
+    <span class="hljs-comment">//从服务器接收数据</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">receive</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException</span>&#123;
+        <span class="hljs-keyword">byte</span>[] bytes = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[<span class="hljs-number">1024</span>*<span class="hljs-number">8</span>];
+        <span class="hljs-keyword">int</span> len = inputStream.read(bytes);
+        <span class="hljs-keyword">if</span> (len &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IOException(<span class="hljs-string">&quot;Connection closed.&quot;</span>);
+        String str = negotiate(bytes,len);
+        <span class="hljs-keyword">return</span> str;
+    &#125;
+
+    <span class="hljs-comment">//检测接收到的数据是协商还是数据，进行协商，处理并返回数据</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">negotiate</span><span class="hljs-params">(<span class="hljs-keyword">byte</span> buf[],<span class="hljs-keyword">int</span> lens)</span> <span class="hljs-keyword">throws</span> IOException</span>&#123;
+
+        <span class="hljs-keyword">byte</span> front = (<span class="hljs-keyword">byte</span>)<span class="hljs-number">0</span>;
+
+        List&lt;Byte&gt; databuf = <span class="hljs-keyword">new</span> ArrayList&lt;Byte&gt;(); <span class="hljs-comment">//存储数据</span>
+        List&lt;Byte&gt; negbuf = <span class="hljs-keyword">new</span> ArrayList&lt;Byte&gt;();  <span class="hljs-comment">//存储协商命令</span>
+
+        <span class="hljs-keyword">int</span> seg_offset = <span class="hljs-number">0</span>; <span class="hljs-comment">//记录处理的位置</span>
+
+        <span class="hljs-keyword">byte</span> neg_state = STATE_DATA;
+
+        <span class="hljs-keyword">while</span>(seg_offset &lt; lens)&#123;
+
+            <span class="hljs-comment">//获取到当前要处理的字节</span>
+            front = buf[seg_offset];
+            seg_offset++;
+
+            <span class="hljs-keyword">switch</span> (neg_state)&#123;
+                <span class="hljs-keyword">case</span> STATE_DATA:<span class="hljs-comment">//是数据</span>
+                    <span class="hljs-keyword">if</span>(front == IAC)&#123;<span class="hljs-comment">//255</span>
+                        neg_state = STATE_IAC;
+                        negbuf.add(IAC);<span class="hljs-comment">//加入到待回复的数组中</span>
+                    &#125;
+                    <span class="hljs-keyword">else</span>&#123;
+                        databuf.add(front);
+                    &#125;
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> STATE_IAC:<span class="hljs-comment">//是IAC</span>
+                    <span class="hljs-keyword">switch</span>(front)&#123;
+                        <span class="hljs-keyword">case</span> WILL:
+                            <span class="hljs-comment">//IAC后接WILL</span>
+                            neg_state = STATE_IACWILL;
+                            <span class="hljs-keyword">break</span>;
+                        <span class="hljs-keyword">case</span> WONT:
+                            neg_state = STATE_IACWONT;
+                            <span class="hljs-keyword">break</span>;
+                        <span class="hljs-keyword">case</span> DONT:
+                            neg_state = STATE_IACDONT;
+                            <span class="hljs-keyword">break</span>;
+                        <span class="hljs-keyword">case</span> DO:
+                            neg_state = STATE_IACDO;
+                            <span class="hljs-keyword">break</span>;
+                        <span class="hljs-keyword">default</span>:<span class="hljs-comment">//其它情况都是数据类型</span>
+                            <span class="hljs-comment">//<span class="hljs-doctag">TODO:</span>有可能读出了IAC但是，实际上只是一个单独的字符</span>
+                            neg_state = STATE_DATA;
+                            databuf.add(IAC);
+                            <span class="hljs-keyword">break</span>;
+                    &#125;
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> STATE_IACWILL:<span class="hljs-comment">//如果是协商类型 IAC WILL，表示服务器自己想做的服务</span>
+                    <span class="hljs-keyword">switch</span> (front)&#123;
+                        <span class="hljs-comment">//这里如果是功能1 ECHO或者功能3 E3是选择DO，其他都是DONT</span>
+                        <span class="hljs-keyword">case</span> TELOPT_ECHO:
+                            <span class="hljs-comment">//negbuf[] = TELOPT_ECHO;</span>
+                            <span class="hljs-comment">//TODO： 记得继续往下</span>
+                            negbuf.add(DO);
+                            negbuf.add(TELOPT_ECHO);
+                            neg_state = STATE_DATA;
+                            <span class="hljs-keyword">break</span>;
+                        <span class="hljs-keyword">case</span> TELOPT_E3:
+                            negbuf.add(DO);
+                            negbuf.add(TELOPT_E3);
+                            neg_state = STATE_DATA;
+                            <span class="hljs-keyword">break</span>;
+                        <span class="hljs-keyword">default</span>:
+                            <span class="hljs-comment">//其他情况都先拒绝</span>
+                            negbuf.add(DONT);
+                            negbuf.add(front);
+                            neg_state = STATE_DATA;
+                            <span class="hljs-keyword">break</span>;
+                    &#125;
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> STATE_IACDO:<span class="hljs-comment">//如果协商类型是IAC DO，表示服务器期待客户端做某事</span>
+                    <span class="hljs-comment">//对于服务器发送的DO请求，全部使用WONT拒绝</span>
+                    negbuf.add(WONT);
+                    negbuf.add(front);
+                    neg_state = STATE_DATA;
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> STATE_IACWONT:<span class="hljs-comment">//如果协商类型是IAC WONT，表示服务器拒绝执行我的请求</span>
+                    <span class="hljs-comment">//实际上服务器并没有发过这种请求，不做处理</span>
+                <span class="hljs-keyword">case</span> STATE_IACDONT:<span class="hljs-comment">//如果协商类型是IAC DONT，表示服务器不希望我做某些请求</span>
+                    <span class="hljs-comment">//服务器也没有发送过这种请求，不处理</span>
+                    neg_state  =STATE_DATA;
+                    <span class="hljs-keyword">break</span>;
+            &#125;
+
+        &#125;
+
+        <span class="hljs-comment">//回应服务器的协商</span>
+        <span class="hljs-keyword">if</span>(!negbuf.isEmpty() &amp;&amp; (negbuf.size() % <span class="hljs-number">3</span> == <span class="hljs-number">0</span>))&#123;
+            Byte[] bytes = negbuf.toArray(<span class="hljs-keyword">new</span> Byte[negbuf.size()]);<span class="hljs-comment">//ArrayList转Byte[]数组</span>
+            <span class="hljs-keyword">byte</span>[] responce = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[negbuf.size()];
+            ByteTobyte(bytes,responce); <span class="hljs-comment">//转为byte[]</span>
+            send(responce);             <span class="hljs-comment">//发送数据</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+        &#125;
+
+        <span class="hljs-comment">//如果没有协商而是数据的话，通过函数返回</span>
+        <span class="hljs-keyword">if</span>(databuf != <span class="hljs-keyword">null</span>)&#123;
+            Byte[] bytes = databuf.toArray(<span class="hljs-keyword">new</span> Byte[databuf.size()]);<span class="hljs-comment">//ArrayList转Byte[]数组</span>
+            <span class="hljs-keyword">byte</span>[] message = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[databuf.size()];
+            ByteTobyte(bytes,message);<span class="hljs-comment">//转为byte[]</span>
+            String str = <span class="hljs-keyword">new</span> String(message,<span class="hljs-number">0</span>,databuf.size(),<span class="hljs-string">&quot;UTF-8&quot;</span>);
+            <span class="hljs-keyword">return</span> str;
+        &#125;
+
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    &#125;
+
+    <span class="hljs-comment">//byte转int</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">byteToInt</span><span class="hljs-params">(<span class="hljs-keyword">byte</span> b)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> x = b &amp; <span class="hljs-number">0xff</span>;
+        <span class="hljs-keyword">return</span> x;
+    &#125;
+
+    <span class="hljs-comment">//Byte[] 转byte[]</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ByteTobyte</span><span class="hljs-params">(Byte[] bytes,<span class="hljs-keyword">byte</span>[] byts)</span></span>&#123;
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;bytes.length;i++)&#123;
+            byts[i] = bytes[i];
+        &#125;
+    &#125;
+
+    <span class="hljs-comment">//延迟等待时间</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sleep</span><span class="hljs-params">(<span class="hljs-keyword">int</span> second)</span></span>&#123;
+        <span class="hljs-keyword">try</span> &#123;
+            Thread.sleep(second*<span class="hljs-number">1000</span>);
+        &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+
+    <span class="hljs-comment">//减去接收到的服务器的数据中与输入命令重复的部分</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">subStr</span><span class="hljs-params">(String orgstr,String objstr)</span></span>&#123;
+        <span class="hljs-comment">//orgstr: 子串 ， objstr：目标处理串</span>
+        <span class="hljs-keyword">if</span>(orgstr == <span class="hljs-keyword">null</span>)&#123;
+            <span class="hljs-keyword">return</span> objstr;<span class="hljs-comment">//如果原串为空，说明是第一次执行，直接返回数据</span>
+        &#125;
+
+        <span class="hljs-keyword">if</span>(objstr.indexOf(orgstr.substring(<span class="hljs-number">0</span>,orgstr.length()-<span class="hljs-number">1</span>)) == <span class="hljs-number">0</span>)&#123;<span class="hljs-comment">//如果子串位于目标串的开头位置再进行处理</span>
+            <span class="hljs-keyword">return</span> objstr.substring(orgstr.length()+<span class="hljs-number">1</span>);
+        &#125;
+        <span class="hljs-comment">//发送的数据为 msfadmin\n</span>
+        <span class="hljs-comment">//接收的数据为 msfadmin\r\n</span>
+        <span class="hljs-comment">//所以检索时orgstr长度减1，return时orgstr长度加1</span>
+        <span class="hljs-keyword">return</span> objstr;<span class="hljs-comment">//其他情况也返回原串</span>
+    &#125;
+&#125;</code></pre>
+<h3 id="Main-java"><a href="#Main-java" class="headerlink" title="Main.java"></a>Main.java</h3><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.util.Scanner;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>&#123;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+
+        Scanner sc = <span class="hljs-keyword">new</span> Scanner(System.in);
+
+        <span class="hljs-comment">//ip地址</span>
+        String remotehost = <span class="hljs-string">&quot;192.168.117.129&quot;</span>;
+
+        String inputStr = <span class="hljs-keyword">null</span>;
+        String showStr = <span class="hljs-keyword">null</span>;
+
+        <span class="hljs-comment">//建立连接，并进行协商</span>
+        TelnetClient tc = <span class="hljs-keyword">new</span> TelnetClient();
+        tc.link(remotehost,<span class="hljs-number">23</span>);
+
+        <span class="hljs-comment">//协商完成,开始和用户交互</span>
+        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>)&#123;
+            <span class="hljs-comment">//获取用户输入</span>
+            inputStr = sc.nextLine();
+            inputStr += <span class="hljs-string">&quot;\n&quot;</span>;
+
+            <span class="hljs-comment">//发送用户的数据</span>
+            tc.send(inputStr.getBytes());
+            tc.sleep(<span class="hljs-number">2</span>);
+
+            <span class="hljs-comment">//接收服务器的数据</span>
+            showStr = tc.receive();
+
+            <span class="hljs-comment">//字符串处理</span>
+            showStr = tc.subStr(inputStr,showStr);
+            System.out.print(showStr);
+        &#125;
+    &#125;
+&#125;</code></pre>
+<h2 id="结果展示"><a href="#结果展示" class="headerlink" title="结果展示"></a>结果展示</h2><p><img src="telnet-with-java/link.png" srcset="/img/loading.gif"></p>
+<h2 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h2><p>在资料中看到了NVT的说明，但是至今没搞懂NVT在哪里实现，我在Windows端下发送的命令加上<code>\n</code>，就可以被执行，加上<code>\r\n</code>就不会被执行，但是NVT不是统一使用的<code>\r\n</code>作为换行符吗？</p>
+<p>关于协商自动机，因为大多数Telnet协议的参数说明都很模糊，大部分网上查不到，并且RFC文档我看不太明白，所以那个协商函数是根据我在本地测试的情况编写的，好多问题根本没有考虑到。所以向这些基本操作可以使用，但是像是<code>vi</code>这种命令去编辑文本就不能用了。</p>
+<p>答辩的时候，老师询问了如果服务器的telnet进程突然出现了问题，一直给你发送消息你该怎么办，等好多特殊情况，我确实不知道该如何解决.</p>
+<h2 id="参考链接与资料分享"><a href="#参考链接与资料分享" class="headerlink" title="参考链接与资料分享"></a>参考链接与资料分享</h2><p><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc854">https://tools.ietf.org/html/rfc854</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.cnpaf.net/Class/RFC/200411/1049.html">中文RFC文档阅读 701-1000</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/spinsoft/archive/2012/06/27/2566069.html">Telnet协议详解</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yechuan/archive/2013/01/30/2882837.html">Telnet协议的java实现</a></p>
+<p>《基于Windows的TCPIP编程》王罡 清华大学出版社：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1jvDF1zBPmD0e4YyBQWebkw">https://pan.baidu.com/s/1jvDF1zBPmD0e4YyBQWebkw</a>  提取码：y8dg</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/">文件下载</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">网络编程</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/c-snake-pro5/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">C++基于EasyX制作贪吃蛇游戏（五）第三版文档</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/Linux-Telnet/">
+                        <span class="hidden-mobile">Linux-Telnet配置</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/telnet-with-java/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Java实现的Telnet协议 - 计算机网络课设&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

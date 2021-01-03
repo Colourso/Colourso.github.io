@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>Mysql语法小结 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-05-13 14:09">
+      星期三, 五月 13日 2020, 2:09 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      59
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><strong>概览</strong>：Mysql语句，Mysql的基本操作。</p>
+<a id="more"></a>
+
+<hr>
+<h2 id="Mysql的服务端、客户端操作"><a href="#Mysql的服务端、客户端操作" class="headerlink" title="Mysql的服务端、客户端操作"></a>Mysql的服务端、客户端操作</h2><p>以下为Windows平台的操作</p>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 开启服务器</span>
+net start mysql
+<span class="hljs-meta">#</span><span class="bash"> &gt; 查看进程表中是否存在：mysqld.exe进程(存在)</span>
+
+<span class="hljs-meta">#</span><span class="bash"> 关闭服务器</span>
+net stop mysql
+<span class="hljs-meta">#</span><span class="bash"> &gt; 查看进程表中是否存在：mysqld.exe进程(不存在)</span></code></pre>
+<p>客户端操作</p>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 登陆服务器</span>
+mysql -uroot -p123 -hlocalhost</code></pre>
+<ul>
+<li><code>-u</code>：后面跟随用户名</li>
+<li><code>-p</code>：后面跟随密码</li>
+<li><code>-h</code>：后面跟随IP</li>
+</ul>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 退出服务器</span>
+exit 或者 quit</code></pre>
+<h2 id="SQL语法"><a href="#SQL语法" class="headerlink" title="SQL语法"></a>SQL语法</h2><ol>
+<li>SQL语句可以在单行或多行书写，以分号结尾</li>
+<li>可使用空格和缩进来增强语句的可读性</li>
+<li>MySQL不区别大小写，建议使用大写</li>
+</ol>
+<h3 id="SQL语句分类"><a href="#SQL语句分类" class="headerlink" title="SQL语句分类"></a>SQL语句分类</h3><ol>
+<li><p>DDL（Data Definition Language）：数据定义语言，用来定义数据库对象：库、表、列等；<strong>创建、删除、修改：库、表结构</strong></p>
+</li>
+<li><p>DML（Data Manipulation Language）：数据操作语言，用来定义数据库记录（数据）；<strong>增、删、改：表记录</strong></p>
+</li>
+<li><p>DCL（Data Control Language）：数据控制语言，用来定义访问权限和安全级别；</p>
+</li>
+<li><p>DQL（Data Query Language）：数据查询语言，用来查询记录（数据）。</p>
+</li>
+</ol>
+<h3 id="数据类型（列数据）"><a href="#数据类型（列数据）" class="headerlink" title="数据类型（列数据）"></a>数据类型（列数据）</h3><ul>
+<li>int：整型</li>
+<li>double：浮点型，例如double(5,2)表示最多5位，其中必须有2位小数，即最大值为999.99；</li>
+<li>decimal：浮点型，在表单、钱方面使用该类型，因为不会出现精度缺失问题；</li>
+<li>char：固定长度字符串类型； char(255)，数据的长度不足指定长度，补足到指定长度！</li>
+<li>varchar：<strong>可变长度</strong>字符串类型； varchar(2)</li>
+<li>text：字符串类型，长文本数据。</li>
+<li>blob：二进制形式长文本数据。</li>
+<li>date：日期类型，格式为：yyyy-MM-dd；</li>
+<li>time：时间类型，格式为：hh:mm:ss</li>
+<li>timestamp：时间戳类型；</li>
+</ul>
+<h2 id="DDL-–-数据定义语言"><a href="#DDL-–-数据定义语言" class="headerlink" title="DDL – 数据定义语言"></a>DDL – 数据定义语言</h2><p>数据库</p>
+<pre><code class="hljs sql">查看所有数据库：<span class="hljs-keyword">SHOW</span> DATABASES
+创建数据库：<span class="hljs-keyword">CREATE</span> DATABASE [IF <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span>] 数据库名 [CHARSET<span class="hljs-operator">=</span>utf8]
+切换（选择要操作的）数据库：USE 数据库名
+删除数据库：<span class="hljs-keyword">DROP</span> DATABASE [IF <span class="hljs-keyword">EXISTS</span>] 数据库名
+修改数据库编码：<span class="hljs-keyword">ALTER</span> DATABASE 数据库名 <span class="hljs-type">CHARACTER</span> <span class="hljs-keyword">SET</span> utf8</code></pre>
+<p>表：</p>
+<pre><code class="hljs sql">创建表：
+  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> [IF <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span>] 表名(
+    列名 列类型,
+    列名 列类型,
+    ...
+    列名 列类型
+  );
+
+查看当前数据库中所有表名称：<span class="hljs-keyword">SHOW</span> TABLES;
+查看指定表的创建语句：<span class="hljs-keyword">SHOW</span> <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> 表名(了解);
+查看表结构：<span class="hljs-keyword">DESC</span> 表名;
+删除表：<span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TABLE</span> 表名;
+
+修改表：前缀：<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 表名
+  <span class="hljs-operator">&gt;</span> 修改之添加列：
+    <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 表名 <span class="hljs-keyword">ADD</span> (
+      列名 列类型,
+      列名 列类型,
+      ...
+    );
+  <span class="hljs-operator">&gt;</span> 修改之修改列类型(如果被修改的列已存在数据，那么新的类型可能会影响到已存在数据)：<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 表名 MODIFY 列名 列新类型;
+  <span class="hljs-operator">&gt;</span> 修改之修改列名：<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 表名 CHANGE 原列名 新列名 列类型;
+  <span class="hljs-operator">&gt;</span> 修改之删除列：<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 表名 <span class="hljs-keyword">DROP</span> 列名;
+  <span class="hljs-operator">&gt;</span> 修改表名称：<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 原表名 RENAME <span class="hljs-keyword">TO</span> 新表名;</code></pre>
+<h2 id="DML-–-数据操作语言"><a href="#DML-–-数据操作语言" class="headerlink" title="DML – 数据操作语言"></a>DML – 数据操作语言</h2><ol>
+<li>插入数据</li>
+</ol>
+<ul>
+<li><p><code>INTERT INTO 表名(列名1,列名2, ...) VALUES(列值1, 列值2, ...);</code></p>
+<blockquote>
+<p>在表名后给出要插入的列名，其他没有指定的列等同与插入null值。所以插入记录总是插入一行，不可能是半行。<br>在VALUES后给出列值，值的顺序和个数必须与前面指定的列对应</p>
+</blockquote>
+</li>
+<li><p><code>INTERT INTO 表名 VALUES(列值1, 列值2)</code></p>
+<blockquote>
+<p>没有给出要插入的列，那么表示插入所有列。<br>值的个数必须是该表列的个数。<br>值的顺序，必须与表创建时给出的列的顺序相同。</p>
+</blockquote>
+</li>
+</ul>
+<ol start="2">
+<li>修改数据</li>
+</ol>
+<ul>
+<li><code>UPDATE 表名 SET 列名1=列值1, 列名2=列值2, ... [WHERE 条件]</code></li>
+<li>条件(条件可选的)：<blockquote>
+<p>条件必须是一个boolean类型的值或表达式：<code>UPDATE t_person SET gender=&#39;男&#39;, age=age+1 WHERE sid=&#39;1&#39;;</code><br>运算符：<code>=、!=、&lt;&gt;、&gt;、&lt;、&gt;=、&lt;=、BETWEEN...AND、IN(...)、IS NULL、NOT、OR、AND</code></p>
+</blockquote>
+</li>
+</ul>
+<pre><code class="hljs mysql">WHERE age &gt;&#x3D; 18 AND age &lt;&#x3D; 80
+WHERE age BETWEEN 18 AND 80
+
+WHERE name&#x3D;&#39;zhangSan&#39; OR name&#x3D;&#39;liSi&#39;
+WHERE name IN (&#39;zhangSan&#39;, &#39;liSi&#39;)
+WHERE age IS NULL		# 判断NULL时不能使用等号
+WHERE age IS NOT NULL</code></pre>
+
+<ol start="3">
+<li>删除数据</li>
+</ol>
+<ul>
+<li><code>DELETE FROM 表名 [WHERE 条件];</code></li>
+<li>TRUNCATE TABLE 表名：TRUNCATE是DDL语句，它是先删除drop该表，再create该表。而且无法回滚！！！</li>
+</ul>
+<blockquote>
+<p>在数据库中所有的字符串类型，必须使用单引，不能使用双引！日期类型也要使用单引！？？？</p>
+<p>留存疑问</p>
+</blockquote>
+<pre><code class="hljs mysql">&#x2F;&#x2F; 插入所有列
+INSERT INTO stu(
+  number, name, age, gender
+)
+VALUES(
+  &#39;ITCAST_0001&#39;, &#39;zhangSan&#39;, 28, &#39;male&#39;
+);
+
+&#x2F;&#x2F; 插入部分列，没有指定的列默认为NULL值
+INSERT INTO stu(
+  number, name
+) VAKLUES(
+  &#39;ITCAST_0002&#39;, &#39;liSi&#39;
+)
+
+&#x2F;&#x2F; 不给出插入列，那么默认为插入所有列！值的顺序要与创建表时列的顺序相同
+INSERT INTO stu VALUES(
+  &#39;ITCAST_0003&#39;, &#39;wangWu&#39;, 82, &#39;female&#39;
+);</code></pre>
+<h2 id="DCL-–-数据控制语言-理解"><a href="#DCL-–-数据控制语言-理解" class="headerlink" title="DCL – 数据控制语言(理解)"></a>DCL – 数据控制语言(理解)</h2><ul>
+<li>一个项目创建一个用户！一个项目对应的数据库只有一个！</li>
+<li>这个用户只能对这个数据库有权限，其他数据库你就操作不了了！</li>
+</ul>
+<ol>
+<li>创建用户</li>
+</ol>
+<ul>
+<li><p><code>CREATE USER 用户名@IP地址 IDENTIFIED BY &#39;密码&#39;;</code></p>
+<blockquote>
+<p>用户只能在指定的IP地址上登录</p>
+</blockquote>
+</li>
+<li><p><code>CREATE USER 用户名@&#39;%&#39; IDENTIFIED BY &#39;密码&#39;;</code></p>
+<blockquote>
+<p>用户可以在任意IP地址上登录</p>
+</blockquote>
+</li>
+</ul>
+<ol start="2">
+<li>给用户授权</li>
+</ol>
+<ul>
+<li><p><code>GRANT 权限1, … , 权限n ON 数据库.* TO 用户名@IP地址</code></p>
+<blockquote>
+<p>权限、用户、数据库<br>给用户分派在指定的数据库上的指定的权限<br>例如；GRANT CREATE,ALTER,DROP,INSERT,UPDATE,DELETE,SELECT ON mydb1.* TO user1@localhost;</p>
+<ul>
+<li>给user1用户分派在mydb1数据库上的create、alter、drop、insert、update、delete、select权限</li>
+</ul>
+</blockquote>
+</li>
+<li><p><code>GRANT ALL ON 数据库.* TO 用户名@IP地址;</code></p>
+<blockquote>
+<p>给用户分派指定数据库上的所有权限</p>
+</blockquote>
+</li>
+</ul>
+<ol start="3">
+<li>撤销授权</li>
+</ol>
+<ul>
+<li><p><code>REVOKE 权限1, … , 权限n ON 数据库.* FROM 用户名@IP地址;</code></p>
+<blockquote>
+<p>撤消指定用户在指定数据库上的指定权限<br>例如；REVOKE CREATE,ALTER,DROP ON mydb1.* FROM user1@localhost;</p>
+<ul>
+<li>撤消user1用户在mydb1数据库上的create、alter、drop权限</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<ol start="4">
+<li>查看权限</li>
+</ol>
+<ul>
+<li><p><code>SHOW GRANTS FOR 用户名@IP地址</code></p>
+<blockquote>
+<p>查看指定用户的权限</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="DQL-–-数据查询语言"><a href="#DQL-–-数据查询语言" class="headerlink" title="DQL – 数据查询语言"></a>DQL – 数据查询语言</h2><p>查询不会修改数据库表记录。</p>
+<h3 id="字段-列-控制"><a href="#字段-列-控制" class="headerlink" title="字段(列)控制"></a>字段(列)控制</h3><ol>
+<li>查询所有列</li>
+</ol>
+<pre><code class="hljs mysql">SELECT * FROM 表名;
+SELECT * FROM emp;
+--&gt; 其中“*”表示查询所有列</code></pre>
+<ol start="2">
+<li> 查询指定列</li>
+</ol>
+<pre><code class="hljs mysql">SELECT 列1 [, 列2, ... 列N] FROM 表名;
+SELECT empno, ename, sal, comm FROM 表名;</code></pre>
+<ol start="3">
+<li>完全重复的记录只一次<br>当查询结果中的多行记录一模一样时，只显示一行。一般查询所有列时很少会有这种情况，但只查询一列（或几列）时，这总可能就大了！</li>
+</ol>
+<pre><code class="hljs mysql">SELECT DISTINCT * | 列1 [, 列2, ... 列N] FROM 表名;
+SELECT DISTINCT sal FROM emp;
+ --&gt; 保查询员工表的工资，如果存在相同的工资只显示一次！</code></pre>
+<ol start="4">
+<li>列运算</li>
+</ol>
+<ul>
+<li>数量类型的列可以做加、减、乘、除运算</li>
+</ul>
+<pre><code class="hljs mysql">SELECT sal*1.5 FROM emp;
+SELECT sal+comm FROM emp;</code></pre>
+<ul>
+<li> 字符串类型可以做连续运算</li>
+</ul>
+<pre><code class="hljs mysql">SELECT CONCAT(&#39;$&#39;, sal) FROM emp;</code></pre>
+<ul>
+<li>转换NULL值<br>   有时需要把NULL转换成其它值，例如com+1000时，如果com列存在NULL值，那么NULL+1000还是NULL，而我们这时希望把NULL当前0来运算。</li>
+</ul>
+<pre><code class="hljs mysql">SELECT IFNULL(comm, 0)+1000 FROM emp;
+--&gt; IFNULL(comm, 0)：如果comm中存在NULL值，那么当成0来运算。</code></pre>
+<ul>
+<li>给列起别名<br>   你也许已经注意到了，当使用列运算后，查询出的结果集中的列名称很不好看，这时我们需要给列名起个别名，这样在结果集中列名就显示别名了</li>
+</ul>
+<pre><code class="hljs mysql">SELECT IFNULL(comm, 0)+1000 AS 奖金 FROM emp;
+--&gt; 其中AS可以省略</code></pre>
+<h3 id="条件控制"><a href="#条件控制" class="headerlink" title="条件控制"></a>条件控制</h3><ol>
+<li><p>条件查询<br>  与前面介绍的UPDATE和DELETE语句一样，SELECT语句也可以使用WHERE子句来控制记录。</p>
+  <pre><code class="hljs mysql">SELECT empno,ename,sal,comm FROM emp WHERE sal &gt; 10000 AND comm IS NOT NULL;
+SELECT empno,ename,sal FROM emp WHERE sal BETWEEN 20000 AND 30000;
+SELECT empno,ename,job FROM emp WHERE job IN (&#39;经理&#39;, &#39;董事长&#39;);</code></pre></li>
+<li><p>模糊查询<br>当你想查询姓张，并且姓名一共两个字的员工时，这时就可以使用模糊查询</p>
+<pre><code class="hljs mysql">SELECT * FROM emp WHERE ename LIKE &#39;张_&#39;;
+--&gt; 模糊查询需要使用运算符：LIKE，其中_匹配一个任意字符，注意，只匹配一个字符而不是多个。
+--&gt; 上面语句查询的是姓张，名字由两个字组成的员工。
+SELECT * FROM emp WHERE ename LIKE &#39;___&#39;; &#x2F;*姓名由3个字组成的员工*&#x2F;
+
+# 如果我们想查询姓张，名字是几个字都可以的员工时就要使用“%”了。
+SELECT * FROM emp WHERE ename LIKE &#39;张%&#39;;
+--&gt; 其中%匹配0~N个任意字符，所以上面语句查询的是姓张的所有员工。
+
+SELECT * FROM emp WHERE ename LIKE &#39;%阿%&#39;;
+--&gt; 千万不要认为上面语句是在查询姓名中间带有阿字的员工，因为%匹配0~N个字符，所以姓名以阿开头和结尾的员工也都会查询到。
+
+SELECT * FROM emp WHERE ename LIKE &#39;%&#39;;
+--&gt; 这个条件等同于不存在，但如果姓名为NULL的查询不出来！</code></pre>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3></li>
+<li><p>升序</p>
+<pre><code class="hljs mysql">SELECT * FROM emp ORDER BY sal ASC;
+--&gt; 按sal排序，升序！
+--&gt; 其中ASC是可以省略的</code></pre></li>
+<li><p>降序</p>
+ <pre><code class="hljs mysql">SELECT * FROM WHERE emp ORDER BY comm DESC;
+--&gt; 按comm排序，降序！
+--&gt; 其中DESC不能省略</code></pre></li>
+<li><p>使用多列作为排序条件</p>
+<pre><code class="hljs mysql">SELECT * FROM WHERE emp ORDER BY sal ASC, comm DESC;
+--&gt; 使用sal升序排，如果sal相同时，使用comm的降序排</code></pre>
+<h3 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h3></li>
+</ol>
+<p>聚合函数用来做某列的纵向运算。</p>
+<ol>
+<li><p>COUNT</p>
+ <pre><code class="hljs mysql">SELECT COUNT(*) FROM emp;
+--&gt; 计算emp表中所有列都不为NULL的记录的行数
+SELECT COUNT(comm) FROM emp;
+--&gt; 云计算emp表中comm列不为NULL的记录的行数</code></pre></li>
+<li><p>MAX</p>
+  <pre><code class="hljs mysql">SELECT MAX(sal) FROM emp;
+--&gt; 查询最高工资</code></pre>
+</li>
+<li><p>MIN</p>
+ <pre><code class="hljs mysql">SELECT MIN(sal) FROM emp;
+--&gt; 查询最低工资</code></pre>
+</li>
+<li><p>SUM</p>
+  <pre><code class="hljs mysql">SELECT SUM(sal) FROM emp;
+--&gt; 查询工资合</code></pre>
+</li>
+<li><p>AVG</p>
+  <pre><code class="hljs mysql">SELECT AVG(sal) FROM emp;
+--&gt; 查询平均工资</code></pre>
+<h3 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h3></li>
+</ol>
+<p>分组查询是把记录使用某一列进行分组，然后查询组信息。<br>例如：查看所有部门的记录数。</p>
+<pre><code class="hljs mysql">SELECT deptno, COUNT(*) FROM emp GROUP BY deptno;
+--&gt; 使用deptno分组，查询部门编号和每个部门的记录数
+
+SELECT job, MAX(SAL) FROM emp GROUP BY job;
+--&gt; 使用job分组，查询每种工作的最高工资</code></pre>
+<p>组条件<br>以部门分组，查询每组记录数。条件为记录数大于3</p>
+<pre><code class="hljs mysql">SELECT deptno, COUNT(*) FROM emp GROUP BY deptno HAVING COUNT(*) &gt; 3;</code></pre>
+<h3 id="limit子句"><a href="#limit子句" class="headerlink" title="limit子句"></a>limit子句</h3><p>LIMIT用来限定查询结果的起始行，以及总行数。</p>
+<p>例如：查询起始行为第5行，一共查询3行记录</p>
+<pre><code class="hljs mysql">SELECT * FROM emp LIMIT 4, 3;
+--&gt; 其中4表示从第5行开始，其中3表示一共查询3行。即第5、6、7行记录。</code></pre>
+<h2 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h2><p>三种：</p>
+<ul>
+<li>合并结果集(了解)</li>
+</ul>
+<ul>
+<li>连接查询</li>
+<li>子查询</li>
+</ul>
+<h3 id="合并结果集"><a href="#合并结果集" class="headerlink" title="合并结果集"></a>合并结果集</h3><ul>
+<li>要求被合并的表中，列的类型和列数相同</li>
+<li>UNION，去除重复行</li>
+<li>UNION ALL，不去除重复行</li>
+</ul>
+<pre><code class="hljs mysql">SELECT * FROM cd 
+UNION ALL 
+SELECT * FROM ab;</code></pre>
+<h3 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h3><p>三种：</p>
+<ul>
+<li><p>内连接</p>
+</li>
+<li><p>外连接</p>
+<ul>
+<li>左外连接</li>
+<li>右外连接</li>
+<li>全外连接(MySQL不支持)</li>
+</ul>
+</li>
+<li><p>自然连接（属于一种简化方式）</p>
+</li>
+</ul>
+<p>内连接：</p>
+<pre><code>方言：SELECT * FROM 表1 别名1, 表2 别名2 WHERE 别名1.xx=别名2.xx
+标准：SELECT * FROM 表1 别名1 INNER JOIN 表2 别名2 ON 别名1.xx=别名2.xx
+自然：SELECT * FROM 表1 别名1 NATURAL JOIN 表2 别名2
+内连接查询出的所有记录都满足条件。</code></pre>
+<p>外连接：</p>
+<pre><code>左外：SELECT * FROM 表1 别名1 LEFT OUTER JOIN 表2 别名2 ON 别名1.xx=别名2.xx
+&gt; 左表记录无论是否满足条件都会查询出来，而右表只有满足条件才能出来。左表中不满足条件的记录，右表部分都为NULL
+左外自然：SELECT * FROM 表1 别名1 NATURAL LEFT OUTER JOIN 表2 别名2 ON 别名1.xx=别名2.xx
+右外：SELECT * FROM 表1 别名1 RIGHT OUTER JOIN 表2 别名2 ON 别名1.xx=别名2.xx
+&gt; 右表记录无论是否满足条件都会查询出来，而左表只有满足条件才能出来。右表不满足条件的记录，其左表部分都为NULL
+右外自然：SELECT * FROM 表1 别名1 NATURAL RIGHT OUTER JOIN 表2 别名2 ON 别名1.xx=别名2.xx
+全链接：可以使用UNION来完成全链接</code></pre>
+<h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p>查询中有查询（查看select关键字的个数！）</p>
+<ol>
+<li>出现的位置：</li>
+</ol>
+<ul>
+<li><p>where后作为条件存在</p>
+</li>
+<li><p>from后作为表存在(多行多列)</p>
+<ol start="2">
+<li><p>条件</p>
+<p>单行单列：SELECT * FROM 表1 别名1 WHERE 列1 [=、&gt;、&lt;、&gt;=、&lt;=、!=] (SELECT 列 FROM 表2 别名2 WHERE 条件)<br>多行单列：SELECT * FROM 表1 别名1 WHERE 列1 [IN, ALL, ANY] (SELECT 列 FROM 表2 别名2 WHERE 条件)<br>单行多列：SELECT * FROM 表1 别名1 WHERE (列1,列2) IN (SELECT 列1, 列2 FROM 表2 别名2 WHERE 条件)<br>多行多列：SELECT * FROM 表1 别名1 , (SELECT ….) 别名2 WHERE 条件</p>
+<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2></li>
+</ol>
+</li>
+</ul>
+<p>约束：约束是添加在列上的，用来约束列的！</p>
+<h3 id="主键约束（唯一标识）"><a href="#主键约束（唯一标识）" class="headerlink" title="主键约束（唯一标识）"></a>主键约束（唯一标识）</h3><ul>
+<li><p>非空</p>
+</li>
+<li><p>唯一</p>
+</li>
+<li><p>被引用（作外键时）</p>
+</li>
+</ul>
+<p><strong>当表的某一列被指定为主键后，该列就不能为空，不能有重复值出现</strong>！</p>
+<ul>
+<li>创建表时指定主键的两种方式：</li>
+</ul>
+<pre><code class="hljs mysql">CREATE TABLE stu(
+sid	    CHAR(6) PRIMARY KEY,
+sname	VARCHAR(20),
+age		INT,
+gender	VARCHAR(10) 
+);
+# 指定sid列为主键列，即为sid列添加主键约束
+
+CREATE TABLE stu(
+sid	    CHAR(6),
+sname	VARCHAR(20),
+age		INT,
+gender	VARCHAR(10),
+PRIMARY KEY(sid)
+);
+# 指定sid列为主键列，即为sid列添加主键约束</code></pre>
+<ul>
+<li>修改表时指定主键：<code>ALTER TABLE stu ADD PRIMARY KEY(sid);</code></li>
+<li>删除主键：<code>ALTER TABLE stu DROP PRIMARY KEY;</code></li>
+</ul>
+<h3 id="主键自增长"><a href="#主键自增长" class="headerlink" title="主键自增长"></a>主键自增长</h3><ul>
+<li><p>因为主键列的特性是：必须唯一、不能为空，<strong>所以我们通常会指定主键类为整型，然后设置其自动增长</strong>，这样可以保证在插入数据时主键列的唯一和非空特性。</p>
+</li>
+<li><p>创建表时指定主键自增长</p>
+<pre><code class="hljs mysql">CREATE TABLE stu(
+	sid INT PRIMARY KEY AUTO_INCREMENT,
+	sname	VARCHAR(20),
+   	age		INT,
+   	gender	VARCHAR(10)
+   );</code></pre>
+</li>
+<li><p>修改表时设置主键自增长：<code>ALTER TABLE stu CHANGE sid sid INT AUTO_INCREMENT;</code></p>
+</li>
+<li><p>修改表时删除主键自增长：<code>ALTER TABLE stu CHANGE sid sid INT;</code></p>
+</li>
+</ul>
+<h3 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h3><p>因为某些列不能设置为NULL值，所以可以对列添加非空约束。</p>
+<pre><code class="hljs mysql"># 对sname列设置了非空约束
+CREATE TABLE stu(
+	sid INT PRIMARY KEY AUTO_INCREMENT,
+	sname	VARCHAR(20) NOT NULL,
+	age		INT,
+	gender	VARCHAR(10)
+);</code></pre>
+<h3 id="唯一约束"><a href="#唯一约束" class="headerlink" title="唯一约束"></a>唯一约束</h3><p>某些列不能设置重复的值，所以可以对列添加唯一约束。</p>
+<pre><code class="hljs mysql"># 对sname列设置了非空约束
+CREATE TABLE stu(
+	sid INT PRIMARY KEY AUTO_INCREMENT,
+	sname	VARCHAR(20) NOT NULL UNIQUE,
+	age		INT,
+	gender	VARCHAR(10)
+);</code></pre>
+<h3 id="概念模型"><a href="#概念模型" class="headerlink" title="概念模型"></a>概念模型</h3><p>对象模型：可以双向关联，而且引用的是对象，而不是一个主键！</p>
+<p>关系模型：只能多方引用一方，而且引用的只是主键，而不是一整行记录。</p>
+<blockquote>
+<p> 对象模型：在java中是domain！例如：User、Student</p>
+<p>关系模型：在数据库中表！</p>
+<p>当我们要完成一个软件系统时，需要把系统中的实体抽取出来，形成概念模型。</p>
+<p>例如部门、员工都是系统中的实体。概念模型中的实体最终会成为Java中的类、数据库中表。</p>
+</blockquote>
+<p>实体之间还存在着关系，关系有三种：</p>
+<ul>
+<li>1对多：例如每个员工都从属一个部门，而一个部门可以有多个员工，其中员工是多方，而部门是一方。</li>
+<li>1对1：例如老公和老婆就是一对一的关系，一个老公只能有一个老婆，而一个老婆只能有一个老公。</li>
+<li>多对多：老师与学生的关系就是多对多，一个老师可以有多个学生，一个学生可以有多个老师。</li>
+</ul>
+<p>概念模型在Java中成为实体类（javaBean）</p>
+<p>类就使用成员变量来完成关系，一般都是双向关联！</p>
+<p>多对一双向中关联，即员工关联部门，部门也关联员工</p>
+<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Employee</span> </span>&#123;<span class="hljs-comment">//多方关联一方</span>
+     ...
+     <span class="hljs-keyword">private</span> Department department;
+  &#125;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Department</span> </span>&#123;<span class="hljs-comment">//一方关联多方</span>
+     ...
+     <span class="hljs-keyword">private</span> List&lt;Employee&gt; employees;
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Husband</span> </span>&#123;
+     ...
+     <span class="hljs-keyword">private</span> Wife wife;
+&#125;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Wife</span> </span>&#123;
+     ...
+     <span class="hljs-keyword">private</span> Husband
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span> </span>&#123;
+     ...
+     <span class="hljs-keyword">private</span> List&lt;Teacher&gt; teachers
+&#125;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Teacher</span> </span>&#123;
+     ...
+     <span class="hljs-keyword">private</span> List&lt;Student&gt; students;
+&#125;</code></pre>
+<h3 id="外键约束"><a href="#外键约束" class="headerlink" title="外键约束"></a>外键约束</h3><ul>
+<li><p>外键必须是另一表的主键的值(外键要引用主键！)</p>
+</li>
+<li><p>外键可以重复</p>
+</li>
+<li><p>外键可以为空</p>
+</li>
+<li><p>一张表中可以有多个外键！</p>
+<p>概念模型在数据库中成为表<br>数据库表中的多对一关系，只需要在多方使用一个独立的列来引用1方的主键即可</p>
+</li>
+</ul>
+<pre><code class="hljs mysql"># 员工表
+create talbe emp (
+  empno int primary key,&#x2F;*员工编号*&#x2F;
+  ...
+  deptno int&#x2F;*所属部门的编号*&#x2F;
+);
+# 部门表
+create table dept (
+  deptno int  primary key,&#x2F;*部门编号*&#x2F;
+  ...
+);</code></pre>
+<p>emp表中的deptno列的值表示当前员工所从属的部门编号。也就是说emp.deptno必须在dept表中是真实存在！</p>
+<p>但是我们必须要去对它进行约束，不然可能会出现员工所属的部门编号是不存在的。这种约束就是外键约束。</p>
+<p>我们需要给emp.deptno添加外键约束，约束它的值必须在dept.deptno中存在。外键必须是另一个表的主键！</p>
+<p>语法：<code>CONSTRAINT 约束名称 FOREIGN KEY(外键列名) REFERENCES 关联表(关联表的主键) </code></p>
+<pre><code class="hljs mysql"># 创建表时指定外键约束
+create talbe emp (
+    empno int primary key,
+    ...
+    deptno int,
+    CONSTRAINT fk_emp FOREIGN KEY(mgr) REFERENCES emp(empno)  
+);
+# 修改表时添加外键约束
+ALERT TABLE emp ADD CONSTRAINT fk_emp_deptno FOREIGN KEY(deptno) REFERENCES dept(deptno);
+
+# 修改表时删除外键约束
+ALTER TABLE emp DROP FOREIGN KEY fk_emp_deptno;&#x2F;*约束名称*&#x2F;</code></pre>
+<h3 id="数据库一对一关系"><a href="#数据库一对一关系" class="headerlink" title="数据库一对一关系"></a>数据库一对一关系</h3><p>在表中建立一对一关系比较特殊，需要让其中一张表的主键，即是主键又是外键。</p>
+<pre><code class="hljs mysql">create table husband(
+	hid int PRIMARY KEY,
+	...
+);
+
+create table wife(
+	wid int PRIMARY KEY,
+	...
+	ADD CONSTRAINT fk_wife_wid FOREIGN KEY(wid) REFERENCES husband(hid)
+);</code></pre>
+<p>其中wife表的wid即是主键，又是相对husband表的外键！</p>
+<p>husband.hid是主键，不能重复！</p>
+<p>wife.wid是主键，不能重复，又是外键，必须来自husband.hid。</p>
+<p>所以如果在wife表中有一条记录的wid为1，那么wife表中的其他记录的wid就不能再是1了，因为它是主键。</p>
+<p>同时在husband.hid中必须存在1这个值，因为wid是外键。这就完成了一对一关系。</p>
+<p>从表的主键即是外键！</p>
+<h3 id="数据库多对多关系"><a href="#数据库多对多关系" class="headerlink" title="数据库多对多关系"></a>数据库多对多关系</h3><p>在表中建立多对多关系需要使用中间表，即需要三张表，在中间表中使用两个外键，分别引用其他两个表的主键。</p>
+<pre><code class="hljs mysql">create table student(
+    sid int PRIMARY KEY,
+    ...
+);
+
+create table teacher(
+    tid int PRIMARY KEY,
+    ...
+);
+
+create table stu_tea(
+ sid int,
+ tid int,
+ ADD CONSTRAINT fk_stu_tea_sid FOREIGN KEY(sid) REFERENCES student(sid),
+ ADD CONSTRAINT fk_stu_tea_tid FOREIGN KEY(tid) REFERENCES teacher(tid)
+);</code></pre>
+<p>  这时在stu_tea这个中间表中的每条记录都是来说明student和teacher表的关系.</p>
+<p>  例如在stu_tea表中的记录：sid为1001，tid为2001，这说明编号为1001的学生有一个编号为2001的老师</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%B0%8F%E7%99%BD%E6%96%87/">小白文</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Mysql/">Mysql</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/mysql-instance/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Mysql数据库实例 —— 物流管理平台</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/redis/">
+                        <span class="hidden-mobile">Redis的简单用法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/mysql-use/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Mysql语法小结&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

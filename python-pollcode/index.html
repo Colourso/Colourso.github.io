@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>Python小项目 —— 企业编码生成系统 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-02-29 23:09">
+      星期六, 二月 29日 2020, 11:09 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      64
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><strong>概览</strong>：Python控制台项目，比较简单。</p>
+<a id="more"></a>
+
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>《Python项目开发案例集锦》是我在20年疫情期间发现的一本书，介绍了好多个小项目，以及整本书的源码和可执行程序。之前简单学过一点Python的语法之后，再也没有用过Python了，正巧用这里面的代码练练手。</p>
+<p>这个项目：企业编码生成器，是一个控制台项目，接收用户的命令生成指定格式的编码或者防伪码，存储到对应文件之中，此外还有生成条形码以及二维码的功能。</p>
+<p>这个项目实际上用到的东西包括列表、集合、随机数的生成、文件目录的操作以及常规流程控制的掌握，总体来说没有什么难度，二维码以及条形码模块使用的方式也非常的简单。</p>
+<h2 id="项目功能及演示"><a href="#项目功能及演示" class="headerlink" title="项目功能及演示"></a>项目功能及演示</h2><p>1.<strong>生成6位数字防伪编码</strong> （213563型）：模拟手机上的6位数字验证码。</p>
+<p>2.<strong>生成9位系列产品数字防伪编码</strong>(879-335439型)：前3位表示产品类型，后六位代表同一类型的随机编号。</p>
+<p>3.<strong>生成25位混合产品序列号</strong>(B2R12-N7TE8-9IET2-FE35O-DW2K4型)：模拟Windows激活的序列号。</p>
+<p>4.<strong>生成含数据分析功能的防伪编码</strong>(5A61M053D)：包含三个字母编码，字母编码有着相对位置的要求，第一个字母代表地区，第二个字母代表产品颜色。第三个字母代表产品批次。</p>
+<p>5.<strong>智能批量生成带数据分析功能的防伪码</strong>：对4功能的扩充，需要先编辑<code>plcode.mri</code>文件，然后会根据文件批量生成。</p>
+<p>6.<strong>后续补加生成防伪码</strong>：对4、5功能生成的编码文件的扩充。</p>
+<p>7.<strong>EAN-13条形码批量生成</strong>：生成超市常用的EAN-13条形码，生成的条形码图片保存在文件夹<code>ean13code</code></p>
+<p>8.<strong>二维码批量输出</strong>：生成常见的二维码，生成的二维码图片保存在文件夹<code>qrcode</code></p>
+<p>部分结果展示：</p>
+<img src="python-pollcode/result.png" srcset="/img/loading.gif" style="zoom:80%;" />
+
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>下面的代码并未完全仿照原书的代码，对比原书的代码，我的代码删掉了许多无用的变量，删掉了tkinter模块，因为这个模块弹出的图形界面太卡了。再然后是每个功能生成编码的时候都使用set集合进行去重，会和原先的代码有很大差别。</p>
+<p><img src="python-pollcode/project.png" srcset="/img/loading.gif"></p>
+<center>项目的结构</center>
+## 代码
+
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> os,random,time
+<span class="hljs-keyword">import</span> qrcode <span class="hljs-comment"># 二维码模块</span>
+<span class="hljs-keyword">from</span> pystrich.ean13 <span class="hljs-keyword">import</span> EAN13Encoder <span class="hljs-comment">#条形码模块</span>
+
+<span class="hljs-comment"># 初始化数据</span>
+number = <span class="hljs-string">&quot;1234567890&quot;</span>
+letter = <span class="hljs-string">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&quot;</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mainmenu</span>():</span>
+    <span class="hljs-string">&#x27;&#x27;&#x27;企业编码管理系统主菜单&#x27;&#x27;&#x27;</span>
+    print(<span class="hljs-string">&quot;&quot;&quot;\033[1;35m</span>
+<span class="hljs-string">      ****************************************************************</span>
+<span class="hljs-string">                            企业编码生成系统</span>
+<span class="hljs-string">      ****************************************************************</span>
+<span class="hljs-string">          1.生成6位数字防伪编码 （213563型）</span>
+<span class="hljs-string">          2.生成9位系列产品数字防伪编码(879-335439型)</span>
+<span class="hljs-string">          3.生成25位混合产品序列号(B2R12-N7TE8-9IET2-FE35O-DW2K4型)</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">          4.生成含数据分析功能的防伪编码(5A61M053D)</span>
+<span class="hljs-string">          5.智能批量生成带数据分析功能的防伪码</span>
+<span class="hljs-string">          6.后续补加生成防伪码</span>
+<span class="hljs-string"></span>
+<span class="hljs-string">          7.EAN-13条形码批量生成</span>
+<span class="hljs-string">          8.二维码批量输出          </span>
+<span class="hljs-string">          0.退出系统</span>
+<span class="hljs-string">      ================================================================</span>
+<span class="hljs-string">      说明：通过数字键选择菜单</span>
+<span class="hljs-string">      ================================================================</span>
+<span class="hljs-string">    \033[0m&quot;&quot;&quot;</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">input_validation</span>(<span class="hljs-params">insel</span>):</span>
+    <span class="hljs-string">&#x27;&#x27;&#x27;判断在主菜单的输入是否非法&#x27;&#x27;&#x27;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">str</span>.isdigit(insel):  <span class="hljs-comment"># 验证是否是数字</span>
+        insel = <span class="hljs-built_in">int</span>(insel)  <span class="hljs-comment"># 这里需要将insel转成数字!</span>
+        <span class="hljs-keyword">return</span> insel
+    <span class="hljs-keyword">else</span>:
+        print(<span class="hljs-string">&quot;输入非法，请重新输入&quot;</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mkdir</span>(<span class="hljs-params">path</span>):</span>
+    <span class="hljs-string">&#x27;&#x27;&#x27;创建文件夹&#x27;&#x27;&#x27;</span>
+    isexists = os.path.exists(path)
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> isexists:
+        os.mkdir(path)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">openfile</span>(<span class="hljs-params">filename</span>):</span>
+    <span class="hljs-string">&#x27;&#x27;&#x27;读取文本文件&#x27;&#x27;&#x27;</span>
+    f = <span class="hljs-built_in">open</span>(filename)
+    fllist = f.read()
+    f.close()
+    <span class="hljs-keyword">return</span> fllist
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">inputbox</span>(<span class="hljs-params">showstr, showorder, length</span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    输入验证判断</span>
+<span class="hljs-string">    :param showstr: 输入提示文字</span>
+<span class="hljs-string">    :param showorder: 输入内容的类型,1.数字，不限位数，2.字母，3.数字且有位数要求</span>
+<span class="hljs-string">    :param length: 输入内容的长度</span>
+<span class="hljs-string">    :return:</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    instr = <span class="hljs-built_in">input</span>(showstr)
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(instr) != <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">if</span> showorder == <span class="hljs-number">1</span>:
+            <span class="hljs-keyword">if</span> <span class="hljs-built_in">str</span>.isdigit(instr):  <span class="hljs-comment"># 验证是否是数字</span>
+                <span class="hljs-keyword">if</span> instr == <span class="hljs-number">0</span>:
+                    print(<span class="hljs-string">&quot;输入为0，请重新输入！&quot;</span>)
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;0&#x27;</span>
+                <span class="hljs-keyword">else</span>:
+                    <span class="hljs-keyword">return</span> instr
+            <span class="hljs-keyword">else</span>:  <span class="hljs-comment"># 如果输入不是数字</span>
+                print(<span class="hljs-string">&quot;输入非法，请重新输入！&quot;</span>)
+                <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;0&#x27;</span>
+        <span class="hljs-keyword">if</span> showorder == <span class="hljs-number">2</span>:
+            <span class="hljs-keyword">if</span> <span class="hljs-built_in">str</span>.isalpha(instr):  <span class="hljs-comment"># 验证输入的内容是否是字母</span>
+                <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(instr) != length:  <span class="hljs-comment"># 输入位数不符</span>
+                    print(<span class="hljs-string">&quot;必须输入&quot;</span> + <span class="hljs-built_in">str</span>(length) + <span class="hljs-string">&quot;个字母，请重新输入！&quot;</span>)
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;0&#x27;</span>
+                <span class="hljs-keyword">else</span>:
+                    <span class="hljs-keyword">return</span> instr
+        <span class="hljs-keyword">if</span> showorder == <span class="hljs-number">3</span>:
+            <span class="hljs-keyword">if</span> <span class="hljs-built_in">str</span>.isdigit(instr):  <span class="hljs-comment"># 验证是否是数字</span>
+                <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(instr) != length:
+                    print(<span class="hljs-string">&quot;必须输入&quot;</span> + <span class="hljs-built_in">str</span>(length) + <span class="hljs-string">&quot;个数字，请重新输入！&quot;</span>)
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;0&#x27;</span>
+                <span class="hljs-keyword">else</span>:
+                    <span class="hljs-keyword">return</span> instr
+            <span class="hljs-keyword">else</span>:
+                print(<span class="hljs-string">&quot;输入非法，请重新输入！&quot;</span>)
+                <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;0&#x27;</span>
+    <span class="hljs-keyword">else</span>:
+        print(<span class="hljs-string">&quot;输入为空，请重新输入！&quot;</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;0&#x27;</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">wfile</span>(<span class="hljs-params">sstr, sfile, typeis, smsg, datapath</span>):</span>
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    编码输出显示，同时保存文件</span>
+<span class="hljs-string">    :param sstr: 生成的防伪码</span>
+<span class="hljs-string">    :param sfile: 保存防伪码的文件名</span>
+<span class="hljs-string">    :param typeis: 是否显示输出完成的防伪码，&quot;&quot;时显示提示框，&quot;no&quot;时不显示</span>
+<span class="hljs-string">    :param smsg: 提示框显示的提示内容</span>
+<span class="hljs-string">    :param datapath: 保存防伪码的路径</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    mkdir(datapath)
+    datafile = datapath + <span class="hljs-string">&#x27;\\&#x27;</span> + sfile  <span class="hljs-comment"># 设置保存防伪码的文件路径</span>
+    file = <span class="hljs-built_in">open</span>(datafile, <span class="hljs-string">&#x27;w&#x27;</span>)          <span class="hljs-comment"># 打开保存防伪码文件，不存在则创建,存在则会将其覆盖掉</span>
+    wrlist = <span class="hljs-built_in">sorted</span>(<span class="hljs-built_in">list</span>(sstr))         <span class="hljs-comment"># 将防伪码信息赋值给</span>
+    pdata = <span class="hljs-string">&quot;&quot;</span>                          <span class="hljs-comment"># 清空变量，pdata存储屏幕输出的防伪码信息</span>
+    wdata = <span class="hljs-string">&quot;&quot;</span>                          <span class="hljs-comment"># 清空变量，wdata存储保存到文本文件的防伪码信息</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(wrlist)):
+        wdata = <span class="hljs-built_in">str</span>(wrlist[i].replace(<span class="hljs-string">&#x27;[&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).replace(<span class="hljs-string">&#x27;]&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>))    <span class="hljs-comment"># 去掉字符的中括号</span>
+        wdata = wdata.replace(<span class="hljs-string">&#x27;&quot;&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).replace(<span class="hljs-string">&quot;&#x27;&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)             <span class="hljs-comment"># 去掉字符串中的引号</span>
+        file.write(<span class="hljs-built_in">str</span>(wdata))
+        pdata = pdata + wdata
+    file.close()
+
+    <span class="hljs-keyword">if</span> typeis != <span class="hljs-string">&quot;no&quot;</span>:
+        print(pdata)  <span class="hljs-comment"># 输出生成的防伪码信息</span>
+
+    print(smsg + <span class="hljs-built_in">str</span>(<span class="hljs-built_in">len</span>(wrlist)) + <span class="hljs-string">&quot;\n防伪码文件存放位置&quot;</span> + datafile)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">replace_strIndex</span>(<span class="hljs-params">string, char, index</span>):</span>
+    <span class="hljs-string">&#x27;&#x27;&#x27;将字符串中指定位置的字符进行替换&#x27;&#x27;&#x27;</span>
+    string = <span class="hljs-built_in">list</span>(string)       <span class="hljs-comment"># python str是不可变量，转换成列表</span>
+    string[index] = char
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>.join(string)      <span class="hljs-comment"># return str(string) list转str的错误操作</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">scode1</span>(<span class="hljs-params">schoice</span>):</span>
+    <span class="hljs-string">&#x27;&#x27;&#x27;生成6位数字防伪编码 （213563型）&#x27;&#x27;&#x27;</span>
+    incount = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入您要生成验证码的数量:\33[0m&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">int</span>(incount) == <span class="hljs-number">0</span>:  <span class="hljs-comment"># 若输入为0则重新输入</span>
+        incount = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入您要生成验证码的数量:\33[0m&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)
+
+    coding_set = <span class="hljs-built_in">set</span>()  <span class="hljs-comment"># 在创建空集合的时候，只能使用set()而不能使用&#123;&#125;，&#123;&#125;会创建成字典</span>
+
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">len</span>(coding_set) != <span class="hljs-built_in">int</span>(incount):
+        coding = <span class="hljs-string">&quot;&quot;</span>
+        <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">6</span>):
+            coding = coding + random.choice(number)  <span class="hljs-comment"># 产生随机数因子</span>
+        coding = coding + <span class="hljs-string">&quot;\n&quot;</span>
+        coding_set.add(coding)  <span class="hljs-comment"># 将单条防伪码添加到保存批量验证码的变量中</span>
+
+    wfile(coding_set, <span class="hljs-string">&quot;scode&quot;</span> + <span class="hljs-built_in">str</span>(schoice) + <span class="hljs-string">&quot;.txt&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;已生成6位防伪码共计：&quot;</span>, <span class="hljs-string">&quot;codepath&quot;</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">scode2</span>(<span class="hljs-params">schoice</span>):</span>
+    <span class="hljs-string">&#x27;&#x27;&#x27;生成9位数字系列产品防伪编码&#x27;&#x27;&#x27;</span>
+    beginNum = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入系列产品的数字起始号码（3位）:\33[0m&quot;</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>)
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">int</span>(beginNum) == <span class="hljs-number">0</span>:
+        beginNum = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入系列产品的数字起始号码（3位）:\33[0m&quot;</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>)
+    beginNum = <span class="hljs-built_in">int</span>(beginNum)
+
+    kindNum = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入产品系列的数量:\33[0m&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">int</span>(kindNum) == <span class="hljs-number">0</span>:
+        kindNum = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入产品系列的数量:\33[0m&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)
+    kindNum = <span class="hljs-built_in">int</span>(kindNum)
+
+    aloneNum = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入要生成的每个系列产品的防伪码数量:\33[0m&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">int</span>(aloneNum) == <span class="hljs-number">0</span>:
+        aloneNum = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入要生成的每个系列产品的防伪码数量:\33[0m&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)
+    aloneNum = <span class="hljs-built_in">int</span>(aloneNum)
+
+    coding_set = <span class="hljs-built_in">set</span>()  <span class="hljs-comment"># 在创建空集合</span>
+
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(kindNum):
+        beginNum = beginNum + <span class="hljs-number">1</span>  <span class="hljs-comment"># 更新前缀</span>
+        litter_coding_set = <span class="hljs-built_in">set</span>()
+        <span class="hljs-keyword">while</span> <span class="hljs-built_in">len</span>(litter_coding_set) != aloneNum:
+            coding = <span class="hljs-built_in">str</span>(beginNum)  <span class="hljs-comment"># 每一次循环都重置coding</span>
+            <span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">6</span>):
+                coding = coding + random.choice(number)
+            coding = coding + <span class="hljs-string">&quot;\n&quot;</span>
+            litter_coding_set.add(coding)
+        coding_set.update(litter_coding_set)
+
+    wfile(coding_set, <span class="hljs-string">&quot;scode&quot;</span> + <span class="hljs-built_in">str</span>(schoice) + <span class="hljs-string">&quot;.txt&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;已生成9位系列产品防伪码共计：&quot;</span>, <span class="hljs-string">&quot;codepath&quot;</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">scode3</span>(<span class="hljs-params">schoice</span>):</span>
+    <span class="hljs-string">&#x27;&#x27;&#x27;生成25位混合产品序列号&#x27;&#x27;&#x27;</span>
+    incountNum = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入要生成的25位混合产品序列号数量:\33[0m&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">int</span>(incountNum) == <span class="hljs-number">0</span>:
+        incountNum = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入要生成的25位混合产品序列号数量:\33[0m&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)
+    incountNum = <span class="hljs-built_in">int</span>(incountNum)
+
+    coding_set = <span class="hljs-built_in">set</span>()  <span class="hljs-comment"># 在创建空集合</span>
+
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">len</span>(coding_set) != incountNum:
+        randstrtmp = <span class="hljs-string">&quot;&quot;</span>
+        <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>):
+            coding = <span class="hljs-string">&quot;&quot;</span>
+            <span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>):
+                coding = coding + random.choice(letter)
+            <span class="hljs-keyword">if</span> k == <span class="hljs-number">4</span>:
+                coding = coding + <span class="hljs-string">&quot;\n&quot;</span>
+            <span class="hljs-keyword">else</span>:
+                coding = coding + <span class="hljs-string">&quot;-&quot;</span>
+
+            randstrtmp = randstrtmp + coding
+        coding_set.add(randstrtmp)
+
+    wfile(coding_set, <span class="hljs-string">&quot;scode&quot;</span> + <span class="hljs-built_in">str</span>(schoice) + <span class="hljs-string">&quot;.txt&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;已生成25位混合产品序列号共计：&quot;</span>, <span class="hljs-string">&quot;codepath&quot;</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">scode4</span>(<span class="hljs-params">schoice</span>):</span>
+    <span class="hljs-string">&#x27;&#x27;&#x27;生成含数据分析功能的防伪编码</span>
+<span class="hljs-string">    主要由3位字母和6位数字组成，并且字母位置随机，但是首字母对应不同地区，</span>
+<span class="hljs-string">    次字母对应产品颜色，最后的字母对应产品批次</span>
+<span class="hljs-string">    &#x27;&#x27;&#x27;</span>
+    inLetter = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入数据分析编号的三位字母:\33[0m&quot;</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)
+    <span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> inLetter.isalpha() <span class="hljs-keyword">or</span> <span class="hljs-built_in">len</span>(inLetter) != <span class="hljs-number">3</span>:
+        inLetter = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入数据分析编号的三位字母:\33[0m&quot;</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)
+
+    incountNum = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入要生成的带数据分析功能的防伪码数量:\33[0m&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">int</span>(incountNum) == <span class="hljs-number">0</span>:
+        incountNum = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入要生成的带数据分析功能的防伪码数量:\33[0m&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)
+    incountNum = <span class="hljs-built_in">int</span>(incountNum)
+
+    coding_set = <span class="hljs-built_in">set</span>()  <span class="hljs-comment"># 在创建空集合</span>
+
+    let = [inLetter[j].upper() <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>)]
+
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">len</span>(coding_set) != incountNum:
+        indexNum = <span class="hljs-string">&quot;012345678&quot;</span>                  <span class="hljs-comment"># 数字索引，不需要9</span>
+        ranIndex = random.sample(indexNum, <span class="hljs-number">3</span>)   <span class="hljs-comment"># sample函数的作用是从number中获取三个不重复的值，将结果作为list返回</span>
+        ranIndex = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">int</span>, ranIndex))
+        ranIndex = <span class="hljs-built_in">sorted</span>(ranIndex)             <span class="hljs-comment"># 对结果进行排序</span>
+
+        myNum = <span class="hljs-string">&quot;&quot;</span>
+        <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">9</span>):
+            myNum = myNum + random.choice(number)
+
+        <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>):
+            myNum = replace_strIndex(myNum, let[n], ranIndex[n])
+
+        myNum = myNum + <span class="hljs-string">&quot;\n&quot;</span>
+        coding_set.add(myNum)
+
+    wfile(coding_set, <span class="hljs-string">&quot;scode&quot;</span> + <span class="hljs-built_in">str</span>(schoice) + <span class="hljs-string">&quot;.txt&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;已生成9位含数据分析功能的防伪编码共计：&quot;</span>, <span class="hljs-string">&quot;codepath&quot;</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">scode5</span>(<span class="hljs-params">schoice</span>):</span>
+    <span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string">    智能批量生成带数据分析功能的防伪码</span>
+<span class="hljs-string">    利用文件批量生成数据</span>
+<span class="hljs-string">    &#x27;&#x27;&#x27;</span>
+    file_path = <span class="hljs-string">&quot;plcode.mri&quot;</span>            <span class="hljs-comment"># 设置默认打开的文件名称</span>
+    codelist = openfile(file_path)      <span class="hljs-comment"># 读取从文件选择对话框中选择的文件</span>
+    codelist = codelist.split(<span class="hljs-string">&quot;\n&quot;</span>)     <span class="hljs-comment"># 把读取的内容以回车分割，饭会分割后的列表</span>
+
+    <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> codelist:
+        codea = item.split(<span class="hljs-string">&quot;,&quot;</span>)[<span class="hljs-number">0</span>]  <span class="hljs-comment"># 将每一行按照“,”分割，逗号前的存储为防伪码标准信息</span>
+        codeb = item.split(<span class="hljs-string">&quot;,&quot;</span>)[<span class="hljs-number">1</span>]  <span class="hljs-comment"># 将每一行按照“,”分割，逗号后的存储为防伪码生成数量</span>
+
+        coding_set = <span class="hljs-built_in">set</span>()          <span class="hljs-comment"># 在创建空集合</span>
+
+        let = [codea[j].upper() <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(codea))] <span class="hljs-comment"># 将字母转成大写</span>
+
+        <span class="hljs-keyword">while</span> <span class="hljs-built_in">len</span>(coding_set) != <span class="hljs-built_in">int</span>(codeb):
+            indexNumber = <span class="hljs-string">&quot;012345678&quot;</span>
+            ranIndex = random.sample(indexNumber, <span class="hljs-number">3</span>)  <span class="hljs-comment"># 随机取三个不重复的数</span>
+            ranIndex = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">int</span>, ranIndex))       <span class="hljs-comment"># 将ranIndex转成数字</span>
+            ranIndex = <span class="hljs-built_in">sorted</span>(ranIndex)
+
+            myNum = <span class="hljs-string">&quot;&quot;</span>
+            <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">9</span>):
+                myNum = myNum + random.choice(number)
+
+            <span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>):
+                myNum = replace_strIndex(myNum, let[m], ranIndex[m])
+
+            myNum = myNum + <span class="hljs-string">&quot;\n&quot;</span>
+            coding_set.add(myNum)
+        wfile(coding_set, codea + <span class="hljs-string">&quot;scode&quot;</span> + <span class="hljs-built_in">str</span>(schoice) + <span class="hljs-string">&quot;.txt&quot;</span>, <span class="hljs-string">&quot;no&quot;</span>, <span class="hljs-string">&quot;已生成9位含数据分析功能的防伪编码共计：&quot;</span>, <span class="hljs-string">&quot;codepath&quot;</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">scode6</span>(<span class="hljs-params">schoice</span>):</span>
+    <span class="hljs-string">&#x27;&#x27;&#x27;后续补加生成防伪码&#x27;&#x27;&#x27;</span>
+    print(<span class="hljs-string">&quot;\033[1;32m     本功能只针对于功能5的数据文件做添加操作！:\33[0m&quot;</span>)
+    file_name = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;请输入要补加防伪码的文件名称：&quot;</span>)
+    file_path = <span class="hljs-string">r&quot;./codepath/&quot;</span> + file_name
+    fileData = openfile(file_path)          <span class="hljs-comment"># 获取文件数据</span>
+    fileData_list = fileData.split(<span class="hljs-string">&quot;\n&quot;</span>)    <span class="hljs-comment"># 将文件数据转成List</span>
+    fileData_list.pop()                     <span class="hljs-comment"># 文件读取的最后一行为空格，删除</span>
+
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(fileData_list)):
+        fileData_list[i] = fileData_list[i] + <span class="hljs-string">&quot;\n&quot;</span>
+
+    print(<span class="hljs-string">&quot;之前生成的防伪码数量共计：&quot;</span> + <span class="hljs-built_in">str</span>(<span class="hljs-built_in">len</span>(fileData_list)) + <span class="hljs-string">&quot;个&quot;</span>)
+
+    fileData_set = <span class="hljs-built_in">set</span>(fileData_list)       <span class="hljs-comment"># 将list转成set,保证元素不重复</span>
+
+    incountNum = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入要补加的带数据分析功能的防伪码数量:\33[0m&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">int</span>(incountNum) == <span class="hljs-number">0</span>:
+        incountNum = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入要补加的带数据分析功能的防伪码数量:\33[0m&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)
+    incountNum = <span class="hljs-built_in">int</span>(incountNum)
+
+    let = [file_name[j].upper() <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>)]    <span class="hljs-comment"># 获取三个字母</span>
+
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">len</span>(fileData_set) - <span class="hljs-built_in">len</span>(fileData_list) != incountNum:
+        indexNumber = <span class="hljs-string">&quot;012345678&quot;</span>
+        ranIndex = random.sample(indexNumber, <span class="hljs-number">3</span>)    <span class="hljs-comment"># 随机取三个不重复的数</span>
+        ranIndex = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">int</span>, ranIndex))         <span class="hljs-comment"># 将ranIndex转成数字</span>
+        ranIndex = <span class="hljs-built_in">sorted</span>(ranIndex)
+
+        myNum = <span class="hljs-string">&quot;&quot;</span>
+        <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">9</span>):
+            myNum = myNum + random.choice(number)
+
+        <span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>):
+            myNum = replace_strIndex(myNum, let[m], ranIndex[m])
+
+        myNum = myNum + <span class="hljs-string">&quot;\n&quot;</span>
+        fileData_set.add(myNum)
+
+    print(<span class="hljs-string">&quot;已经新生成的防伪码数量共计：&quot;</span> + <span class="hljs-built_in">str</span>(<span class="hljs-built_in">len</span>(fileData_set) - <span class="hljs-built_in">len</span>(fileData_list)) + <span class="hljs-string">&quot;个&quot;</span>)
+
+    wfile(fileData_set, file_name[:<span class="hljs-number">3</span>] + <span class="hljs-string">&quot;scode&quot;</span> + <span class="hljs-built_in">str</span>(schoice) + <span class="hljs-string">&quot;.txt&quot;</span>, <span class="hljs-string">&quot;no&quot;</span>, <span class="hljs-string">&quot;已生成9位含数据分析功能的防伪编码共计：&quot;</span>, <span class="hljs-string">&quot;codepath&quot;</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">scode7</span>(<span class="hljs-params">schoice</span>):</span>
+    <span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string">    实现条形码的输出</span>
+<span class="hljs-string">    EAN-13是一种常见的条形码，多用于超市和零售市场</span>
+<span class="hljs-string">    EAN-13： European Article Number，共计13位</span>
+<span class="hljs-string">    前3位为国家码(中国大陆是690-695)，4-7位为企业码，8-12位为商品码，第13位是校验位</span>
+<span class="hljs-string">    校验位的计算：</span>
+<span class="hljs-string">    1、前12位的偶数位相加</span>
+<span class="hljs-string">    2、前12位的奇数位相加</span>
+<span class="hljs-string">    3、将偶数位的和的三倍与奇数位的和相加</span>
+<span class="hljs-string">    4、取出得到的和的个位</span>
+<span class="hljs-string">    5、由10减去这个个位数，再将得到的结果取个位即可</span>
+<span class="hljs-string">    &#x27;&#x27;&#x27;</span>
+
+    nationId = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入EAN-13的国家码（3位）:\33[0m&quot;</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>)
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">int</span>(nationId) == <span class="hljs-number">0</span>:
+        nationId = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入EAN-13的国家码（3位）:\33[0m&quot;</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>)
+
+    compId = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入EAN-13的企业码（4位）:\33[0m&quot;</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>)
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">int</span>(compId) == <span class="hljs-number">0</span>:
+        compId = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入EAN-13的企业码（4位）:\33[0m&quot;</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>)
+
+    codeNum = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入要生成的条形码的数量 :\33[0m&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">int</span>(codeNum) == <span class="hljs-number">0</span>:
+        codeNum = (<span class="hljs-string">&quot;\033[1;32m     请输入要生成的条形码的数量 :\33[0m&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)
+
+    codeNum = <span class="hljs-built_in">int</span>(codeNum)
+
+    codeNum_set = <span class="hljs-built_in">set</span>()
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">len</span>(codeNum_set) != codeNum:
+
+        sellId  = <span class="hljs-string">&quot;&quot;</span> <span class="hljs-comment"># 商品码</span>
+        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>):
+            sellId = sellId + random.choice(number)
+
+        sellId = nationId + compId + sellId <span class="hljs-comment"># 商品码前缀添加国家码与企业码</span>
+        <span class="hljs-comment"># 生成校验码</span>
+        oushu = <span class="hljs-number">0</span>
+        <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-number">11</span>,<span class="hljs-number">2</span>):
+            oushu = oushu + <span class="hljs-built_in">int</span>(sellId[k])
+        jishu = <span class="hljs-number">0</span>
+        <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-number">11</span>,<span class="hljs-number">2</span>):
+            jishu = jishu + <span class="hljs-built_in">int</span>(sellId[k])
+
+        jiaoyan = (<span class="hljs-number">10</span> - (oushu*<span class="hljs-number">3</span> + jishu)%<span class="hljs-number">10</span>)%<span class="hljs-number">10</span>
+
+        sellId = sellId + <span class="hljs-built_in">str</span>(jiaoyan)
+        codeNum_set.add(sellId)
+
+    <span class="hljs-comment"># 生成激活码，并且保存</span>
+    wfile(codeNum_set, <span class="hljs-string">&quot;scode&quot;</span> + <span class="hljs-built_in">str</span>(schoice) + <span class="hljs-string">&quot;.txt&quot;</span>, <span class="hljs-string">&quot;no&quot;</span>, <span class="hljs-string">&quot;已生成EAN-13条形码共计：&quot;</span>, <span class="hljs-string">&quot;codepath&quot;</span>)
+    codeNum_list = <span class="hljs-built_in">list</span>(codeNum_set)
+    mkdir(<span class="hljs-string">&quot;ean13code&quot;</span>)
+    <span class="hljs-keyword">for</span> index <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(codeNum):
+        encoder = EAN13Encoder(codeNum_list[index])
+        encoder.save(<span class="hljs-string">&quot;ean13code\\&quot;</span>+codeNum_list[index]+<span class="hljs-string">&quot;.png&quot;</span>)
+
+    print(<span class="hljs-string">&quot;ean-13的全部条形码保存在&quot;</span>+<span class="hljs-string">&quot;ean13code文件夹下&quot;</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">scode8</span>(<span class="hljs-params">schoice</span>):</span>
+    codeNum = inputbox(<span class="hljs-string">&quot;\033[1;32m     请输入要生成的12位数字二维码的数量 :\33[0m&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">int</span>(codeNum) == <span class="hljs-number">0</span>:
+        codeNum = (<span class="hljs-string">&quot;\033[1;32m     请输入要生成的条形码的数量 :\33[0m&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)
+    codeNum = <span class="hljs-built_in">int</span>(codeNum)
+
+    codeNum_set = <span class="hljs-built_in">set</span>()
+    <span class="hljs-keyword">while</span> <span class="hljs-built_in">len</span>(codeNum_set) != codeNum:
+        qrRanCode = <span class="hljs-string">&quot;&quot;</span>
+        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">12</span>):
+            qrRanCode = qrRanCode + random.choice(number)
+
+        codeNum_set.add(qrRanCode)
+
+    wfile(codeNum_set, <span class="hljs-string">&quot;scode&quot;</span> + <span class="hljs-built_in">str</span>(schoice) + <span class="hljs-string">&quot;.txt&quot;</span>, <span class="hljs-string">&quot;no&quot;</span>, <span class="hljs-string">&quot;已生成12位数字二维码共计：&quot;</span>, <span class="hljs-string">&quot;codepath&quot;</span>)
+    mkdir(<span class="hljs-string">&quot;qrcode&quot;</span>)
+    codeNum_list = <span class="hljs-built_in">list</span>(codeNum_set)
+
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(codeNum_list)):
+        encoder = qrcode.make(codeNum_list[j])
+        encoder.save(<span class="hljs-string">&quot;qrcode\\&quot;</span>+codeNum_list[j]+<span class="hljs-string">&quot;.png&quot;</span>)
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mainpro</span>():</span>
+    <span class="hljs-string">&#x27;&#x27;&#x27;</span>
+<span class="hljs-string">    通过循环控制用户对程序功能的选择</span>
+<span class="hljs-string">    &#x27;&#x27;&#x27;</span>
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        mainmenu()   <span class="hljs-comment"># 调入程序主界面菜单</span>
+        choice = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;\033[1;32m     请输入您要操作的菜单选项:\33[0m&quot;</span>)      <span class="hljs-comment"># 键盘输入需要操作的选项</span>
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(choice) != <span class="hljs-number">0</span>:
+            choice = input_validation(choice) <span class="hljs-comment"># 验证输入是否为数字</span>
+            <span class="hljs-keyword">if</span> choice == <span class="hljs-number">1</span>:
+                scode1(choice)
+            <span class="hljs-keyword">if</span> choice == <span class="hljs-number">2</span>:
+                scode2(choice)
+            <span class="hljs-keyword">if</span> choice == <span class="hljs-number">3</span>:
+                scode3(choice)
+            <span class="hljs-keyword">if</span> choice == <span class="hljs-number">4</span>:
+                scode4(choice)
+            <span class="hljs-keyword">if</span> choice == <span class="hljs-number">5</span>:
+                scode5(choice)
+            <span class="hljs-keyword">if</span> choice == <span class="hljs-number">6</span>:
+                scode6(choice)
+            <span class="hljs-keyword">if</span> choice == <span class="hljs-number">7</span>:
+                scode7(choice)
+            <span class="hljs-keyword">if</span> choice == <span class="hljs-number">8</span>:
+                scode8(choice)
+            <span class="hljs-keyword">if</span> choice == <span class="hljs-number">0</span>:
+                print(<span class="hljs-string">&quot;正在退出系统!!&quot;</span>)
+                <span class="hljs-keyword">break</span>
+        <span class="hljs-keyword">else</span>:
+            print(<span class="hljs-string">&quot;\033[1;31;40m    输入非法，请重新输入！！\033[0m&quot;</span>)
+            time.sleep(<span class="hljs-number">2</span>)
+
+<span class="hljs-comment"># 程序的执行</span>
+mainpro()</code></pre>
+<h2 id="相关知识总结"><a href="#相关知识总结" class="headerlink" title="相关知识总结"></a>相关知识总结</h2><h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><pre><code class="hljs python">let = []
+<span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>): <span class="hljs-comment">#都转成大写字母</span>
+	let[j] = inLetter[j].upper()  <span class="hljs-comment"># 错误写法！数组越界</span>
+    
+<span class="hljs-comment">#########正确的写法#############</span>
+
+<span class="hljs-comment"># 法1：列表生成式</span>
+let = [inLetter[j].upper() <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>)]
+
+<span class="hljs-comment"># 法2：append方法</span>
+let = []
+<span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>):
+    let.append(inLetter[j].upper())</code></pre>
+<p>列表中的每个元素都是字母，转换成数字</p>
+<pre><code class="hljs python">indexNum = <span class="hljs-string">&quot;012345678&quot;</span>  <span class="hljs-comment"># 数字索引，不需要9</span>
+ranIndex = random.sample(indexNum, <span class="hljs-number">3</span>)  <span class="hljs-comment"># sample函数的作用是从number中获取三个不重复的值，将结果作为list返回</span>
+ranIndex = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">int</span>, ranIndex))</code></pre>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>替换字符串指定位置的字母</p>
+<pre><code class="hljs python"><span class="hljs-comment"># 函数：将字符串中指定位置的字符进行替换</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">replace_strIndex</span>(<span class="hljs-params">string,char,index</span>):</span>
+    string = <span class="hljs-built_in">list</span>(string) <span class="hljs-comment">#python str是不可变量，转换成列表</span>
+    string[index] = char
+    <span class="hljs-comment">#return str(string) list转str的错误操作</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>.join(string)</code></pre>
+<p>list转str的方式</p>
+<pre><code class="hljs python"><span class="hljs-string">&quot;&quot;</span>.join(string)</code></pre>
+<h3 id="random的用法"><a href="#random的用法" class="headerlink" title="random的用法"></a>random的用法</h3><pre><code class="hljs python">random.choice(seq) <span class="hljs-comment">#返回列表、元组、字符串中的任意一项</span>
+
+random.sample(indexNum, <span class="hljs-number">3</span>) <span class="hljs-comment"># sample函数的作用是从number中获取三个不重复的值，将结果作为list返回</span></code></pre>
+<h3 id="set集合"><a href="#set集合" class="headerlink" title="set集合"></a>set集合</h3><p>使用set集合来确保无重复。但是set集合顺序不固定，不能使用索引的方式访问元素</p>
+<pre><code class="hljs python">mylet_set = &#123;<span class="hljs-string">&quot;1&quot;</span>,<span class="hljs-string">&quot;2&quot;</span>,<span class="hljs-string">&quot;3&quot;</span>&#125; <span class="hljs-comment">#set初始化方式一，但不能使用空的&#123;&#125;进行初始化，这样初始化生成的是字典</span>
+mynum_set = <span class="hljs-built_in">set</span>() <span class="hljs-comment">#set初始化方式二，可生成一个空的set</span>
+
+
+mynum_set.add() <span class="hljs-comment">#增加元素</span>
+mynum_set.pop() <span class="hljs-comment">#随机删除一个元素</span>
+mynum_set.update(mylet_set) <span class="hljs-comment">#将两个集合合并在一起</span>
+
+<span class="hljs-comment"># list --&gt; set</span>
+mynum_list = <span class="hljs-built_in">list</span>(mynum_set)</code></pre>
+<h2 id="吐槽一下"><a href="#吐槽一下" class="headerlink" title="吐槽一下"></a>吐槽一下</h2><p>《Python项目开发案例集锦》这本书关于这个项目的教程……，书中代码有错误的部分，与提供的源代码不匹配；关于编码不能重复的问题，前几个功能它一直都没考虑过编码重复的这个问题，到功能6的时候开始考虑了，这个真是有点随意。还有给变量起名的确不是一件容易的事情，命名真是一塌糊涂。</p>
+<h2 id="代码的可执行文件获取以及书籍下载"><a href="#代码的可执行文件获取以及书籍下载" class="headerlink" title="代码的可执行文件获取以及书籍下载"></a>代码的可执行文件获取以及书籍下载</h2><p>代码的可执行文件：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1YWwPQVp9CYvrGyy31CUPpw">https://pan.baidu.com/s/1YWwPQVp9CYvrGyy31CUPpw</a>  提取码：kv7v</p>
+<p>《Python项目开发案例集锦》书籍及源码下载：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/154xVwvRV1E5U476iY_EJXw">https://pan.baidu.com/s/154xVwvRV1E5U476iY_EJXw</a><br>提取码：wc8x</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Python/">Python</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/">文件下载</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Python/">Python</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/python-sequence/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Python常用序列结构——列表、元组、字符串、字典和集合</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/compile-aseprite/">
+                        <span class="hidden-mobile">记一次在Win+Ubuntu双平台编译软件Aseprite</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/python-pollcode/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Python小项目 —— 企业编码生成系统&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

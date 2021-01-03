@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>“21天教你学会C++” - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-12-03 20:03">
+      星期二, 十二月 3日 2019, 8:03 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      36
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <blockquote>
+<p>作者：<strong>陈皓</strong></p>
+<p>来源： <a target="_blank" rel="noopener" href="https://coolshell.cn/">https://coolshell.cn/</a> </p>
+</blockquote>
+<a id="more"></a>
+
+<p>下面是一个《Teach Yourself C++ in 21 Days》的流程图，请各位程序员同仁认真领会。如果有必要，你可以查看这个图书以作参照：<a target="_blank" rel="noopener" href="http://www.china-pub.com/27043">http://www.china-pub.com/27043</a></p>
+<p><img src="tenyears/Teach_Youself_CPP_21days.jpg" srcset="/img/loading.gif" alt="Teach Youself C++ 21 Days"></p>
+<p>看完上面这个图片，我在想，我学习C++有12年了，好像C++也没有学得特别懂，看到STL和泛型，还是很头大。不过，我应该去考虑研究量子物理和生物化学，这样，我才能重返98年杀掉还在大学的我，然后达到21天搞定C++的目标。另外，得要特别提醒刚刚开始学习C++的朋友，第21天的时候，小心被人杀害。呵呵。</p>
+<p>当然，上面只是一个恶搞此类图片，学习一门技术，需要你很长的时间，正如图片中的第三图和第四图所示，你需要用十年的时间去不断在尝试，并在错误中总结经验教训，以及在项目开发中通过与别人相互沟通互相学习来历练自己。你才能算得上是真正学会。</p>
+<p>这里有篇文章叫《<a target="_blank" rel="noopener" href="http://norvig.com/21-days.html"><strong>Teach Yourself Programming in Ten Years</strong></a>》，网上有人翻译了一下，不过原文已被更新了，我把网上的译文转载并更新如下：</p>
+<center>用十年来学编程 Peter Norvig</center>
+
+<h4 id="为什么每个人都急不可耐？"><a href="#为什么每个人都急不可耐？" class="headerlink" title="为什么每个人都急不可耐？"></a>为什么每个人都急不可耐？</h4><p>走进任何一家书店，你会看见《Teach Yourself Java in 7 Days》（7天Java无师自通）的旁边是一长排看不到尽头的类似书籍，它们要教会你Visual Basic、Windows、Internet等等，而只需要几天甚至几小时。我在<a target="_blank" rel="noopener" href="http://www.amazon.com/">Amazon.com</a>上进行了如下<a target="_blank" rel="noopener" href="http://www.amazon.com/exec/obidos/tg/browse/-/468558/104-5938873-6579160">搜索</a>：</p>
+<p>[pubdate: after 1992 and title: days and (title: learn or title: teach yourself)](<a target="_blank" rel="noopener" href="http://www.amazon.com/exec/obidos/search-handle-url/ix=books&amp;rank=%2Bfeaturedrank&amp;fqp=power%01pubdate%3A">http://www.amazon.com/exec/obidos/search-handle-url/ix=books&amp;rank=%2Bfeaturedrank&amp;fqp=powerpubdate%3A</a> after 1992 and title%3A days and (title%3A learn or title%3A teach yourself)&amp;sz=25&amp;pg=1/ref=s_b_np)(出版日期：1992年后 and 书名：天 and （书名：学会 or 书名：无师自通）)</p>
+<p>我一共得到了248个搜索结果。前面的78个是计算机书籍（第79个是《<a target="_blank" rel="noopener" href="http://www.amazon.com/exec/obidos/ASIN/0781802245/">Learn Bengali in 30 days</a>》，30天学会孟加拉语）。我把关键词“days”换成“[hours](<a target="_blank" rel="noopener" href="http://www.amazon.com/exec/obidos/search-handle-url/ix=books&amp;rank=%2Bfeaturedrank&amp;fqp=power%01pubdate%3A">http://www.amazon.com/exec/obidos/search-handle-url/ix=books&amp;rank=%2Bfeaturedrank&amp;fqp=powerpubdate%3A</a> after 1992 and title%3A hours and (title%3A learn or title%3A teach yourself)&amp;sz=25&amp;pg=3/ref=s_b_np)”，得到了非常相似的结果：这次有253本书，头77本是计算机书籍，第78本是《<a target="_blank" rel="noopener" href="http://www.amazon.com/exec/obidos/ASIN/0028638999/">Teach Yourself Grammar and Style in 24 Hours</a>》（24小时学会文法和文体）。头200本书中，有96%是计算机书籍。</p>
+<p>结论是，要么是人们非常急于学会计算机，要么就是不知道为什么计算机惊人地简单，比任何东西都容易学会。没有一本书是要在几天里教会人们欣赏贝多芬或者量子物理学，甚至怎样给狗打扮。在《*<a target="_blank" rel="noopener" href="http://www.ccs.neu.edu/home/matthias/HtDP2e/index.html">How to Design Programs</a><em>》这本书里说“</em>Bad programming is easy. Idiots can learn it in 21 days, even if they are dummies.”* （坏的程序是很容易的，就算他们是笨蛋白痴都可以在21天内学会。）</p>
+<p>让我们来分析一下像《<a target="_blank" rel="noopener" href="http://www.amazon.com/Learn-C-Three-Days-Rachele/dp/1556227078">Learn C++ in Three Days</a>》（3天学会C++）这样的题目到底是什么意思：</p>
+<ul>
+<li><strong>学会</strong>：在3天时间里，你不够时间写一些有意义的程序，并从它们的失败与成功中学习。你不够时间跟一些有经验的程序员一起工作，你不会知道在C++那样的环境中是什么滋味。简而言之，没有足够的时间让你学到很多东西。所以这些书谈论的只是表面上的精通，而非深入的理解。如Alexander Pope（英国诗人、作家，1688-1744）所言，<strong>一知半解是危险的（a little learning is a dangerous thing）</strong></li>
+<li><strong>C++**：在3天时间里你可以学会C++的语法（如果你已经会一门类似的语言），但你无法学到多少如何运用这些语法。简而言之，如果你是，比如说一个Basic程序员，你可以学会用C++语法写出Basic风格的程序，但你学不到C++真正的优点（和缺点）。那关键在哪里？Alan Perlis（ACM第一任主席，图灵奖得主，1922-1990）曾经说过：“</strong>如果一门语言不能影响你对编程的想法，那它就不值得去学**”。另一种观点是，有时候你不得不学一点C++（更可能是javascript和Flash Flex之类）的皮毛，因为你需要接触现有的工具，用来完成特定的任务。但此时你不是在学习如何编程，你是在学习如何完成任务。</li>
+<li><strong>3天</strong>：不幸的是，这是不够的，正如下一节所言。</li>
+</ul>
+<h4 id="10年学编程"><a href="#10年学编程" class="headerlink" title="10年学编程"></a>10年学编程</h4><p>一些研究者（<a target="_blank" rel="noopener" href="http://www.amazon.com/exec/obidos/ASIN/034531509X/">Bloom (1985)</a>, <a target="_blank" rel="noopener" href="http://norvig.com/21-days.html#bh">Bryan &amp; Harter (1899)</a>, <a target="_blank" rel="noopener" href="http://www.amazon.com/exec/obidos/ASIN/0805803092">Hayes (1989)</a>, <a target="_blank" rel="noopener" href="http://norvig.com/21-days.html#sc">Simmon &amp; Chase (1973)</a>）的研究表明，在许多领域，都需要大约10 年时间才能培养出专业技能，包括国际象棋、作曲、绘画、钢琴、游泳、网球，以及神经心理学和拓扑学的研究。似乎并不存在真正的捷径：即使是莫扎特，他4 岁就显露出音乐天才，在他写出世界级的音乐之前仍然用了超过13年时间。再看另一种音乐类型的披头士，他们似乎是在1964年的Ed Sullivan节目中突然冒头的。但其实他们从1957年就开始表演了，即使他们很早就显示出了巨大的吸引力，他们第一次真正的成功——Sgt. Peppers——也要到1967年才发行。<a target="_blank" rel="noopener" href="http://www.amazon.com/Outliers-Story-Success-Malcolm-Gladwell/dp/0316017922">Malcolm Gladwell</a> 研究报告称，把在伯林音乐学院学生一个班的学生按水平分成高中低，然后问他们对音乐练习花了多少工夫：</p>
+<blockquote>
+<p>在这三个小组中的每一个人基本上都是从相同的时间开始练习的（在五岁的时候）。在开始的几年里，每个人都是每周练习2-3个小时。但是在八岁的时候，练习的强度开始显现差异。在这个班中水平最牛的人开始比别人练习得更多——在九岁的时候每周练习6个小时，十二岁的时候，每周8个小时，十四岁的时候每周16个小时，并在成长过程中练习得越来越多，到20岁的时候，其每周练习可超过30个小时。到了20岁，这些优秀者在其生命中练习音乐总共超过 10,000 小时。与之对比，其它人只平均有8,000小时，而未来只能留校当老师的人仅仅是4,000 小时。</p>
+</blockquote>
+<p>所以，这也许需要10,000 小时，并不是十年，但这是一个magic number。Samuel Johnson（英国诗人）认为10 年还是不够的：“<strong>任何领域的卓越成就都只能通过一生的努力来获得；稍低一点的代价也换不来。</strong>”（Excellence in any department can be attained only by the labor of a lifetime; it is not to be purchased at a lesser price.） 乔叟（Chaucer，英国诗人，1340-1400）也抱怨说：“<strong>生命如此短暂，掌握技艺却要如此长久。</strong>”（the lyf so short, the craft so long to lerne.）</p>
+<p>下面是我在编程这个行当里获得成功的处方：</p>
+<ul>
+<li>对编程感兴趣，因为乐趣而去编程。确定始终都能保持足够的乐趣，以致你能够将10年时间投入其中。</li>
+<li>跟其他程序员交谈；阅读其他程序。这比任何书籍或训练课程都更重要。</li>
+<li>编程。最好的学习是<a target="_blank" rel="noopener" href="http://www.engines4ed.org/hyperbook/nodes/NODE-120-pg.html">从实践中学习</a>。用更加技术性的语言来讲，“个体在特定领域最高水平的表现不是作为长期的经验的结果而自动获得的，但即使是非常富有经验的个体也可以通过刻意的努力而提高其表现水平。”（<a target="_blank" rel="noopener" href="http://www2.umassd.edu/swpi/DesignInCS/expertise.html">p. 366</a>），而且“最有效的学习要求为特定个体制定适当难度的任务，有意义的反馈，以及重复及改正错误的机会。”（p. 20-21）《<a target="_blank" rel="noopener" href="http://www.amazon.com/exec/obidos/ASIN/0521357349">Cognition in Practice: Mind, Mathematics, and Culture in Everyday Life</a>》（在实践中认知：心智、数学和日常生活的文化）是关于这个观点的一本有趣的参考书。</li>
+<li>如果你愿意，在大学里花上4年时间（或者再花几年读研究生）。这能让你获得一些工作的入门资格，还能让你对此领域有更深入的理解，但如果你不喜欢进学校，（作出一点牺牲）你在工作中也同样能获得类似的经验。在任何情况下，单从书本上学习都是不够的。“计算机科学的教育不会让任何人成为内行的程序员，正如研究画笔和颜料不会让任何人成为内行的画家”, Eric Raymond，《The New Hacker’s Dictionary》（新黑客字典）的作者如是说。我曾经雇用过的最优秀的程序员之一仅有高中学历；但他创造出了许多伟大的软件（<a target="_blank" rel="noopener" href="http://www.xemacs.org/">XEmacs</a>, <a target="_blank" rel="noopener" href="http://www.mozilla.org/">Mozilla</a>），甚至有讨论他本人的<a target="_blank" rel="noopener" href="http://groups.google.com/groups?q=alt.fan.jwz&meta=site=groups">新闻组</a>，而且股票期权让他达到我无法企及的<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/DNA_Lounge">富有程度</a>（译注：指Jamie Zawinski，Xemacs和Netscape的作者）。</li>
+<li>跟别的程序员一起完成项目。在一些项目中成为最好的程序员；在其他一些项目中当最差的一个。当你是最好的程序员时，你要测试自己领导项目的能力，并通过你的洞见鼓舞其他人。当你是最差的时候，你学习高手们在做些什么，以及他们不喜欢做什么（因为他们让你帮他们做那些事）。</li>
+<li>接手别的程序员完成项目。用心理解别人编写的程序。看看在没有最初的程序员在场的时候理解和修改程序需要些什么。想一想怎样设计你的程序才能让别人接手维护你的程序时更容易一些。</li>
+<li>学会至少半打编程语言。包括一门支持类抽象（class abstraction）的语言（如Java或C++），一门支持函数抽象（functional abstraction）的语言（如Lisp或ML），一门支持句法抽象（syntactic abstraction）的语言（如Lisp），一门支持说明性规约（declarative specification）的语言（如Prolog或C++模版），一门支持协程（coroutine）的语言（如Icon或Scheme），以及一门支持并行处理（parallelism）的语言（如Sisal）。</li>
+<li>记住在“计算机科学”这个词组里包含“计算机”这个词。了解你的计算机执行一条指令要多长时间，从内存中取一个word要多长时间（包括缓存命中和未命中的情况），从磁盘上读取连续的数据要多长时间，定位到磁盘上的新位置又要多长时间。（<a target="_blank" rel="noopener" href="http://norvig.com/21-days.html#answers">答案在这里</a>）</li>
+<li>尝试参与到一项语言标准化工作中。可以是ANSI C++委员会，也可以是决定自己团队的编码风格到底采用2个空格的缩进还是4个。不论是哪一种，你都可以学到在这门语言中到底人们喜欢些什么，他们有多喜欢，甚至有可能稍微了解为什么他们会有这样的感觉。</li>
+<li>拥有尽快从语言标准化工作中抽身的良好判断力。</li>
+</ul>
+<p>抱着这些想法，我很怀疑从书上到底能学到多少东西。在我第一个孩子出生前，我读完了所有“怎样……”的书，却仍然感到自己是个茫无头绪的新手。30个月后，我第二个孩子出生的时候，我重新拿起那些书来复习了吗？不。相反，我依靠我自己的经验，结果比专家写的几千页东西更有用更靠得住。</p>
+<p>Fred Brooks在他的短文《<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/No_Silver_Bullet">No Silver Bullets</a>》（没有银弹）中确立了如何发现杰出的软件设计者的三步规划：</p>
+<ul>
+<li>尽早系统地识别出最好的设计者群体。</li>
+<li>指派一个事业上的导师负责有潜质的对象的发展，小心地帮他保持职业生涯的履历。</li>
+<li>让成长中的设计师们有机会互相影响，互相激励。</li>
+</ul>
+<p>这实际上是假定了有些人本身就具有成为杰出设计师的必要潜质；要做的只是引导他们前进。<a target="_blank" rel="noopener" href="http://www-pu.informatik.uni-tuebingen.de/users/klaeren/epigrams.html">Alan Perlis</a>说得更简洁：“每个人都可以被教授如何雕塑；而对米开朗基罗来说，能教给他的倒是怎样能够不去雕塑。杰出的程序员也一样”。</p>
+<p>所以尽管去买那些Java书；你很可能会从中找到些用处。但你的生活，或者你作为程序员的真正的专业技术，并不会因此在24小时、24天甚至24个月内发生真正的变化。</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%BD%AC%E8%BD%BD/">转载</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/cpudesign/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">计算机组成原理课程设计 —— MIPS32五级流水之addi指令的实现</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/ComputerOrganization-0/">
+                        <span class="hidden-mobile">计算机组成原理相关知识</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/tenyears/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "“21天教你学会C++”&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

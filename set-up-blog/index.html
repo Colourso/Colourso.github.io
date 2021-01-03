@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>使用Hexo+Github搭建博客与优化扩展 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-01-13 15:46">
+      星期日, 一月 13日 2019, 3:46 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      25
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>博客搭建好也有三个月了，踩过一些坑，一步步达到了现在的博客。因为网络上关于 <code>Hexo+Github</code> 搭建博客的教程太多了，也没有必要重写一份新的教程，😜。我就收集一下我搭建博客过程中遇到了一些好的教程，供大家参考。遇到困难百度就能解决大部分的问题哦。</p>
+<a id="more"></a>
+
+<h2 id="搭建教程"><a href="#搭建教程" class="headerlink" title="搭建教程"></a>搭建教程</h2><blockquote>
+<p>@<a target="_blank" rel="noopener" href="http://www.nomango.cn/" title="拒绝芒果工作室"><strong>拒绝芒果工作室</strong></a> ：<a target="_blank" rel="noopener" href="http://www.nomango.cn/2016/10/09/161009-one-hour-build-your-blog/" title="一小时快速搭建个人静态博客">一小时快速搭建个人静态博客</a> （👈本博客搭建的所有流程均参看自这篇博客）。</p>
+<p>@<a target="_blank" rel="noopener" href="http://visugar.com/" title="张小花"><strong>张小花</strong></a> ：<a target="_blank" rel="noopener" href="http://visugar.com/2017/05/04/20170504SetUpHexoBlog/" title="hexo从零开始到搭建完整">hexo从零开始到搭建完整</a></p>
+<p>@<a target="_blank" rel="noopener" href="https://haoji.me/" title="好记么"><strong>小茗同学</strong></a> ：<a target="_blank" rel="noopener" href="http://blog.haoji.me/build-blog-website-by-hexo-github.html" title="使用hexo+github搭建个人博客详细教程">使用hexo+github搭建免费个人博客详细教程</a> （👈非常详细的一篇博客，有提到原理，可以去看看）。</p>
+</blockquote>
+<h2 id="主题选择-优化"><a href="#主题选择-优化" class="headerlink" title="主题选择+优化"></a>主题选择+优化</h2><p>本站选择的是NexT主题，这也应该是最流行的一款主题，越流行的主题遇到问题越容易百度的到，你懂的😀。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://theme-next.iissnan.com/" title="NexT"><strong>NexT官方文档</strong></a></p>
+<p>@<strong><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/439a6eee60e1" title="简书">Alvabill</a></strong> ：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1f8107a8778c">hexo搭建个人博客–NexT主题优化</a> （👈本博客优化内容参看了这篇博客）。</p>
+<p>@**<a target="_blank" rel="noopener" href="http://shenzekun.cn/" title="Moorez">Moorez</a>**：<a target="_blank" rel="noopener" href="http://shenzekun.cn/hexo%E7%9A%84next%E4%B8%BB%E9%A2%98%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html#more" title="hexo的next主题个性化教程:打造炫酷网站">hexo的next主题个性化教程:打造炫酷网站</a> （👈本博客优化内容参看了这篇博客）。</p>
+<p>@<strong><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/ab646e469afd" title="简书">wangwlj</a></strong> ：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7debbf85f437?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation" title="https://www.jianshu.com/p/7debbf85f437?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation">hexo搭建的Github博客之优化 </a></p>
+<p>@<strong><a target="_blank" rel="noopener" href="http://www.lzblog.cn/" title="lizhen">lizhen</a></strong><a target="_blank" rel="noopener" href="http://www.lzblog.cn/2016/04/07/Hexo%E7%AB%99%E7%82%B9%E3%80%81NexT%E4%B8%BB%E9%A2%98%E4%BF%AE%E6%94%B9%E5%85%A8%E8%AE%B0%E5%BD%95/" title="http://www.lzblog.cn/2016/04/07/Hexo%E7%AB%99%E7%82%B9%E3%80%81NexT%E4%B8%BB%E9%A2%98%E4%BF%AE%E6%94%B9%E5%85%A8%E8%AE%B0%E5%BD%95/">：Hexo站点、NexT主题修改全记录 </a></p>
+</blockquote>
+<h2 id="添加评论"><a href="#添加评论" class="headerlink" title="添加评论"></a>添加评论</h2><p>也百度到过各种网站添加评论功能，结果总是有问题，其中一个网站连注册功能都出现错误，一直无法注册。在得知 <code>NexT</code> 主题里支持 <code>Valine</code> 评论之后果断就采用了这个评论，虽然说有些局限，但对于这个简单博客来说够用了。😁</p>
+<blockquote>
+<p>@**<a target="_blank" rel="noopener" href="https://blog.csdn.net/blue_zy" title="blue_zy">blue_zy</a>**：<a target="_blank" rel="noopener" href="https://blog.csdn.net/blue_zy/article/details/79071414">为你的Hexo加上评论系统-Valine</a> （👈本博客添加参看了这篇博客）。</p>
+<p>@**<a target="_blank" rel="noopener" href="https://www.bigwin.ml/">桃源阡墨，Bigwin</a>**：<a target="_blank" rel="noopener" href="https://www.bigwin.ml/2018/11/29/valine-for-next/">在Hexo博客的next主题中启用Valine评论</a></p>
+</blockquote>
+<h2 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/codehome/p/8428738.html?utm_source=debugrun&utm_medium=referral" title="Hexo添加本地图片">Hexo添加本地图片</a> （👈本博客插入图片功能采用了这篇博客的第一种方法）。</p>
+</blockquote>
+<h2 id="添加live2d看板娘"><a href="#添加live2d看板娘" class="headerlink" title="添加live2d看板娘"></a>添加live2d看板娘</h2><blockquote>
+<p><strong>掘金文章</strong>： <a target="_blank" rel="noopener" href="https://juejin.im/post/5bebfe51e51d45332a456de0#heading-27">https://juejin.im/post/5bebfe51e51d45332a456de0#heading-27</a> （👈很长的一篇文章，添加方法在60%左右）。</p>
+</blockquote>
+<p>但是移除这个东西没有什么好的办法，惨~~。</p>
+<h2 id="书写博客"><a href="#书写博客" class="headerlink" title="书写博客"></a>书写博客</h2><p>写博客采用的是 <font color=#00ffff>Markdown</font> 来进行书写，hexo会转换成为 <code>HTML</code> 页面。至于 <code>Markdown</code> 语法非常的简单，仿照一篇文章写一遍就非常的清楚了。以下链接有<code>Markdown</code>语法介绍，还有一个在线版的书写<code>Markdown</code> 的网站，时时渲染转换，非常的清晰。另外还有一款软件叫做 <code>MarkdownPad2</code> ，大家也可以去下载哦，非常的好用。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.appinn.com/markdown/" title="Markdown语法">在线文档：Markdown 语法</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qcx321/article/details/53780672">Markdown 语法大全 包括设置字体 颜色</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.zybuluo.com/mdeditor" title="Cmd Markdown 编辑阅读器">在线网站：Cmd Markdown 编辑阅读器</a></p>
+<p><a target="_blank" rel="noopener" href="http://markdownpad.com/" title="The Markdown Editor for Windows">电脑软件：MarkdownPad2</a></p>
+</blockquote>
+<p>目前就这儿多了，后期继续补充！</p>
+<p>现在我主要使用的是<a target="_blank" rel="noopener" href="https://typora.io/">Typora</a>，非常好用哦~推荐使用。</p>
+<h2 id="2019-07-16增加功能"><a href="#2019-07-16增加功能" class="headerlink" title="2019.07.16增加功能"></a>2019.07.16增加功能</h2><blockquote>
+<p>增加打赏功能：<a target="_blank" rel="noopener" href="https://www.zhyong.cn/posts/20ec/">hexo-next 添加酷炫打赏二维码</a></p>
+<p>增加文章置顶功能：<a target="_blank" rel="noopener" href="https://www.zhyong.cn/posts/fc22/">hexo-next 添加文章置顶功能和评分功能等</a></p>
+<pre><code class="hljs bash">$ npm uninstall hexo-generator-index --save
+$ npm install hexo-generator-index-pin-top --save</code></pre>
+
+<p>文章指定使用：在文章头部添加<code>top: true</code>。</p>
+</blockquote>
+<h2 id="Connection-reset-by-13-250-177-223-port-22"><a href="#Connection-reset-by-13-250-177-223-port-22" class="headerlink" title="Connection reset by 13.250.177.223 port 22"></a>Connection reset by 13.250.177.223 port 22</h2><p>电脑重装之后重新建立博客，提交仓库时出错。</p>
+<p>解决方法：在host文件里添加下面两行。</p>
+<pre><code class="hljs accesslog"><span class="hljs-number">192.30.255.112</span>  github.com git 
+<span class="hljs-number">185.31.16.184</span>   github.global.ssl.fastly.net</code></pre>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Boring_Wednesday/article/details/80072446">git push时出现ssh_dispatch_run_fatal</a></p>
+</blockquote>
+<p>要是这样也没用的话，尝试是否可以在浏览器上访问Github，或者Ping一下github.com。如果无法访问，那就搭梯子科学上网吧。</p>
+<hr>
+<p>2020年2月7日，上传博客时再次出现了类似的问题，但是修改host文件也没有用了，不搭梯子的话，无法用浏览器打开github，使用梯子之后可以打开，但是本地PING github时还是连接超时，太诡异了。</p>
+<p>这次搭上梯子都不管用了。</p>
+<blockquote>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/nightwishh/article/details/99647545">git报错ssh: connect to host github.com port 22: Connection timed out</a></p>
+</blockquote>
+<p>参照这篇博客，先在命令行输入了<code>ssh -T git@github.com</code>命令来检查，如果出现了<code>ssh: connect to host github.com port 22: Connection timed out</code>的话就找到当初搭建博客时存放ssh目录的地方，我的存放于<code>C:\Users\colou\.ssh</code>。colou是电脑的用户名。</p>
+<p>在那里新建一个文件<code>config</code>，然后输入下面的内容。</p>
+<pre><code class="hljs stylus">Host github.com
+User YourEmail@<span class="hljs-number">163</span>.com
+Hostname ssh<span class="hljs-selector-class">.github</span>.com
+PreferredAuthentications publickey
+IdentityFile ~/.ssh/id_rsa
+Port <span class="hljs-number">443</span></code></pre>
+<p>记得把邮箱替换成你的github的邮箱，然后重新上传博客，就会弹出相关的问题，输入yes就好了。</p>
+<h2 id="2020-01-28增加功能"><a href="#2020-01-28增加功能" class="headerlink" title="2020.01.28增加功能"></a>2020.01.28增加功能</h2><blockquote>
+<p>增加折叠代码块的功能： <a target="_blank" rel="noopener" href="https://www.cnblogs.com/woshimrf/p/hexo-fold-block.html">Hexo next博客添加折叠块功能添加折叠代码块</a> </p>
+</blockquote>
+<p>不过因为增加之后不太明显，我就额外增加了一点颜色加以区分。</p>
+<p>位置在：<code>themes/next/source/css/_custom/custom.styl</code></p>
+<pre><code class="hljs css"><span class="hljs-selector-class">.hider_title</span>&#123;
+    <span class="hljs-attribute">cursor</span>: pointer;
+	<span class="hljs-attribute">color</span>:<span class="hljs-number">#87CEEB</span>;
+	<span class="hljs-attribute">font-weight</span>:bold;
+&#125;
+<span class="hljs-selector-class">.close</span><span class="hljs-selector-pseudo">:after</span>&#123;
+    <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;▼&quot;</span>;
+	<span class="hljs-attribute">color</span>:<span class="hljs-number">#00EE00</span>;
+&#125;
+<span class="hljs-selector-class">.open</span><span class="hljs-selector-pseudo">:after</span>&#123;
+    <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;▲&quot;</span>;
+	<span class="hljs-attribute">color</span>:<span class="hljs-number">#FF11FF</span>;
+&#125;</code></pre>
+<hr>
+<h2 id="2020-02-27更换主题"><a href="#2020-02-27更换主题" class="headerlink" title="2020.02.27更换主题"></a>2020.02.27更换主题</h2><p>新主题：Fluid</p>
+<p>链接：<a target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-fluid">https://github.com/fluid-dev/hexo-theme-fluid</a></p>
+<p>参考文档：<a target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/">https://hexo.fluid-dev.com/docs/</a></p>
+<h3 id="更换主题后遇到的一些问题"><a href="#更换主题后遇到的一些问题" class="headerlink" title="更换主题后遇到的一些问题"></a>更换主题后遇到的一些问题</h3><p>由于我是重装了系统，所以博客重新配置了一遍。在配置完成之后，生成本地预览的时候，发现无法加载出图片，（我的图片是放在本地的，只有几张使用的图床），查看源码可以发现图片的链接异常，我这里出现了<code>\.com\\1.png</code>这样的图片链接，百度到了一些问题，有的说是Hexo3以上的版本使用Markdown的图片语法<code>![]()</code>会出现问题，解决方法是更换图片的文章链接方式，有的说是更新插件。</p>
+<blockquote>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/xjm850552586/article/details/84101345">hexo引用本地图片无法显示</a></p>
+</blockquote>
+<p>参考上面的链接，我发现是我配置文件<code>_config.yml</code>中的<code>url</code>那一栏填写错误导致的，最后改成我的博客的地址<code>http://colourso.github.io</code>，然后<code>hexo clean</code>之后重新生成预览，就正常了。</p>
+<h2 id="2020-05-27更新主题"><a href="#2020-05-27更新主题" class="headerlink" title="2020.05.27更新主题"></a>2020.05.27更新主题</h2><p>更新的是1.8.0版本之后的一次<code>develop</code>分支的内容，主要新功能是支持LeanCloud的计数功能。</p>
+<p>主题文件中主要修改替换一下<code>layout\_partial\footer.ejs</code>中的内容，用于修改底部显示内容。</p>
+<p>后期准备更新数学公式渲染。</p>
+<h2 id="2020-07-31引入B站视频"><a href="#2020-07-31引入B站视频" class="headerlink" title="2020.07.31引入B站视频"></a>2020.07.31引入B站视频</h2><p>原因是做了贪吃蛇小游戏，录制GIF展示文件太大，加上Github对图片的加载本来就不好，很容易加载不出来。于是模仿廖雪峰大神的网站，演示视频放在B站，然后本地博客引入链接就好了。</p>
+<p>插入代码：</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;//player.bilibili.com/player.html?aid=371573766&amp;bvid=BV1fZ4y1T7xo&amp;cid=218646009&amp;page=1&quot;</span> <span class="hljs-attr">scrolling</span>=<span class="hljs-string">&quot;no&quot;</span> <span class="hljs-attr">border</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">frameborder</span>=<span class="hljs-string">&quot;no&quot;</span> <span class="hljs-attr">framespacing</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">allowfullscreen</span>=<span class="hljs-string">&quot;true&quot;</span>    <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;100%&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;height: 430px; max-width: 100%&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span></code></pre>
+<p><code>src</code>里面的内容来自于B站网页视频底部的“分享”，然后“嵌入代码”，其他的细节还是按照上述的设定吧，勉强能用。</p>
+<blockquote>
+<p>未用到但是效果很好的链接：<a target="_blank" rel="noopener" href="https://oneboke.com/3045.html">https://oneboke.com/3045.html</a></p>
+</blockquote>
+<h2 id="2020-08-31增加数学公式渲染"><a href="#2020-08-31增加数学公式渲染" class="headerlink" title="2020.08.31增加数学公式渲染"></a>2020.08.31增加数学公式渲染</h2><p>主题版本没有更换。</p>
+<blockquote>
+<p>LaTeX 数学公式<br>当需要使用 LaTeX 语法的数学公式时，可手动开启本功能，需要完成三步操作：</p>
+<ol>
+<li>设置主题配置</li>
+</ol>
+<p>post:<br>  math:<br>    enable: true<br>    specific: false<br>    engine: mathjax<br>specific: 建议开启。当为 true 时，只有在文章 Front-matter 里指定 math: true 才会在文章页启动公式转换，以便在页面不包含公式时提高加载速度。</p>
+<p>engine: 公式渲染引擎，目前支持 mathjax 或 katex。</p>
+<ol start="2">
+<li>更换 Markdown 渲染器</li>
+</ol>
+<p>由于 Hexo 默认的 Markdown 渲染器不支持复杂公式，所以必须更换渲染器。</p>
+<p>先卸载原有渲染器：</p>
+<p>npm uninstall hexo-renderer-marked –save</p>
+<p>然后根据上方配置不同的 engine，推荐更换如下渲染器：</p>
+<p>mathjax: npm install hexo-renderer-kramed –save</p>
+<p>katex: npm install @upupming/hexo-renderer-markdown-it-plus –save</p>
+<ol start="3">
+<li>安装完成后执行 hexo clean</li>
+</ol>
+<p>链接：<a target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/#latex-%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F">https://hexo.fluid-dev.com/docs/guide/#latex-%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F</a></p>
+</blockquote>
+<p>引擎选用了mathjax，但是不得不说有的渲染错误……</p>
+<p>渲染错误原因是这个引擎对换行的Latex公式支持的不好， 于是我就把我博客中的Latex拆分成了一行一行的……</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Other/">Other</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/SOP/">SOP</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8D%9A%E5%AE%A2/">博客</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/C-memory-layout/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">C语言内存四区模型详解(未完成)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AF%BE%E8%AF%BE%E8%AE%BE%E2%80%94%E2%80%94%E2%80%94%E5%9B%9B%E7%BB%B4%E6%95%B0%E7%BB%84/">
+                        <span class="hidden-mobile">数据结构课课设———四维数组</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/set-up-blog/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "使用Hexo+Github搭建博客与优化扩展&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

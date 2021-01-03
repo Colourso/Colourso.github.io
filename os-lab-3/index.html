@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>操作系统实验（三）—— 请求调页存储管理方式的模拟 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-11-23 12:19">
+      星期六, 十一月 23日 2019, 12:19 中午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      28
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><strong>概览</strong>：OPT、LRU、FIFO算法的实现</p>
+<a id="more"></a>
+
+<h2 id="实验内容"><a href="#实验内容" class="headerlink" title="实验内容"></a>实验内容</h2><p>（1）假设每个页面中可存放10条指令，分配给一作业的内存块数为4。</p>
+<p>（2）用C语言模拟一作业的执行过程。该作业共有320条指令，即它的地址空间为32页，目前它的所有页都还未调入内存。在模拟过程中，如果所访问的指令已经在内存中，则显示其物理地址，并转下一条指令。如果所访问的指令还未装入内存，则发生缺页，此时需记录缺页的次数，并将相应页调入内存。如果4个内存块中均已装入该作业，则需进行页面置换。最后显示其物理地址，并转下一条指令。在所有320条指令执行完毕后，请计算并显示作业运行过程中发生的缺页率。</p>
+<p>（3）置换算法：请分别考虑OPT、FIFO和LRU算法。</p>
+<p>（4）作业中指令的访问次序按下述原则生成：</p>
+<p>50%的指令是顺序执行的。<br>25%的指令是均匀分布在前地址部分。<br>25%的指令时均匀分布在后地址部分。</p>
+<p>具体的实施办法是：<br>①    在[0，319]之间随机选取一条起始执行指令，其序号为m；<br>②    顺序执行下一条指令，即序号为m+1的指令；<br>③    通过随机数，跳转到前地址部分[0，m-1]中的某条指令处，其序号为m1；<br>④    顺序执行下一条指令，即序号为m1+1的指令；<br>⑤    通过随机数，跳转到后地址部分[m1+2，319]中的某条指令处，其序号为m2；<br>⑥    顺序执行下一条指令，即序号为m2+1的指令；<br>⑦    重复跳转到前地址部分、顺序执行、跳转到后地址部分、顺序执行的过程，直至执行320条指令。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><pre><code class="hljs applescript">FIFO算法是如果可用内存满了，优先替换掉在内存中存在时间最长的页面
+对应的就是一个队列，容量为<span class="hljs-number">4</span>，先进先出
+
+如果队列的容量没有满
+	检查是否在队列中，如果在，无操作
+	如果不在，直接加入尾部队列，<span class="hljs-built_in">count</span>+<span class="hljs-number">1</span>
+如果队列容量满了
+	检查是否在队列中，如果在，无操作
+	如果不在，首部出队列，尾部进队列，<span class="hljs-built_in">count</span>+<span class="hljs-number">1</span>
+
+
+LRU算法 —— 最近最久未使用，即淘汰掉最近一段时间内没被使用的块
+即在一个队列里，如果没被使用就在队列中，如果被使用了就取出加入到队尾
+
+如果队列的容量没有满
+	检查是否在队列中，如果在，取出这一块，加入到队列尾部
+	如果不在，直接加入尾部队列，<span class="hljs-built_in">count</span>+<span class="hljs-number">1</span>
+如果队列容量满了
+	检查是否在队列中，如果在，取出这一块，加入到队列尾部
+	如果不在，首部出队列，尾部进队列，<span class="hljs-built_in">count</span>+<span class="hljs-number">1</span>
+
+OPT算法 —— 最佳适应算法
+向后搜索待执行的队列，比较当前内存中哪条指令最后被执行
+如果内存未满
+	检查是否在内存之中，在的话，无操作
+	不在的话，加入内存之中，<span class="hljs-built_in">count</span>+<span class="hljs-number">1</span>
+如果内存满了
+	检查是否在内存之中，在的话，无操作
+	不在的话，向后搜索待执行的指令，查找在内存之中的指令哪一条最晚被执行或者永不被执行，替换掉，<span class="hljs-built_in">count</span>+<span class="hljs-number">1</span></code></pre>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;ctime&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;conio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;set&gt;</span></span>
+
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;                                                                                                                                   
+
+<span class="hljs-comment">//Memory</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">int</span> Memory;
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">FindMemoryById</span><span class="hljs-params">(Memory MyMemory[<span class="hljs-number">4</span>],<span class="hljs-keyword">int</span> memoryNum,<span class="hljs-keyword">int</span> id)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt;= memoryNum<span class="hljs-number">-1</span>; i++)
+	&#123;
+		<span class="hljs-keyword">if</span> (MyMemory[i] == id)
+		&#123;
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+		&#125;
+	&#125;
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">GetIndexById</span><span class="hljs-params">(Memory MyMemory[<span class="hljs-number">4</span>], <span class="hljs-keyword">int</span> memoryNum, <span class="hljs-keyword">int</span> id)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt;= memoryNum - <span class="hljs-number">1</span>; i++)
+	&#123;
+		<span class="hljs-keyword">if</span> (MyMemory[i] == id)
+		&#123;
+			<span class="hljs-keyword">return</span> i;
+		&#125;
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Print</span><span class="hljs-params">(Memory MyMemory[<span class="hljs-number">4</span>], <span class="hljs-keyword">int</span> memoryNum)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt;= memoryNum - <span class="hljs-number">1</span>; i++)
+	&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; MyMemory[i] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
+	&#125;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">GetFirstLargeIndex</span><span class="hljs-params">(<span class="hljs-keyword">int</span> arr[<span class="hljs-number">4</span>])</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">int</span> maxNum = arr[<span class="hljs-number">0</span>];
+	<span class="hljs-keyword">int</span> maxNumIndex = <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; <span class="hljs-number">4</span>; j++)
+	&#123;
+		<span class="hljs-keyword">if</span> (maxNum &lt; arr[j])
+		&#123;
+			maxNum = arr[j];
+			maxNumIndex = j;
+		&#125;
+	&#125;
+	<span class="hljs-keyword">return</span> maxNumIndex;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">GetLastIndexOrdList</span><span class="hljs-params">(Memory MyMemory[<span class="hljs-number">4</span>], <span class="hljs-keyword">int</span> orderList[<span class="hljs-number">320</span>], <span class="hljs-keyword">int</span> index)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">int</span> LastIndex[<span class="hljs-number">4</span>] = &#123;<span class="hljs-number">999</span>,<span class="hljs-number">999</span>,<span class="hljs-number">999</span>,<span class="hljs-number">999</span>&#125;;
+	<span class="hljs-keyword">int</span> LastIndexNum = <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=index;i&lt;<span class="hljs-number">320</span>;i++)
+	&#123;
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">4</span>; j++)
+		&#123;
+			<span class="hljs-keyword">if</span> (MyMemory[j] == orderList[i])
+			&#123;
+				<span class="hljs-keyword">if</span> (LastIndex[j] == <span class="hljs-number">999</span>)
+				&#123;
+					LastIndex[j] = i;
+					LastIndexNum++;
+					<span class="hljs-keyword">break</span>;
+				&#125;
+				<span class="hljs-keyword">else</span>
+				&#123;
+					<span class="hljs-keyword">break</span>;
+				&#125;
+			&#125;
+		&#125;
+		<span class="hljs-keyword">if</span> (LastIndexNum == <span class="hljs-number">4</span>) <span class="hljs-keyword">break</span>;
+	&#125;
+	<span class="hljs-keyword">return</span> GetFirstLargeIndex(LastIndex);
+&#125;
+
+<span class="hljs-comment">//FIFO算法</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">FIFO</span><span class="hljs-params">(<span class="hljs-keyword">int</span> orderList[<span class="hljs-number">320</span>])</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;<span class="hljs-comment">//计算缺页次数</span>
+	Memory MyMemory[<span class="hljs-number">4</span>];
+	<span class="hljs-keyword">int</span> memoryNum = <span class="hljs-number">0</span>;<span class="hljs-comment">//内存已经占用的数量</span>
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">320</span>; i++)
+	&#123;
+		<span class="hljs-keyword">if</span> (memoryNum &lt; <span class="hljs-number">4</span>)<span class="hljs-comment">//如果内存未满</span>
+		&#123;
+			<span class="hljs-keyword">if</span> (!FindMemoryById(MyMemory,memoryNum,orderList[i]))
+			&#123;
+				<span class="hljs-comment">//不在内存中</span>
+				MyMemory[memoryNum] = orderList[i];
+				memoryNum++;
+				count++;
+			&#125;
+		&#125;
+		<span class="hljs-keyword">else</span>
+		&#123;
+			<span class="hljs-keyword">if</span> (!FindMemoryById(MyMemory, memoryNum, orderList[i]))
+			&#123;
+				<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">3</span>; j++)
+				&#123;
+					MyMemory[j] = MyMemory[j + <span class="hljs-number">1</span>];
+				&#125;
+				MyMemory[<span class="hljs-number">3</span>] = orderList[i];
+				count++;
+			&#125;
+		&#125;
+		<span class="hljs-comment">//Print(MyMemory,memoryNum);</span>
+	&#125;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;FIFO算法的缺页率为：&quot;</span> &lt;&lt; <span class="hljs-keyword">double</span>(count) / <span class="hljs-number">320</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+&#125;
+
+<span class="hljs-comment">//LRU算法</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">LRU</span><span class="hljs-params">(<span class="hljs-keyword">int</span> orderList[<span class="hljs-number">320</span>])</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;<span class="hljs-comment">//计算缺页次数</span>
+	Memory MyMemory[<span class="hljs-number">4</span>];
+	<span class="hljs-keyword">int</span> memoryNum = <span class="hljs-number">0</span>;<span class="hljs-comment">//内存已经占用的数量</span>
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">320</span>; i++)
+	&#123;
+		<span class="hljs-keyword">if</span> (memoryNum &lt; <span class="hljs-number">4</span>)<span class="hljs-comment">//如果内存未满</span>
+		&#123;
+			<span class="hljs-keyword">if</span> (FindMemoryById(MyMemory, memoryNum, orderList[i]))
+			&#123;
+				<span class="hljs-comment">//在内存中</span>
+				<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = GetIndexById(MyMemory, memoryNum, orderList[i]); j &lt; memoryNum - <span class="hljs-number">1</span>; j++)
+				&#123;
+					MyMemory[j] = MyMemory[j + <span class="hljs-number">1</span>];
+				&#125;
+				MyMemory[memoryNum<span class="hljs-number">-1</span>] = orderList[i];
+			&#125;
+			<span class="hljs-keyword">else</span>
+			&#123;
+				<span class="hljs-comment">//不在内存中</span>
+				MyMemory[memoryNum] = orderList[i];
+				memoryNum++;
+				count++;
+			&#125;
+		&#125;
+		<span class="hljs-keyword">else</span>
+		&#123;
+			<span class="hljs-keyword">if</span> (FindMemoryById(MyMemory, memoryNum, orderList[i]))
+			&#123;
+				<span class="hljs-comment">//在内存中</span>
+				<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = GetIndexById(MyMemory, memoryNum, orderList[i]); j &lt; <span class="hljs-number">3</span>; j++)
+				&#123;
+					MyMemory[j] = MyMemory[j + <span class="hljs-number">1</span>];
+				&#125;
+				MyMemory[<span class="hljs-number">3</span>] = orderList[i];
+			&#125;
+			<span class="hljs-keyword">else</span>
+			&#123;
+				<span class="hljs-comment">//不在内存中</span>
+				<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">3</span>; j++)
+				&#123;
+					MyMemory[j] = MyMemory[j + <span class="hljs-number">1</span>];
+				&#125;
+				MyMemory[<span class="hljs-number">3</span>] = orderList[i];
+				count++;
+			&#125;
+		&#125;
+		<span class="hljs-comment">//Print(MyMemory, memoryNum);</span>
+	&#125;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;LRU算法的缺页率为：&quot;</span> &lt;&lt; <span class="hljs-keyword">double</span>(count) / <span class="hljs-number">320</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+&#125;
+
+<span class="hljs-comment">//OPT算法</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">OPT</span><span class="hljs-params">(<span class="hljs-keyword">int</span> orderList[<span class="hljs-number">320</span>])</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;<span class="hljs-comment">//计算缺页次数</span>
+	Memory MyMemory[<span class="hljs-number">4</span>];
+	<span class="hljs-keyword">int</span> memoryNum = <span class="hljs-number">0</span>;<span class="hljs-comment">//内存已经占用的数量</span>
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">320</span>; i++)
+	&#123;
+		<span class="hljs-keyword">if</span> (memoryNum &lt; <span class="hljs-number">4</span>)<span class="hljs-comment">//如果内存未满</span>
+		&#123;
+			<span class="hljs-keyword">if</span> (!FindMemoryById(MyMemory, memoryNum, orderList[i]))
+			&#123;
+				<span class="hljs-comment">//不在内存中</span>
+				MyMemory[memoryNum] = orderList[i];
+				memoryNum++;
+				count++;
+			&#125;
+		&#125;
+		<span class="hljs-keyword">else</span>
+		&#123;
+			<span class="hljs-keyword">if</span> (!FindMemoryById(MyMemory, memoryNum, orderList[i]))
+			&#123;
+				<span class="hljs-comment">//不在内存中</span>
+				<span class="hljs-keyword">int</span> index = GetLastIndexOrdList(MyMemory,orderList,i+<span class="hljs-number">1</span>);
+				MyMemory[index] = orderList[i];
+				count++;
+			&#125;
+		&#125;
+		<span class="hljs-comment">//Print(MyMemory,memoryNum);</span>
+	&#125;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;OPT算法的缺页率为：&quot;</span> &lt;&lt; <span class="hljs-keyword">double</span>(count) / <span class="hljs-number">320</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+&#125;
+
+ <span class="hljs-comment">//产生随机数</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">generateRandom</span><span class="hljs-params">(<span class="hljs-keyword">int</span> begin, <span class="hljs-keyword">int</span> end)</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-comment">//产生一个随机数，位于[begin,end]之间</span>
+	<span class="hljs-keyword">int</span> ranNum = rand() % (end - begin + <span class="hljs-number">1</span>) + begin;
+	<span class="hljs-keyword">return</span> ranNum;
+&#125;
+
+<span class="hljs-comment">//产生随机数列表</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">generateRandomList</span><span class="hljs-params">(<span class="hljs-keyword">int</span> orderList[<span class="hljs-number">320</span>])</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-comment">//①	在[0，319]之间随机选取一条起始执行指令，其序号为m；</span>
+	<span class="hljs-comment">//②	顺序执行下一条指令，即序号为m + 1的指令；</span>
+	<span class="hljs-comment">//③	通过随机数，跳转到前地址部分[0，m - 1]中的某条指令处，其序号为m1；</span>
+	<span class="hljs-comment">//④	顺序执行下一条指令，即序号为m1 + 1的指令；</span>
+	<span class="hljs-comment">//⑤	通过随机数，跳转到后地址部分[m1 + 2，319]中的某条指令处，其序号为m2；</span>
+	<span class="hljs-comment">//⑥	顺序执行下一条指令，即序号为m2 + 1的指令；</span>
+	<span class="hljs-comment">//⑦	重复跳转到前地址部分、顺序执行、跳转到后地址部分、顺序执行的过程，直至执行320条指令。</span>
+	srand((<span class="hljs-keyword">unsigned</span>)time(<span class="hljs-literal">NULL</span>));
+	orderList[<span class="hljs-number">0</span>] = generateRandom(<span class="hljs-number">0</span>, <span class="hljs-number">319</span>);
+	orderList[<span class="hljs-number">1</span>] = orderList[<span class="hljs-number">0</span>] + <span class="hljs-number">1</span>;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; <span class="hljs-number">320</span>; )
+	&#123;
+		i++;
+		orderList[i] = generateRandom(<span class="hljs-number">0</span>, orderList[i - <span class="hljs-number">2</span>] - <span class="hljs-number">1</span>);
+		i++;
+		orderList[i] = orderList[i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;
+		i++;
+		orderList[i] = generateRandom(orderList[i - <span class="hljs-number">2</span>] + <span class="hljs-number">2</span>, <span class="hljs-number">319</span>);
+		i++;
+		orderList[i] = orderList[i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;
+	&#125;
+
+&#125;
+
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">printRandomList</span><span class="hljs-params">(<span class="hljs-keyword">int</span> orderList[<span class="hljs-number">320</span>])</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">320</span>; i++)
+	&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; orderList[i] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
+		<span class="hljs-keyword">if</span> ((i + <span class="hljs-number">1</span>) % <span class="hljs-number">10</span> == <span class="hljs-number">0</span>) <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+&#125;
+
+<span class="hljs-comment">//指令序列转化为页面序列</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">OrderList2PageList</span><span class="hljs-params">(<span class="hljs-keyword">int</span> orderList[<span class="hljs-number">320</span>])</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">320</span>; i++)
+	&#123;
+		orderList[i] = orderList[i] / <span class="hljs-number">10</span>;
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-comment">//指令序列</span>
+	<span class="hljs-keyword">int</span> orderList[<span class="hljs-number">320</span>];
+	generateRandomList(orderList);
+	printRandomList(orderList);
+	OrderList2PageList(orderList);
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	FIFO(orderList);
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	LRU(orderList);
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	OPT(orderList);
+	_getch();
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p><img src="os-lab-3/result.png" srcset="/img/loading.gif"></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/ComputerOrganization-0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">计算机组成原理相关知识</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/compile-1/">
+                        <span class="hidden-mobile">编译原理 —— 编译程序相关概念</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/os-lab-3/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "操作系统实验（三）—— 请求调页存储管理方式的模拟&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

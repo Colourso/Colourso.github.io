@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>Linux--Ubuntu的安装|(win + linux)双系统 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-07-07 19:09">
+      星期日, 七月 7日 2019, 7:09 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><strong>概览</strong>：Ubuntu的安装全过程：U盘启动盘的制作、Windows磁盘分区、安装过程中的选择、Linux各个分区、修改默认启动项。还有联想拯救者系列安装Ubuntu时的一些雷区。</p>
+<a id="more"></a>
+
+<h2 id="制作U盘启动盘"><a href="#制作U盘启动盘" class="headerlink" title="制作U盘启动盘"></a>制作U盘启动盘</h2><p>首先，先从官网下载Ubuntu的系统镜像。</p>
+<p>建议选择<strong>LTS</strong>的版本(代表着长期支持)，我选用的是Ubuntu 18.04.2 。大概1.85G.</p>
+<blockquote>
+<p>Ubuntu 18.04.2 LTS : <a target="_blank" rel="noopener" href="https://ubuntu.com/download/desktop">https://ubuntu.com/download/desktop</a></p>
+</blockquote>
+<p>然后，需要U盘引导盘制作工具。百度有一大堆。这里我使用的是refus。这个工具。</p>
+<blockquote>
+<p>refus U 盘引导盘制作工具：链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1VvCeKzAvFSVZGNkzv3tclw">https://pan.baidu.com/s/1VvCeKzAvFSVZGNkzv3tclw</a> 提取码：5nsl </p>
+<p>写完才发现这个软件的官网：<a target="_blank" rel="noopener" href="https://rufus.ie/">https://rufus.ie/</a>，可以自行下载，软件版本已经更新到3.5了。</p>
+</blockquote>
+<p>最后准备一个U盘，开始制作。引导类型选择<strong>镜像文件</strong>，然后点击后面的选择，找到上面下载的镜像文件(.iso)。其他选项默认即可。</p>
+<p>点击开始之后会弹出<strong>提示下载两个文件</strong>，点击确定下载即可。之后选择使用会弹出选择ISO镜像或者DD镜像写入，选择ISO镜像即可。</p>
+<p><img src="ubuntu-set-up%5Crefus.png" srcset="/img/loading.gif"></p>
+<p>最后会弹出警告，做系统引导盘要<strong>格式化U盘的</strong>！！</p>
+<p><img src="ubuntu-set-up%5Crefus-c.png" srcset="/img/loading.gif"></p>
+<p>点击确定，然后等待大概5、6分钟就制作好了。</p>
+<h2 id="Windows磁盘分区"><a href="#Windows磁盘分区" class="headerlink" title="Windows磁盘分区"></a>Windows磁盘分区</h2><p>打开磁盘管理。找一个磁盘，右键点击压缩卷，输入压缩空间量。</p>
+<p>这里一般的话50GB就足够使用了，我选择压缩110G😁。变成<strong>未分配的空间</strong>就好了。(后面做了一下实验，又压缩了10G，所以是110G)。</p>
+<p><img src="ubuntu-set-up%5Ccapan.png" srcset="/img/loading.gif"></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>将电脑点击重启，重启中不断按F12进入引导界面。（不同电脑的按键可能不同，详情百度即可）。</p>
+<p><img src="ubuntu-set-up%5Cbost_set.jpg" srcset="/img/loading.gif"></p>
+<p>如上图，选择<strong>UEFI的USB引导</strong>。键盘上下键翻动，回车键确认。中间可能会有黑屏，多等待几秒。</p>
+<p>然后到了如下的界面，依旧上下键移动，选择第二个install ununtu，回车即可。</p>
+<p><img src="ubuntu-set-up%5Cinstall.jpg" srcset="/img/loading.gif"></p>
+<p>注意接下来电脑可能会<strong>黑屏一段时间</strong>(我的电脑是的，耐心等待)。之后就会进入安装的详细引导了。</p>
+<p>语言选择简体中文，正常安装。</p>
+<p><img src="ubuntu-set-up%5Cinstall1.png" srcset="/img/loading.gif"></p>
+<p>然后关键的一步，安装类型选择其他选项，自己创建调整分区。</p>
+<p><img src="ubuntu-set-up%5Cinstall2.jpg" srcset="/img/loading.gif"></p>
+<h2 id="Linux分区"><a href="#Linux分区" class="headerlink" title="Linux分区"></a>Linux分区</h2><p>接上面的进行继续分区操作。注意要计算好空间大小！</p>
+<p>首先要先找到上面分配的<strong>空闲空间</strong>，双击即可进行分区。</p>
+<p><img src="ubuntu-set-up%5Cinstall3.jpg" srcset="/img/loading.gif"></p>
+<h3 id="分区-主分区"><a href="#分区-主分区" class="headerlink" title="分区-主分区(/.)"></a>分区-主分区(<strong>/.</strong>)</h3><p>用于存放系统，相当于Windows的C盘。一般10G就够了，我这里用了50GB。</p>
+<p>双击空闲的空间，设置如下</p>
+<pre><code class="hljs plain">分区类型 ： 主分区
+新分区的位置 ： 空间起始位置
+用于 ： Ext4日志文件系统
+挂载点 ： &#x2F;</code></pre>
+<p><img src="ubuntu-set-up%5Cinstallmain.jpg" srcset="/img/loading.gif"></p>
+<h3 id="分区-boot"><a href="#分区-boot" class="headerlink" title="分区-/boot"></a>分区-/boot</h3><p>引导分区，一般200MB就够了，这里我用1000MB。</p>
+<p>双击空闲的空间，设置如下</p>
+<pre><code class="hljs jboss-cli">分区类型 ： 逻辑分区
+新分区的位置 ： 空间起始位置
+用于 ： Ext4日志文件系统
+挂载点 ： <span class="hljs-string">/boot</span></code></pre>
+<p><img src="ubuntu-set-up%5Cinstallboot.jpg" srcset="/img/loading.gif"></p>
+<h3 id="分区-home"><a href="#分区-home" class="headerlink" title="分区-/home"></a>分区-/home</h3><p>主要是用户存储数据。空间尽可能的大。这里我用50GB。</p>
+<p>双击空闲的空间，设置如下</p>
+<pre><code class="hljs arduino">分区类型 ： 逻辑分区
+新分区的位置 ： 空间起始位置
+用于 ： Ext4日志文件系统
+挂载点 ： /<span class="hljs-built_in">home</span></code></pre>
+<p><img src="ubuntu-set-up%5Cinstallhome.jpg" srcset="/img/loading.gif"></p>
+<h3 id="分区-交换空间"><a href="#分区-交换空间" class="headerlink" title="分区-交换空间"></a>分区-交换空间</h3><p>交换区，即操作系统的虚拟内存。和电脑内存大小相同即可，但我的电脑内存只有4G，把原来分区的110G最后剩余的空间全部给了交换空间。</p>
+<p>双击空闲的空间，设置如下</p>
+<pre><code class="hljs plain">分区类型 ： 逻辑分区
+新分区的位置 ： 空间起始位置
+用于 ： 交换空间</code></pre>
+<p><img src="ubuntu-set-up%5Cinstallswap.jpg" srcset="/img/loading.gif"></p>
+<h3 id="安装启动引导器的设备"><a href="#安装启动引导器的设备" class="headerlink" title="安装启动引导器的设备"></a>安装启动引导器的设备</h3><p>上面四个区做好之后，要选择安装启动引导器的设备，注意，<strong>这里要选择你<code>/boot</code>区的位置！</strong>。如图，我的<code>/boot</code>对应<code>/dev/sda6</code>。</p>
+<p><img src="ubuntu-set-up%5Cinstalldev.jpg" srcset="/img/loading.gif"></p>
+<p>之后点击现在安装。</p>
+<p><img src="ubuntu-set-up%5Cinstall7.jpg" srcset="/img/loading.gif"></p>
+<p>点击继续。之后是选择所在地，选择中国上海。之后设置用户名密码。密码是必须设置的，最好记住。图片太大就不做展示了。</p>
+<p>之后静静等待，等待安装完成。按照提示操作就好了。</p>
+<h2 id="如何修改默认启动项"><a href="#如何修改默认启动项" class="headerlink" title="如何修改默认启动项"></a>如何修改默认启动项</h2><p>由于是双系统，grub引导，电脑默认启动项目是Ubuntu，但是日常使用Windows比较多，如果开机之后不留意可能就会直接进入Ubuntu，还得重启等待，比较麻烦。</p>
+<p>可以尝试在Ubuntu系统中修改它的grub文件，来达到开机之后默认光标定位问题。</p>
+<blockquote>
+<p>一、启动系统时，记下将要修改为默认启动系统的顺序号（从上往下从0开始数，第1项是0项，第2项是1项……）。</p>
+<p>二、启动进入ubuntu系统后，Ctrl-Alt-T进入终端。</p>
+<p>​    输入并执行以下命令行</p>
+<p>​    sudo gedit /etc/default/grub</p>
+<p>​    输入root密码后进入gedit编辑器编辑grub文件</p>
+<p>​    在GRUB_DEFAULT=0处将0改为之前记下的顺序号（从0开始数的个数）</p>
+<p>​    在GRUB_TIMEOUT=10处将10改为你需要设置的选项默认等待的时间（秒数），如15。</p>
+<p>​    点击gedit窗口左上角的X号保存退出。</p>
+<p>三、回到终端窗口，输入并执行以下命令行</p>
+<p>​    sudo update-grub</p>
+<p>​    执行完毕后大功告成。重启就可以看到效果了。</p>
+</blockquote>
+<p>除此之外还可以修改GRUB引导菜单的背景图片。</p>
+<blockquote>
+<p>1、首先准备一张想要的照片，文件名是啥无所谓，只要格式是*.jpg *.JPG *.jpeg *.JPEG *.png *.PNG *.tga *.TGA都行，都能自动找到，如果有多个，那么显示第一个找到的图片。<br>例如名字为命名为：xihuan.jpg<br>复制到grub目录 /boot/grub/<br>root@ubuntu:~# cp -v xihuan.jpg  /boot/grub/</p>
+<p>2、改变一下启动界面的分辨率<br>root@ubuntu:~# vi /etc/default/grub</p>
+<p>找到#GRUB_GFXMODE=640x480<br>更改为 GRUB_GFXMODE=1920x1080     #这里的分辨率改成自己电脑的分辨率</p>
+<p>3、重新生成GRUB的启动菜单配置文件(/boot/grub/grub.cfg)<br>root@ubuntu:~# update-grub</p>
+</blockquote>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Pipcie/article/details/84955169">Ubuntu18.04 更改GRUB引导菜单背景图片和默认启动项</a></p>
+<h2 id="联想拯救者系列雷区"><a href="#联想拯救者系列雷区" class="headerlink" title="联想拯救者系列雷区"></a>联想拯救者系列雷区</h2><p>我的笔记本是联想拯救者Y7000。安装过程中碰到了一些它独有的问题。</p>
+<h3 id="1-显卡驱动"><a href="#1-显卡驱动" class="headerlink" title="1.显卡驱动"></a>1.显卡驱动</h3><p>我的电脑显卡是<code>GTX 1050Ti</code></p>
+<p>安装完Ubuntu之后会碰到一系列奇葩的问题：<strong>Ubuntu图形界面非常的卡顿</strong>、<strong>开机之后可能会变成紫屏</strong>、<strong>点击重启或者关机按钮会卡死</strong></p>
+<p>原因个人不太清楚，大致是因为Ubuntu使用的是电脑的核显，而这个核显性能一般。Ubuntu没有找到电脑独显的驱动，需要手动去安装。</p>
+<blockquote>
+<p>说一下我的做法：仅供参考，当初解决之后忘记及时写博客了，所以只是大致的印象</p>
+<p>1.因为拯救者的无线模块也不能使用，所以就用手机开启USB网络共享到笔记本电脑上，然后更换软件源为阿里云，更新驱动</p>
+<p>2.会有一个N卡驱动，点击下载，安装</p>
+<p>3.会让你设置一个8位以上的密码，写好，记住，然后有个重启选项，选择重启</p>
+<p>4.貌似接下来会进入蓝色屏幕，有一些选项忘记是什么了，继续往下之后会有安装选项，然后之后会有一个文本框，填上你刚才设置的密码。貌似密码不会显示出来</p>
+<p>5.填完之后确认再次进入Ubuntu系统，这时查看显卡驱动就是N卡了</p>
+<p>6.除此之外的开机grub界面。我也按’e’修改了一点内容，见底下的链接</p>
+<p>7.据说Ubuntu之后的版本19.xxx解决了这个问题，不知道是不是真的。</p>
+</blockquote>
+<p>参看链接：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Dod_Jdi/article/details/78635126?utm_source=app">https://blog.csdn.net/Dod_Jdi/article/details/78635126?utm_source=app</a></p>
+<p> <a target="_blank" rel="noopener" href="https://blog.csdn.net/fu6543210/article/details/80104491?utm_source=app">https://blog.csdn.net/fu6543210/article/details/80104491?utm_source=app</a> </p>
+<h3 id="2-无线模块"><a href="#2-无线模块" class="headerlink" title="2.无线模块"></a>2.无线模块</h3><p>无线模块我找了好几个教程都没有解决。无奈之下使用了无线网卡，暂时解决上网问题。</p>
+<h2 id="如何清除Ubuntu系统？"><a href="#如何清除Ubuntu系统？" class="headerlink" title="如何清除Ubuntu系统？"></a>如何清除Ubuntu系统？</h2><p>最简单粗暴的方法，在Windows系统里进入<strong>磁盘管理</strong>，把原来Ubuntu占用的空间全部清除掉就可以了。</p>
+<p>但是开机的引导还没有修复，开机后会弹出下面的图片的这种情况。输入<code>exit</code>就可以进入Windows了。</p>
+<p><img src="ubuntu-set-up%5Cgrub.jpg" srcset="/img/loading.gif"></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/liuxiaodong400/article/details/80946225">Ubuntu-18.04-LTS安装指南（ubuntu-16.04同）</a></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                      <a class="hover-with-bg" href="/tags/SOP/">SOP</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/linux-base/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Linux基础命令</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/vs-use/">
+                        <span class="hidden-mobile">VS开发C++的一些问题——VS项目工程文件、Debug与Relase模式、字符集问题以及_T()宏</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/ubuntu-set-up/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Linux--Ubuntu的安装|(win + linux)双系统&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

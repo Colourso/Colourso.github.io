@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>Matlab入门 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-09-10 11:32">
+      星期二, 九月 10日 2019, 11:32 中午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      26
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><strong>概览</strong>：本文是Matlab的简易学习笔记，为了全国大学生数学建模竞赛做一些准备。</p>
+<a id="more"></a>
+
+<p>参看视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av14503445?from=search&seid=10560014714789112428">https://www.bilibili.com/video/av14503445?from=search&amp;seid=10560014714789112428</a></p>
+<h2 id="运算符与规则"><a href="#运算符与规则" class="headerlink" title="运算符与规则"></a>运算符与规则</h2><pre><code class="hljs matlab">+ - * / ^（次方）</code></pre>
+<ul>
+<li>^ 的优先级高于其他几个</li>
+</ul>
+<p><img src="matlab%5Cmath0.png" srcset="/img/loading.gif"></p>
+<pre><code class="hljs matlab"><span class="hljs-built_in">cos</span>(((<span class="hljs-number">1</span>+<span class="hljs-number">2</span>+<span class="hljs-number">3</span>+<span class="hljs-number">4</span>)^<span class="hljs-number">3</span>/<span class="hljs-number">5</span>)^<span class="hljs-number">0.5</span>)</code></pre>
+<p><img src="matlab%5Cmath1.png" srcset="/img/loading.gif"></p>
+<pre><code class="hljs matlab"><span class="hljs-built_in">sin</span>(<span class="hljs-built_in">pi</span>^<span class="hljs-number">0.5</span>) + <span class="hljs-built_in">log</span>(<span class="hljs-built_in">tan</span>(<span class="hljs-number">1</span>))</code></pre>
+
+
+<blockquote>
+<p><strong>log函数</strong></p>
+<p>log 以10为底的函数：lg</p>
+<p>log 以e为底的函数：ln</p>
+<p>在matlab中以以e为底的对数以log函数表示，以10为底的对数用log10表示</p>
+</blockquote>
+<h2 id="embedding-function"><a href="#embedding-function" class="headerlink" title="embedding function"></a>embedding function</h2><pre><code class="hljs matlab"><span class="hljs-built_in">sin</span>(<span class="hljs-built_in">cos</span>(<span class="hljs-built_in">pi</span>))
+
+	||
+
+<span class="hljs-built_in">cos</span>(<span class="hljs-built_in">pi</span>)
+<span class="hljs-built_in">sin</span>(<span class="hljs-built_in">ans</span>)
+<span class="hljs-comment">% 当程序比较复杂的时候将其中一部分的结果暂时放到variable(ans)中</span></code></pre>
+<h2 id="变量-variable"><a href="#变量-variable" class="headerlink" title="变量 variable"></a>变量 variable</h2><p>matlab中变量不需要指定类型</p>
+<pre><code class="hljs matlab">变量名 = 数值
+a = <span class="hljs-number">10</span>
+
+<span class="hljs-string">&#x27;=&#x27;</span>是assignment operator，是将<span class="hljs-number">10</span>指定给a这个变量</code></pre>
+<ul>
+<li>变量区分大小写</li>
+<li>变量不能使用数字开头</li>
+</ul>
+<blockquote>
+<p>命令行输入 who 可以查看当前的变量有哪些</p>
+<p>输入 whos 可以查看当前的变量大小、类型等详细信息</p>
+<p>一般默认的类型是double，8字节</p>
+</blockquote>
+<h2 id="特殊变量和关键字"><a href="#特殊变量和关键字" class="headerlink" title="特殊变量和关键字"></a>特殊变量和关键字</h2><ul>
+<li><p>常量 e</p>
+<p>matlab中使用 <code>exp(1)</code> 来表示</p>
+</li>
+<li><p>ans</p>
+</li>
+<li><p>i , j  复数</p>
+</li>
+<li><p>Inf  无限大</p>
+</li>
+<li><p>eps  很小很小的数</p>
+</li>
+<li><p>NaN  ：not a number。例如：x = Inf / Inf</p>
+</li>
+<li><p>pi </p>
+</li>
+</ul>
+<h2 id="matlab-数据类型"><a href="#matlab-数据类型" class="headerlink" title="matlab 数据类型"></a>matlab 数据类型</h2><p><img src="matlab/datatype.jpg" srcset="/img/loading.gif"></p>
+<h2 id="matlab-Calling-Priority"><a href="#matlab-Calling-Priority" class="headerlink" title="matlab Calling Priority"></a>matlab Calling Priority</h2><p>variable(高)</p>
+<p>Built-in function</p>
+<p>Subfunction</p>
+<p>Private function(低)</p>
+<p>当拿一个函数的名称作为变量名称时，会优先使用变量</p>
+<h2 id="display-format"><a href="#display-format" class="headerlink" title="display format"></a>display format</h2><p>在命令行输入 <code>format  long</code> 类似的改变显示格式</p>
+<ul>
+<li>rat 表示分数计算</li>
+</ul>
+<p><img src="matlab/displayformat.jpg" srcset="/img/loading.gif"></p>
+<h2 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h2><ul>
+<li>分号 表示不会把计算结果显示出来</li>
+<li>clc : 清除命令行</li>
+<li>clear : 清除workspace的变量</li>
+<li>who : 查看在workspace的变量</li>
+<li>whos : 查看在workspace的变量信息</li>
+<li>iskeyword : 打印关键字</li>
+<li>format + 格式 : 改变显示格式</li>
+</ul>
+<hr>
+<h2 id="矩阵和向量-Array-Vector-and-Matrix"><a href="#矩阵和向量-Array-Vector-and-Matrix" class="headerlink" title="矩阵和向量 Array(Vector  and Matrix)"></a>矩阵和向量 Array(Vector  and Matrix)</h2><p>行向量：</p>
+<pre><code class="hljs matlab">a = [<span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span> <span class="hljs-number">4</span>]</code></pre>
+<p>列向量</p>
+<pre><code class="hljs matlab">b = [<span class="hljs-number">1</span>; <span class="hljs-number">2</span>; <span class="hljs-number">3</span>; <span class="hljs-number">4</span>]</code></pre>
+<p>乘积</p>
+<pre><code class="hljs matlab">a * b = <span class="hljs-number">30</span>
+b * a = 
+	 <span class="hljs-number">1</span>     <span class="hljs-number">2</span>     <span class="hljs-number">3</span>     <span class="hljs-number">4</span>
+     <span class="hljs-number">2</span>     <span class="hljs-number">4</span>     <span class="hljs-number">6</span>     <span class="hljs-number">8</span>
+     <span class="hljs-number">3</span>     <span class="hljs-number">6</span>     <span class="hljs-number">9</span>    <span class="hljs-number">12</span>
+     <span class="hljs-number">4</span>     <span class="hljs-number">8</span>    <span class="hljs-number">12</span>    <span class="hljs-number">16</span></code></pre>
+<p>输入矩阵： 空格隔开列，分号分隔行</p>
+<pre><code class="hljs matlab">&gt;&gt; A = [<span class="hljs-number">1</span> <span class="hljs-number">21</span> <span class="hljs-number">6</span>; <span class="hljs-number">5</span> <span class="hljs-number">17</span> <span class="hljs-number">9</span>; <span class="hljs-number">31</span> <span class="hljs-number">2</span> <span class="hljs-number">7</span>]
+
+A =
+     <span class="hljs-number">1</span>    <span class="hljs-number">21</span>     <span class="hljs-number">6</span>
+     <span class="hljs-number">5</span>    <span class="hljs-number">17</span>     <span class="hljs-number">9</span>
+    <span class="hljs-number">31</span>     <span class="hljs-number">2</span>     <span class="hljs-number">7</span></code></pre>
+<h3 id="Array-index"><a href="#Array-index" class="headerlink" title="Array index"></a>Array index</h3><p>取出上述矩阵A的特定位置的元素</p>
+<p>matlab下标从1开始</p>
+<ul>
+<li>A(1,2) ——取出矩阵坐标为(1,2)位置的元素。第一行，第二列</li>
+<li>A(4) ——从第一列数起对应的index值</li>
+<li>A([1 3 5]) —— 取出第1、3、5个元素的值</li>
+<li>A([1 3; 1 3])  ——取出第1、3个元素构成一个矩阵</li>
+<li>A([1 3] , [1 3]) ——前面代表第1、3行，后面代表第1、3列，取出他们构成的交集，然后组成一个矩阵</li>
+</ul>
+<h3 id="矩阵值替换"><a href="#矩阵值替换" class="headerlink" title="矩阵值替换"></a>矩阵值替换</h3><pre><code class="hljs apache"><span class="hljs-attribute">A</span>(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>) = <span class="hljs-number">31</span></code></pre>
+<h3 id="Colon-Operator"><a href="#Colon-Operator" class="headerlink" title="Colon Operator"></a>Colon Operator</h3><p>创建等差数列</p>
+<pre><code class="hljs matlab"><span class="hljs-comment">%创建从1到100的等差数列</span>
+A = [<span class="hljs-number">1</span>:<span class="hljs-number">100</span>]
+<span class="hljs-comment">%或者 A = 1:100</span>
+<span class="hljs-comment">%创建1，3，5，……，99</span>
+A = [<span class="hljs-number">1</span>:<span class="hljs-number">2</span>:<span class="hljs-number">99</span>]
+
+<span class="hljs-comment">%可以创建矩阵</span>
+B = [<span class="hljs-number">1</span>:<span class="hljs-number">5</span>; <span class="hljs-number">2</span>:<span class="hljs-number">3</span>:<span class="hljs-number">15</span>; <span class="hljs-number">-2</span>:<span class="hljs-number">0.5</span>:<span class="hljs-number">0</span>]
+
+<span class="hljs-comment">%可以和字符联合使用</span>
+strs = <span class="hljs-string">&#x27;a&#x27;</span>:<span class="hljs-number">2</span>:<span class="hljs-string">&#x27;z&#x27;</span>
+<span class="hljs-comment">% acegikmoqsuwy</span></code></pre>
+<p>当然，当Colon Operator前后都无参数时表示这个矩阵<strong>全部的值</strong>。</p>
+<h3 id="删除行或者列"><a href="#删除行或者列" class="headerlink" title="删除行或者列"></a>删除行或者列</h3><pre><code class="hljs matlab"><span class="hljs-comment">%删除A的第二行</span>
+A(<span class="hljs-number">2</span>,:) = []
+
+<span class="hljs-comment">%删除A的第二列</span>
+A(:,<span class="hljs-number">2</span>) = []</code></pre>
+<h3 id="增广矩阵"><a href="#增广矩阵" class="headerlink" title="增广矩阵"></a>增广矩阵</h3><pre><code class="hljs matlab">a = [<span class="hljs-number">1</span> <span class="hljs-number">2</span>;<span class="hljs-number">3</span> <span class="hljs-number">4</span>];
+b = [<span class="hljs-number">9</span> <span class="hljs-number">8</span>;<span class="hljs-number">7</span> <span class="hljs-number">6</span>];
+c = [a b]
+c =
+     <span class="hljs-number">1</span>     <span class="hljs-number">2</span>     <span class="hljs-number">9</span>     <span class="hljs-number">8</span>
+     <span class="hljs-number">3</span>     <span class="hljs-number">4</span>     <span class="hljs-number">7</span>     <span class="hljs-number">6</span>
+     
+d = [a;b]
+d =
+     <span class="hljs-number">1</span>     <span class="hljs-number">2</span>
+     <span class="hljs-number">3</span>     <span class="hljs-number">4</span>
+     <span class="hljs-number">9</span>     <span class="hljs-number">8</span>
+     <span class="hljs-number">7</span>     <span class="hljs-number">6</span></code></pre>
+<h3 id="矩阵运算"><a href="#矩阵运算" class="headerlink" title="矩阵运算"></a>矩阵运算</h3><pre><code class="hljs gherkin">+ |<span class="hljs-string"> - </span>|<span class="hljs-string"> * </span>|<span class="hljs-string"> / </span>|<span class="hljs-string"> ^ </span>|<span class="hljs-string"> .   </span>|<span class="hljs-string"> ‘ </span>|
+加 |<span class="hljs-string">减 </span>|<span class="hljs-string">乘 </span>|<span class="hljs-string">除 </span>|<span class="hljs-string">乘方</span>|<span class="hljs-string">每一项</span>|<span class="hljs-string">转置</span>|</code></pre>
+<pre><code class="hljs matlab"><span class="hljs-comment">%.* -- 点乘，表示矩阵A的每一项乘以矩阵B相对应的每一项</span>
+<span class="hljs-comment">%同理./也是同一个意思</span>
+
+a = [<span class="hljs-number">1</span> <span class="hljs-number">2</span>;<span class="hljs-number">3</span> <span class="hljs-number">4</span>];
+b = [<span class="hljs-number">9</span> <span class="hljs-number">8</span>;<span class="hljs-number">7</span> <span class="hljs-number">6</span>];
+
+a.*b = 
+	<span class="hljs-number">9</span>    <span class="hljs-number">16</span>
+    <span class="hljs-number">21</span>    <span class="hljs-number">24</span>
+    
+a./b -- a做被除数
+a.\b -- a做除数</code></pre>
+<h3 id="矩阵与实数做运算"><a href="#矩阵与实数做运算" class="headerlink" title="矩阵与实数做运算"></a>矩阵与实数做运算</h3><pre><code class="hljs livecodeserver">A <span class="hljs-comment">-- 表示矩阵， a -- 表示实数</span>
+A + <span class="hljs-keyword">a</span> <span class="hljs-comment">-- 矩阵的每一项都加上a</span>
+A / <span class="hljs-keyword">a</span> 同理
+A ./ <span class="hljs-keyword">a</span>与A / <span class="hljs-keyword">a</span>结果一样
+A ^ <span class="hljs-keyword">a</span> <span class="hljs-comment">-- 表示a个A矩阵相乘</span>
+A .^ <span class="hljs-keyword">a</span> <span class="hljs-comment">-- 表示A矩阵内的每一项都是a的乘方</span></code></pre>
+<h3 id="特殊的矩阵"><a href="#特殊的矩阵" class="headerlink" title="特殊的矩阵"></a>特殊的矩阵</h3><pre><code class="hljs matlab"><span class="hljs-built_in">eye</span>(n) -- 创建n*n identity matrix
+<span class="hljs-built_in">zeros</span>(n1,n2) -- 创建n1*n2的值全为<span class="hljs-number">0</span>的矩阵
+<span class="hljs-built_in">ones</span>(n1,n2) -- 创建n1*n2的值全为<span class="hljs-number">1</span>的矩阵
+<span class="hljs-built_in">diag</span>() -- 创建对角线矩阵
+
+<span class="hljs-built_in">diag</span>([<span class="hljs-number">2</span> <span class="hljs-number">3</span> <span class="hljs-number">4</span>])
+
+<span class="hljs-built_in">ans</span> =
+     <span class="hljs-number">2</span>     <span class="hljs-number">0</span>     <span class="hljs-number">0</span>
+     <span class="hljs-number">0</span>     <span class="hljs-number">3</span>     <span class="hljs-number">0</span>
+     <span class="hljs-number">0</span>     <span class="hljs-number">0</span>     <span class="hljs-number">4</span></code></pre>
+<h3 id="矩阵的一些函数"><a href="#矩阵的一些函数" class="headerlink" title="矩阵的一些函数"></a>矩阵的一些函数</h3><pre><code class="hljs matlab">A是一个矩阵
+<span class="hljs-built_in">max</span>(A) -- 得到每一列最大的数
+<span class="hljs-built_in">max</span>(<span class="hljs-built_in">max</span>(A)) -- 得到这个矩阵最大的数
+<span class="hljs-built_in">min</span>() --同理
+
+sum(A) -- 得到每一列的和
+sum(sum(A)) -- 得到矩阵所有数值的和
+<span class="hljs-built_in">mean</span>(A) -- 得到整个列的平均值
+
+<span class="hljs-built_in">sort</span>(A) -- 对矩阵的每一列按照从小到大进行排序
+<span class="hljs-built_in">sortrows</span>(A) -- 对矩阵的行按照每行的第一个值从小到大进行排序
+<span class="hljs-built_in">size</span>(A) -- 获取矩阵的行列数
+<span class="hljs-built_in">length</span>(A) -- 指获取向量的长度
+<span class="hljs-built_in">find</span>(A==<span class="hljs-number">5</span>) -- 找到矩阵中值为<span class="hljs-number">5</span>的那个元素的index</code></pre>
+<h2 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h2><pre><code class="hljs matlab"><span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span>=<span class="hljs-number">1</span>:<span class="hljs-number">10</span>
+    x=<span class="hljs-built_in">linspace</span>(<span class="hljs-number">0</span>,<span class="hljs-number">10</span>,<span class="hljs-number">101</span>);
+    <span class="hljs-built_in">plot</span>(x,<span class="hljs-built_in">sin</span>(x+<span class="hljs-built_in">i</span>));
+    print(gcf,<span class="hljs-string">&#x27;-deps&#x27;</span>,strcat(<span class="hljs-string">&#x27;plot&#x27;</span>,num2str(<span class="hljs-built_in">i</span>),<span class="hljs-string">&#x27;.ps&#x27;</span>));
+<span class="hljs-keyword">end</span></code></pre>
+<p>当给一段程序的前面加上 <code>%%</code>  的符号的时候，就是把程序分成<code>section</code>，可以单独执行。</p>
+<h3 id="scripts-–-指令"><a href="#scripts-–-指令" class="headerlink" title="scripts – 指令"></a>scripts – 指令</h3><p>程序内的后面加上分号;就不会把结果显示在命令行里。</p>
+<pre><code class="hljs matlab"><span class="hljs-keyword">if</span>,<span class="hljs-keyword">elseif</span>,<span class="hljs-keyword">else</span>
+<span class="hljs-keyword">for</span>
+<span class="hljs-keyword">switch</span>,<span class="hljs-keyword">case</span>
+<span class="hljs-keyword">while</span>
+
+<span class="hljs-keyword">break</span>
+continune
+<span class="hljs-keyword">end</span>
+pause
+<span class="hljs-keyword">return</span></code></pre>
+<h3 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h3><p>如果一行内容过多可以使用三个点隔开，表示换行。</p>
+<pre><code class="hljs matlab">a = [<span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span> <span class="hljs-number">4</span> <span class="hljs-number">5</span>;...
+    <span class="hljs-number">6</span> <span class="hljs-number">7</span> <span class="hljs-number">8</span> <span class="hljs-number">9</span> <span class="hljs-number">10</span>]</code></pre>
+<h3 id="逻辑判别式"><a href="#逻辑判别式" class="headerlink" title="逻辑判别式"></a>逻辑判别式</h3><p>boolean: 1为true，0为false。</p>
+<pre><code class="hljs matlab">~= 不等于
+== 等于
+<span class="hljs-comment">%其余与C++的相同</span></code></pre>
+<p><img src="matlab/operator.jpg" srcset="/img/loading.gif"></p>
+<h3 id="if…elseif…else"><a href="#if…elseif…else" class="headerlink" title="if…elseif…else"></a>if…elseif…else</h3><pre><code class="hljs matlab">a = <span class="hljs-number">3</span>;
+<span class="hljs-keyword">if</span> <span class="hljs-built_in">rem</span>(a,<span class="hljs-number">2</span>) == <span class="hljs-number">0</span> <span class="hljs-comment">%求余数</span>
+    <span class="hljs-built_in">disp</span>(<span class="hljs-string">&#x27;a is even&#x27;</span>)
+<span class="hljs-keyword">else</span>
+    <span class="hljs-built_in">disp</span>(<span class="hljs-string">&#x27;a is odd&#x27;</span>) <span class="hljs-comment">%奇数</span>
+<span class="hljs-keyword">end</span></code></pre>
+<h3 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h3><pre><code class="hljs matlab">input_num = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">switch</span> input_num
+    <span class="hljs-keyword">case</span> <span class="hljs-number">-1</span>
+        <span class="hljs-built_in">disp</span>(<span class="hljs-string">&#x27;negative 1&#x27;</span>);
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span> 
+        <span class="hljs-built_in">disp</span>(<span class="hljs-string">&#x27;zero&#x27;</span>);
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>
+        <span class="hljs-built_in">disp</span>(<span class="hljs-string">&#x27;positive 1&#x27;</span>);
+    <span class="hljs-keyword">otherwise</span>
+        <span class="hljs-built_in">disp</span>(<span class="hljs-string">&#x27;other value&#x27;</span>);
+<span class="hljs-keyword">end</span></code></pre>
+<h3 id="while"><a href="#while" class="headerlink" title="while"></a>while</h3><pre><code class="hljs matlab">n = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">while</span> prod(<span class="hljs-number">1</span>:n) &lt; <span class="hljs-number">1e100</span>
+<span class="hljs-comment">% 1:n 会形成一个[1,2,...,n]的向量，而prod则是会将这些向量连乘起来</span>
+<span class="hljs-comment">% 1e100 是指 1乘以10的100次方</span>
+    n = n + <span class="hljs-number">1</span>;
+<span class="hljs-keyword">end</span></code></pre>
+<h3 id="for"><a href="#for" class="headerlink" title="for"></a>for</h3><pre><code class="hljs matlab"><span class="hljs-keyword">for</span> variable=start:increment:<span class="hljs-keyword">end</span>
+	commands
+<span class="hljs-keyword">end</span>
+<span class="hljs-comment">%%%%%%%%%%</span>
+<span class="hljs-keyword">for</span> n=<span class="hljs-number">1</span>:<span class="hljs-number">10</span>
+    a(n) = <span class="hljs-number">2</span>^n;<span class="hljs-comment">%a是一个列向量</span>
+<span class="hljs-keyword">end</span>
+<span class="hljs-built_in">disp</span>(a)
+
+<span class="hljs-comment">%%%%%%%%%%%%%</span>
+tic
+A = <span class="hljs-built_in">zeros</span>(<span class="hljs-number">2000</span>,<span class="hljs-number">2000</span>);
+<span class="hljs-keyword">for</span> ii = <span class="hljs-number">1</span>:<span class="hljs-built_in">size</span>(A,<span class="hljs-number">1</span>)
+    <span class="hljs-keyword">for</span> jj = <span class="hljs-number">1</span>:<span class="hljs-built_in">size</span>(A,<span class="hljs-number">2</span>)
+        A(ii,jj) = ii+jj;
+    <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+toc
+
+<span class="hljs-comment">% 可以获得--&gt;时间已过 0.052879 秒。</span>
+<span class="hljs-comment">% 通过 tic toc</span></code></pre>
+<h3 id="break"><a href="#break" class="headerlink" title="break"></a>break</h3><p>跳出循环</p>
+<pre><code class="hljs matlab">x = <span class="hljs-number">2</span>;k = <span class="hljs-number">0</span>;error = <span class="hljs-built_in">inf</span>;
+error_threshold = <span class="hljs-number">1e-32</span>;
+<span class="hljs-keyword">while</span> error &gt; error_threshold 
+    <span class="hljs-keyword">if</span> k &gt; <span class="hljs-number">100</span>
+        <span class="hljs-keyword">break</span>
+    <span class="hljs-keyword">end</span>
+    x = x - <span class="hljs-built_in">sin</span>(x)/<span class="hljs-built_in">cos</span>(x);
+    error = <span class="hljs-built_in">abs</span>(x - <span class="hljs-built_in">pi</span>);
+    k = k+<span class="hljs-number">1</span>;
+<span class="hljs-keyword">end</span></code></pre>
+<h2 id="function-–-函数"><a href="#function-–-函数" class="headerlink" title="function – 函数"></a>function – 函数</h2><pre><code class="hljs matlab">edit (which(<span class="hljs-string">&#x27;mean.m&#x27;</span>))
+<span class="hljs-comment">%就可以查看mean.m这个函数的实现</span></code></pre>
+<h3 id="函数格式"><a href="#函数格式" class="headerlink" title="函数格式"></a>函数格式</h3><pre><code class="hljs livecodeserver"><span class="hljs-function"><span class="hljs-keyword">function</span> 输出结果 = 函数名（输入）</span>
+如果输出结果有多个值可以使用[<span class="hljs-keyword">a</span> F]这种形式</code></pre>
+
+
+<pre><code class="hljs matlab"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">x</span> = <span class="hljs-title">freebody</span><span class="hljs-params">(x0,v0,t)</span></span>
+<span class="hljs-comment">%</span>
+x = x0 + v0.*t + <span class="hljs-number">1</span>/<span class="hljs-number">2</span>*<span class="hljs-number">9.8</span>*t.*t;
+<span class="hljs-comment">%注意是.*的形式，也就意味着可以传入向量。</span>
+
+<span class="hljs-comment">%%%%%%</span>
+freebody(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">10</span>)
+<span class="hljs-built_in">ans</span> =
+   <span class="hljs-number">490</span>
+  
+freebody([<span class="hljs-number">0</span>,<span class="hljs-number">1</span>],[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>],[<span class="hljs-number">10</span>,<span class="hljs-number">20</span>])
+
+<span class="hljs-built_in">ans</span> =
+         <span class="hljs-number">490</span>        <span class="hljs-number">1981</span></code></pre>
+<pre><code class="hljs matlab"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">y</span> = <span class="hljs-title">F2C</span><span class="hljs-params">()</span></span>
+<span class="hljs-keyword">while</span> <span class="hljs-number">1</span>
+    TinF = input(<span class="hljs-string">&#x27;pleasr input a temperature in F:&#x27;</span>);
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">isempty</span>(TinF)
+        <span class="hljs-keyword">break</span>
+    <span class="hljs-keyword">end</span>
+    y = <span class="hljs-number">5</span>*(TinF<span class="hljs-number">-32</span>)/<span class="hljs-number">9</span>;
+    fprintf(<span class="hljs-string">&#x27;==&gt;Tem in C = %f\n&#x27;</span>,y);
+<span class="hljs-keyword">end</span></code></pre>
+
+
+<h3 id="function-handle"><a href="#function-handle" class="headerlink" title="function handle"></a>function handle</h3><pre><code class="hljs matlab">f = @(x) <span class="hljs-built_in">exp</span>(<span class="hljs-number">-2</span>*x);
+x = <span class="hljs-number">0</span>:<span class="hljs-number">0.1</span>:<span class="hljs-number">2</span>;
+<span class="hljs-built_in">plot</span>(x,f(x));</code></pre>
+<h2 id="方程式求根"><a href="#方程式求根" class="headerlink" title="方程式求根"></a>方程式求根</h2><h3 id="symbolic-variable"><a href="#symbolic-variable" class="headerlink" title="symbolic variable"></a>symbolic variable</h3><p>创建symbolic variable的方式有两种：<code>sym</code>或者<code>syms</code></p>
+<pre><code class="hljs matlab">syms x
+<span class="hljs-comment">%或者</span>
+x=sym(<span class="hljs-string">&#x27;x&#x27;</span>)
+
+x+x+x = <span class="hljs-number">3</span>*x</code></pre>
+<h3 id="solve-函数求解"><a href="#solve-函数求解" class="headerlink" title="solve()函数求解"></a>solve()函数求解</h3><p>例：<code>y = x * sin(x) - x = 0</code></p>
+<pre><code class="hljs matlab">syms x
+solve(<span class="hljs-string">&#x27;x*sin(x) - x&#x27;</span>,x)</code></pre>
+<h3 id="解多元方程"><a href="#解多元方程" class="headerlink" title="解多元方程"></a>解多元方程</h3><pre><code class="hljs matlab">&gt;&gt; syms x y
+&gt;&gt; eq1 = x <span class="hljs-number">-2</span>*y <span class="hljs-number">-5</span>;
+&gt;&gt; eq2 = x + y <span class="hljs-number">-6</span>;
+&gt;&gt; A = solve(eq1,eq2,x,y)
+
+&gt;&gt; A = 
+    x: [<span class="hljs-number">1</span>x1 sym]
+    y: [<span class="hljs-number">1</span>x1 sym]
+
+&gt;&gt; A.x
+ 
+<span class="hljs-built_in">ans</span> =
+ 
+<span class="hljs-number">17</span>/<span class="hljs-number">3</span>
+ 
+&gt;&gt; A.y
+ 
+<span class="hljs-built_in">ans</span> =
+ 
+<span class="hljs-number">1</span>/<span class="hljs-number">3</span></code></pre>
+<h3 id="多个未知数"><a href="#多个未知数" class="headerlink" title="多个未知数"></a>多个未知数</h3><pre><code class="hljs matlab"><span class="hljs-comment">% ax^2 - b = 0</span>
+
+syms x a b
+solve(<span class="hljs-string">&#x27;ax^2 - b&#x27;</span>)
+
+<span class="hljs-built_in">ans</span> =
+ 
+  b^(<span class="hljs-number">1</span>/<span class="hljs-number">2</span>)/a^(<span class="hljs-number">1</span>/<span class="hljs-number">2</span>)
+ -b^(<span class="hljs-number">1</span>/<span class="hljs-number">2</span>)/a^(<span class="hljs-number">1</span>/<span class="hljs-number">2</span>)
+ 
+<span class="hljs-comment">%%%%%%%%%%</span>
+<span class="hljs-comment">%如果想要把b作为未知数求解的话</span>
+solve(<span class="hljs-string">&#x27;ax^2 - b&#x27;</span>,<span class="hljs-string">&#x27;b&#x27;</span>)
+ 
+<span class="hljs-built_in">ans</span> =
+ 
+a*z^<span class="hljs-number">2</span></code></pre>
+<h2 id="其他参考连接"><a href="#其他参考连接" class="headerlink" title="其他参考连接"></a>其他参考连接</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/limin_yu/article/details/80256051">matlab线性规划</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42764468/article/details/87866348">matlab绘制曲线相交的交点</a></p>
+<h2 id="历年国赛"><a href="#历年国赛" class="headerlink" title="历年国赛"></a>历年国赛</h2><p><img src="matlab/all.jpg" srcset="/img/loading.gif"></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Matlab/">Matlab</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Matlab/">Matlab</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/arknights/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Arknights明日方舟（多图预警）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/network-chapter-4/">
+                        <span class="hidden-mobile">计算机网络——第四章 网络层</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/matlab/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Matlab入门&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

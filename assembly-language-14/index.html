@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>汇编语言（六）--中断程序设计 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-06-01 09:10">
+      星期六, 六月 1日 2019, 9:10 上午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      29
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><strong>概览</strong>：中断的概念、分类，CPU如何得知中断，中断的过程，中断向量表，自定义中断</p>
+<a id="more"></a>
+
+<h2 id="中断的概念和分类"><a href="#中断的概念和分类" class="headerlink" title="中断的概念和分类"></a>中断的概念和分类</h2><p>中断就是指CPU在执行指令的过程中，收到了中断请求，于是终止正在执行的程序去处理中断，处理完之后返回被终止的程序继续执行。</p>
+<p>中断分为两大类：<strong>软件中断</strong>（内中断）与<strong>硬件中断</strong>（外中断）</p>
+<h3 id="软件中断"><a href="#软件中断" class="headerlink" title="软件中断"></a>软件中断</h3><ol>
+<li><p><strong>中断指令 int n</strong>。<br> ·比如DOS功能 INT 21H</p>
+</li>
+<li><p><strong>CPU遇到了某些运算错误</strong>。<br> 除法错中断（中断类型号 0）:执行除法指令时，若发现除数为0或超过了寄存器所能表达的范围，则立即产生一个类型为0的中断。(自己写的div 0之后运行就会卡住)<br> 溢出中断（中断类型号 4）:若溢出标志OF置1，由中断指令INTO来处理发生溢出的中断操作；若OF为0，则INTO指令不产生中断，CPU继续运行原程序。  </p>
+</li>
+<li><p><strong>debug程序时设置的中断</strong>。<br> 单步中断（中断类型号 1）:在DEBUG下执行<strong>T命令（或P命令）</strong>时，陷阱标志TF置为1，CPU自动产生类型为1的单步中断。产生单步中断时，CPU自动地将PSW、CS和IP的内容入栈保存，然后清除TF、IF。<br> 断点中断(中断类型号 3):断点中断也是供DEBUG调试程序使用的。在调试程序时，当CPU执行到断点时便产生中断(<strong>G命令</strong>)，这时显示出各寄存器及相关标志，可以查看寄存器或存储单元的内容。设置断点实际上是把一条断点指令INT 3插入到程序中，CPU每执行到断点处的INT 3指令，便产生一个中断。       </p>
+</li>
+</ol>
+<h3 id="硬件中断"><a href="#硬件中断" class="headerlink" title="硬件中断"></a>硬件中断</h3><p>硬件中断是由输入/输出外设发出中断请求引起的中断。</p>
+<ol>
+<li><p><strong>不可屏蔽中断</strong>。<br> 通常是遇到故障时，比如电源故障、奇偶检验错、I/O通道校验错等紧急情况时系统自动产生的。<br> 这些不可屏蔽中断请求信号会接到CPU的NMI引脚上，不可屏蔽中断的中断类型号为2。<br> NMI (Non Maskable Interrupt)——不可屏蔽中断(即CPU不能屏蔽)无论状态寄存器中 IF 位的状态如何,CPU收到有效的NMI必须进行响应。</p>
+</li>
+<li><p><strong>可屏蔽中断</strong>。<br> 可屏蔽中断是键盘、显示器、打印机、磁盘、串行口/并行口等外设发出的。由于可屏蔽中断种类较多，各种处理要求不一样，因此系统专门用<strong>8259中断控制器</strong>来管理这些中断。<br> 可屏蔽是指可以使用软件设置允许或者禁止CPU进行响应。因为除了本身是否发出中断请求之外，该请求是否执行还要看CPU的IF标志的控制。</p>
+</li>
+</ol>
+<p>不可屏蔽中断CPU必须立刻响应，而可屏蔽中断可以选择响应或者不响应，或者按照优先级排序处理。</p>
+<blockquote>
+<p>典型的非屏蔽中断源的例子是电源掉电，一旦出现，必须立即无条件地响应，否则进行其他任何工作都是没有意义的。</p>
+<p>典型的可屏蔽中断源的例子是打印机中断，CPU对打印机中断请求的响应可以快一些，也可以慢一些，因为让打印机等待儿是完全可以的。 </p>
+</blockquote>
+<h2 id="CPU处理中断"><a href="#CPU处理中断" class="headerlink" title="CPU处理中断"></a>CPU处理中断</h2><p>80X86系统中所有的中断请求都会有与之相对应的<strong>中断处理子程序</strong>。CPU响应中断之后会跳转到中断处理子程序，执行完之后会回到原来程序执行的断点处继续执行。</p>
+<h3 id="中断类型"><a href="#中断类型" class="headerlink" title="中断类型"></a>中断类型</h3><p>80X86系统一共提供了256个中断类型，类型号为0–FFH。</p>
+<p>但是系统只使用了一部分类型号。</p>
+<h3 id="中断向量与中断向量表"><a href="#中断向量与中断向量表" class="headerlink" title="中断向量与中断向量表"></a>中断向量与中断向量表</h3><p>CPU要跳转执行中断处理子程序就需要知道它存放在那里，有入口地址才能够跳转执行。这个入口地址称之为中断向量（段地址+偏移地址）。</p>
+<p>中断向量表，80X86系统建立的保存中断向量的地址区域，位于内存最低地址区中0号单元开始的1KB单元之中。</p>
+<p>一个中断向量占用2个字即四个字节，高字单元根据放段地址，低字单元放偏移地址。</p>
+<p>由于从0号单元开始，根据中断类型号码，乘以四就可以得到内存向量。</p>
+<p><img src="assembly-language-14%5Ci-table.png" srcset="/img/loading.gif" alt="中断向量表"></p>
+<h3 id="中断优先级"><a href="#中断优先级" class="headerlink" title="中断优先级"></a>中断优先级</h3><p>内部中断优先级最高，其次是非屏蔽中断，优先级最低的是单步中断。</p>
+<p><img src="assembly-language-14%5Cyouxian.jpg" srcset="/img/loading.gif" alt="中断优先级"></p>
+<h3 id="CPU中断过程"><a href="#CPU中断过程" class="headerlink" title="CPU中断过程"></a>CPU中断过程</h3><ol>
+<li><p><strong>中断响应条件</strong>。<br> （1）  当前的指令周期结束；<br> （2）  采样到有效的中断请求信号；<br> （3）  如果是可屏蔽中断请求INTR，检查中断允许标志IF是否为1，即中断开放；<br> （4） CPU正在执行的程序不是中断服务程序，或者是中断优先级较低的中断服务程序。<br> 此外，特殊情况CPU不会响应中断。<br> （1） 当执行到STI指令时，CPU不会马上响应中断。STI指令是开中断指令，要求在开放中断后再执行后续的一条指令后才能响应中断；<br> （2） IRET指令是中断子程序返回指令，它也要求再执行一条后续指令后才能响应中断。这样做的目的是保护系统能够正常运行；<br> （3）当执行MOV SS,AX指令，即向SS段寄存器传送数据时，即使发生了中断，CPU也不会响应；直到本条执行完后，接着再执行一条指令才响应中断。<br> 所以遇到非屏蔽中断时，这些特殊情况怎么做？？？</p>
+</li>
+<li><p><strong>中断响应过程</strong>。<br> (1)首先将标志寄存器FLAGS压入堆栈，将陷阱标志TF存入暂存器；<br> (2)将IF和TF清零；<br> (3)将正在运行程序的断点的CS和IP压入堆栈；<br> (4)从中断向量表中取出中断向量高两个字节的内容送入CS，取出低两个字节的内容送到IP；<br> (5)转到相应中断源的中断服务程序入口，执行中断处理服务程序。<br> 简单来说：就是先保护现场，然后更换CS:IP的内容，执行。</p>
+</li>
+<li><p><strong>中断处理</strong>。<br> 即执行中断处理子程序。<br> 中断之中可以嵌套中断，如果新的中断优先级高于现在处理的中断，CPU就会转去执行新的中断。</p>
+</li>
+<li><p><strong>中断返回</strong>。<br> 中断子程序的结尾为<strong>IRET</strong>。即中断返回，恢复现场。<br> 将保存在堆栈中断点的偏移地址和段地址弹出，修改IP和CS寄存器；再把保存在堆栈中的PSW各标志位弹到FLAGS寄存器中，然后返回到被中断的程序去继续执行。</p>
+</li>
+</ol>
+<p>在中断发生时，<strong>CPU自动清除了IF位和TF位</strong>。使执行中断处理过程中，避免再次发生外部中断的干扰。 </p>
+<h2 id="定制自己的中断程序"><a href="#定制自己的中断程序" class="headerlink" title="定制自己的中断程序"></a>定制自己的中断程序</h2><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
+<li>保护现场</li>
+<li>STI 开中断指令（IF=1）</li>
+<li>处理中断</li>
+<li>CLI 关中断指令（IF=0）</li>
+<li>恢复现场</li>
+<li>IRET 指令，返回被中断的程序</li>
+</ol>
+<p>从应用程序进入中断子程序时，IF、TF都被清除，此时CPU在中断子程序中不会再响应其他的外部中断请求。</p>
+<p>但如果这个中断子程序允许被打断或者优先级不高的话，设计中断子程序时就要开放中断标志，允许被打断。</p>
+<p>IRET指令和RET指令都是返回原调用程序，但是<strong>IRET指令还要弹出保存的标志寄存器的值</strong>。</p>
+<h3 id="中断的设置"><a href="#中断的设置" class="headerlink" title="中断的设置"></a>中断的设置</h3><ol>
+<li><p><strong>设置中断向量</strong>。<br> DOS中断INT 21H的25H号功能。将DS:DX中的中断向量写入中断向量表。<br> DS存储中断子程序名的段地址，DX存储中断子程序名的偏移地址。</p>
+<p>AH=25H<br>AL=中断类型号码<br>DS:DX=中断向量<br>INT 21H</p>
+</li>
+<li><p><strong>取出中断向量</strong>。<br> DOS中断INT 21H的35H号功能。从中断向量表中取出中断向量放入ES:BX。<br> ES存储中断子程序名的段地址，BX存储中断子程序名的偏移地址。</p>
+<p>AH=35H<br>AL=中断类型号码<br>INT 21H</p>
+</li>
+<li><p><strong>中断驻留</strong>。<br> 特殊的退出程序，在退出前保留程序占用的内存，使得程序的内存不会被其他程序占据或覆盖，从而让此<strong>中断程序驻留在内存</strong>，从而其他程序也可以调用此中断。</p>
+<p>AH=31H<br>AL=0;表示返回码<br>DX=驻留程序的长度<br>INT 21H</p>
+<p>附：<strong>驻留程序的长度</strong><br>中断子程序<br>mail proc far            ;中断子程序名<br>smail:                ;子程序开始标号<br>……                ;子程序内容<br>iret<br>smaisl:nop         ;标号的结尾，Nop表示无操作的意思。<br>mail endp<br>故驻留程序的长度为：DX=smaisl-smail+16。两个标号名字不同，最后记得+16.</p>
+</li>
+</ol>
+<h3 id="案例：7ch号功能，显示一段字符"><a href="#案例：7ch号功能，显示一段字符" class="headerlink" title="案例：7ch号功能，显示一段字符"></a>案例：7ch号功能，显示一段字符</h3><pre><code>  ;7ch号中断处理程序的功能是在屏幕上输出自己的班级，班级序号，学号，姓名。
+  ;例如：1706 1 20177004 xuhaoyong
+  ;并在另外一个程序程序中调用7ch号中断。
+  data segment
+      mess db 0ah,0dh,&#39;1701 5 20170000 colourso $&#39;
+      mess1 db 0ah,0dh,&#39;Trigger interrupt, display information $&#39;
+      mess2 db 0ah,0dh,&#39;Continue or Quit(c/q): $&#39;
+  data ends
+  stack segment stack
+      db 256 dup(?)
+  stack ends
+  code segment
+      assume cs:code,ds:data
+      start:
+      ;mov ax,data
+      ;mov ds,ax
+  ;主程序
+  main proc far
+  mov ax,seg show
+  mov ds,ax        ;将子程序的段地址给ds
+  mov dx,offset show;偏移地址
+  mov ah,25h
+  mov al,7ch        ;中断类型号
+  int 21h            ;写入中断向量表
+
+  ;调用7ch号中断
+  con:
+  mov ax,data
+  mov ds,ax
+  mov dx,offset mess1
+  mov ah,9
+  int 21h    ;输出
+
+  int 7ch
+
+  mov dx,offset mess2
+  mov ah,9
+  int 21h    ;输出
+
+  mov ah,1
+  int 21h
+  cmp al,&#39;c&#39;
+  je con
+
+  ;退出的话将子程序中断驻留
+  mov ah,31h
+  mov al,0
+  mov dx,showend-showstart+16
+  int 21h
+
+  mov ah,4ch
+  int 21h
+  main endp
+
+  ;中断子程序
+  show proc far
+  showstart:
+      sti;开中断
+      mov ax,data
+  mov ds,ax
+  mov dx,offset mess
+  mov ah,9
+  int 21h    ;输出
+
+  cli    ;关中断
+  iret
+  showend:nop
+  show endp
+  code ends
+      end start</code></pre>
+<p>向量表的位置：7ch *4h = 1f0h。故在0000:01f0处查看int 7ch的中断向量表。</p>
+<p>  <img src="assembly-language-14%5Cint7ch.jpg" srcset="/img/loading.gif" alt="INT 7CH中断"></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">汇编语言</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%B1%87%E7%BC%96/">汇编</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/assembly-language-7/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">汇编语言（七）--中断程序设计</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/assembly-language-5/">
+                        <span class="hidden-mobile">汇编语言（五）--基本伪指令</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/assembly-language-14/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "汇编语言（六）--中断程序设计&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

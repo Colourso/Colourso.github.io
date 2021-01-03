@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>C++基于EasyX制作贪吃蛇游戏（一）文档 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-06-21 17:20">
+      星期五, 六月 21日 2019, 5:20 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>很早就想制作一个贪吃蛇游戏，老是写了一点就半途而废，终于狠下心来花了半天的时间写完了第一版本的贪吃蛇游戏，虽然因为坐标设置的原因导致有些小失败，但依旧完成了主要的功能模块，记录一下。</p>
+<a id="more"></a>
+
+<h2 id="前提：EasyX"><a href="#前提：EasyX" class="headerlink" title="前提：EasyX"></a>前提：EasyX</h2><blockquote>
+<p>EasyX 是针对 C++ 的图形库，可以帮助 C 语言初学者快速上手图形和游戏编程。</p>
+</blockquote>
+<p>官网链接：<a target="_blank" rel="noopener" href="https://easyx.cn/">https://easyx.cn/</a></p>
+<h2 id="制作流程"><a href="#制作流程" class="headerlink" title="制作流程"></a>制作流程</h2><p>先开始写文档，分析要实现哪些功能，然后对功能进行细分，梳理操作。以下80%的内容都是当时写贪吃蛇的文档，后期整理一下发博客记录。</p>
+<h2 id="草稿：想要实现的功能"><a href="#草稿：想要实现的功能" class="headerlink" title="草稿：想要实现的功能"></a>草稿：想要实现的功能</h2><p>贪吃蛇游戏的简单版本实现</p>
+<ol>
+<li>贪吃蛇吃食物身体加长</li>
+<li>食物被吃后随机出现(不能够出现在蛇的身上)</li>
+<li>无操作时贪吃蛇自动向蛇头方向前进</li>
+<li>上下左右移动位置</li>
+<li>撞到身体或者墙壁死亡</li>
+<li>显示时间与分数</li>
+</ol>
+<h2 id="功能梳理"><a href="#功能梳理" class="headerlink" title="功能梳理"></a>功能梳理</h2><h3 id="蛇的操作"><a href="#蛇的操作" class="headerlink" title="蛇的操作"></a>蛇的操作</h3><ol>
+<li>上下左右四个按键控制蛇头的朝向。当按键方向与蛇头方向相同或者相反时无反应。</li>
+<li>不受操作时蛇自动按照蛇头方向前行</li>
+<li>蛇头吃到食物之后，身体加长</li>
+<li>蛇头撞到自身或者墙壁后死亡</li>
+<li>蛇头控制方向，其余结点均是复制前一个结点的坐标。</li>
+</ol>
+<h3 id="食物的操作"><a href="#食物的操作" class="headerlink" title="食物的操作"></a>食物的操作</h3><ol>
+<li>初始时刻食物出现在某个固定位置</li>
+<li>食物被吃掉后随机出现在其他地方，但是不能够出现在蛇的身上。</li>
+</ol>
+<h3 id="界面显示"><a href="#界面显示" class="headerlink" title="界面显示"></a>界面显示</h3><ol>
+<li>分为游戏区与功能区，游戏区展现蛇与食物，功能区展示时间、分数、玩法介绍以及作者信息</li>
+<li>蛇使用方块表示，蛇头与蛇身容易区分。食物使用圆形表示。</li>
+<li>游戏结束后，显示“GAME OVER”，然后显示游戏时长以及游戏分数。</li>
+</ol>
+<h3 id="界面大小设置"><a href="#界面大小设置" class="headerlink" title="界面大小设置"></a>界面大小设置</h3><ol>
+<li>坐标系。这是一个纯2D游戏，一般来说坐标都是在最左上角，为了便于计算(个人习惯)，将坐标原点放置在左下角，x轴向右，y轴向上。</li>
+</ol>
+<blockquote>
+<p>实际上游戏的坐标都是采用原点在左上角，这里因为我设置了坐标轴的原因导致了<strong>后面文字摆放无法放置正确</strong>，也是因为这个原因，要重写了第二版代码。</p>
+</blockquote>
+<ol start="2">
+<li>整体界面大小为：长640px，宽480px。游戏区为 480 * 480的正方形区域，位居界面左侧。功能区为 160 * 480的区域，位居界面右侧。</li>
+<li>游戏区全部分为20 * 20 px的小正方形区域，便于蛇与食物的放置即坐标计算。蛇使用方块，食物使用圆形。采取图形中心点代表整个图形的方式，即(10,10)表示一个图形。为了防止边界的图像颜色干扰，设置蛇的方块中心点到四边的距离为9px，食物的半径为8px。</li>
+</ol>
+<h2 id="变量结构设置"><a href="#变量结构设置" class="headerlink" title="变量结构设置"></a>变量结构设置</h2><h3 id="食物结构体设置"><a href="#食物结构体设置" class="headerlink" title="食物结构体设置"></a>食物结构体设置</h3><p>对于食物而言，一次只会出现一个食物，只需要保存它的坐标位置，以及存在状态即可。</p>
+<pre><code class="hljs arduino"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Food</span>			//食物结构体</span>
+<span class="hljs-class">&#123;</span>
+    <span class="hljs-keyword">int</span> x;			<span class="hljs-comment">//横坐标</span>
+    <span class="hljs-keyword">int</span> y;			<span class="hljs-comment">//纵坐标</span>
+    <span class="hljs-keyword">bool</span> exist;		<span class="hljs-comment">//是否存在，1表示存在</span>
+&#125;;</code></pre>
+<h3 id="蛇结构体设置"><a href="#蛇结构体设置" class="headerlink" title="蛇结构体设置"></a>蛇结构体设置</h3><p>对于蛇而言，蛇是由一个个节点构成的，每吃一个食物就会增加一个节点。并且所有节点都连接起来，采用链表是一个不错的选择。</p>
+<p>结构体设置模仿自<strong>严蔚敏老师的数据结构</strong>链表的设置。定义蛇节点结构体，然后定义蛇的结构体。</p>
+<blockquote>
+<ol>
+<li><p>本来采用的单向链表，但后续处理<strong>蛇的移动算法</strong>时发现需要从后向前复制节点的操作，于是改成了双向链表。</p>
+</li>
+<li><p>这里也可以采用数组啦，STL的vector容器啦来处理蛇的结构体。采用链表复习复习数据结构。</p>
+</li>
+</ol>
+</blockquote>
+<pre><code class="hljs arduino"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span>	//蛇的节点</span>
+<span class="hljs-class">&#123;</span>
+    <span class="hljs-keyword">int</span> x;			<span class="hljs-comment">//横坐标</span>
+    <span class="hljs-keyword">int</span> y;			<span class="hljs-comment">//纵坐标</span>
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span> * <span class="hljs-title">next</span>;</span>	<span class="hljs-comment">//指向下一个节点的指针</span>
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span> * <span class="hljs-title">pre</span>;</span>	<span class="hljs-comment">//指向前一个节点的指针</span>
+&#125;* LinkNode;
+
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Snake</span>		//蛇的结构体</span>
+<span class="hljs-class">&#123;</span>
+	LinkNode head;	<span class="hljs-comment">//指向头节点的指针</span>
+    LinkNode tail;	<span class="hljs-comment">//指向尾节点的指针</span>
+    <span class="hljs-keyword">int</span> direction;	<span class="hljs-comment">//蛇头方向</span>
+    <span class="hljs-keyword">int</span> num;		<span class="hljs-comment">//节点数目</span>
+&#125;;</code></pre>
+<h2 id="游戏核心算法"><a href="#游戏核心算法" class="headerlink" title="游戏核心算法"></a>游戏核心算法</h2><h3 id="蛇身移动算法"><a href="#蛇身移动算法" class="headerlink" title="蛇身移动算法"></a>蛇身移动算法</h3><p>贪吃蛇的移动完全是复制头部节点，蛇头控制方向与前进，其他节点均是重复前一个节点的行为。</p>
+<p>而在处理蛇移动的时候，先要用后面节点的保存了它的前一个节点的坐标信息。故蛇身移动的算法，是从最后一个节点(tail)向前复制前一个节点的坐标，达成移动效果。</p>
+<blockquote>
+<p>想到这里就把蛇的结构体改为双向链表。便于我的操作。</p>
+</blockquote>
+<pre><code class="hljs xl">LinkNode linknode = snake.tail;
+<span class="hljs-keyword">while</span> (linknode != snake.head)
+&#123;
+		<span class="hljs-function"><span class="hljs-title">linknode</span>-&gt;</span><span class="hljs-function"><span class="hljs-title">x</span> = linknode-&gt;</span><span class="hljs-function"><span class="hljs-title">pre</span>-&gt;</span>x;
+		<span class="hljs-function"><span class="hljs-title">linknode</span>-&gt;</span><span class="hljs-function"><span class="hljs-title">y</span> = linknode-&gt;</span><span class="hljs-function"><span class="hljs-title">pre</span>-&gt;</span>y;
+
+		<span class="hljs-function"><span class="hljs-title">linknode</span> = linknode-&gt;</span>pre;
+&#125;</code></pre>
+<h3 id="食物生成算法"><a href="#食物生成算法" class="headerlink" title="食物生成算法"></a>食物生成算法</h3><p>食物生成要具有随机性，并且要求食物不能够生成在蛇的身体上。</p>
+<p>随机数函数rand()产生随机数，rand()函数需要的头文件是：&lt;stdlib.h&gt;。</p>
+<blockquote>
+<p>rand()会返回一个范围在0到RAND_MAX（32767）之间的伪随机数（整数）。</p>
+<p>在调用rand()函数之前，可以使用srand()函数设置随机数种子，如果没有设置随机数种子，rand()函数在调用时，自动设计随机数种子为1。随机种子相同，每次产生的随机数也会相同。</p>
+<p>srand( usigned int seed)函数用来设置rand()产生随机数时的随机数种子。参数seed是整数，通常可以利用time(0)的返回值作为seed。srand()函数需要的头文件是：&lt;stdlib.h&gt;</p>
+<p>例如：生成0-6之间的任意一个随机数</p>
+<p>srand(time(0));</p>
+<p>int num = (rand()%7)//<strong>模求余</strong></p>
+</blockquote>
+<p>食物不能够在蛇的身体上，即生成坐标之后遍历蛇的节点进行匹配，若有对应的就直接重新生成一次。</p>
+<pre><code class="hljs gml">int <span class="hljs-symbol">x</span>;
+int <span class="hljs-symbol">y</span>;
+<span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>)
+&#123;
+	srand(time(<span class="hljs-number">0</span>));
+	<span class="hljs-symbol">x</span> = (rand() % <span class="hljs-number">24</span>) * <span class="hljs-number">20</span> + <span class="hljs-number">10</span>;
+	<span class="hljs-symbol">y</span> = (rand() % <span class="hljs-number">24</span>) * <span class="hljs-number">20</span> + <span class="hljs-number">10</span>;
+
+	<span class="hljs-comment">//食物位置检测算法</span>
+	LinkNode linknode = snake.head;
+	bool cont = <span class="hljs-literal">true</span>;
+	<span class="hljs-keyword">while</span> (linknode != snake.tail-&gt;next)<span class="hljs-comment">//从头遍历到尾巴</span>
+	&#123;
+		<span class="hljs-keyword">if</span> (linknode-&gt;<span class="hljs-symbol">x</span> == <span class="hljs-symbol">x</span> &amp;&amp; linknode-&gt;<span class="hljs-symbol">y</span> == <span class="hljs-symbol">y</span>)
+		&#123;
+			cont = <span class="hljs-literal">false</span>;
+			<span class="hljs-keyword">break</span>;
+		&#125;
+		linknode = linknode-&gt;next;
+	&#125;
+	<span class="hljs-keyword">if</span> (cont)
+	&#123;
+		<span class="hljs-keyword">break</span>;		<span class="hljs-comment">//如果食物不在蛇的身体上，就break退出循环</span>
+	&#125;
+&#125;
+
+food.<span class="hljs-symbol">x</span> = <span class="hljs-symbol">x</span>;
+food.<span class="hljs-symbol">y</span> = <span class="hljs-symbol">y</span>;
+food.exist = <span class="hljs-literal">true</span>;</code></pre>
+<h2 id="按键处理问题"><a href="#按键处理问题" class="headerlink" title="按键处理问题"></a>按键处理问题</h2><p><code>_khbit()</code>函数用来检测是否有键盘输入。如果有按键被按下，会返回一个1，否则返回值为0.它是一个<strong>非阻塞函数</strong>，无论有没有按键被按下，他都会立即返回结果。可以用来做循环的条件判断是否有按键，或者等待输入。</p>
+<p><code>_getch()</code>函数作用是从控制台获取输入的字符，并返回获取到的字符值。而且这个函数是<strong>阻塞性函数</strong>，必须要获取输入字符后才会返回。</p>
+<p><code>_kbhit()</code>与<code>_getch()</code>都是位于<code>conio.h</code>头文件中。(console IO)</p>
+<pre><code class="hljs q"><span class="hljs-type">int</span> <span class="hljs-built_in">keys</span> = <span class="hljs-number">0</span>;
+<span class="hljs-type">int</span> <span class="hljs-built_in">key</span>;
+<span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>)
+&#123;
+	if (<span class="hljs-built_in">keys</span> = _kbhit())
+	&#123;
+		<span class="hljs-built_in">key</span> = _getch();
+		cout &lt;&lt; <span class="hljs-string">&quot;按键的值key:&quot;</span> &lt;&lt; <span class="hljs-built_in">key</span> &lt;&lt; endl;
+	&#125;
+&#125;</code></pre>
+<p>由此可以测的我们按键对应的键值是多少。</p>
+<p>方向键↑ 对应值为72。</p>
+<p>方向键↓ 对应值为80。</p>
+<p>方向键← 对应值为75。</p>
+<p>方向键→ 对应值为77。</p>
+<p><strong>但是相信执行这一段代码会发现按一次键会有两个key被打印出来。但是写switch语句(代码中的按键处理模块)时却完全和第一个key值无关。这个问题暂时还没有解决！路过的大佬欢迎留言~</strong></p>
+<p>这个方法我是从某潭某州的公开广告课上学到的。</p>
+<blockquote>
+<p>其他参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/hou09tian/article/details/86668083">C++中_kbhit()函数与_getch()函数</a></p>
+</blockquote>
+<h2 id="伪流程"><a href="#伪流程" class="headerlink" title="伪流程"></a>伪流程</h2><pre><code class="hljs isbl"><span class="hljs-variable">int</span> <span class="hljs-function"><span class="hljs-title">main</span>()</span>
+&#123;
+    初始化资源；
+	
+    绘制界面；
+	
+    开始游戏:
+    <span class="hljs-function"><span class="hljs-title">while</span>(<span class="hljs-number">1</span>)</span>
+    &#123;
+    	<span class="hljs-function"><span class="hljs-title">if</span>(<span class="hljs-variable">!</span>食物存在)</span>
+    	&#123;
+            刷新食物并显示
+    	&#125;
+    	
+    	<span class="hljs-function"><span class="hljs-title">if</span>(按键)</span>
+    	&#123;
+            相应操作：蛇头方向：上下左右
+    	&#125;
+    	
+        向蛇头方向前进<span class="hljs-number">1</span>格。绘制蛇头
+        (<span class="hljs-variable">switch</span> <span class="hljs-variable">case</span>结构)
+        
+        消除蛇尾图像。
+        
+        <span class="hljs-function"><span class="hljs-title">judge</span>(蛇头吃食物)</span>
+        &#123;
+            蛇结点+<span class="hljs-number">1</span>，尾巴加长并显示出来
+            分数增加
+            食物状态刷新
+        &#125;
+		
+        <span class="hljs-function"><span class="hljs-title">judge</span>(撞墙<span class="hljs-variable"><span class="hljs-keyword">or</span></span>撞自己)</span>
+        &#123;
+            死亡
+            <span class="hljs-variable">game</span> <span class="hljs-variable">over</span>
+            <span class="hljs-variable">break</span>
+        &#125;
+		
+        <span class="hljs-function"><span class="hljs-title"><span class="hljs-built_in">sleep</span></span>(<span class="hljs-number">200</span>)</span>
+    &#125;
+    结束 回收资源；
+&#125;</code></pre>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/C-C/">C/C++</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/c-snake-pro1/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">C++基于EasyX制作贪吃蛇游戏（二）第一版代码与程序</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/assembly-language-7/">
+                        <span class="hidden-mobile">汇编语言（七）--中断程序设计</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/c-snake-pro0/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "C++基于EasyX制作贪吃蛇游戏（一）文档&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

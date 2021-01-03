@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>Mysql数据库实例 —— 物流管理平台 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-05-13 17:15">
+      星期三, 五月 13日 2020, 5:15 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      39
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>源自网络，仅作参考！</p>
+<a id="more"></a>
+
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><img src="mysql-instance/shuoming1.jpg" srcset="/img/loading.gif"></p>
+<p><img src="mysql-instance/shuoming2.png" srcset="/img/loading.gif"></p>
+<h2 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h2><img src="mysql-instance/link.png" srcset="/img/loading.gif" style="zoom:80%;" />
+
+<h2 id="ER图"><a href="#ER图" class="headerlink" title="ER图"></a>ER图</h2><img src="mysql-instance/er.png" srcset="/img/loading.gif" style="zoom:67%;" />
+
+<h2 id="SQL语句"><a href="#SQL语句" class="headerlink" title="SQL语句"></a>SQL语句</h2><pre><code class="hljs mysql">&#x2F;*
+ Navicat MySQL Data Transfer
+
+ Source Server         : 本地连接
+ Source Server Type    : MySQL
+ Source Server Version : 50527
+ Source Host           : localhost:3306
+ Source Schema         : 物资管理数据库系统
+
+ Target Server Type    : MySQL
+ Target Server Version : 50527
+ File Encoding         : 65001
+
+ Date: 22&#x2F;04&#x2F;2020 10:51:45
+*&#x2F;
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS &#x3D; 0;
+
+-- ----------------------------
+-- Table structure for 仓库
+-- ----------------------------
+DROP TABLE IF EXISTS &#96;仓库&#96;;
+CREATE TABLE &#96;仓库&#96;  (
+  &#96;仓库编号&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  &#96;仓库管理员&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;联系电话&#96; int(11) NULL DEFAULT NULL,
+  &#96;仓库地址&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (&#96;仓库编号&#96;) USING BTREE
+) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Compact;
+
+-- ----------------------------
+-- Table structure for 仓库存储系统
+-- ----------------------------
+DROP TABLE IF EXISTS &#96;仓库存储系统&#96;;
+CREATE TABLE &#96;仓库存储系统&#96;  (
+  &#96;仓库编号&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  &#96;产品编号&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  &#96;产品价格&#96; float(255, 2) NULL DEFAULT NULL,
+  &#96;库存数量&#96; int(255) NULL DEFAULT NULL,
+  PRIMARY KEY (&#96;仓库编号&#96;, &#96;产品编号&#96;) USING BTREE,
+  INDEX &#96;产品&#96;(&#96;产品编号&#96;) USING BTREE,
+  CONSTRAINT &#96;产品&#96; FOREIGN KEY (&#96;产品编号&#96;) REFERENCES &#96;医疗物资&#96; (&#96;产品编号&#96;) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT &#96;仓库&#96; FOREIGN KEY (&#96;仓库编号&#96;) REFERENCES &#96;仓库&#96; (&#96;仓库编号&#96;) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Compact;
+
+-- ----------------------------
+-- Table structure for 出售联系
+-- ----------------------------
+DROP TABLE IF EXISTS &#96;出售联系&#96;;
+CREATE TABLE &#96;出售联系&#96;  (
+  &#96;厂家登录名&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  &#96;产品编号&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  &#96;产品价格&#96; float(255, 2) NULL DEFAULT NULL,
+  &#96;库存数量&#96; int(255) NULL DEFAULT NULL,
+  PRIMARY KEY (&#96;厂家登录名&#96;, &#96;产品编号&#96;) USING BTREE,
+  INDEX &#96;医疗物资&#96;(&#96;产品编号&#96;) USING BTREE,
+  CONSTRAINT &#96;医疗物资&#96; FOREIGN KEY (&#96;产品编号&#96;) REFERENCES &#96;医疗物资&#96; (&#96;产品编号&#96;) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT &#96;厂家&#96; FOREIGN KEY (&#96;厂家登录名&#96;) REFERENCES &#96;厂家&#96; (&#96;登录名&#96;) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Compact;
+
+-- ----------------------------
+-- Table structure for 医疗物资
+-- ----------------------------
+DROP TABLE IF EXISTS &#96;医疗物资&#96;;
+CREATE TABLE &#96;医疗物资&#96;  (
+  &#96;产品编号&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  &#96;产品名称&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;产品类别&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;厂家名称&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (&#96;产品编号&#96;) USING BTREE,
+  INDEX &#96;所属公司&#96;(&#96;厂家名称&#96;) USING BTREE,
+  CONSTRAINT &#96;所属公司&#96; FOREIGN KEY (&#96;厂家名称&#96;) REFERENCES &#96;厂家&#96; (&#96;登录名&#96;) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Compact;
+
+-- ----------------------------
+-- Table structure for 医院
+-- ----------------------------
+DROP TABLE IF EXISTS &#96;医院&#96;;
+CREATE TABLE &#96;医院&#96;  (
+  &#96;用户名&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  &#96;采购员&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;联系方式&#96; int(11) NULL DEFAULT NULL,
+  &#96;CID&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;口罩需求量&#96; int(255) NULL DEFAULT NULL,
+  &#96;防护服需求量&#96; int(255) NULL DEFAULT NULL,
+  &#96;呼吸机需求量&#96; int(255) NULL DEFAULT NULL,
+  PRIMARY KEY (&#96;用户名&#96;) USING BTREE,
+  INDEX &#96;CID&#96;(&#96;CID&#96;) USING BTREE
+) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Compact;
+
+-- ----------------------------
+-- Table structure for 厂家
+-- ----------------------------
+DROP TABLE IF EXISTS &#96;厂家&#96;;
+CREATE TABLE &#96;厂家&#96;  (
+  &#96;登录名&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  &#96;联系电话&#96; int(11) NULL DEFAULT NULL,
+  &#96;有效营业执照&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;银行卡号&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;仓库编号&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (&#96;登录名&#96;) USING BTREE,
+  INDEX &#96;仓库号&#96;(&#96;仓库编号&#96;) USING BTREE,
+  CONSTRAINT &#96;仓库号&#96; FOREIGN KEY (&#96;仓库编号&#96;) REFERENCES &#96;仓库&#96; (&#96;仓库编号&#96;) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Compact;
+
+-- ----------------------------
+-- Table structure for 取货货单
+-- ----------------------------
+DROP TABLE IF EXISTS &#96;取货货单&#96;;
+CREATE TABLE &#96;取货货单&#96;  (
+  &#96;货单编号&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  &#96;产品编号&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  &#96;仓库编号&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;取货数量&#96; int(255) NULL DEFAULT NULL,
+  &#96;取货时间&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;采购员编号&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;送货员联系方式&#96; int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (&#96;货单编号&#96;) USING BTREE,
+  INDEX &#96;产品编号&#96;(&#96;产品编号&#96;) USING BTREE,
+  INDEX &#96;仓库编号&#96;(&#96;仓库编号&#96;) USING BTREE,
+  INDEX &#96;采购员&#96;(&#96;采购员编号&#96;) USING BTREE,
+  CONSTRAINT &#96;采购员&#96; FOREIGN KEY (&#96;采购员编号&#96;) REFERENCES &#96;医院&#96; (&#96;CID&#96;) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT &#96;产品编号&#96; FOREIGN KEY (&#96;产品编号&#96;) REFERENCES &#96;医疗物资&#96; (&#96;产品编号&#96;) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT &#96;仓库编号&#96; FOREIGN KEY (&#96;仓库编号&#96;) REFERENCES &#96;仓库&#96; (&#96;仓库编号&#96;) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT &#96;取货员&#96; FOREIGN KEY (&#96;采购员编号&#96;) REFERENCES &#96;送货员&#96; (&#96;S_ID&#96;) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Compact;
+
+-- ----------------------------
+-- Table structure for 物流公司
+-- ----------------------------
+DROP TABLE IF EXISTS &#96;物流公司&#96;;
+CREATE TABLE &#96;物流公司&#96;  (
+  &#96;公司名称&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT &#39;&#39;,
+  &#96;送货员&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;S_ID&#96; int(30) NULL DEFAULT NULL,
+  &#96;联系电话&#96; int(30) NULL DEFAULT NULL,
+  &#96;收货人&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;产品名称&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;寄货人&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;配送状态&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (&#96;公司名称&#96;) USING BTREE,
+  INDEX &#96;S_ID&#96;(&#96;S_ID&#96;) USING BTREE
+) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Compact;
+
+-- ----------------------------
+-- Table structure for 签约
+-- ----------------------------
+DROP TABLE IF EXISTS &#96;签约&#96;;
+CREATE TABLE &#96;签约&#96;  (
+  &#96;厂家名&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  &#96;签约时间&#96; int(255) NULL DEFAULT NULL,
+  &#96;公司名称&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (&#96;厂家名&#96;, &#96;公司名称&#96;) USING BTREE,
+  INDEX &#96;物公司&#96;(&#96;公司名称&#96;) USING BTREE,
+  CONSTRAINT &#96;物公司&#96; FOREIGN KEY (&#96;公司名称&#96;) REFERENCES &#96;物流公司&#96; (&#96;公司名称&#96;) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT &#96;公司名&#96; FOREIGN KEY (&#96;厂家名&#96;) REFERENCES &#96;厂家&#96; (&#96;登录名&#96;) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Compact;
+
+-- ----------------------------
+-- Table structure for 送货员
+-- ----------------------------
+DROP TABLE IF EXISTS &#96;送货员&#96;;
+CREATE TABLE &#96;送货员&#96;  (
+  &#96;S_ID&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  &#96;姓名&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;联系方式&#96; int(11) NULL DEFAULT NULL,
+  &#96;所属公司&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (&#96;S_ID&#96;) USING BTREE,
+  INDEX &#96;所属&#96;(&#96;所属公司&#96;) USING BTREE,
+  CONSTRAINT &#96;所属&#96; FOREIGN KEY (&#96;所属公司&#96;) REFERENCES &#96;物流公司&#96; (&#96;公司名称&#96;) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Compact;
+
+-- ----------------------------
+-- Table structure for 配送联系
+-- ----------------------------
+DROP TABLE IF EXISTS &#96;配送联系&#96;;
+CREATE TABLE &#96;配送联系&#96;  (
+  &#96;送货单号&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  &#96;送货员编号&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;联系方式&#96; int(255) NULL DEFAULT NULL,
+  &#96;货物编号&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;预计送达时间&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;出货仓库编号&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;收货人&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (&#96;送货单号&#96;) USING BTREE,
+  INDEX &#96;送货员&#96;(&#96;送货员编号&#96;) USING BTREE,
+  INDEX &#96;物资编号&#96;(&#96;货物编号&#96;) USING BTREE,
+  INDEX &#96;出货仓库&#96;(&#96;出货仓库编号&#96;) USING BTREE,
+  INDEX &#96;医院用户名&#96;(&#96;收货人&#96;) USING BTREE,
+  CONSTRAINT &#96;送货员&#96; FOREIGN KEY (&#96;送货员编号&#96;) REFERENCES &#96;送货员&#96; (&#96;S_ID&#96;) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT &#96;出货仓库&#96; FOREIGN KEY (&#96;出货仓库编号&#96;) REFERENCES &#96;仓库&#96; (&#96;仓库编号&#96;) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT &#96;医院用户名&#96; FOREIGN KEY (&#96;收货人&#96;) REFERENCES &#96;医院&#96; (&#96;用户名&#96;) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Compact;
+
+-- ----------------------------
+-- Table structure for 采购联系
+-- ----------------------------
+DROP TABLE IF EXISTS &#96;采购联系&#96;;
+CREATE TABLE &#96;采购联系&#96;  (
+  &#96;订单号&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  &#96;产品编号&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;采购数量&#96; int(255) NULL DEFAULT NULL,
+  &#96;采购时间&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  &#96;用户名&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (&#96;订单号&#96;) USING BTREE,
+  INDEX &#96;产品编号1&#96;(&#96;产品编号&#96;) USING BTREE,
+  INDEX &#96;医院名&#96;(&#96;用户名&#96;) USING BTREE,
+  CONSTRAINT &#96;医院名&#96; FOREIGN KEY (&#96;用户名&#96;) REFERENCES &#96;医院&#96; (&#96;用户名&#96;) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT &#96;产品编号1&#96; FOREIGN KEY (&#96;产品编号&#96;) REFERENCES &#96;医疗物资&#96; (&#96;产品编号&#96;) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Compact;
+
+SET FOREIGN_KEY_CHECKS &#x3D; 1;</code></pre>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%B0%8F%E7%99%BD%E6%96%87/">小白文</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Mysql/">Mysql</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/Js-learn/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【转载】跟着9张思维导图学习Javascript</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/mysql-use/">
+                        <span class="hidden-mobile">Mysql语法小结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/mysql-instance/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Mysql数据库实例 —— 物流管理平台&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>汇编语言（二）--80X86CPU基础 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-04-13 15:07">
+      星期六, 四月 13日 2019, 3:07 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><strong>概览</strong>：80X86CPU寄存器，内存地址与存储器分段的概念。</p>
+<a id="more"></a>
+
+<h2 id="微处理器"><a href="#微处理器" class="headerlink" title="微处理器"></a>微处理器</h2><p>个人计算机也叫做微型计算机。其核心是<strong>中央处理器(CPU)**，也称为</strong>微处理器**。</p>
+<p>微处理器是微型计算机的核心，由<strong>运算器</strong>和<strong>控制器</strong>两部分组成。</p>
+<p>底下是Intel 8086/8088的微处器结构。</p>
+<p>微处理器结构上进行划分的话分为<strong>执行部件(EU)**和</strong>总线接口部件(BIU)**。</p>
+<p><img src="assembly-language-1%5C8086-8088.png" srcset="/img/loading.gif" alt="Intel 8086/8088结构图"></p>
+<h2 id="8086寄存器组"><a href="#8086寄存器组" class="headerlink" title="8086寄存器组"></a>8086寄存器组</h2><h3 id="字长"><a href="#字长" class="headerlink" title="字长"></a>字长</h3><p>微型计算机的字长与微处理器<strong>寄存器位数</strong>有关。</p>
+<p>Intel 80X86系列微处理器中，8086/8088、80286这些微机的字长是16位的，所以其寄存器都是16位的。</p>
+<p>现如今(2019.06.04)我们使用的电脑基本都是64位的了。</p>
+<p>整个博客围绕的都是8086CPU来学习的，8086寄存器都是16位的寄存器。</p>
+<p><strong>对于8086CPU来说，一个字节(Byte)为8位，即8位二进制数。一个字(Word)为16位，即两个字节</strong>。</p>
+<h3 id="数据寄存器"><a href="#数据寄存器" class="headerlink" title="数据寄存器"></a>数据寄存器</h3><p>包括AX、BX、CX、DX四个通用寄存器，都是16位。主要用于<strong>存放计算过程中的信息和数据</strong>。</p>
+<p>这四个的首要功能是存放数据，其次才是如下的具体功能。</p>
+<ul>
+<li><p><strong>AX</strong>（Accumulator）作为累加器用，算术运算的主要寄存器</p>
+</li>
+<li><p><strong>BX</strong> （Base）基址寄存器</p>
+</li>
+<li><p><strong>CX</strong> （Count ）计数器</p>
+</li>
+<li><p><strong>DX</strong> （Data ）双精度运算时与AX一起存放双操作数(32位)。这时DX放高的16位，AX放低的16位。</p>
+</li>
+</ul>
+<p>此外每一个数据寄存器又可分为两个8位寄存器，AH、AL、BH、BL……</p>
+<p>H(High)表示高8位(8-15)，L(Low)表示低8位(0-7)。</p>
+<p>例：AX寄存器存放一个字1234H。符号表示为 (AX)=1234H.高字节放在AH，低字节放在AL。</p>
+<p><img src="assembly-language-1%5Cax.png" srcset="/img/loading.gif" alt="(AX)=1234H"></p>
+<p>例：使用DX、AX保存双精度数(32位) 23456789H。表示形式：  (DX)=2345H，(AX)=6789H.</p>
+<p><img src="assembly-language-1%5Cdx.png" srcset="/img/loading.gif"></p>
+<h3 id="地址寄存器"><a href="#地址寄存器" class="headerlink" title="地址寄存器"></a>地址寄存器</h3><p>包括SI、DI、SP、BP四个16为寄存器。主要用于<strong>存放存储器操作数的偏移地址</strong>。</p>
+<ul>
+<li><p><strong>SI</strong> (Source Index) 源变址寄存器，可用于存放源缓冲区的偏移地址。</p>
+</li>
+<li><p><strong>DI</strong> (Destination Index)  目的变址寄存器，可用于存放目的缓冲区的偏移地址。</p>
+</li>
+<li><p><strong>SP</strong> (Stack Pointer)  堆栈指针寄存器，用于指出堆栈区的栈顶的偏移地址。</p>
+</li>
+<li><p>**BP **(Base Pointer) 基址指针寄存器，用于指出堆栈区的某个单元的偏移地址。</p>
+</li>
+</ul>
+<h3 id="段寄存器"><a href="#段寄存器" class="headerlink" title="段寄存器"></a>段寄存器</h3><p>包括CS、DS、ES、SS四个16位段寄存器。指明<strong>数据的类型</strong>，位于哪个段就是什么类型的数据。</p>
+<ul>
+<li>CS  (Code Segment) 代码段寄存器，用于指出<strong>存放程序</strong>的代码段的段地址。</li>
+<li>DS  (Data Segment) 数据段寄存器，用于指出<strong>存放数据</strong>的数据段的段地址。</li>
+<li>ES  (Extra Segment) 附加段寄存器，用于指出<strong>存放附加数据</strong>的附加段的段地址。</li>
+<li>SS  (Stack Segment) 堆栈段寄存器，用于指出<strong>堆栈区的堆栈段</strong>的段地址。</li>
+</ul>
+<h3 id="控制寄存器"><a href="#控制寄存器" class="headerlink" title="控制寄存器"></a>控制寄存器</h3><p>包括IP和FLAGS两个16位寄存器，用于<strong>控制程序的执行</strong>。</p>
+<ul>
+<li><strong>IP</strong> 指令指针寄存器：用来存放代码段(CS)中的偏移地址，指出当前正在执行指令的下一条指令所在单元的偏移地址。</li>
+<li><strong>FLAGS</strong>标志寄存器：其中的某位代表CPU的一个标志。8086CPU的标志寄存器共有9个标志，分别为6条件码标志和3控制标志。</li>
+</ul>
+<p><img src="assembly-language-1%5Cflags.png" srcset="/img/loading.gif" alt="FLAGS标志寄存器"></p>
+<p>比较重要的几个：</p>
+<p>CF 进位标志，当指令执行结果的最高位向前有进位时，CF=1，否则CF=0。</p>
+<p>ZF 零标志，执行结果为零时，ZF=1，否则ZF=0。</p>
+<p>SF 符号标志，当指令的结果为负时，SF=1，否则SF=0。</p>
+<p>OF 溢出标志，结果溢出时OF=1，否则OF=0。</p>
+<p>IF (Interrupt Flag)中断标志，IF=1，为CPU允许响应可屏蔽中断。</p>
+<p>在debug状态下可以查看到除了陷阱标志TF之外的其他标志，他们会用字母缩写的形式表示自己的状态。</p>
+<p><img src="assembly-language-1%5Cflagss.png" srcset="/img/loading.gif" alt="各个标志缩写形式"></p>
+<p>debug状态下，使用R指令查看。</p>
+<p><img src="assembly-language-1%5Cdebug.png" srcset="/img/loading.gif" alt="Flags的状态"></p>
+<p>例：10011010B+01001011B = 11100101B</p>
+<p>根据计算结果，CPU会把标致位设置为：CF = 0，SF = 1，ZF = 0，OF = 0。即无进位，结果为负，结果不为零，无溢出。</p>
+<h2 id="内存地址与存储单元"><a href="#内存地址与存储单元" class="headerlink" title="内存地址与存储单元"></a>内存地址与存储单元</h2><p>内存储器即<strong>内存</strong>，也称为<strong>主存</strong>。在汇编语言中，<strong>用于存储计算机当前正在运行的程序，正在处理的原始数据、中间数据以及最终结果</strong>，故我们与内存的交互是非常频繁的。</p>
+<p>内存是使用<strong>字节</strong>为单位编址的，即80X86实际的存储单元为8位二进制数的大小。</p>
+<h3 id="CPU如何对内存进行读写？"><a href="#CPU如何对内存进行读写？" class="headerlink" title="CPU如何对内存进行读写？"></a>CPU如何对内存进行读写？</h3><p>通过<strong>系统总线</strong>来进行读写。系统总线包括<strong>地址总线</strong>、<strong>数据总线</strong>、<strong>控制总线</strong>三大类。</p>
+<p>CPU要想进行数据读或者写的操作，需要知道三大类信息：</p>
+<ul>
+<li>地址信息：存储单元的地址</li>
+<li>控制信息：器件的选择以及读或者写的命令 </li>
+<li>数据信息：要读或者写的数据 </li>
+</ul>
+<p><img src="assembly-language-1%5Ccpu.png" srcset="/img/loading.gif" alt="CPU对存储器的读写"></p>
+<h3 id="地址总线"><a href="#地址总线" class="headerlink" title="地址总线"></a>地址总线</h3><p>8086CPU的地址总线为20位。</p>
+<p>CPU对内存的访问是通过地址总线进行的，地址总线的二进制组态对应着一个内存单元，而这个二进制组态就可以作为该内存单元的地址。</p>
+<p>比如有两根总线 A0、A1，二进制组态就有00、01、10、11四种，表示地址为0 - 3的存储单元。</p>
+<p>也就是说地址总线能传达多少个不同的信息(即二进制组态有多少种)，CPU就可以对多少个存储单元进行寻址。</p>
+<p>地址总线位数为n位，即地址总线的宽度为n，CPU就可以寻找<strong>2的N次方个内存单元</strong>。</p>
+<p>8086CPU有20跟地址总线，故存储空间就是2的20次方 = <strong>1MB</strong>。</p>
+<h3 id="控制总线"><a href="#控制总线" class="headerlink" title="控制总线"></a>控制总线</h3><p>CPU对外部器件的控制是通过控制总线来进行的。在这里控制总线是个总称，控制总线是一些不同控制线的集合。</p>
+<p>有多少根控制总线，就意味着CPU提供了对外部器件的多少种控制。所以，控制总线的宽度决定了CPU对外部器件的控制能力。</p>
+<h3 id="数据总线"><a href="#数据总线" class="headerlink" title="数据总线"></a>数据总线</h3><p>CPU与内存或其它器件之间的数据传送是通过数据总线来进行的。</p>
+<p>数据总线的宽度决定了CPU和外界的数据传送速度。</p>
+<p>8086CPU的数据总线为16位，即一次性可以传送16位数据。</p>
+<h3 id="地址"><a href="#地址" class="headerlink" title="地址"></a>地址</h3><p>在内存之中，每一个存储单元都有一个编号用来<strong>标识这个存储单元</strong>，这就是地址。地址是从0开始编号的。(看地址总线那一部分)</p>
+<p>地址有两种表示方式，物理地址和逻辑地址。</p>
+<h3 id="物理地址"><a href="#物理地址" class="headerlink" title="物理地址"></a>物理地址</h3><p>物理地址是内存单元的真实地址，且每一个存储单元的物理地址都是唯一的。CPU访问内存必须使用物理地址。</p>
+<p>8086CPU有20跟地址总线，故存储空间就是2的20次方 = <strong>1MB</strong>。物理地址的范围是 00000H - FFFFFH。</p>
+<h3 id="逻辑地址"><a href="#逻辑地址" class="headerlink" title="逻辑地址"></a>逻辑地址</h3><p>逻辑地址是方便用户编程而使用的地址。它由段地址和偏移地址两部分构成。</p>
+<p>形式： 逻辑地址 =  <strong>段地址 :  偏移地址</strong></p>
+<p>因为我们将内存地址划分为多个逻辑段每段都由一部分存储单元构成。</p>
+<p>段地址指出是哪一段，偏移地址标明是哪段中的哪个单元。且段地址和偏移地址都是<strong>16位的二进制数</strong>。</p>
+<h3 id="逻辑地址转换物理地址"><a href="#逻辑地址转换物理地址" class="headerlink" title="逻辑地址转换物理地址"></a>逻辑地址转换物理地址</h3><p>因为逻辑地址是编程人员使用的，而物理地址是CPU访问内存必须使用的。程序猿写的程序采用的逻辑地址在CPU执行时要转换成为物理地址。这个操作由<strong>CPU中的地址加法器</strong>来实现。</p>
+<p>实现：段地址左移四位(相当于乘以10H)，加上偏移地址。</p>
+<p>​    *<em>物理地址 = 段地址  *  10H  +   偏移地址*</em></p>
+<p>例：逻辑地址为： 3020:055AH。则其物理地址 = 3020H * 10H + 055AH = 3075AH。</p>
+<h3 id="存储单元"><a href="#存储单元" class="headerlink" title="存储单元"></a>存储单元</h3><h2 id="存储器分段"><a href="#存储器分段" class="headerlink" title="存储器分段"></a>存储器分段</h2>
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">汇编语言</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%B1%87%E7%BC%96/">汇编</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/assembly-language-3/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">汇编语言（三）--汇编指令与段的综述</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/assembly-language-0/">
+                        <span class="hidden-mobile">汇编语言（一）--DOSBox与DEBUG工具的安装</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/assembly-language-1/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "汇编语言（二）--80X86CPU基础&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

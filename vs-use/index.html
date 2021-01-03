@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>VS开发C++的一些问题——VS项目工程文件、Debug与Relase模式、字符集问题以及_T()宏 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-06-22 14:10">
+      星期六, 六月 22日 2019, 2:10 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      33
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><strong>简介</strong>：VS工程项目相关文件，如何让自己编好的程序在其他电脑上运行，字符集</p>
+<a id="more"></a>
+
+<h2 id="VS工程项目相关文件"><a href="#VS工程项目相关文件" class="headerlink" title="VS工程项目相关文件"></a>VS工程项目相关文件</h2><p>VS是使用<strong>解决方案</strong>来管理项目的，同一个解决方案之下就可以添加多个项目。</p>
+<p><img src="vs-use%5Csolution.png" srcset="/img/loading.gif"></p>
+<p>而在多个项目的时候，一般编译调试都是执行的第一个创建的项目，此时可以选择 <code>右键“解决方案”--&gt;设置启动项目--&gt;通用属性里的启动项目--&gt;选定当前选定内容。</code> </p>
+<p>总的来说解决方案会对应一个文件夹，文件夹里会有不同的项目文件夹。</p>
+<p><img src="vs-use/wenjianjia.png" srcset="/img/loading.gif"></p>
+<p><strong>sdf文件</strong>是一个<strong>数据库文件</strong>，记录了解决方案的各种信息。</p>
+<p><strong>opensdf文件</strong>是项目被打开时才会出现的，项目关闭后此文件也会消失，估计是sdf文件的临时文件。</p>
+<p><strong>sln文件</strong>是整个<strong>解决方案的配置文件</strong>，（Microsoft Visual Studio Solution），通过VS2013打开sln文件就可以将整个解决方案导入到VS中打开。</p>
+<blockquote>
+<p>sln（Visual Studio.Solution）通过为环境提供对项目、项目项和解决方案在磁盘上的位置的引用，可以将他们组织到解决方案中。</p>
+</blockquote>
+<p><strong>suo文件</strong>（Visual Studio Solution User Options）是<strong>解决方案用户选项</strong>。</p>
+<blockquote>
+<p>suo 解决方案用户选项，记录所有将与解决方案建立关联的选项，存储了用户对界面的自定义配置，包括布局、断点、打开的文件等。</p>
+</blockquote>
+<p>在Project1中写一个HelloWorld语句之后，Project1项目文件夹如下所示</p>
+<p><img src="vs-use/project1.png" srcset="/img/loading.gif"></p>
+<p><strong>vcxproj文件</strong>是项目文件，<strong>保存了整个项目的配置信息</strong>。经过测试可以通过打开这个文件来直接打开这个项目以及解决方案。</p>
+<blockquote>
+<p>vc5,6的工程文件是.dsp</p>
+<p>vc2002-2008工程文件是vcproj</p>
+<p>vc2010之后是vcxproj</p>
+<p>vcproj和vcxproj都是xml格式的。</p>
+</blockquote>
+<p><strong>vcxproj.filters文件</strong>是文件存放工程的<strong>虚拟目录信息</strong>，也就是在解决方案浏览器中的目录结构信息。</p>
+<p><strong>cpp文件</strong>就不用多说了🙃</p>
+<p>Debug文件夹是VS在 <code>Debug</code> 模式下编译链接执行后生成的文件夹， 与之相对应的是 <code>Release</code>  模式，在此模式下就会生成Release文件夹。</p>
+<p><img src="vs-use/debug.png" srcset="/img/loading.gif"></p>
+<p>打开Debug文件夹，其内有上述这些文件。</p>
+<p><strong>log文件</strong>是主要记录<strong>编译过程中的输出信息、日志</strong>。可以打开看看，内容和执行时的内容差不多。</p>
+<p><strong>pdb文件</strong>是<strong>调试的符号文件</strong>，程序数据库 (PDB) 文件保存着调试和项目状态信息，使用这些信息可以对程序的调试配置。</p>
+<p><strong>obj文件</strong>是C、CPP编译后的二进制文件。</p>
+<p><strong>VS执行生成的可执行文件放在解决方案目录里的Debug目录里。</strong></p>
+<p><img src="vs-use/Debug1.png" srcset="/img/loading.gif"></p>
+<p><strong>exe文件</strong>是编译链接后产生的<strong>可执行文件</strong>。</p>
+<p><strong>ilk文件</strong> 增量编译（incremental linking）</p>
+<blockquote>
+<p>取消增量编译可以不生成这种文件，对于大工程来说可能会变慢。</p>
+</blockquote>
+<p>最后摘抄一段话</p>
+<blockquote>
+<p>一般情况下，如果我们要把源码共享到github中，只需要提交工程相关的配置文件，不提交用户个人偏好相关的配置文件。所谓的个人偏好相关，是指根据用户个人的VS使用习惯而保存的配置信息，比如选择了查看所有文件选项，打开了某一个文件。而工程相关的配置是指工程建立相关的信息，不受用户偏好的影响，比如解决方案的名字是什么，这个解决方案下面有哪些project。所以，我们只需要上传sln配置文件、vcxproj和vcxproj.filters配置文件就可以了，当然还包括源码。</p>
+</blockquote>
+<p>本文参考链接：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012175089/article/details/55050617">Visual Studio项目目录和文件说明</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xu_fengyu/article/details/81841877">Visual Studio 项目各类文件概述</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_41852207/article/details/86742940">vs2017的文件组成</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/afanaily/article/details/41247899">VS各种文件作用详解</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/liangyihuai/article/details/88762804">Visual Studio 2017工程项目的几个重要文件解析</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_20828983/article/details/75593441">sln、db、opendb、vcxproj、filters、user文件跟踪说明</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/langb2014/article/details/50933956?_t_t_t=0.7164025432757872">VS2013如何打包生成安装文件</a></p>
+</blockquote>
+<h2 id="如何让自己编好的程序在其他电脑上运行"><a href="#如何让自己编好的程序在其他电脑上运行" class="headerlink" title="如何让自己编好的程序在其他电脑上运行"></a>如何让自己编好的程序在其他电脑上运行</h2><h3 id="两种模式：Debug与Relaese的区别"><a href="#两种模式：Debug与Relaese的区别" class="headerlink" title="两种模式：Debug与Relaese的区别"></a>两种模式：Debug与Relaese的区别</h3><blockquote>
+<p>Debug 通常称为调试版本，它包含调试信息，并且不作任何优化，便于程序员调试程序。</p>
+<p>Release 称为<strong>发布版本</strong>，它往往是进行了各种优化，使得程序在代码大小和运行速度上都是最优的，以便用户很好地使用。</p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Release%E7%89%88%E6%9C%AC/6497294?fr=aladdin">百度百科</a></p>
+</blockquote>
+<h3 id="发布可执行程序"><a href="#发布可执行程序" class="headerlink" title="发布可执行程序"></a>发布可执行程序</h3><p>VC2013 默认编写的 .exe 使用<strong>动态链接方式链接的运行时库</strong>，所以，编写的程序要在别的电脑上运行，需要在其它电脑安装 <strong>VC2013 的运行时库</strong>，然后就可以完美运行你的 .exe 程序。</p>
+<p>当然，如果你觉得安装运行时库很麻烦，你可以用<strong>静态链接</strong>的形式编译你的 .exe 程序。</p>
+<blockquote>
+<p>中文版 Visual Studio 2013 的操作方法：</p>
+<ol>
+<li><p>打开 Visual Studio 2013，创建 Win32 控制台应用程序（或者 Win32 项目）。</p>
+</li>
+<li><p>编写程序。</p>
+</li>
+<li><p>项目编译模式默认分为 Debug 和 Release 两种模式。Debug 模式带有各种调试信息，方便排查错误，使用的调试版本库。Release 模式删除了调试信息，使得编译的文件更小，执行速度更快。因此，在调试程序的时候，要用 Debug 模式。在调试完毕需要发布程序的时候，用 Release 模式。两种模式有不同的编译设置，我们现在需要将完成的程序发给别人，因此需要将项目设置为 Release 模式。</p>
+</li>
+<li><p>在 解决方案资源管理器 区域中，选中你的 项目（通常第一行是 解决方案，第二行是 项目），右击，选 属性。</p>
+</li>
+<li><p>左侧类别中选择“配置属性 -&gt; C/C++ -&gt; 代码生成”，右侧将“运行时库”设置为“多线程(/MT)”。</p>
+</li>
+<li><p>如果你希望你的程序可以运行在 WinXP 中，还需要设置“配置属性 -&gt; 常规 -&gt; 平台工具集”为“Visual Studio 2013 - Windows XP (v120_xp)”。</p>
+</li>
+<li><p>编译程序。在项目文件夹的 Release 文件夹里面，可以找到最终编译的 .exe 文件，拷贝出来即可在别的电脑上运行。</p>
+</li>
+</ol>
+</blockquote>
+<p>采用上面的方法就可以发布Release模式的exe可执行文件，可以拷贝出来在其他电脑上运行。</p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://codeabc.cn/yangw/">慢羊羊村长</a>的博客：<a target="_blank" rel="noopener" href="https://codeabc.cn/yangw/post/make-a-program-written-by-vc-run-on-another-computer">使 VC2013 编写的程序运行在其它电脑上</a></p>
+<h2 id="VS字符集的问题"><a href="#VS字符集的问题" class="headerlink" title="VS字符集的问题"></a>VS字符集的问题</h2><p>在VS里面右击项目名称，最后一项是”属性“，点进去就可以看到字符集设置的问题。</p>
+<p><img src="vs-use/charset.png" srcset="/img/loading.gif" alt="项目字符集"></p>
+<p>主要有两种选择，一种是<code>Unicode字符集</code>，另一种是<code>多字节字符集</code>。</p>
+<p>Windows是使用两种字符集：ANSI 和 Unicode编码。</p>
+<p>ANSI是通常使用的单字节处理方式，所有字符都通过一个字节进行表示，这样对于处理中文这样的双字节字符非常不友好。</p>
+<blockquote>
+<p>在最初的时候，Internet上只有一种字符集——ANSI的ASCII字符集，它使用7 bits来表示一个字符，总共表示128个字符，其中包括了英文字母、数字、标点符号等常用字符。之后，又进行扩展，使用8 bits表示一个字符，可以表示256个字符，主要在原来的7 bits字符集的基础上加入了一些特殊符号例如制表符。 </p>
+<p>后来，由于各国语言的加入，ASCII已经不能满足信息交流的需要，因此，为了能够表示其它国家的文字，各国在ASCII的基础上制定了自己的字符集，这些从ANSI标准派生的字符集被习惯的统称为ANSI字符集，它们正式的名称应该是<strong>MBCS</strong>(Multi-Byte Chactacter System，即<strong>多字节字符系统</strong>)。这些派生字符集的特点是以ASCII 127 bits为基础，兼容ASCII 127，他们使用大于128的编码作为一个Leading Byte，紧跟在Leading Byte后的第二（甚至第三）个字符与Leading Byte一起作为实际的编码。这样的字符集有很多，我们常见的GB-2312就是其中之一。</p>
+</blockquote>
+<p>Unicode编码是双字节编码。</p>
+<blockquote>
+<p>由于每种语言都制定了自己的字符集，导致最后存在的各种字符集实在太多，在国际交流中要经常转换字符集非常不便。因此，提出了Unicode字符集，它固定使用16 bits（两个字节、一个字）来表示一个字符，共可以表示65536个字符。<strong>将世界上几乎所有语言的常用字符收录其中，方便了信息交流</strong>。标准的Unicode称为UTF-16。后来为了双字节的Unicode能够在现存的处理单字节的系统上正确传输，出现了UTF-8，使用类似MBCS的方式对Unicode进行编码。注意UTF-8是编码，它属于Unicode字符集。Unicode字符集有多种编码形式，而ASCII只有一种，大多数MBCS（包括GB-2312）也只有一种。Unicode的最初目标，是用1个16位的编码来为超过65000字符提供映射。但这还不够，它不能覆盖全部历史上的文字，也不能解决传输的问题 (implantation head-ache’s)，尤其在那些基于网络的应用中。已有的软件必须做大量的工作来程序16位的数据。因此，Unicode用一些基本的保留字符制定了三套编码方式。它们分别是UTF-8,UTF-16和UTF-32。正如名字所示，在UTF－8中，字符是以8位序列来编码的，用一个或几个字节来表示一个字符。这种方式的最大好处，是<strong>UTF－8保留了ASCII字符的编码做为它的一部分</strong>，例如，在UTF－8和ASCII中，“A”的编码都是0x41.UTF－16和UTF－32分别是Unicode的16位和32位编码方式。考虑到最初的目的，通常说的Unicode就是指UTF-16。 </p>
+</blockquote>
+<p>两种编码集推荐使用Unicode编码:</p>
+<blockquote>
+<p>（1） 可以很容易地<strong>在不同语言之间进行数据交换</strong>。<br>（2） 使你能够<strong>分配支持所有语言的单个二进制.exe文件或DLL文件</strong>。<br>（3） 提高应用程序的<strong>运行效率</strong>。</p>
+</blockquote>
+<p>以上引用的内容均来自博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/stephen1315/article/details/7476236">Unicode字符集和多字节字符集关系</a>，此外博客还有许多内容可以学习哦~</p>
+<h3 id="C-T-与L宏"><a href="#C-T-与L宏" class="headerlink" title="C++ _T()与L宏"></a>C++ _T()与L宏</h3><p>然后就又关于字符串保存的问题，有两种方式，一种是 <code>_T( )</code> 的形式，另一种是 <code>L&quot; &quot;</code> 的形式。</p>
+<pre><code class="hljs c++">TCHAR s[] = _T(<span class="hljs-string">&quot;你好啊！&quot;</span>);
+TCHAR s[] = <span class="hljs-string">L&quot;你也是！&quot;</span>;</code></pre>
+<p>先暂时忽略<code>TCHAR</code> ，上面的代码是两种字符串保存的方式。</p>
+<blockquote>
+<p>当工程是Unicode编码时，_T将括号内的字符串以Unicode方式保存；</p>
+<p>当工程是多字节编码时，_T将括号内的字符串以ANSI方式保存。</p>
+<p>关键字“L”，则是不管编码环境是什么，都是将其后面的字符串以Unicode方式保存。</p>
+<p>Unicode字符是LPCWSTR</p>
+<p>ASCII字符是LPCSTR</p>
+<p>通过强制转换是无法完成的，需要<strong>用_T()和L()来完成转换</strong></p>
+<p>参看博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_26145629/article/details/80782234">C++ _T()和L()宏</a></p>
+</blockquote>
+<h3 id="各种字符类型😱"><a href="#各种字符类型😱" class="headerlink" title="各种字符类型😱"></a>各种字符类型😱</h3><p><img src="vs-use/str.png" srcset="/img/loading.gif"></p>
+<p>🤧😷😱</p>
+<p>上图来自博客：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jmliao/p/6031818.html">C++字符类型总结区别wchar_t,char,WCHAR</a>  emmm,就是有非常丰富的类型。具体内容可以参看超链接里的那篇博客。</p>
+<blockquote>
+<p>其他参看博客：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/lanhaicode/p/10574260.html">宽字符wchar_t和窄字符char——putwchar、wprintf</a></p>
+</blockquote>
+<h2 id="VS快捷键"><a href="#VS快捷键" class="headerlink" title="VS快捷键"></a>VS快捷键</h2><ul>
+<li><p>多行注释：选中，然后Ctrl+K，然后Ctrl+C即可注释。</p>
+</li>
+<li><p>取消注释：选中，然后Ctrl+K，然后Ctrl+U即可取消注释。</p>
+</li>
+</ul>
+<h2 id="VS使用中碰到的问题"><a href="#VS使用中碰到的问题" class="headerlink" title="VS使用中碰到的问题"></a>VS使用中碰到的问题</h2><h3 id="模块对于-SAFESEH-映像是不安全的。"><a href="#模块对于-SAFESEH-映像是不安全的。" class="headerlink" title="模块对于 SAFESEH 映像是不安全的。"></a>模块对于 SAFESEH 映像是不安全的。</h3><p>解决方法：属性 –&gt; 链接器 –&gt; 命令行，然后在其他选项这个框中，填入<code>/SAFESEH:NO</code>，就好了。</p>
+<h3 id="提示函数过时或者不安全"><a href="#提示函数过时或者不安全" class="headerlink" title="提示函数过时或者不安全"></a>提示函数过时或者不安全</h3><p>一种方式是将函数修改为VS建议的函数。</p>
+<p>另一种方式是添加<code>_CRT_SECURE_NO_WARNINGS</code>来让VS忽略这些问题，一种添加是在文件开头添加宏<code>#define _CRT_SECURE_NO_WARNINGS</code>，另一种方式是在属性页 –&gt; C/C++ –&gt; 预处理器 –&gt; 预处理器定义，添加<code>_CRT_SECURE_NO_WARNINGS</code>即可。</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/C-C/">C/C++</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                      <a class="hover-with-bg" href="/tags/SOP/">SOP</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/ubuntu-set-up/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Linux--Ubuntu的安装|(win + linux)双系统</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/c-snake-pro1/">
+                        <span class="hidden-mobile">C++基于EasyX制作贪吃蛇游戏（二）第一版代码与程序</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/vs-use/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "VS开发C++的一些问题——VS项目工程文件、Debug与Relase模式、字符集问题以及_T()宏&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
