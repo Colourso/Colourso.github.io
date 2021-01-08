@@ -170,7 +170,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      792 字
+      1k 字
     </span>
   
 
@@ -180,7 +180,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      13
        分钟
     </span>
   
@@ -219,13 +219,41 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h2 id="问题的产生"><a href="#问题的产生" class="headerlink" title="问题的产生"></a>问题的产生</h2><p>问题出在我上数据结构对串进行操作时需要对一段字符串的长度进行计算，当时卡住了壳，之后再次回顾时发现还是自己粗心大意，基础太差，所以再这里做一个总结归纳。</p>
-<a id="more"></a>
-<p>这是我当初的代码</p>
+              <a id="more"></a>
+
+<h2 id="普通char-数组的使用"><a href="#普通char-数组的使用" class="headerlink" title="普通char[]数组的使用"></a>普通char[]数组的使用</h2><p>看一个小案例</p>
+<pre><code class="hljs c++"><span class="hljs-comment">//运行环境 VS2017</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">char</span> as[<span class="hljs-number">10</span>] = <span class="hljs-string">&quot;123456789&quot;</span>;
+
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;数组内容：&quot;</span>&lt;&lt;as &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;输入数组内容：&quot;</span>;
+
+	<span class="hljs-built_in">cin</span> &gt;&gt; as;			<span class="hljs-comment">//这样赋值是可以的</span>
+
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;新的数组内容：&quot;</span> &lt;&lt; as;
+&#125;</code></pre>
+<p>执行结果：</p>
+<pre><code class="hljs dns">数组内容：<span class="hljs-number">123456789</span>
+输入数组内容：fox
+新的数组内容：fox</code></pre>
+<ol>
+<li>char数组的赋值语句中，“123456789”这一串长度为</li>
+<li><code>cin&gt;&gt;as</code>这样的输入数组的方式是可以的，但是一旦长度超过了9(\0是在输入中默认填充的)，就会引发异常，至少Windows平台的VS2017是如此，这样的输入方式非常的不安全，慎用。</li>
+</ol>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ksws0292756/article/details/79432329">https://blog.csdn.net/ksws0292756/article/details/79432329</a></p>
+</blockquote>
+<h2 id="一个常见的错误——指针与元素"><a href="#一个常见的错误——指针与元素" class="headerlink" title="一个常见的错误——指针与元素"></a>一个常见的错误——指针与元素</h2><p>问题出在我上数据结构对串进行操作时需要对一段字符串的长度进行计算，当时卡住了壳，之后再次回顾时发现还是自己粗心大意，基础太差，所以再这里做一个总结归纳。<br>这是我当初的代码</p>
 <pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getLength</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *p)</span></span>
 <span class="hljs-function"></span>&#123;
    <span class="hljs-keyword">int</span> length=<span class="hljs-number">0</span>;
-   <span class="hljs-keyword">for</span>(;p!=<span class="hljs-string">&#x27;\0&#x27;</span>;p++)
+   <span class="hljs-keyword">for</span>(;p!=<span class="hljs-string">&#x27;\0&#x27;</span>;p++)<span class="hljs-comment">//p是一个指针</span>
      length++;
    <span class="hljs-keyword">return</span> length;  
 &#125;</code></pre>
@@ -233,7 +261,7 @@
 <pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getLength</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *p)</span></span>
 <span class="hljs-function"></span>&#123;
    <span class="hljs-keyword">int</span> length=<span class="hljs-number">0</span>;
-   <span class="hljs-keyword">for</span>(;*p!=<span class="hljs-string">&#x27;\0&#x27;</span>;p++)
+   <span class="hljs-keyword">for</span>(;*p!=<span class="hljs-string">&#x27;\0&#x27;</span>;p++)<span class="hljs-comment">//这里的*是解引用符，表示取出地址对应的元素</span>
      length++;
    <span class="hljs-keyword">return</span> length;  
 &#125;</code></pre>
