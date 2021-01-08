@@ -234,57 +234,57 @@
 </blockquote>
 <p>最后准备一个U盘，开始制作。引导类型选择<strong>镜像文件</strong>，然后点击后面的选择，找到上面下载的镜像文件(.iso)。其他选项默认即可。</p>
 <p>点击开始之后会弹出<strong>提示下载两个文件</strong>，点击确定下载即可。之后选择使用会弹出选择ISO镜像或者DD镜像写入，选择ISO镜像即可。</p>
-<p><img src="ubuntu-set-up%5Crefus.png" srcset="/img/loading.gif"></p>
+<p><img src="/ubuntu-set-up/ubuntu-set-up%5Crefus.png" srcset="/img/loading.gif"></p>
 <p>最后会弹出警告，做系统引导盘要<strong>格式化U盘的</strong>！！</p>
-<p><img src="ubuntu-set-up%5Crefus-c.png" srcset="/img/loading.gif"></p>
+<p><img src="/ubuntu-set-up/ubuntu-set-up%5Crefus-c.png" srcset="/img/loading.gif"></p>
 <p>点击确定，然后等待大概5、6分钟就制作好了。</p>
 <h2 id="Windows磁盘分区"><a href="#Windows磁盘分区" class="headerlink" title="Windows磁盘分区"></a>Windows磁盘分区</h2><p>打开磁盘管理。找一个磁盘，右键点击压缩卷，输入压缩空间量。</p>
 <p>这里一般的话50GB就足够使用了，我选择压缩110G😁。变成<strong>未分配的空间</strong>就好了。(后面做了一下实验，又压缩了10G，所以是110G)。</p>
-<p><img src="ubuntu-set-up%5Ccapan.png" srcset="/img/loading.gif"></p>
+<p><img src="/ubuntu-set-up/ubuntu-set-up%5Ccapan.png" srcset="/img/loading.gif"></p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>将电脑点击重启，重启中不断按F12进入引导界面。（不同电脑的按键可能不同，详情百度即可）。</p>
-<p><img src="ubuntu-set-up%5Cbost_set.jpg" srcset="/img/loading.gif"></p>
+<p><img src="/ubuntu-set-up/ubuntu-set-up%5Cbost_set.jpg" srcset="/img/loading.gif"></p>
 <p>如上图，选择<strong>UEFI的USB引导</strong>。键盘上下键翻动，回车键确认。中间可能会有黑屏，多等待几秒。</p>
 <p>然后到了如下的界面，依旧上下键移动，选择第二个install ununtu，回车即可。</p>
-<p><img src="ubuntu-set-up%5Cinstall.jpg" srcset="/img/loading.gif"></p>
+<p><img src="/ubuntu-set-up/ubuntu-set-up%5Cinstall.jpg" srcset="/img/loading.gif"></p>
 <p>注意接下来电脑可能会<strong>黑屏一段时间</strong>(我的电脑是的，耐心等待)。之后就会进入安装的详细引导了。</p>
 <p>语言选择简体中文，正常安装。</p>
-<p><img src="ubuntu-set-up%5Cinstall1.png" srcset="/img/loading.gif"></p>
+<p><img src="/ubuntu-set-up/ubuntu-set-up%5Cinstall1.png" srcset="/img/loading.gif"></p>
 <p>然后关键的一步，安装类型选择其他选项，自己创建调整分区。</p>
-<p><img src="ubuntu-set-up%5Cinstall2.jpg" srcset="/img/loading.gif"></p>
+<p><img src="/ubuntu-set-up/ubuntu-set-up%5Cinstall2.jpg" srcset="/img/loading.gif"></p>
 <h2 id="Linux分区"><a href="#Linux分区" class="headerlink" title="Linux分区"></a>Linux分区</h2><p>接上面的进行继续分区操作。注意要计算好空间大小！</p>
 <p>首先要先找到上面分配的<strong>空闲空间</strong>，双击即可进行分区。</p>
-<p><img src="ubuntu-set-up%5Cinstall3.jpg" srcset="/img/loading.gif"></p>
+<p><img src="/ubuntu-set-up/ubuntu-set-up%5Cinstall3.jpg" srcset="/img/loading.gif"></p>
 <h3 id="分区-主分区"><a href="#分区-主分区" class="headerlink" title="分区-主分区(/.)"></a>分区-主分区(<strong>/.</strong>)</h3><p>用于存放系统，相当于Windows的C盘。一般10G就够了，我这里用了50GB。</p>
 <p>双击空闲的空间，设置如下</p>
 <pre><code class="hljs plain">分区类型 ： 主分区
 新分区的位置 ： 空间起始位置
 用于 ： Ext4日志文件系统
 挂载点 ： &#x2F;</code></pre>
-<p><img src="ubuntu-set-up%5Cinstallmain.jpg" srcset="/img/loading.gif"></p>
+<p><img src="/ubuntu-set-up/ubuntu-set-up%5Cinstallmain.jpg" srcset="/img/loading.gif"></p>
 <h3 id="分区-boot"><a href="#分区-boot" class="headerlink" title="分区-/boot"></a>分区-/boot</h3><p>引导分区，一般200MB就够了，这里我用1000MB。</p>
 <p>双击空闲的空间，设置如下</p>
 <pre><code class="hljs jboss-cli">分区类型 ： 逻辑分区
 新分区的位置 ： 空间起始位置
 用于 ： Ext4日志文件系统
 挂载点 ： <span class="hljs-string">/boot</span></code></pre>
-<p><img src="ubuntu-set-up%5Cinstallboot.jpg" srcset="/img/loading.gif"></p>
+<p><img src="/ubuntu-set-up/ubuntu-set-up%5Cinstallboot.jpg" srcset="/img/loading.gif"></p>
 <h3 id="分区-home"><a href="#分区-home" class="headerlink" title="分区-/home"></a>分区-/home</h3><p>主要是用户存储数据。空间尽可能的大。这里我用50GB。</p>
 <p>双击空闲的空间，设置如下</p>
 <pre><code class="hljs arduino">分区类型 ： 逻辑分区
 新分区的位置 ： 空间起始位置
 用于 ： Ext4日志文件系统
 挂载点 ： /<span class="hljs-built_in">home</span></code></pre>
-<p><img src="ubuntu-set-up%5Cinstallhome.jpg" srcset="/img/loading.gif"></p>
+<p><img src="/ubuntu-set-up/ubuntu-set-up%5Cinstallhome.jpg" srcset="/img/loading.gif"></p>
 <h3 id="分区-交换空间"><a href="#分区-交换空间" class="headerlink" title="分区-交换空间"></a>分区-交换空间</h3><p>交换区，即操作系统的虚拟内存。和电脑内存大小相同即可，但我的电脑内存只有4G，把原来分区的110G最后剩余的空间全部给了交换空间。</p>
 <p>双击空闲的空间，设置如下</p>
 <pre><code class="hljs plain">分区类型 ： 逻辑分区
 新分区的位置 ： 空间起始位置
 用于 ： 交换空间</code></pre>
-<p><img src="ubuntu-set-up%5Cinstallswap.jpg" srcset="/img/loading.gif"></p>
+<p><img src="/ubuntu-set-up/ubuntu-set-up%5Cinstallswap.jpg" srcset="/img/loading.gif"></p>
 <h3 id="安装启动引导器的设备"><a href="#安装启动引导器的设备" class="headerlink" title="安装启动引导器的设备"></a>安装启动引导器的设备</h3><p>上面四个区做好之后，要选择安装启动引导器的设备，注意，<strong>这里要选择你<code>/boot</code>区的位置！</strong>。如图，我的<code>/boot</code>对应<code>/dev/sda6</code>。</p>
-<p><img src="ubuntu-set-up%5Cinstalldev.jpg" srcset="/img/loading.gif"></p>
+<p><img src="/ubuntu-set-up/ubuntu-set-up%5Cinstalldev.jpg" srcset="/img/loading.gif"></p>
 <p>之后点击现在安装。</p>
-<p><img src="ubuntu-set-up%5Cinstall7.jpg" srcset="/img/loading.gif"></p>
+<p><img src="/ubuntu-set-up/ubuntu-set-up%5Cinstall7.jpg" srcset="/img/loading.gif"></p>
 <p>点击继续。之后是选择所在地，选择中国上海。之后设置用户名密码。密码是必须设置的，最好记住。图片太大就不做展示了。</p>
 <p>之后静静等待，等待安装完成。按照提示操作就好了。</p>
 <h2 id="如何修改默认启动项"><a href="#如何修改默认启动项" class="headerlink" title="如何修改默认启动项"></a>如何修改默认启动项</h2><p>由于是双系统，grub引导，电脑默认启动项目是Ubuntu，但是日常使用Windows比较多，如果开机之后不留意可能就会直接进入Ubuntu，还得重启等待，比较麻烦。</p>
@@ -330,7 +330,7 @@
 <h3 id="2-无线模块"><a href="#2-无线模块" class="headerlink" title="2.无线模块"></a>2.无线模块</h3><p>无线模块我找了好几个教程都没有解决。无奈之下使用了无线网卡，暂时解决上网问题。</p>
 <h2 id="如何清除Ubuntu系统？"><a href="#如何清除Ubuntu系统？" class="headerlink" title="如何清除Ubuntu系统？"></a>如何清除Ubuntu系统？</h2><p>最简单粗暴的方法，在Windows系统里进入<strong>磁盘管理</strong>，把原来Ubuntu占用的空间全部清除掉就可以了。</p>
 <p>但是开机的引导还没有修复，开机后会弹出下面的图片的这种情况。输入<code>exit</code>就可以进入Windows了。</p>
-<p><img src="ubuntu-set-up%5Cgrub.jpg" srcset="/img/loading.gif"></p>
+<p><img src="/ubuntu-set-up/ubuntu-set-up%5Cgrub.jpg" srcset="/img/loading.gif"></p>
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/liuxiaodong400/article/details/80946225">Ubuntu-18.04-LTS安装指南（ubuntu-16.04同）</a></p>
 
             </article>

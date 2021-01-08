@@ -247,10 +247,10 @@
 <p>ISP可以从互联网管理结构申请到很多的IP地址，同时还拥有通信线路以及路由器等联网设备。</p>
 <p>个人或者机构向ISP缴纳费用得到IP地址的使用权，并通过ISP接入到互联网上 —— 这就是所谓的<strong>上网</strong>。</p>
 <p>根据提供服务的覆盖面积大小以及所拥有的IP 地址数目的不同，ISP 也分成为不同的层次：主干ISP、地区ISP、本地ISP。</p>
-<p><img src="network-chapter-1/ISP.png" srcset="/img/loading.gif"></p>
+<p><img src="/network-chapter-1/ISP.png" srcset="/img/loading.gif"></p>
 <p>IXP(Internet eXchange Point) – 互联网交换点</p>
 <p>其作用是允许两个网络直接相连并交换分组，促使互联网上的数据流量分布更加合理，同时也减少了分组转发的延迟，降低了分组转发的费用。</p>
-<h2 id="互联网的组成"><a href="#互联网的组成" class="headerlink" title="互联网的组成"></a>互联网的组成</h2><p><img src="network-chapter-1/composition.png" srcset="/img/loading.gif"></p>
+<h2 id="互联网的组成"><a href="#互联网的组成" class="headerlink" title="互联网的组成"></a>互联网的组成</h2><p><img src="/network-chapter-1/composition.png" srcset="/img/loading.gif"></p>
 <ul>
 <li><strong>边缘部分</strong>：由所有连接在互联网上的<strong>主机</strong>构成。由用户直接使用，进行通信与资源共享。主机接入核心部分通常以相对核心部分<strong>低速率</strong>的链路相连接。</li>
 <li><strong>核心部分</strong>：由大量网络和连接这些网络的<strong>路由器</strong>构成。为边缘部分提供服务。且路由器之间一般用<strong>高速链路</strong>相连接。</li>
@@ -282,11 +282,11 @@
 <h4 id="分组交换"><a href="#分组交换" class="headerlink" title="分组交换"></a>分组交换</h4><p>分组交换采用<strong>存储转发</strong>技术，将一个<strong>报文</strong>(整块数据)划分为几个数据段，给每个数据段的头部添加控制信息，构成<strong>分组</strong>(packet)或者叫做<strong>包</strong>。<strong>包头</strong>(分组被添加的头部信息)内包括目的地址、源地址等重要控制信息。</p>
 <p>路由器会把主机发来的分组暂时放入缓存(路由器的内存，速度快，保证高速率)，然后从转发表中查询，转发给其他路由器，最后传给另一台主机。</p>
 <p>将单个分组传送到相邻结点，存储下来后查找转发表，转发到下一个结点。</p>
-<p><img src="network-chapter-1/fenzuyoudian.png" srcset="/img/loading.gif"></p>
+<p><img src="/network-chapter-1/fenzuyoudian.png" srcset="/img/loading.gif"></p>
 <center>分组交换的<b>优点</b></center>
 - **缺点**：时延问题(分组在路由器转发时需要排队)、额外开销(分组需要携带头部信息)
 
-<p><img src="network-chapter-1/threechange.png" srcset="/img/loading.gif"></p>
+<p><img src="/network-chapter-1/threechange.png" srcset="/img/loading.gif"></p>
 <h2 id="计算机网络的类别"><a href="#计算机网络的类别" class="headerlink" title="计算机网络的类别"></a>计算机网络的类别</h2><h3 id="作用范围分类"><a href="#作用范围分类" class="headerlink" title="作用范围分类"></a>作用范围分类</h3><ul>
 <li><strong>广域网 WAN</strong>  –作用范围几十到几千公里</li>
 <li><strong>城域网 MAN</strong>  –作用范围5-50km</li>
@@ -298,7 +298,7 @@
 <li><strong>专用网</strong> ：某部门或单位专用网络</li>
 </ul>
 <h3 id="接入网-AN"><a href="#接入网-AN" class="headerlink" title="接入网 AN"></a>接入网 AN</h3><p>又称为<strong>本地接入网</strong>或<strong>居民接入网</strong>。课本P20</p>
-<h2 id="计算机网络性能"><a href="#计算机网络性能" class="headerlink" title="计算机网络性能"></a>计算机网络性能</h2><p><img src="network-chapter-1/eProperty.png" srcset="/img/loading.gif"></p>
+<h2 id="计算机网络性能"><a href="#计算机网络性能" class="headerlink" title="计算机网络性能"></a>计算机网络性能</h2><p><img src="/network-chapter-1/eProperty.png" srcset="/img/loading.gif"></p>
 <h3 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h3><ul>
 <li><strong>速率</strong>：指<strong>数据的传送速率</strong>，又称数据率或比特率，单位为bit/s(比特每秒)。</li>
 <li><strong>带宽</strong>：计网中的带宽指<strong>通道传送数据能力</strong>，网络带宽指单位时间内信道能通过的最高数据率，单位为bit/s(比特每秒)。</li>
@@ -333,7 +333,7 @@
 <li><strong>语义</strong>：需要发出何种控制信息，完成何种动作以及做出何种响应。</li>
 <li><strong>同步</strong>：事件实现顺序的详细说明。</li>
 </ul>
-<h3 id="分层协议"><a href="#分层协议" class="headerlink" title="分层协议"></a>分层协议</h3><p><img src="network-chapter-1/agreement.png" srcset="/img/loading.gif"></p>
+<h3 id="分层协议"><a href="#分层协议" class="headerlink" title="分层协议"></a>分层协议</h3><p><img src="/network-chapter-1/agreement.png" srcset="/img/loading.gif"></p>
 <center><b>五层协议是为了介绍网络原理而设计的，实际应用的是TCP/IP四层体系结构</b></center>
 - **应用层**：应用层协议定义进程间通信和交互的规则。而应用层是通过应用进程间的交互来完成特定网络应用。
 - **运输层**：向负责两台主机中进程之间的通信提供同通用的数据传输服务。
@@ -343,7 +343,7 @@
 - **数据链路层**：数据链路层将网络层交下来的IP数据报组装成帧，在两个相邻结点间的链路上传送帧。
 - **物理层**：用电压表示0/1，识别发送发的比特。
 
-<p><img src="network-chapter-1/transfer.png" srcset="/img/loading.gif"></p>
+<p><img src="/network-chapter-1/transfer.png" srcset="/img/loading.gif"></p>
 <h3 id="为什么要分层？"><a href="#为什么要分层？" class="headerlink" title="为什么要分层？"></a>为什么要分层？</h3><p>分层可以把庞大的问题转化为若干较小的、比较易于研究和处理的局部问题。</p>
 
             </article>

@@ -423,13 +423,13 @@ print(file6.tell())<span class="hljs-comment">#5</span>
 <span class="hljs-comment"># 对于第二个参数：0 表示从文件头开始计算， 1 表示从当前位置开始计算，2 表示从文件尾开始计算</span>
 <span class="hljs-comment">#注意！如果在打开文件时，没有使用b模式，那么只允许从文件头开始计算相对偏移量</span></code></pre>
 <h3 id="文件打开的三个参数"><a href="#文件打开的三个参数" class="headerlink" title="文件打开的三个参数"></a>文件打开的三个参数</h3><pre><code class="hljs python">file = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;test.txt&quot;</span>,<span class="hljs-string">&#x27;r&#x27;</span>,encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>)</code></pre>
-<p><img src="Python/fileParam.png" srcset="/img/loading.gif"></p>
+<p><img src="/Python/fileParam.png" srcset="/img/loading.gif"></p>
 <h3 id="打开文件使用with语句–上下文管理器"><a href="#打开文件使用with语句–上下文管理器" class="headerlink" title="打开文件使用with语句–上下文管理器"></a>打开文件使用with语句–上下文管理器</h3><pre><code class="hljs python"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;name.txt&quot;</span>,<span class="hljs-string">&#x27;r&#x27;</span>) <span class="hljs-keyword">as</span> file:
     <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> file.readlines():
         print(line)</code></pre>
 <p>Python打开文件要及时关闭，忘记关闭可能会带来问题，另外如果在打开文件是出现了异常，那么将导致文件不能及时被关闭，为了避免此类问题，可以使用上述的with语句进行操作。</p>
 <p>这样在处理文件时，无论是否抛出了异常，都能<strong>保证with语句执行完毕后关闭已经打开的文件</strong>。</p>
-<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><h3 id="常见异常"><a href="#常见异常" class="headerlink" title="常见异常"></a>常见异常</h3><p><img src="Python/someError.png" srcset="/img/loading.gif"></p>
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><h3 id="常见异常"><a href="#常见异常" class="headerlink" title="常见异常"></a>常见异常</h3><p><img src="/Python/someError.png" srcset="/img/loading.gif"></p>
 <h3 id="简单的异常处理语句"><a href="#简单的异常处理语句" class="headerlink" title="简单的异常处理语句"></a>简单的异常处理语句</h3><pre><code class="hljs python"><span class="hljs-keyword">try</span>:
     year = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;请输入年份:&quot;</span>))
 <span class="hljs-keyword">except</span> ValueError:
@@ -460,7 +460,7 @@ a = <span class="hljs-number">123</span>
 <span class="hljs-keyword">else</span>:
     print(<span class="hljs-string">&quot;正常执行&quot;</span>)</code></pre>
 <h3 id="try…except…finally语句"><a href="#try…except…finally语句" class="headerlink" title="try…except…finally语句"></a>try…except…finally语句</h3><p>finally语句用来放置无论是否发生异常都会被执行的代码。例如：打开文件是使用此语句，释放资源的代码放在finally语句之中。</p>
-<p><img src="Python/errFinally.png" srcset="/img/loading.gif"></p>
+<p><img src="/Python/errFinally.png" srcset="/img/loading.gif"></p>
 <h3 id="使用raise语句抛出异常"><a href="#使用raise语句抛出异常" class="headerlink" title="使用raise语句抛出异常"></a>使用raise语句抛出异常</h3><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">div</span>():</span>
     num1 = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&#x27;请输入被除数：&#x27;</span>))
     num2 = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&#x27;请输入除数：&#x27;</span>))
@@ -603,8 +603,8 @@ print(<span class="hljs-built_in">next</span>(it))
 <span class="hljs-comment">#对应的lambda表达式</span>
 <span class="hljs-keyword">lambda</span> x,y : x+y</code></pre>
 <p><code>:</code> 之前写函数的参数，冒号之后写实现具体功能的表达式。此外一定要有一个变量去接受或者去调用这个lambda表达式。</p>
-<h3 id="常用的Python内置函数"><a href="#常用的Python内置函数" class="headerlink" title="常用的Python内置函数"></a>常用的Python内置函数</h3><p><img src="Python/function1.png" srcset="/img/loading.gif"></p>
-<p><img src="Python/function2.png" srcset="/img/loading.gif"></p>
+<h3 id="常用的Python内置函数"><a href="#常用的Python内置函数" class="headerlink" title="常用的Python内置函数"></a>常用的Python内置函数</h3><p><img src="/Python/function1.png" srcset="/img/loading.gif"></p>
+<p><img src="/Python/function2.png" srcset="/img/loading.gif"></p>
 <pre><code class="hljs python">a = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>]
 list1 = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">filter</span>(<span class="hljs-keyword">lambda</span> x:x&gt;<span class="hljs-number">2</span>, a))
 print(list1) <span class="hljs-comment">#[3, 4, 5, 6, 7]</span>
@@ -947,7 +947,7 @@ print(tvshow.show)</code></pre>
 #导入自定义模块：
 #将自定义的变量和函数编写在一个单独的文件之中，创建成模块名+.py的形式
 # 然后参照上面的语法导入</code></pre>
-<p><img src="Python/modules.png" srcset="/img/loading.gif"></p>
+<p><img src="/Python/modules.png" srcset="/img/loading.gif"></p>
 <h3 id="Python日常应用比较广泛的模块"><a href="#Python日常应用比较广泛的模块" class="headerlink" title="Python日常应用比较广泛的模块"></a>Python日常应用比较广泛的模块</h3><ol>
 <li>文字的处理：re</li>
 <li>日期类型：time、datetime</li>
@@ -971,7 +971,7 @@ split(pattern, string[, maxsplit=<span class="hljs-number">0</span>]) <span cla
 findall(pattern, string)<span class="hljs-comment">#返回一个列表，其中包含字符串中所有与模式匹配的子串</span>
 sub(pat, repl, string[, count=<span class="hljs-number">0</span>])<span class="hljs-comment">#将字符串中与模式pat匹配的子串都替换为repl</span>
 escape(string) <span class="hljs-comment">#对字符串中所有的正则表达式特殊字符都进行转义</span></code></pre>
-<h3 id="字符"><a href="#字符" class="headerlink" title="字符"></a>字符</h3><p><img src="Python/yuanzifu.png" srcset="/img/loading.gif"></p>
+<h3 id="字符"><a href="#字符" class="headerlink" title="字符"></a>字符</h3><p><img src="/Python/yuanzifu.png" srcset="/img/loading.gif"></p>
 <center>↑常用元字符</center>
 ![](Python/xiandingfu.png)
 
@@ -1342,7 +1342,7 @@ warnings.filterwarnings(<span class="hljs-string">&#x27;ignore&#x27;</span>)
 <span class="hljs-comment">#绘制简单的曲线</span>
 plt.plot([<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>],[<span class="hljs-number">4</span>,<span class="hljs-number">8</span>,<span class="hljs-number">10</span>])
 plt.show()</code></pre>
-<p><img src="Python/matplotlib1.png" srcset="/img/loading.gif" alt="1567172852560"></p>
+<p><img src="/Python/matplotlib1.png" srcset="/img/loading.gif" alt="1567172852560"></p>
 <pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 
 
@@ -1353,7 +1353,7 @@ warnings.filterwarnings(<span class="hljs-string">&#x27;ignore&#x27;</span>)
 x = np.linspace(-np.pi,np.pi,<span class="hljs-number">100</span>)<span class="hljs-comment"># x轴的定义域为 -3.14到3.14 中间间隔100个元素</span>
 plt.plot(x, np.sin(x))
 plt.show()</code></pre>
-<p><img src="Python/matplotlib2.png" srcset="/img/loading.gif" alt="1567173015230"></p>
+<p><img src="/Python/matplotlib2.png" srcset="/img/loading.gif" alt="1567173015230"></p>
 <pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 <span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
@@ -1366,7 +1366,7 @@ plt.figure(<span class="hljs-number">1</span>, dpi=<span class="hljs-number">50<
 <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-number">5</span>):
     plt.plot(x, np.sin(x/i))
 plt.show()</code></pre>
-<p><img src="Python/matplotlib3.png" srcset="/img/loading.gif" alt="1567173105787"></p>
+<p><img src="/Python/matplotlib3.png" srcset="/img/loading.gif" alt="1567173105787"></p>
 <pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 
 <span class="hljs-comment">#当产生警告时忽略</span>
@@ -1378,7 +1378,7 @@ plt.figure(<span class="hljs-number">1</span>, dpi=<span class="hljs-number">50<
 data = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">6</span>]
 plt.hist(data) <span class="hljs-comment">#只要传入数据，直方图就会统计数据出现的次数</span>
 plt.show()</code></pre>
-<p><img src="Python/matplotlib4.png" srcset="/img/loading.gif" alt="1567173208283"></p>
+<p><img src="/Python/matplotlib4.png" srcset="/img/loading.gif" alt="1567173208283"></p>
 <pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 <span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
@@ -1392,7 +1392,7 @@ y = x
 fig = plt.figure()
 plt.scatter(x, y, c=<span class="hljs-string">&#x27;r&#x27;</span>, marker=<span class="hljs-string">&#x27;o&#x27;</span>) <span class="hljs-comment">#c = &#x27;r&#x27;表示散点的颜色为红色，marker表示指定散点的形状为原型</span>
 plt.show()</code></pre>
-<p><img src="Python/matplotlib5.png" srcset="/img/loading.gif" alt="1567173326484"></p>
+<p><img src="/Python/matplotlib5.png" srcset="/img/loading.gif" alt="1567173326484"></p>
 <pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 <span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 <span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
@@ -1420,7 +1420,7 @@ sns.jointplot(x=<span class="hljs-string">&#x27;132&#x27;</span>, y=<span class=
 sns.distplot(iris[<span class="hljs-string">&#x27;132&#x27;</span>])
 plt.show()
 <span class="hljs-comment">## 下图是库seaborn绘制的</span></code></pre>
-<p><img src="Python/matplotlib6.png" srcset="/img/loading.gif" alt="1567173639044"></p>
+<p><img src="/Python/matplotlib6.png" srcset="/img/loading.gif" alt="1567173639044"></p>
 <pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
 <span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 <span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
@@ -1441,7 +1441,7 @@ sns.<span class="hljs-built_in">set</span>(style=<span class="hljs-string">&#x27
 sns.FacetGrid(iris, hue=<span class="hljs-string">&#x27;11&#x27;</span>, size=<span class="hljs-number">5</span>).<span class="hljs-built_in">map</span>(plt.scatter, <span class="hljs-string">&#x27;132&#x27;</span>, <span class="hljs-string">&#x27;2840&#x27;</span>).add_legend()
 plt.show()</code></pre>
 
-<p><img src="Python/matplotlib7.png" srcset="/img/loading.gif" alt="1567173541444"></p>
+<p><img src="/Python/matplotlib7.png" srcset="/img/loading.gif" alt="1567173541444"></p>
 
             </article>
             <hr>

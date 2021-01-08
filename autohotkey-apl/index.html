@@ -294,10 +294,10 @@ msgbox 时间到，ᕦ(ò_ó)ᕤ
 <h3 id="使用Window-Spy来获取软件内部坐标"><a href="#使用Window-Spy来获取软件内部坐标" class="headerlink" title="使用Window Spy来获取软件内部坐标"></a>使用Window Spy来获取软件内部坐标</h3><p><strong>Window Spy</strong>： 一个软件，用于查看有关鼠标悬停在其上的窗口的信息。</p>
 <p>找到<code>Window Spy</code>的两种方式：</p>
 <p>第一种，点击开始按钮，找到AutoHotkey的位置，点击spy即可。</p>
-<p><img src="autohotkey-apl/spy1.png" srcset="/img/loading.gif"></p>
+<p><img src="/autohotkey-apl/spy1.png" srcset="/img/loading.gif"></p>
 <p>第二种，运行一个脚本，脚本里最好有能运行的语句。运行之后，右键点击状态栏的图标也能找到<code>Window Spy</code>。</p>
 <p>当运行这个软件之后，他就会默认在窗口的最前方，当你的鼠标点击其他软件时，Spy会自动检测识别出，并显示鼠标当前位置、该点的颜色等各种信息。</p>
-<p><img src="autohotkey-apl/getpos.png" srcset="/img/loading.gif"></p>
+<p><img src="/autohotkey-apl/getpos.png" srcset="/img/loading.gif"></p>
 <p>上图中主要用到的信息一个是当前窗口的标题：<code>明日方舟 - MuMu模拟器 </code>。</p>
 <p>另一个就是鼠标所在的位置信息，因为截图的缘故，没看到我的鼠标……</p>
 <p><code>Window</code>和<code>Client</code>所指的信息是当前鼠标相对于当前这个软件最左上角的坐标位置。而<code>Screen</code>是指的当前鼠标位于整个电脑屏幕左上角的坐标位置。</p>
@@ -311,7 +311,7 @@ msgbox 时间到，ᕦ(ò_ó)ᕤ
 <li>在人员配置界面点击开始行动。开始刷关卡。</li>
 <li>等待关卡刷完之后，点击屏幕，返回到关卡入口处。</li>
 </ol>
-<p><img src="autohotkey-apl/shua1.png" srcset="/img/loading.gif"></p>
+<p><img src="/autohotkey-apl/shua1.png" srcset="/img/loading.gif"></p>
 <p>上图就是默认选中关卡的状态，记得要有体力，以及确保勾选了<code>代理指挥</code>。</p>
 <p>然后在这个界面执行脚本，就可以自动刷材料了。</p>
 <p>以下是代码：</p>
@@ -353,7 +353,7 @@ IfWinActive 明日方舟 - MuMu模拟器
 <h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>将上述脚本写入到你新建的脚本中。然后记得修改上面的坐标为自己电脑上的坐标，可能不一样，拿Spy检测以下位置，修改数值就可以了。</p>
 <p>而第三步骤刷完关卡时，只要点击材料上方的任何位置都能退出去，所以这个坐标可以随意设置，只要注意规则就行了。上面两个坐标要严格按照spy的值来设置。</p>
 <p>至于<code>Sleep 180000</code>表示等待3分钟，即关卡的代理时间，一般没有超过3分钟的关卡吧~(或许)，自己动态调整，这里的单位时毫秒，1秒 = 1000ms。</p>
-<p><img src="autohotkey-apl/shua2.png" srcset="/img/loading.gif"></p>
+<p><img src="/autohotkey-apl/shua2.png" srcset="/img/loading.gif"></p>
 <p>选好你要刷的关卡，然后运行脚本，要以<strong>管理员的身份运行！！！</strong>这一点很重要，具体原因是：</p>
 <blockquote>
 <p>当活动窗口以管理权限运行而当前脚本不是时, <strong>Send 在 Windows Vista 或更高版本中可能没有效果</strong>. 这是由于用户接口和特权分离的安全机制. </p>

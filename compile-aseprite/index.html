@@ -251,14 +251,14 @@ ninja aseprite</code></pre>
 <h2 id="分享Windows版本的Aseprite"><a href="#分享Windows版本的Aseprite" class="headerlink" title="分享Windows版本的Aseprite"></a>分享Windows版本的Aseprite</h2><p>我本想着编译完成之后，保留一份一直使用下去，于是换了另一台电脑尝试使用这个软件，但是报错说缺少两个dll文件，于是我就上百度下载了这两个文件，结果依旧是报错<strong>0xc0150002</strong>，无法打开。</p>
 <p>然后我就开始百度查找问题的解决方案了，最终找到了一些教程：</p>
 <h3 id="windows事件查看器"><a href="#windows事件查看器" class="headerlink" title="windows事件查看器"></a>windows事件查看器</h3><p>使用windows的搜索搜事件查看器，进入之后，点击“Windows日志”  –&gt;  “应用程序”然后就可以看到关于Windows应用程序的事件和信息了，找错误的信息就可以看到错误的具体原因是什么了。</p>
-<p><img src="compile-aseprite/win-event-viewer.png" srcset="/img/loading.gif"></p>
+<p><img src="/compile-aseprite/win-event-viewer.png" srcset="/img/loading.gif"></p>
 <blockquote>
 <p> 参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/znlangel/article/details/85341730">无法正常启动，错误0xc0150002</a></p>
 </blockquote>
 <p>虽然找到了错误的原因，但是百度不到问题的解决方案，于是我怀疑是网上下载的dll和我原先电脑的dll不一样，于是使用了<a target="_blank" rel="noopener" href="https://www.voidtools.com/zh-cn/">Everything</a>来查找缺少的dll存在于我电脑的哪里，结果缺少的两个dll在我的电脑里都有6、7个，我该怎么知道我编译的这个程序到底是使用的哪里的dll呢？</p>
 <h3 id="Windows-Process-Explorer进程浏览器"><a href="#Windows-Process-Explorer进程浏览器" class="headerlink" title="Windows Process Explorer进程浏览器"></a>Windows Process Explorer进程浏览器</h3><p>一番搜索之后找到了一个工具，可以查看一个正在运行的程序使用的dll。这个程序叫做Process Explorer，这是它的下载网站：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer">https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer</a></p>
 <p>在它的主界面，点击 View –&gt;  Lower Pane View ，然后勾选DLLs，然后还要点击勾选 View –&gt;  Show Lower Pane 。这样就可以看到一个运行的程序的使用的dll了。</p>
-<p><img src="compile-aseprite/Process-Explorer.png" srcset="/img/loading.gif"></p>
+<p><img src="/compile-aseprite/Process-Explorer.png" srcset="/img/loading.gif"></p>
 <p>然后去dll对应的路径中把这个软件需要用到的dll都拷贝的与那个软件exe同级的目录下。亲测成功使用。</p>
 <hr>
 <p>分享一下我编译出的软件，以及我找到的简体中文插件以及主题插件。</p>

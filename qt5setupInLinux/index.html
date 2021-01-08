@@ -245,7 +245,7 @@
 </blockquote>
 <h2 id="Qt-Linux-Hello-World"><a href="#Qt-Linux-Hello-World" class="headerlink" title="Qt Linux Hello World"></a>Qt Linux Hello World</h2><p>打开Qt create，创建一个默认的项目，即<code>Qt Widgets Application</code>，选择好项目的存储路径以及工程名，然后下一步，在<code>Kits</code> 那个页面，如果安装的时候勾选了<code>Desktop gcc 64-bit</code>，就会有一个默认的<code>桌面(Desktop)</code>，如果没有貌似就需要自行配置了。之后一直点next，默认会创建一个含有空窗口的项目。</p>
 <p>点击左下角的运行按钮，观察结果。</p>
-<p><img src="qt5setupInLinux/err.png" srcset="/img/loading.gif"></p>
+<p><img src="/qt5setupInLinux/err.png" srcset="/img/loading.gif"></p>
 <p>我在这里碰到了两个问题。第一个：<code>cannot find -IGL</code>，说明没有安装 <code>libGL库</code> 。在终端执行</p>
 <p><code>sudo apt-get install libgl1-mesa-dev</code> </p>
 <p>来进行安装。</p>

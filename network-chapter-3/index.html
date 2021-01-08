@@ -232,17 +232,17 @@
 <p>而<strong>数据链路</strong>(data link)是在链路的基础上增加了一些必要的<strong>硬件</strong>(如网络适配器)和<strong>软件</strong>(通信协议的实现)。</p>
 <p>数据链路层的协议数据单位是<strong>帧</strong>。</p>
 <p><strong>数据链路层把网络层交下来的数据构成帧发送到链路上，以及把接收的帧中的数据取出并上交给网络层。</strong></p>
-<p><img src="network-chapter-3/zhen.png" srcset="/img/loading.gif"></p>
+<p><img src="/network-chapter-3/zhen.png" srcset="/img/loading.gif"></p>
 <h2 id="数据链路层的三个基本问题"><a href="#数据链路层的三个基本问题" class="headerlink" title="数据链路层的三个基本问题"></a>数据链路层的三个基本问题</h2><h3 id="封装成帧"><a href="#封装成帧" class="headerlink" title="封装成帧"></a>封装成帧</h3><p>在一段数据的前后分别添加首部和尾部，然后就构成了一个帧。确定帧的界限。</p>
 <p>首部和尾部的一个重要作用就是进行<strong>帧定界</strong>。 </p>
-<p><img src="network-chapter-3/zhen1.png" srcset="/img/loading.gif"></p>
+<p><img src="/network-chapter-3/zhen1.png" srcset="/img/loading.gif"></p>
 <h3 id="透明传输"><a href="#透明传输" class="headerlink" title="透明传输"></a>透明传输</h3><p>当帧里含有SOH或者EOT这种控制字符的二进制码时，数据链路层会错误的找到帧的边界，而导致数据读取丢失等问题。</p>
 <p>而所谓透明传输是指无论什么样组合的比特数据都可以<strong>按照原样没有差错</strong>的通过数据链路层。</p>
 <p>解决方法——字节填充(byte stuffing)或字符填充(character stuffing)：</p>
 <p>发送端的数据链路层在数据中出现控制字符“SOH”或“EOT”的前面插入一个<strong>转义字符</strong>“ESC”(其十六进制编码是 1B)。</p>
 <p>接收端的数据链路层在将数据送往网络层之前<strong>删除</strong>插入的转义字符。</p>
 <p>如果转义字符也出现数据当中，那么应在转义字符前面插入一个转义字符。当接收端收到连续的两个转义字符时，就删除其中前面的一个。</p>
-<p><img src="network-chapter-3/esc.png" srcset="/img/loading.gif"></p>
+<p><img src="/network-chapter-3/esc.png" srcset="/img/loading.gif"></p>
 <h3 id="差错检测"><a href="#差错检测" class="headerlink" title="差错检测"></a>差错检测</h3><p>在传输过程中可能会产生<strong>比特差错</strong>：1 可能会变成 0 而 0 也可能变成 1。</p>
 <p>在一段时间内，传输错误的比特占所传输比特总数的比率称为<strong>误码率</strong> BER (Bit Error Rate)。</p>
 <p>在数据链路层传送的帧中，广泛使用了<strong>循环冗余检验 CRC</strong> 的检错技术。</p>
@@ -266,12 +266,12 @@
 <li>便于系统的扩展和逐渐地演变，各设备的位置可灵活调整和改变。</li>
 <li>提高了系统的可靠性、可用性和残存性。</li>
 </ul>
-<h3 id="共享信道技术"><a href="#共享信道技术" class="headerlink" title="共享信道技术"></a>共享信道技术</h3><p><img src="network-chapter-3/sharechannel.png" srcset="/img/loading.gif"></p>
+<h3 id="共享信道技术"><a href="#共享信道技术" class="headerlink" title="共享信道技术"></a>共享信道技术</h3><p><img src="/network-chapter-3/sharechannel.png" srcset="/img/loading.gif"></p>
 <p>静态划分信道<strong>代价高</strong>，不适用于局域网。</p>
 <p>动态媒体接入控制也叫做<strong>多点接入</strong>，特点是：信道并非在用户通信时固定分配给用户。</p>
 <p><strong>随机接入</strong>：所有的用户可随机发送信息，但如果多个用户同时发送消息就会产生冲突导致失败。而<strong>以太网</strong>就是属于随机接入。</p>
 <h3 id="适配器-–-计算机连接到局域网"><a href="#适配器-–-计算机连接到局域网" class="headerlink" title="适配器 – 计算机连接到局域网"></a>适配器 – 计算机连接到局域网</h3><p>计算机通过适配器和局域网进行通信 </p>
-<p><img src="network-chapter-3/communication.png" srcset="/img/loading.gif"></p>
+<p><img src="/network-chapter-3/communication.png" srcset="/img/loading.gif"></p>
 <p>网络接口板又称为<strong>通信适配器</strong>(adapter)或网络接口卡 <strong>NIC</strong> (Network Interface Card)，或“<strong>网卡</strong>”。 </p>
 <p><strong>适配器的重要功能</strong>：</p>
 <ul>
@@ -297,7 +297,7 @@
 <li><strong>碰撞检测</strong>：<strong>边发送边监听</strong>。适配器边发送数据边检测信道上的信号电压的变化情况，以便判断自己在发送数据时其他站是否也再发送数据。如果有两个站在同时发送数据，那么信号就发生了<strong>失真</strong>，无法从中恢复出有用的信息。</li>
 </ul>
 <h3 id="以太网发送的不确定性"><a href="#以太网发送的不确定性" class="headerlink" title="以太网发送的不确定性"></a>以太网发送的不确定性</h3><p>即，一个以太网中，<strong>每一个站在自己发送数据之后的一段时间内，存在着遭遇碰撞的可能性</strong>。这一段时间是不确定的。</p>
-<p><img src="network-chapter-3/chuanboshiyan.png" srcset="/img/loading.gif"></p>
+<p><img src="/network-chapter-3/chuanboshiyan.png" srcset="/img/loading.gif"></p>
 <p>课本P87。</p>
 <p>在发送数据帧后最多经过以太网端到端的往返时间的这一段<strong>争用期</strong>。只要经过这一段争用期而没有检测到碰撞，才能肯定这次发送不会碰撞。</p>
 <p>以太网使用截断二进制指数退避算法来确定碰撞后<strong>重传</strong>的时机。</p>
@@ -310,14 +310,14 @@
 <p>因为计算机用0、1表示信息，而实际的通信媒介处理的却是电压的高低、光的闪灭以及电波的强弱等信号。</p>
 <p>物理层将这些信号与二进制的0、1进行转换。</p>
 <p>数据链路层将0、1序列集合为”帧“，然后再进行传输。</p>
-<h2 id="《图解TCP-IP》中的数据链路层"><a href="#《图解TCP-IP》中的数据链路层" class="headerlink" title="《图解TCP/IP》中的数据链路层"></a>《图解TCP/IP》中的数据链路层</h2><p><img src="network-chapter-3/tcpipOSI.png" srcset="/img/loading.gif"></p>
+<h2 id="《图解TCP-IP》中的数据链路层"><a href="#《图解TCP-IP》中的数据链路层" class="headerlink" title="《图解TCP/IP》中的数据链路层"></a>《图解TCP/IP》中的数据链路层</h2><p><img src="/network-chapter-3/tcpipOSI.png" srcset="/img/loading.gif"></p>
 <p>网卡层(网络接口层)及对应的数据链路层，是利用以太网中的数据链路层进行通信的，属于接口层。可以当作让NIC(网卡)起作用的“驱动程序”。</p>
 <blockquote>
 <p> TCP/IP对于OSI参考模型中的数据链路层及一下部分(物理层)未做定义，因为TCP/IP以这两层的功能是透明的为前提。</p>
 </blockquote>
 <h2 id="数据链路层的相关技术"><a href="#数据链路层的相关技术" class="headerlink" title="数据链路层的相关技术"></a>数据链路层的相关技术</h2><h3 id="MAC地址"><a href="#MAC地址" class="headerlink" title="MAC地址"></a>MAC地址</h3><p>MAC地址用于识别数据链路中互连的节点。</p>
 <p>MAC地址长为48比特，这是IEEE 802标准规定的全球地址，MAC地址会被固化到适配器(比如网卡)的ROM中，要求任何一个适配器的MAC地址都是唯一的，在全世界都不会有重复。</p>
-<p><img src="network-chapter-3/macaddress.png" srcset="/img/loading.gif"></p>
+<p><img src="/network-chapter-3/macaddress.png" srcset="/img/loading.gif"></p>
 <ul>
 <li>除了以太网，FDDI、ATM、无线LAN、蓝牙等都使用的相同规格的MAC地址。</li>
 </ul>
@@ -327,7 +327,7 @@
 <ul>
 <li>如果多个站同时发送帧，则会产生<strong>冲突现象</strong>，也因此会导致网络拥堵与性能下降，</li>
 </ul>
-<p><img src="network-chapter-3/csma.png" srcset="/img/loading.gif"></p>
+<p><img src="/network-chapter-3/csma.png" srcset="/img/loading.gif"></p>
 <p>CSMA的改良版本——<strong>CSMA/CD方式</strong>(载波监听多路访问/碰撞检测)。</p>
 <p>CSMA/CD方式会要求每个站提前检查冲突，一旦发生冲突，则尽早释放信道。</p>
 <p><strong>CSMA/CD工作原理</strong>：</p>
@@ -336,15 +336,15 @@
 <li>检查是否会发生冲突。一旦发生冲突时，放弃发送数据，同时立即释放载波通道。</li>
 <li>放弃发送以后，随机延时一段时间，再重新争用介质，重新发送帧。</li>
 </ul>
-<p><img src="network-chapter-3/CSMACD.png" srcset="/img/loading.gif"></p>
+<p><img src="/network-chapter-3/CSMACD.png" srcset="/img/loading.gif"></p>
 <h4 id="令牌传递方式"><a href="#令牌传递方式" class="headerlink" title="令牌传递方式"></a>令牌传递方式</h4><p>是沿着令牌环发送一种“令牌”的特殊报文，只有获得令牌的站才能发送数据。</p>
 <ul>
 <li>不会有冲突</li>
 <li>每个站都有通过平等循环获得令牌的机会。</li>
 </ul>
-<p><img src="network-chapter-3/token.png" srcset="/img/loading.gif"></p>
+<p><img src="/network-chapter-3/token.png" srcset="/img/loading.gif"></p>
 <h3 id="非介质共享网络"><a href="#非介质共享网络" class="headerlink" title="非介质共享网络"></a>非介质共享网络</h3><p>发送端与接收端不共享通信介质，而是直连交换机，由<strong>交换机负责转发数据帧</strong>。(采用全双工通信方式)</p>
-<p><img src="network-chapter-3/exchange.png" srcset="/img/loading.gif"></p>
+<p><img src="/network-chapter-3/exchange.png" srcset="/img/loading.gif"></p>
 
             </article>
             <hr>

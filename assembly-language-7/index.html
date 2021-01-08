@@ -251,9 +251,9 @@
 <p>中断向量表，80X86系统建立的保存中断向量的地址区域，位于内存最低地址区中0号单元开始的1KB单元之中。</p>
 <p>一个中断向量占用2个字即四个字节，高字单元根据放段地址，低字单元放偏移地址。</p>
 <p>由于从0号单元开始，根据中断类型号码，乘以四就可以得到内存向量。</p>
-<p><img src="assembly-language-14%5Ci-table.png" srcset="/img/loading.gif" alt="中断向量表"></p>
+<p><img src="/assembly-language-7/assembly-language-14%5Ci-table.png" srcset="/img/loading.gif" alt="中断向量表"></p>
 <h3 id="中断优先级"><a href="#中断优先级" class="headerlink" title="中断优先级"></a>中断优先级</h3><p>内部中断优先级最高，其次是非屏蔽中断，优先级最低的是单步中断。</p>
-<p><img src="assembly-language-14%5Cyouxian.jpg" srcset="/img/loading.gif" alt="中断优先级"></p>
+<p><img src="/assembly-language-7/assembly-language-14%5Cyouxian.jpg" srcset="/img/loading.gif" alt="中断优先级"></p>
 <h3 id="CPU中断过程"><a href="#CPU中断过程" class="headerlink" title="CPU中断过程"></a>CPU中断过程</h3><ol>
 <li><p><strong>中断响应条件</strong>。<br> （1）  当前的指令周期结束；<br> （2）  采样到有效的中断请求信号；<br> （3）  如果是可屏蔽中断请求INTR，检查中断允许标志IF是否为1，即中断开放；<br> （4） CPU正在执行的程序不是中断服务程序，或者是中断优先级较低的中断服务程序。<br> 此外，特殊情况CPU不会响应中断。<br> （1） 当执行到STI指令时，CPU不会马上响应中断。STI指令是开中断指令，要求在开放中断后再执行后续的一条指令后才能响应中断；<br> （2） IRET指令是中断子程序返回指令，它也要求再执行一条后续指令后才能响应中断。这样做的目的是保护系统能够正常运行；<br> （3）当执行MOV SS,AX指令，即向SS段寄存器传送数据时，即使发生了中断，CPU也不会响应；直到本条执行完后，接着再执行一条指令才响应中断。<br> 所以遇到非屏蔽中断时，这些特殊情况怎么做？？？</p>
 </li>
@@ -359,7 +359,7 @@
   code ends
       end start</code></pre>
 <p>向量表的位置：7ch *4h = 1f0h。故在0000:01f0处查看int 7ch的中断向量表。</p>
-<p>  <img src="assembly-language-14%5Cint7ch.jpg" srcset="/img/loading.gif" alt="INT 7CH中断"></p>
+<p>  <img src="/assembly-language-7/assembly-language-14%5Cint7ch.jpg" srcset="/img/loading.gif" alt="INT 7CH中断"></p>
 
             </article>
             <hr>

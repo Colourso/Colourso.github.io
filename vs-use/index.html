@@ -223,10 +223,10 @@
 <a id="more"></a>
 
 <h2 id="VS工程项目相关文件"><a href="#VS工程项目相关文件" class="headerlink" title="VS工程项目相关文件"></a>VS工程项目相关文件</h2><p>VS是使用<strong>解决方案</strong>来管理项目的，同一个解决方案之下就可以添加多个项目。</p>
-<p><img src="vs-use%5Csolution.png" srcset="/img/loading.gif"></p>
+<p><img src="/vs-use/vs-use%5Csolution.png" srcset="/img/loading.gif"></p>
 <p>而在多个项目的时候，一般编译调试都是执行的第一个创建的项目，此时可以选择 <code>右键“解决方案”--&gt;设置启动项目--&gt;通用属性里的启动项目--&gt;选定当前选定内容。</code> </p>
 <p>总的来说解决方案会对应一个文件夹，文件夹里会有不同的项目文件夹。</p>
-<p><img src="vs-use/wenjianjia.png" srcset="/img/loading.gif"></p>
+<p><img src="/vs-use/wenjianjia.png" srcset="/img/loading.gif"></p>
 <p><strong>sdf文件</strong>是一个<strong>数据库文件</strong>，记录了解决方案的各种信息。</p>
 <p><strong>opensdf文件</strong>是项目被打开时才会出现的，项目关闭后此文件也会消失，估计是sdf文件的临时文件。</p>
 <p><strong>sln文件</strong>是整个<strong>解决方案的配置文件</strong>，（Microsoft Visual Studio Solution），通过VS2013打开sln文件就可以将整个解决方案导入到VS中打开。</p>
@@ -238,7 +238,7 @@
 <p>suo 解决方案用户选项，记录所有将与解决方案建立关联的选项，存储了用户对界面的自定义配置，包括布局、断点、打开的文件等。</p>
 </blockquote>
 <p>在Project1中写一个HelloWorld语句之后，Project1项目文件夹如下所示</p>
-<p><img src="vs-use/project1.png" srcset="/img/loading.gif"></p>
+<p><img src="/vs-use/project1.png" srcset="/img/loading.gif"></p>
 <p><strong>vcxproj文件</strong>是项目文件，<strong>保存了整个项目的配置信息</strong>。经过测试可以通过打开这个文件来直接打开这个项目以及解决方案。</p>
 <blockquote>
 <p>vc5,6的工程文件是.dsp</p>
@@ -249,13 +249,13 @@
 <p><strong>vcxproj.filters文件</strong>是文件存放工程的<strong>虚拟目录信息</strong>，也就是在解决方案浏览器中的目录结构信息。</p>
 <p><strong>cpp文件</strong>就不用多说了🙃</p>
 <p>Debug文件夹是VS在 <code>Debug</code> 模式下编译链接执行后生成的文件夹， 与之相对应的是 <code>Release</code>  模式，在此模式下就会生成Release文件夹。</p>
-<p><img src="vs-use/debug.png" srcset="/img/loading.gif"></p>
+<p><img src="/vs-use/debug.png" srcset="/img/loading.gif"></p>
 <p>打开Debug文件夹，其内有上述这些文件。</p>
 <p><strong>log文件</strong>是主要记录<strong>编译过程中的输出信息、日志</strong>。可以打开看看，内容和执行时的内容差不多。</p>
 <p><strong>pdb文件</strong>是<strong>调试的符号文件</strong>，程序数据库 (PDB) 文件保存着调试和项目状态信息，使用这些信息可以对程序的调试配置。</p>
 <p><strong>obj文件</strong>是C、CPP编译后的二进制文件。</p>
 <p><strong>VS执行生成的可执行文件放在解决方案目录里的Debug目录里。</strong></p>
-<p><img src="vs-use/Debug1.png" srcset="/img/loading.gif"></p>
+<p><img src="/vs-use/Debug1.png" srcset="/img/loading.gif"></p>
 <p><strong>exe文件</strong>是编译链接后产生的<strong>可执行文件</strong>。</p>
 <p><strong>ilk文件</strong> 增量编译（incremental linking）</p>
 <blockquote>
@@ -304,7 +304,7 @@
 <p>采用上面的方法就可以发布Release模式的exe可执行文件，可以拷贝出来在其他电脑上运行。</p>
 <p>参考链接：<a target="_blank" rel="noopener" href="https://codeabc.cn/yangw/">慢羊羊村长</a>的博客：<a target="_blank" rel="noopener" href="https://codeabc.cn/yangw/post/make-a-program-written-by-vc-run-on-another-computer">使 VC2013 编写的程序运行在其它电脑上</a></p>
 <h2 id="VS字符集的问题"><a href="#VS字符集的问题" class="headerlink" title="VS字符集的问题"></a>VS字符集的问题</h2><p>在VS里面右击项目名称，最后一项是”属性“，点进去就可以看到字符集设置的问题。</p>
-<p><img src="vs-use/charset.png" srcset="/img/loading.gif" alt="项目字符集"></p>
+<p><img src="/vs-use/charset.png" srcset="/img/loading.gif" alt="项目字符集"></p>
 <p>主要有两种选择，一种是<code>Unicode字符集</code>，另一种是<code>多字节字符集</code>。</p>
 <p>Windows是使用两种字符集：ANSI 和 Unicode编码。</p>
 <p>ANSI是通常使用的单字节处理方式，所有字符都通过一个字节进行表示，这样对于处理中文这样的双字节字符非常不友好。</p>
@@ -334,7 +334,7 @@ TCHAR s[] = <span class="hljs-string">L&quot;你也是！&quot;</span>;</code></
 <p>通过强制转换是无法完成的，需要<strong>用_T()和L()来完成转换</strong></p>
 <p>参看博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_26145629/article/details/80782234">C++ _T()和L()宏</a></p>
 </blockquote>
-<h3 id="各种字符类型😱"><a href="#各种字符类型😱" class="headerlink" title="各种字符类型😱"></a>各种字符类型😱</h3><p><img src="vs-use/str.png" srcset="/img/loading.gif"></p>
+<h3 id="各种字符类型😱"><a href="#各种字符类型😱" class="headerlink" title="各种字符类型😱"></a>各种字符类型😱</h3><p><img src="/vs-use/str.png" srcset="/img/loading.gif"></p>
 <p>🤧😷😱</p>
 <p>上图来自博客：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jmliao/p/6031818.html">C++字符类型总结区别wchar_t,char,WCHAR</a>  emmm,就是有非常丰富的类型。具体内容可以参看超链接里的那篇博客。</p>
 <blockquote>

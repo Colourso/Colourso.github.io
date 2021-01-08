@@ -260,7 +260,7 @@ r := <span class="hljs-number">2</span>a;
 <p>之后就是符号<code>:</code>了，如果向后读取不是<code>=</code>，那么报错，<code>：</code>是无法单独出现的。</p>
 <p>对于大于号<code>&gt;</code>、小于号<code>&lt;</code>都要去考虑后面有无等于号<code>=</code>，如果有那就是两个符号共同组合，如果没有就是单独的符号。剩下的就是对PL0语言的单个运算符以及单个界符的判断了。然后如果遇到未定义的符号也要报出相应的错误。</p>
 <p>参考<strong>PL/0词法规则状态转换图</strong></p>
-<p><img src="compile-lab-1/principle.jpg" srcset="/img/loading.gif"></p>
+<p><img src="/compile-lab-1/principle.jpg" srcset="/img/loading.gif"></p>
 <h2 id="程序结构"><a href="#程序结构" class="headerlink" title="程序结构"></a>程序结构</h2><p><code>void init()</code>函数 ：负责将关键字、操作符和界符初始化赋值给全局变量。</p>
 <p><code>void getsym(string str,int index,int lines)</code>函数：负责对字符串str从它的下标index开始进行词法分析，lines表示当前分析的第几行。</p>
 <p><code>void errors(int lines,int err_num,string errstr)</code>函数：显示错误的函数，显示错误出现在第几行lines上，err_num表示错误类型，errstr表示错误造成的原因。</p>
@@ -473,7 +473,7 @@ r := <span class="hljs-number">2</span>a;
 		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;&#123; :&quot;</span> &lt;&lt; errstr &lt;&lt; <span class="hljs-string">&quot; 符号未定义 &#125;&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
 	&#125;
 &#125;</code></pre>
-<h2 id="结果展示"><a href="#结果展示" class="headerlink" title="结果展示"></a>结果展示</h2><p><img src="compile-lab-1/result.png" srcset="/img/loading.gif"></p>
+<h2 id="结果展示"><a href="#结果展示" class="headerlink" title="结果展示"></a>结果展示</h2><p><img src="/compile-lab-1/result.png" srcset="/img/loading.gif"></p>
 <h2 id="设计技巧"><a href="#设计技巧" class="headerlink" title="设计技巧"></a>设计技巧</h2><p>标识符、运算符和界符存放进了C++ STL的list链表中，这样查询时比较方便。然后读取文件是按行进行读取，<code>getsym()</code>函数一次处理一行的数据，当此函数识别完一个单词或者数字后，如果这一行并没有结束，他会递归调用自己直到处理完这一行为止。此外报错函数<code>errors()</code>里使用了<code>switch case</code>语句，可以给不同的错误类型赋予不同的编号，使用时传入相关参数直接调用。</p>
 <h2 id="心得体会"><a href="#心得体会" class="headerlink" title="心得体会"></a>心得体会</h2><p>通过本次实验我了解到了一个词法分析器的实现过程，根据字符的识别来分析得到token，同时也明白了一个词法分析器实现的复杂，需要考虑各种各样的情况，同时也应该考虑设计之后针对语法分析器所留的接口之类的问题，总之通过这次实验收获了很多，更加对编译原理有了浓厚的兴趣。  </p>
 

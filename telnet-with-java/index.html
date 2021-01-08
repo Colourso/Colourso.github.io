@@ -231,9 +231,9 @@
 <p>（2）操作协商定义；</p>
 <p>（3）协商有限自动机。</p>
 <h3 id="网络虚拟终端-NVT"><a href="#网络虚拟终端-NVT" class="headerlink" title="网络虚拟终端 NVT"></a>网络虚拟终端 NVT</h3><p>网络虚拟终端（NVT）是一种虚拟的终端设备，它被客户和服务器所采用，用来<strong>建立数据表示和解释的一致性</strong>。Telne使用网络虚拟终端字符集来处理异构系统的远程登录问题。网络虚拟终端字符集是一个通用接口， 在远程登陆连接上，客户软件将终端用户输入转化为标准的NVT数据和命令序列，经TCP连接传到远地机上的服务器，服务器再将NVT序列转换为原地系统的内部格式。这样终端键盘输入的异质性就被NVT所屏蔽，NVT这里实现了统一，只需要与NVT打交道即可。</p>
-<p><img src="telnet-with-java/nvt.png" srcset="/img/loading.gif"></p>
+<p><img src="/telnet-with-java/nvt.png" srcset="/img/loading.gif"></p>
 <h3 id="Telnet的操作协商"><a href="#Telnet的操作协商" class="headerlink" title="Telnet的操作协商"></a>Telnet的操作协商</h3><p>TELNET协议允许通信机器协商会话过程中所使用的各种选项，通过一组标准过程来建立这些选项。协商选项的使用考虑了主计算机可提供超出虚拟终端服务范围的服务的可能性。例如窗口的大小、终端类型、字符回显等信息都要进行协商。</p>
-<p><img src="telnet-with-java/neg.png" srcset="/img/loading.gif"></p>
+<p><img src="/telnet-with-java/neg.png" srcset="/img/loading.gif"></p>
 <p>协商主要是通过Telnet指令来进行的，Telnet指令格式是：</p>
 <table>
 <thead>
@@ -904,7 +904,7 @@
         &#125;
     &#125;
 &#125;</code></pre>
-<h2 id="结果展示"><a href="#结果展示" class="headerlink" title="结果展示"></a>结果展示</h2><p><img src="telnet-with-java/link.png" srcset="/img/loading.gif"></p>
+<h2 id="结果展示"><a href="#结果展示" class="headerlink" title="结果展示"></a>结果展示</h2><p><img src="/telnet-with-java/link.png" srcset="/img/loading.gif"></p>
 <h2 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h2><p>在资料中看到了NVT的说明，但是至今没搞懂NVT在哪里实现，我在Windows端下发送的命令加上<code>\n</code>，就可以被执行，加上<code>\r\n</code>就不会被执行，但是NVT不是统一使用的<code>\r\n</code>作为换行符吗？</p>
 <p>关于协商自动机，因为大多数Telnet协议的参数说明都很模糊，大部分网上查不到，并且RFC文档我看不太明白，所以那个协商函数是根据我在本地测试的情况编写的，好多问题根本没有考虑到。所以向这些基本操作可以使用，但是像是<code>vi</code>这种命令去编辑文本就不能用了。</p>
 <p>答辩的时候，老师询问了如果服务器的telnet进程突然出现了问题，一直给你发送消息你该怎么办，等好多特殊情况，我确实不知道该如何解决.</p>

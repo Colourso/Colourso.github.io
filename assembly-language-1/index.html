@@ -226,7 +226,7 @@
 <p>微处理器是微型计算机的核心，由<strong>运算器</strong>和<strong>控制器</strong>两部分组成。</p>
 <p>底下是Intel 8086/8088的微处器结构。</p>
 <p>微处理器结构上进行划分的话分为<strong>执行部件(EU)**和</strong>总线接口部件(BIU)**。</p>
-<p><img src="assembly-language-1%5C8086-8088.png" srcset="/img/loading.gif" alt="Intel 8086/8088结构图"></p>
+<p><img src="/assembly-language-1/assembly-language-1%5C8086-8088.png" srcset="/img/loading.gif" alt="Intel 8086/8088结构图"></p>
 <h2 id="8086寄存器组"><a href="#8086寄存器组" class="headerlink" title="8086寄存器组"></a>8086寄存器组</h2><h3 id="字长"><a href="#字长" class="headerlink" title="字长"></a>字长</h3><p>微型计算机的字长与微处理器<strong>寄存器位数</strong>有关。</p>
 <p>Intel 80X86系列微处理器中，8086/8088、80286这些微机的字长是16位的，所以其寄存器都是16位的。</p>
 <p>现如今(2019.06.04)我们使用的电脑基本都是64位的了。</p>
@@ -247,9 +247,9 @@
 <p>此外每一个数据寄存器又可分为两个8位寄存器，AH、AL、BH、BL……</p>
 <p>H(High)表示高8位(8-15)，L(Low)表示低8位(0-7)。</p>
 <p>例：AX寄存器存放一个字1234H。符号表示为 (AX)=1234H.高字节放在AH，低字节放在AL。</p>
-<p><img src="assembly-language-1%5Cax.png" srcset="/img/loading.gif" alt="(AX)=1234H"></p>
+<p><img src="/assembly-language-1/assembly-language-1%5Cax.png" srcset="/img/loading.gif" alt="(AX)=1234H"></p>
 <p>例：使用DX、AX保存双精度数(32位) 23456789H。表示形式：  (DX)=2345H，(AX)=6789H.</p>
-<p><img src="assembly-language-1%5Cdx.png" srcset="/img/loading.gif"></p>
+<p><img src="/assembly-language-1/assembly-language-1%5Cdx.png" srcset="/img/loading.gif"></p>
 <h3 id="地址寄存器"><a href="#地址寄存器" class="headerlink" title="地址寄存器"></a>地址寄存器</h3><p>包括SI、DI、SP、BP四个16为寄存器。主要用于<strong>存放存储器操作数的偏移地址</strong>。</p>
 <ul>
 <li><p><strong>SI</strong> (Source Index) 源变址寄存器，可用于存放源缓冲区的偏移地址。</p>
@@ -273,7 +273,7 @@
 <li><strong>IP</strong> 指令指针寄存器：用来存放代码段(CS)中的偏移地址，指出当前正在执行指令的下一条指令所在单元的偏移地址。</li>
 <li><strong>FLAGS</strong>标志寄存器：其中的某位代表CPU的一个标志。8086CPU的标志寄存器共有9个标志，分别为6条件码标志和3控制标志。</li>
 </ul>
-<p><img src="assembly-language-1%5Cflags.png" srcset="/img/loading.gif" alt="FLAGS标志寄存器"></p>
+<p><img src="/assembly-language-1/assembly-language-1%5Cflags.png" srcset="/img/loading.gif" alt="FLAGS标志寄存器"></p>
 <p>比较重要的几个：</p>
 <p>CF 进位标志，当指令执行结果的最高位向前有进位时，CF=1，否则CF=0。</p>
 <p>ZF 零标志，执行结果为零时，ZF=1，否则ZF=0。</p>
@@ -281,9 +281,9 @@
 <p>OF 溢出标志，结果溢出时OF=1，否则OF=0。</p>
 <p>IF (Interrupt Flag)中断标志，IF=1，为CPU允许响应可屏蔽中断。</p>
 <p>在debug状态下可以查看到除了陷阱标志TF之外的其他标志，他们会用字母缩写的形式表示自己的状态。</p>
-<p><img src="assembly-language-1%5Cflagss.png" srcset="/img/loading.gif" alt="各个标志缩写形式"></p>
+<p><img src="/assembly-language-1/assembly-language-1%5Cflagss.png" srcset="/img/loading.gif" alt="各个标志缩写形式"></p>
 <p>debug状态下，使用R指令查看。</p>
-<p><img src="assembly-language-1%5Cdebug.png" srcset="/img/loading.gif" alt="Flags的状态"></p>
+<p><img src="/assembly-language-1/assembly-language-1%5Cdebug.png" srcset="/img/loading.gif" alt="Flags的状态"></p>
 <p>例：10011010B+01001011B = 11100101B</p>
 <p>根据计算结果，CPU会把标致位设置为：CF = 0，SF = 1，ZF = 0，OF = 0。即无进位，结果为负，结果不为零，无溢出。</p>
 <h2 id="内存地址与存储单元"><a href="#内存地址与存储单元" class="headerlink" title="内存地址与存储单元"></a>内存地址与存储单元</h2><p>内存储器即<strong>内存</strong>，也称为<strong>主存</strong>。在汇编语言中，<strong>用于存储计算机当前正在运行的程序，正在处理的原始数据、中间数据以及最终结果</strong>，故我们与内存的交互是非常频繁的。</p>
@@ -295,7 +295,7 @@
 <li>控制信息：器件的选择以及读或者写的命令 </li>
 <li>数据信息：要读或者写的数据 </li>
 </ul>
-<p><img src="assembly-language-1%5Ccpu.png" srcset="/img/loading.gif" alt="CPU对存储器的读写"></p>
+<p><img src="/assembly-language-1/assembly-language-1%5Ccpu.png" srcset="/img/loading.gif" alt="CPU对存储器的读写"></p>
 <h3 id="地址总线"><a href="#地址总线" class="headerlink" title="地址总线"></a>地址总线</h3><p>8086CPU的地址总线为20位。</p>
 <p>CPU对内存的访问是通过地址总线进行的，地址总线的二进制组态对应着一个内存单元，而这个二进制组态就可以作为该内存单元的地址。</p>
 <p>比如有两根总线 A0、A1，二进制组态就有00、01、10、11四种，表示地址为0 - 3的存储单元。</p>

@@ -228,7 +228,7 @@
 <h2 id="数据操作数"><a href="#数据操作数" class="headerlink" title="数据操作数"></a>数据操作数</h2><p>数据有可能放在内存中，有可能放在CPU的寄存器中，还有可能直接写在指令中。</p>
 <p>如果不在内存中存放，操作数就没有逻辑地址的概念，CPU不用访问存储器就能够得到操作数。</p>
 <p>如果操作数在内存中，那么操作数的偏移地址以有效地址EA来表示。</p>
-<h2 id="寻址方式分类"><a href="#寻址方式分类" class="headerlink" title="寻址方式分类"></a>寻址方式分类</h2><p><img src="assembly-language-4/address-kinds.png" srcset="/img/loading.gif" alt="引图"></p>
+<h2 id="寻址方式分类"><a href="#寻址方式分类" class="headerlink" title="寻址方式分类"></a>寻址方式分类</h2><p><img src="/assembly-language-4/address-kinds.png" srcset="/img/loading.gif" alt="引图"></p>
 <h2 id="立即寻址方式"><a href="#立即寻址方式" class="headerlink" title="立即寻址方式"></a>立即寻址方式</h2><p>所要找的操作数(即<strong>立即数</strong>)直接写在指令中。</p>
 <p>立即数只能够出现在<strong>源操作数</strong>的地方！</p>
 <p>立即数的类型必须要和<strong>目的操作数的类型</strong>相一致！</p>
@@ -255,11 +255,11 @@ mov ax,4650H;目的操作数寄存器寻址，源操作数立即寻址</code></p
 <h4 id="1-存储器读操作"><a href="#1-存储器读操作" class="headerlink" title="1.存储器读操作"></a>1.存储器读操作</h4><pre><code>MOV AX,DS:[2000H]</code></pre>
 <p>表示从数据段的2000H单元读一个字送入AX。</p>
 <p>有效地址EA = 2000H。物理地址 DS*10H + EA。</p>
-<p><img src="assembly-language-4/read-m.png" srcset="/img/loading.gif" alt="read memory"></p>
+<p><img src="/assembly-language-4/read-m.png" srcset="/img/loading.gif" alt="read memory"></p>
 <h4 id="2-存储器写操作"><a href="#2-存储器写操作" class="headerlink" title="2.存储器写操作"></a>2.存储器写操作</h4><pre><code>MOV DS:[4000H],AX</code></pre>
 <p>将AX中的字写入数据段的4000H单元。</p>
 <p>有效地址EA = 4000H。物理地址 DS*10H + EA。</p>
-<p><img src="assembly-language-4/write-m.png" srcset="/img/loading.gif" alt="write memory"></p>
+<p><img src="/assembly-language-4/write-m.png" srcset="/img/loading.gif" alt="write memory"></p>
 <h4 id="3-符号地址"><a href="#3-符号地址" class="headerlink" title="3.符号地址"></a>3.符号地址</h4><p>除了直接使用数值作为EA，还可以使用<strong>符号地址</strong>的形式，–<strong>即给存储单元起一个名字</strong>。</p>
 <p>在程序中使用符号地址，方便记忆和修改。</p>
 <pre><code>VALUE DW 2345H    ;使用DW定义一个字的符号VALUE=2345H
@@ -275,14 +275,14 @@ MOV AX,ES:[VALUE]    ;指出存储单元在ES</code></pre>
 <p>操作数放在内存中，但是操作数的EA在寄存器BX、BP、SI、DI之中，且操作数的段地址存放于DS或者SS。</p>
 <p>其中若有效地址由BX、SI、DI指出，则默认对应于数据段DS。</p>
 <p>若有效地址由BP指出，则对应于堆栈段SS。</p>
-<p><img src="assembly-language-4/indirect.png" srcset="/img/loading.gif" alt="indirect"></p>
+<p><img src="/assembly-language-4/indirect.png" srcset="/img/loading.gif" alt="indirect"></p>
 <p>EA是从寄存器中得到的，所以叫寄存器间接寻址方式。并且<strong>8086CPU只允许BX、BP、SI、DI这四个寄存器作为间址寄存器</strong>。</p>
 <pre><code>MOV AX,[CX]    ;错误</code></pre>
 <p>寄存器间接寻址方式适用于<strong>简单的表格处理</strong>。</p>
 <h3 id="寄存器相对寻址方式"><a href="#寄存器相对寻址方式" class="headerlink" title="寄存器相对寻址方式"></a>寄存器相对寻址方式</h3><pre><code>MOV AX,[BX+1234H]</code></pre>
 <p>操作数放在内存中，但是操作数的EA在寄存器的内容上再加上一个8位或者16位的位移量。</p>
 <p>同样，还是有效地址由BX、SI、DI指出，则默认对应于数据段DS。若由BP指出，则对应于堆栈段SS。</p>
-<p><img src="assembly-language-4/relative.png" srcset="/img/loading.gif" alt="relative"></p>
+<p><img src="/assembly-language-4/relative.png" srcset="/img/loading.gif" alt="relative"></p>
 <p>寄存器相对寻址方式常用于<strong>查表操作</strong>。</p>
 <h4 id="寄存器相对寻址方式的四种写法"><a href="#寄存器相对寻址方式的四种写法" class="headerlink" title="寄存器相对寻址方式的四种写法"></a>寄存器相对寻址方式的四种写法</h4><pre><code>MOV AX,[BX+1234H]    ;
 MOV AX,[BX+TOP]        ;TOP是符号地址，位移量
@@ -291,7 +291,7 @@ MOV AX,TOP[BX]        ;TOP是符号地址，位移量</code></pre>
 <h3 id="基址变址寻址方式"><a href="#基址变址寻址方式" class="headerlink" title="基址变址寻址方式"></a>基址变址寻址方式</h3><pre><code>MOV AX,[BX+SI]</code></pre>
 <p>操作数存放在内存中，操作数的EA为一个基址寄存器(BX、BP)和变址寄存器(SI、DI)的和。</p>
 <p>故共有四种情况。</p>
-<p><img src="assembly-language-4/base.png" srcset="/img/loading.gif" alt="base"></p>
+<p><img src="/assembly-language-4/base.png" srcset="/img/loading.gif" alt="base"></p>
 <pre><code>MOV AH,ES:[SI+BX]    ;
 MOV AH,ES:[SI][BX]    ;两种写法都是可以的！
 MOV [BP+SI],CX
@@ -299,7 +299,7 @@ MOV DL,SS:[BX+SI]</code></pre>
 <p>基址变址寻址方式可用于<strong>二维表的处理</strong>。</p>
 <h3 id="相对基址变址寻址方式"><a href="#相对基址变址寻址方式" class="headerlink" title="相对基址变址寻址方式"></a>相对基址变址寻址方式</h3><pre><code>MOV AX,[BX+SI+1234H]</code></pre>
 <p>操作数存放在内存中，操作数的EA为一个基址寄存器(BX、BP)与变址寄存器(SI、DI)以及一个位移量的和。</p>
-<p><img src="assembly-language-4/relativebase.png" srcset="/img/loading.gif" alt="relativebase"></p>
+<p><img src="/assembly-language-4/relativebase.png" srcset="/img/loading.gif" alt="relativebase"></p>
 <p>相对基址变址寻址方式可用于<strong>二维表的查找</strong>和<strong>栈处理</strong>。</p>
 <h4 id="相对基址变址寻址方式的几种写法"><a href="#相对基址变址寻址方式的几种写法" class="headerlink" title="相对基址变址寻址方式的几种写法"></a>相对基址变址寻址方式的几种写法</h4><pre><code>MOV AX,[BX+SI+1234H]    ;
 MOV AX,[BX+SI+TOP]        ;TOP是符号地址，位移量

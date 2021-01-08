@@ -219,7 +219,7 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p><img src="lanqiao-5/5.jpg" srcset="/img/loading.gif" alt="引图"></p>
+              <p><img src="/lanqiao-5/5.jpg" srcset="/img/loading.gif" alt="引图"></p>
 <center>set👍</center>
 <a id="more"></a>
 
@@ -233,7 +233,7 @@
 <li><p>构造set集合的主要目的是为了快速检索，去重与排序。</p>
 </li>
 </ul>
-<h2 id="set函数"><a href="#set函数" class="headerlink" title="set函数"></a>set函数</h2><p><img src="lanqiao-5/set_function.png" srcset="/img/loading.gif" alt="set_function"></p>
+<h2 id="set函数"><a href="#set函数" class="headerlink" title="set函数"></a>set函数</h2><p><img src="/lanqiao-5/set_function.png" srcset="/img/loading.gif" alt="set_function"></p>
 <h3 id="find函数"><a href="#find函数" class="headerlink" title="find函数"></a>find函数</h3><p>find(const key_type &amp;key)函数用于查找与key值相同的元素，并返回其位置的迭代器。而<strong>如果没有找到将会返回end()指向的迭代器</strong>。</p>
 <p><strong>关联式容器不支持iterator+n的操作，n为1也不行，只能使用iter++这种操作。</strong></p>
 <h3 id="顺序遍历"><a href="#顺序遍历" class="headerlink" title="顺序遍历"></a>顺序遍历</h3><pre><code class="hljs CPP"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt; a;
@@ -251,7 +251,7 @@
 &#125;</code></pre>
 
 <p>注意迭代器的写法，反向遍历使用reverse_iterator来定义迭代器，函数使用rbegin()与rend()方法！</p>
-<h2 id="set基本操作"><a href="#set基本操作" class="headerlink" title="set基本操作"></a>set基本操作</h2><h3 id="创建set对象"><a href="#创建set对象" class="headerlink" title="创建set对象"></a>创建set对象</h3><p>set&lt;类型&gt; 对象名，set<int> a;</p>
+<h2 id="set基本操作"><a href="#set基本操作" class="headerlink" title="set基本操作"></a>set基本操作</h2><h3 id="创建set对象"><a href="#创建set对象" class="headerlink" title="创建set对象"></a>创建set对象</h3><p>set&lt;类型&gt; 对象名，set<int> a;</int></p>
 <p>set&lt;类型，比较结构体&gt; 对象名，set&lt;int,myComp&gt; a;</p>
 <p>set&lt;const set&amp;&gt; set自带拷贝构造函数</p>
 <p>set&lt;类型&gt; a(first,last);使用[first,last)所指的对象。</p>

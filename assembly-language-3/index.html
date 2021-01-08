@@ -270,10 +270,10 @@ mov al,[0]
 <h3 id="将数据送入段寄存器"><a href="#将数据送入段寄存器" class="headerlink" title="将数据送入段寄存器"></a>将数据送入段寄存器</h3><pre><code>mov ds,1000H;非法！</code></pre>
 <p><strong>8086CPU不支持将数据直接送入段寄存器的操作！</strong>（硬件的问题）</p>
 <p><strong>数据-&gt;一般寄存器-&gt;段寄存器</strong>。</p>
-<h3 id="字的传送"><a href="#字的传送" class="headerlink" title="字的传送"></a>字的传送</h3><p><img src="assembly-language-3/wordtrans.png" srcset="/img/loading.gif" alt="引图"></p>
+<h3 id="字的传送"><a href="#字的传送" class="headerlink" title="字的传送"></a>字的传送</h3><p><img src="/assembly-language-3/wordtrans.png" srcset="/img/loading.gif" alt="引图"></p>
 <p>如图所示，内存里一个存储单元只能存放一个字节(8位)，而寄存器是16位的。</p>
-<p><img src="assembly-language-3/wordtransend.png" srcset="/img/loading.gif" alt="引图"></p>
-<h3 id="add、sub指令"><a href="#add、sub指令" class="headerlink" title="add、sub指令"></a>add、sub指令</h3><p><img src="assembly-language-3/addsub.png" srcset="/img/loading.gif" alt="引图"></p>
+<p><img src="/assembly-language-3/wordtransend.png" srcset="/img/loading.gif" alt="引图"></p>
+<h3 id="add、sub指令"><a href="#add、sub指令" class="headerlink" title="add、sub指令"></a>add、sub指令</h3><p><img src="/assembly-language-3/addsub.png" srcset="/img/loading.gif" alt="引图"></p>
 <h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>Last In First Out 后进先出</p>
 <p>入栈：将一个新的元素放到栈顶；</p>
 <p>出栈：从栈顶取出一个元素。</p>
@@ -287,7 +287,7 @@ pop ax;从栈顶取出数据送入ax</code></pre>
 <li>SP=SP-2</li>
 <li>将ax的值放入SS:SP指向的内存单元</li>
 </ol>
-<p><img src="assembly-language-3/push.png" srcset="/img/loading.gif" alt="引图"></p>
+<p><img src="/assembly-language-3/push.png" srcset="/img/loading.gif" alt="引图"></p>
 <h3 id="栈为空时，SS-SP的状态"><a href="#栈为空时，SS-SP的状态" class="headerlink" title="栈为空时，SS:SP的状态"></a>栈为空时，SS:SP的状态</h3><p>我们将 <code>10000H~1000FH</code> 这段空间当作栈段，SS=1000H，栈空间大小为<strong>16 字节</strong> ，栈最底部的<strong>字单元地址</strong>为<code>1000:000E</code>。</p>
 <p>任意时刻，SS:SP指向栈顶，当栈中<strong>只有一个元素的时候</strong>，SS = 1000H，SP=000EH。　</p>
 <p><strong>栈为空，就相当于栈中唯一的元素出栈</strong>，出栈后，SP=SP+2 ，SP 原来为 000EH，加 2 后SP=10H，所以，当栈为空的时候，SS=1000H，SP=0010H。</p>
@@ -296,7 +296,7 @@ pop ax;从栈顶取出数据送入ax</code></pre>
 <li>将SS:SP指向的内存单元的值放入ax</li>
 <li>SP=SP+2</li>
 </ol>
-<p><img src="assembly-language-3/pop.png" srcset="/img/loading.gif" alt="引图"></p>
+<p><img src="/assembly-language-3/pop.png" srcset="/img/loading.gif" alt="引图"></p>
 <p>执行指令后原栈顶的那个数据依旧存在于那个内存单元，只是它不在属于栈了。当执行push之后。它将会被覆盖掉。</p>
 <h3 id="栈顶超界问题"><a href="#栈顶超界问题" class="headerlink" title="栈顶超界问题"></a>栈顶超界问题</h3><p>当栈满的时候Push以及栈空的时候pop都会发生栈顶超界问题。</p>
 <p>而且8086CPU不保证栈的操作不会超界，即8086CPU只知道栈顶的位置。</p>

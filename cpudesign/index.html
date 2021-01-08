@@ -226,20 +226,20 @@
 <p>参考书籍：《自己动手写CPU》</p>
 <p>编程语言：Verilog</p>
 <p>主要软件：Xilinx-Vivado-2018</p>
-<h2 id="五级流水"><a href="#五级流水" class="headerlink" title="五级流水"></a>五级流水</h2><p><img src="cpudesign/wujiliushui.png" srcset="/img/loading.gif"></p>
+<h2 id="五级流水"><a href="#五级流水" class="headerlink" title="五级流水"></a>五级流水</h2><p><img src="/cpudesign/wujiliushui.png" srcset="/img/loading.gif"></p>
 <p>五级流水分为这五个阶段：<strong>取指、译码、执行、访存和回写</strong>。</p>
 <p>在取指阶段，由pc给出指令的地址，从指令寄存器中取出指令送至译码阶段。在译码阶段分析指令，给出源操作数所在的寄存器地址、目的操作数所在的寄存器地址，同时扩展立即数，分析运算类型等。在执行阶段，ALU根据运算类型以及源操作数、立即操作数算出最终结果，传递给访存阶段和回写阶段，最终回写至寄存器。  </p>
-<h2 id="addi指令"><a href="#addi指令" class="headerlink" title="addi指令"></a>addi指令</h2><p><img src="cpudesign/addi.png" srcset="/img/loading.gif"></p>
+<h2 id="addi指令"><a href="#addi指令" class="headerlink" title="addi指令"></a>addi指令</h2><p><img src="/cpudesign/addi.png" srcset="/img/loading.gif"></p>
 <h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>由于完全没接触过Verilog以及Vivado，所以刚开始拿到课设题目的时候比较头大，最后仿照了《自己动手写CPU》的第四章ori指令的实现，根据这一章的讲解，理解了五级流水的工作原理以及实现，最后根据第七章的源代码完成了本次课程设计。</p>
 <ul>
 <li><p>指令寄存器是使用文件代替的，所以可以把准备好的16进制指令写在文件里。</p>
-<p><img src="cpudesign/zhiling.png" srcset="/img/loading.gif"></p>
+<p><img src="/cpudesign/zhiling.png" srcset="/img/loading.gif"></p>
 </li>
 </ul>
 <p>上图中，第一条指令是ori指令，给第一个寄存器赋值。后面的9条指令都是addi指令，分别进行不同加法的操作，最后将结果写回到寄存器。</p>
 <ul>
 <li><p>最后的仿真结果</p>
-<p><img src="cpudesign/addiwujiliushui.png" srcset="/img/loading.gif"></p>
+<p><img src="/cpudesign/addiwujiliushui.png" srcset="/img/loading.gif"></p>
 <p>​    针对于指令0x20850002，这条指令的意思是四号寄存器的值加上0x000000002之后将结果放入5号寄存器。在取指阶段，取得那一条指令，即if_inst保存那一条指令，在下一个时钟传送给id模块进行译码操作，译码操作主要是确定参与运算的两个操作数以及运算的类型、子类型等信息，如上图所示，id_reg1_o为4号寄存器的值，id_reg2_o为立即数的值，aluop_o为子类型，表示为addi运算，alusel_o为运算类型，表示算术运算。</p>
 <p>​    在执行阶段，ex模块根据id模块传递的信息计算出最终的结果，输出计算结果wdata_o和要写入的寄存器地址wd_o。在访存阶段，MEM模块最终输出要写入寄存器的值wdata_o和要写入的寄存器地址wd_o，并把这些信息传递给MEM/WB模块。最后在MEM/WB模块进行回写，写入到目的寄存器即5号寄存器。最终完成一条指令的全部运行过程。</p>
 </li>
@@ -265,9 +265,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a>
-                    
                       <a class="hover-with-bg" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/">文件下载</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a>
                     
                   </div>
                 

@@ -233,9 +233,9 @@
 <li>此处安装的是：<code>glew-2.1.0-win32.zip</code>、<code>glfw-3.3.2.bin.WIN32.zip</code>以及<code>glutdlls37beta.zip</code>三个压缩包的文件。</li>
 <li>GLEW、GLFW、GLUT都是上述对应的文件，解压后直接修改文件夹名字为对应的大写字母，然后放进<code>External Resources</code>文件夹下。</li>
 </ul>
-<p><img src="opengl-setup/GLEW.png" srcset="/img/loading.gif"></p>
-<p><img src="opengl-setup/GLFW.png" srcset="/img/loading.gif"></p>
-<p><img src="opengl-setup/GLUT.png" srcset="/img/loading.gif"></p>
+<p><img src="/opengl-setup/GLEW.png" srcset="/img/loading.gif"></p>
+<p><img src="/opengl-setup/GLFW.png" srcset="/img/loading.gif"></p>
+<p><img src="/opengl-setup/GLUT.png" srcset="/img/loading.gif"></p>
 <h2 id="VS配置"><a href="#VS配置" class="headerlink" title="VS配置"></a>VS配置</h2><p>然后打开VS2019，创建一个新的解决方案，这里取名为<code>opengl</code>，存放在<code>OpenGLRoot</code>目录下，添加一个<code>main.cpp</code>文件，这样便于配置C++相关的东西。</p>
 <p>右键项目，点击属性(<strong>快捷键是 Alt + Enter</strong>)，在属性页的最上部选择配置为所有配置，平台选择活动Win32。</p>
 <p>然后选择<code>C/C++</code>，然后选择常规，选择第一项附加包含目录。添加如下三个信息。</p>
@@ -257,7 +257,7 @@ $(SolutionDir)<span class="hljs-regexp">/../</span>External Resources<span class
 <pre><code class="hljs crystal">opengl32.<span class="hljs-keyword">lib</span>
 glew32s.<span class="hljs-keyword">lib</span>
 glfw3.<span class="hljs-keyword">lib</span></code></pre>
-<p><img src="opengl-setup/pp.png" srcset="/img/loading.gif"></p>
+<p><img src="/opengl-setup/pp.png" srcset="/img/loading.gif"></p>
 <ul>
 <li>图片中有序号，展示了大致顺序。为了方便展示，图中少了链接器配置的两步。</li>
 <li>配置完后，记得先点击<code>应用</code>，再点击<code>确定</code>。</li>
@@ -284,7 +284,7 @@ glfw3.<span class="hljs-keyword">lib</span></code></pre>
 	glutMainLoop();
 	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre>
-<p><img src="opengl-setup/show.png" srcset="/img/loading.gif"></p>
+<p><img src="/opengl-setup/show.png" srcset="/img/loading.gif"></p>
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/mjk961/p/9534750.html">01-&gt;OpenGL 实验环境配置（glut）及简单实例</a></p>
 <p>Youtube视频：<a target="_blank" rel="noopener" href="https://youtu.be/gCkcP0GcCe0">Modern OpenGL 3.0+ Visual Studio 2017 [SETUP] GLFW and GLEW on Windows</a></p>
@@ -293,7 +293,7 @@ glfw3.<span class="hljs-keyword">lib</span></code></pre>
 <p>百度之后，解决方法是：保存项目属性表，然后引入到新的项目中，就不用这么来回配置了。</p>
 <p>在VS2019的界面里，<strong>视图</strong> –&gt; <strong>其他窗口</strong> –&gt; <strong>属性管理器</strong>。</p>
 <p>然后就会在解决方案右侧出现属性管理器。</p>
-<p><img src="opengl-setup/props.png" srcset="/img/loading.gif"></p>
+<p><img src="/opengl-setup/props.png" srcset="/img/loading.gif"></p>
 <p>通常我们都是Debug Win32模式下，右键右键一个新项目属性表。记得取一个有辨识度的名字，方便之后使用。</p>
 <p>双击新的项目属性表即可打开编辑，然后将上面的操作配置的一切操作再做一遍，即可。当然配置那一栏无法选取，因为这是默认的Debug Win32。</p>
 <p>设置完毕之后在工程路径下找到<code>.props</code>文件，即你的项目属性表，然后可以使用这个项目属性表添加给其他同一解决方案下的其他项目了。</p>

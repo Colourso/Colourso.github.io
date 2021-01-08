@@ -224,7 +224,7 @@
 
 <p>上接 <a target="_blank" rel="noopener" href="http://www.colourso.top/c-snake-pro3/">C++基于EasyX制作贪吃蛇游戏（三）第二版文档</a> 继续更新制作贪吃蛇游戏的一些相关设计。</p>
 <h2 id="程序展示"><a href="#程序展示" class="headerlink" title="程序展示"></a>程序展示</h2><p>以下是B站视频</p>
-<iframe src="//player.bilibili.com/player.html?aid=371573766&bvid=BV1fZ4y1T7xo&cid=218646009&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"    width="100%" style="height: 430px; max-width: 100%"> </iframe>
+<iframe src="//player.bilibili.com/player.html?aid=371573766&bvid=BV1fZ4y1T7xo&cid=218646009&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" style="height: 430px; max-width: 100%"> </iframe>
 
 <p>上面视频不能播放请移步：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1fZ4y1T7xo/">https://www.bilibili.com/video/BV1fZ4y1T7xo/</a></p>
 <h2 id="改用面向对象"><a href="#改用面向对象" class="headerlink" title="改用面向对象"></a>改用面向对象</h2><p>原先两版程序都是使用的面向过程方式编写的，函数以及全局变量在整个文件之中飘……，本次决定改用面向对象的方式重写代码，毕竟挺缺少面向对象的练习，可能写出来的代码不是很好，但是我会尽量去完善的。</p>
@@ -446,10 +446,10 @@
 <li><p><code>ChangeChooseUI</code>这个函数主要就是改变选中选项的效果，重新绘制这个按钮的样式，增加程序与用户的交互。</p>
 </li>
 </ul>
-<h2 id="UI设计"><a href="#UI设计" class="headerlink" title="UI设计"></a>UI设计</h2><img src="c-snake-pro5/mainui.png" srcset="/img/loading.gif" style="zoom:80%;" />
+<h2 id="UI设计"><a href="#UI设计" class="headerlink" title="UI设计"></a>UI设计</h2><img src="/c-snake-pro5/mainui.png" srcset="/img/loading.gif" style="zoom:80%;">
 
 <p>相较于之前的两版程序增加了UI，更加方便用户的控制，同时增加了鼠标的点选，更加直接。</p>
-<img src="c-snake-pro5/back.png" srcset="/img/loading.gif" style="zoom:80%;" />
+<img src="/c-snake-pro5/back.png" srcset="/img/loading.gif" style="zoom:80%;">
 
 <p>例如上图左上角的返回键可以点击。</p>
 <h2 id="鼠标点击操作"><a href="#鼠标点击操作" class="headerlink" title="鼠标点击操作"></a>鼠标点击操作</h2><pre><code class="hljs c++"><span class="hljs-keyword">if</span> ((m_GameState == <span class="hljs-number">2</span> || m_GameState == <span class="hljs-number">3</span>) &amp;&amp; MouseHit()) <span class="hljs-comment">//在排行榜或者游戏帮助中点击</span>

@@ -231,7 +231,7 @@
 青色 <span class="hljs-comment">-- 链接文件</span>
 黄色 <span class="hljs-comment">-- 设备文件</span>
 灰色 <span class="hljs-comment">-- 其他文件</span></code></pre>
-<h2 id="Linux目录结构"><a href="#Linux目录结构" class="headerlink" title="Linux目录结构"></a>Linux目录结构</h2><p><img src="linux-base%5Clinux-catalog.png" srcset="/img/loading.gif"></p>
+<h2 id="Linux目录结构"><a href="#Linux目录结构" class="headerlink" title="Linux目录结构"></a>Linux目录结构</h2><p><img src="/linux-base/linux-base%5Clinux-catalog.png" srcset="/img/loading.gif"></p>
 <pre><code class="hljs jboss-cli"><span class="hljs-string">/root</span> : Linux超级用户的家目录
 <span class="hljs-string">/bin</span>: binary，二进制文件，有许多可执行程序。
 <span class="hljs-string">/dev</span>: device，设备。硬盘显卡等设备被抽象成为文件。
@@ -302,7 +302,7 @@ others <span class="hljs-comment">-- 其他人</span></code></pre>
 <span class="hljs-comment"></span><span class="hljs-literal">+</span><span class="hljs-comment">、</span><span class="hljs-literal">-</span><span class="hljs-comment">、=，三种操作见名知意</span>
 <span class="hljs-comment">mode指修改的执行权限：r</span> -- <span class="hljs-comment">读，w</span> -- <span class="hljs-comment">写，</span> <span class="hljs-comment">x</span> -- <span class="hljs-comment">执行</span>
 <span class="hljs-comment">				</span>   <span class="hljs-literal">-</span> -- <span class="hljs-comment">表示没有任何权限</span></code></pre>
-<p><img src="linux-base%5Cchmod1.png" srcset="/img/loading.gif"></p>
+<p><img src="/linux-base/linux-base%5Cchmod1.png" srcset="/img/loading.gif"></p>
 <p>上图表示去除test文件的文件所有者以及其他人的执行权限。</p>
 <ul>
 <li>并列的操作可以使用逗号进行分割：<code>chmod u+x,g-x test</code>.</li>
@@ -315,7 +315,7 @@ others <span class="hljs-comment">-- 其他人</span></code></pre>
 <ul>
 <li>chmod 777 文件名  就表示为文件<code>加满</code>权限。</li>
 </ul>
-<p><img src="linux-base%5Cchmod2.png" srcset="/img/loading.gif"></p>
+<p><img src="/linux-base/linux-base%5Cchmod2.png" srcset="/img/loading.gif"></p>
 <p>上图表示对test文件文件所有者加满权限，用户组和其他人只有执行权限。</p>
 <ul>
 <li><strong>如果一个目录没有执行权限，那么这个目录就无法进入</strong>。</li>
@@ -337,7 +337,7 @@ names -- 表示查找的文件名</code></pre></li>
 dir -- 表示查找的目录
 types -- 表示查找的文件类型
 但是普通文件的对应符号不再是 ll 命令时看到的&#39;-&#39;，而是&#39;f&#39;，其余都相同</code></pre>
-<p><img src="linux-base/findtype.png" srcset="/img/loading.gif"></p>
+<p><img src="/linux-base/findtype.png" srcset="/img/loading.gif"></p>
 </li>
 <li><p>按照文件大小进行查找</p>
 <pre><code class="hljs lua"><span class="hljs-built_in">find</span> [dir] -size +<span class="hljs-number">10</span>M/<span class="hljs-number">-10</span>k/<span class="hljs-number">10</span>k
@@ -358,7 +358,7 @@ dir <span class="hljs-comment">-- 表示查找的目录</span>
 访问日期  -atime -<span class="hljs-built_in">n</span>/+<span class="hljs-built_in">n</span>
 -<span class="hljs-built_in">n</span>  代表<span class="hljs-built_in">n</span>天之内
 +<span class="hljs-built_in">n</span>  代表<span class="hljs-built_in">n</span>天之外</code></pre>
-<p><img src="linux-base/findtime.png" srcset="/img/loading.gif"></p>
+<p><img src="/linux-base/findtime.png" srcset="/img/loading.gif"></p>
 </li>
 <li><p>根据目录深度搜索</p>
 </li>
@@ -407,7 +407,7 @@ Linux常见的压缩格式是  `.gz` 、 `.bzip2` 。
 </code></pre>
 <p>压缩<br>    zip 压缩包名(不用指定后缀) 压缩内容<br>    zip test test.txt<br>    如果压缩的内容包括目录，后面接 -r<br>解压缩<br>    unzip 压缩包名<br>    unzip test.zip<br>    解压至指定目录，后面接-d 指定目录</p>
 <p>```</p>
-<p><img src="linux-base/zip.png" srcset="/img/loading.gif"></p>
+<p><img src="/linux-base/zip.png" srcset="/img/loading.gif"></p>
 
             </article>
             <hr>

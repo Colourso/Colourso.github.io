@@ -230,19 +230,19 @@
 <h2 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h2><p>定义模式就相当定义一个<strong>命名空间</strong>，在该空间内可以进一步定义该模式包含的数据库对象，如基本表、视图、索引等。</p>
 <p><strong>一个数据库中可以建立多个模式</strong>，一个模式通常包括多个表、视图和索引等数据库对象。</p>
 <p>正常使用的SQL Server在数据库内创建的表都是<code>dbo</code>开头的。因为我们正常使用的数据库用户名是<code>dbo</code>。如下图所示。</p>
-<p><img src="sql-server-1/schema1.png" srcset="/img/loading.gif" alt="引图"></p>
+<p><img src="/sql-server-1/schema1.png" srcset="/img/loading.gif" alt="引图"></p>
 <h2 id="模式创建"><a href="#模式创建" class="headerlink" title="模式创建"></a>模式创建</h2><blockquote>
 <p>创建模式定义时，调用该命令的用户必须拥有管理员权限，否则无法创建。而且不能为登录名创建模式，必须是具体的数据库的用名。</p>
 <p><strong>管理员权限才能创建，必须使用数据库用户名</strong></p>
 <p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/stay_zezo/article/details/78305849">sql-server(模式创建)</a></p>
 </blockquote>
 <h3 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h3><p>你的当前数据库下/安全性/用户，在此用户下，右键新建用户，我选择的是<code>不带登录名的用户</code>，只填写了用户名。</p>
-<p><img src="sql-server-1/schema2.png" srcset="/img/loading.gif" alt="引图"></p>
+<p><img src="/sql-server-1/schema2.png" srcset="/img/loading.gif" alt="引图"></p>
 <h3 id="创建模式"><a href="#创建模式" class="headerlink" title="创建模式"></a>创建模式</h3><p>创建模式：<code> create schema 模式名 authorization 用户名</code></p>
 <p>当然模式名可以省略，省略时模式名默认为用户名。</p>
 <pre><code>create schema cc authorization colourso</code></pre>
 <p>执行成功后，右键用户名查看其属性，查看拥有的架构即可看到定义的模式<code>cc</code>。</p>
-<p><img src="sql-server-1/schema3.png" srcset="/img/loading.gif" alt="引图"></p>
+<p><img src="/sql-server-1/schema3.png" srcset="/img/loading.gif" alt="引图"></p>
 <blockquote>
 <p><strong>authorization</strong> 美: [.ɔθərɪ’zeɪʃ(ə)n]  n.    授权；批准</p>
 </blockquote>
@@ -251,7 +251,7 @@
 Sname char(20),
 Sno char(10) primary key
 );</code></pre>
-<p><img src="sql-server-1/schema4.png" srcset="/img/loading.gif" alt="引图"></p>
+<p><img src="/sql-server-1/schema4.png" srcset="/img/loading.gif" alt="引图"></p>
 <p>这样就可以创建表名相同，但是模式不同的表了。</p>
 <h2 id="删除模式-课本"><a href="#删除模式-课本" class="headerlink" title="删除模式(课本)"></a>删除模式(课本)</h2><pre><code>drop schema 模式名 cascade/restrict </code></pre>
 <p>cascade(级联)/restrict(限制)两者必须二选一。</p>

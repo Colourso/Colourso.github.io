@@ -261,7 +261,7 @@
 <ul>
 <li>哨兵就是将数组的0号位置作为暂存元素区，同时在for循环中作为最终的条件判断语句，当<code>A[0]&lt;A[j]</code>时继续向前查找元素，最终停止的条件是<code>j=0</code>时此时表示查到了尽头；而在无哨兵版则既需要判定<code>j</code>的范围又要比较数据大小。</li>
 </ul>
-<p><img src="ds_01_InsertSort/shaobing.png" srcset="/img/loading.gif"></p>
+<p><img src="/ds_01_InsertSort/shaobing.png" srcset="/img/loading.gif"></p>
 <h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
 <li>空间复杂度：<code>O(1)</code>，著需要常量个辅助空间。</li>
 <li>时间复杂度：<ul>
@@ -288,7 +288,7 @@
 </ul>
 <h2 id="折半插入排序"><a href="#折半插入排序" class="headerlink" title="折半插入排序"></a>折半插入排序</h2><p><strong>算法思想</strong>：折半插入排序是对直接插入排序的一种优化，即采用折半查找这种方式找到应该插入的位置，再移动元素。</p>
 <p>与直接插入排序相比，折半查找这种方式可以<strong>减少比较的次数</strong>，但是移动元素的次数没有发生变化。</p>
-<p><img src="ds_01_InsertSort/zheban.png" srcset="/img/loading.gif"></p>
+<p><img src="/ds_01_InsertSort/zheban.png" srcset="/img/loading.gif"></p>
 <p>使用折半查找的规则来进行查找，不过不是为了找到该元素，而是要找到比该元素都大的元素。</p>
 <p>这里使用了<code>A[0]</code>作为哨兵，当<code>low&gt;high</code>的时候停止查找，此时将<code>[low,i-1]</code>内的元素全部右移，然后将<code>A[0]</code>移动<strong>到<code>low</code>所指的位置</strong>。</p>
 <p>而当<code>A[mid] == A[0]</code>时，为了保证算法的稳定性，应当在mid的右边继续寻找插入位置。</p>

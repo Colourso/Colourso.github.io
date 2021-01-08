@@ -219,23 +219,23 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>本文是关于C语言的内存四区分布，并未从书上找到相关内容，所以本文的内容依据主要来自 <font color=#f79649 ><strong>传智播客-黑马程序猿</strong></font> 的教学视频，以及参考自众多博客，会在文末统一附出链接地址。</p>
+              <p>本文是关于C语言的内存四区分布，并未从书上找到相关内容，所以本文的内容依据主要来自 <font color="#f79649"><strong>传智播客-黑马程序猿</strong></font> 的教学视频，以及参考自众多博客，会在文末统一附出链接地址。</p>
 <a id="more"></a>
 
 <h2 id="内存四区模型"><a href="#内存四区模型" class="headerlink" title="内存四区模型"></a>内存四区模型</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>C语言程序在被执行过程中，操作系统将程序所占用的内存分为四个区域：栈、堆、全局区以及代码区。每一个程序占用的内存都会有这四个区域。而设计内存四区的目的，就像公司分不同的职位与部分，便于更好的管理，提高工作执行的效率，同时不同区域的变量以及常量的生命周期不同，我们可以根据我们的需要，灵活运用去编程。</p>
-<p><img src="C-memory-layout/00_%E5%86%85%E5%AD%98%E5%9B%9B%E5%8C%BA.png" srcset="/img/loading.gif" alt="C语言内存四区"></p>
-<center><font size=2px>上图来自 <font color=#f79649 >**传智播客-黑马程序猿**</font> 的教学视频。</font></center>
+<p><img src="/C-memory-layout/00_%E5%86%85%E5%AD%98%E5%9B%9B%E5%8C%BA.png" srcset="/img/loading.gif" alt="C语言内存四区"></p>
+<center><font size="2px">上图来自 <font color="#f79649">**传智播客-黑马程序猿**</font> 的教学视频。</font></center>
 
-<p><img src="C-memory-layout/01_%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F.png" srcset="/img/loading.gif" alt="C语言内存四区"></p>
-<center><font size=2px>上图来自 **[堆、栈、全局区静态区、文字常量区、程序代码区](https://blog.csdn.net/peeno/article/details/52808686 "堆、栈、全局区静态区、文字常量区、程序代码区")** 的博客中</font></center>
+<p><img src="/C-memory-layout/01_%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F.png" srcset="/img/loading.gif" alt="C语言内存四区"></p>
+<center><font size="2px">上图来自 **[堆、栈、全局区静态区、文字常量区、程序代码区](https://blog.csdn.net/peeno/article/details/52808686 "堆、栈、全局区静态区、文字常量区、程序代码区")** 的博客中</font></center>
 ### 功能介绍
 
 <blockquote>
 <ol>
-<li><font color=#f79649 ><strong>栈区</strong>(stack)</font>： 存放函数参数、局部变量等，由编译器自动分配释放。</li>
-<li><font color=#f79649 ><strong>堆区</strong>(heap)</font>：存放动态分配的数据(malloc/new)，由程序猿手动分配释放，程序结束时也会有操作系统自动回收。</li>
-<li><font color=#f79649 ><strong>全局区</strong>(global)</font>：包含常量、全局变量、静态变量等，文字常量区也包含在内。程序结束后由操作系统释放。</li>
-<li><font color=#f79649 ><strong>代码区</strong>(code)</font>：存放函数体的二进制代码。</li>
+<li><font color="#f79649"><strong>栈区</strong>(stack)</font>： 存放函数参数、局部变量等，由编译器自动分配释放。</li>
+<li><font color="#f79649"><strong>堆区</strong>(heap)</font>：存放动态分配的数据(malloc/new)，由程序猿手动分配释放，程序结束时也会有操作系统自动回收。</li>
+<li><font color="#f79649"><strong>全局区</strong>(global)</font>：包含常量、全局变量、静态变量等，文字常量区也包含在内。程序结束后由操作系统释放。</li>
+<li><font color="#f79649"><strong>代码区</strong>(code)</font>：存放函数体的二进制代码。</li>
 </ol>
 </blockquote>
 <h2 id="栈区"><a href="#栈区" class="headerlink" title="栈区"></a>栈区</h2><h2 id="堆区"><a href="#堆区" class="headerlink" title="堆区"></a>堆区</h2><h2 id="全局区"><a href="#全局区" class="headerlink" title="全局区"></a>全局区</h2><p>全局区包含常量，静态变量等等。以文字常量区为例。文字常量是只读的，不可以修改。当要使用一段字符串时，会现在文字常量区进行查找，如果有就使用，没有的话就创建。</p>
@@ -268,7 +268,7 @@
 &#125;</code></pre>
 
 <p>输出结果</p>
-<p><img src="C-memory-layout/02_%E5%85%A8%E5%B1%80%E5%8C%BA%E6%B5%8B%E8%AF%95.png" srcset="/img/loading.gif" alt="C语言文字常量区"></p>
+<p><img src="/C-memory-layout/02_%E5%85%A8%E5%B1%80%E5%8C%BA%E6%B5%8B%E8%AF%95.png" srcset="/img/loading.gif" alt="C语言文字常量区"></p>
 <p><strong>地址相同,说明一旦文字常量区存在字符串，就不需要再被创建。</strong></p>
 <h2 id="以字符串字符数组为例综合说明内存四区分布"><a href="#以字符串字符数组为例综合说明内存四区分布" class="headerlink" title="以字符串字符数组为例综合说明内存四区分布"></a>以字符串字符数组为例综合说明内存四区分布</h2><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><blockquote>
 <p>CSDN博客： <a target="_blank" rel="noopener" href="https://blog.csdn.net/ic_tv/article/details/46718907" title="ic_tv：C语言程序内存四区(栈区,堆区,全局区,代码区)">C语言程序内存四区(栈区,堆区,全局区,代码区)</a></p>
