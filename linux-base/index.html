@@ -362,51 +362,54 @@ dir <span class="hljs-comment">-- 表示查找的目录</span>
 </li>
 <li><p>根据目录深度搜索</p>
 </li>
-<li><p>```<br>find [dir] -maxdepth/mindepth 3<br>dir – 表示查找的目录<br>maxdepth 3 – 表示最多搜索三层目录<br>mindepth 3 – 表示搜索目录从第三层开始更大的搜索</p>
-<pre><code class="hljs clean">
-  ![](linux-base/finddepth2.png)
-
-
-### grep指令 -- 查找文件里的内容
-</code></pre>
-<p>grep -r “查找的内容” [dir] -n</p>
-</li>
-<li><p>r 如果查询的范围内有目录就加上<br>dir 表示查找的目录</p>
-</li>
-<li><p>n  会显示找出的文件的内容在对应文件的第几行</p>
-<pre><code class="hljs autohotkey">
-## 压缩文件
-
-Linux常见的压缩格式是  `.gz` 、 `.bzip2` 。
-
-`.gz` 是 gzip程序压缩的文件， `.bzip2`  是bzip2程序压缩的文件。
-
-直接使用这两个程序可以进行压缩，但是功能不够强大（不能压缩目录）。
-
-### tar命令
-</code></pre>
-<p>参数：<br>   c  – 创建压缩文件<br>   x  – 释放压缩文件<br>   v  – 打印提示信息（可不写）<br>   f  – 指定压缩包的名字<br>   z  – 使用gzip压缩文件，文件最好命名为：-xxx.tar.gz<br>   j  – 使用bzip2压缩文件，文件最好命名为：-xxx.tar.bzip2</p>
-</li>
 </ul>
-<p>压缩<br>格式：tar [参数] [压缩包文件名] [原材料]<br>    tar zcvf test.tar.gz test.txt</p>
-<p>解压缩<br>格式：tar [参数] [压缩包文件名]<br>    tar zxcf test.tar.gz<br>    其后可接-C 解压目录，来指定解压放置的地点</p>
-<pre><code class="hljs clean">
-![](linux-base/tar.png)
+<pre><code class="hljs lua"><span class="hljs-built_in">find</span> [dir] -maxdepth/mindepth <span class="hljs-number">3</span>
+dir <span class="hljs-comment">-- 表示查找的目录</span>
+maxdepth <span class="hljs-number">3</span> <span class="hljs-comment">-- 表示最多搜索三层目录</span>
+mindepth <span class="hljs-number">3</span> <span class="hljs-comment">-- 表示搜索目录从第三层开始更大的搜索</span></code></pre>
+<p><img src="/linux-base/finddepth2.png" srcset="/img/loading.gif"></p>
+<h3 id="grep指令-–-查找文件里的内容"><a href="#grep指令-–-查找文件里的内容" class="headerlink" title="grep指令 – 查找文件里的内容"></a>grep指令 – 查找文件里的内容</h3><pre><code class="hljs excel">grep -r <span class="hljs-string">&quot;查找的内容&quot;</span> [dir] -<span class="hljs-built_in">n</span>
+-r 如果查询的范围内有目录就加上
+dir 表示查找的目录
+-<span class="hljs-built_in">n</span>  会显示找出的文件的内容在对应文件的第几行</code></pre>
 
-
-### rar命令
-
-需要安装  `sudo apt-get install rar`
-</code></pre>
-<p>压缩：<br>    rar a 压缩包名(不用指定后缀) 压缩内容<br>    rar a test test.txt<br>    如果压缩的内容包括目录，后面接 -r<br>解压缩<br>    rar x 压缩包名 解压目录<br>    rar x test aa/</p>
-<pre><code class="hljs clean">
-![](linux-base/rar.png)
-
-
-### zip/unzip命令
-</code></pre>
-<p>压缩<br>    zip 压缩包名(不用指定后缀) 压缩内容<br>    zip test test.txt<br>    如果压缩的内容包括目录，后面接 -r<br>解压缩<br>    unzip 压缩包名<br>    unzip test.zip<br>    解压至指定目录，后面接-d 指定目录</p>
-<p>```</p>
+<h2 id="压缩文件"><a href="#压缩文件" class="headerlink" title="压缩文件"></a>压缩文件</h2><p>Linux常见的压缩格式是  <code>.gz</code> 、 <code>.bzip2</code> 。</p>
+<p><code>.gz</code> 是 gzip程序压缩的文件， <code>.bzip2</code>  是bzip2程序压缩的文件。</p>
+<p>直接使用这两个程序可以进行压缩，但是功能不够强大（不能压缩目录）。</p>
+<h3 id="tar命令"><a href="#tar命令" class="headerlink" title="tar命令"></a>tar命令</h3><pre><code class="hljs css">参数：
+	<span class="hljs-selector-tag">c</span>  <span class="hljs-selector-tag">--</span> 创建压缩文件
+	<span class="hljs-selector-tag">x</span>  <span class="hljs-selector-tag">--</span> 释放压缩文件
+	<span class="hljs-selector-tag">v</span>  <span class="hljs-selector-tag">--</span> 打印提示信息（可不写）
+	<span class="hljs-selector-tag">f</span>  <span class="hljs-selector-tag">--</span> 指定压缩包的名字
+	<span class="hljs-selector-tag">z</span>  <span class="hljs-selector-tag">--</span> 使用<span class="hljs-selector-tag">gzip</span>压缩文件，文件最好命名为：<span class="hljs-selector-tag">-xxx</span><span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span>
+	<span class="hljs-selector-tag">j</span>  <span class="hljs-selector-tag">--</span> 使用<span class="hljs-selector-tag">bzip2</span>压缩文件，文件最好命名为：<span class="hljs-selector-tag">-xxx</span><span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.bzip2</span>
+	
+压缩
+格式：<span class="hljs-selector-tag">tar</span> <span class="hljs-selector-attr">[参数]</span> <span class="hljs-selector-attr">[压缩包文件名]</span> <span class="hljs-selector-attr">[原材料]</span>
+	<span class="hljs-selector-tag">tar</span> <span class="hljs-selector-tag">zcvf</span> <span class="hljs-selector-tag">test</span><span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span> <span class="hljs-selector-tag">test</span><span class="hljs-selector-class">.txt</span>
+	
+解压缩
+格式：<span class="hljs-selector-tag">tar</span> <span class="hljs-selector-attr">[参数]</span> <span class="hljs-selector-attr">[压缩包文件名]</span> 
+	<span class="hljs-selector-tag">tar</span> <span class="hljs-selector-tag">zxcf</span> <span class="hljs-selector-tag">test</span><span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span>
+	其后可接<span class="hljs-selector-tag">-C</span> 解压目录，来指定解压放置的地点</code></pre>
+<p><img src="/linux-base/tar.png" srcset="/img/loading.gif"></p>
+<h3 id="rar命令"><a href="#rar命令" class="headerlink" title="rar命令"></a>rar命令</h3><p>需要安装  <code>sudo apt-get install rar</code></p>
+<pre><code class="hljs cmake">压缩：
+	rar a 压缩包名(不用指定后缀) 压缩内容
+	rar a <span class="hljs-keyword">test</span> <span class="hljs-keyword">test</span>.txt
+	如果压缩的内容包括目录，后面接 -r
+解压缩
+	rar x 压缩包名 解压目录
+	rar x <span class="hljs-keyword">test</span> aa/</code></pre>
+<p><img src="/linux-base/rar.png" srcset="/img/loading.gif"></p>
+<h3 id="zip-unzip命令"><a href="#zip-unzip命令" class="headerlink" title="zip/unzip命令"></a>zip/unzip命令</h3><pre><code class="hljs stata">压缩
+	<span class="hljs-keyword">zip</span> 压缩包名(不用指定后缀) 压缩内容
+	<span class="hljs-keyword">zip</span> <span class="hljs-keyword">test</span> <span class="hljs-keyword">test</span>.txt
+	如果压缩的内容包括目录，后面接 -r
+解压缩
+	unzip 压缩包名
+	unzip <span class="hljs-keyword">test</span>.<span class="hljs-keyword">zip</span>
+	解压至指定目录，后面接-<span class="hljs-keyword">d</span> 指定目录</code></pre>
 <p><img src="/linux-base/zip.png" srcset="/img/loading.gif"></p>
 
             </article>
