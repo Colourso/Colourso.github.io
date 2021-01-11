@@ -170,7 +170,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.6k 字
+      3.1k 字
     </span>
   
 
@@ -180,7 +180,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      33
+      41
        分钟
     </span>
   
@@ -247,7 +247,7 @@
 &#125;</code></pre>
 
 <h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
-<li><p>空间复杂度：<code>O(1)</code>，著需要常量个辅助空间。</p>
+<li><p>空间复杂度：<code>O(1)</code>，需要常量个辅助空间。</p>
 </li>
 <li><p>时间复杂度：该算法与序列内部状态无关，无论有序、乱序或者逆序排列都是<code>O(n^2)</code></p>
 <ul>
@@ -258,17 +258,17 @@
 </li>
 <li><p>算法评价：简单、容易实现，适用于<strong>待排序序列比较小</strong>的情况。</p>
 </li>
-<li><p>算法适用：可用于顺序表、链表这样的数据结构。</p>
+<li><p>算法适用：可用于顺序表、链表这样的数据结构。(链表也是可以的。具体实现就是记录位置然后交换元素的内容即可)</p>
 </li>
 </ul>
 <hr>
 <h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><p><strong>算法思想</strong>：堆排序是堆简单选择排序的改进，<strong>利用每趟比较后的结果，也就是在找出关键字值最小记录的同时，也找出关键字值较小的记录</strong>，则可减少后面的选择中所用的比较次数，从而提高整个排序过程的效率。</p>
-<h3 id="堆的定义"><a href="#堆的定义" class="headerlink" title="堆的定义"></a>堆的定义</h3><p>把具有如下性质的**数组A[1……n]**表示的完全二叉树称为最大堆，也称大根堆、大顶堆：<code>A[i] &gt;= A[2i]并且A[i]&gt;=A[2i+1]</code>。(即父节点大于其两个孩子节点)。</p>
-<p>把具有如下性质的**数组A[1……n]**表示的完全二叉树称为最小堆，也称小根堆、小顶堆：<code>A[i] &lt;= A[2i]并且A[i]&lt;=A[2i+1]</code>。</p>
+<h3 id="堆的定义"><a href="#堆的定义" class="headerlink" title="堆的定义"></a>堆的定义</h3><p>把具有如下性质的数组A[1……n]表示的完全二叉树称为最大堆，也称大根堆、大顶堆：<code>A[i] &gt;= A[2i]并且A[i]&gt;=A[2i+1]</code>。(即父节点大于其两个孩子节点)。</p>
+<p>把具有如下性质的数组A[1……n]表示的完全二叉树称为最小堆，也称小根堆、小顶堆：<code>A[i] &lt;= A[2i]并且A[i]&lt;=A[2i+1]</code>。</p>
 <p>注意：</p>
 <ul>
 <li>二叉树的顺序存储来表示完全二叉树时，所用<strong>数组需要从1开始</strong>！</li>
-<li>i的左孩子为<code>2*i</code>，i的右孩子为<code>2*i+1</code>，i的父节点为<code>i/2</code>向下取整，若i&gt;<code>i/2向下取整</code>时，当前节点为叶子节点，否则为分支节点。</li>
+<li>i的左孩子为<code>2*i</code>，i的右孩子为<code>2*i+1</code>，i的父节点为<code>i/2</code>向下取整，若i&gt;<code>n/2向下取整</code>时，当前节点为叶子节点，否则为分支节点。</li>
 </ul>
 <p><img src="/ds_03_SelectSort/bigheap.png" srcset="/img/loading.gif"></p>
 <p>如图所示：数组是其存储结构，下面的二叉树是其逻辑视图，表示一个大根堆。</p>
@@ -279,11 +279,11 @@
 <p>最终调整结果如图所示：</p>
 <p><img src="/ds_03_SelectSort/bigheap.png" srcset="/img/loading.gif"></p>
 <pre><code class="hljs c++"><span class="hljs-comment">//大根堆调整</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MaxHeadAdjust</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span> len)</span> </span>&#123;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MaxHeapAdjust</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span> len)</span> </span>&#123;
 	A[<span class="hljs-number">0</span>] = A[k];	<span class="hljs-comment">//暂存待调整子树的根节点</span>
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>*k; i &lt;= len; i *= <span class="hljs-number">2</span>) &#123;	<span class="hljs-comment">//沿着值较大的子节点向下筛选</span>
-		<span class="hljs-keyword">if</span> (i+<span class="hljs-number">1</span> &lt;= len &amp;&amp; A[i] &lt; A[i+<span class="hljs-number">1</span>])	<span class="hljs-comment">//若有i+1这个元素</span>
-        	i++;							<span class="hljs-comment">//选择较大的孩子节点</span>
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span> * k; i &lt;= len; i *= <span class="hljs-number">2</span>) &#123;	<span class="hljs-comment">//沿着值较大的子节点向下筛选</span>
+		<span class="hljs-keyword">if</span> (i+<span class="hljs-number">1</span> &lt;= len &amp;&amp; A[i] &lt; A[i + <span class="hljs-number">1</span>])		<span class="hljs-comment">//选择较大的孩子节点</span>
+			i++;
 		<span class="hljs-keyword">if</span> (A[<span class="hljs-number">0</span>] &gt;= A[i]) <span class="hljs-keyword">break</span>;	<span class="hljs-comment">//若原本就符合大根堆的要求，则结束</span>
 		<span class="hljs-keyword">else</span> &#123;
 			A[k] = A[i];	<span class="hljs-comment">//不符合时就进行替换</span>
@@ -296,7 +296,7 @@
 <span class="hljs-comment">//建立大根堆</span>
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BuildMaxHeap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[],<span class="hljs-keyword">int</span> len)</span> </span>&#123;
 	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len/<span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">1</span>; i--)	<span class="hljs-comment">//从最后一个非终端节点向前进行调整</span>
-		MaxHeadAdjust(A, i, len);
+		MaxHeapAdjust(A, i, len);
 &#125;</code></pre>
 <p>这段代码来自王道，不得不说代码写的非常精炼。选择两个孩子中较大的那段代码，非常巧妙的包含了所有情况，<code>i+1&lt;=len</code>，就包含了<code>当前节点只有一个孩子的情况，此时k=4,i=8,len=8,不会执行后续的语句，从而避免了A[i+1]导致数组越界的情况</code>。而若<code>A[i]&lt;A[i+1]</code>时，<code>i++</code>条件满足时<code>i</code>会指向值大的那个孩子节点。</p>
 <h3 id="堆排序-1"><a href="#堆排序-1" class="headerlink" title="堆排序"></a>堆排序</h3><p><strong>基本思想</strong>：将当前堆顶的元素与当前最大的叶子节点交换位置，然后将剩下的n-1个元素再次整理成为堆，重复执行上述过程，最后直到生意一个元素时停止。这是整个序列就是一个从小到大排序的序列。</p>
@@ -365,7 +365,7 @@
 &#125;
 
 <span class="hljs-comment">//大根堆调整</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MaxHeadAdjust</span><span class="hljs-params">(LinkList &amp;L,<span class="hljs-keyword">int</span> k,<span class="hljs-keyword">int</span> len)</span> </span>&#123;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MaxHeapAdjust</span><span class="hljs-params">(LinkList &amp;L,<span class="hljs-keyword">int</span> k,<span class="hljs-keyword">int</span> len)</span> </span>&#123;
 	<span class="hljs-keyword">int</span> i = k;
 
 	<span class="hljs-keyword">while</span>(i &lt;= len/<span class="hljs-number">2</span>)&#123;
@@ -411,7 +411,7 @@
 <span class="hljs-comment">//建立大根堆</span>
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BuildMaxHeap</span><span class="hljs-params">(LinkList &amp;L,<span class="hljs-keyword">int</span> len)</span> </span>&#123;
 	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len/<span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">1</span>; i--) &#123;	<span class="hljs-comment">//从逻辑上的最后一个非终端节点向前建立</span>
-		MaxHeadAdjust(L,i,len);
+		MaxHeapAdjust(L,i,len);
 	&#125;
 &#125;
 
@@ -419,7 +419,7 @@
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MaxHeapSort</span><span class="hljs-params">(LinkList &amp;L,<span class="hljs-keyword">int</span> len)</span> </span>&#123;
 	BuildMaxHeap(L, len);				<span class="hljs-comment">//初始建堆</span>
 	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len - <span class="hljs-number">1</span>; i++) &#123; <span class="hljs-comment">//len个元素，共进行len-1趟排序</span>
-		MaxHeadAdjust(L,<span class="hljs-number">1</span>,len-i);		<span class="hljs-comment">//调整大根堆</span>
+		MaxHeapAdjust(L,<span class="hljs-number">1</span>,len-i);		<span class="hljs-comment">//调整大根堆</span>
 		<span class="hljs-comment">//堆顶元素和最后一个元素交换位置</span>
 		swap(*(L-&gt;next), *(LastNode(L,len-i)));
 	&#125;
@@ -461,7 +461,7 @@
 	&#125;
 	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
 
-	<span class="hljs-comment">//输出排序的元素</span>
+	<span class="hljs-comment">//输出链表的元素</span>
 	MaxHeapSort(L, <span class="hljs-number">8</span>);
 	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;大根堆排序结果为：&quot;</span>;
 	pre = L-&gt;next;
@@ -471,8 +471,67 @@
 	&#125;
 	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
 &#125;</code></pre>
-<h3 id="小根堆的实现"><a href="#小根堆的实现" class="headerlink" title="小根堆的实现"></a>小根堆的实现</h3><p>代办</p>
-<h3 id="堆排序的应用"><a href="#堆排序的应用" class="headerlink" title="堆排序的应用"></a>堆排序的应用</h3><p>代办</p>
+<h3 id="小根堆的实现"><a href="#小根堆的实现" class="headerlink" title="小根堆的实现"></a>小根堆的实现</h3><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> &amp;a, <span class="hljs-keyword">int</span> &amp;b)</span> </span>&#123;
+	<span class="hljs-keyword">int</span> temp = a;
+	a = b;
+	b = temp;
+&#125;
+
+<span class="hljs-comment">//小根堆的调整</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MinHeapAdjust</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span> len)</span> </span>&#123;
+	A[<span class="hljs-number">0</span>] = A[k];	<span class="hljs-comment">//暂存</span>
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>*k; i &lt;= len; i *= <span class="hljs-number">2</span>) &#123;
+		<span class="hljs-keyword">if</span> (i+<span class="hljs-number">1</span> &lt;= len &amp;&amp; A[i] &gt; A[i+<span class="hljs-number">1</span>])	<span class="hljs-comment">//小根堆是选择孩子中较小的那个</span>
+			i++;
+		<span class="hljs-keyword">if</span> (A[<span class="hljs-number">0</span>] &lt;= A[i]) <span class="hljs-keyword">break</span>;
+		<span class="hljs-keyword">else</span> &#123;
+			A[k] = A[i];
+			k = i;
+		&#125;
+	&#125;
+	A[k] = A[<span class="hljs-number">0</span>];	<span class="hljs-comment">//填入最终位置</span>
+&#125;
+
+<span class="hljs-comment">//建立小根堆</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BuildMinHeap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> len)</span> </span>&#123;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len/<span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">1</span>; i--)	<span class="hljs-comment">//从最后一个非终端节点向前调整</span>
+		MinHeapAdjust(A, i, len);
+&#125;
+
+<span class="hljs-comment">//小根堆排序</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MinHeapSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> n)</span> </span>&#123;
+	BuildMinHeap(A, n);
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n - <span class="hljs-number">1</span>; i++) &#123;
+		<span class="hljs-comment">//先调整堆</span>
+		MinHeapAdjust(A,<span class="hljs-number">1</span>,n-i+<span class="hljs-number">1</span>);
+		<span class="hljs-comment">//堆顶和最后一个元素交换位置</span>
+		swap(A[<span class="hljs-number">1</span>], A[n-i+<span class="hljs-number">1</span>]);
+	&#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">int</span> A[<span class="hljs-number">9</span>] = &#123; <span class="hljs-number">0</span>,<span class="hljs-number">53</span>,<span class="hljs-number">17</span>,<span class="hljs-number">78</span>,<span class="hljs-number">9</span>,<span class="hljs-number">45</span>,<span class="hljs-number">65</span>,<span class="hljs-number">87</span>,<span class="hljs-number">32</span> &#125;;
+	BuildMinHeap(A, <span class="hljs-number">8</span>);
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">8</span>; i++) &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; A[i] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
+	&#125;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	MinHeapSort(A, <span class="hljs-number">8</span>);
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">8</span>; i++) &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; A[i] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
+	&#125;
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre>
+<h3 id="堆排序的应用1-——-优先级队列"><a href="#堆排序的应用1-——-优先级队列" class="headerlink" title="堆排序的应用1 —— 优先级队列"></a>堆排序的应用1 —— 优先级队列</h3><p>常见的操作是使用堆来实现<strong>优先级队列</strong>，这种优先级队列只对最高或者最低优先级的元素进行删除，但是在任何时刻，都可以把任意优先级的元素插入到优先级队列。</p>
+<blockquote>
+<p>操作系统中的进程管理是优先级队列的一个应用实例，系统中使用一个优先队列来管理进程。 每个进程有进程任务号和优先级两部分组成。当有多个进程排队时，优先级高的先操作。</p>
+</blockquote>
+<h3 id="堆排序的应用2-——-找前K个最大的数"><a href="#堆排序的应用2-——-找前K个最大的数" class="headerlink" title="堆排序的应用2 —— 找前K个最大的数"></a>堆排序的应用2 —— 找前K个最大的数</h3><p>例如给定了N个数，要在其中找到最大的K个数。</p>
+<p>先取前K个数建立小根堆，然后从剩下的序列中顺序读取数据，比小根堆堆顶元素小的直接丢弃，比小根堆堆顶元素大的则进行替换它，之后重新调整成小根堆。这样最后读取完毕之后堆中的数据就是堆的前K个最大的值。</p>
 
             </article>
             <hr>
