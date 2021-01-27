@@ -170,7 +170,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1k 字
+      1.2k 字
     </span>
   
 
@@ -180,7 +180,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      13
+      16
        分钟
     </span>
   
@@ -335,6 +335,37 @@
 
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre>
+
+
+<h3 id="字符串数组"><a href="#字符串数组" class="headerlink" title="字符串数组"></a>字符串数组</h3><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> M 5</span>
+ <span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> N 20</span>
+ <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-keyword">char</span>(* ss)[N], <span class="hljs-keyword">int</span> *n)</span></span>
+<span class="hljs-function"> </span>&#123;
+     <span class="hljs-keyword">int</span> i, k = <span class="hljs-number">0</span>, len = N;
+     <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; ______; i++)
+     &#123;
+         len = <span class="hljs-built_in">strlen</span>(ss[i]);
+         <span class="hljs-keyword">if</span> (i == <span class="hljs-number">0</span>)
+             *n = len;
+         <span class="hljs-keyword">if</span> (len ____ * n)
+         &#123;
+             *n = len;
+             k = i;
+         &#125;
+     &#125;
+     <span class="hljs-keyword">return</span> ( _____ );
+ &#125;
+ main( )
+ &#123;
+     <span class="hljs-keyword">char</span> ss[M][N] = &#123;<span class="hljs-string">&quot;shanghai&quot;</span>, <span class="hljs-string">&quot;guangzhou&quot;</span>, <span class="hljs-string">&quot;beijing&quot;</span>, <span class="hljs-string">&quot;tianjing&quot;</span>, <span class="hljs-string">&quot;chongqing&quot;</span>&#125;;
+     <span class="hljs-keyword">int</span> n, k, i;
+     <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\nThe originalb stringsare:\n&quot;</span>);
+     <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; M; i++)
+         <span class="hljs-built_in">puts</span>(ss[i]);
+     k = fun(ss, &amp;n);
+     <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\nThe length of shortest string is: % d\n&quot;</span>, n);
+     <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\nThe shortest string is: % s\n&quot;</span>, ss[k]);
+ &#125;</code></pre>
 
 
 

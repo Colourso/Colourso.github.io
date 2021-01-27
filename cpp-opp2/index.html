@@ -170,7 +170,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.2k 字
+      3.6k 字
     </span>
   
 
@@ -180,7 +180,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      42
+      48
        分钟
     </span>
   
@@ -285,6 +285,7 @@
 
     <span class="hljs-function">Cat <span class="hljs-title">b</span><span class="hljs-params">(<span class="hljs-string">&quot;kelly&quot;</span>,<span class="hljs-number">7</span>,<span class="hljs-literal">false</span>,<span class="hljs-string">&quot;fish&quot;</span>)</span></span>;  
     b.showInfo();                   <span class="hljs-comment">//name: kelly,age: 7, sex: female</span>
+    								<span class="hljs-comment">//派生类并未定义这个函数，但是依旧可以访问</span>
     b.makeSound();                  <span class="hljs-comment">//meow~</span>
     <span class="hljs-built_in">cout</span> &lt;&lt; b.message &lt;&lt; <span class="hljs-built_in">endl</span>;      <span class="hljs-comment">//on Earth</span>
 
@@ -299,8 +300,9 @@
 <p>可以说Cat继承于Animal，或者说从Animal派生Cat。</p>
 <p>此外也称Animal基类为<strong>父类</strong>，Cat派生类为<strong>子类</strong>。</p>
 <ul>
+<li>子类拥有父类的全部成员与函数！</li>
 <li>继承的形式：派生类后接<code>:</code>，然后接类派生列表，即 <code>继承权限 类名</code>，要继承多个就使用逗号分隔。</li>
-<li>如果基类定义了一个<strong>静态成员</strong>，<strong>则在这个继承体系之中只存在这这个成员的**</strong>唯一实例**。</li>
+<li>如果基类定义了一个<strong>静态成员</strong>，<strong>则在这个继承体系之中只存在这这个成员的</strong>唯一实例。</li>
 <li>在派生类中基类的私有数据成员要使用基类的构造函数来初始化。</li>
 <li><strong>友元不能被继承</strong>。</li>
 </ul>
@@ -326,7 +328,12 @@
     <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(b) &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//12</span>
 &#125;</code></pre>
 <p>派生类对象之中包含着基类对象，且基类对象存储位置位于派生类对象新增的成员变量之前。就相当于基类对象是头部。</p>
-<p><strong>派生类对象的大小 = 基类对象成员大小 + 派生类对象自己成员变量的大小。</strong></p>
+<ul>
+<li><p><strong>派生类对象的大小 = 基类对象成员大小 + 派生类对象自己成员变量的大小。</strong></p>
+</li>
+<li><p>即使基类中的私有成员派生类不能访问，但是依然存在于派生类之中。</p>
+</li>
+</ul>
 <h2 id="派生类继承的访问权限"><a href="#派生类继承的访问权限" class="headerlink" title="派生类继承的访问权限"></a>派生类继承的访问权限</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span></span>
 <span class="hljs-class">&#123;</span>
 <span class="hljs-keyword">public</span>:
@@ -510,10 +517,10 @@
 ~Child()
 ~Parent()</code></pre>
 <ul>
-<li>派生类的构造函数在构造对象时一定会调用基类的构造函数。即使是无参构造也会调用父类的构造函数。</li>
+<li>派生类的构造函数在构造对象时<strong>一定会调用基类的构造函数</strong>。即使是无参构造也会调用父类的构造函数。</li>
 <li>执行构造函数时，会先调用基类的构造函数，父类还有父类就继续向上。</li>
-<li>当需要调用基类的有参构造函数时，需要写在初始化列表的位置！</li>
-<li>析构函数则是先触发派生类的，再触发基类的，辈分由小到大式的触发。</li>
+<li>当需要调用基类的<strong>有参构造函数</strong>时，需要写<strong>在初始化列表的位置</strong>！</li>
+<li>析构函数则是先触发派生类的，再触发基类的，辈分由小到大式的触发，即与构造函数调用顺序相反。</li>
 </ul>
 <h2 id="覆盖-——-派生类成员与基类成员重名"><a href="#覆盖-——-派生类成员与基类成员重名" class="headerlink" title="覆盖 —— 派生类成员与基类成员重名"></a>覆盖 —— 派生类成员与基类成员重名</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span></span>
 <span class="hljs-class">&#123;</span>
@@ -540,7 +547,7 @@
 	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">myFunc</span><span class="hljs-params">()</span></span>
 <span class="hljs-function">	</span>&#123;
 		a = <span class="hljs-number">10</span>;
-		Parent::a = <span class="hljs-number">100</span>;
+		Parent::a = <span class="hljs-number">100</span>;<span class="hljs-comment">//可以通过这种方式访问基类的同名成员</span>
 		func();
 		Parent::func();
 	&#125;
@@ -559,70 +566,91 @@
 <ul>
 <li>当派生类中的成员与基类成员同名时，这就是<strong>覆盖</strong>。</li>
 <li>当在派生类中访问这一类成员时，默认访问的是派生类自己定义的成员。想要访问基类定义的同名成员时需要加上类名以及作用域符号<code>::</code>来区分。</li>
+<li>即使基类中又多个参数不同构成重载的成员函数，只要派生类有同名的成员函数，派生类就会隐藏全部的基类函数，必须通过<code>基类名::函数名()</code>的方式调用。</li>
 <li>基类派生类的同名函数<strong>没有重载关系</strong>。</li>
 </ul>
-<h2 id="多继承与虚继承"><a href="#多继承与虚继承" class="headerlink" title="多继承与虚继承"></a>多继承与虚继承</h2><p>多继承是C++的特性，其他主流语言都没有。</p>
+<h2 id="多继承"><a href="#多继承" class="headerlink" title="多继承"></a>多继承</h2><p>多继承是C++的特性，其他主流语言都没有。</p>
 <p>所谓多继承就是一个类同时继承两个类。</p>
-<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SofaBed</span>:</span><span class="hljs-keyword">public</span> sofa,<span class="hljs-keyword">public</span> bed
-&#123;&#125;</code></pre>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Wood</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-keyword">int</span> m = <span class="hljs-number">0</span>;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bed</span> :</span><span class="hljs-keyword">public</span> Wood &#123;&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sofa</span> :</span><span class="hljs-keyword">public</span> Wood &#123;&#125;;
+
+<span class="hljs-comment">//多继承。这个例子是菱形继承</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">//	   Wood</span>
+<span class="hljs-comment">//	  /	   \</span>
+<span class="hljs-comment">// Sofa	   Bed</span>
+<span class="hljs-comment">//    \    /</span>
+<span class="hljs-comment">//   SofaBed</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SofaBed</span> :</span><span class="hljs-keyword">public</span> Sofa, <span class="hljs-keyword">public</span> Bed &#123;&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;
+	<span class="hljs-comment">//访问数据m</span>
+	SofaBed sb;
+
+	<span class="hljs-comment">//cout &lt;&lt; &quot;SofaBed m: &quot; &lt;&lt; sb.m &lt;&lt; endl;	//错误，不明确</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;SofaBed Bed::m: &quot;</span> &lt;&lt; sb.Bed::m &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//0</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;SofaBed Sofa::m: &quot;</span> &lt;&lt; sb.Sofa::m &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//0</span>
+&#125;</code></pre>
 <p>但是多继承在特殊情况下会带来一些问题。比如上述例子中的<code>sofa</code>与<code>bed</code>都是继承于同一个基类<code>wood</code>，那基类<code>wood</code>所有的东西比如材质<code>m</code>，派生类<code>sofa</code>与<code>bed</code>都会用这份材质<code>m</code>，那么多继承的<code>sofabed</code>就会有两份<code>m</code>了。</p>
 <p>但是按照逻辑来说，这份材质还只应该出现一次的，于是就有了<strong>虚继承</strong>。</p>
-<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Wood</span></span>
-<span class="hljs-class">&#123;</span>
+<h2 id="虚继承"><a href="#虚继承" class="headerlink" title="虚继承"></a>虚继承</h2><p>两个基类<code>Bed</code>与<code>Sofa</code>需继承它们的基类，即在继承前加入关键字<code>virtual</code>。</p>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Wood</span> &#123;</span>
 <span class="hljs-keyword">public</span>:
-	<span class="hljs-keyword">int</span> m;
-	Wood() &#123; m = <span class="hljs-number">0</span>; &#125;
+	<span class="hljs-keyword">int</span> m = <span class="hljs-number">0</span>;
 &#125;;
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sofa</span> :</span><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">public</span> Wood
-&#123;
-<span class="hljs-keyword">public</span>:
-	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">sit</span><span class="hljs-params">()</span></span>
-<span class="hljs-function">	</span>&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;坐&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	&#125;
-&#125;;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bed</span> :</span><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">public</span> Wood &#123;&#125;;
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bed</span> :</span><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">public</span> Wood
-&#123;
-<span class="hljs-keyword">public</span>:
-	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">sleep</span><span class="hljs-params">()</span></span>
-<span class="hljs-function">	</span>&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;睡觉&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	&#125;
-&#125;;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sofa</span> :</span><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">public</span> Wood &#123;&#125;;
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SofaBed</span> :</span><span class="hljs-keyword">public</span> Sofa, <span class="hljs-keyword">public</span> Bed
-&#123;
-<span class="hljs-keyword">public</span>:
-	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">sitSleep</span><span class="hljs-params">()</span></span>
-<span class="hljs-function">	</span>&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;坐着睡觉&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	&#125;
-&#125;;
+<span class="hljs-comment">//多继承</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SofaBed</span> :</span><span class="hljs-keyword">public</span> Sofa, <span class="hljs-keyword">public</span> Bed &#123;&#125;;
 
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-	Wood z;
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(z) &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//4</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;
+	<span class="hljs-comment">//访问数据m</span>
+	SofaBed sb;
 
-	Sofa a;
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(a) &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//8</span>
-
-	SofaBed b;
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(b) &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//12</span>
-
-    Desk d;
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(d) &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//4</span>
-    
-	b.m = <span class="hljs-number">2</span>;
-	b.sitSleep();
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;SofaBed m: &quot;</span> &lt;&lt; sb.m &lt;&lt; <span class="hljs-built_in">endl</span>;				<span class="hljs-comment">//0</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;SofaBed Bed::m: &quot;</span> &lt;&lt; sb.Bed::m &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//0</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;SofaBed Sofa::m: &quot;</span> &lt;&lt; sb.Sofa::m &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//0</span>
 &#125;</code></pre>
 <ul>
 <li>虚拟继承是多重继承中特有的概念，虚拟继承是为了解决多重继承而出现的。</li>
-<li>不建议使用，结构负责，且内存开销比较大。</li>
-<li>此外上面的内存占据大小也没看明白，暂时留个疑问？👍</li>
+<li>一般不建议使用，结构复杂，且内存开销比较大。</li>
 </ul>
+<h3 id="虚继承的类对象大小"><a href="#虚继承的类对象大小" class="headerlink" title="虚继承的类对象大小"></a>虚继承的类对象大小</h3><h3 id="虚继承下类的大小"><a href="#虚继承下类的大小" class="headerlink" title="虚继承下类的大小"></a>虚继承下类的大小</h3><p>普通模式下：</p>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Wood</span> &#123;</span> <span class="hljs-keyword">int</span> m; &#125;;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bed</span> :</span><span class="hljs-keyword">public</span> Wood &#123; &#125;;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sofa</span> :</span><span class="hljs-keyword">public</span> Wood &#123; &#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BedSofa</span> :</span><span class="hljs-keyword">public</span> Bed, <span class="hljs-keyword">public</span> Sofa &#123;&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;											<span class="hljs-comment">//x86</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Wood sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Wood) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//4</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Bed sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Bed) &lt;&lt; <span class="hljs-built_in">endl</span>;		<span class="hljs-comment">//4</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Sofa sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Sofa) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//4</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;BedSofa sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(BedSofa) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//8</span>
+&#125;</code></pre>
+<p>虚继承之后</p>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Wood</span> &#123;</span> <span class="hljs-keyword">int</span> m; &#125;;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bed</span> :</span><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">public</span> Wood&#123; &#125;;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sofa</span> :</span><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">public</span> Wood &#123; &#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BedSofa</span> :</span><span class="hljs-keyword">public</span> Bed, <span class="hljs-keyword">public</span> Sofa &#123;&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;											<span class="hljs-comment">//x86</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Wood sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Wood) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//4</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Bed sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Bed) &lt;&lt; <span class="hljs-built_in">endl</span>;		<span class="hljs-comment">//8</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Sofa sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Sofa) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//8</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;BedSofa sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(BedSofa) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//12</span>
+&#125;</code></pre>
+<p>类的大小与虚表有关，见多态。</p>
 <h2 id="子类与父类对象之间的关系–兼容性赋值原则"><a href="#子类与父类对象之间的关系–兼容性赋值原则" class="headerlink" title="子类与父类对象之间的关系–兼容性赋值原则"></a>子类与父类对象之间的关系–兼容性赋值原则</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Father</span></span>
 <span class="hljs-class">&#123;</span>
 <span class="hljs-keyword">public</span>:

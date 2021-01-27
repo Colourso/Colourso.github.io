@@ -170,7 +170,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.1k 字
+      3.4k 字
     </span>
   
 
@@ -180,7 +180,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      33
+      38
        分钟
     </span>
   
@@ -335,7 +335,6 @@ TCHAR s[] = <span class="hljs-string">L&quot;你也是！&quot;</span>;</code></
 <p>参看博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_26145629/article/details/80782234">C++ _T()和L()宏</a></p>
 </blockquote>
 <h3 id="各种字符类型😱"><a href="#各种字符类型😱" class="headerlink" title="各种字符类型😱"></a>各种字符类型😱</h3><p><img src="/vs-use/str.png" srcset="/img/loading.gif"></p>
-<p>🤧😷😱</p>
 <p>上图来自博客：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jmliao/p/6031818.html">C++字符类型总结区别wchar_t,char,WCHAR</a>  emmm,就是有非常丰富的类型。具体内容可以参看超链接里的那篇博客。</p>
 <blockquote>
 <p>其他参看博客：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/lanhaicode/p/10574260.html">宽字符wchar_t和窄字符char——putwchar、wprintf</a></p>
@@ -349,6 +348,49 @@ TCHAR s[] = <span class="hljs-string">L&quot;你也是！&quot;</span>;</code></
 <h2 id="VS使用中碰到的问题"><a href="#VS使用中碰到的问题" class="headerlink" title="VS使用中碰到的问题"></a>VS使用中碰到的问题</h2><h3 id="模块对于-SAFESEH-映像是不安全的。"><a href="#模块对于-SAFESEH-映像是不安全的。" class="headerlink" title="模块对于 SAFESEH 映像是不安全的。"></a>模块对于 SAFESEH 映像是不安全的。</h3><p>解决方法：属性 –&gt; 链接器 –&gt; 命令行，然后在其他选项这个框中，填入<code>/SAFESEH:NO</code>，就好了。</p>
 <h3 id="提示函数过时或者不安全"><a href="#提示函数过时或者不安全" class="headerlink" title="提示函数过时或者不安全"></a>提示函数过时或者不安全</h3><p>一种方式是将函数修改为VS建议的函数。</p>
 <p>另一种方式是添加<code>_CRT_SECURE_NO_WARNINGS</code>来让VS忽略这些问题，一种添加是在文件开头添加宏<code>#define _CRT_SECURE_NO_WARNINGS</code>，另一种方式是在属性页 –&gt; C/C++ –&gt; 预处理器 –&gt; 预处理器定义，添加<code>_CRT_SECURE_NO_WARNINGS</code>即可。</p>
+<h2 id="VS工具-——-开发人员命令工具提示符"><a href="#VS工具-——-开发人员命令工具提示符" class="headerlink" title="VS工具 —— 开发人员命令工具提示符"></a>VS工具 —— 开发人员命令工具提示符</h2><p><img src="/vs-use/tool.png" srcset="/img/loading.gif"></p>
+<p>点击打开，然后切换路径到达你CPP文件所在的路径。</p>
+<pre><code class="hljs taggerscript">D:<span class="hljs-symbol">\P</span>rogram Files (x86)<span class="hljs-symbol">\M</span>icrosoft Visual Studio<span class="hljs-symbol">\2</span>017<span class="hljs-symbol">\C</span>ommunity&gt;cd D:<span class="hljs-symbol">\C</span>ode<span class="hljs-symbol">\V</span>S2017<span class="hljs-symbol">\C</span>Program<span class="hljs-symbol">\P</span>rogram<span class="hljs-symbol">\1</span>1 多态
+
+D:<span class="hljs-symbol">\C</span>ode<span class="hljs-symbol">\V</span>S2017<span class="hljs-symbol">\C</span>Program<span class="hljs-symbol">\P</span>rogram<span class="hljs-symbol">\1</span>1 多态&gt;dir
+ 驱动器 D 中的卷没有标签。
+ 卷的序列号是 1AF9-4F82
+
+ D:<span class="hljs-symbol">\C</span>ode<span class="hljs-symbol">\V</span>S2017<span class="hljs-symbol">\C</span>Program<span class="hljs-symbol">\P</span>rogram<span class="hljs-symbol">\1</span>1 多态 的目录
+
+2021/01/26  14:14    &lt;DIR&gt;          .
+2021/01/26  14:14    &lt;DIR&gt;          ..
+2021/01/26  14:14               191 11 多态.cpp
+2021/01/26  12:21             7,626 11 多态.vcxproj
+2021/01/26  12:21               954 11 多态.vcxproj.filters
+2021/01/26  12:21               165 11 多态.vcxproj.user
+               4 个文件          8,936 字节
+               2 个目录 177,054,085,120 可用字节</code></pre>
+<p>使用cd命令切换，使用dir命令查看当前路径下的文件。</p>
+<p>输入命令：<code>cl /d1 reportSingleClassLayout类名 &quot;文件名.cpp&quot;</code></p>
+<pre><code class="hljs apache"><span class="hljs-attribute">cl</span> /d<span class="hljs-number">1</span> reportSingleClassLayoutCat <span class="hljs-string">&quot;11 多态.cpp&quot;</span></code></pre>
+<p>注意类名与前面一串英文之间没有间隔。</p>
+<ul>
+<li>这段命令可以查看在”11 多态.cpp”这个文件中，类Cat的构造。</li>
+</ul>
+<pre><code class="hljs applescript"><span class="hljs-built_in">class</span> Cat       size(<span class="hljs-number">8</span>):
+        +<span class="hljs-comment">---</span>
+ <span class="hljs-number">0</span>      | +<span class="hljs-comment">--- (base class Animal)</span>
+ <span class="hljs-number">0</span>      | | age
+        | +<span class="hljs-comment">---</span>
+ <span class="hljs-number">4</span>      | <span class="hljs-built_in">id</span>
+        +<span class="hljs-comment">---</span></code></pre>
+<p>而Cat的实际定义为：</p>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-keyword">int</span> age;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span>:</span><span class="hljs-keyword">public</span> Animal &#123;
+<span class="hljs-keyword">private</span>:
+	<span class="hljs-keyword">int</span> id;
+&#125;;</code></pre>
+<p><img src="/vs-use/classsize.png" srcset="/img/loading.gif"></p>
 
             </article>
             <hr>

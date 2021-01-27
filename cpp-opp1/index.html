@@ -170,7 +170,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.7k 字
+      6.5k 字
     </span>
   
 
@@ -180,7 +180,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      77
+      87
        分钟
     </span>
   
@@ -629,12 +629,12 @@ Student::Student(<span class="hljs-built_in">string</span> name, <span class="hl
 <li>每个成员的类型决定了它如何被拷贝，类的类型成员将会使用它的拷贝构造函数来拷贝，而内置类型的成员将会直接拷贝。至于数组，将会被逐个元素地拷贝。</li>
 <li>但是如何成员中有指针！必须小心的对待！！！</li>
 </ul>
-<h3 id="拷贝初始化发生情况"><a href="#拷贝初始化发生情况" class="headerlink" title="拷贝初始化发生情况"></a>拷贝初始化发生情况</h3><ul>
+<h3 id="拷贝构造函数调用时机"><a href="#拷贝构造函数调用时机" class="headerlink" title="拷贝构造函数调用时机"></a>拷贝构造函数调用时机</h3><ol>
 <li>拷贝初始化一般发生于用<code>=</code>定义变量时，即<code>Foo f2 = f1</code>这种形式，或者是使用对象初始化的形式，即<code>Foo f3(f1)</code>。</li>
 <li>将一个对象作为<strong>实参传递</strong>给一个非引用类型的形参</li>
 <li>从一个返回类型为非引用类型的函数返回一个对象</li>
 <li>使用花括号列表初始化一个数组中的元素或者聚合类的成员。</li>
-</ul>
+</ol>
 <p>从上述可以看出拷贝构造函数用于初始化非引用类型参数，这一特性导致它的参数必须是引用类型，否则将会无限循环了。</p>
 <h2 id="拷贝赋值运算符"><a href="#拷贝赋值运算符" class="headerlink" title="拷贝赋值运算符"></a>拷贝赋值运算符</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span></span>
 <span class="hljs-class">&#123;</span>
@@ -868,9 +868,9 @@ Student::~Student()
 <li>静态数据成员是<strong>在开始运行时被分配空间</strong>，到程序结束时才释放空间。</li>
 <li>静态成员可以初始化，但是只能够在类外初始化。也不能够用参数列表对其初始化。</li>
 <li>静态数据成员既可以通过对象名（a.C）或者类名（A::C）来引用。</li>
-<li>static修饰的成员仍然遵循public，private，protected访问准则。</li>
+<li>static修饰的成员仍然遵循public，private，protected访问准则，即数据以及函数都遵从。</li>
 <li>静态成员函数的意义不在于信息共享，而在于管理静态数据成员，完成封装。</li>
-<li>静态成员函数只能访问静态数据成员，因为静态成员函数属于类所有而非对象所有，没有this指针。</li>
+<li>静态成员函数<strong>只能访问静态数据成员</strong>，因为静态成员函数属于类所有而非对象所有，没有this指针。</li>
 <li>静态数据成员不占据类的大小。</li>
 </ol>
 <blockquote>
@@ -883,21 +883,23 @@ Student::~Student()
 <li>而如果在成员函数的末尾加上const，则表示this指针变成了<code>const Class * const</code>这样。</li>
 <li>静态成员函数没有this指针</li>
 </ul>
-<h3 id="成员函数返回对象本身"><a href="#成员函数返回对象本身" class="headerlink" title="成员函数返回对象本身"></a>成员函数返回对象本身</h3><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span></span>
+<h3 id="成员函数返回对象本身——注意加引用"><a href="#成员函数返回对象本身——注意加引用" class="headerlink" title="成员函数返回对象本身——注意加引用"></a>成员函数返回对象本身——注意加引用</h3><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span></span>
 <span class="hljs-class">&#123;</span>
 <span class="hljs-keyword">public</span>:
     Example() :a(<span class="hljs-number">10</span>) &#123;&#125;
     ~Example() &#123;&#125;
     
+    <span class="hljs-comment">//注意函数返回值为引用。</span>
     <span class="hljs-function">Example&amp; <span class="hljs-title">copy</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Example&amp; other)</span></span>
 <span class="hljs-function">    </span>&#123;
         <span class="hljs-keyword">this</span>-&gt;a = other.a;
         <span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;
-    &#125;<span class="hljs-comment">//注意函数返回值为引用。</span>
+    &#125;
 
     <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showInfo</span><span class="hljs-params">()</span></span>
 <span class="hljs-function">    </span>&#123;
         <span class="hljs-built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="hljs-built_in">endl</span>;
+        <span class="hljs-comment">//实际上隐含为 cout&lt;&lt;this-&gt;a&lt;&lt;endl;</span>
     &#125;
 
 <span class="hljs-keyword">private</span>:
@@ -906,25 +908,33 @@ Student::~Student()
 <h2 id="const修饰的类成员"><a href="#const修饰的类成员" class="headerlink" title="const修饰的类成员"></a>const修饰的类成员</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span></span>
 <span class="hljs-class">&#123;</span>
 <span class="hljs-keyword">public</span>:
-    Example() :i_nom_n(<span class="hljs-number">11</span>) &#123;&#125;
-    ~Example() &#123;&#125;
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showInfo</span><span class="hljs-params">()</span></span>
-<span class="hljs-function">    </span>&#123;
-        <span class="hljs-keyword">this</span>-&gt;i_nom_n += <span class="hljs-number">100</span>;
-        <span class="hljs-built_in">cout</span> &lt;&lt; i_con_n &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; i_nom_n &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; i_sta_n &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; i_con_sta_n &lt;&lt; <span class="hljs-built_in">endl</span>;
-    &#125;
+	Example() :i_nom_n(<span class="hljs-number">11</span>) &#123;&#125;
+	~Example() &#123;&#125;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showInfo</span><span class="hljs-params">()</span></span>
+<span class="hljs-function">	</span>&#123;
+		<span class="hljs-keyword">this</span>-&gt;i_nom_n += <span class="hljs-number">100</span>;
 
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showInfo2</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>
-<span class="hljs-function">    </span>&#123;
-        <span class="hljs-comment">//this-&gt;i_nom_n++;//错误，表达式必须是可修改的左值</span>
-        <span class="hljs-built_in">cout</span> &lt;&lt; i_con_n &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; i_nom_n &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; i_sta_n &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; i_con_sta_n &lt;&lt; <span class="hljs-built_in">endl</span>;
-    &#125;
+		m_num = <span class="hljs-number">10</span>;
+
+		<span class="hljs-built_in">cout</span> &lt;&lt; i_con_n &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; i_nom_n &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; i_sta_n &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; i_con_sta_n &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showInfo2</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span>	<span class="hljs-comment">//常函数</span></span>
+<span class="hljs-function">	</span>&#123;
+		<span class="hljs-comment">//this-&gt;i_nom_n++;//错误，表达式必须是可修改的左值</span>
+
+		m_num = <span class="hljs-number">10</span>;			<span class="hljs-comment">//正确，添加了关键字mutable之后仍然可以进行修改</span>
+
+		<span class="hljs-built_in">cout</span> &lt;&lt; i_con_n &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; i_nom_n &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; i_sta_n &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; i_con_sta_n &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
 
 <span class="hljs-keyword">private</span>:
-    <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> i_con_n = <span class="hljs-number">10</span>;<span class="hljs-comment">//可在此处赋值或者初始值列表进行初始化</span>
-    <span class="hljs-keyword">int</span> i_nom_n;<span class="hljs-comment">//可在此处赋值，为默认值</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> i_sta_n;<span class="hljs-comment">//必须在类外初始化</span>
-    <span class="hljs-keyword">const</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> i_con_sta_n;<span class="hljs-comment">//可在此处赋值或者类外初始化</span>
+	<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> i_con_n = <span class="hljs-number">10</span>; <span class="hljs-comment">//可在此处赋值或者初始值列表进行初始化</span>
+	<span class="hljs-keyword">int</span> i_nom_n;			<span class="hljs-comment">//可在此处赋值，为默认值</span>
+	<span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> i_sta_n;		<span class="hljs-comment">//必须在类外初始化</span>
+	<span class="hljs-keyword">const</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> i_con_sta_n;<span class="hljs-comment">//可在此处赋值或者类外初始化</span>
+
+	<span class="hljs-keyword">mutable</span> <span class="hljs-keyword">int</span> m_num;		<span class="hljs-comment">//这个变量可以修改</span>
 &#125;;
 
 <span class="hljs-keyword">int</span> Example::i_sta_n = <span class="hljs-number">12</span>;
@@ -932,20 +942,28 @@ Student::~Student()
 
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
 <span class="hljs-function"></span>&#123;
-    Example ex;
+	Example ex;
 
-    ex.showInfo2();
+	ex.showInfo2();
 
-    ex.showInfo();
+	ex.showInfo();
 
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+	<span class="hljs-comment">//常对象</span>
+	<span class="hljs-keyword">const</span> Example c_ex;
+
+	<span class="hljs-comment">//c_ex.showInfo(); //错误，常对象只能调用常函数</span>
+
+	c_ex.showInfo2();
+
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre>
 <ul>
 <li>const类常量只能在声明时就初始化或者使用构造函数初始值列表进行初始化。</li>
 <li>而static const修饰的成员变量则可以在声明时初始化，或者在类外进行初始化。</li>
-<li>类的成员函数后面加 const，表明这个函数不会对这个类对象的数据成员（准确地说是非静态数据成员）作任何改变。</li>
-<li>本质上，const指针修饰的是被隐藏的this指针所指向的内存空间，修饰的是this指针。</li>
-<li>在成员函数的末尾加上const，则表示this指针变成了<code>const Class * const</code>这样。</li>
+<li>本质上，const指针修饰的是被隐藏的this指针所指向的内存空间，修饰的是this指针。在成员函数的末尾加上const，则表示this指针变成了<code>const Class * const</code>这样。</li>
+<li>类的成员函数后面加 const，即为<strong>常函数</strong>，表明这个函数不会对这个类对象的数据成员（准确地说是非静态数据成员）作任何改变。</li>
+<li>关键字<code>mutable</code>可以使得在常函数之中，依旧可以进行修改。</li>
+<li>而声明对象的时候使用关键字const，可以创建出常对象，常对象不允许修改其任何变量，<code>mutable</code>修饰的例外。并且<strong>常对象只能调用常函数</strong>。因为普通函数难免会改变成员变量，常函数必定不会修改普通的成员变量。</li>
 </ul>
 <blockquote>
 <p>参考链接：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/cthon/p/9178701.html">C++之const类成员变量，const成员函数</a></p>
@@ -961,8 +979,10 @@ Student::~Student()
     <span class="hljs-keyword">int</span> a;
     <span class="hljs-keyword">int</span> b;
 
-    <span class="hljs-keyword">friend</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span>;</span>
-    <span class="hljs-function"><span class="hljs-keyword">friend</span> <span class="hljs-keyword">void</span> <span class="hljs-title">friendfun</span><span class="hljs-params">(A an, B bn)</span></span>;
+    <span class="hljs-keyword">friend</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span>;</span>						<span class="hljs-comment">//类作为友元</span>
+    <span class="hljs-function"><span class="hljs-keyword">friend</span> <span class="hljs-keyword">void</span> <span class="hljs-title">friendfun</span><span class="hljs-params">(A an, B bn)</span></span>;	<span class="hljs-comment">//全局函数作为友元</span>
+    <span class="hljs-comment">//类的某个成员函数也可以作为友元</span>
+    <span class="hljs-comment">// friend void B::info(A an);</span>
 &#125;;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span></span>
@@ -997,7 +1017,7 @@ Student::~Student()
 <li>当类实现了数据的封装和隐藏的时候，又是需要一些函数频繁访问类的数据成员，但它又不是此类的一部分，此时可以将这些函数定义为友元。</li>
 <li>友元将无视权限，同时友元也不受所在private、public或者protected区域的影响，一般将友元放在类的末尾部分。</li>
 <li>友元的作用是提高程序运行效率，缺点是破坏了类的封装和隐藏性。</li>
-<li>友元不能被继承，友元不具有传递性，友元关系是单向的。</li>
+<li>友元不能被继承，友元不具有传递性，友元关系是<strong>单向的</strong>。</li>
 </ul>
 <h2 id="创建对象实例的方式（new与不new）"><a href="#创建对象实例的方式（new与不new）" class="headerlink" title="创建对象实例的方式（new与不new）"></a>创建对象实例的方式（new与不new）</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span></span>
 <span class="hljs-class">&#123;</span>
@@ -1050,6 +1070,80 @@ Student::~Student()
 <li>构造函数初始值列表的顺序不影响被初始化的顺序。</li>
 <li>建议是尽可能避免使用类的某些成员去初始化其他成员。</li>
 </ul>
+<h3 id="类对象做为类成员时的构造顺序？"><a href="#类对象做为类成员时的构造顺序？" class="headerlink" title="类对象做为类成员时的构造顺序？"></a>类对象做为类成员时的构造顺序？</h3><p>当一个<code>类B</code>作为<code>类A</code>的成员时，先调用类B的构造函数，再进行类A的构造函数。</p>
+<h3 id="C-类的大小"><a href="#C-类的大小" class="headerlink" title="C++类的大小"></a>C++类的大小</h3><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C1</span></span>
+<span class="hljs-class">&#123;</span>
+	<span class="hljs-comment">//空类</span>
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C2</span></span>
+<span class="hljs-class">&#123;</span>
+	<span class="hljs-keyword">int</span> a;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C3</span></span>
+<span class="hljs-class">&#123;</span>
+	<span class="hljs-keyword">int</span> a;
+	<span class="hljs-keyword">char</span> b;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">C4</span></span>
+<span class="hljs-class">&#123;</span>
+	<span class="hljs-keyword">int</span> a;
+	<span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> b;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span> </span>&#123;&#125;
+	<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sfunc</span><span class="hljs-params">()</span> </span>&#123;&#125;
+&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	C1 c1;
+	C2 c2;
+	C3 c3;
+	C4 c4;
+
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;C1空类的大小为&quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(c1) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//1</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;C2类的大小为&quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(c2) &lt;&lt; <span class="hljs-built_in">endl</span>;    <span class="hljs-comment">//4</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;C3类的大小为&quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(c3) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//8</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;C4类的大小为&quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(c4) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//4</span>
+&#125;</code></pre>
+<ol>
+<li>当是空类的时候，编译器为了确保空类的对象也有明确的地址，所以空类对象会有<code>1个空间</code>的大小。</li>
+<li>不为空时，只有非静态的成员变量才会占据类的大小，成员函数、静态变量以及静态函数都不占据空间，因为静态成员为类所有，此外成员函数通过this指针来区分不同的对象实例。（每个非静态函数只有一份函数实例，即多个同类型的对象公用一块代码）。</li>
+<li>由于优化的需要，会有<strong>内存对齐</strong>的情况。参考类C3，按照其内最大的数据类型进行对齐。</li>
+</ol>
+<h3 id="总结：C-构造函数的调用方式"><a href="#总结：C-构造函数的调用方式" class="headerlink" title="总结：C++构造函数的调用方式"></a>总结：C++构造函数的调用方式</h3><pre><code class="hljs c++">&#123;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;方式1：括号法&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	Cat a;			<span class="hljs-comment">//默认构造</span>
+	<span class="hljs-function">Cat <span class="hljs-title">b</span><span class="hljs-params">(<span class="hljs-number">1</span>)</span></span>;		<span class="hljs-comment">//有参构造</span>
+	<span class="hljs-function">Cat <span class="hljs-title">c</span><span class="hljs-params">(b)</span></span>;		<span class="hljs-comment">//拷贝构造</span>
+
+	<span class="hljs-comment">//Cat d();	//这样不是调用默认构造函数，而是编译器将其视作了一个函数的声明。在CPP中，函数的声明可以写在其他函数中</span>
+
+	<span class="hljs-comment">//int aaa();</span>
+&#125;
+
+&#123;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;方式2：显示法&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	Cat a = Cat();	<span class="hljs-comment">//默认构造</span>
+	Cat b = Cat(<span class="hljs-number">1</span>);	<span class="hljs-comment">//有参构造</span>
+	Cat c = Cat(b);	<span class="hljs-comment">//拷贝构造</span>
+
+	Cat(<span class="hljs-number">1</span>);		<span class="hljs-comment">//单独这一句是构造一个匿名函数，当前行执行结束就会被释放。</span>
+
+	<span class="hljs-comment">//Cat(b);	//执行出错，原因是b重定义</span>
+				<span class="hljs-comment">//不能使用拷贝构造函数来声明匿名对象，编译器会将其当作括号内的对象的声明。</span>
+&#125;
+
+
+&#123;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;方式3：隐式法&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	Cat a = <span class="hljs-number">2</span>;		<span class="hljs-comment">//隐式为Cat a = Cat(2);</span>
+	Cat b = a;		<span class="hljs-comment">//隐式为Cat b = Cat(a);</span>
+&#125;</code></pre>
 
             </article>
             <hr>

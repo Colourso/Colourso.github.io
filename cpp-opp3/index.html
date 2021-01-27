@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>C++面向对象（三) —— 多态 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-01-26 14:09">
+      星期二, 一月 26日 2021, 2:09 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      68
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><strong>概览</strong>：C++面向对象之多态，虚函数、动态联编（动态绑定）、虚析构函数、纯虚函数以及抽象类，以及多态的原理——虚函数指针和虚函数表。</p>
+<a id="more"></a>
+
+<hr>
+<p>多态是C++面向对象三大特性之一。</p>
+<p>向不同的对象发送同一个消息（<strong>即调用函数</strong>），不同对象会产生不同的响应（<strong>函数实现</strong>）。通过多态性可以实现“<strong>一个接口，多种方法</strong>”。</p>
+<p>形式有：</p>
+<ul>
+<li>函数重载</li>
+<li>运算符重载</li>
+<li>基于虚函数的多态性</li>
+</ul>
+<h2 id="需求——“千人千面”"><a href="#需求——“千人千面”" class="headerlink" title="需求——“千人千面”"></a>需求——“千人千面”</h2><p>需求：在函数<code>void play(Animal *a);</code>中传递不同的对象，传入什么对象，就调用其对应的函数。</p>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">talk</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;动物发出声音&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+	&#125;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span>:</span><span class="hljs-keyword">public</span> Animal &#123;
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">talk</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;小猫喵喵喵&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dog</span> :</span><span class="hljs-keyword">public</span> Animal &#123;
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">talk</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;小狗汪汪汪&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">play</span><span class="hljs-params">(Animal *a)</span> </span>&#123;
+	a-&gt;talk();
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span> </span>&#123;
+
+	Animal *a = <span class="hljs-keyword">new</span> Animal();
+	play(a);
+	<span class="hljs-keyword">delete</span> a;
+
+	Cat * c = <span class="hljs-keyword">new</span> Cat();
+	play(c);
+	<span class="hljs-keyword">delete</span> c;
+
+	Dog* d = <span class="hljs-keyword">new</span> Dog();
+	play(d);
+	<span class="hljs-keyword">delete</span> d;
+&#125;</code></pre>
+<p>输出结果为：</p>
+<pre><code class="hljs plain">动物发出声音
+动物发出声音
+动物发出声音</code></pre>
+<ul>
+<li>首先，无论在派生方式是<code>public</code>的方式下， 派生类的对象是可以赋值给基类指针的。所以上述函数<code>play()</code>的调用是没有问题的。</li>
+<li>然后从结果来看，函数无论传递的是基类还是派生类，最终调用的一定是基类方法。<strong>静态联编</strong>，（编译器默认做了一个安全处理，它认为，不管传递基类还是派生类对象，如果统一执行基类方法，一定可以成功）。</li>
+</ul>
+<p>上述代码中，基类与派生类的方法是同名的方法，而我们的本意是<code>根据传递对象的不同来显示不同的结果</code>。最普通的方式那就是写三个同名函数，根据参数不同构成重载来解决这个问题，但是设想有1000个这样的不同类呢？</p>
+<p>对于这种有继承关系的类，可以使用虚函数来解决这个问题。</p>
+<h2 id="定义虚函数"><a href="#定义虚函数" class="headerlink" title="定义虚函数"></a>定义虚函数</h2><p>在基类的方法上添加关键字<code>virtual</code>，然后派生了对于同名方法进行各自的重写，然后再统一根据基类指针来作为参数传递时，就可以达到我们想要的效果，“千人千面”，这就是<strong>多态</strong>。</p>
+<ul>
+<li>语法：基类中<code>virtual 函数返回值 函数名（参数）</code>，这样就是一个虚函数。</li>
+<li><code>virtual</code>关键只需要在类内声明时写，在类外实现时不需要。</li>
+<li>而对于派生类，如果它重写了基类的虚函数，关键字<code>virtual</code>可加可不加，一般可以添加，方便阅读代码，表示是对基类虚函数的重写。</li>
+</ul>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+
+	<span class="hljs-comment">//增加关键字virtual，表示这是一个虚函数</span>
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">talk</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;动物发出声音&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+	&#125;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span>:</span><span class="hljs-keyword">public</span> Animal &#123;
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-comment">//派生类重写基类的虚函数</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">talk</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;小猫喵喵喵&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dog</span> :</span><span class="hljs-keyword">public</span> Animal &#123;
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">talk</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;小狗汪汪汪&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">play</span><span class="hljs-params">(Animal *a)</span> </span>&#123;
+	a-&gt;talk();
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span> </span>&#123;
+
+	Animal *a = <span class="hljs-keyword">new</span> Animal();
+	play(a);
+	<span class="hljs-keyword">delete</span> a;
+
+	Cat * c = <span class="hljs-keyword">new</span> Cat();
+	play(c);
+	<span class="hljs-keyword">delete</span> c;
+
+	Dog* d = <span class="hljs-keyword">new</span> Dog();
+	play(d);
+	<span class="hljs-keyword">delete</span> d;
+&#125;</code></pre>
+<p>执行结果：</p>
+<pre><code class="hljs plain">动物发出声音
+小猫喵喵喵
+小狗汪汪汪</code></pre>
+<h2 id="静态联编与动态联编"><a href="#静态联编与动态联编" class="headerlink" title="静态联编与动态联编"></a>静态联编与动态联编</h2><p>联编：指一个程序模块、代码之间相互关联的过程。</p>
+<p>静态联编就是在<strong>编译阶段</strong>就确定好了函数的地址，也称为<strong>早期匹配</strong>、<strong>早绑定</strong>。</p>
+<p>对于第一块代码，它就属于静态联编。在编译时，编译器会自动地根据指针类型来判断指向的是一个什么样的对象，所以编译器认为基类指针指向地是基类对象。而程序并没有运行，所以不可能知道基类指针指向地具体是基类对象还是派生类对象。从程序安全地角度考虑，编译结果选择调用基类的成员函数，这种特性就是静态联编。</p>
+<p><strong>重载函数和运算符重载就是使用的静态联编的方式。</strong></p>
+<p>而虚函数可以使得程序在<strong>运行阶段</strong>具体决定调用哪个类的方法，而不是按编译阶段绑定的基类方法执行，这称为动态联编，又称为<strong>晚期绑定</strong>、<strong>迟绑定</strong>、<strong>动态绑定</strong>。</p>
+<p><strong>当我们使用基类的引用或者指针时调用一个虚函数时，将会发生动态绑定。</strong></p>
+<h2 id="多态发生的条件"><a href="#多态发生的条件" class="headerlink" title="多态发生的条件"></a>多态发生的条件</h2><p>基于虚函数的多态：</p>
+<ol>
+<li>要有<strong>继承</strong></li>
+<li>要有<strong>虚函数</strong>以及派生类对虚函数的<strong>重写</strong>。</li>
+<li>要有<strong>基类指针</strong>或者<strong>引用</strong>来指向派生类对象。</li>
+</ol>
+<p>当基类的「指针」或者「引用」指向了基类对象或者派生类对象，调用哪个虚函数，取决于引用的对象是哪种类型的对象，这就是多态。</p>
+<h2 id="多态的作用"><a href="#多态的作用" class="headerlink" title="多态的作用"></a>多态的作用</h2><p>通过看两段代码来做对比</p>
+<pre><code class="hljs c++"><span class="hljs-comment">//普通的计算器类实现</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Calcutor</span> &#123;</span>
+
+<span class="hljs-keyword">public</span>:
+
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getResult</span><span class="hljs-params">(<span class="hljs-built_in">string</span> op)</span> </span>&#123;
+		<span class="hljs-keyword">if</span> (op == <span class="hljs-string">&quot;+&quot;</span>) &#123;
+			<span class="hljs-keyword">return</span> m_numA + m_numB;
+		&#125;
+		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (op == <span class="hljs-string">&quot;-&quot;</span>) &#123;
+			<span class="hljs-keyword">return</span> m_numA - m_numB;
+		&#125;
+		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (op == <span class="hljs-string">&quot;*&quot;</span>) &#123;
+			<span class="hljs-keyword">return</span> m_numA * m_numB;
+		&#125;
+		<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> INFINITY;
+	&#125;
+
+	<span class="hljs-keyword">int</span> m_numA;
+	<span class="hljs-keyword">int</span> m_numB;
+
+&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;
+
+	<span class="hljs-comment">//普通的计算器类的实现</span>
+
+	Calcutor c;
+	c.m_numA = <span class="hljs-number">10</span>;
+	c.m_numB = <span class="hljs-number">-10</span>;
+
+	<span class="hljs-built_in">cout</span> &lt;&lt; c.m_numA &lt;&lt; <span class="hljs-string">&quot; + &quot;</span> &lt;&lt; c.m_numB &lt;&lt; <span class="hljs-string">&quot; = &quot;</span> &lt;&lt; c.getResult(<span class="hljs-string">&quot;+&quot;</span>) &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; c.m_numA &lt;&lt; <span class="hljs-string">&quot; - &quot;</span> &lt;&lt; c.m_numB &lt;&lt; <span class="hljs-string">&quot; = &quot;</span> &lt;&lt; c.getResult(<span class="hljs-string">&quot;-&quot;</span>) &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; c.m_numA &lt;&lt; <span class="hljs-string">&quot; * &quot;</span> &lt;&lt; c.m_numB &lt;&lt; <span class="hljs-string">&quot; = &quot;</span> &lt;&lt; c.getResult(<span class="hljs-string">&quot;*&quot;</span>) &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+&#125;</code></pre>
+<ul>
+<li>当这个计算器要增加新的功能时，则需要对其源代码进行修改。而代码维护的原则是尽量不修改原有代码。</li>
+<li>而且这个代码后期维护起来并不方便。</li>
+</ul>
+<pre><code class="hljs c++"><span class="hljs-comment">//抽象计算器类</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AbstractCalculator</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getResult</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+	&#125;
+
+	<span class="hljs-keyword">int</span> m_Num1;
+	<span class="hljs-keyword">int</span> m_Num2;
+&#125;;
+
+<span class="hljs-comment">//实现加法运算器</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AddCalculator</span>:</span><span class="hljs-keyword">public</span> AbstractCalculator &#123;
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getResult</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-keyword">return</span> m_Num1 + m_Num2;
+	&#125;
+&#125;;
+
+<span class="hljs-comment">//实现减法计算器</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SubCalculator</span> :</span><span class="hljs-keyword">public</span> AbstractCalculator &#123;
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getResult</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-keyword">return</span> m_Num1 - m_Num2;
+	&#125;
+&#125;;
+
+<span class="hljs-comment">//实现乘法计算器</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MulCalculator</span> :</span><span class="hljs-keyword">public</span> AbstractCalculator &#123;
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getResult</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-keyword">return</span> m_Num1 * m_Num2;
+	&#125;
+&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;
+	<span class="hljs-comment">//测试三段代码</span>
+
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;加法测试：&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+	AbstractCalculator * cal = <span class="hljs-keyword">new</span> AddCalculator;
+	cal-&gt;m_Num1 = <span class="hljs-number">10</span>;
+	cal-&gt;m_Num2 = <span class="hljs-number">20</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; cal-&gt;m_Num1 &lt;&lt; <span class="hljs-string">&quot; + &quot;</span> &lt;&lt; cal-&gt;m_Num2 &lt;&lt; <span class="hljs-string">&quot; = &quot;</span> &lt;&lt; cal-&gt;getResult() &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-keyword">delete</span> cal;	<span class="hljs-comment">//手动释放</span>
+
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;减法测试：&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+	cal = <span class="hljs-keyword">new</span> SubCalculator;
+	cal-&gt;m_Num1 = <span class="hljs-number">10</span>;
+	cal-&gt;m_Num2 = <span class="hljs-number">20</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; cal-&gt;m_Num1 &lt;&lt; <span class="hljs-string">&quot; - &quot;</span> &lt;&lt; cal-&gt;m_Num2 &lt;&lt; <span class="hljs-string">&quot; = &quot;</span> &lt;&lt; cal-&gt;getResult() &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-keyword">delete</span> cal;
+
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;乘法测试：&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+	cal = <span class="hljs-keyword">new</span> MulCalculator;
+	cal-&gt;m_Num1 = <span class="hljs-number">10</span>;
+	cal-&gt;m_Num2 = <span class="hljs-number">20</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; cal-&gt;m_Num1 &lt;&lt; <span class="hljs-string">&quot; * &quot;</span> &lt;&lt; cal-&gt;m_Num2 &lt;&lt; <span class="hljs-string">&quot; = &quot;</span> &lt;&lt; cal-&gt;getResult() &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-keyword">delete</span> cal;
+
+&#125;</code></pre>
+<ul>
+<li>而通过多态实现的计算器，前面构造一个抽象的计算器类，定义好虚函数。</li>
+<li>增加新的功能只需要在原有基础上构建一个新的派生类即可。</li>
+</ul>
+<p>优点：</p>
+<ul>
+<li>代码组织结构清晰</li>
+<li>可读性强</li>
+<li>利于前期和后期的扩展以及维护</li>
+</ul>
+<blockquote>
+<p>一个更易懂的例子：LOL英雄联盟游戏：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/CeCuXuCjYROgNLmUiLtlHA">https://mp.weixin.qq.com/s/CeCuXuCjYROgNLmUiLtlHA</a></p>
+</blockquote>
+<h2 id="在普通成员函数中的多态"><a href="#在普通成员函数中的多态" class="headerlink" title="在普通成员函数中的多态"></a>在普通成员函数中的多态</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">func1</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-comment">//调用虚函数</span>
+		<span class="hljs-keyword">this</span>-&gt;func2();
+	&#125;
+
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">func2</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Base::func2虚函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Derived</span> :</span><span class="hljs-keyword">public</span> Base &#123;
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">func2</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Derived::func2函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;
+
+	<span class="hljs-comment">//在类中的非构造、非析构函数中调用虚函数，依旧是多态。</span>
+
+	Base * pBase = <span class="hljs-keyword">new</span> Derived();
+	pBase-&gt;func1();			<span class="hljs-comment">//Derived::func2函数</span>
+	<span class="hljs-keyword">delete</span> pBase;
+
+&#125;</code></pre>
+<p>pBase指针实际指向了派生类的对象，而派生类中并没有显式的<code>func1()</code>函数，但是它有继承自基类的函数，在<code>Base::func1()</code>之中执行<code>this-&gt;func2()</code>，this基类指针指向了派生类对象，调用了虚函数，发生了多态。</p>
+<ul>
+<li>结论：<strong>在类中的非构造、非析构函数中调用虚函数，依旧是多态。</strong></li>
+</ul>
+<h2 id="构造函数与析构函数能否实现多态？"><a href="#构造函数与析构函数能否实现多态？" class="headerlink" title="构造函数与析构函数能否实现多态？"></a>构造函数与析构函数能否实现多态？</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Father</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+
+	Father() &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Father构造函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-keyword">this</span>-&gt;hello();
+	&#125;
+
+	<span class="hljs-keyword">virtual</span> ~Father() &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Father析构函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-keyword">this</span>-&gt;bye();
+	&#125;
+
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">hello</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;hello in Father&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">bye</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;bye in Father&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Son</span> :</span><span class="hljs-keyword">public</span> Father &#123;
+<span class="hljs-keyword">public</span>:
+
+	Son() &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Son构造函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-keyword">this</span>-&gt;hello();
+	&#125;
+
+	~Son() &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Son析构函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-keyword">this</span>-&gt;bye();
+	&#125;
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">hello</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;hello in Son&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">bye</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;bye in Son&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+
+&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;
+
+	<span class="hljs-comment">//在构造函数、析构函数中调用虚函数，不是多态</span>
+
+	Father * father = <span class="hljs-keyword">new</span> Son();
+
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;----&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	father-&gt;hello();<span class="hljs-comment">//这里才有多态</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;----&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+	<span class="hljs-keyword">delete</span> father;
+&#125;</code></pre>
+<p>执行结果为：</p>
+<pre><code class="hljs asciidoc">Father构造函数
+hello in Father
+Son构造函数
+hello in Son
+----
+hello in Son
+----
+Son析构函数
+bye in Son
+Father析构函数
+bye in Father</code></pre>
+<p>从结果可见，在构造和析构函数中调用虚函数时，不会发生多态。</p>
+<p>在编译时就会确定，调用的是自己类的函数还是基类的函数，不会发生动态联编。</p>
+<blockquote>
+<p>原因：触发派生类的构造函数必然先触发基类的构造函数，而这时派生类的部分还没有构造，怎么可能能用虚函数实现动态绑定派生生类对象呢，所以构造B基类部分的时候，调用的基类的函数bar；同样的道理，当调用继承层次中某一层次的类的析构函数时，往往意味着其派生类部分已经析构掉，所以也不会呈现出多态。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yesyes120/article/details/79627028">https://blog.csdn.net/yesyes120/article/details/79627028</a></p>
+</blockquote>
+<h2 id="虚析构函数——引例"><a href="#虚析构函数——引例" class="headerlink" title="虚析构函数——引例"></a>虚析构函数——引例</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+	Base() &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Base构造函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+	~Base() &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Base析构函数&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+	&#125;
+	<span class="hljs-comment">//纯虚函数</span>
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Son</span> :</span><span class="hljs-keyword">public</span> Base &#123;
+<span class="hljs-keyword">public</span>:
+	Son() &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Son构造函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+	~Son() &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Son析构函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Son func函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dosome</span><span class="hljs-params">(Base* b)</span> </span>&#123;
+	b-&gt;func();
+	<span class="hljs-keyword">delete</span> b;	<span class="hljs-comment">//释放开辟的空间</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test3</span><span class="hljs-params">()</span> </span>&#123;
+	dosome(<span class="hljs-keyword">new</span> Son());
+&#125;</code></pre>
+<p>调用<code>test3()</code>函数，输出结果为：</p>
+<pre><code class="hljs autoit">Base构造函数
+Son构造函数
+Son <span class="hljs-function"><span class="hljs-keyword">func</span>函数</span>
+Base析构函数</code></pre>
+<ol>
+<li>首先，派生类的构造函数在构造对象时一定会调用基类的构造函数。</li>
+<li>但是在代码28行，<code>delete</code>释放空间时，仅仅调用了基类的析构函数，<strong>并没有调用派生类的构造函数</strong>。</li>
+</ol>
+<p><strong>危害</strong>：如果派生类中比基类中额外有一些存放于堆中的数据，由于无法调用派生类的析构函数，会存留一些数据无法释放，从而可能造成<strong>内存泄漏</strong>等问题。</p>
+<p>解决方式：将基类中的析构函数修改为<strong>虚析构函数</strong>或者<strong>纯虚析构函数</strong>。</p>
+<p>纯虚析构函数见纯虚函数那一小节。</p>
+<h3 id="解决方案——虚析构函数"><a href="#解决方案——虚析构函数" class="headerlink" title="解决方案——虚析构函数"></a>解决方案——虚析构函数</h3><p>把基类的析构函数声明为<code>virtual</code>即可。</p>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+	Base() &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Base构造函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+	<span class="hljs-keyword">virtual</span> ~Base() &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Base析构函数&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+	&#125;
+	<span class="hljs-comment">//纯虚函数</span>
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;
+&#125;;</code></pre>
+<p>再次调用<code>test3()</code>可得输出结果：</p>
+<pre><code class="hljs pf">Base构造函数
+S<span class="hljs-keyword">on</span>构造函数
+S<span class="hljs-keyword">on</span> func函数
+S<span class="hljs-keyword">on</span>析构函数
+Base析构函数</code></pre>
+<p>通过这样的方式，当通过基类指针释放派生类的对象时，首先调用派生类的析构函数，然后再调用基类的析构函数，依旧遵循继承中的「先构造，后虚构」的规则。</p>
+<h3 id="虚析构函数的使用习惯"><a href="#虚析构函数的使用习惯" class="headerlink" title="虚析构函数的使用习惯"></a>虚析构函数的使用习惯</h3><ul>
+<li>如果一个类定义了虚函数，则应当将析构函数也定义成为虚函数。</li>
+<li>一个类打算作为基类使用时，也应该将析构函数定义成虚函数。</li>
+<li>构造函数不能定义为虚函数。</li>
+</ul>
+<h2 id="纯虚函数与抽象类"><a href="#纯虚函数与抽象类" class="headerlink" title="纯虚函数与抽象类"></a>纯虚函数与抽象类</h2><p>在多态中，通常基类中虚函数的实现是毫无意义的，主要都是调用派生类重写的内容，因此我们可以将基类中的虚函数修改成为<strong>纯虚函数</strong>。</p>
+<p>纯虚函数语法：<code>virtual 返回值类型 函数名(参数) = 0;</code></p>
+<p>当类中有了纯虚函数时，这个类也就成为了抽象类。</p>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-comment">//纯虚函数</span>
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">talk</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span> :</span><span class="hljs-keyword">public</span> Animal &#123;
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-comment">//Cat没有重写基类Animal的纯虚函数</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">sleep</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;猫咪睡觉&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;
+	<span class="hljs-comment">//Animal a;			//不允许使用抽象类对象</span>
+	<span class="hljs-comment">//Cat c;			//不允许使用抽象类对象</span>
+	<span class="hljs-comment">//Animal *a = new Cat();//不允许使用抽象类类型Cat的对象</span>
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dog</span> :</span><span class="hljs-keyword">public</span> Animal &#123;
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-comment">//重写了基类的纯虚函数</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">talk</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;小狗发出了汪汪汪的声音&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;
+	Dog d;		<span class="hljs-comment">//可以使用</span>
+	d.talk();	
+
+	Animal* animal = <span class="hljs-keyword">new</span> Dog();<span class="hljs-comment">//可以使用</span>
+	animal-&gt;talk();
+&#125;</code></pre>
+<h3 id="抽象类特点"><a href="#抽象类特点" class="headerlink" title="抽象类特点"></a>抽象类特点</h3><p>一旦拥有了纯虚函数，那这个类就属于抽象类，抽象类负责定义接口，而其余类负责覆盖接口。</p>
+<ol>
+<li>抽象类不能够实例化对象</li>
+<li>派生类继承抽象类之后，如果不重写基类的纯虚函数，那这个派生类依旧是抽象类。</li>
+<li>抽象类的指针和引用可以指向由抽象类派生出去的类的对象。</li>
+<li><strong>拥有了纯虚析构函数的类也属于抽象类，也不能够实例化对象。</strong></li>
+</ol>
+<h3 id="纯虚析构函数"><a href="#纯虚析构函数" class="headerlink" title="纯虚析构函数"></a>纯虚析构函数</h3><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+	Animal() &#123;
+		m_id = <span class="hljs-literal">nullptr</span>;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Animal无参构造函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+	Animal(<span class="hljs-keyword">int</span> *id) :m_id(id) &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Animal有参构造函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+
+	<span class="hljs-comment">//纯虚析构函数</span>
+	<span class="hljs-keyword">virtual</span> ~Animal() = <span class="hljs-number">0</span>;
+
+	<span class="hljs-comment">//纯虚函数</span>
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;
+
+	<span class="hljs-keyword">int</span>* m_id;<span class="hljs-comment">//存放于堆区的数据</span>
+&#125;;
+
+Animal::~Animal() &#123;
+	<span class="hljs-comment">//纯虚析构函数，类内声明，类外实现</span>
+	<span class="hljs-keyword">if</span> (m_id != <span class="hljs-literal">nullptr</span>) &#123;
+		<span class="hljs-keyword">delete</span> m_id;
+		m_id = <span class="hljs-literal">nullptr</span>;
+	&#125;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Animal析构函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span> :</span><span class="hljs-keyword">public</span> Animal &#123;
+<span class="hljs-keyword">public</span>:
+	Cat() &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Cat无参构造函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+
+	Cat(<span class="hljs-keyword">int</span> *id) :Animal(id) &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Cat有参构造函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+
+	~Cat() &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Cat析构函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+
+	<span class="hljs-comment">//重写基类的func()虚函数</span>
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-keyword">if</span>(m_id != <span class="hljs-literal">nullptr</span>)
+			<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;m_id: &quot;</span>&lt;&lt;*m_id &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+
+&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span> </span>&#123;
+	<span class="hljs-keyword">int</span> *id = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>(<span class="hljs-number">20</span>);
+	Animal *animal = <span class="hljs-keyword">new</span> Cat(id);
+	animal-&gt;func();
+	<span class="hljs-keyword">delete</span> animal;
+
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;--------------&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+	animal = <span class="hljs-keyword">new</span> Cat();
+	animal-&gt;func();
+	<span class="hljs-keyword">delete</span> animal;
+&#125;</code></pre>
+<p>输出结果为：</p>
+<pre><code class="hljs asciidoc">Animal有参构造函数
+Cat有参构造函数
+m_id: 20
+Cat析构函数
+Animal析构函数
+--------------
+Animal无参构造函数
+Cat无参构造函数
+Cat析构函数
+Animal析构函数</code></pre>
+<p><strong>注意：</strong></p>
+<ol>
+<li>对于纯虚析构函数，类内按照普通的方式书写，但是<strong>类外需要写其实现</strong>，尤其是基类对象中含有指针时。</li>
+<li>对于派生类中要给基类中的某些数据赋值时，<strong>调用基类的有参构造要在初始化列表的位置</strong>。</li>
+</ol>
+<h2 id="多态的实现原理"><a href="#多态的实现原理" class="headerlink" title="多态的实现原理"></a>多态的实现原理</h2><ol>
+<li>当类中声明虚函数时，编译器会在类中生成一个虚函数表。</li>
+<li>虚函数表是一个存储类成员函数指针的数据结构。</li>
+<li>虚函数表时由编译器自动生成和维护的。</li>
+<li>virtual成员函数会被编译器放入虚函数表中。</li>
+<li>当存在虚函数时，每个对象中都有一个指向虚函数表的指针。</li>
+<li>通过虚函数表指针调用重写函数是在<strong>程序运行时</strong>进行的，需要通过寻址操作才能确定真正确定应当调用的函数。在效率上是要低于普通的成员函数的。</li>
+</ol>
+<h3 id="当类含有虚函数时其类的大小"><a href="#当类含有虚函数时其类的大小" class="headerlink" title="当类含有虚函数时其类的大小"></a>当类含有虚函数时其类的大小</h3><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-keyword">int</span> age;
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span> </span>&#123;&#125;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dog</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-keyword">int</span> age;
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span> </span>&#123;&#125;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Fox</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span> </span>&#123;&#125;
+&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span> </span>&#123;										<span class="hljs-comment">//x86	x64</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Cat sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Cat) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//4		4</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Dog sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Dog) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//8		16</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Fox sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Fox) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//4		8</span>
+&#125;</code></pre>
+<p>编译器：VS2017</p>
+<p><img src="/cpp-opp3/x86x64.png" srcset="/img/loading.gif"></p>
+<p>在编译器中选择x86的按钮，即可选择位数，x86就是32位，其对应的指针就是32位，4字节。</p>
+<p>x64就是64位，其对应的指针就是64位，8字节。</p>
+<ul>
+<li>Dog在64位下，sizeof为16的原因是，4字节int，8字节虚函数指针，以及4字节用于<strong>对齐</strong>。</li>
+</ul>
+<p><strong>以下的代码都基于x86模式下来使用。</strong></p>
+<h3 id="虚函数指针与虚函数表"><a href="#虚函数指针与虚函数表" class="headerlink" title="虚函数指针与虚函数表"></a>虚函数指针与虚函数表</h3><p>每一个有虚函数的类或者是「含有虚函数类的」派生类都有一个虚函数表，该类的任何对象中都会存放着虚函数表的指针，而寻函数表中会有该类的虚函数的地址。</p>
+<p>故上面类的大小中，比普通函数多出来的那些字节就是用来存放「虚函数表的地址」。</p>
+<p>看一段代码</p>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-keyword">int</span> i;
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Print</span><span class="hljs-params">()</span> </span>&#123;&#125;<span class="hljs-comment">//虚函数</span>
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Derived</span> :</span><span class="hljs-keyword">public</span> Base &#123;
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-keyword">int</span> n;
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Print</span><span class="hljs-params">()</span> </span>&#123;&#125;<span class="hljs-comment">//重写了虚函数</span>
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DerOther</span> :</span><span class="hljs-keyword">public</span> Base &#123;
+	<span class="hljs-comment">//只继承</span>
+&#125;;</code></pre>
+<p>然后使用VS开发人员命令工具，<code>cl /d1 reportSingleClassLayoutBase &quot;17 虚函数表.cpp&quot;</code>来查看类的构造。</p>
+<blockquote>
+<p>使用链接：<a target="_blank" rel="noopener" href="http://www.colourso.top/vs-use/">http://www.colourso.top/vs-use/</a></p>
+</blockquote>
+<p><strong>类Base的结构与虚函数表</strong>：</p>
+<pre><code class="hljs coq">class Base      size(<span class="hljs-number">8</span>):
+        +---
+ <span class="hljs-number">0</span>      | <span class="hljs-type">&#123;vfptr</span>&#125;
+ <span class="hljs-number">4</span>      | <span class="hljs-type">i</span>
+        +---
+
+Base::$vftable@:
+        | <span class="hljs-type">&amp;Base_meta</span>
+        |  <span class="hljs-type">0</span>
+ <span class="hljs-number">0</span>      | <span class="hljs-type">&amp;Base</span>::<span class="hljs-keyword">Print</span>
+
+Base::<span class="hljs-keyword">Print</span> this adjustor: <span class="hljs-number">0</span></code></pre>
+<p><strong>类Derived的结构与虚函数表</strong>：</p>
+<pre><code class="hljs coq">class Derived   size(<span class="hljs-number">12</span>):
+        +---
+ <span class="hljs-number">0</span>      | <span class="hljs-type">+--- (base</span> class Base)
+ <span class="hljs-number">0</span>      | <span class="hljs-type">| &#123;vfptr</span>&#125;
+ <span class="hljs-number">4</span>      | <span class="hljs-type">| i</span>
+        | <span class="hljs-type">+---</span>
+<span class="hljs-type"> 8</span>      | <span class="hljs-type">n</span>
+        +---
+
+Derived::$vftable@:
+        | <span class="hljs-type">&amp;Derived_meta</span>
+        |  <span class="hljs-type">0</span>
+ <span class="hljs-number">0</span>      | <span class="hljs-type">&amp;Derived</span>::<span class="hljs-keyword">Print</span>
+
+Derived::<span class="hljs-keyword">Print</span> this adjustor: <span class="hljs-number">0</span></code></pre>
+<p><strong>类DerOther的结构与虚函数表</strong></p>
+<pre><code class="hljs gherkin">class DerOther  size(8):
+        +---
+ 0      |<span class="hljs-string"> +--- (base class Base)</span>
+<span class="hljs-string"> 0      </span>|<span class="hljs-string"> </span>|<span class="hljs-string"> &#123;vfptr&#125;</span>
+<span class="hljs-string"> 4      </span>|<span class="hljs-string"> </span>|<span class="hljs-string"> i</span>
+<span class="hljs-string">        </span>|<span class="hljs-string"> +---</span>
+<span class="hljs-string">        +---</span>
+
+<span class="hljs-string">DerOther::$vftable@:</span>
+<span class="hljs-string">        </span>|<span class="hljs-string"> &amp;DerOther_meta</span>
+<span class="hljs-string">        </span>|<span class="hljs-string">  0</span>
+<span class="hljs-string"> 0      </span>|<span class="hljs-string"> &amp;Base::Print</span></code></pre>
+<ul>
+<li><strong>vfptr</strong> —— virtual function pointer，即虚函数指针。<strong>指向了虚函数表</strong>。</li>
+<li><strong>vftable</strong> —— virtual function table，即虚函数表。<strong>表内会记录虚函数的地址</strong>。</li>
+<li><strong>&amp;Base::Print</strong> —— 前面的取地址符加上<code>Base::Print</code>表示该函数的地址。</li>
+</ul>
+<p>看上述例子，<code>类DerOther</code>原样继承了<code>类Base</code>，<code>DerOther</code>的虚函数表是原样地继承了<code>Base</code>的虚函数表，故表内的虚函数地址是<code>Base</code>的虚函数的地址。</p>
+<p>而看<code>类Derived</code>，它继承了<code>类Base</code>，并且重写了它的虚函数，这时子类中的虚函数内部的虚函数地址<strong>会替换为子类的虚函数地址</strong>。</p>
+<p><img src="/cpp-opp3/vftable.jpg" srcset="/img/loading.gif"></p>
+<blockquote>
+<p>案例与图片来自：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/CeCuXuCjYROgNLmUiLtlHA%E3%80%90%E5%85%AC%E4%BC%97%E5%8F%B7%EF%BC%9A%E5%B0%8F%E6%9E%97coding%E3%80%91">https://mp.weixin.qq.com/s/CeCuXuCjYROgNLmUiLtlHA【公众号：小林coding】</a></p>
+</blockquote>
+<p>当父类的指针或者引用指向了子类对象时候，会发生多态。当调用<code>Print()</code>函数时，会通过虚函数表来确定其对应的虚函数地址，从而会有不同的对象不同的行为。</p>
+<blockquote>
+<p>B站视频链接：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1et411b73Z?p=136%E3%80%90%E9%BB%91%E9%A9%AC%E3%80%91">https://www.bilibili.com/video/BV1et411b73Z?p=136【黑马】</a></p>
+</blockquote>
+<h3 id="证明虚函数指针的作用"><a href="#证明虚函数指针的作用" class="headerlink" title="证明虚函数指针的作用"></a>证明虚函数指针的作用</h3><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Parent::func&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+&#125;;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Son</span> :</span><span class="hljs-keyword">public</span> Parent &#123;
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Son::func&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span> </span>&#123;
+	Parent * pptr = <span class="hljs-keyword">new</span> Son();
+	pptr-&gt;func();	<span class="hljs-comment">//多态 Son::func</span>
+
+	Parent parent;
+
+	<span class="hljs-keyword">int</span> *p1 = (<span class="hljs-keyword">int</span>*)&amp;parent;<span class="hljs-comment">//Parent的地址</span>
+	<span class="hljs-keyword">int</span> *p2 = (<span class="hljs-keyword">int</span>*)pptr;	<span class="hljs-comment">//Son——pptr的地址</span>
+
+	*p2 = *p1;		<span class="hljs-comment">//让Parent的地址赋给Son——pptr的地址</span>
+	pptr-&gt;func();		<span class="hljs-comment">//Parent::func</span>
+
+&#125;</code></pre>
+<p>最终的输出结果为</p>
+<pre><code class="hljs autoit">Son::<span class="hljs-function"><span class="hljs-keyword">func</span></span>
+Parent::<span class="hljs-function"><span class="hljs-keyword">func</span></span></code></pre>
+<p><strong>类Parent的结构与虚函数表</strong></p>
+<pre><code class="hljs 1c">class Parent    size(<span class="hljs-number">4</span>):
+        +---
+ <span class="hljs-number">0</span>      <span class="hljs-string">| &#123;vfptr&#125;</span>
+        +---
+
+Parent::$vftable@:
+        <span class="hljs-string">| &amp;Parent_meta</span>
+        <span class="hljs-string">|  0</span>
+ <span class="hljs-number">0</span>      <span class="hljs-string">| &amp;Parent::func</span></code></pre>
+<p><strong>类Son的结构与虚函数表</strong></p>
+<pre><code class="hljs gherkin">class Son       size(4):
+        +---
+ 0      |<span class="hljs-string"> +--- (base class Parent)</span>
+<span class="hljs-string"> 0      </span>|<span class="hljs-string"> </span>|<span class="hljs-string"> &#123;vfptr&#125;</span>
+<span class="hljs-string">        </span>|<span class="hljs-string"> +---</span>
+<span class="hljs-string">        +---</span>
+
+<span class="hljs-string">Son::$vftable@:</span>
+<span class="hljs-string">        </span>|<span class="hljs-string"> &amp;Son_meta</span>
+<span class="hljs-string">        </span>|<span class="hljs-string">  0</span>
+<span class="hljs-string"> 0      </span>|<span class="hljs-string"> &amp;Son::func</span></code></pre>
+<p><code>int *p1 = (int*)&amp;parent;</code>是将类Parent的头4个字节 也就是「虚函数表指针」存储到了<code>p1指针</code>中。</p>
+<blockquote>
+<p>x86下，指针4字节</p>
+</blockquote>
+<p><code>int *p2 = (int*)pptr;</code>是将类Son的头4个字节「虚函数表指针」存储到了<code>p2指针</code>中。</p>
+<p><code>*p2 = *p1;</code>就是将Parent的虚函数表的地址赋值给Son的虚函数表的地址。</p>
+<p>再次调用函数，依据虚函数表里的函数最终访问到了基类的函数。</p>
+<blockquote>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/CeCuXuCjYROgNLmUiLtlHA">掌握了多态的特性，写英雄联盟的代码更少啦！</a>【小林coding】</p>
+</blockquote>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/C-C/">C/C++</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/math-base/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【置顶】数学基础知识、常用公式总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/ds_03_SelectSort/">
+                        <span class="hidden-mobile">选择排序算法——简单选择排序、堆排序排序</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/cpp-opp3/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "C++面向对象（三) —— 多态&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

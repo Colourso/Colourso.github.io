@@ -180,7 +180,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      26
+      27
        分钟
     </span>
   
@@ -226,19 +226,19 @@
 <hr>
 <p>对运算符进行重载可以重新定义该运算符的含义，方便我们实现更多的功能。</p>
 <p>例如：想要对自己穿件的虚数类进行相加，普通的‘+’无法使用，此时可以选择穿件类的成员函数实现虚数相加，或者是重载‘+’，是其可以实现两个虚数相加。</p>
-<pre><code class="hljs CPP"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Complex</span>&#123;</span>
-<span class="hljs-keyword">public</span>:
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Complex</span>&#123;</span>
+    <span class="hljs-keyword">public</span>:
     Complex <span class="hljs-keyword">operator</span>+(Complex another)
     &#123;
         <span class="hljs-function">Complex <span class="hljs-title">temp</span><span class="hljs-params">(a+another.a,b+another.b)</span></span>;
         <span class="hljs-keyword">return</span> temp;
     &#125;
-<span class="hljs-keyword">private</span>:
+    <span class="hljs-keyword">private</span>:
     <span class="hljs-keyword">int</span> a;<span class="hljs-comment">//实部</span>
     <span class="hljs-keyword">int</span> b;<span class="hljs-comment">//虚部</span>
 &#125;;</code></pre>
 <p>使用方式</p>
-<pre><code class="hljs CPP"><span class="hljs-function">Complex <span class="hljs-title">c1</span><span class="hljs-params">(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>)</span></span>;
+<pre><code class="hljs c++"><span class="hljs-function">Complex <span class="hljs-title">c1</span><span class="hljs-params">(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>)</span></span>;
 <span class="hljs-function">Complex <span class="hljs-title">c2</span><span class="hljs-params">(<span class="hljs-number">3</span>,<span class="hljs-number">4</span>)</span></span>;
 Complex c3 = c1 + c2;
 <span class="hljs-comment">//等价 Complex c3 = c1.operator+(c2);</span></code></pre>
@@ -250,7 +250,7 @@ Complex c3 = c1 + c2;
 </li>
 </ol>
 <p><img src="/operator/1.png" srcset="/img/loading.gif" alt="引图"></p>
-<p>不可以被重载的运算符：</p>
+<p><strong>不可以被重载的运算符：</strong></p>
 <blockquote>
 <p>.     成员选择符</p>
 <p>.*    成员对象选择符</p>
@@ -259,11 +259,11 @@ Complex c3 = c1 + c2;
 <p>sizeof 长度运算符</p>
 </blockquote>
 <ol start="3">
-<li><p>重载不能改变运算符的操作个数</p>
+<li><p>重载不能改变运算符的<strong>操作个数</strong></p>
 </li>
-<li><p>重载不能改变运算符的优先级别</p>
+<li><p>重载不能改变运算符的<strong>优先级别</strong></p>
 </li>
-<li><p>重载不能改变运算符的结合性</p>
+<li><p>重载不能改变运算符的<strong>结合性</strong></p>
 <p> 如：‘=’是自右向左，重载后仍然还是自右向左</p>
 </li>
 <li><p>重载运算符的函数不能有默认参数</p>
@@ -276,51 +276,52 @@ Complex c3 = c1 + c2;
 <li><p>用于类对象的运算符一般必须重载，但两个例外，‘=’和‘&amp;’不必用户重载。</p>
 <p> ‘=’可以用于每一个类对象，可以使用它在同类之间相互赋值，因为<strong>系统早已经为每一个新声明的类重载了一个赋值运算符</strong>。而如果类中有指针或者需要涉及new或者malloc时需要我们手动重写去重载等号操作符。成员地址运算符‘&amp;’也不必重载，它可以返回类对象在内存中的起始地址。</p>
 </li>
-<li><p>应当使重载运算符的功能类似于该运算符作用于标准运算符数据时那样的功能。</p>
+<li><p>应当使重载运算符的功能类似于该运算符作用于标准运算符数据时那样的功能。(<strong>建议</strong>)</p>
 </li>
 <li><p>运算符重载函数可以是类的成员函数，也可以是类的友元函数，还可以是既非友元又非类的成员函数的普通函数。</p>
 </li>
 <li><p>通常情况下，不应该重载逗号，取地址，逻辑与，逻辑或运算符。否则代码中使用这些的代码行为将会异于常态。——《C++ Primer》</p>
 </li>
+<li><p>当然，重载运算符相当于实现了一个新的函数，<strong>重载运算符函数可以通过其参数的不同来实现函数重载</strong>。</p>
+</li>
 </ol>
 <h2 id="递增递减运算符（前置与后置的特殊）"><a href="#递增递减运算符（前置与后置的特殊）" class="headerlink" title="递增递减运算符（前置与后置的特殊）"></a>递增递减运算符（前置与后置的特殊）</h2><p><strong>注意：定义递增与递减运算符的类应该同时定义前置版本与后置版本，且建议这些运算符被定义为类的成员</strong>。</p>
-<h3 id="前置递增运算符"><a href="#前置递增运算符" class="headerlink" title="前置递增运算符"></a>前置递增运算符</h3><pre><code class="hljs CPP">Class Comlpex&#123;
-	<span class="hljs-keyword">public</span>:
-		Complex&amp; <span class="hljs-keyword">operator</span>++()
-		&#123;
-			++<span class="hljs-keyword">this</span>-&gt;a;
-			++<span class="hljs-keyword">this</span>-&gt;b;
-			<span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;
-		&#125;
+<h3 id="前置递增运算符"><a href="#前置递增运算符" class="headerlink" title="前置递增运算符"></a>前置递增运算符</h3><pre><code class="hljs c++">Class Comlpex&#123;
+    <span class="hljs-keyword">public</span>:
+    Complex&amp; <span class="hljs-keyword">operator</span>++()
+    &#123;
+        ++<span class="hljs-keyword">this</span>-&gt;a;
+        ++<span class="hljs-keyword">this</span>-&gt;b;
+        <span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;
+    &#125;
 &#125;;</code></pre>
 <p>注意：为了与内置版本的运算符一致，前置运算符应当<strong>返回递增后对象的引用</strong>。</p>
 <h3 id="后置递增运算符"><a href="#后置递增运算符" class="headerlink" title="后置递增运算符"></a>后置递增运算符</h3><p>因为前置与后置版本符号相同，就意味着重载的名字与运算对象的数量、类型都是相同的。所以为解决这个问题，后置版本要接受一个不被使用的int类型的形参。</p>
-<pre><code class="hljs CPP">Class Comlpex&#123;
-	<span class="hljs-keyword">public</span>:
-		Complex <span class="hljs-keyword">operator</span>++(<span class="hljs-keyword">int</span>)
-		&#123;
-			Complex ret = *<span class="hljs-keyword">this</span>;
-			++<span class="hljs-keyword">this</span>-&gt;a;
-			++<span class="hljs-keyword">this</span>-&gt;b;
-			<span class="hljs-keyword">return</span> ret;
-		&#125;
+<pre><code class="hljs c++">Class Comlpex&#123;
+    <span class="hljs-keyword">public</span>:
+    Complex <span class="hljs-keyword">operator</span>++(<span class="hljs-keyword">int</span>)
+    &#123;
+        Complex ret = *<span class="hljs-keyword">this</span>;
+        ++<span class="hljs-keyword">this</span>-&gt;a;
+        ++<span class="hljs-keyword">this</span>-&gt;b;
+        <span class="hljs-keyword">return</span> ret;
+    &#125;
 &#125;;</code></pre>
 <p>注意：</p>
 <ol>
-<li><p>为了与内置版本的运算符保持一致一致，后置运算符应当<strong>返回对象的原值</strong>，返回的是一个值而非引用。</p>
+<li><p>为了与内置版本的运算符保持一致，后置运算符应当<strong>返回对象的原值</strong>，返回的是一个值而非引用。（当然重载运算符返回值写啥都行，你怎么写就怎么用，无须过于死板）。</p>
 </li>
 <li><p>对于后置版本来说，在递增对象之前需要首先记录对象的状态。</p>
 </li>
 </ol>
-<h3 id="显式的调用重载函数"><a href="#显式的调用重载函数" class="headerlink" title="显式的调用重载函数"></a>显式的调用重载函数</h3><pre><code class="hljs CPP"><span class="hljs-function">Complex <span class="hljs-title">c1</span><span class="hljs-params">(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)</span></span>;
+<h3 id="显式的调用重载函数"><a href="#显式的调用重载函数" class="headerlink" title="显式的调用重载函数"></a>显式的调用重载函数</h3><pre><code class="hljs c++"><span class="hljs-function">Complex <span class="hljs-title">c1</span><span class="hljs-params">(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)</span></span>;
 c1.<span class="hljs-keyword">operator</span>++();	<span class="hljs-comment">//前置版本</span>
 c1.<span class="hljs-keyword">operator</span>++(<span class="hljs-number">0</span>);	<span class="hljs-comment">//后置版本，传入的值仅仅便于编译器区分</span></code></pre>
-
-<h3 id="代码实例"><a href="#代码实例" class="headerlink" title="代码实例"></a>代码实例</h3><pre><code class="hljs CPP"><span class="hljs-comment">//运行环境Code::Blocks 17.12</span>
+<h3 id="代码实例"><a href="#代码实例" class="headerlink" title="代码实例"></a>代码实例</h3><pre><code class="hljs c++"><span class="hljs-comment">//运行环境Code::Blocks 17.12</span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Complex</span>&#123;</span>
-<span class="hljs-keyword">public</span>:
+    <span class="hljs-keyword">public</span>:
     Complex()&#123;&#125;
     Complex(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b)
     &#123;
@@ -351,7 +352,7 @@ c1.<span class="hljs-keyword">operator</span>++(<span class="hljs-number">0</spa
         ++<span class="hljs-keyword">this</span>-&gt;b;
         <span class="hljs-keyword">return</span> rec;
     &#125;
-<span class="hljs-keyword">private</span>:
+    <span class="hljs-keyword">private</span>:
     <span class="hljs-keyword">int</span> a;<span class="hljs-comment">//实部</span>
     <span class="hljs-keyword">int</span> b;<span class="hljs-comment">//虚部</span>
 &#125;;
@@ -368,46 +369,44 @@ c1.<span class="hljs-keyword">operator</span>++(<span class="hljs-number">0</spa
     c2.PrintComplex();<span class="hljs-comment">//(3,5)</span>
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre>
-
 <h2 id="输入输出运算符"><a href="#输入输出运算符" class="headerlink" title="输入输出运算符"></a>输入输出运算符</h2><h3 id="输出运算符-lt-lt"><a href="#输出运算符-lt-lt" class="headerlink" title="输出运算符 &lt;&lt;"></a>输出运算符 &lt;&lt;</h3><p>一句正常的<code>cout&lt;&lt;&quot;hello world&quot;&lt;&lt;&quot;!&quot;;</code>之中，**<code>&lt;&lt;</code> 运算符接受两个运算对象，左侧运算对象必须是一个ostream对象，右侧的运算对象是要打印的值<strong>。&lt;&lt;运算符的作用是</strong>将给定的值写到给定的ostream对象中<strong>，输出结果就是其左侧运算符对象。即</strong>计算的结果就是那个ostream对象**。</p>
 <p>通常情况下，输出运算符的第一个形参是一个非常量的ostream对象的<strong>引用</strong>，(向流写入内容会改变其状态)，第二个形参是一个常量的引用，是要打印的类类型。故重载函数为 </p>
-<pre><code>ostream&amp; operator&lt;&lt;(ostream &amp;os,const MyClass &amp;item);</code></pre>
+<pre><code class="hljs c++">ostream&amp; <span class="hljs-keyword">operator</span>&lt;&lt;(ostream &amp;os,<span class="hljs-keyword">const</span> MyClass &amp;item);</code></pre>
 <p>通常输出时主要负责打印内容而非控制格式，所以尽量不要打印换行符。</p>
-<pre><code class="hljs CPP">	<span class="hljs-comment">//类外的全局函数</span>
-	ostream &amp; <span class="hljs-keyword">operator</span>&lt;&lt;(ostream &amp;os,<span class="hljs-keyword">const</span> Complexs &amp;c)
-	&#123;
-	    os&lt;&lt;<span class="hljs-string">&quot;(&quot;</span>&lt;&lt;c.a&lt;&lt;<span class="hljs-string">&quot; , &quot;</span>&lt;&lt;c.b&lt;&lt;<span class="hljs-string">&quot;)&quot;</span>;
-	    <span class="hljs-keyword">return</span> os;
-	&#125;
+<pre><code class="hljs c++"><span class="hljs-comment">//类外的全局函数</span>
+ostream &amp; <span class="hljs-keyword">operator</span>&lt;&lt;(ostream &amp;os,<span class="hljs-keyword">const</span> Complexs &amp;c)
+&#123;
+    os&lt;&lt;<span class="hljs-string">&quot;(&quot;</span>&lt;&lt;c.a&lt;&lt;<span class="hljs-string">&quot; , &quot;</span>&lt;&lt;c.b&lt;&lt;<span class="hljs-string">&quot;)&quot;</span>;
+    <span class="hljs-keyword">return</span> os;
+&#125;
 
-	<span class="hljs-comment">//使用测试</span>
-	<span class="hljs-function">Complex <span class="hljs-title">c1</span><span class="hljs-params">(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>)</span></span>;
-	<span class="hljs-function">Complex <span class="hljs-title">c2</span><span class="hljs-params">(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)</span></span>;
-	
-	<span class="hljs-built_in">cout</span>&lt;&lt;c1&lt;&lt;<span class="hljs-built_in">endl</span>;
-	<span class="hljs-keyword">operator</span>&lt;&lt;(<span class="hljs-keyword">operator</span>&lt;&lt;(<span class="hljs-built_in">cout</span>,c1),c2);
+<span class="hljs-comment">//使用测试</span>
+<span class="hljs-function">Complex <span class="hljs-title">c1</span><span class="hljs-params">(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>)</span></span>;
+<span class="hljs-function">Complex <span class="hljs-title">c2</span><span class="hljs-params">(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)</span></span>;
+
+<span class="hljs-built_in">cout</span>&lt;&lt;c1&lt;&lt;<span class="hljs-built_in">endl</span>;
+<span class="hljs-keyword">operator</span>&lt;&lt;(<span class="hljs-keyword">operator</span>&lt;&lt;(<span class="hljs-built_in">cout</span>,c1),c2);
 
 ----------
 
-	<span class="hljs-comment">//类内的成员函数</span>
-	ostream&amp; <span class="hljs-keyword">operator</span>&lt;&lt;(ostream &amp;os)
-	&#123;
-	    os&lt;&lt;<span class="hljs-string">&quot;(&quot;</span>&lt;&lt;<span class="hljs-keyword">this</span>-&gt;a&lt;&lt;<span class="hljs-string">&quot; , &quot;</span>&lt;&lt;<span class="hljs-keyword">this</span>-&gt;b&lt;&lt;<span class="hljs-string">&quot;)&quot;</span>;
-	    <span class="hljs-keyword">return</span> os;
-	&#125;
-	<span class="hljs-comment">//使用测试</span>
-	<span class="hljs-function">Complex <span class="hljs-title">c1</span><span class="hljs-params">(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>)</span></span>;
-	<span class="hljs-function">Complex <span class="hljs-title">c2</span><span class="hljs-params">(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)</span></span>;
-	c1&lt;&lt;<span class="hljs-built_in">cout</span>;	<span class="hljs-comment">//看下面的解释</span>
-	c2&lt;&lt;(c1&lt;&lt;<span class="hljs-built_in">cout</span>);</code></pre>
-
+<span class="hljs-comment">//类内的成员函数</span>
+ostream&amp; <span class="hljs-keyword">operator</span>&lt;&lt;(ostream &amp;os)
+&#123;
+    os&lt;&lt;<span class="hljs-string">&quot;(&quot;</span>&lt;&lt;<span class="hljs-keyword">this</span>-&gt;a&lt;&lt;<span class="hljs-string">&quot; , &quot;</span>&lt;&lt;<span class="hljs-keyword">this</span>-&gt;b&lt;&lt;<span class="hljs-string">&quot;)&quot;</span>;
+    <span class="hljs-keyword">return</span> os;
+&#125;
+<span class="hljs-comment">//使用测试</span>
+<span class="hljs-function">Complex <span class="hljs-title">c1</span><span class="hljs-params">(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>)</span></span>;
+<span class="hljs-function">Complex <span class="hljs-title">c2</span><span class="hljs-params">(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)</span></span>;
+c1&lt;&lt;<span class="hljs-built_in">cout</span>;	<span class="hljs-comment">//看下面的解释</span>
+c2&lt;&lt;(c1&lt;&lt;<span class="hljs-built_in">cout</span>);</code></pre>
 <h3 id="输入输出运算符必须是非成员函数！"><a href="#输入输出运算符必须是非成员函数！" class="headerlink" title="输入输出运算符必须是非成员函数！"></a>输入输出运算符必须是非成员函数！</h3><p>当&lt;&lt;重载函数是类的成员函数时，使用方式是<code>对象.函数</code>的形式，也就意味着左侧运算符对象是我们自定义类的对象，导致错乱，虽然可以使用，但不建议这么做。</p>
 <p>所以当我们希望为类自定义IO运算符时，必须将其定义为非成员函数，而且IO运算符通常需要读写类的非公有成员，故IO运算符一般被声明为友元类。</p>
 <h3 id="输入运算符-gt-gt"><a href="#输入运算符-gt-gt" class="headerlink" title="输入运算符 &gt;&gt;"></a>输入运算符 &gt;&gt;</h3><p>输出运算符与输入运算符同理，输入运算符的第一个形参是一个非常量的istream对象的<strong>引用</strong>，，第二个形参是将要读入到的对象的引用。</p>
 <p>重载函数为</p>
-<pre><code>istream&amp; operator&gt;&gt;(istream &amp;is,MyClass &amp;item);</code></pre>
+<pre><code class="hljs c++">istream&amp; <span class="hljs-keyword">operator</span>&gt;&gt;(istream &amp;is,MyClass &amp;item);</code></pre>
 <p>注意：<strong>输入运算符必须处理输入可能失败的情况</strong>！</p>
-<pre><code class="hljs CPP">istream &amp; <span class="hljs-keyword">operator</span>&gt;&gt;(istream &amp;is,Complexs &amp;c)
+<pre><code class="hljs c++">istream &amp; <span class="hljs-keyword">operator</span>&gt;&gt;(istream &amp;is,Complexs &amp;c)
 &#123;
     <span class="hljs-keyword">int</span> a,b;
     <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&quot;a:&quot;</span>;
@@ -425,15 +424,16 @@ c1.<span class="hljs-keyword">operator</span>++(<span class="hljs-number">0</spa
     <span class="hljs-keyword">return</span> is;
 &#125;</code></pre>
 
-<h2 id="赋值操作符"><a href="#赋值操作符" class="headerlink" title="赋值操作符"></a>赋值操作符</h2><p>普通情况下，系统会为每一个新声明的类去重载赋值运算符，其作用是逐个复制类的数据成员。然而如果涉及指针，简单的复制将会导致出错(即深拷贝与浅拷贝的问题)，这个时候就应当程序员去重写重载赋值运算符的代码。</p>
+
+<h2 id="赋值操作符"><a href="#赋值操作符" class="headerlink" title="赋值操作符"></a>赋值操作符</h2><p>普通情况下，系统会为每一个新声明的类去重载赋值运算符，其作用是逐个复制类的数据成员。然而如果涉及指针，简单的复制将会导致出错(即<strong>深拷贝与浅拷贝的问题</strong>)，这个时候就应当程序员去重写重载赋值运算符的代码。</p>
 <p>为了与内置类型的赋值保持一致，重载赋值运算符应当返回一个指向其左侧运算对象的引用。</p>
-<pre><code>MyClass &amp; operator=(const MyClass &amp; another);</code></pre>
+<pre><code class="hljs c++">MyClass&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> MyClass &amp; another);</code></pre>
 <h2 id="重载——定义仿函数"><a href="#重载——定义仿函数" class="headerlink" title="()重载——定义仿函数"></a>()重载——定义仿函数</h2><p>仿函数就是使一个类的使用看上去像一个函数，实际上就是类中实现了operator()，于是这个类就有了类似函数的行为。</p>
 <p><strong>重载()也叫重载函数调用运算符</strong>。</p>
-<pre><code class="hljs CPP"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">absInt</span>&#123;</span>
-<span class="hljs-keyword">public</span>:
+    <span class="hljs-keyword">public</span>:
     <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-keyword">int</span> <span class="hljs-built_in">abs</span>)</span></span>
 <span class="hljs-function">    </span>&#123;
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">abs</span>&lt;<span class="hljs-number">0</span>?-<span class="hljs-built_in">abs</span>:<span class="hljs-built_in">abs</span>;<span class="hljs-comment">//返回数的绝对值</span>
@@ -448,8 +448,10 @@ c1.<span class="hljs-keyword">operator</span>++(<span class="hljs-number">0</spa
     <span class="hljs-built_in">cout</span>&lt;&lt;b&lt;&lt;<span class="hljs-built_in">endl</span>;<span class="hljs-comment">//b为8</span>
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre>
-
 <p>上面代码中abs只是一个对象而非函数，但我们依旧可以调用该对象，这种对象称为<strong>函数对象</strong>。</p>
+<ul>
+<li>仿函数非常的自由，没有固定写法。</li>
+</ul>
 
             </article>
             <hr>
