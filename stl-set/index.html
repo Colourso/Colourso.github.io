@@ -170,7 +170,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.5k 字
+      2.3k 字
     </span>
   
 
@@ -180,7 +180,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      19
+      29
        分钟
     </span>
   
@@ -219,45 +219,92 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p><img src="/lanqiao-5/5.jpg" srcset="/img/loading.gif" alt="引图"></p>
-<center>set👍</center>
+              <p>STL中set集合、multiset集合的用法。</p>
 <a id="more"></a>
 
-
-<p>学习视频来源 <a target="_blank" rel="noopener" href="https://study.163.com/course/courseMain.htm?courseId=1004996013" title="2018NEUQ-ACM蓝桥杯培训">网易云课堂：2018NEUQ-ACM蓝桥杯培训</a></p>
 <hr>
 <h2 id="set——集合"><a href="#set——集合" class="headerlink" title="set——集合"></a>set——集合</h2><p>头文件 <code>#include &lt;map&gt;</code></p>
 <ul>
-<li><p>set，是一种关联式容器，底层使用平衡的搜索树——红黑树实现，插入删除操作时仅仅需要指针操作节点即可完成，不涉及到内存移动和拷贝，所以效率比较高。容器中的数据不能重复，即每个数据都是唯一的，并且会对存进去的数据进行自动<strong>升序</strong>排序。</p>
-</li>
-<li><p>构造set集合的主要目的是为了快速检索，去重与排序。</p>
-</li>
+<li>set，是一种<strong>关联式容器</strong>，底层使用<strong>平衡的搜索树</strong>——红黑树实现，插入删除操作时仅仅需要指针操作节点即可完成，不涉及到内存移动和拷贝，所以效率比较高。容器中的数据<strong>不能重复</strong>，即每个数据都是唯一的，并且会对存进去的数据进行自动<strong>升序</strong>排序。</li>
+<li>此外不能够通过set的迭代器修改set元素的值，因为其本身就是<strong>键值</strong>，任意改变会破坏set的组织结构。</li>
+<li>构造set集合的主要目的是为了快速检索，去重与排序。</li>
 </ul>
-<h2 id="set函数"><a href="#set函数" class="headerlink" title="set函数"></a>set函数</h2><p><img src="/lanqiao-5/set_function.png" srcset="/img/loading.gif" alt="set_function"></p>
+<h2 id="set函数"><a href="#set函数" class="headerlink" title="set函数"></a>set函数</h2><p><img src="/stl-set/set_function.png" srcset="/img/loading.gif" alt="set_function"></p>
+<pre><code class="hljs c++"><span class="hljs-built_in">set</span>&lt;T&gt; st; <span class="hljs-comment">//默认构造函数：</span>
+
+<span class="hljs-built_in">set</span>(<span class="hljs-keyword">const</span> <span class="hljs-built_in">set</span> &amp;st); <span class="hljs-comment">//拷贝构造函数</span>
+
+<span class="hljs-built_in">set</span>&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> <span class="hljs-built_in">set</span> &amp;st); <span class="hljs-comment">//重载等号操作符</span>
+
+size(); <span class="hljs-comment">//返回容器中元素的数目</span>
+
+empty(); <span class="hljs-comment">//判断容器是否为空</span>
+
+swap(st); <span class="hljs-comment">//交换两个集合容器</span>
+
+insert(elem); <span class="hljs-comment">//在容器中插入元素，返回值是对组pair&lt;set&lt;T&gt;::iterator,bool&gt;，bool表示是否插入成功</span>
+
+clear(); <span class="hljs-comment">//清除所有元素</span>
+
+erase(pos); <span class="hljs-comment">//删除pos迭代器所指的元素，返回下一个元素的迭代器。</span>
+
+erase(beg, end); <span class="hljs-comment">//删除区间[beg,end)的所有元素 ，返回下一个元素的迭代器。</span>
+
+erase(elem); <span class="hljs-comment">//删除容器中值为elem的元素。</span>
+
+find(key); <span class="hljs-comment">//查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();</span>
+
+count(key); <span class="hljs-comment">//统计key的元素个数,set容器为0或者1，multiset可能会大于1</span></code></pre>
+<h2 id="set基本操作"><a href="#set基本操作" class="headerlink" title="set基本操作"></a>set基本操作</h2><h3 id="创建set对象"><a href="#创建set对象" class="headerlink" title="创建set对象"></a>创建set对象</h3><pre><code class="hljs c++"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt; a;	<span class="hljs-comment">//set&lt;类型&gt; 对象名</span>
+
+<span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>,myComp&gt; a;<span class="hljs-comment">//set&lt;类型，比较结构体或类&gt; 对象名，</span>
+
+<span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">const</span> <span class="hljs-built_in">set</span>&amp;&gt; <span class="hljs-comment">//set自带拷贝构造函数</span>
+
+set&lt;类型&gt; a(first,last);//使用[first,last)所指的对象。</code></pre>
+<ul>
+<li>set容器默认是从小到大进行排序，<code>set&lt;int,myComp&gt; a;</code>可通过这种方式来修改其默认的排序规则。具体实现看：自定义排序那一小节。</li>
+<li>对于自定义数据类型的set，必须在模板参数列表这里指定自定义的排序规则，否则编译器不知道该怎么插入。</li>
+</ul>
+<h3 id="添加元素-insert"><a href="#添加元素-insert" class="headerlink" title="添加元素 insert"></a>添加元素 insert</h3><p>insert(value); 将某一值插入set中，返回值是 <code>pair&lt;set&lt;int&gt;::iterator,bool&gt;</code> ，即返回插入的位置的迭代器以及是否插入成功。</p>
+<p>重复的值是不会被插入的，返回的位置是原先元素的位置，同时bool值为false。</p>
 <h3 id="find函数"><a href="#find函数" class="headerlink" title="find函数"></a>find函数</h3><p>find(const key_type &amp;key)函数用于查找与key值相同的元素，并返回其位置的迭代器。而<strong>如果没有找到将会返回end()指向的迭代器</strong>。</p>
-<p><strong>关联式容器不支持iterator+n的操作，n为1也不行，只能使用iter++这种操作。</strong></p>
-<h3 id="顺序遍历"><a href="#顺序遍历" class="headerlink" title="顺序遍历"></a>顺序遍历</h3><pre><code class="hljs CPP"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt; a;
+<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p><strong>关联式容器不支持iterator+n的操作，n为1也不行，只能使用iter++这种操作。</strong></p>
+<h3 id="顺序遍历"><a href="#顺序遍历" class="headerlink" title="顺序遍历"></a>顺序遍历</h3><pre><code class="hljs c++"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt; a;
 <span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt;::iterator iter = a.begin();
 <span class="hljs-keyword">for</span>(;iter!=a.end();iter++)
 &#123;
-	<span class="hljs-built_in">cout</span>&lt;&lt;*iter&lt;&lt;<span class="hljs-built_in">endl</span>;
+    <span class="hljs-built_in">cout</span>&lt;&lt;*iter&lt;&lt;<span class="hljs-built_in">endl</span>;
 &#125;</code></pre>
-
-<h3 id="逆序遍历"><a href="#逆序遍历" class="headerlink" title="逆序遍历"></a>逆序遍历</h3><pre><code class="hljs CPP"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt; a;
+<h3 id="逆序遍历"><a href="#逆序遍历" class="headerlink" title="逆序遍历"></a>逆序遍历</h3><pre><code class="hljs c++"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt; a;
 <span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt;::reverse_iterator iter = a.rbegin();
 <span class="hljs-keyword">for</span>(;iter!=a.rend();iter++)
 &#123;
-	<span class="hljs-built_in">cout</span>&lt;&lt;*iter&lt;&lt;<span class="hljs-built_in">endl</span>;
+    <span class="hljs-built_in">cout</span>&lt;&lt;*iter&lt;&lt;<span class="hljs-built_in">endl</span>;
 &#125;</code></pre>
-
 <p>注意迭代器的写法，反向遍历使用reverse_iterator来定义迭代器，函数使用rbegin()与rend()方法！</p>
-<h2 id="set基本操作"><a href="#set基本操作" class="headerlink" title="set基本操作"></a>set基本操作</h2><h3 id="创建set对象"><a href="#创建set对象" class="headerlink" title="创建set对象"></a>创建set对象</h3><p>set&lt;类型&gt; 对象名，set<int> a;</int></p>
-<p>set&lt;类型，比较结构体&gt; 对象名，set&lt;int,myComp&gt; a;</p>
-<p>set&lt;const set&amp;&gt; set自带拷贝构造函数</p>
-<p>set&lt;类型&gt; a(first,last);使用[first,last)所指的对象。</p>
-<h3 id="添加元素-insert"><a href="#添加元素-insert" class="headerlink" title="添加元素 insert"></a>添加元素 insert</h3><p>insert(value); 将某一值插入set中，返回值是 <code>pair&lt;set&lt;int&gt;::iterator,bool&gt;</code> ，即返回插入的位置的迭代器以及是否插入成功。</p>
-<p>重复的值是不会被插入的，返回的位置是原先元素的位置，同时bool值为false。</p>
-<h2 id="自定义排序"><a href="#自定义排序" class="headerlink" title="自定义排序"></a>自定义排序</h2><blockquote>
+<h2 id="pair对组"><a href="#pair对组" class="headerlink" title="pair对组"></a>pair对组</h2><ol>
+<li>pair对组可以创建成对出现的数据，可以用其来返回一对数据。</li>
+<li>pair有两种创建方式，使用默认构造创建或者使用<code>make_pair()</code>函数创建。</li>
+<li>使用<code>.first</code>访问第一个数据，<code>.second</code>访问第二个数据。</li>
+</ol>
+<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;
+
+	<span class="hljs-comment">//pair对组</span>
+
+	pair&lt;string, int&gt; person1(&quot;莫扎特&quot;,29);
+
+	<span class="hljs-built_in">cout</span> &lt;&lt; person1.first &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; person1.second &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//莫扎特 29</span>
+
+	<span class="hljs-built_in">pair</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-keyword">int</span>&gt; person2 = <span class="hljs-built_in">make_pair</span>(<span class="hljs-string">&quot;哈利波特&quot;</span>,<span class="hljs-number">33</span>);
+
+	<span class="hljs-built_in">cout</span> &lt;&lt; person2.first &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; person2.second &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//哈利波特 33</span>
+
+&#125;</code></pre>
+<h2 id="自定义排序"><a href="#自定义排序" class="headerlink" title="自定义排序"></a>自定义排序</h2><ul>
+<li>对于自定义数据类型，必须指定其排序规则，否则无法插入。</li>
+</ul>
+<blockquote>
 <p>set容器在判定已有元素a和新插入元素b是否相等时有以下两个步骤。</p>
 <ol>
 <li><p>将a作为做操作数，b作为右操作数，调用比较函数，并返回比较值。</p>
@@ -269,9 +316,9 @@
 <p>如果返回值都是false，则认为a、b是相等的，b不会被插入。如果第一个是true，第二个是false，则b要排在a后面，繁殖b要排在a前面。如果返回值都是true，则可能发生未知行为。 </p>
 </blockquote>
 <ol>
-<li>自定义比较结构体，重载’()’操作符</li>
+<li>自定义比较结构体，重载<code>()</code>操作符</li>
 </ol>
-<pre><code class="hljs CPP"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">cmp</span>&#123;</span>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">cmp</span>&#123;</span>	<span class="hljs-comment">//定义比较类也可以</span>
     <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> a,<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> b)</span></span>
 <span class="hljs-function">    </span>&#123;
         <span class="hljs-keyword">return</span> a&gt;b;<span class="hljs-comment">//类似于sort算法，这样的‘&gt;’是从大到小</span>
@@ -285,25 +332,62 @@ set&lt;int,cmp&gt; i_set(a,a+9);
 <span class="hljs-keyword">for</span>(<span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt;::iterator iter = i_set.begin();iter!=i_set.end();iter++)
 &#123;
      <span class="hljs-built_in">cout</span>&lt;&lt;*iter&lt;&lt;<span class="hljs-string">&quot; &quot;</span>;
-&#125;</code></pre>
+&#125;
 
+<span class="hljs-comment">//输出结果：45 44 35 25 14 3 2 1</span></code></pre>
 <ol start="2">
-<li>重载‘&lt;’操作符</li>
+<li>重载<code>&lt;</code>操作符</li>
 </ol>
-<pre><code class="hljs CPP"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Student</span></span>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span></span>
 <span class="hljs-class">&#123;</span>
-	<span class="hljs-built_in">string</span> name;
-	<span class="hljs-keyword">int</span> num;
-	<span class="hljs-keyword">double</span> grade;
-	<span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>&lt;(<span class="hljs-keyword">const</span> Student &amp; another)
-	&#123;
-		<span class="hljs-keyword">if</span>(num == another.num) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-		<span class="hljs-comment">//表明根据num进行去重</span>
-		<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> num&gt;another.num;
-		<span class="hljs-comment">//否则按照num从大到小进行排序</span>
-	&#125;
-&#125;;</code></pre>
+<span class="hljs-keyword">public</span>:
+	Student(<span class="hljs-built_in">string</span> name, <span class="hljs-keyword">int</span> id) :m_name(name), m_id(id) &#123;&#125;
+	
+	<span class="hljs-comment">//末尾必须加const，否则二进制“ &lt; ” : 没有找到接受“const _Ty”类型的左操作数的运算符(或没有可接受的转换)</span>
+	<span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>&lt;(<span class="hljs-keyword">const</span> Student &amp; another) <span class="hljs-keyword">const</span>	
 
+	&#123;
+		<span class="hljs-keyword">if</span> (m_id == another.m_id) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		<span class="hljs-comment">//表明根据id进行去重</span>
+		<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> m_id &lt; another.m_id;
+		<span class="hljs-comment">//否则按照id从小到大进行排序</span>
+	&#125;
+
+	<span class="hljs-built_in">string</span> m_name;
+	<span class="hljs-keyword">int</span> m_id;
+&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test4</span><span class="hljs-params">()</span> </span>&#123;
+
+	<span class="hljs-function">Student <span class="hljs-title">s0</span><span class="hljs-params">(<span class="hljs-string">&quot;扶苏&quot;</span>, <span class="hljs-number">5</span>)</span></span>;
+	<span class="hljs-function">Student <span class="hljs-title">s1</span><span class="hljs-params">(<span class="hljs-string">&quot;西施&quot;</span>,<span class="hljs-number">1</span>)</span></span>;
+	<span class="hljs-function">Student <span class="hljs-title">s2</span><span class="hljs-params">(<span class="hljs-string">&quot;范蠹&quot;</span>, <span class="hljs-number">2</span>)</span></span>;
+	<span class="hljs-function">Student <span class="hljs-title">s3</span><span class="hljs-params">(<span class="hljs-string">&quot;韩信&quot;</span>, <span class="hljs-number">2</span>)</span></span>;
+	<span class="hljs-function">Student <span class="hljs-title">s4</span><span class="hljs-params">(<span class="hljs-string">&quot;刘邦&quot;</span>, <span class="hljs-number">4</span>)</span></span>;
+
+	<span class="hljs-built_in">set</span>&lt;Student&gt; s;
+
+	s.insert(s0);
+	s.insert(s1);
+	s.insert(s2);
+	s.insert(s3);
+	s.insert(s4);
+
+	<span class="hljs-keyword">for</span> (<span class="hljs-built_in">set</span>&lt;Student&gt;::iterator it = s.begin(); it != s.end(); it++)
+		<span class="hljs-built_in">cout</span> &lt;&lt; (*it).m_name &lt;&lt; <span class="hljs-string">&quot; -- &quot;</span> &lt;&lt; (*it).m_id &lt;&lt; <span class="hljs-built_in">endl</span>;
+&#125;</code></pre>
+<p>输出结果：</p>
+<pre><code class="hljs ada">西施 <span class="hljs-comment">-- 1</span>
+范蠹 <span class="hljs-comment">-- 2</span>
+刘邦 <span class="hljs-comment">-- 4</span>
+扶苏 <span class="hljs-comment">-- 5</span></code></pre>
+<p>可以看到，重复id会被清除，然后按照从小到大的顺序排序。</p>
+<h2 id="set与multiset"><a href="#set与multiset" class="headerlink" title="set与multiset"></a>set与multiset</h2><p>二者均使用头文件<code>&lt;set&gt;</code>。</p>
+<p>但是二者的<code>insert()</code>函数返回值不同，set返回一个对组<code>pair&lt;set&lt;T&gt;::iterator,bool&gt;</code>，而multiset则直接返回插入位置的迭代器。</p>
+<ul>
+<li>如果不允许插入重复数据可以利用set。</li>
+<li>如果需要插入重复数据利用multiset。</li>
+</ul>
 <h2 id="蓝桥杯真题——错误票据"><a href="#蓝桥杯真题——错误票据" class="headerlink" title="蓝桥杯真题——错误票据"></a>蓝桥杯真题——错误票据</h2><blockquote>
 <p><strong>题目描述</strong>：</p>
 <p>某涉密单位下发了某种票据，并要在年终全部收回。每张票据有唯一的ID号。全年所有票据的ID号是连续的，但ID的开始数码是随机选定的。</p>
@@ -332,14 +416,14 @@ set&lt;int,cmp&gt; i_set(a,a+9);
 <blockquote>
 <p>详细参见：<a target="_blank" rel="noopener" href="http://www.colourso.top/lanqiao-0/">蓝桥杯——一些零碎的注意事项</a></p>
 </blockquote>
-<pre><code class="hljs CPP"><span class="hljs-comment">//测试环境 Code::Blocks 17.12</span>
+<pre><code class="hljs c++"><span class="hljs-comment">//测试环境 Code::Blocks 17.12</span>
 <span class="hljs-comment">//本代码已经通过了蓝桥杯练习系统的测试</span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;set&gt;</span></span>
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-
+	
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
 <span class="hljs-function"></span>&#123;
     <span class="hljs-keyword">int</span> n,nums;
@@ -366,6 +450,7 @@ set&lt;int,cmp&gt; i_set(a,a+9);
     <span class="hljs-built_in">cout</span>&lt;&lt;duan&lt;&lt;<span class="hljs-string">&quot; &quot;</span>&lt;&lt;chong&lt;&lt;<span class="hljs-built_in">endl</span>;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre>
+
             </article>
             <hr>
             <div>
@@ -399,7 +484,7 @@ set&lt;int,cmp&gt; i_set(a,a+9);
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/lanqiao-6/">
+                      <a href="/stl-stackqueue/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">STL专题-stack、queue 栈与队列</span>
                         <span class="visible-mobile">上一篇</span>
@@ -409,7 +494,7 @@ set&lt;int,cmp&gt; i_set(a,a+9);
                   <div class="post-next col-6">
                     
                     
-                      <a href="/lanqiao-4/">
+                      <a href="/stl-map/">
                         <span class="hidden-mobile">STL专题-map 映射</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -736,7 +821,7 @@ set&lt;int,cmp&gt; i_set(a,a+9);
       if ('true' === 'true') {
         var viewCtn = document.querySelector('#leancloud-post-views-container');
         if (viewCtn || enableIncr) {
-          var target = decodeURI('/lanqiao-5/');
+          var target = decodeURI('/stl-set/');
           var viewGetter = getRecord(Counter, target).then((record) => {
             incrArr.push(buildIncrement(record.objectId))
             if (viewCtn) {

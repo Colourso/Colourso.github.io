@@ -170,7 +170,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.5k 字
+      1.9k 字
     </span>
   
 
@@ -180,7 +180,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      20
+      24
        分钟
     </span>
   
@@ -224,8 +224,13 @@
 
 <hr>
 <blockquote>
-<p>代码全部运行于VS2019</p>
+<p>代码全部运行于VS2017</p>
 </blockquote>
+<p><strong>文件分为两种：文本文件与二进制文件。</strong></p>
+<ul>
+<li><strong>文本文件</strong>：文件以ASCII码的形式存储在计算机中</li>
+<li>二进制文件：文件以二进制的形式存储在计算机中，一般不能直接读懂。</li>
+</ul>
 <h2 id="C语言读写文件"><a href="#C语言读写文件" class="headerlink" title="C语言读写文件"></a>C语言读写文件</h2><h3 id="打开文件-fopen"><a href="#打开文件-fopen" class="headerlink" title="打开文件 - fopen"></a>打开文件 - fopen</h3><p>C语言使用fopen函数打开文件</p>
 <p>fopen位于<code>stdio.h</code>中，</p>
 <pre><code class="hljs c"><span class="hljs-function">FILE *<span class="hljs-title">fopen</span><span class="hljs-params">( <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *filename, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *mode )</span></span>;</code></pre>
@@ -316,6 +321,13 @@ Student stu[] = &#123;
 <p>这些类型提供的操作与<code>cin</code>以及<code>cout</code>操作一样，可以使用IO运算符（&lt;&lt;以及&gt;&gt;）来读写文件，使用<code>getline</code>来从一个<code>ifstream</code>中读取数据。</p>
 </li>
 </ul>
+<h3 id="C-文件I-O基本流程"><a href="#C-文件I-O基本流程" class="headerlink" title="C++文件I/O基本流程"></a>C++文件I/O基本流程</h3><ol>
+<li>包含头文件<code>fstream</code></li>
+<li>创建流对象</li>
+<li>打开文件，以各种方式打开文件</li>
+<li>写/读数据</li>
+<li>关闭流对象。</li>
+</ol>
 <h3 id="使用文件流对象"><a href="#使用文件流对象" class="headerlink" title="使用文件流对象"></a>使用文件流对象</h3><p>读写文件时，定义一个文件流对象，然后将对象与文件关联起来。</p>
 <p>同时，每个文件流类都定义类一个名为open的成员函数，它会完成一些系统相关操作。</p>
 <p>创建文件流对象时，文件名是可选的，如果提供文件名，那么open就会被自动调用。</p>
@@ -338,12 +350,12 @@ out.open(ifile + <span class="hljs-string">&quot;.copy&quot;</span>);
 </blockquote>
 <p>当一个fstream对象离开其作用域的时候，与之关联的文件会自动关闭。当fstream对象被销毁时，close会自动被调用。</p>
 <h3 id="文件模式"><a href="#文件模式" class="headerlink" title="文件模式"></a>文件模式</h3><ul>
-<li>in：读</li>
-<li>out：写</li>
-<li>app：每次写操作前定位到文件末尾</li>
-<li>ate：打开文件后立即定位到文件末尾</li>
-<li>trunc：截断文件</li>
-<li>binary：以二进制方式进行IO</li>
+<li><code>ios::in</code>：读</li>
+<li><code>ios::out</code>：写</li>
+<li><code>ios::app</code>：每次写操作前定位到文件末尾</li>
+<li><code>ios::ate</code>：打开文件后立即定位到文件末尾</li>
+<li><code>ios::trunc</code>：截断文件</li>
+<li><code>ios::binary</code>：以二进制方式进行IO</li>
 </ul>
 <p>打开文件时，可以指定文件模式</p>
 <ul>
@@ -358,51 +370,89 @@ out.open(ifile + <span class="hljs-string">&quot;.copy&quot;</span>);
 <p>以out模式打开文件，文件的内容会被丢弃。（截断指丢弃文件内容）</p>
 <p>而<code>ofstream out(&quot;file&quot;)</code>就是默认以out模式打开，直接会截断文件。</p>
 <p> <a target="_blank" rel="noopener" href="https://www.cnblogs.com/jianyungsun/archive/2011/02/19/1958587.html">https://www.cnblogs.com/jianyungsun/archive/2011/02/19/1958587.html</a></p>
-<h2 id="Demo-基本操作"><a href="#Demo-基本操作" class="headerlink" title="Demo-基本操作"></a>Demo-基本操作</h2><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">read</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-	ifstream in;
-	in.open(<span class="hljs-string">&quot;a.txt&quot;</span>);
+<h2 id="普通方式读写文件"><a href="#普通方式读写文件" class="headerlink" title="普通方式读写文件"></a>普通方式读写文件</h2><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">writeFile</span><span class="hljs-params">()</span> </span>&#123;
+	<span class="hljs-comment">//写文件</span>
+	ofstream ofs;						<span class="hljs-comment">//创建流对象</span>
+	ofs.open(<span class="hljs-string">&quot;person.txt&quot;</span>,ios::out);	<span class="hljs-comment">//设置打开文件的方式</span>
 
-	<span class="hljs-built_in">string</span> line;
-
-	<span class="hljs-keyword">if</span> (in)
-	&#123;
-		<span class="hljs-keyword">while</span> (getline(in, line))
-		&#123;
-			<span class="hljs-built_in">cout</span> &lt;&lt; line &lt;&lt; <span class="hljs-built_in">endl</span>;
-		&#125;
-
-	&#125;
-
-	in.close();
+	ofs &lt;&lt; <span class="hljs-string">&quot;你好，我来自火星&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//给文件输出内容</span>
+	ofs &lt;&lt; <span class="hljs-string">&quot;我来侵略地球了，需要宿主&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		
+	ofs.close();						<span class="hljs-comment">//关闭文件流对象，释放资源</span>
 &#125;
 
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">write</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-	ofstream out;
-	out.open(<span class="hljs-string">&quot;a.txt&quot;</span>, ios::out | ios::app);
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">readFile</span><span class="hljs-params">()</span> </span>&#123;
 
-	<span class="hljs-keyword">if</span> (out)
-	&#123;
-		out &lt;&lt; <span class="hljs-string">&quot;aac&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	ifstream ifs;
+	ifs.open(<span class="hljs-string">&quot;person.txt&quot;</span>, ios::in);
+    
+    <span class="hljs-keyword">if</span> (!ifs.is_open()) &#123;<span class="hljs-comment">//若文件没有打开</span>
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;文件打开失败&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-keyword">return</span>;
 	&#125;
 
-	out.close();
+	<span class="hljs-built_in">string</span> buf;
+	<span class="hljs-keyword">while</span> (getline(ifs, buf)) &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; buf &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+
+	ifs.close();
+
+&#125;</code></pre>
+<h3 id="读取文件的一些方法"><a href="#读取文件的一些方法" class="headerlink" title="读取文件的一些方法"></a>读取文件的一些方法</h3><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">readFile</span><span class="hljs-params">()</span> </span>&#123;
+
+	ifstream ifs;
+	ifs.open(<span class="hljs-string">&quot;person.txt&quot;</span>, ios::in);
+	
+    
+    <span class="hljs-comment">//方式一：使用全局函数getline(std::istream,std::string)来读取</span>
+	<span class="hljs-built_in">string</span> buf;
+	<span class="hljs-keyword">while</span> (getline(ifs, buf)) &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; buf &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+
+	ifs.close();
+
 &#125;
+	<span class="hljs-comment">//方法二：使用char数组接收</span>
+	<span class="hljs-keyword">char</span> buf[<span class="hljs-number">1024</span>] = &#123; <span class="hljs-number">0</span> &#125;;
+	<span class="hljs-keyword">while</span> (ifs &gt;&gt; buf) &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; buf &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+
+	<span class="hljs-comment">//方法三:使用流对象的getline(char* buf,std::streamsize count)来读取</span>
+	<span class="hljs-keyword">char</span> buf[<span class="hljs-number">1024</span>] = &#123; <span class="hljs-number">0</span> &#125;;
+	<span class="hljs-keyword">while</span> (ifs.getline(buf, <span class="hljs-keyword">sizeof</span>(buf))) &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; buf &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+
+</code></pre>
+<h2 id="二进制方式读写文件"><a href="#二进制方式读写文件" class="headerlink" title="二进制方式读写文件"></a>二进制方式读写文件</h2><p>二进制方式写文件主要利用流对象调用成员函数write</p>
+<p>函数原型 ：<code>ostream&amp; write(const char * buffer,int len);</code></p>
+<ul>
+<li>字符指针buffer指向内存中一段存储空间。len是读写的字节数。</li>
+</ul>
+<p>二进制方式读文件主要利用流对象调用成员函数read</p>
+<p>函数原型：<code>istream&amp; read(char *buffer,int len);</code></p>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-keyword">char</span> m_name[<span class="hljs-number">64</span>];
+	<span class="hljs-keyword">int</span> m_age;
+&#125;;
 
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">bwrite</span><span class="hljs-params">()</span></span>
 <span class="hljs-function"></span>&#123;
 	ofstream out;
-	out.open(<span class="hljs-string">&quot;cc&quot;</span>, ios::out | ios::app | ios::binary);	<span class="hljs-comment">//没有文件就自动建立文件</span>
+	out.open(<span class="hljs-string">&quot;person.bin&quot;</span>, ios::out | ios::binary);	<span class="hljs-comment">//没有文件就自动建立文件</span>
 
-	<span class="hljs-keyword">if</span> (out)
-	&#123;
-		out &lt;&lt; <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-string">&quot; &quot;</span>&lt;&lt;<span class="hljs-number">10</span>&lt;&lt;<span class="hljs-string">&quot; &quot;</span>&lt;&lt;<span class="hljs-number">1</span>&lt;&lt;<span class="hljs-string">&quot; &quot;</span>&lt;&lt;<span class="hljs-string">&quot;2020.0507&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
-		out &lt;&lt; <span class="hljs-number">2</span> &lt;&lt; <span class="hljs-string">&quot; &quot;</span>&lt;&lt;<span class="hljs-number">20</span>&lt;&lt;<span class="hljs-string">&quot; &quot;</span>&lt;&lt;<span class="hljs-number">2</span>&lt;&lt;<span class="hljs-string">&quot; &quot;</span>&lt;&lt;<span class="hljs-string">&quot;2020.0607&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
-		out &lt;&lt; <span class="hljs-number">3</span> &lt;&lt; <span class="hljs-string">&quot; &quot;</span>&lt;&lt;<span class="hljs-number">30</span>&lt;&lt;<span class="hljs-string">&quot; &quot;</span>&lt;&lt;<span class="hljs-number">3</span>&lt;&lt;<span class="hljs-string">&quot; &quot;</span>&lt;&lt;<span class="hljs-string">&quot;2020.0707&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
-		out &lt;&lt; <span class="hljs-number">4</span> &lt;&lt; <span class="hljs-string">&quot; &quot;</span>&lt;&lt;<span class="hljs-number">40</span>&lt;&lt;<span class="hljs-string">&quot; &quot;</span>&lt;&lt;<span class="hljs-number">4</span>&lt;&lt;<span class="hljs-string">&quot; &quot;</span>&lt;&lt;<span class="hljs-string">&quot;2020.0907&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
-	&#125;
-    <span class="hljs-comment">//如果是纯数字的话，二进制文件打开也全是数字，而如果有中文的话就会有乱码。</span>
+	Person p = &#123; <span class="hljs-string">&quot;Colourso&quot;</span>, <span class="hljs-number">20</span> &#125;;
+	Person p1 = &#123; <span class="hljs-string">&quot;www&quot;</span>,<span class="hljs-number">19</span> &#125;;
+	Person p2 = &#123; <span class="hljs-string">&quot;IEEE&quot;</span>,<span class="hljs-number">21</span> &#125;;
+
+	<span class="hljs-comment">//将p的指针强转为char*</span>
+	out.write((<span class="hljs-keyword">char</span>*)&amp;p,<span class="hljs-keyword">sizeof</span>(p));
+	out.write((<span class="hljs-keyword">char</span>*)&amp;p1,<span class="hljs-keyword">sizeof</span>(p1));
+	out.write((<span class="hljs-keyword">char</span>*)&amp;p2,<span class="hljs-keyword">sizeof</span>(p2));
 
 	out.close();
 &#125;
@@ -410,23 +460,27 @@ out.open(ifile + <span class="hljs-string">&quot;.copy&quot;</span>);
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">bread</span><span class="hljs-params">()</span></span>
 <span class="hljs-function"></span>&#123;
 	ifstream in;
-	in.open(<span class="hljs-string">&quot;20200412141332.rp&quot;</span>, ios::in | ios::binary);		<span class="hljs-comment">//没有文件就打开失败</span>
+	in.open(<span class="hljs-string">&quot;person.bin&quot;</span>, ios::in | ios::binary);		<span class="hljs-comment">//没有文件就打开失败</span>
 
-	<span class="hljs-keyword">if</span> (in)
+	<span class="hljs-keyword">if</span> (!in.is_open())
 	&#123;
-		<span class="hljs-built_in">string</span> line;
-		<span class="hljs-keyword">while</span> (getline(in, line))
-		&#123;
-			<span class="hljs-built_in">cout</span> &lt;&lt; line &lt;&lt; <span class="hljs-built_in">endl</span>;
-		&#125;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;打开失败&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-keyword">return</span>;
 	&#125;
 
-	<span class="hljs-keyword">else</span> &#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;打开失败&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	Person p;
+
+	<span class="hljs-comment">//指针类型强转</span>
+	<span class="hljs-keyword">while</span> (in.read((<span class="hljs-keyword">char</span>*)&amp;p, <span class="hljs-keyword">sizeof</span>(p))) &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; p.m_name &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; p.m_age &lt;&lt; <span class="hljs-built_in">endl</span>;
 	&#125;
+	
 
 	in.close();
 &#125;</code></pre>
+<ul>
+<li>若Person类中m_name类型为string时，读取文件会发生一些错误……，暂时不知。</li>
+</ul>
 
             </article>
             <hr>

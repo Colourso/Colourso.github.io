@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Colourso">
   <meta name="keywords" content="">
-  <title>STL专题-iterator和vector - Colourso</title>
+  <title>Colourso</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -46,7 +46,7 @@
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 75vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -156,48 +156,6 @@
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2019-03-02 20:54">
-      星期六, 三月 2日 2019, 8:54 晚上
-    </time>
-  </div>
-
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      799 字
-    </span>
-  
-
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      9
-       分钟
-    </span>
-  
-
-  
-  
-    
-      <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-post-views"></span> 次
-      </span>
-    
-  
-</div>
-
-            
           </div>
 
           
@@ -208,190 +166,63 @@
 
   <main>
     
-      
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
-            
-            <article class="markdown-body">
-              <p><img src="/lanqiao-3/3.jpg" srcset="/img/loading.gif" alt="引图"></p>
-<center>序列容器vector😄</center>
-<a id="more"></a>
-
-<blockquote>
-<p>学习视频来源 <a target="_blank" rel="noopener" href="https://study.163.com/course/courseMain.htm?courseId=1004996013" title="2018NEUQ-ACM蓝桥杯培训">网易云课堂：2018NEUQ-ACM蓝桥杯培训</a></p>
-<p>以及《C++ Primer》(第五版)</p>
-</blockquote>
-<h2 id="iterator——迭代器"><a href="#iterator——迭代器" class="headerlink" title="iterator——迭代器"></a>iterator——迭代器</h2><p>迭代器与指针类似，可以访问顺序容器与关联容器中的元素。</p>
-<h3 id="声明方法"><a href="#声明方法" class="headerlink" title="声明方法"></a>声明方法</h3><p>容器名::iterator 变量名    //由此声名该容器的迭代器。</p>
-<pre><code>vector&lt;int&gt;::iterator iter;//声明了一个名为iter的变量</code></pre>
-<h3 id="begin与end迭代器"><a href="#begin与end迭代器" class="headerlink" title="begin与end迭代器"></a>begin与end迭代器</h3><p>每种容器都定义了<code>begin</code>与<code>end</code>的函数，用于返回迭代器。</p>
-<ul>
-<li><p>begin用于返回指向第一个元素的迭代器</p>
-<p>  vector<int>::iterator iter = vec.begin();//iter指向vec[0]</int></p>
-</li>
-<li><p>end用于返回指向末端元素的下一个的迭代器，称为“超出末端迭代器”，即指向一个不存在的元素。</p>
-</li>
-</ul>
-<p><strong>应用</strong>：遍历容器操作</p>
-<pre><code>for(iter=vec.begin();iter!=vec.end();iter++)
-&#123;
-    cout&lt;&lt;*iter&lt;&lt;endl;
-&#125;</code></pre>
-<h3 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h3><p>指针上的操作iterator基本上都是全部满足的。而两个迭代器相减返回的是两迭代器在容器内的差值。</p>
-<h2 id="vector——动态数组"><a href="#vector——动态数组" class="headerlink" title="vector——动态数组"></a>vector——动态数组</h2><p>头文件 <code>#include&lt;vector&gt;</code></p>
-<ul>
-<li><p>vector是一种<strong>可变大小数组</strong>的序列容器，采用连续的存储空间来存储元素，可以使用<strong>数组下标</strong>的方式访问vector的元素。</p>
-</li>
-<li><p><strong>动态存储</strong>：刚开始vector会自动分配一段连续的内存空间，当存储元素超过预配空间之后，vector会重新分配空间，元素移动，释放旧内存。</p>
-</li>
-<li><p>vector可以高效访问元素、在末尾添加元素和删除元素，但vector对元素操作的复杂度是根据到末尾的距离成正比。</p>
-</li>
-</ul>
-<h3 id="vector的声明与初始化"><a href="#vector的声明与初始化" class="headerlink" title="vector的声明与初始化"></a>vector的声明与初始化</h3><pre><code class="hljs c++"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; vec;			<span class="hljs-comment">//声明了一个int型的空vector</span>
-<span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">v2</span><span class="hljs-params">(vec)</span></span>;		<span class="hljs-comment">//v2包含了vec所有元素的副本</span>
-<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; v3 = vec;		<span class="hljs-comment">//等价于v3(vec)这种形式</span>
-<span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">vec</span><span class="hljs-params">(<span class="hljs-number">5</span>)</span></span>;			<span class="hljs-comment">//声明了一个初始大小为5的，且都是默认值的vector</span>
-<span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">vec</span><span class="hljs-params">(<span class="hljs-number">10</span>,<span class="hljs-number">1</span>)</span></span>;		<span class="hljs-comment">//声明了一个int型的初始大小为10的并且值都是1的vector</span>
-<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; vec&#123;a,b,c...&#125;;	<span class="hljs-comment">//声明并用这些值对应每个位置进行初始化</span>
-<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; vec =&#123;a,b,c&#125;;	<span class="hljs-comment">//等价于vec&#123;a,b,c...&#125;;</span></code></pre>
-<h3 id="vector作函数返回值时"><a href="#vector作函数返回值时" class="headerlink" title="vector作函数返回值时"></a>vector作函数返回值时</h3><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">twoSum</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums, <span class="hljs-keyword">int</span> target)</span> </span>
-<span class="hljs-function"></span>&#123;
-	<span class="hljs-keyword">return</span> &#123;i,j&#125;;
-&#125;</code></pre>
-<p>直接返回<code>&#123;&#125;</code>这种形式也是可以的。</p>
-<h3 id="vector的基本操作"><a href="#vector的基本操作" class="headerlink" title="vector的基本操作"></a>vector的基本操作</h3><ul>
-<li>begin()——返回首部迭代器</li>
-<li>end()——返回尾部的下一位置的迭代器</li>
-<li>**push_back()**——向末尾添加元素。(据说效率很高)</li>
-<li>**pop_back()**——末尾删除元素</li>
-<li>size()——返回容器内的元素个数</li>
-<li>empty()——判空，空返回1，非空返回0；</li>
-<li>**insert(pos,elem)**——在pos位置插入一个值elem，返回新数据的位置</li>
-<li>insert(pos,begin,end)——在pos位置插入[begin,end)区间内的数据，无返回值。</li>
-<li>clear()——清空容器</li>
-<li><strong>vector可使用数组下标的形式访问对应索引位置的元素，但是不能使用下标形式添加元素。</strong></li>
-</ul>
-<h3 id="好处与使用情景"><a href="#好处与使用情景" class="headerlink" title="好处与使用情景"></a>好处与使用情景</h3><p>无需考虑容器大小与数组越界的问题</p>
-<p>有丰富的操作（reverse、push_back、insert等）</p>
-<hr>
-<ul>
-<li>2020-05-23 增加内容</li>
-</ul>
-
-            </article>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
+      <div class="container nopadding-md">
+        <div class="py-5" id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
                 
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/C-C/">C/C++</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/C/">C++</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/">蓝桥杯</a>
-                    
-                      <a class="hover-with-bg" href="/tags/STL/">STL</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
-                    
-                    
-                      <a href="/lanqiao-0/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">蓝桥杯——一些零碎的注意事项</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </div>
-                  <div class="post-next col-6">
-                    
-                    
-                      <a href="/lanqiao-2/">
-                        <span class="hidden-mobile">STL专题-sort、reverse</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </div>
-                </div>
-              
-            </div>
 
-            
-              <!-- Comments -->
-              <div class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
 
-  <script type="text/javascript">
-    var oldLoadVa = window.onload;
-    window.onload = function () {
-      oldLoadVa && oldLoadVa();
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/hello-world/">Hello World</a>
 
-      new Valine({
-        el: "#vcomments",
-        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
-        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
-        placeholder: "说点什么",
-        path: window.location.pathname,
-        avatar: "wavatar",
-        meta: ["nick","mail","link"],
-        pageSize: "10",
-        lang: "zh-CN",
-        highlight: false,
-        recordIP: false,
-        serverURLs: "",
-      });
-    };
+      <a href="/hello-world/" class="index-excerpt">
+        
+        
+          
+        
+        <div>欢迎来访 Colourso’s Blog! 这是原Hexo自动产生的第一篇博文，在此我来做一些修改。</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2018-10-01
+          </div>
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/page/11/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
   </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
+
 
 
               </div>
-            
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
-</div>
-
-      </div>
-    
-  </div>
-</div>
-
-<!-- Custom -->
-
-
     
   </main>
 
@@ -504,34 +335,6 @@
 
 
   <script  src="/js/lazyload.js" ></script>
-
-
-
-  
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '.post-content',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
 
 
 
@@ -651,10 +454,10 @@
       }
 
       // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
+      if ('false' === 'true') {
         var viewCtn = document.querySelector('#leancloud-post-views-container');
         if (viewCtn || enableIncr) {
-          var target = decodeURI('/lanqiao-3/');
+          var target = decodeURI('/page/12/index.html');
           var viewGetter = getRecord(Counter, target).then((record) => {
             incrArr.push(buildIncrement(record.objectId))
             if (viewCtn) {
@@ -736,7 +539,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "STL专题-iterator和vector&nbsp;",
+        "道阻且长 行将则至&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 80,
@@ -779,20 +582,6 @@
   </script>
 
 
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
-  </script>
 
 
 

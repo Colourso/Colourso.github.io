@@ -232,32 +232,31 @@
 <hr>
 <p>有关Fibonacci数列的题目，瞬间想到要用递归，二话不说直接上手写了提交。然后就<strong>运行超时</strong>了，虽然是第一题，貌似也没那么简单。</p>
 <p>以下是我的原本代码，外加 <code>GetTickCount</code> 来测试使用时间，结果看底下图片。</p>
-<pre><code class="hljs CPP"><span class="hljs-comment">//运行环境VS2013</span>
+<pre><code class="hljs c++"><span class="hljs-comment">//运行环境VS2013</span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;Windows.h&gt;</span></span>
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 DWORD t1, t2;
 <span class="hljs-function"><span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> <span class="hljs-title">fibonacci</span><span class="hljs-params">(<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> n)</span></span>
 <span class="hljs-function"></span>&#123;
-	<span class="hljs-keyword">if</span> (n == <span class="hljs-number">1</span> || n == <span class="hljs-number">2</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
-	<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> fibonacci(n - <span class="hljs-number">1</span>) + fibonacci(n - <span class="hljs-number">2</span>);
+    <span class="hljs-keyword">if</span> (n == <span class="hljs-number">1</span> || n == <span class="hljs-number">2</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> fibonacci(n - <span class="hljs-number">1</span>) + fibonacci(n - <span class="hljs-number">2</span>);
 &#125;
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
 <span class="hljs-function"></span>&#123;
-	<span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>)
-	&#123;
-		<span class="hljs-keyword">int</span> n;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Cin&gt;&gt;&quot;</span>;
-		<span class="hljs-built_in">cin</span> &gt;&gt; n;
-		t1 = GetTickCount();
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;The result : &quot;</span> &lt;&lt; <span class="hljs-keyword">int</span>(fibonacci(n) % <span class="hljs-number">10007</span>) &lt;&lt; <span class="hljs-built_in">endl</span>;
-		t2 = GetTickCount();
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Spend time: &quot;</span> &lt;&lt; t2 - t1 &lt;&lt; <span class="hljs-string">&quot; ms&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	&#125;
-	system(<span class="hljs-string">&quot;pause&quot;</span>);
-	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>)
+    &#123;
+        <span class="hljs-keyword">int</span> n;
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Cin&gt;&gt;&quot;</span>;
+        <span class="hljs-built_in">cin</span> &gt;&gt; n;
+        t1 = GetTickCount();
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;The result : &quot;</span> &lt;&lt; <span class="hljs-keyword">int</span>(fibonacci(n) % <span class="hljs-number">10007</span>) &lt;&lt; <span class="hljs-built_in">endl</span>;
+        t2 = GetTickCount();
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Spend time: &quot;</span> &lt;&lt; t2 - t1 &lt;&lt; <span class="hljs-string">&quot; ms&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+    &#125;
+    system(<span class="hljs-string">&quot;pause&quot;</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre>
-
 <p>运行结果：</p>
 <p><img src="/lanqiao-1/result1.png" srcset="/img/loading.gif" alt="Fibonacci数列结果"></p>
 <p>当我随机输入到44时，耗费时间长达16s😭。当然题目直接就说了不需要推算出这个值再计算它的余数，当n越大时，Fibonacci值越大，外加递归肯定耗费时间。</p>
@@ -267,24 +266,23 @@ DWORD t1, t2;
 <p>一目了然，然后使用<strong>数组存取计算的值</strong>，省的使用递归一遍遍计算了。</p>
 </blockquote>
 <p>更新代码：</p>
-<pre><code class="hljs CPP"><span class="hljs-comment">//运行环境VS2013</span>
+<pre><code class="hljs c++"><span class="hljs-comment">//运行环境VS2013</span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
 <span class="hljs-function"></span>&#123;
-	<span class="hljs-keyword">int</span> n, i;
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Cin&gt;&gt;&quot;</span>;
-	<span class="hljs-built_in">cin</span> &gt;&gt; n;
-	<span class="hljs-keyword">int</span> f[<span class="hljs-number">1000000</span>];<span class="hljs-comment">//这里VS2013不会通过，注意该小点</span>
-	f[<span class="hljs-number">1</span>] = f[<span class="hljs-number">2</span>] = <span class="hljs-number">1</span>;
-	<span class="hljs-keyword">for</span> (i = <span class="hljs-number">3</span>; i &lt;= n; i++)
-	&#123;
-		f[i] = (f[i - <span class="hljs-number">1</span>] + f[i - <span class="hljs-number">2</span>]) % <span class="hljs-number">10007</span>;
-	&#125;
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;The result : &quot;</span> &lt;&lt; f[n] &lt;&lt; <span class="hljs-built_in">endl</span>;
-	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">int</span> n, i;
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Cin&gt;&gt;&quot;</span>;
+    <span class="hljs-built_in">cin</span> &gt;&gt; n;
+    <span class="hljs-keyword">int</span> f[<span class="hljs-number">1000000</span>];<span class="hljs-comment">//这里VS2013不会通过，注意该小点</span>
+    f[<span class="hljs-number">1</span>] = f[<span class="hljs-number">2</span>] = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">3</span>; i &lt;= n; i++)
+    &#123;
+        f[i] = (f[i - <span class="hljs-number">1</span>] + f[i - <span class="hljs-number">2</span>]) % <span class="hljs-number">10007</span>;
+    &#125;
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;The result : &quot;</span> &lt;&lt; f[n] &lt;&lt; <span class="hljs-built_in">endl</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre>
-
 <p><img src="/lanqiao-1/result2.png" srcset="/img/loading.gif" alt="Fibonacci数列结果"></p>
 <p>当输入值较大时运行时间还是很快的。</p>
 <h3 id="本题感悟"><a href="#本题感悟" class="headerlink" title="本题感悟"></a>本题感悟</h3><ol>
@@ -310,8 +308,7 @@ DWORD t1, t2;
 <p>参考链接： <a target="_blank" rel="noopener" href="https://blog.csdn.net/lcg910978041/article/details/77777421">C++ iostream 输入输出流格式控制</a></p>
 </blockquote>
 <p>程序示例</p>
-<pre><code class="hljs CPP">
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iomanip&gt;</span></span>
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
@@ -323,9 +320,7 @@ DWORD t1, t2;
     <span class="hljs-built_in">cout</span>&lt;&lt;fixed&lt;&lt;setprecision(<span class="hljs-number">5</span>)&lt;&lt;a&lt;&lt;<span class="hljs-built_in">endl</span>;<span class="hljs-comment">//3.12346。  5位小数部分。与上一部同样的表示</span>
     <span class="hljs-built_in">cout</span>&lt;&lt;setiosflags(ios::scientific)&lt;&lt;setprecision(<span class="hljs-number">2</span>)&lt;&lt;a&lt;&lt;<span class="hljs-built_in">endl</span>;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;
-</code></pre>
-
+&#125;</code></pre>
 <h2 id="蓝桥杯-入门训练-序列求和"><a href="#蓝桥杯-入门训练-序列求和" class="headerlink" title="蓝桥杯-入门训练 序列求和"></a>蓝桥杯-入门训练 序列求和</h2><p>问题描述：</p>
 <p>求1+2+3+…+n的值。</p>
 <p>数据规模与约定</p>
@@ -380,8 +375,8 @@ DWORD t1, t2;
                   <div class="post-next col-6">
                     
                     
-                      <a href="/XDF-taste/">
-                        <span class="hidden-mobile">新东方实习-高三辅导员体验</span>
+                      <a href="/stl-deque/">
+                        <span class="hidden-mobile">STL专题-deque</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

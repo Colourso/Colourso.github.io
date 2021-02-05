@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Colourso">
   <meta name="keywords" content="">
-  <title>STL专题-stack、queue 栈与队列 - Colourso</title>
+  <title>STL专题-list - Colourso</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -159,8 +159,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2019-03-17 10:58">
-      星期日, 三月 17日 2019, 10:58 上午
+    <time datetime="2021-02-04 13:54">
+      星期四, 二月 4日 2021, 1:54 下午
     </time>
   </div>
 
@@ -170,7 +170,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      1.1k 字
     </span>
   
 
@@ -180,7 +180,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      16
+      13
        分钟
     </span>
   
@@ -219,144 +219,149 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p><img src="/lanqiao-6/6.jpg" srcset="/img/loading.gif" alt="引图"></p>
-<center>栈与队列😁</center>
+              <p>STL链表list。</p>
 <a id="more"></a>
 
+<p>STL中的链表是一个<strong>双向循环链表</strong>。</p>
+<p>其存储结构并非连续的内存空间，所以list的迭代器只支持前移和后移，它是<strong>双向迭代器</strong>，而不是像vector那样的随机访问迭代器。</p>
+<p><img src="/stl-list/list.png" srcset="/img/loading.gif"></p>
+<h2 id="list的优缺点"><a href="#list的优缺点" class="headerlink" title="list的优缺点"></a>list的优缺点</h2><p>优点：</p>
+<ul>
+<li>采用动态存储分配，不会造成内存浪费和溢出</li>
+<li>链表执行插入和删除操作十分方便，修改指针即可，不需要移动大量元素</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>比数组要额外存储指向下一个节点的指针，需要额外耗费空间。</li>
+<li>不支持随机访问，额外耗费较大。</li>
+</ul>
+<p>与vector相比：插入操作和删除操作都不会造成原有list迭代器的失效，这在vector是不成立的。</p>
+<ul>
+<li>暂未验证</li>
+</ul>
+<h2 id="list的使用"><a href="#list的使用" class="headerlink" title="list的使用"></a>list的使用</h2><pre><code class="hljs c++"><span class="hljs-built_in">list</span>&lt;T&gt; lst; <span class="hljs-comment">//list采用采用模板类实现,对象的默认构造形式：</span>
 
-<p>学习视频来源 <a target="_blank" rel="noopener" href="https://study.163.com/course/courseMain.htm?courseId=1004996013" title="2018NEUQ-ACM蓝桥杯培训">网易云课堂：2018NEUQ-ACM蓝桥杯培训</a></p>
-<hr>
-<h2 id="stack——栈"><a href="#stack——栈" class="headerlink" title="stack——栈"></a>stack——栈</h2><p>头文件 <code>#include &lt;stack&gt;</code></p>
-<p>栈是实现了先进后出的一种容器，元素的插入与删除都只能在栈的顶部来完成</p>
-<h3 id="stack的构造"><a href="#stack的构造" class="headerlink" title="stack的构造"></a>stack的构造</h3><pre><code>stack&lt;TYPE&gt; stkName;//其中TYPE可以是任何类型，包括自定义类型与指针类型</code></pre>
-<p>拷贝构造</p>
-<pre><code>stack&lt;int&gt; s1;
-stack&lt;int&gt; s2(s1);    //拷贝s1并构造s2
-stack&lt;int&gt; s3;
-s3 = s1;        //将s1的值赋给s3</code></pre>
-<h3 id="stack的函数"><a href="#stack的函数" class="headerlink" title="stack的函数"></a>stack的函数</h3><ul>
-<li><p>empty() 堆栈为空，则返回真 </p>
-</li>
-<li><p>pop() 移除栈顶元素 </p>
-</li>
-<li><p>push(elem) 在栈顶增加元素elem </p>
-</li>
-<li><p>size() 返回栈中元素数目 </p>
-</li>
-<li><p>top() 返回栈顶元素 </p>
-</li>
+<span class="hljs-built_in">list</span>(beg,end); <span class="hljs-comment">//构造函数将[beg, end)区间中的元素拷贝给本身。</span>
+
+<span class="hljs-built_in">list</span>(n,elem); <span class="hljs-comment">//构造函数将n个elem拷贝给本身。</span>
+
+<span class="hljs-built_in">list</span>(<span class="hljs-keyword">const</span> <span class="hljs-built_in">list</span> &amp;lst); <span class="hljs-comment">//拷贝构造函数。</span>
+
+assign(beg, end); <span class="hljs-comment">//将[beg, end)区间中的数据拷贝赋值给本身。</span>
+
+assign(n, elem); <span class="hljs-comment">//将n个elem拷贝赋值给本身。</span>
+
+<span class="hljs-built_in">list</span>&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> <span class="hljs-built_in">list</span> &amp;lst); <span class="hljs-comment">//重载等号操作符</span>
+
+swap(lst); <span class="hljs-comment">//将lst与本身的元素互换。</span>
+
+size(); <span class="hljs-comment">//返回容器中元素的个数</span>
+
+empty(); <span class="hljs-comment">//判断容器是否为空</span>
+
+resize(num); <span class="hljs-comment">//重新指定容器的长度为num，若容器变长，则以默认值填充新位置。</span>
+			<span class="hljs-comment">//如果容器变短，则末尾超出容器长度的元素被删除。</span>
+
+resize(num, elem); <span class="hljs-comment">//重新指定容器的长度为num，若容器变长，则以elem值填充新位置。</span>
+
+push_back(elem);<span class="hljs-comment">//在容器尾部加入一个元素</span>
+
+pop_back();<span class="hljs-comment">//删除容器中最后一个元素</span>
+
+push_front(elem);<span class="hljs-comment">//在容器开头插入一个元素</span>
+
+pop_front();<span class="hljs-comment">//从容器开头移除第一个元素</span>
+
+insert(pos,elem);<span class="hljs-comment">//在pos位置插elem元素的拷贝，返回新数据的位置。，pos是迭代器</span>
+
+insert(pos,n,elem);<span class="hljs-comment">//在pos位置插入n个elem数据，无返回值。pos是迭代器</span>
+
+insert(pos,beg,end);<span class="hljs-comment">//在pos位置插入[beg,end)区间的数据，无返回值。pos是迭代器</span>
+
+clear();<span class="hljs-comment">//移除容器的所有数据</span>
+
+erase(beg,end);<span class="hljs-comment">//删除[beg,end)区间的数据，返回下一个数据的位置。</span>
+
+erase(pos);<span class="hljs-comment">//删除pos位置的数据，返回下一个数据的位置。</span>
+
+remove(elem);<span class="hljs-comment">//删除容器中所有与elem值匹配的元素。</span>
+
+front(); <span class="hljs-comment">//返回第一个元素。</span>
+
+back(); <span class="hljs-comment">//返回最后一个元素。</span>
+
+reverse(); <span class="hljs-comment">//反转链表</span>
+
+sort(); <span class="hljs-comment">//链表排序</span></code></pre>
+<ul>
+<li>remove(elem)  是按照值匹配而移除， erase按照迭代器的指向而移除。</li>
+<li>list不支持随机访问，所以它没有<code>[]</code>或者<code>at(index)</code>这样的vector类似的方法。</li>
 </ul>
-<p>注意：对一个空栈执行pop操作会导致程序异常而结束，所以要先用empty进行判断。</p>
-<h3 id="stack的应用"><a href="#stack的应用" class="headerlink" title="stack的应用"></a>stack的应用</h3><ol>
-<li><p>递归算法</p>
-</li>
-<li><p>括号匹配检测</p>
-</li>
-<li><p>DFS算法</p>
-</li>
-</ol>
-<h2 id="queue——队列"><a href="#queue——队列" class="headerlink" title="queue——队列"></a>queue——队列</h2><p>头文件 <code>#include &lt;queue&gt;</code></p>
-<p>队列是一种先进先出的容器，元素的插入在队尾进行，元素的删除在队首进行，类似于日常生活中的排队。</p>
-<h3 id="queue的构造"><a href="#queue的构造" class="headerlink" title="queue的构造"></a>queue的构造</h3><pre><code>queue&lt;TYPE&gt; quName;//其中TYPE可以是任何类型，包括自定义类型与指针类型</code></pre>
-<p>构造方法与stack相同。</p>
-<h3 id="queue的函数"><a href="#queue的函数" class="headerlink" title="queue的函数"></a>queue的函数</h3><ul>
-<li><p>back() 返回最后一个元素 </p>
-</li>
-<li><p>empty() 如果队列空则返回真 </p>
-</li>
-<li><p>front() 返回第一个元素 </p>
-</li>
-<li><p>pop() 删除第一个元素 </p>
-</li>
-<li><p>push(elem) 在末尾加入一个元素 </p>
-</li>
-<li><p>size() 返回队列中元素的个数 </p>
-</li>
-</ul>
-<p>注意：对一个空队列执行pop操作会导致程序异常而结束，所以要先用empty进行判断。</p>
-<h3 id="queue的应用"><a href="#queue的应用" class="headerlink" title="queue的应用"></a>queue的应用</h3><ol>
-<li><p>BFS算法</p>
-</li>
-<li><p>保存暂时不用的数据</p>
-</li>
-</ol>
-<h2 id="例题：NEUQOJ-1689-火车调度问题-截止现在此题目无法做"><a href="#例题：NEUQOJ-1689-火车调度问题-截止现在此题目无法做" class="headerlink" title="例题：NEUQOJ-1689 火车调度问题(截止现在此题目无法做)"></a>例题：NEUQOJ-1689 火车调度问题(截止现在此题目无法做)</h2><blockquote>
-<p><strong>题目描述</strong>：</p>
-<p>粗心的塔学长现在是火车站的调度员，看看现在的惨状吧，列车车厢的顺序竟然完全是乱的！为避免塔学长登上明天的UC头条，车站划分给塔塔一段如图所示的铁路，你能帮助塔塔把车厢的顺序调整好吗？</p>
-<p>其中，A为入口，B为出口，S为中转盲端。所有铁道均为单轨单向式：列车行驶的方向只能是从A到S，再从S到B；另外，不允许超车。因为车厢可在S中驻留，所以它们从B端驶出的次序，可能与从A端驶入的次序不同。不过S的容量有限，同时驻留的车厢不得超过m节。</p>
-<p>列车由编号依次为{1, 2, …, n}的n节车厢组成。塔塔希望知道，按照以上交通规则，这些车厢能否以{a1, a2, …, an}的次序，重新排列后从B端驶出。如果可行，应该以怎样的次序操作?</p>
-<p><img src="/lanqiao-6/stack.png" srcset="/img/loading.gif" alt="引图"></p>
-<p><strong>输入</strong>：</p>
-<p>共两行。<br>第一行为两个整数n，m。<br>第二行为以空格分隔的n个整数，保证为{1, 2, …, n}的一个排列，表示待判断可行性的驶出序列{a1，a2，…，an}。</p>
-<p><strong>输出</strong>：</p>
-<p>若驶出序列可行，则输出操作序列，其中push表示车厢从A进入S，pop表示车厢从S进入B，每个操作占一行。<br>若不可行，则输出“震惊！昨天小汤河火车站竟然。。。”。</p>
-<p><strong>样例输入</strong></p>
-<p>5 2</p>
-<p>1 2 3 5 4<br><strong>样例输出</strong></p>
-<p>push<br>pop<br>push<br>pop<br>push<br>pop<br>push<br>push<br>pop<br>pop</p>
-</blockquote>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>题目就是一道对栈进行操作的问题，给定初始状态A与最终状态B，限定栈的大小，来判断是否实现该操作。核心问题在于如何进行判断，这一部分的逻辑不容易处理。</p>
-<ol>
-<li><p>设置两个变量来表示对A，B的判断进度，然后判断当前A与B的首元是否相同，如果相同并且栈不满的话，push再pop达成目标。</p>
-</li>
-<li><p>不满足上述条件的话，判断当前栈顶元素是否与B的首元相同，相同的话pop。</p>
-</li>
-<li><p>还不满足上述条件的话，将A的首元去入栈，push。</p>
-</li>
-<li><p>上述三种条件都不满足的话，无法达成目标，结束。</p>
-</li>
-</ol>
-<h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><pre><code class="hljs CPP"><span class="hljs-comment">//仅是个人思路，因OJ这道题无法做，故未经程序检验</span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stack&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-keyword">int</span> n，m;<span class="hljs-comment">//接收火车数量以及栈的大小</span>
-    <span class="hljs-keyword">int</span> a[<span class="hljs-number">1000</span>];<span class="hljs-comment">//接收火车调度后的状态</span>
-    <span class="hljs-keyword">int</span> a1[<span class="hljs-number">1000</span>];<span class="hljs-comment">//接收栈的操作状态，1表示Push。0表示pop</span>
-    <span class="hljs-keyword">int</span> ntp = <span class="hljs-number">0</span>;<span class="hljs-comment">//计数栈的操作步数</span>
-    <span class="hljs-built_in">stack</span>&lt;<span class="hljs-keyword">int</span>&gt; s;<span class="hljs-comment">//构造栈</span>
-    <span class="hljs-built_in">cin</span>&gt;&gt;n&gt;&gt;m;
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;i&lt;=n;i++)
-    &#123;
-        <span class="hljs-built_in">cin</span>&gt;&gt;a[i];
-    &#125;
-    <span class="hljs-keyword">int</span> A = <span class="hljs-number">1</span>;<span class="hljs-comment">//原始火车的判断进度</span>
-    <span class="hljs-keyword">int</span> B = <span class="hljs-number">1</span>;<span class="hljs-comment">//结束后火车的判断进度</span>
-    <span class="hljs-keyword">int</span> flag = <span class="hljs-number">1</span>;<span class="hljs-comment">//判断条件</span>
-    <span class="hljs-keyword">while</span>(B&lt;=n &amp;&amp; flag)
-    &#123;
-        <span class="hljs-keyword">if</span>(A == a[B]&amp;&amp;s.size()&lt;m)
-        &#123;
-            ++A;++B;
-            a1[ntp++] = <span class="hljs-number">1</span>;
-            a1[ntp++] = <span class="hljs-number">0</span>;
-        &#125;
-        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(!s.empty()&amp;&amp;s.top()==a[B])
-        &#123;
-            s.pop();
-            a1[ntp++] = <span class="hljs-number">0</span>;
-            ++B;
-        &#125;
-        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(A&lt;=n &amp;&amp; s.size()&lt;m)
-        &#123;
-            s.push(A++);
-            a1[ntp++] = <span class="hljs-number">1</span>;
-        &#125;
-        <span class="hljs-keyword">else</span> flag = <span class="hljs-number">0</span>;
-    &#125;
-    <span class="hljs-keyword">if</span>(flag == <span class="hljs-number">0</span>) <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&quot;震惊！昨天小汤河火车站竟然。。。&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
-    <span class="hljs-keyword">else</span>
-    &#123;
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> q = <span class="hljs-number">0</span>;q&lt;ntp;q++)
-        &#123;
-            <span class="hljs-keyword">if</span>(a1[q] == <span class="hljs-number">1</span>) <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&quot;push&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
-            <span class="hljs-keyword">else</span> <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&quot;pop&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
-        &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+<h3 id="list的迭代器"><a href="#list的迭代器" class="headerlink" title="list的迭代器"></a>list的迭代器</h3><p>list由于是链表实现，其迭代器不能像vector的迭代器那样强大。</p>
+<p>list的迭代器只能做简单的自增1，自减的操作</p>
+<pre><code class="hljs c++"><span class="hljs-built_in">list</span>&lt;<span class="hljs-keyword">int</span>&gt; li;
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i+=<span class="hljs-number">2</span>) &#123;
+    li.push_back(i);		<span class="hljs-comment">//尾插</span>
+    li.push_front(i + <span class="hljs-number">1</span>);	<span class="hljs-comment">//头插</span>
+&#125;
+
+<span class="hljs-built_in">list</span>&lt;<span class="hljs-keyword">int</span>&gt;::iterator it = li.begin();
+
+it++; <span class="hljs-comment">//正确</span>
+it--;<span class="hljs-comment">//正确</span>
+
+<span class="hljs-comment">// it += 1;错误</span>
+<span class="hljs-comment">// it + 1;错误</span>
+<span class="hljs-comment">// it + 3;错误</span></code></pre>
+<h3 id="list的sort排序"><a href="#list的sort排序" class="headerlink" title="list的sort排序"></a>list的sort排序</h3><p><strong>所有不支持随机访问迭代器的容器，都不可以使用标准算法。</strong></p>
+<pre><code class="hljs c++"><span class="hljs-comment">//自己实现的比较函数</span>
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">myCompare</span><span class="hljs-params">(<span class="hljs-keyword">int</span> &amp;a,<span class="hljs-keyword">int</span> &amp;b)</span> </span>&#123;
+    <span class="hljs-comment">//a &gt; b时返回true</span>
+	<span class="hljs-keyword">return</span> a &gt; b;
+&#125;
+
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test3</span><span class="hljs-params">()</span> </span>&#123;
+
+	<span class="hljs-built_in">list</span>&lt;<span class="hljs-keyword">int</span>&gt; li;
+
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i += <span class="hljs-number">2</span>) &#123;
+		li.push_back(i);		<span class="hljs-comment">//尾插</span>
+		li.push_front(i + <span class="hljs-number">1</span>);	<span class="hljs-comment">//头插</span>
+	&#125;
+
+	<span class="hljs-comment">//遍历结果</span>
+	<span class="hljs-built_in">list</span>&lt;<span class="hljs-keyword">int</span>&gt;::iterator it = li.begin();
+	<span class="hljs-keyword">for</span> (; it != li.end(); it++)
+		<span class="hljs-built_in">cout</span> &lt;&lt; *it &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+	li.sort();		<span class="hljs-comment">//默认排序，由小到大</span>
+
+	it = li.begin();
+	<span class="hljs-keyword">for</span> (; it != li.end(); it++)
+		<span class="hljs-built_in">cout</span> &lt;&lt; *it &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+	<span class="hljs-comment">//由大到小排序</span>
+	li.sort(myCompare);	<span class="hljs-comment">//传入自己实现的回调函数或者仿函数</span>
+
+	it = li.begin();
+	<span class="hljs-keyword">for</span> (; it != li.end(); it++)
+		<span class="hljs-built_in">cout</span> &lt;&lt; *it &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+
 &#125;</code></pre>
+<p><strong>总结：</strong></p>
+<ol>
+<li>算法<code>&lt;algorithm&gt;</code>有sort()排序算法，但是这个算法是只支持可以<strong>随机访问</strong>的容器。由于list不支持，所以其自己提供了实现函数。</li>
+<li>对于自定义的数据类型，使用list存储，如果需要进行排序，必须要自行指定排序规则。</li>
+</ol>
+<h3 id="使用情景"><a href="#使用情景" class="headerlink" title="使用情景"></a>使用情景</h3><ul>
+<li>注意list不支持随机访问、使用下标进行访问。只能从头遍历整个链表。</li>
+</ul>
+
             </article>
             <hr>
             <div>
@@ -375,8 +380,6 @@ s3 = s1;        //将s1的值赋给s3</code></pre>
                     
                       <a class="hover-with-bg" href="/tags/C/">C++</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/">蓝桥杯</a>
-                    
                       <a class="hover-with-bg" href="/tags/STL/">STL</a>
                     
                   </div>
@@ -390,9 +393,9 @@ s3 = s1;        //将s1的值赋给s3</code></pre>
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/lanqiao-dfs/">
+                      <a href="/math-base/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">蓝桥杯-DFS深度应用与模板</span>
+                        <span class="hidden-mobile">【置顶】数学基础知识、常用公式总结</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -400,8 +403,8 @@ s3 = s1;        //将s1的值赋给s3</code></pre>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/lanqiao-5/">
-                        <span class="hidden-mobile">STL专题-set 集合</span>
+                      <a href="/cpp-template-proc/">
+                        <span class="hidden-mobile">C++类模板练习 —— 自定义数组类实现</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -727,7 +730,7 @@ s3 = s1;        //将s1的值赋给s3</code></pre>
       if ('true' === 'true') {
         var viewCtn = document.querySelector('#leancloud-post-views-container');
         if (viewCtn || enableIncr) {
-          var target = decodeURI('/lanqiao-6/');
+          var target = decodeURI('/stl-list/');
           var viewGetter = getRecord(Counter, target).then((record) => {
             incrArr.push(buildIncrement(record.objectId))
             if (viewCtn) {
@@ -809,7 +812,7 @@ s3 = s1;        //将s1的值赋给s3</code></pre>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "STL专题-stack、queue 栈与队列&nbsp;",
+        "STL专题-list&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 80,

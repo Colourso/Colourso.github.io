@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Colourso">
   <meta name="keywords" content="">
-  <title>STL专题-map 映射 - Colourso</title>
+  <title>STL专题-stack、queue 栈与队列 - Colourso</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -159,8 +159,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2019-03-05 10:56">
-      星期二, 三月 5日 2019, 10:56 上午
+    <time datetime="2019-03-17 10:58">
+      星期日, 三月 17日 2019, 10:58 上午
     </time>
   </div>
 
@@ -170,7 +170,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.7k 字
+      1.4k 字
     </span>
   
 
@@ -180,7 +180,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      23
+      17
        分钟
     </span>
   
@@ -219,200 +219,145 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p><img src="/lanqiao-4/4.jpg" srcset="/img/loading.gif" alt="引图"></p>
-<center>map👍</center>
-<a id="more"></a>
+              <a id="more"></a>
 
-<p>学习视频来源 <a target="_blank" rel="noopener" href="https://study.163.com/course/courseMain.htm?courseId=1004996013" title="2018NEUQ-ACM蓝桥杯培训">网易云课堂：2018NEUQ-ACM蓝桥杯培训</a></p>
-<h2 id="map——映射"><a href="#map——映射" class="headerlink" title="map——映射"></a>map——映射</h2><p>头文件 <code>#include &lt;map&gt;</code></p>
-<ul>
-<li><p>map是一个关联式容器，可以建立 <code>key(即first)</code> 到 <code>value(即second)</code> 的<strong>一对一的映射关系</strong>，由key映射到value。类似于函数的x到y，一对一。</p>
-</li>
-<li><p>map内部自建了一颗<strong>红黑二叉树</strong>，可以对数据进行<strong>自动排序</strong>，默认排序方式为字典序(从小到大)，故map内的数据都是<strong>有序</strong>的。</p>
-</li>
-</ul>
-<h3 id="map声明与初始化"><a href="#map声明与初始化" class="headerlink" title="map声明与初始化"></a>map声明与初始化</h3><p>构造</p>
-<pre><code>map&lt;int,string&gt; map_student;</code></pre>
-<p>这里构造了一个由int映射到string的map。这里key与value可以是任意数据类型，包括自定义的。</p>
-<p>插入数据</p>
-<pre><code>//方法1.类似数组的方式插入
-map_student[1] = &quot;liming&quot;; //1-&gt;&quot;liming&quot;
-//方法2.insert()函数
-map_student.insert(map&lt;int,string&gt;::value_type(2,&quot;zhangsan&quot;));
-//方法3.insert()函数
-map_student.insert(make_pair(3,&quot;lisi&quot;));
-//方法4.insert()函数
-map_student.insert(pair&lt;int,string&gt;(4,&quot;wangwu&quot;));
+<hr>
+<h2 id="stack——栈"><a href="#stack——栈" class="headerlink" title="stack——栈"></a>stack——栈</h2><p>头文件 <code>#include &lt;stack&gt;</code></p>
+<p>栈是实现了先进后出的一种容器，元素的插入与删除都只能在栈的顶部来完成</p>
+<p><img src="/stl-stackqueue/stack.png" srcset="/img/loading.gif"></p>
+<h3 id="stack的构造"><a href="#stack的构造" class="headerlink" title="stack的构造"></a>stack的构造</h3><pre><code class="hljs c++"><span class="hljs-built_in">stack</span>&lt;TYPE&gt; stkName;<span class="hljs-comment">//其中TYPE可以是任何类型，包括自定义类型与指针类型</span></code></pre>
+<p>拷贝构造</p>
+<pre><code class="hljs c++"><span class="hljs-built_in">stack</span>&lt;<span class="hljs-keyword">int</span>&gt; s1;
+<span class="hljs-function"><span class="hljs-built_in">stack</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">s2</span><span class="hljs-params">(s1)</span></span>;	<span class="hljs-comment">//拷贝s1并构造s2</span>
+<span class="hljs-built_in">stack</span>&lt;<span class="hljs-keyword">int</span>&gt; s3;
+s3 = s1;		<span class="hljs-comment">//将s1的值赋给s3</span></code></pre>
+<h3 id="stack的函数"><a href="#stack的函数" class="headerlink" title="stack的函数"></a>stack的函数</h3><pre><code class="hljs c++"><span class="hljs-comment">//stack构造函数</span>
+<span class="hljs-built_in">stack</span>&lt;T&gt; stkT;<span class="hljs-comment">//stack采用模板类实现， stack对象的默认构造形式：</span>
+<span class="hljs-built_in">stack</span>(<span class="hljs-keyword">const</span> <span class="hljs-built_in">stack</span> &amp;stk);<span class="hljs-comment">//拷贝构造函数</span>
 
-//方法2、方法3、方法4返回值都是pair&lt;iterator,bool&gt;类型的值，通过返回值.second可查看是否插入成功。</code></pre>
-<p><strong>注意</strong></p>
-<p>insert()函数可以体现映射一一对应的特性，<strong>当map中的key值已经存在时，就不能再使用insert()插入数据了</strong>，即使代码存在也不会覆盖，但是使用数组的方式是可以<strong>覆盖原数据</strong>的。两种方式混合赋值时也是如此，数组方式可以覆盖。</p>
-<p>并且如果通过数组方式即直接map_student[5]这中方式去访问不存在的值的话，map会<strong>自动把这个访问的key插入到map容器中</strong>，而对应的value值则取其的默认值。</p>
-<h3 id="map基本操作"><a href="#map基本操作" class="headerlink" title="map基本操作"></a>map基本操作</h3><ul>
-<li><p>begin()——返回首部迭代器</p>
-</li>
-<li><p>end()——返回尾部的下一位置的迭代器</p>
-</li>
-<li><p>size()——返回容器内的元素个数</p>
-</li>
-<li><p>empty()——判空，空返回1，非空返回0；</p>
-</li>
-<li><p>find(n)——返回指向元素n的迭代器，未找到返回end()指向的迭代器</p>
-</li>
-<li><p>count(n)——统计n的出现次数(0或者1)</p>
-</li>
-</ul>
-<h3 id="map遍历操作"><a href="#map遍历操作" class="headerlink" title="map遍历操作"></a>map遍历操作</h3><pre><code class="hljs CPP"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;map&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-comment">//stack赋值操作</span>
+<span class="hljs-built_in">stack</span>&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> <span class="hljs-built_in">stack</span> &amp;stk);<span class="hljs-comment">//重载等号操作符</span>
 
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-   <span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">string</span>,<span class="hljs-keyword">int</span>&gt; map_student;
-   <span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">string</span>,<span class="hljs-keyword">int</span>&gt;::iterator iter;
+<span class="hljs-comment">//stack数据存取操作</span>
+push(elem);<span class="hljs-comment">//向栈顶添加元素</span>
+pop();<span class="hljs-comment">//从栈顶移除第一个元素</span>
+top();<span class="hljs-comment">//返回栈顶元素</span>
 
-   map_student[<span class="hljs-string">&quot;zhao&quot;</span>] = <span class="hljs-number">0</span>;<span class="hljs-comment">//[]内这样放也可以</span>
-   map_student[<span class="hljs-string">&quot;qian&quot;</span>] = <span class="hljs-number">1</span>;
-   map_student[<span class="hljs-string">&quot;sun&quot;</span>] = <span class="hljs-number">2</span>;
-   map_student.insert(<span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">string</span>,<span class="hljs-keyword">int</span>&gt;::value_type(<span class="hljs-string">&quot;sun&quot;</span>,<span class="hljs-number">3</span>));<span class="hljs-comment">//不会覆盖</span>
-   <span class="hljs-keyword">for</span>(iter = map_student.begin();iter!=map_student.end();iter++)
-   &#123;
-       <span class="hljs-built_in">cout</span>&lt;&lt;iter-&gt;first&lt;&lt;<span class="hljs-string">&quot;--&gt;&quot;</span>&lt;&lt;iter-&gt;second&lt;&lt;<span class="hljs-built_in">endl</span>;
-       <span class="hljs-comment">//cout&lt;&lt;iter-&gt;key&lt;&lt;&quot;--&gt;&quot;&lt;&lt;iter-&gt;value&lt;&lt;endl;map中没有key与value这两个变量！</span>
-   &#125;
-   <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&quot;---&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
-   <span class="hljs-built_in">cout</span>&lt;&lt;map_student.find(<span class="hljs-string">&quot;sun&quot;</span>)-&gt;first&lt;&lt;<span class="hljs-string">&quot;--&gt;&quot;</span>&lt;&lt;map_student.find(<span class="hljs-string">&quot;sun&quot;</span>)-&gt;second&lt;&lt;<span class="hljs-built_in">endl</span>;
-   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;
-
-<span class="hljs-comment">//输出结果</span>
-qian--&gt;<span class="hljs-number">1</span>
-sun--&gt;<span class="hljs-number">2</span>
-zhao--&gt;<span class="hljs-number">0</span>
----
-sun--&gt;<span class="hljs-number">2</span></code></pre>
-
-<h3 id="map应用"><a href="#map应用" class="headerlink" title="map应用"></a>map应用</h3><h4 id="去重"><a href="#去重" class="headerlink" title="去重"></a>去重</h4><p>利用映射一一对应的特性，将可能出现的<strong>重复数据设置为key值</strong>以达到去重的目的。</p>
-<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><p>map&lt;&gt;中有三个变量，第三个就是排序方式。如若不指定排序方式的话，map会默认按照<code>less&lt;Key&gt;</code>进行排序.</p>
-<p>进行<strong>降序排序</strong>输出</p>
-<pre><code class="hljs CPP"><span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">string</span>,<span class="hljs-keyword">int</span>,greater&lt;<span class="hljs-built_in">string</span>&gt; &gt;map_student;
-map_student[<span class="hljs-string">&quot;zhao&quot;</span>] = <span class="hljs-number">0</span>;
-map_student[<span class="hljs-string">&quot;qian&quot;</span>] = <span class="hljs-number">1</span>;
-map_student[<span class="hljs-string">&quot;sun&quot;</span>] = <span class="hljs-number">2</span>;
-<span class="hljs-keyword">for</span>(iter = map_student.begin();iter!=map_student.end();iter++)
-&#123;
-    <span class="hljs-built_in">cout</span>&lt;&lt;iter-&gt;first&lt;&lt;<span class="hljs-string">&quot;--&gt;&quot;</span>&lt;&lt;iter-&gt;second&lt;&lt;<span class="hljs-built_in">endl</span>;
-&#125;
-
-<span class="hljs-comment">//输出结果</span>
-zhao--&gt;<span class="hljs-number">0</span>
-sun--&gt;<span class="hljs-number">2</span>
-qian--&gt;<span class="hljs-number">1</span></code></pre>
-
-<p>自定义按照string的长短进行输出</p>
-<pre><code class="hljs CPP"><span class="hljs-comment">//与自定义sort()的方法类似</span>
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">cmp</span></span>
-<span class="hljs-class">&#123;</span>
-    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-built_in">string</span> a,<span class="hljs-built_in">string</span> b)</span></span>
-<span class="hljs-function">    </span>&#123;
-          <span class="hljs-keyword">if</span>(a.length()!=b.length())
-          &#123;
-              <span class="hljs-keyword">return</span> a.length()&lt;b.length();<span class="hljs-comment">//从小到大</span>
-          &#125;
-        <span class="hljs-keyword">return</span> a&lt;b;
-    &#125;
-&#125;;
-<span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">string</span>,<span class="hljs-keyword">int</span>,cmp&gt; map_student;
-map_student[<span class="hljs-string">&quot;zhao&quot;</span>] = <span class="hljs-number">0</span>;
-map_student[<span class="hljs-string">&quot;qian&quot;</span>] = <span class="hljs-number">1</span>;
-map_student[<span class="hljs-string">&quot;sun&quot;</span>] = <span class="hljs-number">2</span>;
-<span class="hljs-keyword">for</span>(iter = map_student.begin();iter!=map_student.end();iter++)
-&#123;
-    <span class="hljs-built_in">cout</span>&lt;&lt;iter-&gt;first&lt;&lt;<span class="hljs-string">&quot;--&gt;&quot;</span>&lt;&lt;iter-&gt;second&lt;&lt;<span class="hljs-built_in">endl</span>;
-&#125;
-<span class="hljs-comment">//输出结果</span>
-sun--&gt;<span class="hljs-number">2</span>
-qian--&gt;<span class="hljs-number">1</span>
-zhao--&gt;<span class="hljs-number">0</span></code></pre>
-
-<h4 id="计数"><a href="#计数" class="headerlink" title="计数"></a>计数</h4><p>假设定义<code>map&lt;string,int&gt; s_map;</code>输入一个数据s，就可以将其对应的<code>map[s]++</code>。通过这样来进行计数。</p>
-<h3 id="map特点与使用场景"><a href="#map特点与使用场景" class="headerlink" title="map特点与使用场景"></a>map特点与使用场景</h3><ol>
-<li><p>自动建立key-&gt;value的对应关系，key与value可以使任何数据类型。</p>
+<span class="hljs-comment">//stack大小操作</span>
+empty();<span class="hljs-comment">//判断堆栈是否为空size();//返回堆栈的大小</span></code></pre>
+<p>注意：对一个空栈执行pop操作会导致程序异常而结束，所以要先用empty进行判断。</p>
+<h3 id="stack的应用"><a href="#stack的应用" class="headerlink" title="stack的应用"></a>stack的应用</h3><ol>
+<li><p>递归算法</p>
 </li>
-<li><p>可以快速查找、删除记录，根据key值查找的复杂度很低。</p>
+<li><p>括号匹配检测</p>
 </li>
-<li><p>key与value一一对应的关系可以用于去重操作。</p>
+<li><p>DFS算法</p>
 </li>
 </ol>
-<p>可用于去重计数类题目，可打乱重新排列的问题，以及有清晰的一对一关系的问题。</p>
-<h2 id="例题：蓝桥杯2015年-密文搜索"><a href="#例题：蓝桥杯2015年-密文搜索" class="headerlink" title="例题：蓝桥杯2015年-密文搜索"></a>例题：蓝桥杯2015年-密文搜索</h2><blockquote>
+<h2 id="queue——队列"><a href="#queue——队列" class="headerlink" title="queue——队列"></a>queue——队列</h2><p>头文件 <code>#include &lt;queue&gt;</code></p>
+<p>队列是一种先进先出的容器，元素的插入在队尾进行，元素的删除在队首进行，类似于日常生活中的排队。</p>
+<p><img src="/stl-stackqueue/queue.png" srcset="/img/loading.gif"></p>
+<h3 id="queue的构造"><a href="#queue的构造" class="headerlink" title="queue的构造"></a>queue的构造</h3><pre><code class="hljs c++"><span class="hljs-built_in">queue</span>&lt;TYPE&gt; quName;<span class="hljs-comment">//其中TYPE可以是任何类型，包括自定义类型与指针类型</span></code></pre>
+<p>构造方法与stack相同。</p>
+<h3 id="queue的函数"><a href="#queue的函数" class="headerlink" title="queue的函数"></a>queue的函数</h3><pre><code class="hljs c++"><span class="hljs-comment">//queue构造函数</span>
+<span class="hljs-built_in">queue</span>&lt;T&gt; queT;<span class="hljs-comment">//queue采用模板类实现，queue对象的默认构造形式：</span>
+<span class="hljs-built_in">queue</span>(<span class="hljs-keyword">const</span> <span class="hljs-built_in">queue</span> &amp;que);<span class="hljs-comment">//拷贝构造函数</span>
+
+<span class="hljs-comment">//queue存取、插入和删除操作</span>
+push(elem);<span class="hljs-comment">//往队尾添加元素</span>
+pop();<span class="hljs-comment">//从队头移除第一个元素</span>
+back();<span class="hljs-comment">//返回最后一个元素</span>
+front();<span class="hljs-comment">//返回第一个元素</span>
+
+<span class="hljs-comment">//queue赋值操作</span>
+<span class="hljs-built_in">queue</span>&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> <span class="hljs-built_in">queue</span> &amp;que);<span class="hljs-comment">//重载等号操作符</span>
+
+<span class="hljs-comment">//queue大小操作</span>
+empty();<span class="hljs-comment">//判断队列是否为空</span>
+size();<span class="hljs-comment">//返回队列的大小</span></code></pre>
+<p>注意：对一个空队列执行pop操作会导致程序异常而结束，所以要先用empty进行判断。</p>
+<h3 id="queue的应用"><a href="#queue的应用" class="headerlink" title="queue的应用"></a>queue的应用</h3><ol>
+<li>BFS算法</li>
+<li>保存暂时不用的数据</li>
+</ol>
+<h2 id="例题：NEUQOJ-1689-火车调度问题-截止现在此题目无法做"><a href="#例题：NEUQOJ-1689-火车调度问题-截止现在此题目无法做" class="headerlink" title="例题：NEUQOJ-1689 火车调度问题(截止现在此题目无法做)"></a>例题：NEUQOJ-1689 火车调度问题(截止现在此题目无法做)</h2><blockquote>
 <p><strong>题目描述</strong>：</p>
-<p>福尔摩斯从X星收到一份资料，全部是小写字母组成。<br>他的助手提供了另一份资料：许多长度为8的密码列表。福尔摩斯发现，这些密码是被打乱后隐藏在先前那份资料中的。<br>请你编写一个程序，从第一份资料中搜索可能隐藏密码的位置。要考虑密码的所有排列可能性。</p>
+<p>粗心的塔学长现在是火车站的调度员，看看现在的惨状吧，列车车厢的顺序竟然完全是乱的！为避免塔学长登上明天的UC头条，车站划分给塔塔一段如图所示的铁路，你能帮助塔塔把车厢的顺序调整好吗？</p>
+<p>其中，A为入口，B为出口，S为中转盲端。所有铁道均为单轨单向式：列车行驶的方向只能是从A到S，再从S到B；另外，不允许超车。因为车厢可在S中驻留，所以它们从B端驶出的次序，可能与从A端驶入的次序不同。不过S的容量有限，同时驻留的车厢不得超过m节。</p>
+<p>列车由编号依次为{1, 2, …, n}的n节车厢组成。塔塔希望知道，按照以上交通规则，这些车厢能否以{a1, a2, …, an}的次序，重新排列后从B端驶出。如果可行，应该以怎样的次序操作?</p>
+<p><img src="/stl-stackqueue/stack.png" srcset="/img/loading.gif" alt="引图"></p>
 <p><strong>输入</strong>：</p>
-<p>输入第一行：一个字符串s，全部由小写字母组成，长度小于1024*1024<br>紧接着一行是一个整数n,表示以下有n行密码，1&lt;=n&lt;=1000<br>紧接着是n行字符串，都是小写字母组成，长度都为8</p>
+<p>共两行。<br>第一行为两个整数n，m。<br>第二行为以空格分隔的n个整数，保证为{1, 2, …, n}的一个排列，表示待判断可行性的驶出序列{a1，a2，…，an}。</p>
 <p><strong>输出</strong>：</p>
-<p>一个整数, 表示每行密码的所有排列在s中匹配次数的总和。</p>
-<p><strong>样例输入</strong>：</p>
-<p>aaaabbbbaabbcccc</p>
-<p>2</p>
-<p>aaaabbbb</p>
-<p>abcabccc</p>
-<p><strong>样例输出</strong>：</p>
-<p>4</p>
+<p>若驶出序列可行，则输出操作序列，其中push表示车厢从A进入S，pop表示车厢从S进入B，每个操作占一行。<br>若不可行，则输出“震惊！昨天小汤河火车站竟然。。。”。</p>
+<p><strong>样例输入</strong></p>
+<p>5 2</p>
+<p>1 2 3 5 4<br><strong>样例输出</strong></p>
+<p>push<br>pop<br>push<br>pop<br>push<br>pop<br>push<br>push<br>pop<br>pop</p>
 </blockquote>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>题目意思是对后面输入的密码进行打乱重组，只要能与原串的代码的连续的一部分相匹配就合格。考虑两点</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>题目就是一道对栈进行操作的问题，给定初始状态A与最终状态B，限定栈的大小，来判断是否实现该操作。核心问题在于如何进行判断，这一部分的逻辑不容易处理。</p>
 <ol>
-<li><p>提取主串连续的8位去构建新的字符串。</p>
-<p> string( string &amp;str, size_type index, size_type length );<br> //构建一个新的字符串，从str中的以index为索引开始的子串，长度为length</p>
+<li><p>设置两个变量来表示对A，B的判断进度，然后判断当前A与B的首元是否相同，如果相同并且栈不满的话，push再pop达成目标。</p>
 </li>
-<li><p>两处字符串相互匹配。以为只要保证输入的密码能重组成为前面的资料(原串)就可以，所以不妨直接sort()排序，再比较两者的差异。</p>
+<li><p>不满足上述条件的话，判断当前栈顶元素是否与B的首元相同，相同的话pop。</p>
 </li>
-<li><p>对输入的密码存储入 map&lt;string,int&gt; 之中，便于计数。</p>
+<li><p>还不满足上述条件的话，将A的首元去入栈，push。</p>
+</li>
+<li><p>上述三种条件都不满足的话，无法达成目标，结束。</p>
 </li>
 </ol>
-<pre><code class="hljs CPP"><span class="hljs-comment">//测试环境 Code::Blocks 17.12</span>
-<span class="hljs-comment">//本代码没有在OJ测试过，因为找不到。。。</span>
+<h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><pre><code class="hljs c++"><span class="hljs-comment">//仅是个人思路，因OJ这道题无法做，故未经程序检验</span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;map&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stack&gt;</span></span>
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-
 <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
 <span class="hljs-function"></span>&#123;
-    <span class="hljs-keyword">int</span> n;
-    <span class="hljs-built_in">string</span> s;
-    <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;<span class="hljs-comment">//最后的和值</span>
-    <span class="hljs-built_in">string</span> nstr[<span class="hljs-number">1000</span>];
-    <span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">string</span>,<span class="hljs-keyword">int</span>&gt; s_map;
-    <span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">string</span>,<span class="hljs-keyword">int</span>&gt;::iterator iter;
-    <span class="hljs-built_in">cin</span>&gt;&gt;s;<span class="hljs-comment">//输入首串字母</span>
-    <span class="hljs-built_in">cin</span>&gt;&gt;n;<span class="hljs-comment">//输入密码数量</span>
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)
+    <span class="hljs-keyword">int</span> n，m;<span class="hljs-comment">//接收火车数量以及栈的大小</span>
+    <span class="hljs-keyword">int</span> a[<span class="hljs-number">1000</span>];<span class="hljs-comment">//接收火车调度后的状态</span>
+    <span class="hljs-keyword">int</span> a1[<span class="hljs-number">1000</span>];<span class="hljs-comment">//接收栈的操作状态，1表示Push。0表示pop</span>
+    <span class="hljs-keyword">int</span> ntp = <span class="hljs-number">0</span>;<span class="hljs-comment">//计数栈的操作步数</span>
+    <span class="hljs-built_in">stack</span>&lt;<span class="hljs-keyword">int</span>&gt; s;<span class="hljs-comment">//构造栈</span>
+    <span class="hljs-built_in">cin</span>&gt;&gt;n&gt;&gt;m;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;i&lt;=n;i++)
     &#123;
-        <span class="hljs-built_in">cin</span>&gt;&gt;nstr[i];
-        s_map[nstr[i]] = <span class="hljs-number">0</span>;
+        <span class="hljs-built_in">cin</span>&gt;&gt;a[i];
     &#125;
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;i&lt;s.length()<span class="hljs-number">-8</span>+<span class="hljs-number">1</span>;i++)
+    <span class="hljs-keyword">int</span> A = <span class="hljs-number">1</span>;<span class="hljs-comment">//原始火车的判断进度</span>
+    <span class="hljs-keyword">int</span> B = <span class="hljs-number">1</span>;<span class="hljs-comment">//结束后火车的判断进度</span>
+    <span class="hljs-keyword">int</span> flag = <span class="hljs-number">1</span>;<span class="hljs-comment">//判断条件</span>
+    <span class="hljs-keyword">while</span>(B&lt;=n &amp;&amp; flag)
     &#123;
-        <span class="hljs-built_in">string</span> s1 = <span class="hljs-built_in">string</span>(s,i,<span class="hljs-number">8</span>);<span class="hljs-comment">//截取部分string构建新的字符串</span>
-        sort(s1.begin(),s1.end());
-
-        <span class="hljs-keyword">for</span>(iter = s_map.begin();iter!=s_map.end();iter++)
+        <span class="hljs-keyword">if</span>(A == a[B]&amp;&amp;s.size()&lt;m)
         &#123;
-            <span class="hljs-built_in">string</span> s2 = iter-&gt;first;
-            sort(s2.begin(),s2.end());
-
-            <span class="hljs-keyword">if</span>(s1 == s2) s_map[iter-&gt;first]++;
+            ++A;++B;
+            a1[ntp++] = <span class="hljs-number">1</span>;
+            a1[ntp++] = <span class="hljs-number">0</span>;
+        &#125;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(!s.empty()&amp;&amp;s.top()==a[B])
+        &#123;
+            s.pop();
+            a1[ntp++] = <span class="hljs-number">0</span>;
+            ++B;
+        &#125;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(A&lt;=n &amp;&amp; s.size()&lt;m)
+        &#123;
+            s.push(A++);
+            a1[ntp++] = <span class="hljs-number">1</span>;
+        &#125;
+        <span class="hljs-keyword">else</span> flag = <span class="hljs-number">0</span>;
+    &#125;
+    <span class="hljs-keyword">if</span>(flag == <span class="hljs-number">0</span>) <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&quot;震惊！昨天小汤河火车站竟然。。。&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+    <span class="hljs-keyword">else</span>
+    &#123;
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> q = <span class="hljs-number">0</span>;q&lt;ntp;q++)
+        &#123;
+            <span class="hljs-keyword">if</span>(a1[q] == <span class="hljs-number">1</span>) <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&quot;push&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+            <span class="hljs-keyword">else</span> <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&quot;pop&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
         &#125;
     &#125;
-    <span class="hljs-keyword">for</span>(iter = s_map.begin();iter!=s_map.end();iter++)
-    &#123;
-        sum += s_map[iter-&gt;first];
-    &#125;
-    <span class="hljs-built_in">cout</span>&lt;&lt;sum&lt;&lt;<span class="hljs-built_in">endl</span>;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre>
+
             </article>
             <hr>
             <div>
@@ -446,9 +391,9 @@ zhao--&gt;<span class="hljs-number">0</span></code></pre>
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/lanqiao-5/">
+                      <a href="/lanqiao-dfs/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">STL专题-set 集合</span>
+                        <span class="hidden-mobile">蓝桥杯-DFS深度应用与模板</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -456,8 +401,8 @@ zhao--&gt;<span class="hljs-number">0</span></code></pre>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/operator/">
-                        <span class="hidden-mobile">C++操作符重载 operator</span>
+                      <a href="/stl-set/">
+                        <span class="hidden-mobile">STL专题-set 集合</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -783,7 +728,7 @@ zhao--&gt;<span class="hljs-number">0</span></code></pre>
       if ('true' === 'true') {
         var viewCtn = document.querySelector('#leancloud-post-views-container');
         if (viewCtn || enableIncr) {
-          var target = decodeURI('/lanqiao-4/');
+          var target = decodeURI('/stl-stackqueue/');
           var viewGetter = getRecord(Counter, target).then((record) => {
             incrArr.push(buildIncrement(record.objectId))
             if (viewCtn) {
@@ -865,7 +810,7 @@ zhao--&gt;<span class="hljs-number">0</span></code></pre>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "STL专题-map 映射&nbsp;",
+        "STL专题-stack、queue 栈与队列&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 80,

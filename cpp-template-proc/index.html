@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>C++类模板练习 —— 自定义数组类实现 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-01-31 12:09">
+      星期日, 一月 31日 2021, 12:09 中午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-post-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p><strong>概览</strong>：自定义数组类的实现.</p>
+<a id="more"></a>
+
+<hr>
+<h2 id="C-类模板练习-——-自定义数组类的实现"><a href="#C-类模板练习-——-自定义数组类的实现" class="headerlink" title="C++类模板练习 —— 自定义数组类的实现"></a>C++类模板练习 —— 自定义数组类的实现</h2><p><strong>需求：</strong></p>
+<ul>
+<li>可以对内置数据类型以及自定义数据类型的数据进行存储</li>
+<li>将数组中的数据存储到堆区</li>
+<li>构造函数中可以传入数组的容量</li>
+<li>提供对应的拷贝构造函数以及operator=防止浅拷贝问题</li>
+<li>提供尾插法和尾删法对数组中的数据进行增加和删除</li>
+<li>可以<strong>通过下标的方式</strong>访问数组中的元素 —— <strong>重载[]运算符</strong></li>
+<li>可以获取数组中当前元素个数和数组的容量</li>
+</ul>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ul>
+<li>这些代码单独一个文件，存储于<code>.hpp</code>中。</li>
+</ul>
+<pre><code class="hljs c++"><span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyArray</span> &#123;</span>
+
+<span class="hljs-keyword">public</span>:
+	MyArray(<span class="hljs-keyword">int</span> capacity);
+	~MyArray();
+
+	<span class="hljs-comment">//拷贝构造</span>
+	MyArray(<span class="hljs-keyword">const</span> MyArray&amp; other);
+
+	<span class="hljs-comment">//重载=操作符</span>
+	MyArray&lt;T&gt;&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> MyArray&amp; other);
+
+	<span class="hljs-comment">//重载[]操作符</span>
+	T&amp; <span class="hljs-keyword">operator</span>[](<span class="hljs-keyword">int</span> index);
+
+	<span class="hljs-comment">//push方法</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Push_back</span><span class="hljs-params">(<span class="hljs-keyword">const</span> T&amp; val)</span></span>;
+
+	<span class="hljs-comment">//pop方法</span>
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Pop_back</span><span class="hljs-params">()</span></span>;
+
+	<span class="hljs-comment">//获取数组大小</span>
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">GetSize</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;m_size;
+	&#125;
+
+	<span class="hljs-comment">//获取数组容量</span>
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">GetCapacity</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;m_capacity;
+	&#125;
+
+
+<span class="hljs-keyword">private</span>:
+	T *m_arr;	<span class="hljs-comment">//元素首地址</span>
+	<span class="hljs-keyword">int</span> m_size;	<span class="hljs-comment">//当前的元素个数</span>
+	<span class="hljs-keyword">int</span> m_capacity;<span class="hljs-comment">//数组的容量</span>
+&#125;;
+
+<span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span>
+MyArray&lt;T&gt;::MyArray(<span class="hljs-keyword">int</span> capacity)
+&#123;
+	<span class="hljs-keyword">this</span>-&gt;m_capacity = capacity;
+	<span class="hljs-keyword">this</span>-&gt;m_size = <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">this</span>-&gt;m_arr = <span class="hljs-keyword">new</span> T[capacity];
+&#125;
+
+<span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span>
+MyArray&lt;T&gt;::~MyArray()
+&#123;
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>-&gt;m_arr != <span class="hljs-literal">nullptr</span>) &#123;
+		<span class="hljs-keyword">delete</span>[]<span class="hljs-keyword">this</span>-&gt;m_arr;
+		<span class="hljs-keyword">this</span>-&gt;m_arr = <span class="hljs-literal">nullptr</span>;
+	&#125;
+&#125;
+
+<span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span>
+MyArray&lt;T&gt;::MyArray(<span class="hljs-keyword">const</span> MyArray &amp; other)
+&#123;
+	<span class="hljs-comment">//拷贝构造函数</span>
+	<span class="hljs-keyword">this</span>-&gt;m_capacity = other.m_capacity;
+	<span class="hljs-keyword">this</span>-&gt;m_size = other.m_size;
+
+	<span class="hljs-comment">//防止浅拷贝</span>
+	<span class="hljs-keyword">this</span>-&gt;m_arr = <span class="hljs-keyword">new</span> T[<span class="hljs-keyword">this</span>-&gt;m_capacity];
+
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>-&gt;m_size; i++) &#123;
+		<span class="hljs-keyword">this</span>-&gt;m_arr[i] = other.m_arr[i];	
+	&#125;
+	
+    <span class="hljs-comment">//直接写other[i]会报错：</span>
+	<span class="hljs-comment">//错误二进制“[”:没有找到接受“const MyArray&lt;int&gt;”类型的左操作数的运算符(或没有可接受的转换)</span>
+
+&#125;
+
+<span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span>
+MyArray&lt;T&gt;&amp; MyArray&lt;T&gt;::<span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> MyArray &amp; other)
+&#123;
+	<span class="hljs-comment">//若原来有数据，则释放掉！</span>
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>-&gt;m_arr != <span class="hljs-literal">nullptr</span>) &#123;
+		<span class="hljs-keyword">delete</span>[]<span class="hljs-keyword">this</span>-&gt;m_arr;
+		<span class="hljs-keyword">this</span>-&gt;m_arr = <span class="hljs-literal">nullptr</span>;
+		<span class="hljs-keyword">this</span>-&gt;m_capacity = <span class="hljs-number">0</span>;
+		<span class="hljs-keyword">this</span>-&gt;m_size = <span class="hljs-number">0</span>;
+	&#125;
+
+	<span class="hljs-keyword">this</span>-&gt;m_capacity = other.m_capacity;
+	<span class="hljs-keyword">this</span>-&gt;m_size = other.m_size;
+
+	<span class="hljs-keyword">this</span>-&gt;m_arr = <span class="hljs-keyword">new</span> T[<span class="hljs-keyword">this</span>-&gt;m_capacity];
+
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>-&gt;m_size; i++) &#123;
+		<span class="hljs-keyword">this</span>-&gt;m_arr[i] = other.m_arr[i];
+	&#125;
+
+	<span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;
+&#125;
+
+<span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span>
+T&amp; MyArray&lt;T&gt;::<span class="hljs-keyword">operator</span>[](<span class="hljs-keyword">int</span> index)
+&#123;
+	<span class="hljs-comment">//重载[]运算符</span>
+	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;m_arr[index];
+	<span class="hljs-comment">//数组越界等问题，交给编译器和程序员</span>
+&#125;
+
+<span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span>
+<span class="hljs-keyword">void</span> MyArray&lt;T&gt;::Push_back(<span class="hljs-keyword">const</span> T &amp; val)
+&#123;
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>-&gt;m_size &gt;= <span class="hljs-keyword">this</span>-&gt;m_capacity) &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;数组容量已满&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+		<span class="hljs-keyword">return</span>;
+	&#125;
+	<span class="hljs-keyword">this</span>-&gt;m_arr[<span class="hljs-keyword">this</span>-&gt;m_size] = val;
+	<span class="hljs-keyword">this</span>-&gt;m_size++;
+&#125;
+
+<span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span>
+<span class="hljs-keyword">void</span> MyArray&lt;T&gt;::Pop_back()
+&#123;
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>-&gt;m_size &lt;= <span class="hljs-number">0</span>) &#123;
+		<span class="hljs-keyword">return</span>;
+	&#125;
+	<span class="hljs-keyword">this</span>-&gt;m_size--;	<span class="hljs-comment">//仅做逻辑删除</span>
+&#125;</code></pre>
+<ul>
+<li>值得注意的一点，对于自定义数据类型时，对于拷贝构造和重载=赋值运算符那里的<code>this-&gt;m_arr[i] = other.m_arr[i];</code>，若自定义数据类型<strong>有指针类型</strong>的成员，一定要重载=运算符，方式编译器自己生成的函数会有浅拷贝的问题！</li>
+<li>重载=赋值运算符，记得先释放掉原有的数据。</li>
+</ul>
+<h2 id="内置数据类型数组"><a href="#内置数据类型数组" class="headerlink" title="内置数据类型数组"></a>内置数据类型数组</h2><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;
+
+	<span class="hljs-comment">//测试内置的数据类型</span>
+	<span class="hljs-function">MyArray&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">int_array</span><span class="hljs-params">(<span class="hljs-number">10</span>)</span></span>;
+
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123;
+		int_array.Push_back(i);
+	&#125;
+
+	<span class="hljs-keyword">int</span> size = int_array.GetSize();
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++)
+		<span class="hljs-built_in">cout</span> &lt;&lt; int_array[i] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+	<span class="hljs-comment">//测试拷贝构造函数</span>
+
+	<span class="hljs-function">MyArray&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">int_array2</span><span class="hljs-params">(int_array)</span></span>;
+
+	size = int_array2.GetSize();
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++)
+		<span class="hljs-built_in">cout</span> &lt;&lt; int_array2[i] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+	<span class="hljs-comment">//测试 赋值操作符</span>
+	<span class="hljs-function">MyArray&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">int_array3</span><span class="hljs-params">(<span class="hljs-number">1</span>)</span></span>;
+
+	int_array3 = int_array2;
+
+	size = int_array3.GetSize();
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++)
+		<span class="hljs-built_in">cout</span> &lt;&lt; int_array3[i] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+	<span class="hljs-comment">//测试 增加与删除</span>
+
+	int_array3.Pop_back();
+	int_array3.Pop_back();
+
+	int_array3.Push_back(<span class="hljs-number">100</span>);
+
+	size = int_array3.GetSize();
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++)
+		<span class="hljs-built_in">cout</span> &lt;&lt; int_array3[i] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+&#125;</code></pre>
+<h2 id="测试自定义数据类型"><a href="#测试自定义数据类型" class="headerlink" title="测试自定义数据类型"></a>测试自定义数据类型</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+	Cat() &#123;&#125;;
+	Cat(<span class="hljs-built_in">string</span> name, <span class="hljs-keyword">int</span> age) :m_name(name), m_age(age) &#123;&#125;
+
+	<span class="hljs-comment">//没有指针类型或者存放于堆区的数据，就不再实现拷贝构造 以及 重载=运算符</span>
+
+	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showInfo</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;name: &quot;</span> &lt;&lt; <span class="hljs-keyword">this</span>-&gt;m_name &lt;&lt; <span class="hljs-string">&quot;, m_age: &quot;</span> &lt;&lt; m_age &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;
+
+<span class="hljs-keyword">private</span>:
+	<span class="hljs-built_in">string</span> m_name;
+	<span class="hljs-keyword">int</span> m_age;
+&#125;;
+
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;
+
+	<span class="hljs-comment">//测试自定义数据类型</span>
+	<span class="hljs-function">Cat <span class="hljs-title">c1</span><span class="hljs-params">(<span class="hljs-string">&quot;Bob&quot;</span>, <span class="hljs-number">2</span>)</span></span>;
+	<span class="hljs-function">Cat <span class="hljs-title">c2</span><span class="hljs-params">(<span class="hljs-string">&quot;Tom&quot;</span>, <span class="hljs-number">3</span>)</span></span>;
+	<span class="hljs-function">Cat <span class="hljs-title">c3</span><span class="hljs-params">(<span class="hljs-string">&quot;Jerry&quot;</span>, <span class="hljs-number">2</span>)</span></span>;
+
+	<span class="hljs-comment">//测试构造函数，插入</span>
+
+	<span class="hljs-function">MyArray&lt;Cat&gt; <span class="hljs-title">cat_arr</span><span class="hljs-params">(<span class="hljs-number">2</span>)</span></span>;
+
+	cat_arr.Push_back(c1);
+	cat_arr.Push_back(c2);
+
+	<span class="hljs-keyword">int</span> size = cat_arr.GetSize();
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++)
+		cat_arr[i].showInfo();
+
+	<span class="hljs-comment">//测试拷贝构造</span>
+	<span class="hljs-function">MyArray&lt;Cat&gt; <span class="hljs-title">cat_arr2</span><span class="hljs-params">(cat_arr)</span></span>;
+
+	size = cat_arr2.GetSize();
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++)
+		cat_arr2[i].showInfo();
+
+	<span class="hljs-comment">//测试 = </span>
+	<span class="hljs-function">MyArray&lt;Cat&gt; <span class="hljs-title">cat_arr3</span><span class="hljs-params">(<span class="hljs-number">1</span>)</span></span>;
+
+	cat_arr3 = cat_arr2;
+
+	cat_arr3.Pop_back();
+
+	size = cat_arr3.GetSize();
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++)
+		cat_arr3[i].showInfo();
+
+&#125;</code></pre>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/C-C/">C/C++</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/stl-list/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">STL专题-list</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/cpp-template/">
+                        <span class="hidden-mobile">C++模板</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
+
+  <script type="text/javascript">
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+
+      new Valine({
+        el: "#vcomments",
+        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+        placeholder: "说点什么",
+        path: window.location.pathname,
+        avatar: "wavatar",
+        meta: ["nick","mail","link"],
+        pageSize: "10",
+        lang: "zh-CN",
+        highlight: false,
+        recordIP: false,
+        serverURLs: "",
+      });
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
+      powered by Valine.</a></noscript>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+    <i class="iconfont icon-love"></i>
+    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+    <br>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+    
+
+	
+    
+  
+  
+  <!-- 网站运行时间的设置 -->
+  <script src="/js/HidenMath.js"></script>
+  <script>
+    var now = new Date();
+    function createtime() {
+      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime() + 250);
+      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+      document.getElementById("timeDate").innerHTML = dnum;
+      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()", 250);
+  </script>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer>
+  (function () {
+    // 查询存储的记录
+    function getRecord(Counter, target) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
+          .then(response => response.json())
+          .then(({results}) => {
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {target, time: 0})
+                .then(response => response.json())
+                .then((record) => {
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch(error => {
+          console.error('LeanCloud Counter Error', error);
+          reject(error);
+        });
+      })
+    }
+
+    // 构建自增请求体
+    function buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "time": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    }
+
+    // 发起自增请求
+    function increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          resolve(res);
+        }).catch(error => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    }
+
+    // 校验是否为有效的 UV
+    function validUV() {
+      var key = 'LeanCloud_UV_Flag';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    }
+
+    function addCount(Counter) {
+      var enableIncr = 'true' === 'true'
+      var getterArr = [];
+      var incrArr = [];
+
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#leancloud-site-pv-container');
+      if (pvCtn || enableIncr) {
+        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
+          incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-pv');
+          if (ele) {
+            ele.innerText = record.time + 1;
+            if (pvCtn) {
+              pvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#leancloud-site-uv-container');
+      if (uvCtn || enableIncr) {
+        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
+          var vuv = validUV();
+          vuv && incrArr.push(buildIncrement(record.objectId))
+          var ele = document.querySelector('#leancloud-site-uv');
+          if (ele) {
+            ele.innerText = record.time + (vuv ? 1 : 0);
+            if (uvCtn) {
+              uvCtn.style.display = 'inline';
+            }
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 如果是文章，请求文章的浏览数，并自增
+      if ('true' === 'true') {
+        var viewCtn = document.querySelector('#leancloud-post-views-container');
+        if (viewCtn || enableIncr) {
+          var target = decodeURI('/cpp-template-proc/');
+          var viewGetter = getRecord(Counter, target).then((record) => {
+            incrArr.push(buildIncrement(record.objectId))
+            if (viewCtn) {
+              var ele = document.querySelector('#leancloud-post-views');
+              if (ele) {
+                ele.innerText = (record.time || 0) + 1;
+                viewCtn.style.display = 'inline';
+              }
+            }
+          });
+          getterArr.push(viewGetter);
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && increment(Counter, incrArr);
+        })
+      }
+    }
+
+    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
+    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
+    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
+
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': app_id,
+            'X-LC-Key': app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+
+      addCount(Counter);
+    }
+
+    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({api_server}) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "C++类模板练习 —— 自定义数组类实现&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 80,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
