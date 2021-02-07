@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Colourso">
   <meta name="keywords" content="">
-  <title>新东方实习-高三辅导员体验 - Colourso</title>
+  <title>STL专题-函数对象 - Colourso</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -159,8 +159,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2019-02-05 12:27">
-      星期二, 二月 5日 2019, 12:27 中午
+    <time datetime="2021-02-07 12:42">
+      星期日, 二月 7日 2021, 12:42 下午
     </time>
   </div>
 
@@ -170,7 +170,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.1k 字
+      1.1k 字
     </span>
   
 
@@ -180,7 +180,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      21
+      15
        分钟
     </span>
   
@@ -219,42 +219,170 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p><img src="/XDF-taste/%E5%90%88%E7%85%A71.jpg" srcset="/img/loading.gif" alt="Colourso_and_friend"></p>
-<p>很荣幸有机会在北京新东方经历为期9天的辅导员生活，感谢相遇，谢谢这份不一般的经历。</p>
+              <p>STL函数对象，即仿函数。</p>
 <a id="more"></a>
 
-<h2 id="源起出发"><a href="#源起出发" class="headerlink" title="源起出发"></a>源起出发</h2><p>能有这份经历非常感谢同一个工作室的大佬@<a target="_blank" rel="noopener" href="https://ljwangxing.github.io/" title="ljwangxing&#39;s blog"><strong>ljwangxing</strong></a>，谢谢他推荐这份实习，更要感谢的是他亲自陪我去北京参加培训与面试😘。（实际上他压根不需要去北京的，当时直接带着还在犹豫的我离开了学校，说走就走很是佩服🤞）。</p>
-<p>两天时间接受培训，了解辅导员这个职业，制作PPT答辩，小组集体讨论集体展示，最后接受三位导师的建议。这份经历至少这在我的大学周末之中都是少有的事情，经历完之后感受到原来两天可以做这么多事情，甚至跨越几个城市。原来说走就走这么简单，背起包就可以直接出发。（当然经济基础也是非常重要的😭）。</p>
-<p><img src="/XDF-taste/%E7%8E%8B%E5%85%B4.jpg" srcset="/img/loading.gif" alt="Colourso_and_ljwangxing"></p>
-<center>把大佬挂上去留念(我的拍照技术好渣😂)</center>
+<h2 id="函数对象"><a href="#函数对象" class="headerlink" title="函数对象"></a>函数对象</h2><ul>
+<li>重载<strong>函数调用操作符</strong>的类，其对象常称为<strong>函数对象</strong></li>
+<li><strong>函数对象</strong>使用重载的()时，行为类似函数调用，也叫<strong>仿函数</strong></li>
+</ul>
+<p>函数对象本质上是一个类的对象，然后重载了()，看起来像一个函数调用，但实际上是一个类。</p>
+<h2 id="函数对象的使用"><a href="#函数对象的使用" class="headerlink" title="函数对象的使用"></a>函数对象的使用</h2><ol>
+<li>函数对象使用时可以像普通函数那样调用，可以有参数，可以由返回值，均可以通过重载()来实现。</li>
+<li>函数对象不同于普通函数，因为其本质是一个类，通过类，函数对象可以拥有自身的状态，但是普通函数需要全局变量或者静态变量。</li>
+<li>函数对象可以通过参数传递。</li>
+</ol>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyAdd</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
 
-<h2 id="辅导员体验"><a href="#辅导员体验" class="headerlink" title="辅导员体验"></a>辅导员体验</h2><p>我从<code>2019年1月22日</code>离开学校达到北京，到<code>2019年2月3日</code>凌晨乘做火车离开北京，一共在北京待了11天。</p>
-<p>我与另一位辅导员<strong>周导</strong>一起搭班，共同管理有35位小可爱的政史地三科的班级。班级内都是高三的文科考生，(28位来自山东，2位来自黑龙江，1位来自北京，1位来自河南，1位来自内蒙古，1位来自辽宁，1位来自广东。30个女生，5个男生，标准文科班😄)。</p>
-<blockquote>
-<p>时间：2019年1月24日晚 – 2019年2月2日下午</p>
-<p>地点：北京王府学校</p>
-<p>班级名称：ZGLYW19105</p>
-<p>科目：历史、政治、地理</p>
-</blockquote>
-<p>我们在这9天的上课时间之内，是以“老师”的身份自居，协调学校与家长、学生与老师之间的关系，在家长群内用图片与视频的形式反馈学生们上课的状态，帮助任课老师批改进门测出门测的成绩，维持自习时间的纪律，照顾好在这里上学的每一位同学。这就是我们辅导员的任务，当然还有一些其他的就不提了。</p>
-<p>这是一份非常锻炼与人交际沟通的工作，涉及到与不同年龄段、不同社会背景、不同身份的人，会遇到正值高三的青春期男女、同是大学生的辅导员群体、激情满满的新东方名师以及为人父母的家长。与不同的人进行交涉尤其是对我这种内向腼腆的人来说非常有用，遇到问题就要及时处理，问老师、问组长、问班里的学生。</p>
-<p>记得刚开始开班大会的时候我和周导都特别的尴尬，要开三个小时的班会，我们要对着35位学生讲三个小时，尽管事先准备了PPT，但毕竟还是第一次讲这么长时间，没有经验，节奏把握的不太好，周导前面的话讲的太多了（好多话都有些自相矛盾了），因为协商不到位，班级成员自我介绍的时间拉的太长，导致准备的破冰游戏无法继续。但毕竟是开班的第一天，班级成员也不会太注意这些细节，因为接下来都是他们的上课的时间，而且人们往往都会忘记当初说过什么，保留的都是最后形成的印象。(比如我也记不太清楚了，只是感觉比较尬😂)</p>
-<p>之后时间里的晚自习我们两位辅导员和35位同学都交谈过了一遍，少数几个是在课下，大部分都是在晚自习叫出教室聊的，聊的都很开心，当然班里氛围也是越来越好，因为周导说他发现自己原来可以这么不要脸😂，到后面我也和班里一部分同学熟悉了起来，渐渐聊的来了。</p>
-<p>期间我和我高中哥们打过一个电话，扯到了我们班里的那些同学，他问我感觉怎么样，我当时说我们班里的同学都特别可爱。是啊，的确特别可爱，有说自己喜欢‘女孩子’的佳雯cool_girl，有东北味道的心语，在试卷上画海绵宝宝的松瑞，还有‘有1G流量交情的’小涵狗狗，还有戴宇辰啦这位几乎没干过活的班长，“你今天真好看”哈哈哈哈，还有‘怎么变的这么娘’的瑞昕，会开车的、和我用老年表情包斗图的范爷(可怕)、非常稳的伊林、把自己表情包发给我的可爱函臻……真的是回忆满满啊。当然肯定还有会拍照当过兵的骚气周导，宿舍里最骚的辰先森，以及卡丁车老王，还有一只被我叫做生活老师的班主任郭老师hhhhhhhhh</p>
-<p>记得中午送别提前走的几位同学的时候，那会是真的不舍，静静看他们拉着皮箱的背景消失在校门口，我还朝他们的背影挥了挥手…周导说看来你还是很少经历离别啊，我当兵的一年经历了四次更大的离别…记得周导说咱们只是短暂的幸会了9天，双方都留下好印象已经非常好了，我们不会在他们的人生中留下太多的东西，有这么一个好印象，有可以随时联系的微信就足够了，以后回想起来也是一份美好的回忆…</p>
-<p>那就再见了ZGLYW19105班的各位，35位小可爱，2位辅导员，1位班主任，3位任课老师，1位助教衷心的祝福各位未来的日子能够继续拼搏向上、无所畏惧。祝愿各位前程似锦，未来NB(破音~)</p>
-<center>🧡💛💙💚💜🖤💕💞💓💗💖💘💝💟💌</center>
-![新东方王府学校ZGLYW19105班级合照](XDF-taste/新东方王府学校ZGLYW19105班级合照.jpg)<center><font size="2px">ZGLYW19105班级合照</font></center>
+	MyAdd() &#123;
+		count = <span class="hljs-number">0</span>;
+	&#125;
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b)</span></span>&#123;
+		count++;
+		<span class="hljs-keyword">return</span> a + b;
+	&#125;
 
-<h2 id="感悟"><a href="#感悟" class="headerlink" title="感悟"></a>感悟</h2><p>培训时宇哥说过：一切的问题都是沟通的问题。虽然一直不太认同，但是也认识到沟通交流表达的重要性(貌似一直都知道💔)。怎样能变得更加不紧张，面对一堆几乎同龄的人怎样把一场开班班会以及结营晚会办好，还是值得再摸索摸索的。</p>
-<p>看着新东方老师上课，他们都有几个共同的特点。<strong>幽默</strong>，上课特别有氛围，老师会用自身的经历或者自己科目的有趣故事吸引同学们上课的注意力，我采纳同学们的反馈意见的时候，都是一致好评，比自己老师讲的有意思多了。<strong>激情</strong>，新东方老师看那架势都有连续讲3个小时不休息不喝水的干劲，真的着实佩服。<strong>负责</strong>，老师会专门给迟来报到的两位同学补她们没有听的课程，连着上一天的课本来就很累，但老师还是抽出时间去专门补课，着实佩服他们。</p>
-<p>总体感觉自己处理问题的方式想的不太周到，尤其是遇到别人比较强势的时候更加容易失去自我思考的能力，还有大佬说我的问题，优柔寡断，总是缺少一份底气。还有我比较害羞，班里学生甚至问我我为什么这么害羞😔…</p>
-<p>总之谢谢这一份不一样的经历，提前认识外面的世界，也在考研还是直接就业的问题上犹豫了一下…过完年了，接下来还是努力学习吧！</p>
-<p>想起那天发给佳雯的话：</p>
-<blockquote>
-<p>《时间之书》里说，年轻人，你的职责是平整土地，而非焦虑时光。你做三四月的事，在八九月自有答案。</p>
-</blockquote>
-<p>但行好事，莫问前程。自己的专业基础要打好鸭！继续加油吧~👍</p>
+	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b, <span class="hljs-keyword">int</span> c)</span> </span>&#123;
+		count++;
+		<span class="hljs-keyword">return</span> a + b + c;
+	&#125;
+
+	<span class="hljs-keyword">int</span> count;
+&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">myFunc</span><span class="hljs-params">(MyAdd&amp; myadd, <span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>&#123;
+	<span class="hljs-keyword">return</span> myadd(a, b);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;
+
+	<span class="hljs-comment">//函数对象的使用</span>
+
+	MyAdd myadd;
+
+	<span class="hljs-built_in">cout</span> &lt;&lt; myadd(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; myadd(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>) &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; myadd(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">-3</span>) &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+	<span class="hljs-built_in">cout</span> &lt;&lt; myFunc(myadd, <span class="hljs-number">2</span>, <span class="hljs-number">-3</span>) &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+	<span class="hljs-built_in">cout</span> &lt;&lt; myadd.count &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+&#125;</code></pre>
+<h2 id="谓词"><a href="#谓词" class="headerlink" title="谓词"></a>谓词</h2><ul>
+<li>返回<strong>bool类型</strong>的仿函数称为<strong>谓词</strong></li>
+<li>如果operator()接受一个参数，那么叫做一元谓词</li>
+<li>如果operator()接受两个参数，那么叫做二元谓词</li>
+<li>谓词在STL算法的调用中使用非常广泛，通过自定义谓词，可以使得STL算法适用于自定义数据类型，并且写法非常灵活。</li>
+</ul>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Greater30</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-keyword">int</span> val)</span> </span>&#123;
+		<span class="hljs-keyword">return</span> val &gt; <span class="hljs-number">30</span>;
+	&#125;
+&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;
+
+	<span class="hljs-keyword">int</span> num = <span class="hljs-number">50</span>;
+
+	<span class="hljs-comment">//匿名对象的方式调用</span>
+	<span class="hljs-keyword">if</span> (Greater30()(num)) &#123;
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;num : &quot;</span>&lt;&lt;num&lt;&lt;<span class="hljs-string">&quot; 大于30&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	&#125;<span class="hljs-keyword">else</span>
+		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;num : &quot;</span> &lt;&lt; num &lt;&lt; <span class="hljs-string">&quot; 小于30&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+&#125;</code></pre>
+<h2 id="STL内建函数对象"><a href="#STL内建函数对象" class="headerlink" title="STL内建函数对象"></a>STL内建函数对象</h2><p>使用内建函数对象，需要引入头文件 <code>#include&lt;functional&gt;</code></p>
+<p>这些仿函数所产生的对象，用法和一般函数完全相同。</p>
+<h3 id="算数仿函数"><a href="#算数仿函数" class="headerlink" title="算数仿函数"></a>算数仿函数</h3><ul>
+<li><p><code>template&lt;class T&gt; T plus&lt;T&gt;</code> //加法仿函数</p>
+</li>
+<li><p><code>template&lt;class T&gt; T minus&lt;T&gt;</code> //减法仿函数</p>
+</li>
+<li><p><code>template&lt;class T&gt; T multiplies&lt;T&gt;</code> //乘法仿函数</p>
+</li>
+<li><p><code>template&lt;class T&gt; T divides&lt;T&gt;</code> //除法仿函数</p>
+</li>
+<li><p><code>template&lt;class T&gt; T modulus&lt;T&gt;</code> //取模仿函数</p>
+</li>
+<li><p><code>template&lt;class T&gt; T negate&lt;T&gt;</code> //取反仿函数</p>
+</li>
+<li><p>其中negate是一元运算，其他都是二元运算</p>
+</li>
+</ul>
+<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test3</span><span class="hljs-params">()</span> </span>&#123;
+
+	negate&lt;<span class="hljs-keyword">int</span>&gt; neg;
+	<span class="hljs-built_in">cout</span> &lt;&lt; neg(<span class="hljs-number">12</span>) &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+	plus&lt;<span class="hljs-keyword">int</span>&gt; add;
+
+	<span class="hljs-built_in">cout</span> &lt;&lt; add(<span class="hljs-number">1</span>, <span class="hljs-number">23</span>) &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+&#125;</code></pre>
+<h3 id="关系仿函数"><a href="#关系仿函数" class="headerlink" title="关系仿函数"></a>关系仿函数</h3><ul>
+<li><code>template&lt;class T&gt; bool equal_to&lt;T&gt;</code> //等于</li>
+<li><code>template&lt;class T&gt; bool not_equal_to&lt;T&gt;</code> //不等于</li>
+<li><code>template&lt;class T&gt; bool greater&lt;T&gt;</code> //大于</li>
+<li><code>template&lt;class T&gt; bool greater_equal&lt;T&gt;</code> //大于等于</li>
+<li><code>template&lt;class T&gt; bool less&lt;T&gt;</code> //小于</li>
+<li><code>template&lt;class T&gt; bool less_equal&lt;T&gt;</code> //小于等于</li>
+</ul>
+<p>比较常用的是大于仿函数。</p>
+<p>sort默认排序适用的是less仿函数，更改排序方式时，可以适用greater仿函数，不需要自己再实现。</p>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyCmp</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>&#123;
+		<span class="hljs-keyword">return</span> a &gt; b;
+	&#125;
+&#125;;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PrintVector</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;v)</span> </span>&#123;
+	<span class="hljs-keyword">for</span> (<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;::iterator it = v.begin(); it != v.end(); it++)
+		<span class="hljs-built_in">cout</span> &lt;&lt; *it &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test4</span><span class="hljs-params">()</span> </span>&#123;
+
+	<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; v;
+	v.push_back(<span class="hljs-number">1</span>);
+	v.push_back(<span class="hljs-number">5</span>);
+	v.push_back(<span class="hljs-number">6</span>);
+	v.push_back(<span class="hljs-number">3</span>);
+	v.push_back(<span class="hljs-number">4</span>);
+	v.push_back(<span class="hljs-number">2</span>);
+
+	<span class="hljs-comment">//从小到大排序，实质是调用了less仿函数</span>
+	sort(v.begin(),v.end());
+	PrintVector(v);
+
+	<span class="hljs-comment">//从大到小排序，自己实现仿函数</span>
+	sort(v.begin(),v.end(),MyCmp());
+	PrintVector(v);
+
+	<span class="hljs-comment">//从大到小排序，使用greater仿函数</span>
+	sort(v.begin(),v.end(),greater&lt;<span class="hljs-keyword">int</span>&gt;());
+	PrintVector(v);
+    
+    <span class="hljs-comment">//上述等价于</span>
+    greater&lt;<span class="hljs-keyword">int</span>&gt; g;
+	sort(v.begin(), v.end(), g);
+	PrintVector(v);
+
+&#125;</code></pre>
+<ul>
+<li>值得注意的一点，<code>MyCmp()</code>以及<code>greater&lt;int&gt;()</code>均为匿名对象。</li>
+<li>实际上第三个参数等待的对象是一个谓词。</li>
+</ul>
+<h3 id="逻辑仿函数"><a href="#逻辑仿函数" class="headerlink" title="逻辑仿函数"></a>逻辑仿函数</h3><ul>
+<li><code>template&lt;class T&gt; bool logical_and&lt;T&gt;</code> //逻辑与</li>
+<li><code>template&lt;class T&gt; bool logical_or&lt;T&gt;</code> //逻辑或</li>
+<li><code>template&lt;class T&gt; bool logical_not&lt;T&gt;</code> //逻辑非</li>
+</ul>
+<p>实际使用较少。</p>
 
             </article>
             <hr>
@@ -264,10 +392,19 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
+                      <a class="hover-with-bg" href="/categories/C-C/">C/C++</a>
                     
                   </div>
                 
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                      <a class="hover-with-bg" href="/tags/STL/">STL</a>
+                    
+                  </div>
                 
               </div>
               
@@ -278,9 +415,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/lanqiao-1/">
+                      <a href="/stl-string/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">蓝桥杯省赛备战--Fibonacci数列、iomanip控制输出精度、类型转换</span>
+                        <span class="hidden-mobile">STL专题-string</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -288,8 +425,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/C-memory-layout/">
-                        <span class="hidden-mobile">C语言内存四区模型详解(未完成)</span>
+                      <a href="/stl-algorithm/">
+                        <span class="hidden-mobile">STL专题-常用算法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -615,7 +752,7 @@
       if ('true' === 'true') {
         var viewCtn = document.querySelector('#leancloud-post-views-container');
         if (viewCtn || enableIncr) {
-          var target = decodeURI('/XDF-taste/');
+          var target = decodeURI('/stl-funcobject/');
           var viewGetter = getRecord(Counter, target).then((record) => {
             incrArr.push(buildIncrement(record.objectId))
             if (viewCtn) {
@@ -697,7 +834,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "新东方实习-高三辅导员体验&nbsp;",
+        "STL专题-函数对象&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 80,

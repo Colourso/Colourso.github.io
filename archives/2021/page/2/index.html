@@ -181,14 +181,38 @@
   
     
       
-      <p class="h5">2022</p>
+      <p class="h5">2021</p>
     
-    <a href="/gather-blog/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">【置顶】博客导航</span>
-      <span style="float: right;">03-01</span>
+    <a href="/ds_02_ExchangeSort/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">交换排序算法——冒泡排序、快速排序</span>
+      <span style="float: right;">01-08</span>
+    </a>
+  
+    
+    <a href="/ds_01_InsertSort/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">插入排序算法——直接插入、折半插入、希尔排序</span>
+      <span style="float: right;">01-07</span>
+    </a>
+  
+    
+    <a href="/NETEM_record/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">2021研究生入学考试总结</span>
+      <span style="float: right;">01-03</span>
     </a>
   
 </div>
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/archives/2021/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/archives/2021/">1</a><span class="page-number current">2</span>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 
@@ -431,7 +455,7 @@
       if ('false' === 'true') {
         var viewCtn = document.querySelector('#leancloud-post-views-container');
         if (viewCtn || enableIncr) {
-          var target = decodeURI('/archives/2022/03/index.html');
+          var target = decodeURI('/archives/2021/page/2/index.html');
           var viewGetter = getRecord(Counter, target).then((record) => {
             incrArr.push(buildIncrement(record.objectId))
             if (viewCtn) {
