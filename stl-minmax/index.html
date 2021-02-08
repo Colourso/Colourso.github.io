@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Colourso">
   <meta name="keywords" content="">
-  <title>C++类型转换 - Colourso</title>
+  <title>STL专题-min，max - Colourso</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -159,8 +159,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2021-02-07 17:09">
-      星期日, 二月 7日 2021, 5:09 下午
+    <time datetime="2021-02-08 09:22">
+      星期一, 二月 8日 2021, 9:22 上午
     </time>
   </div>
 
@@ -170,7 +170,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      866 字
     </span>
   
 
@@ -180,7 +180,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      18
+      13
        分钟
     </span>
   
@@ -219,205 +219,141 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p><strong>概览</strong>：C++类型转换：static_cast，dynamic_cast，const_cast，reinterpret_cast。</p>
+              <p>min、max、min_element、max_element几个常用算法。</p>
 <a id="more"></a>
 
-<hr>
-<h2 id="C语言的类型转换"><a href="#C语言的类型转换" class="headerlink" title="C语言的类型转换"></a>C语言的类型转换</h2><pre><code class="hljs c"><span class="hljs-keyword">int</span> a = <span class="hljs-number">65</span>;
-<span class="hljs-keyword">char</span> b = (<span class="hljs-keyword">char</span>)a;</code></pre>
-<h2 id="static-cast转换"><a href="#static-cast转换" class="headerlink" title="static_cast转换"></a>static_cast转换</h2><ul>
-<li>语法：<code>type a = static_cast&lt;type&gt;(b); </code></li>
-<li>将其他类型的b转换成type类型的a。</li>
-<li>static_cast用于<strong>基本数据类型</strong>以及有<strong>继承关系的子类与父类的指针或者引用</strong>之间的类型转换。</li>
-</ul>
-<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> &#123;</span>&#125;;
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span> &#123;</span>
+<p>min、max、min_element、max_element均需要包含算法头文件<code>#include &lt;algorithm&gt;</code>。</p>
+<h2 id="std-min"><a href="#std-min" class="headerlink" title="std::min"></a>std::min</h2><pre><code class="hljs c++"><span class="hljs-comment">//default</span>
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span> <span class="hljs-function"><span class="hljs-keyword">const</span> T&amp; <span class="hljs-title">min</span> <span class="hljs-params">(<span class="hljs-keyword">const</span> T&amp; a, <span class="hljs-keyword">const</span> T&amp; b)</span></span>;
+
+<span class="hljs-comment">//custom</span>
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>, <span class="hljs-keyword">class</span> <span class="hljs-title">Compare</span>&gt;</span>
+<span class="hljs-function"><span class="hljs-keyword">const</span> T&amp; <span class="hljs-title">min</span> <span class="hljs-params">(<span class="hljs-keyword">const</span> T&amp; a, <span class="hljs-keyword">const</span> T&amp; b, Compare comp)</span></span>;
+
+<span class="hljs-comment">//initializer list 初始化列表</span>
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span> <span class="hljs-function">T <span class="hljs-title">min</span> <span class="hljs-params">(<span class="hljs-built_in">initializer_list</span>&lt;T&gt; il)</span></span>;
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>, <span class="hljs-keyword">class</span> <span class="hljs-title">Compare</span>&gt;</span>
+<span class="hljs-function">T <span class="hljs-title">min</span> <span class="hljs-params">(<span class="hljs-built_in">initializer_list</span>&lt;T&gt; il, Compare comp)</span></span>;</code></pre>
+<p>对于第一种情况，返回两个元素中最小的，若两个元素相同，则返回第一个元素。</p>
+<p>实际上的比较是<code>operator&lt;</code>或者自定义的比较<code>Compare</code>来做的。</p>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span> &#123;</span>
+
 <span class="hljs-keyword">public</span>:
-	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">speak</span><span class="hljs-params">()</span> </span>&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Animal speak&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	Cat(<span class="hljs-keyword">int</span> id) &#123;
+		<span class="hljs-keyword">this</span>-&gt;id = id;
 	&#125;
+
+	<span class="hljs-comment">//重载&lt;号</span>
+	<span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>&lt;(<span class="hljs-keyword">const</span> Cat&amp; other)<span class="hljs-keyword">const</span> &#123;
+		<span class="hljs-keyword">return</span> id &lt; other.id;
+	&#125;
+
+	<span class="hljs-keyword">int</span> id;
 &#125;;
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span> :</span><span class="hljs-keyword">public</span> Animal &#123;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CatCmp</span> &#123;</span>
 <span class="hljs-keyword">public</span>:
-	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">speak</span><span class="hljs-params">()</span> </span>&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Cat speak&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Cat &amp;c1,<span class="hljs-keyword">const</span> Cat&amp; c2)</span> </span>&#123;
+		<span class="hljs-keyword">return</span> c1.id &lt; c2.id;
 	&#125;
+
 &#125;;
 
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;
 
-	<span class="hljs-comment">//static_cast</span>
-	<span class="hljs-comment">//static_cast用于 基本数据类型 </span>
-	<span class="hljs-comment">//以及 有继承关系的子类与父类的 指针 或者 引用 之间的类型转换。</span>
+	<span class="hljs-comment">//min </span>
 
-	<span class="hljs-comment">//type a = static_cast&lt;type&gt;(b);</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;min(2,4) = &quot;</span> &lt;&lt; min(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>) &lt;&lt; <span class="hljs-built_in">endl</span>;		<span class="hljs-comment">//2</span>
 
-	<span class="hljs-comment">//1.基本数据类型</span>
-	<span class="hljs-keyword">int</span> a = <span class="hljs-number">65</span>;
-	<span class="hljs-keyword">char</span> b = <span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-keyword">char</span>&gt;(a);
-	<span class="hljs-built_in">cout</span> &lt;&lt; b &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//A</span>
+	<span class="hljs-function">Cat <span class="hljs-title">c1</span><span class="hljs-params">(<span class="hljs-number">3</span>)</span></span>;
+	<span class="hljs-function">Cat <span class="hljs-title">c2</span><span class="hljs-params">(<span class="hljs-number">5</span>)</span></span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;min(c1,c2) = &quot;</span> &lt;&lt; min(c1, c2).id &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//3</span>
 
-	<span class="hljs-comment">//2.基础类型指针</span>
-	<span class="hljs-keyword">int</span> *ip = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>(<span class="hljs-number">3</span>);
-	<span class="hljs-comment">//float *fp = static_cast&lt;float&gt;(ip); //错误：类型转换无效</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;min(c1,c2,CatCmp()) = &quot;</span> &lt;&lt; min(c1, c2, CatCmp()).id &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//3</span>
 
-	<span class="hljs-comment">//3.自定义数据类型的转换</span>
-	Person *person = <span class="hljs-keyword">new</span> Person();
-	<span class="hljs-comment">//Animal *animal = static_cast&lt;Animal *&gt;(person); //错误：类型转换无效</span>
-
-	<span class="hljs-comment">//4.具有继承关系的 指针转换</span>
-	Animal *animal = <span class="hljs-keyword">new</span> Animal();
-	Cat* cat = <span class="hljs-keyword">static_cast</span>&lt;Cat *&gt;(animal);	<span class="hljs-comment">//可以转换</span>
-	cat-&gt;speak();		<span class="hljs-comment">//Cat speak</span>
-
-	<span class="hljs-comment">//5.具有继承关系的 引用转换</span>
-	Animal row;
-	Animal &amp; ani = row;
-	Cat &amp; meow = <span class="hljs-keyword">static_cast</span>&lt;Cat &amp;&gt;(ani);
-	meow.speak();		<span class="hljs-comment">//Cat speak</span>
+	<span class="hljs-comment">//初始化列表</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;min(&#123;1,98,5,7,9,999,888&#125;)=&quot;</span> &lt;&lt; min(&#123; <span class="hljs-number">1</span>,<span class="hljs-number">98</span>,<span class="hljs-number">5</span>,<span class="hljs-number">7</span>,<span class="hljs-number">9</span>,<span class="hljs-number">999</span>,<span class="hljs-number">888</span> &#125;) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//1</span>
 
 &#125;</code></pre>
-<h2 id="dynamic-cast转换"><a href="#dynamic-cast转换" class="headerlink" title="dynamic_cast转换"></a>dynamic_cast转换</h2><ul>
-<li><p>语法：<code>type a = dynamic_cast&lt;type&gt;(b); </code></p>
-</li>
-<li><p>将其他类型的b转换成type类型的a。</p>
-</li>
-<li><p>dynamic_cast<strong>只能用于子类类型转化为父类类型</strong>。</p>
-</li>
-</ul>
+<h3 id="initializer-list-初始化列表"><a href="#initializer-list-初始化列表" class="headerlink" title="initializer_list 初始化列表"></a>initializer_list 初始化列表</h3><p><code>initializer_list</code>表示初始化列表，是一种标准库类型，用于表示某种特定类型的值的数组。</p>
+<p>当然它也是一种模板，定义对象时应指明列表所含元素的类型。</p>
+<p>注意：initializer_list对象中的元素永远是<strong>常量值</strong>，我们无法改变。</p>
 <blockquote>
-<p>子类指针转父类指针，是由大到小，是类型安全的。</p>
-<p>而父类指针转子类指针，由小到大，是类型不安全的。</p>
+<p>initializer_list可以作用于可变数量的实参：有时我们无法提前预知应该向函数传递几个实参。为了编写能处理不同数量实参的函数，C++11新标准提供了两种主要的方法：如果所有的实参类型相同，可以传递一个名为initializer_list的标准库类型；如果实参的类型不同，我们可以编写一种特殊的函数，也就是所谓的可变参数模板。</p>
+<p>C++11标准明确规定不能由模板参数推导出对应实参std::initializer_list的类型。</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/heisen/p/9342182.html">C++11中的std::initializer_list的使用</a></p>
 </blockquote>
-<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> &#123;</span>&#125;;
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span> &#123;</span>
+<h2 id="std-min-element"><a href="#std-min-element" class="headerlink" title="std::min_element"></a>std::min_element</h2><pre><code class="hljs c++"><span class="hljs-comment">//default </span>
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ForwardIterator</span>&gt;</span>
+<span class="hljs-function">ForwardIterator <span class="hljs-title">min_element</span> <span class="hljs-params">(ForwardIterator first, ForwardIterator last)</span></span>;
+
+
+<span class="hljs-comment">//custom </span>
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ForwardIterator</span>, <span class="hljs-keyword">class</span> <span class="hljs-title">Compare</span>&gt;</span>
+<span class="hljs-function">ForwardIterator <span class="hljs-title">min_element</span> <span class="hljs-params">(ForwardIterator first, ForwardIterator last,Compare comp)</span></span>;</code></pre>
+<p><strong>返回值最小的元素的迭代器</strong>。假设有多个，则返回第一个。</p>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span> &#123;</span>
+
 <span class="hljs-keyword">public</span>:
-	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">speak</span><span class="hljs-params">()</span> </span>&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Animal speak&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	Cat(<span class="hljs-keyword">int</span> id) &#123;
+		<span class="hljs-keyword">this</span>-&gt;id = id;
 	&#125;
+	<span class="hljs-keyword">int</span> id;
 &#125;;
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span> :</span><span class="hljs-keyword">public</span> Animal &#123;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CatCmp</span> &#123;</span>
 <span class="hljs-keyword">public</span>:
-	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">speak</span><span class="hljs-params">()</span> </span>&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Cat speak&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Cat &amp;c1,<span class="hljs-keyword">const</span> Cat&amp; c2)</span> </span>&#123;
+		<span class="hljs-keyword">return</span> c1.id &lt; c2.id;
 	&#125;
+
 &#125;;
+
 
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;
 
-	<span class="hljs-comment">//dynamic_cast</span>
-	<span class="hljs-comment">//只能用于子类对象转父类对象</span>
+	<span class="hljs-comment">//min_element</span>
 
-	<span class="hljs-comment">//1.基本数据类型</span>
-	<span class="hljs-comment">//char a = &#x27;A&#x27;;</span>
-	<span class="hljs-comment">//int b = dynamic_cast&lt;int&gt;(a);</span>
-	<span class="hljs-comment">//错误 dynamic_cast中的类型必须是指向完整类类型或者void *类型的指针或者引用</span>
+	<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; v&#123;<span class="hljs-number">1</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">7</span>,<span class="hljs-number">9</span>,<span class="hljs-number">2</span>,<span class="hljs-number">-9</span>,<span class="hljs-number">0</span>&#125;;	<span class="hljs-comment">//初始化列表的方式</span>
 
-	<span class="hljs-comment">//2.基本数据类型的指针</span>
-	<span class="hljs-comment">//int *a = new int(3);</span>
-	<span class="hljs-comment">//char * b = dynamic_cast&lt;char *&gt;(a);</span>
-	<span class="hljs-comment">//错误  dynamic_cast中的类型必须是指向完整类类型或者void *类型的指针或者引用</span>
+	<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;::iterator minit = min_element(v.begin(),v.end());
 
-	<span class="hljs-comment">//3.非继承关系的对象指针</span>
-	<span class="hljs-comment">//Animal *animal = new Animal();</span>
-	<span class="hljs-comment">//Person*person = dynamic_cast&lt;Person *&gt;(animal);</span>
-	<span class="hljs-comment">//错误 运行时dynamic_cast的操作数必须包含多态类类型</span>
+	<span class="hljs-built_in">cout</span> &lt;&lt; *minit &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//-9</span>
 
-	<span class="hljs-comment">//4.继承关系 父类指针转子类指针</span>
-	<span class="hljs-comment">//Animal *animal = new Animal();</span>
-	<span class="hljs-comment">//Cat * cat = dynamic_cast&lt;Cat*&gt;(animal);</span>
-	<span class="hljs-comment">//错误 运行时dynamic_cast的操作数必须包含多态类类型</span>
+	<span class="hljs-function">Cat <span class="hljs-title">c1</span><span class="hljs-params">(<span class="hljs-number">3</span>)</span></span>;
+	<span class="hljs-function">Cat <span class="hljs-title">c2</span><span class="hljs-params">(<span class="hljs-number">5</span>)</span></span>;
+	<span class="hljs-function">Cat <span class="hljs-title">c3</span><span class="hljs-params">(<span class="hljs-number">1</span>)</span></span>;
 
-	<span class="hljs-comment">//5.继承关系 子类指针转父类指针</span>
-	Cat* cat = <span class="hljs-keyword">new</span> Cat();
-	Animal * animal = <span class="hljs-keyword">dynamic_cast</span>&lt;Animal*&gt;(cat);
-	animal-&gt;speak();	<span class="hljs-comment">//Animal speak</span>
+	<span class="hljs-built_in">vector</span>&lt;Cat&gt; cv&#123;c1,c2,c3&#125;;
 
-	<span class="hljs-comment">//6.继承关系 子类引用转父类引用</span>
-	Cat meow;
-	Cat &amp; ca = meow;
-	Animal &amp; ani = <span class="hljs-keyword">dynamic_cast</span>&lt;Animal &amp;&gt;(ca);
-	ani.speak();<span class="hljs-comment">//Animal speak</span>
+	<span class="hljs-built_in">vector</span>&lt;Cat&gt;::iterator mincat = min_element(cv.begin(), cv.end(),CatCmp());
 
+	<span class="hljs-built_in">cout</span> &lt;&lt; mincat-&gt;id &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//1</span>
 &#125;</code></pre>
-<h2 id="const-cast转换"><a href="#const-cast转换" class="headerlink" title="const_cast转换"></a>const_cast转换</h2><ul>
-<li>语法：<code>type a = dynamic_cast&lt;type * / &amp;&gt;(b); </code></li>
-<li>模板参数列表那里要填写指针或者引用。</li>
-</ul>
-<p>const_cast用于针对基本数据类型的指针、引用以及<strong>自定义类型对象的指针</strong>进行const权限的增加或者去除（去除是不改变员数据，会将结果给到一个新的值）。</p>
-<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test3</span><span class="hljs-params">()</span> </span>&#123;
+<h2 id="std-max"><a href="#std-max" class="headerlink" title="std::max"></a>std::max</h2><pre><code class="hljs c++"><span class="hljs-comment">//default</span>
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span> <span class="hljs-function"><span class="hljs-keyword">const</span> T&amp; <span class="hljs-title">max</span> <span class="hljs-params">(<span class="hljs-keyword">const</span> T&amp; a, <span class="hljs-keyword">const</span> T&amp; b)</span></span>;
 
-	<span class="hljs-comment">//const_cast</span>
-	<span class="hljs-comment">//const_cast用于针对基本数据类型的指针、引用</span>
-	<span class="hljs-comment">//以及自定义类型对象的指针进行const权限的增加或者去除（去除是不改变员数据，会将结果给到一个新的值）。</span>
+<span class="hljs-comment">//custom</span>
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>, <span class="hljs-keyword">class</span> <span class="hljs-title">Compare</span>&gt;</span>
+<span class="hljs-function"><span class="hljs-keyword">const</span> T&amp; <span class="hljs-title">max</span> <span class="hljs-params">(<span class="hljs-keyword">const</span> T&amp; a, <span class="hljs-keyword">const</span> T&amp; b, Compare comp)</span></span>;
 
-	<span class="hljs-comment">//1.基本数据类型</span>
-	<span class="hljs-comment">//int a = 10;</span>
-	<span class="hljs-comment">//int b = const_cast&lt;int&gt;(a);</span>
-	<span class="hljs-comment">//错误，const_cast中的类型必须是指针，引用或者指向对象类型成员的指针</span>
+<span class="hljs-comment">//initializer list 初始化列表</span>
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span> <span class="hljs-function">T <span class="hljs-title">max</span> <span class="hljs-params">(<span class="hljs-built_in">initializer_list</span>&lt;T&gt; il)</span></span>;
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>, <span class="hljs-keyword">class</span> <span class="hljs-title">Compare</span>&gt;</span>
+<span class="hljs-function">T <span class="hljs-title">max</span> <span class="hljs-params">(<span class="hljs-built_in">initializer_list</span>&lt;T&gt; il, Compare comp)</span></span>;</code></pre>
+<h2 id="std-max-element"><a href="#std-max-element" class="headerlink" title="std::max_element"></a>std::max_element</h2><pre><code class="hljs c++"><span class="hljs-comment">//default </span>
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ForwardIterator</span>&gt;</span>
+<span class="hljs-function">ForwardIterator <span class="hljs-title">max_element</span> <span class="hljs-params">(ForwardIterator first, ForwardIterator last)</span></span>;
 
-	<span class="hljs-comment">//2.基本数据类型的引用</span>
-	<span class="hljs-keyword">int</span> a = <span class="hljs-number">10</span>;
-	<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;b = a;
-	<span class="hljs-comment">//b = 20;//错误</span>
 
-	<span class="hljs-comment">//去除const权限</span>
-	<span class="hljs-keyword">int</span> &amp;c = <span class="hljs-keyword">const_cast</span>&lt;<span class="hljs-keyword">int</span> &amp;&gt;(b);
-	c = <span class="hljs-number">20</span>;
-
-	<span class="hljs-comment">//增加const权限</span>
-	<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;d = <span class="hljs-keyword">const_cast</span>&lt;<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;&gt;(a);
-	<span class="hljs-comment">//d = 20;//错误</span>
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;a = &quot;</span> &lt;&lt; a &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//20</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;b = &quot;</span> &lt;&lt; b &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//20</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;c = &quot;</span> &lt;&lt; c &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//20</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;d = &quot;</span> &lt;&lt; d &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//20</span>
-
-	<span class="hljs-comment">//3.基本数据类型的指针</span>
-
-	a = <span class="hljs-number">10</span>;
-	<span class="hljs-keyword">int</span> *p = &amp;a;
-
-	<span class="hljs-comment">//增加const权限</span>
-	<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> * cp = <span class="hljs-keyword">const_cast</span>&lt;<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *&gt;(p);
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;*cp = &quot;</span> &lt;&lt; *cp &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//10</span>
-
-	<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> * cp2 = &amp;a;
-
-	<span class="hljs-comment">//去除const权限</span>
-	<span class="hljs-keyword">int</span> *p2 = <span class="hljs-keyword">const_cast</span>&lt;<span class="hljs-keyword">int</span> *&gt;(cp2);
-
-	*p2 = <span class="hljs-number">100</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;a = &quot;</span> &lt;&lt; a &lt;&lt; <span class="hljs-built_in">endl</span>;		<span class="hljs-comment">//100</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;*p = &quot;</span> &lt;&lt; *p &lt;&lt; <span class="hljs-built_in">endl</span>;		<span class="hljs-comment">//100</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;*cp = &quot;</span> &lt;&lt; *cp &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//100</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;*cp2 = &quot;</span> &lt;&lt; *cp2 &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//100</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;*p2 = &quot;</span> &lt;&lt; *p2 &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//100</span>
-
-&#125;</code></pre>
-<h2 id="reinterpret-cast-强制类型转换"><a href="#reinterpret-cast-强制类型转换" class="headerlink" title="reinterpret_cast 强制类型转换"></a>reinterpret_cast 强制类型转换</h2><p>reinterpret_cast是强制类型转换，任何类型<strong>指针</strong>都可以转化为其他类型指针。</p>
-<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test4</span><span class="hljs-params">()</span> </span>&#123;
-
-	<span class="hljs-comment">//reinterpret_cast 强制转换</span>
-
-	<span class="hljs-comment">//两个不相关的类转换</span>
-	Person *person = <span class="hljs-keyword">new</span> Person();
-	Cat* cat = <span class="hljs-keyword">reinterpret_cast</span>&lt;Cat *&gt;(person);
-	cat-&gt;speak();	<span class="hljs-comment">//Cat speak</span>
-					<span class="hljs-comment">//能运行出结果</span>
-
-	<span class="hljs-comment">//函数指针转换</span>
-	<span class="hljs-function"><span class="hljs-keyword">typedef</span> <span class="hljs-title">void</span><span class="hljs-params">(*FUNC1)</span><span class="hljs-params">(<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>)</span></span>;
-	<span class="hljs-function"><span class="hljs-keyword">typedef</span> <span class="hljs-title">int</span><span class="hljs-params">(*FUNC2)</span><span class="hljs-params">(<span class="hljs-keyword">int</span>, <span class="hljs-keyword">char</span>*)</span></span>;
-
-	FUNC1 func1 = <span class="hljs-literal">nullptr</span>;
-	FUNC2 func2 = <span class="hljs-keyword">reinterpret_cast</span>&lt;FUNC2&gt;(func1);
-&#125;</code></pre>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>程序员必须清楚的知道要转变的变量，转换前的类型与转换后的类型，会有什么后果。</p>
-<p>一般情况下，不建议类型转换，应当尽量避免类型转换。</p>
+<span class="hljs-comment">//custom </span>
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ForwardIterator</span>, <span class="hljs-keyword">class</span> <span class="hljs-title">Compare</span>&gt;</span>
+<span class="hljs-function">ForwardIterator <span class="hljs-title">max_element</span> <span class="hljs-params">(ForwardIterator first, ForwardIterator last,Compare comp)</span></span>;</code></pre>
+<p>使用方式均同min于min_element。</p>
+<p>参考链接：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_33810302/article/details/85753891?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-2&spm=1001.2101.3001.4242">STL algorithm算法min,min_element(35)</a></p>
+</blockquote>
 
             </article>
             <hr>
@@ -437,6 +373,8 @@
                     
                       <a class="hover-with-bg" href="/tags/C/">C++</a>
                     
+                      <a class="hover-with-bg" href="/tags/STL/">STL</a>
+                    
                   </div>
                 
               </div>
@@ -448,9 +386,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/stl-minmax/">
+                      <a href="/cpp-exception/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">STL专题-min，max</span>
+                        <span class="hidden-mobile">C++异常</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -458,8 +396,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/stl-string/">
-                        <span class="hidden-mobile">STL专题-string</span>
+                      <a href="/cpp-typetrans/">
+                        <span class="hidden-mobile">C++类型转换</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -785,7 +723,7 @@
       if ('true' === 'true') {
         var viewCtn = document.querySelector('#leancloud-post-views-container');
         if (viewCtn || enableIncr) {
-          var target = decodeURI('/cpp-typetrans/');
+          var target = decodeURI('/stl-minmax/');
           var viewGetter = getRecord(Counter, target).then((record) => {
             incrArr.push(buildIncrement(record.objectId))
             if (viewCtn) {
@@ -867,7 +805,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "C++类型转换&nbsp;",
+        "STL专题-min，max&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 80,
