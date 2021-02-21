@@ -1,7 +1,7 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -19,22 +19,33 @@
   <meta name="keywords" content="">
   <title>Mysql语法小结 - Colourso</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -42,6 +53,12 @@
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 5.3.0"></head>
 
 
@@ -136,8 +153,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -145,25 +168,28 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Mysql语法小结">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-05-13 14:09">
-      星期三, 五月 13日 2020, 2:09 下午
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-05-13 14:09" pubdate>
+        2020年5月13日 下午
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
@@ -180,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      59
+      84
        分钟
     </span>
   
@@ -189,9 +215,9 @@
   
     
       <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
         <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-post-views"></span> 次
+        <span id="leancloud-page-views"></span> 次
       </span>
     
   
@@ -210,37 +236,37 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Mysql语法小结</h1>
             
-            <article class="markdown-body">
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年5月17日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
               <p><strong>概览</strong>：Mysql语句，Mysql的基本操作。</p>
 <a id="more"></a>
 
 <hr>
 <h2 id="Mysql的服务端、客户端操作"><a href="#Mysql的服务端、客户端操作" class="headerlink" title="Mysql的服务端、客户端操作"></a>Mysql的服务端、客户端操作</h2><p>以下为Windows平台的操作</p>
-<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 开启服务器</span>
-net start mysql
-<span class="hljs-meta">#</span><span class="bash"> &gt; 查看进程表中是否存在：mysqld.exe进程(存在)</span>
-
-<span class="hljs-meta">#</span><span class="bash"> 关闭服务器</span>
-net stop mysql
-<span class="hljs-meta">#</span><span class="bash"> &gt; 查看进程表中是否存在：mysqld.exe进程(不存在)</span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 开启服务器</span><br>net start mysql<br><span class="hljs-meta">#</span><span class="bash"> &gt; 查看进程表中是否存在：mysqld.exe进程(存在)</span><br><br><span class="hljs-meta">#</span><span class="bash"> 关闭服务器</span><br>net stop mysql<br><span class="hljs-meta">#</span><span class="bash"> &gt; 查看进程表中是否存在：mysqld.exe进程(不存在)</span><br></code></pre></td></tr></table></figure>
 <p>客户端操作</p>
-<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 登陆服务器</span>
-mysql -uroot -p123 -hlocalhost</code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 登陆服务器</span><br>mysql -uroot -p123 -hlocalhost<br></code></pre></td></tr></table></figure>
 <ul>
 <li><code>-u</code>：后面跟随用户名</li>
 <li><code>-p</code>：后面跟随密码</li>
 <li><code>-h</code>：后面跟随IP</li>
 </ul>
-<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 退出服务器</span>
-exit 或者 quit</code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 退出服务器</span><br>exit 或者 quit<br></code></pre></td></tr></table></figure>
 <h2 id="SQL语法"><a href="#SQL语法" class="headerlink" title="SQL语法"></a>SQL语法</h2><ol>
 <li>SQL语句可以在单行或多行书写，以分号结尾</li>
 <li>可使用空格和缩进来增强语句的可读性</li>
@@ -269,36 +295,9 @@ exit 或者 quit</code></pre>
 <li>timestamp：时间戳类型；</li>
 </ul>
 <h2 id="DDL-–-数据定义语言"><a href="#DDL-–-数据定义语言" class="headerlink" title="DDL – 数据定义语言"></a>DDL – 数据定义语言</h2><p>数据库</p>
-<pre><code class="hljs sql">查看所有数据库：<span class="hljs-keyword">SHOW</span> DATABASES
-创建数据库：<span class="hljs-keyword">CREATE</span> DATABASE [IF <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span>] 数据库名 [CHARSET<span class="hljs-operator">=</span>utf8]
-切换（选择要操作的）数据库：USE 数据库名
-删除数据库：<span class="hljs-keyword">DROP</span> DATABASE [IF <span class="hljs-keyword">EXISTS</span>] 数据库名
-修改数据库编码：<span class="hljs-keyword">ALTER</span> DATABASE 数据库名 <span class="hljs-type">CHARACTER</span> <span class="hljs-keyword">SET</span> utf8</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql">查看所有数据库：<span class="hljs-keyword">SHOW</span> DATABASES<br>创建数据库：<span class="hljs-keyword">CREATE</span> DATABASE [IF <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span>] 数据库名 [CHARSET<span class="hljs-operator">=</span>utf8]<br>切换（选择要操作的）数据库：USE 数据库名<br>删除数据库：<span class="hljs-keyword">DROP</span> DATABASE [IF <span class="hljs-keyword">EXISTS</span>] 数据库名<br>修改数据库编码：<span class="hljs-keyword">ALTER</span> DATABASE 数据库名 <span class="hljs-type">CHARACTER</span> <span class="hljs-keyword">SET</span> utf8<br></code></pre></td></tr></table></figure>
 <p>表：</p>
-<pre><code class="hljs sql">创建表：
-  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> [IF <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span>] 表名(
-    列名 列类型,
-    列名 列类型,
-    ...
-    列名 列类型
-  );
-
-查看当前数据库中所有表名称：<span class="hljs-keyword">SHOW</span> TABLES;
-查看指定表的创建语句：<span class="hljs-keyword">SHOW</span> <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> 表名(了解);
-查看表结构：<span class="hljs-keyword">DESC</span> 表名;
-删除表：<span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TABLE</span> 表名;
-
-修改表：前缀：<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 表名
-  <span class="hljs-operator">&gt;</span> 修改之添加列：
-    <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 表名 <span class="hljs-keyword">ADD</span> (
-      列名 列类型,
-      列名 列类型,
-      ...
-    );
-  <span class="hljs-operator">&gt;</span> 修改之修改列类型(如果被修改的列已存在数据，那么新的类型可能会影响到已存在数据)：<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 表名 MODIFY 列名 列新类型;
-  <span class="hljs-operator">&gt;</span> 修改之修改列名：<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 表名 CHANGE 原列名 新列名 列类型;
-  <span class="hljs-operator">&gt;</span> 修改之删除列：<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 表名 <span class="hljs-keyword">DROP</span> 列名;
-  <span class="hljs-operator">&gt;</span> 修改表名称：<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 原表名 RENAME <span class="hljs-keyword">TO</span> 新表名;</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs sql">创建表：<br>  <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> [IF <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span>] 表名(<br>    列名 列类型,<br>    列名 列类型,<br>    ...<br>    列名 列类型<br>  );<br><br>查看当前数据库中所有表名称：<span class="hljs-keyword">SHOW</span> TABLES;<br>查看指定表的创建语句：<span class="hljs-keyword">SHOW</span> <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> 表名(了解);<br>查看表结构：<span class="hljs-keyword">DESC</span> 表名;<br>删除表：<span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TABLE</span> 表名;<br><br>修改表：前缀：<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 表名<br>  <span class="hljs-operator">&gt;</span> 修改之添加列：<br>    <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 表名 <span class="hljs-keyword">ADD</span> (<br>      列名 列类型,<br>      列名 列类型,<br>      ...<br>    );<br>  <span class="hljs-operator">&gt;</span> 修改之修改列类型(如果被修改的列已存在数据，那么新的类型可能会影响到已存在数据)：<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 表名 MODIFY 列名 列新类型;<br>  <span class="hljs-operator">&gt;</span> 修改之修改列名：<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 表名 CHANGE 原列名 新列名 列类型;<br>  <span class="hljs-operator">&gt;</span> 修改之删除列：<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 表名 <span class="hljs-keyword">DROP</span> 列名;<br>  <span class="hljs-operator">&gt;</span> 修改表名称：<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 原表名 RENAME <span class="hljs-keyword">TO</span> 新表名;<br></code></pre></td></tr></table></figure>
 <h2 id="DML-–-数据操作语言"><a href="#DML-–-数据操作语言" class="headerlink" title="DML – 数据操作语言"></a>DML – 数据操作语言</h2><ol>
 <li>插入数据</li>
 </ol>
@@ -324,13 +323,7 @@ exit 或者 quit</code></pre>
 </blockquote>
 </li>
 </ul>
-<pre><code class="hljs mysql">WHERE age &gt;&#x3D; 18 AND age &lt;&#x3D; 80
-WHERE age BETWEEN 18 AND 80
-
-WHERE name&#x3D;&#39;zhangSan&#39; OR name&#x3D;&#39;liSi&#39;
-WHERE name IN (&#39;zhangSan&#39;, &#39;liSi&#39;)
-WHERE age IS NULL		# 判断NULL时不能使用等号
-WHERE age IS NOT NULL</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mysql">WHERE age &gt;&#x3D; 18 AND age &lt;&#x3D; 80<br>WHERE age BETWEEN 18 AND 80<br><br>WHERE name&#x3D;&#39;zhangSan&#39; OR name&#x3D;&#39;liSi&#39;<br>WHERE name IN (&#39;zhangSan&#39;, &#39;liSi&#39;)<br>WHERE age IS NULL		# 判断NULL时不能使用等号<br>WHERE age IS NOT NULL<br></code></pre></td></tr></table></figure>
 
 <ol start="3">
 <li>删除数据</li>
@@ -343,25 +336,7 @@ WHERE age IS NOT NULL</code></pre>
 <p>在数据库中所有的字符串类型，必须使用单引，不能使用双引！日期类型也要使用单引！？？？</p>
 <p>留存疑问</p>
 </blockquote>
-<pre><code class="hljs mysql">&#x2F;&#x2F; 插入所有列
-INSERT INTO stu(
-  number, name, age, gender
-)
-VALUES(
-  &#39;ITCAST_0001&#39;, &#39;zhangSan&#39;, 28, &#39;male&#39;
-);
-
-&#x2F;&#x2F; 插入部分列，没有指定的列默认为NULL值
-INSERT INTO stu(
-  number, name
-) VAKLUES(
-  &#39;ITCAST_0002&#39;, &#39;liSi&#39;
-)
-
-&#x2F;&#x2F; 不给出插入列，那么默认为插入所有列！值的顺序要与创建表时列的顺序相同
-INSERT INTO stu VALUES(
-  &#39;ITCAST_0003&#39;, &#39;wangWu&#39;, 82, &#39;female&#39;
-);</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs mysql">&#x2F;&#x2F; 插入所有列<br>INSERT INTO stu(<br>  number, name, age, gender<br>)<br>VALUES(<br>  &#39;ITCAST_0001&#39;, &#39;zhangSan&#39;, 28, &#39;male&#39;<br>);<br><br>&#x2F;&#x2F; 插入部分列，没有指定的列默认为NULL值<br>INSERT INTO stu(<br>  number, name<br>) VAKLUES(<br>  &#39;ITCAST_0002&#39;, &#39;liSi&#39;<br>)<br><br>&#x2F;&#x2F; 不给出插入列，那么默认为插入所有列！值的顺序要与创建表时列的顺序相同<br>INSERT INTO stu VALUES(<br>  &#39;ITCAST_0003&#39;, &#39;wangWu&#39;, 82, &#39;female&#39;<br>);<br></code></pre></td></tr></table></figure>
 <h2 id="DCL-–-数据控制语言-理解"><a href="#DCL-–-数据控制语言-理解" class="headerlink" title="DCL – 数据控制语言(理解)"></a>DCL – 数据控制语言(理解)</h2><ul>
 <li>一个项目创建一个用户！一个项目对应的数据库只有一个！</li>
 <li>这个用户只能对这个数据库有权限，其他数据库你就操作不了了！</li>
@@ -426,112 +401,72 @@ INSERT INTO stu VALUES(
 <h3 id="字段-列-控制"><a href="#字段-列-控制" class="headerlink" title="字段(列)控制"></a>字段(列)控制</h3><ol>
 <li>查询所有列</li>
 </ol>
-<pre><code class="hljs mysql">SELECT * FROM 表名;
-SELECT * FROM emp;
---&gt; 其中“*”表示查询所有列</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT * FROM 表名;<br>SELECT * FROM emp;<br>--&gt; 其中“*”表示查询所有列<br></code></pre></td></tr></table></figure>
 <ol start="2">
 <li> 查询指定列</li>
 </ol>
-<pre><code class="hljs mysql">SELECT 列1 [, 列2, ... 列N] FROM 表名;
-SELECT empno, ename, sal, comm FROM 表名;</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT 列1 [, 列2, ... 列N] FROM 表名;<br>SELECT empno, ename, sal, comm FROM 表名;<br></code></pre></td></tr></table></figure>
 <ol start="3">
 <li>完全重复的记录只一次<br>当查询结果中的多行记录一模一样时，只显示一行。一般查询所有列时很少会有这种情况，但只查询一列（或几列）时，这总可能就大了！</li>
 </ol>
-<pre><code class="hljs mysql">SELECT DISTINCT * | 列1 [, 列2, ... 列N] FROM 表名;
-SELECT DISTINCT sal FROM emp;
- --&gt; 保查询员工表的工资，如果存在相同的工资只显示一次！</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT DISTINCT * | 列1 [, 列2, ... 列N] FROM 表名;<br>SELECT DISTINCT sal FROM emp;<br> --&gt; 保查询员工表的工资，如果存在相同的工资只显示一次！<br></code></pre></td></tr></table></figure>
 <ol start="4">
 <li>列运算</li>
 </ol>
 <ul>
 <li>数量类型的列可以做加、减、乘、除运算</li>
 </ul>
-<pre><code class="hljs mysql">SELECT sal*1.5 FROM emp;
-SELECT sal+comm FROM emp;</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT sal*1.5 FROM emp;<br>SELECT sal+comm FROM emp;<br></code></pre></td></tr></table></figure>
 <ul>
 <li> 字符串类型可以做连续运算</li>
 </ul>
-<pre><code class="hljs mysql">SELECT CONCAT(&#39;$&#39;, sal) FROM emp;</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT CONCAT(&#39;$&#39;, sal) FROM emp;<br></code></pre></td></tr></table></figure>
 <ul>
 <li>转换NULL值<br>   有时需要把NULL转换成其它值，例如com+1000时，如果com列存在NULL值，那么NULL+1000还是NULL，而我们这时希望把NULL当前0来运算。</li>
 </ul>
-<pre><code class="hljs mysql">SELECT IFNULL(comm, 0)+1000 FROM emp;
---&gt; IFNULL(comm, 0)：如果comm中存在NULL值，那么当成0来运算。</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT IFNULL(comm, 0)+1000 FROM emp;<br>--&gt; IFNULL(comm, 0)：如果comm中存在NULL值，那么当成0来运算。<br></code></pre></td></tr></table></figure>
 <ul>
 <li>给列起别名<br>   你也许已经注意到了，当使用列运算后，查询出的结果集中的列名称很不好看，这时我们需要给列名起个别名，这样在结果集中列名就显示别名了</li>
 </ul>
-<pre><code class="hljs mysql">SELECT IFNULL(comm, 0)+1000 AS 奖金 FROM emp;
---&gt; 其中AS可以省略</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT IFNULL(comm, 0)+1000 AS 奖金 FROM emp;<br>--&gt; 其中AS可以省略<br></code></pre></td></tr></table></figure>
 <h3 id="条件控制"><a href="#条件控制" class="headerlink" title="条件控制"></a>条件控制</h3><ol>
 <li><p>条件查询<br>  与前面介绍的UPDATE和DELETE语句一样，SELECT语句也可以使用WHERE子句来控制记录。</p>
-  <pre><code class="hljs mysql">SELECT empno,ename,sal,comm FROM emp WHERE sal &gt; 10000 AND comm IS NOT NULL;
-SELECT empno,ename,sal FROM emp WHERE sal BETWEEN 20000 AND 30000;
-SELECT empno,ename,job FROM emp WHERE job IN (&#39;经理&#39;, &#39;董事长&#39;);</code></pre></li>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT empno,ename,sal,comm FROM emp WHERE sal &gt; 10000 AND comm IS NOT NULL;<br>SELECT empno,ename,sal FROM emp WHERE sal BETWEEN 20000 AND 30000;<br>SELECT empno,ename,job FROM emp WHERE job IN (&#39;经理&#39;, &#39;董事长&#39;);<br></code></pre></td></tr></table></figure></li>
 <li><p>模糊查询<br>当你想查询姓张，并且姓名一共两个字的员工时，这时就可以使用模糊查询</p>
-<pre><code class="hljs mysql">SELECT * FROM emp WHERE ename LIKE &#39;张_&#39;;
---&gt; 模糊查询需要使用运算符：LIKE，其中_匹配一个任意字符，注意，只匹配一个字符而不是多个。
---&gt; 上面语句查询的是姓张，名字由两个字组成的员工。
-SELECT * FROM emp WHERE ename LIKE &#39;___&#39;; &#x2F;*姓名由3个字组成的员工*&#x2F;
-
-# 如果我们想查询姓张，名字是几个字都可以的员工时就要使用“%”了。
-SELECT * FROM emp WHERE ename LIKE &#39;张%&#39;;
---&gt; 其中%匹配0~N个任意字符，所以上面语句查询的是姓张的所有员工。
-
-SELECT * FROM emp WHERE ename LIKE &#39;%阿%&#39;;
---&gt; 千万不要认为上面语句是在查询姓名中间带有阿字的员工，因为%匹配0~N个字符，所以姓名以阿开头和结尾的员工也都会查询到。
-
-SELECT * FROM emp WHERE ename LIKE &#39;%&#39;;
---&gt; 这个条件等同于不存在，但如果姓名为NULL的查询不出来！</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT * FROM emp WHERE ename LIKE &#39;张_&#39;;<br>--&gt; 模糊查询需要使用运算符：LIKE，其中_匹配一个任意字符，注意，只匹配一个字符而不是多个。<br>--&gt; 上面语句查询的是姓张，名字由两个字组成的员工。<br>SELECT * FROM emp WHERE ename LIKE &#39;___&#39;; &#x2F;*姓名由3个字组成的员工*&#x2F;<br><br># 如果我们想查询姓张，名字是几个字都可以的员工时就要使用“%”了。<br>SELECT * FROM emp WHERE ename LIKE &#39;张%&#39;;<br>--&gt; 其中%匹配0~N个任意字符，所以上面语句查询的是姓张的所有员工。<br><br>SELECT * FROM emp WHERE ename LIKE &#39;%阿%&#39;;<br>--&gt; 千万不要认为上面语句是在查询姓名中间带有阿字的员工，因为%匹配0~N个字符，所以姓名以阿开头和结尾的员工也都会查询到。<br><br>SELECT * FROM emp WHERE ename LIKE &#39;%&#39;;<br>--&gt; 这个条件等同于不存在，但如果姓名为NULL的查询不出来！<br></code></pre></td></tr></table></figure>
 <h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3></li>
 <li><p>升序</p>
-<pre><code class="hljs mysql">SELECT * FROM emp ORDER BY sal ASC;
---&gt; 按sal排序，升序！
---&gt; 其中ASC是可以省略的</code></pre></li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT * FROM emp ORDER BY sal ASC;<br>--&gt; 按sal排序，升序！<br>--&gt; 其中ASC是可以省略的<br></code></pre></td></tr></table></figure></li>
 <li><p>降序</p>
- <pre><code class="hljs mysql">SELECT * FROM WHERE emp ORDER BY comm DESC;
---&gt; 按comm排序，降序！
---&gt; 其中DESC不能省略</code></pre></li>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT * FROM WHERE emp ORDER BY comm DESC;<br>--&gt; 按comm排序，降序！<br>--&gt; 其中DESC不能省略<br></code></pre></td></tr></table></figure></li>
 <li><p>使用多列作为排序条件</p>
-<pre><code class="hljs mysql">SELECT * FROM WHERE emp ORDER BY sal ASC, comm DESC;
---&gt; 使用sal升序排，如果sal相同时，使用comm的降序排</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT * FROM WHERE emp ORDER BY sal ASC, comm DESC;<br>--&gt; 使用sal升序排，如果sal相同时，使用comm的降序排<br></code></pre></td></tr></table></figure>
 <h3 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h3></li>
 </ol>
 <p>聚合函数用来做某列的纵向运算。</p>
 <ol>
 <li><p>COUNT</p>
- <pre><code class="hljs mysql">SELECT COUNT(*) FROM emp;
---&gt; 计算emp表中所有列都不为NULL的记录的行数
-SELECT COUNT(comm) FROM emp;
---&gt; 云计算emp表中comm列不为NULL的记录的行数</code></pre></li>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT COUNT(*) FROM emp;<br>--&gt; 计算emp表中所有列都不为NULL的记录的行数<br>SELECT COUNT(comm) FROM emp;<br>--&gt; 云计算emp表中comm列不为NULL的记录的行数<br></code></pre></td></tr></table></figure></li>
 <li><p>MAX</p>
-  <pre><code class="hljs mysql">SELECT MAX(sal) FROM emp;
---&gt; 查询最高工资</code></pre>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT MAX(sal) FROM emp;<br>--&gt; 查询最高工资<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>MIN</p>
- <pre><code class="hljs mysql">SELECT MIN(sal) FROM emp;
---&gt; 查询最低工资</code></pre>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT MIN(sal) FROM emp;<br>--&gt; 查询最低工资<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>SUM</p>
-  <pre><code class="hljs mysql">SELECT SUM(sal) FROM emp;
---&gt; 查询工资合</code></pre>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT SUM(sal) FROM emp;<br>--&gt; 查询工资合<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>AVG</p>
-  <pre><code class="hljs mysql">SELECT AVG(sal) FROM emp;
---&gt; 查询平均工资</code></pre>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT AVG(sal) FROM emp;<br>--&gt; 查询平均工资<br></code></pre></td></tr></table></figure>
 <h3 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h3></li>
 </ol>
 <p>分组查询是把记录使用某一列进行分组，然后查询组信息。<br>例如：查看所有部门的记录数。</p>
-<pre><code class="hljs mysql">SELECT deptno, COUNT(*) FROM emp GROUP BY deptno;
---&gt; 使用deptno分组，查询部门编号和每个部门的记录数
-
-SELECT job, MAX(SAL) FROM emp GROUP BY job;
---&gt; 使用job分组，查询每种工作的最高工资</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT deptno, COUNT(*) FROM emp GROUP BY deptno;<br>--&gt; 使用deptno分组，查询部门编号和每个部门的记录数<br><br>SELECT job, MAX(SAL) FROM emp GROUP BY job;<br>--&gt; 使用job分组，查询每种工作的最高工资<br></code></pre></td></tr></table></figure>
 <p>组条件<br>以部门分组，查询每组记录数。条件为记录数大于3</p>
-<pre><code class="hljs mysql">SELECT deptno, COUNT(*) FROM emp GROUP BY deptno HAVING COUNT(*) &gt; 3;</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT deptno, COUNT(*) FROM emp GROUP BY deptno HAVING COUNT(*) &gt; 3;<br></code></pre></td></tr></table></figure>
 <h3 id="limit子句"><a href="#limit子句" class="headerlink" title="limit子句"></a>limit子句</h3><p>LIMIT用来限定查询结果的起始行，以及总行数。</p>
 <p>例如：查询起始行为第5行，一共查询3行记录</p>
-<pre><code class="hljs mysql">SELECT * FROM emp LIMIT 4, 3;
---&gt; 其中4表示从第5行开始，其中3表示一共查询3行。即第5、6、7行记录。</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT * FROM emp LIMIT 4, 3;<br>--&gt; 其中4表示从第5行开始，其中3表示一共查询3行。即第5、6、7行记录。<br></code></pre></td></tr></table></figure>
 <h2 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h2><p>三种：</p>
 <ul>
 <li>合并结果集(了解)</li>
@@ -545,9 +480,7 @@ SELECT job, MAX(SAL) FROM emp GROUP BY job;
 <li>UNION，去除重复行</li>
 <li>UNION ALL，不去除重复行</li>
 </ul>
-<pre><code class="hljs mysql">SELECT * FROM cd 
-UNION ALL 
-SELECT * FROM ab;</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT * FROM cd <br>UNION ALL <br>SELECT * FROM ab;<br></code></pre></td></tr></table></figure>
 <h3 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h3><p>三种：</p>
 <ul>
 <li><p>内连接</p>
@@ -603,22 +536,7 @@ SELECT * FROM ab;</code></pre>
 <ul>
 <li>创建表时指定主键的两种方式：</li>
 </ul>
-<pre><code class="hljs mysql">CREATE TABLE stu(
-sid	    CHAR(6) PRIMARY KEY,
-sname	VARCHAR(20),
-age		INT,
-gender	VARCHAR(10) 
-);
-# 指定sid列为主键列，即为sid列添加主键约束
-
-CREATE TABLE stu(
-sid	    CHAR(6),
-sname	VARCHAR(20),
-age		INT,
-gender	VARCHAR(10),
-PRIMARY KEY(sid)
-);
-# 指定sid列为主键列，即为sid列添加主键约束</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs mysql">CREATE TABLE stu(<br>sid	    CHAR(6) PRIMARY KEY,<br>sname	VARCHAR(20),<br>age		INT,<br>gender	VARCHAR(10) <br>);<br># 指定sid列为主键列，即为sid列添加主键约束<br><br>CREATE TABLE stu(<br>sid	    CHAR(6),<br>sname	VARCHAR(20),<br>age		INT,<br>gender	VARCHAR(10),<br>PRIMARY KEY(sid)<br>);<br># 指定sid列为主键列，即为sid列添加主键约束<br></code></pre></td></tr></table></figure>
 <ul>
 <li>修改表时指定主键：<code>ALTER TABLE stu ADD PRIMARY KEY(sid);</code></li>
 <li>删除主键：<code>ALTER TABLE stu DROP PRIMARY KEY;</code></li>
@@ -627,12 +545,7 @@ PRIMARY KEY(sid)
 <li><p>因为主键列的特性是：必须唯一、不能为空，<strong>所以我们通常会指定主键类为整型，然后设置其自动增长</strong>，这样可以保证在插入数据时主键列的唯一和非空特性。</p>
 </li>
 <li><p>创建表时指定主键自增长</p>
-<pre><code class="hljs mysql">CREATE TABLE stu(
-	sid INT PRIMARY KEY AUTO_INCREMENT,
-	sname	VARCHAR(20),
-   	age		INT,
-   	gender	VARCHAR(10)
-   );</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mysql">CREATE TABLE stu(<br>	sid INT PRIMARY KEY AUTO_INCREMENT,<br>	sname	VARCHAR(20),<br>   	age		INT,<br>   	gender	VARCHAR(10)<br>   );<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>修改表时设置主键自增长：<code>ALTER TABLE stu CHANGE sid sid INT AUTO_INCREMENT;</code></p>
 </li>
@@ -640,21 +553,9 @@ PRIMARY KEY(sid)
 </li>
 </ul>
 <h3 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h3><p>因为某些列不能设置为NULL值，所以可以对列添加非空约束。</p>
-<pre><code class="hljs mysql"># 对sname列设置了非空约束
-CREATE TABLE stu(
-	sid INT PRIMARY KEY AUTO_INCREMENT,
-	sname	VARCHAR(20) NOT NULL,
-	age		INT,
-	gender	VARCHAR(10)
-);</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mysql"># 对sname列设置了非空约束<br>CREATE TABLE stu(<br>	sid INT PRIMARY KEY AUTO_INCREMENT,<br>	sname	VARCHAR(20) NOT NULL,<br>	age		INT,<br>	gender	VARCHAR(10)<br>);<br></code></pre></td></tr></table></figure>
 <h3 id="唯一约束"><a href="#唯一约束" class="headerlink" title="唯一约束"></a>唯一约束</h3><p>某些列不能设置重复的值，所以可以对列添加唯一约束。</p>
-<pre><code class="hljs mysql"># 对sname列设置了非空约束
-CREATE TABLE stu(
-	sid INT PRIMARY KEY AUTO_INCREMENT,
-	sname	VARCHAR(20) NOT NULL UNIQUE,
-	age		INT,
-	gender	VARCHAR(10)
-);</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mysql"># 对sname列设置了非空约束<br>CREATE TABLE stu(<br>	sid INT PRIMARY KEY AUTO_INCREMENT,<br>	sname	VARCHAR(20) NOT NULL UNIQUE,<br>	age		INT,<br>	gender	VARCHAR(10)<br>);<br></code></pre></td></tr></table></figure>
 <h3 id="概念模型"><a href="#概念模型" class="headerlink" title="概念模型"></a>概念模型</h3><p>对象模型：可以双向关联，而且引用的是对象，而不是一个主键！</p>
 <p>关系模型：只能多方引用一方，而且引用的只是主键，而不是一整行记录。</p>
 <blockquote>
@@ -672,32 +573,7 @@ CREATE TABLE stu(
 <p>概念模型在Java中成为实体类（javaBean）</p>
 <p>类就使用成员变量来完成关系，一般都是双向关联！</p>
 <p>多对一双向中关联，即员工关联部门，部门也关联员工</p>
-<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Employee</span> </span>&#123;<span class="hljs-comment">//多方关联一方</span>
-     ...
-     <span class="hljs-keyword">private</span> Department department;
-  &#125;
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Department</span> </span>&#123;<span class="hljs-comment">//一方关联多方</span>
-     ...
-     <span class="hljs-keyword">private</span> List&lt;Employee&gt; employees;
-&#125;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Husband</span> </span>&#123;
-     ...
-     <span class="hljs-keyword">private</span> Wife wife;
-&#125;
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Wife</span> </span>&#123;
-     ...
-     <span class="hljs-keyword">private</span> Husband
-&#125;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span> </span>&#123;
-     ...
-     <span class="hljs-keyword">private</span> List&lt;Teacher&gt; teachers
-&#125;
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Teacher</span> </span>&#123;
-     ...
-     <span class="hljs-keyword">private</span> List&lt;Student&gt; students;
-&#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Employee</span> </span>&#123;<span class="hljs-comment">//多方关联一方</span><br>     ...<br>     <span class="hljs-keyword">private</span> Department department;<br>  &#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Department</span> </span>&#123;<span class="hljs-comment">//一方关联多方</span><br>     ...<br>     <span class="hljs-keyword">private</span> List&lt;Employee&gt; employees;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Husband</span> </span>&#123;<br>     ...<br>     <span class="hljs-keyword">private</span> Wife wife;<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Wife</span> </span>&#123;<br>     ...<br>     <span class="hljs-keyword">private</span> Husband<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span> </span>&#123;<br>     ...<br>     <span class="hljs-keyword">private</span> List&lt;Teacher&gt; teachers<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Teacher</span> </span>&#123;<br>     ...<br>     <span class="hljs-keyword">private</span> List&lt;Student&gt; students;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="外键约束"><a href="#外键约束" class="headerlink" title="外键约束"></a>外键约束</h3><ul>
 <li><p>外键必须是另一表的主键的值(外键要引用主键！)</p>
 </li>
@@ -709,44 +585,14 @@ CREATE TABLE stu(
 <p>概念模型在数据库中成为表<br>数据库表中的多对一关系，只需要在多方使用一个独立的列来引用1方的主键即可</p>
 </li>
 </ul>
-<pre><code class="hljs mysql"># 员工表
-create talbe emp (
-  empno int primary key,&#x2F;*员工编号*&#x2F;
-  ...
-  deptno int&#x2F;*所属部门的编号*&#x2F;
-);
-# 部门表
-create table dept (
-  deptno int  primary key,&#x2F;*部门编号*&#x2F;
-  ...
-);</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs mysql"># 员工表<br>create talbe emp (<br>  empno int primary key,&#x2F;*员工编号*&#x2F;<br>  ...<br>  deptno int&#x2F;*所属部门的编号*&#x2F;<br>);<br># 部门表<br>create table dept (<br>  deptno int  primary key,&#x2F;*部门编号*&#x2F;<br>  ...<br>);<br></code></pre></td></tr></table></figure>
 <p>emp表中的deptno列的值表示当前员工所从属的部门编号。也就是说emp.deptno必须在dept表中是真实存在！</p>
 <p>但是我们必须要去对它进行约束，不然可能会出现员工所属的部门编号是不存在的。这种约束就是外键约束。</p>
 <p>我们需要给emp.deptno添加外键约束，约束它的值必须在dept.deptno中存在。外键必须是另一个表的主键！</p>
 <p>语法：<code>CONSTRAINT 约束名称 FOREIGN KEY(外键列名) REFERENCES 关联表(关联表的主键) </code></p>
-<pre><code class="hljs mysql"># 创建表时指定外键约束
-create talbe emp (
-    empno int primary key,
-    ...
-    deptno int,
-    CONSTRAINT fk_emp FOREIGN KEY(mgr) REFERENCES emp(empno)  
-);
-# 修改表时添加外键约束
-ALERT TABLE emp ADD CONSTRAINT fk_emp_deptno FOREIGN KEY(deptno) REFERENCES dept(deptno);
-
-# 修改表时删除外键约束
-ALTER TABLE emp DROP FOREIGN KEY fk_emp_deptno;&#x2F;*约束名称*&#x2F;</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs mysql"># 创建表时指定外键约束<br>create talbe emp (<br>    empno int primary key,<br>    ...<br>    deptno int,<br>    CONSTRAINT fk_emp FOREIGN KEY(mgr) REFERENCES emp(empno)  <br>);<br># 修改表时添加外键约束<br>ALERT TABLE emp ADD CONSTRAINT fk_emp_deptno FOREIGN KEY(deptno) REFERENCES dept(deptno);<br><br># 修改表时删除外键约束<br>ALTER TABLE emp DROP FOREIGN KEY fk_emp_deptno;&#x2F;*约束名称*&#x2F;<br></code></pre></td></tr></table></figure>
 <h3 id="数据库一对一关系"><a href="#数据库一对一关系" class="headerlink" title="数据库一对一关系"></a>数据库一对一关系</h3><p>在表中建立一对一关系比较特殊，需要让其中一张表的主键，即是主键又是外键。</p>
-<pre><code class="hljs mysql">create table husband(
-	hid int PRIMARY KEY,
-	...
-);
-
-create table wife(
-	wid int PRIMARY KEY,
-	...
-	ADD CONSTRAINT fk_wife_wid FOREIGN KEY(wid) REFERENCES husband(hid)
-);</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs mysql">create table husband(<br>	hid int PRIMARY KEY,<br>	...<br>);<br><br>create table wife(<br>	wid int PRIMARY KEY,<br>	...<br>	ADD CONSTRAINT fk_wife_wid FOREIGN KEY(wid) REFERENCES husband(hid)<br>);<br></code></pre></td></tr></table></figure>
 <p>其中wife表的wid即是主键，又是相对husband表的外键！</p>
 <p>husband.hid是主键，不能重复！</p>
 <p>wife.wid是主键，不能重复，又是外键，必须来自husband.hid。</p>
@@ -754,26 +600,11 @@ create table wife(
 <p>同时在husband.hid中必须存在1这个值，因为wid是外键。这就完成了一对一关系。</p>
 <p>从表的主键即是外键！</p>
 <h3 id="数据库多对多关系"><a href="#数据库多对多关系" class="headerlink" title="数据库多对多关系"></a>数据库多对多关系</h3><p>在表中建立多对多关系需要使用中间表，即需要三张表，在中间表中使用两个外键，分别引用其他两个表的主键。</p>
-<pre><code class="hljs mysql">create table student(
-    sid int PRIMARY KEY,
-    ...
-);
-
-create table teacher(
-    tid int PRIMARY KEY,
-    ...
-);
-
-create table stu_tea(
- sid int,
- tid int,
- ADD CONSTRAINT fk_stu_tea_sid FOREIGN KEY(sid) REFERENCES student(sid),
- ADD CONSTRAINT fk_stu_tea_tid FOREIGN KEY(tid) REFERENCES teacher(tid)
-);</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs mysql">create table student(<br>    sid int PRIMARY KEY,<br>    ...<br>);<br><br>create table teacher(<br>    tid int PRIMARY KEY,<br>    ...<br>);<br><br>create table stu_tea(<br> sid int,<br> tid int,<br> ADD CONSTRAINT fk_stu_tea_sid FOREIGN KEY(sid) REFERENCES student(sid),<br> ADD CONSTRAINT fk_stu_tea_tid FOREIGN KEY(tid) REFERENCES teacher(tid)<br>);<br></code></pre></td></tr></table></figure>
 <p>  这时在stu_tea这个中间表中的每条记录都是来说明student和teacher表的关系.</p>
 <p>  例如在stu_tea表中的记录：sid为1001，tid为2001，这说明编号为1001的学生有一个编号为2001的老师</p>
 
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -802,8 +633,8 @@ create table stu_tea(
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/mysql-instance/">
@@ -812,8 +643,8 @@ create table stu_tea(
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/redis/">
@@ -822,47 +653,45 @@ create table stu_tea(
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
               <!-- Comments -->
-              <div class="comments" id="comments">
+              <article class="comments" id="comments">
                 
                 
   <div id="vcomments"></div>
-  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
-
   <script type="text/javascript">
-    var oldLoadVa = window.onload;
-    window.onload = function () {
-      oldLoadVa && oldLoadVa();
-
-      new Valine({
-        el: "#vcomments",
-        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
-        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
-        placeholder: "说点什么",
-        path: window.location.pathname,
-        avatar: "wavatar",
-        meta: ["nick","mail","link"],
-        pageSize: "10",
-        lang: "zh-CN",
-        highlight: false,
-        recordIP: false,
-        serverURLs: "",
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
       });
-    };
+    });
   </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
 
 
-              </div>
+              </article>
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -870,7 +699,7 @@ create table stu_tea(
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
   <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
       </div>
@@ -882,16 +711,15 @@ create table stu_tea(
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -912,24 +740,22 @@ create table stu_tea(
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
-    <i class="iconfont icon-love"></i>
-    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
-    <br>
-    </div>
     
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
   <div class="statistics">
     
     
@@ -956,337 +782,153 @@ create table stu_tea(
   </div>
 
 
-    
+  
 
-	
-    
+
   
-  
-  <!-- 网站运行时间的设置 -->
-  <script src="/js/HidenMath.js"></script>
-  <script>
-    var now = new Date();
-    function createtime() {
-      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
-      now.setTime(now.getTime() + 250);
-      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
-      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
-      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
-      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
-      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
-      document.getElementById("timeDate").innerHTML = dnum;
-      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
-    }
-    setInterval("createtime()", 250);
-  </script>
-  </div>
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  <script  src="/js/lazyload.js" ></script>
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
   
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '.post-content',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(response => response.json())
-          .then(({results}) => {
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(response => response.json())
-                .then((record) => {
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch(error => {
-          console.error('LeanCloud Counter Error', error);
-          reject(error);
-        });
-      })
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
-        }
-      }
-    }
-
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          resolve(res);
-        }).catch(error => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true'
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/mysql-use/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
-    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
-    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "Mysql语法小结&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 80,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
       
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
   <script  src="/js/local-search.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
       }
-    );
+    })()
   </script>
 
 
 
 
 
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
 
 
 
@@ -1295,8 +937,24 @@ create table stu_tea(
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

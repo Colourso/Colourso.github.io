@@ -1,7 +1,7 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -19,22 +19,33 @@
   <meta name="keywords" content="">
   <title>交换排序算法——冒泡排序、快速排序 - Colourso</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -42,6 +53,12 @@
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 5.3.0"></head>
 
 
@@ -136,8 +153,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -145,25 +168,28 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="交换排序算法——冒泡排序、快速排序">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2021-01-08 10:35">
-      星期五, 一月 8日 2021, 10:35 上午
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-08 10:35" pubdate>
+        2021年1月8日 上午
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
@@ -180,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      50
+      71
        分钟
     </span>
   
@@ -189,9 +215,9 @@
   
     
       <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
         <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-post-views"></span> 次
+        <span id="leancloud-page-views"></span> 次
       </span>
     
   
@@ -210,15 +236,23 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">交换排序算法——冒泡排序、快速排序</h1>
             
-            <article class="markdown-body">
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年1月8日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
               <p><strong>概览</strong>：冒泡排序、快速排序算法思想以及C++代码的实现。</p>
 <a id="more"></a>
 
@@ -233,25 +267,7 @@
 
 <center>图中为“沉底”的方式</center>
 
-<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> &amp;a, <span class="hljs-keyword">int</span> &amp;b)</span> </span>&#123;
-	<span class="hljs-keyword">int</span> tmp = a;
-	a = b;
-	b = tmp;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BubbleSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> n)</span> </span>&#123;
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n<span class="hljs-number">-1</span>; i++) &#123;<span class="hljs-comment">//n个元素至多会进行n-1趟排序</span>
-		<span class="hljs-keyword">bool</span> flag = <span class="hljs-literal">false</span>;		   <span class="hljs-comment">//标识这一次排序中是否发生了交换</span>
-		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = n<span class="hljs-number">-1</span>; j &gt; i; j--) &#123; <span class="hljs-comment">//从后往前，每次取最小的元素</span>
-			<span class="hljs-keyword">if</span> (A[j] &lt; A[j<span class="hljs-number">-1</span>]) &#123;
-				swap(A[j], A[j<span class="hljs-number">-1</span>]);<span class="hljs-comment">//交换元素</span>
-				flag = <span class="hljs-literal">true</span>;
-			&#125;
-		&#125;
-		<span class="hljs-keyword">if</span> (flag == <span class="hljs-literal">false</span>)	<span class="hljs-comment">//若未发生交换</span>
-			<span class="hljs-keyword">break</span>;
-	&#125;
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> &amp;a, <span class="hljs-keyword">int</span> &amp;b)</span> </span>&#123;<br>	<span class="hljs-keyword">int</span> tmp = a;<br>	a = b;<br>	b = tmp;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BubbleSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> n)</span> </span>&#123;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n<span class="hljs-number">-1</span>; i++) &#123;<span class="hljs-comment">//n个元素至多会进行n-1趟排序</span><br>		<span class="hljs-keyword">bool</span> flag = <span class="hljs-literal">false</span>;		   <span class="hljs-comment">//标识这一次排序中是否发生了交换</span><br>		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = n<span class="hljs-number">-1</span>; j &gt; i; j--) &#123; <span class="hljs-comment">//从后往前，每次取最小的元素</span><br>			<span class="hljs-keyword">if</span> (A[j] &lt; A[j<span class="hljs-number">-1</span>]) &#123;<br>				swap(A[j], A[j<span class="hljs-number">-1</span>]);<span class="hljs-comment">//交换元素</span><br>				flag = <span class="hljs-literal">true</span>;<br>			&#125;<br>		&#125;<br>		<span class="hljs-keyword">if</span> (flag == <span class="hljs-literal">false</span>)	<span class="hljs-comment">//若未发生交换</span><br>			<span class="hljs-keyword">break</span>;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
 <li>空间复杂度：<code>O(1)</code>，需要常量个辅助空间。</li>
 <li>时间复杂度：<ul>
@@ -415,27 +431,7 @@
 </tbody></table>
 <p>剩余部分也是同样的方式。</p>
 <p>很明显这是一个<strong>递归</strong>的过程，起始选择表首作为<code>pivot</code>，high指针指向末尾，向左移动寻找比pivot小的元素赋值给<code>A[low]</code>，而low向右移动，寻找比pivot大的元素赋值给<code>A[high]</code>，执行结束的条件是<code>low=high</code>。</p>
-<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Partition</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;
-	<span class="hljs-keyword">int</span> pivot = A[low];	<span class="hljs-comment">//选取枢轴元素</span>
-	<span class="hljs-keyword">while</span> (low &lt; high) &#123;
-		<span class="hljs-comment">//寻找比pivot小的元素，比它大的直接忽略</span>
-		<span class="hljs-keyword">while</span> (low &lt; high &amp;&amp; A[high] &gt;= pivot) high--;
-		A[low] = A[high];	<span class="hljs-comment">//比Pivot小的移动到左侧</span>
-        <span class="hljs-comment">//寻找比pivot大的元素，比它小的直接忽略</span>
-		<span class="hljs-keyword">while</span> (low &lt; high &amp;&amp; A[low] &lt;= pivot) low++;
-		A[high] = A[low];	<span class="hljs-comment">//比Pivot大的移动到右侧</span>
-	&#125;
-	A[low] = pivot;	<span class="hljs-comment">//赋值</span>
-	<span class="hljs-keyword">return</span> low;		<span class="hljs-comment">//返回存放枢轴pivot的位置</span>
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">QuickSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;
-	<span class="hljs-keyword">if</span> (low &lt; high) &#123;		<span class="hljs-comment">//当low&lt;high时才执行</span>
-		<span class="hljs-keyword">int</span> pivotpos = Partition(A, low, high);	<span class="hljs-comment">//划分</span>
-		QuickSort(A, low, pivotpos<span class="hljs-number">-1</span>);			<span class="hljs-comment">//左子表</span>
-		QuickSort(A, pivotpos+<span class="hljs-number">1</span>,high);			<span class="hljs-comment">//右子表</span>
-	&#125;
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Partition</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;<br>	<span class="hljs-keyword">int</span> pivot = A[low];	<span class="hljs-comment">//选取枢轴元素</span><br>	<span class="hljs-keyword">while</span> (low &lt; high) &#123;<br>		<span class="hljs-comment">//寻找比pivot小的元素，比它大的直接忽略</span><br>		<span class="hljs-keyword">while</span> (low &lt; high &amp;&amp; A[high] &gt;= pivot) high--;<br>		A[low] = A[high];	<span class="hljs-comment">//比Pivot小的移动到左侧</span><br>        <span class="hljs-comment">//寻找比pivot大的元素，比它小的直接忽略</span><br>		<span class="hljs-keyword">while</span> (low &lt; high &amp;&amp; A[low] &lt;= pivot) low++;<br>		A[high] = A[low];	<span class="hljs-comment">//比Pivot大的移动到右侧</span><br>	&#125;<br>	A[low] = pivot;	<span class="hljs-comment">//赋值</span><br>	<span class="hljs-keyword">return</span> low;		<span class="hljs-comment">//返回存放枢轴pivot的位置</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">QuickSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;<br>	<span class="hljs-keyword">if</span> (low &lt; high) &#123;		<span class="hljs-comment">//当low&lt;high时才执行</span><br>		<span class="hljs-keyword">int</span> pivotpos = Partition(A, low, high);	<span class="hljs-comment">//划分</span><br>		QuickSort(A, low, pivotpos<span class="hljs-number">-1</span>);			<span class="hljs-comment">//左子表</span><br>		QuickSort(A, pivotpos+<span class="hljs-number">1</span>,high);			<span class="hljs-comment">//右子表</span><br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="实现方式2-——-前后指针法"><a href="#实现方式2-——-前后指针法" class="headerlink" title="实现方式2 —— 前后指针法"></a>实现方式2 —— 前后指针法</h3><p>前后指针法比上述填坑法有一些独特的优势，<strong>它的指针都是单侧移动</strong>，可支持单链表这种只能单向移动指针的数据结构。</p>
 <ol>
 <li>将待排序序列的最左元素记为<code>pivot</code>，创建<code>指针i，j</code>，<code>指针i</code>指向待排序序列A的最左边的元素，<code>指针j</code>指向<code>指针i</code>指向的下一位。</li>
@@ -558,38 +554,7 @@
 <li>此时<code>指针j</code>走到了末尾，<code>A[j] &gt; pivot</code>，<code>指针j</code>后移一位，<code>指针i</code>不动。</li>
 <li>交换<code>A[i]</code>与<code>pivot</code>的值。这样<code>指针i</code>指向的左边元素均小于<code>pivot</code>，右边均大于<code>pivot</code>。</li>
 </ol>
-<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> &amp;a, <span class="hljs-keyword">int</span> &amp;b)</span> </span>&#123;
-	<span class="hljs-keyword">int</span> tmp = a;
-	a = b;
-	b = tmp;
-&#125;
-
-<span class="hljs-comment">//前后指针法</span>
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Part</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>&#123;
-	<span class="hljs-keyword">int</span> pivot = A[left];
-	<span class="hljs-keyword">int</span> pivotpos = left;	<span class="hljs-comment">//记录pivot和其对应位置</span>
-	<span class="hljs-keyword">int</span> i = left;
-	<span class="hljs-keyword">int</span> j = left + <span class="hljs-number">1</span>;
-	<span class="hljs-keyword">while</span> (j &lt;= right &amp;&amp; i&lt;j) &#123;
-		<span class="hljs-keyword">if</span> (A[j] &lt; pivot) &#123;
-			swap(A[i+<span class="hljs-number">1</span>],A[j]);
-			i++; j++;
-		&#125;
-		<span class="hljs-keyword">else</span> &#123;
-			j++;
-		&#125;
-	&#125;
-	swap(A[i], A[pivotpos]);<span class="hljs-comment">//交换位置</span>
-	<span class="hljs-keyword">return</span> i;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">QuickSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;
-	<span class="hljs-keyword">if</span> (low &lt; high) &#123;		<span class="hljs-comment">//当low&lt;high时才执行</span>
-		<span class="hljs-keyword">int</span> pivotpos = Part(A, low, high);		<span class="hljs-comment">//划分</span>
-		QuickSort(A, low, pivotpos<span class="hljs-number">-1</span>);			<span class="hljs-comment">//左子表</span>
-		QuickSort(A, pivotpos+<span class="hljs-number">1</span>,high);			<span class="hljs-comment">//右子表</span>
-	&#125;
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> &amp;a, <span class="hljs-keyword">int</span> &amp;b)</span> </span>&#123;<br>	<span class="hljs-keyword">int</span> tmp = a;<br>	a = b;<br>	b = tmp;<br>&#125;<br><br><span class="hljs-comment">//前后指针法</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Part</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>&#123;<br>	<span class="hljs-keyword">int</span> pivot = A[left];<br>	<span class="hljs-keyword">int</span> pivotpos = left;	<span class="hljs-comment">//记录pivot和其对应位置</span><br>	<span class="hljs-keyword">int</span> i = left;<br>	<span class="hljs-keyword">int</span> j = left + <span class="hljs-number">1</span>;<br>	<span class="hljs-keyword">while</span> (j &lt;= right &amp;&amp; i&lt;j) &#123;<br>		<span class="hljs-keyword">if</span> (A[j] &lt; pivot) &#123;<br>			swap(A[i+<span class="hljs-number">1</span>],A[j]);<br>			i++; j++;<br>		&#125;<br>		<span class="hljs-keyword">else</span> &#123;<br>			j++;<br>		&#125;<br>	&#125;<br>	swap(A[i], A[pivotpos]);<span class="hljs-comment">//交换位置</span><br>	<span class="hljs-keyword">return</span> i;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">QuickSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;<br>	<span class="hljs-keyword">if</span> (low &lt; high) &#123;		<span class="hljs-comment">//当low&lt;high时才执行</span><br>		<span class="hljs-keyword">int</span> pivotpos = Part(A, low, high);		<span class="hljs-comment">//划分</span><br>		QuickSort(A, low, pivotpos<span class="hljs-number">-1</span>);			<span class="hljs-comment">//左子表</span><br>		QuickSort(A, pivotpos+<span class="hljs-number">1</span>,high);			<span class="hljs-comment">//右子表</span><br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>参考链接：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Unicron/p/9465403.html">https://www.cnblogs.com/Unicron/p/9465403.html</a></p>
 </blockquote>
@@ -615,160 +580,18 @@
 <h3 id="快速排序的优化"><a href="#快速排序的优化" class="headerlink" title="快速排序的优化"></a>快速排序的优化</h3><p>当每次的枢轴把待排序列表分割为长度相近的两个子表时，速度时最快的；而当表本身已经有序或者逆序的时候，速度是最慢的。</p>
 <p>因为当每一次选中的枢轴元素将待排序序列分割成了两个很不均匀的部分时，会导致递归的深度加深，最终导致算法效率变低。</p>
 <h4 id="一、枢轴元素的选取"><a href="#一、枢轴元素的选取" class="headerlink" title="一、枢轴元素的选取"></a>一、枢轴元素的选取</h4><p>尽可能的选择可以将数据序列中分的枢轴元素，例如从序列的头、尾以及中间位置选择三个元素，然后去这三个元素的中间值最为枢轴元素。或者是随机的从当前序列中选取枢轴元素。</p>
-<pre><code class="hljs c++"><span class="hljs-comment">//三数取中法，获取中间值的索引</span>
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">GetMidIndex</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>&#123;
-	<span class="hljs-keyword">int</span> mid = (left + right) / <span class="hljs-number">2</span>;
-	<span class="hljs-keyword">if</span> (A[left] &lt;= A[mid]) &#123;
-		<span class="hljs-keyword">if</span> (A[mid] &lt;= A[right]) <span class="hljs-keyword">return</span> mid;
-		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[mid] &lt;= A[right]) <span class="hljs-keyword">return</span> left;
-		<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> right;
-	&#125;
-	<span class="hljs-keyword">else</span> &#123;
-		<span class="hljs-keyword">if</span> (A[mid] &gt;= A[right]) <span class="hljs-keyword">return</span> mid;
-		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[left] &gt;= A[right]) <span class="hljs-keyword">return</span> right;
-		<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> left;
-	&#125;
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//三数取中法，获取中间值的索引</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">GetMidIndex</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>&#123;<br>	<span class="hljs-keyword">int</span> mid = (left + right) / <span class="hljs-number">2</span>;<br>	<span class="hljs-keyword">if</span> (A[left] &lt;= A[mid]) &#123;<br>		<span class="hljs-keyword">if</span> (A[mid] &lt;= A[right]) <span class="hljs-keyword">return</span> mid;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[mid] &lt;= A[right]) <span class="hljs-keyword">return</span> left;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> right;<br>	&#125;<br>	<span class="hljs-keyword">else</span> &#123;<br>		<span class="hljs-keyword">if</span> (A[mid] &gt;= A[right]) <span class="hljs-keyword">return</span> mid;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[left] &gt;= A[right]) <span class="hljs-keyword">return</span> right;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> left;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h4 id="二、加入插入排序"><a href="#二、加入插入排序" class="headerlink" title="二、加入插入排序"></a>二、加入插入排序</h4><p>当排序接近完成的时候，数组会被分的很小，这是可以采用直接插入排序来处理这种情况。</p>
-<pre><code class="hljs c++"><span class="hljs-comment">//改进的快速排序</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">QuickSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;
-	<span class="hljs-keyword">if</span> (low &lt; high) &#123;		<span class="hljs-comment">//当low&lt;high时才执行</span>
-		<span class="hljs-keyword">if</span> (high - low &lt;= <span class="hljs-number">5</span>) &#123;		<span class="hljs-comment">//当待排序长度小于等于6时，采用直接插入排序</span>
-			InsertSort(A,low,high);
-		&#125;
-		<span class="hljs-keyword">else</span> &#123;
-			<span class="hljs-keyword">int</span> pivotpos = Partition(A, low, high);	<span class="hljs-comment">//划分</span>
-			QuickSort(A, low, pivotpos - <span class="hljs-number">1</span>);			<span class="hljs-comment">//左子表</span>
-			QuickSort(A, pivotpos + <span class="hljs-number">1</span>, high);			<span class="hljs-comment">//右子表</span>
-		&#125;
-	&#125;
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//改进的快速排序</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">QuickSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;<br>	<span class="hljs-keyword">if</span> (low &lt; high) &#123;		<span class="hljs-comment">//当low&lt;high时才执行</span><br>		<span class="hljs-keyword">if</span> (high - low &lt;= <span class="hljs-number">5</span>) &#123;		<span class="hljs-comment">//当待排序长度小于等于6时，采用直接插入排序</span><br>			InsertSort(A,low,high);<br>		&#125;<br>		<span class="hljs-keyword">else</span> &#123;<br>			<span class="hljs-keyword">int</span> pivotpos = Partition(A, low, high);	<span class="hljs-comment">//划分</span><br>			QuickSort(A, low, pivotpos - <span class="hljs-number">1</span>);			<span class="hljs-comment">//左子表</span><br>			QuickSort(A, pivotpos + <span class="hljs-number">1</span>, high);			<span class="hljs-comment">//右子表</span><br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <hr>
-<h2 id="函数调用示例"><a href="#函数调用示例" class="headerlink" title="函数调用示例"></a>函数调用示例</h2><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-
-<span class="hljs-comment">//直接插入排序</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InsertSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> begin,<span class="hljs-keyword">int</span> end)</span> </span>&#123;
-	<span class="hljs-keyword">int</span> temp;<span class="hljs-comment">//临时变量，暂存数据</span>
-	<span class="hljs-keyword">int</span> i, j;
-	<span class="hljs-keyword">for</span> (i = begin+<span class="hljs-number">1</span>; i &lt;= end; i++) &#123;		<span class="hljs-comment">//对A[begin+1]到A[end]上的元素进行插入排序</span>
-		<span class="hljs-keyword">if</span> (A[i] &lt; A[i<span class="hljs-number">-1</span>]) &#123;		<span class="hljs-comment">//若待排序元素小于其前面有序序列的最后一个元素</span>
-			temp = A[i];
-			<span class="hljs-keyword">for</span> (j = i<span class="hljs-number">-1</span>; j &gt;= begin &amp;&amp; A[j] &gt; temp; j--) &#123;
-				A[j+<span class="hljs-number">1</span>] = A[j];		<span class="hljs-comment">//所有大于temp的均向后移动</span>
-			&#125;
-			A[j+<span class="hljs-number">1</span>] = temp;			<span class="hljs-comment">//对应的插入位置</span>
-		&#125;
-	&#125;
-&#125;
-
-<span class="hljs-comment">//三数取中法，获取中间值的索引</span>
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">GetMidIndex</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>&#123;
-	<span class="hljs-keyword">int</span> mid = (left + right) / <span class="hljs-number">2</span>;
-	<span class="hljs-keyword">if</span> (A[left] &lt;= A[mid]) &#123;
-		<span class="hljs-keyword">if</span> (A[mid] &lt;= A[right]) <span class="hljs-keyword">return</span> mid;
-		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[mid] &lt;= A[right]) <span class="hljs-keyword">return</span> left;
-		<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> right;
-	&#125;
-	<span class="hljs-keyword">else</span> &#123;
-		<span class="hljs-keyword">if</span> (A[mid] &gt;= A[right]) <span class="hljs-keyword">return</span> mid;
-		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[left] &gt;= A[right]) <span class="hljs-keyword">return</span> right;
-		<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> left;
-	&#125;
-&#125;
-
-<span class="hljs-comment">//交换</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> &amp;a, <span class="hljs-keyword">int</span> &amp;b)</span> </span>&#123;
-	<span class="hljs-keyword">int</span> tmp = a;
-	a = b;
-	b = tmp;
-&#125;
-
-<span class="hljs-comment">//填坑法</span>
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Partition</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;
-	<span class="hljs-keyword">int</span> pivotpos = GetMidIndex(A, low, high);
-	swap(A[low], A[pivotpos]);	<span class="hljs-comment">//交换，使得low位置为取得的枢轴值</span>
-	<span class="hljs-keyword">int</span> pivot = A[low];
-	<span class="hljs-keyword">while</span> (low &lt; high) &#123;
-		<span class="hljs-comment">//寻找比pivot小的元素，比它大的直接忽略</span>
-		<span class="hljs-keyword">while</span> (low &lt; high &amp;&amp; A[high] &gt;= pivot) high--;
-		A[low] = A[high];
-		<span class="hljs-keyword">while</span> (low &lt; high &amp;&amp; A[low] &lt;= pivot) low++;
-		A[high] = A[low];
-	&#125;
-	A[low] = pivot;	<span class="hljs-comment">//赋值</span>
-	<span class="hljs-keyword">return</span> low;		<span class="hljs-comment">//返回存放枢轴pivot的位置</span>
-&#125;
-
-<span class="hljs-comment">//改进的快速排序</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">QuickSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;
-	<span class="hljs-keyword">if</span> (low &lt; high) &#123;		<span class="hljs-comment">//当low&lt;high时才执行</span>
-		<span class="hljs-keyword">if</span> (high - low &lt;= <span class="hljs-number">5</span>) &#123;		<span class="hljs-comment">//当待排序长度小于等于6时，采用直接插入排序</span>
-			InsertSort(A,low,high);
-		&#125;
-		<span class="hljs-keyword">else</span> &#123;
-			<span class="hljs-keyword">int</span> pivotpos = Partition(A, low, high);	<span class="hljs-comment">//划分</span>
-			QuickSort(A, low, pivotpos - <span class="hljs-number">1</span>);			<span class="hljs-comment">//左子表</span>
-			QuickSort(A, pivotpos + <span class="hljs-number">1</span>, high);			<span class="hljs-comment">//右子表</span>
-		&#125;
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-	<span class="hljs-keyword">int</span> nums = <span class="hljs-number">0</span>;
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;请输入待排序的数量个数:&quot;</span>;
-	<span class="hljs-built_in">cin</span> &gt;&gt; nums;
-	<span class="hljs-keyword">int</span> *A = (<span class="hljs-keyword">int</span> *)<span class="hljs-built_in">malloc</span>(nums*<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>));
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums; i++) &#123;
-		<span class="hljs-built_in">cin</span> &gt;&gt; A[i];
-	&#125;
-
-	QuickSort(A, <span class="hljs-number">0</span>, nums<span class="hljs-number">-1</span>);
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums; i++) &#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; A[i] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
-	&#125;
-	<span class="hljs-built_in">free</span>(A);
-	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+<h2 id="函数调用示例"><a href="#函数调用示例" class="headerlink" title="函数调用示例"></a>函数调用示例</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><br><span class="hljs-comment">//直接插入排序</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InsertSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> begin,<span class="hljs-keyword">int</span> end)</span> </span>&#123;<br>	<span class="hljs-keyword">int</span> temp;<span class="hljs-comment">//临时变量，暂存数据</span><br>	<span class="hljs-keyword">int</span> i, j;<br>	<span class="hljs-keyword">for</span> (i = begin+<span class="hljs-number">1</span>; i &lt;= end; i++) &#123;		<span class="hljs-comment">//对A[begin+1]到A[end]上的元素进行插入排序</span><br>		<span class="hljs-keyword">if</span> (A[i] &lt; A[i<span class="hljs-number">-1</span>]) &#123;		<span class="hljs-comment">//若待排序元素小于其前面有序序列的最后一个元素</span><br>			temp = A[i];<br>			<span class="hljs-keyword">for</span> (j = i<span class="hljs-number">-1</span>; j &gt;= begin &amp;&amp; A[j] &gt; temp; j--) &#123;<br>				A[j+<span class="hljs-number">1</span>] = A[j];		<span class="hljs-comment">//所有大于temp的均向后移动</span><br>			&#125;<br>			A[j+<span class="hljs-number">1</span>] = temp;			<span class="hljs-comment">//对应的插入位置</span><br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">//三数取中法，获取中间值的索引</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">GetMidIndex</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>&#123;<br>	<span class="hljs-keyword">int</span> mid = (left + right) / <span class="hljs-number">2</span>;<br>	<span class="hljs-keyword">if</span> (A[left] &lt;= A[mid]) &#123;<br>		<span class="hljs-keyword">if</span> (A[mid] &lt;= A[right]) <span class="hljs-keyword">return</span> mid;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[mid] &lt;= A[right]) <span class="hljs-keyword">return</span> left;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> right;<br>	&#125;<br>	<span class="hljs-keyword">else</span> &#123;<br>		<span class="hljs-keyword">if</span> (A[mid] &gt;= A[right]) <span class="hljs-keyword">return</span> mid;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (A[left] &gt;= A[right]) <span class="hljs-keyword">return</span> right;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> left;<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">//交换</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> &amp;a, <span class="hljs-keyword">int</span> &amp;b)</span> </span>&#123;<br>	<span class="hljs-keyword">int</span> tmp = a;<br>	a = b;<br>	b = tmp;<br>&#125;<br><br><span class="hljs-comment">//填坑法</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Partition</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;<br>	<span class="hljs-keyword">int</span> pivotpos = GetMidIndex(A, low, high);<br>	swap(A[low], A[pivotpos]);	<span class="hljs-comment">//交换，使得low位置为取得的枢轴值</span><br>	<span class="hljs-keyword">int</span> pivot = A[low];<br>	<span class="hljs-keyword">while</span> (low &lt; high) &#123;<br>		<span class="hljs-comment">//寻找比pivot小的元素，比它大的直接忽略</span><br>		<span class="hljs-keyword">while</span> (low &lt; high &amp;&amp; A[high] &gt;= pivot) high--;<br>		A[low] = A[high];<br>		<span class="hljs-keyword">while</span> (low &lt; high &amp;&amp; A[low] &lt;= pivot) low++;<br>		A[high] = A[low];<br>	&#125;<br>	A[low] = pivot;	<span class="hljs-comment">//赋值</span><br>	<span class="hljs-keyword">return</span> low;		<span class="hljs-comment">//返回存放枢轴pivot的位置</span><br>&#125;<br><br><span class="hljs-comment">//改进的快速排序</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">QuickSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span> </span>&#123;<br>	<span class="hljs-keyword">if</span> (low &lt; high) &#123;		<span class="hljs-comment">//当low&lt;high时才执行</span><br>		<span class="hljs-keyword">if</span> (high - low &lt;= <span class="hljs-number">5</span>) &#123;		<span class="hljs-comment">//当待排序长度小于等于6时，采用直接插入排序</span><br>			InsertSort(A,low,high);<br>		&#125;<br>		<span class="hljs-keyword">else</span> &#123;<br>			<span class="hljs-keyword">int</span> pivotpos = Partition(A, low, high);	<span class="hljs-comment">//划分</span><br>			QuickSort(A, low, pivotpos - <span class="hljs-number">1</span>);			<span class="hljs-comment">//左子表</span><br>			QuickSort(A, pivotpos + <span class="hljs-number">1</span>, high);			<span class="hljs-comment">//右子表</span><br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">int</span> nums = <span class="hljs-number">0</span>;<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;请输入待排序的数量个数:&quot;</span>;<br>	<span class="hljs-built_in">cin</span> &gt;&gt; nums;<br>	<span class="hljs-keyword">int</span> *A = (<span class="hljs-keyword">int</span> *)<span class="hljs-built_in">malloc</span>(nums*<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>));<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums; i++) &#123;<br>		<span class="hljs-built_in">cin</span> &gt;&gt; A[i];<br>	&#125;<br><br>	QuickSort(A, <span class="hljs-number">0</span>, nums<span class="hljs-number">-1</span>);<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums; i++) &#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; A[i] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>	&#125;<br>	<span class="hljs-built_in">free</span>(A);<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p><img src="/ds_02_ExchangeSort/quickfruit.png" srcset="/img/loading.gif" alt="执行结果"></p>
 <center>执行结果</center>
 
 <h3 id="随机数程序"><a href="#随机数程序" class="headerlink" title="随机数程序"></a>随机数程序</h3><p>顺带把随机数的生成程序放在这里，方便以后使用。</p>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;time.h&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;time.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-comment">//rand()会返回一个范围在0到RAND_MAX（32767）之间的伪随机数（整数）。</span><br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;请输入随机数生成的起始范围：&quot;</span>;<br>	<span class="hljs-keyword">int</span> begin = <span class="hljs-number">0</span>;<br>	<span class="hljs-built_in">cin</span> &gt;&gt; begin;<br>	<span class="hljs-keyword">if</span> (begin &lt; <span class="hljs-number">0</span> || begin &gt;<span class="hljs-number">32767</span>) begin = <span class="hljs-number">0</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;请输入随机数生成的终止范围：&quot;</span>;<br>	<span class="hljs-keyword">int</span> end = <span class="hljs-number">32767</span>;<br>	<span class="hljs-built_in">cin</span> &gt;&gt; end;<br>	<span class="hljs-keyword">if</span> (end &gt; <span class="hljs-number">32767</span>) end = <span class="hljs-number">32767</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;请输入要产生的随机数的数量：&quot;</span>;<br>	<span class="hljs-keyword">int</span> num;<br>	<span class="hljs-built_in">cin</span> &gt;&gt; num;<br><br>	srand(time(<span class="hljs-number">0</span>));<span class="hljs-comment">//设置随机数种子，若随机种子相同，则每次产生的随机数也相同</span><br>	<span class="hljs-keyword">int</span> times = <span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">int</span> randnum = <span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">while</span> (times &lt; num) &#123;<br>		randnum = rand() % (end - begin + <span class="hljs-number">1</span>) + begin;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; randnum &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>		times++;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-	<span class="hljs-comment">//rand()会返回一个范围在0到RAND_MAX（32767）之间的伪随机数（整数）。</span>
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;请输入随机数生成的起始范围：&quot;</span>;
-	<span class="hljs-keyword">int</span> begin = <span class="hljs-number">0</span>;
-	<span class="hljs-built_in">cin</span> &gt;&gt; begin;
-	<span class="hljs-keyword">if</span> (begin &lt; <span class="hljs-number">0</span> || begin &gt;<span class="hljs-number">32767</span>) begin = <span class="hljs-number">0</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;请输入随机数生成的终止范围：&quot;</span>;
-	<span class="hljs-keyword">int</span> end = <span class="hljs-number">32767</span>;
-	<span class="hljs-built_in">cin</span> &gt;&gt; end;
-	<span class="hljs-keyword">if</span> (end &gt; <span class="hljs-number">32767</span>) end = <span class="hljs-number">32767</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;请输入要产生的随机数的数量：&quot;</span>;
-	<span class="hljs-keyword">int</span> num;
-	<span class="hljs-built_in">cin</span> &gt;&gt; num;
-
-	srand(time(<span class="hljs-number">0</span>));<span class="hljs-comment">//设置随机数种子，若随机种子相同，则每次产生的随机数也相同</span>
-	<span class="hljs-keyword">int</span> times = <span class="hljs-number">0</span>;
-	<span class="hljs-keyword">int</span> randnum = <span class="hljs-number">0</span>;
-	<span class="hljs-keyword">while</span> (times &lt; num) &#123;
-		randnum = rand() % (end - begin + <span class="hljs-number">1</span>) + begin;
-		<span class="hljs-built_in">cout</span> &lt;&lt; randnum &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
-		times++;
-	&#125;
-&#125;</code></pre>
-
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -797,8 +620,8 @@
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/ds_03_SelectSort/">
@@ -807,8 +630,8 @@
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/ds_01_InsertSort/">
@@ -817,47 +640,45 @@
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
               <!-- Comments -->
-              <div class="comments" id="comments">
+              <article class="comments" id="comments">
                 
                 
   <div id="vcomments"></div>
-  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
-
   <script type="text/javascript">
-    var oldLoadVa = window.onload;
-    window.onload = function () {
-      oldLoadVa && oldLoadVa();
-
-      new Valine({
-        el: "#vcomments",
-        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
-        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
-        placeholder: "说点什么",
-        path: window.location.pathname,
-        avatar: "wavatar",
-        meta: ["nick","mail","link"],
-        pageSize: "10",
-        lang: "zh-CN",
-        highlight: false,
-        recordIP: false,
-        serverURLs: "",
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
       });
-    };
+    });
   </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
 
 
-              </div>
+              </article>
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -865,7 +686,7 @@
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
   <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
       </div>
@@ -877,16 +698,15 @@
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -907,24 +727,22 @@
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
-    <i class="iconfont icon-love"></i>
-    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
-    <br>
-    </div>
     
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
   <div class="statistics">
     
     
@@ -951,337 +769,153 @@
   </div>
 
 
-    
+  
 
-	
-    
+
   
-  
-  <!-- 网站运行时间的设置 -->
-  <script src="/js/HidenMath.js"></script>
-  <script>
-    var now = new Date();
-    function createtime() {
-      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
-      now.setTime(now.getTime() + 250);
-      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
-      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
-      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
-      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
-      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
-      document.getElementById("timeDate").innerHTML = dnum;
-      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
-    }
-    setInterval("createtime()", 250);
-  </script>
-  </div>
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  <script  src="/js/lazyload.js" ></script>
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
   
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '.post-content',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(response => response.json())
-          .then(({results}) => {
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(response => response.json())
-                .then((record) => {
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch(error => {
-          console.error('LeanCloud Counter Error', error);
-          reject(error);
-        });
-      })
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
-        }
-      }
-    }
-
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          resolve(res);
-        }).catch(error => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true'
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/ds_02_ExchangeSort/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
-    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
-    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "交换排序算法——冒泡排序、快速排序&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 80,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
       
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
   <script  src="/js/local-search.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
       }
-    );
+    })()
   </script>
 
 
 
 
 
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
 
 
 
@@ -1290,8 +924,24 @@
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

@@ -1,7 +1,7 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -19,22 +19,33 @@
   <meta name="keywords" content="">
   <title>Redis的简单用法 - Colourso</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -42,6 +53,12 @@
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 5.3.0"></head>
 
 
@@ -136,8 +153,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -145,25 +168,28 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Redis的简单用法">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-05-11 20:31">
-      星期一, 五月 11日 2020, 8:31 晚上
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-05-11 20:31" pubdate>
+        2020年5月11日 晚上
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
@@ -180,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      40
+      56
        分钟
     </span>
   
@@ -189,9 +215,9 @@
   
     
       <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
         <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-post-views"></span> 次
+        <span id="leancloud-page-views"></span> 次
       </span>
     
   
@@ -210,15 +236,23 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Redis的简单用法</h1>
             
-            <article class="markdown-body">
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年5月17日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
               <p><strong>概览</strong>：Redis介绍、Redis应用场景、Redis的安装与配置、Redis常用语法。</p>
 <a id="more"></a>
 <blockquote>
@@ -253,61 +287,34 @@
 <li><strong>分布式锁</strong>：利用Redis可以跨多台服务器实现分布式锁(类似于线程锁，但是能够被多台机器上的多个线程或进程共享)的功能，用于实现一个阻塞式操作。</li>
 <li><strong>消息队列</strong>：消息队列和高速缓存一样, 是一个大型网站不可缺少的基础服务，可以实现业务解耦和非实时业务削峰等特性。</li>
 </ol>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre><code class="hljs shell">wget http://download.redis.io/releases/redis-6.0.1.tar.gz
-
-tar -zxvf redis-6.0.1.tar.gz
-
-cd redis-6.0.1/
-
-sudo make &amp;&amp; sudo make install</code></pre>
-<h2 id="Redis的配置"><a href="#Redis的配置" class="headerlink" title="Redis的配置"></a>Redis的配置</h2><pre><code class="hljs shell">cd redis-6.0.1/
-
-vim redis.conf #配置文件</code></pre>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">wget http://download.redis.io/releases/redis-6.0.1.tar.gz<br><br>tar -zxvf redis-6.0.1.tar.gz<br><br>cd redis-6.0.1/<br><br>sudo make &amp;&amp; sudo make install<br></code></pre></td></tr></table></figure>
+<h2 id="Redis的配置"><a href="#Redis的配置" class="headerlink" title="Redis的配置"></a>Redis的配置</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd redis-6.0.1/<br><br>vim redis.conf #配置文件<br></code></pre></td></tr></table></figure>
 <p>1.配置Redis服务绑定到指定的IP地址和端口</p>
-<pre><code class="hljs apache"><span class="hljs-attribute">bind</span> <span class="hljs-number">127.0.0.1</span>
-<span class="hljs-attribute">port</span> <span class="hljs-number">6379</span></code></pre>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">bind</span> <span class="hljs-number">127.0.0.1</span><br><span class="hljs-attribute">port</span> <span class="hljs-number">6379</span><br></code></pre></td></tr></table></figure>
 <p>2.配置后台运行（以守护进程方式运行）</p>
-<pre><code class="hljs nginx"><span class="hljs-attribute">daemonize</span> <span class="hljs-literal">yes</span></code></pre>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">daemonize</span> <span class="hljs-literal">yes</span><br></code></pre></td></tr></table></figure>
 <p>3.设置日志级别，可选值（debug：调试，verbose：详细，notice：通知，warning：警告）</p>
-<pre><code class="hljs aspectj">loglevel <span class="hljs-keyword">warning</span></code></pre>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs aspectj">loglevel <span class="hljs-keyword">warning</span><br></code></pre></td></tr></table></figure>
 <p>4.配置数据库的数量，默认16个</p>
-<pre><code class="hljs apache"><span class="hljs-attribute">databases</span> <span class="hljs-number">16</span></code></pre>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">databases</span> <span class="hljs-number">16</span><br></code></pre></td></tr></table></figure>
 <p>5.配置数据写入规则</p>
-<pre><code class="hljs apache"><span class="hljs-attribute">save</span> <span class="hljs-number">900</span> <span class="hljs-number">1</span>		# <span class="hljs-number">900</span>秒内修改过<span class="hljs-number">1</span>个key，写入一次数据库
-<span class="hljs-attribute">save</span> <span class="hljs-number">300</span> <span class="hljs-number">10</span>		# <span class="hljs-number">300</span>秒内修改过<span class="hljs-number">10</span>个key，写入一次数据库
-<span class="hljs-attribute">save</span> <span class="hljs-number">60</span> <span class="hljs-number">1000</span>	# <span class="hljs-number">60</span>秒内修改过<span class="hljs-number">10000</span>个key，写入一次数据库</code></pre>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">save</span> <span class="hljs-number">900</span> <span class="hljs-number">1</span>		# <span class="hljs-number">900</span>秒内修改过<span class="hljs-number">1</span>个key，写入一次数据库<br><span class="hljs-attribute">save</span> <span class="hljs-number">300</span> <span class="hljs-number">10</span>		# <span class="hljs-number">300</span>秒内修改过<span class="hljs-number">10</span>个key，写入一次数据库<br><span class="hljs-attribute">save</span> <span class="hljs-number">60</span> <span class="hljs-number">1000</span>	# <span class="hljs-number">60</span>秒内修改过<span class="hljs-number">10000</span>个key，写入一次数据库<br></code></pre></td></tr></table></figure>
 <p>6.配置Redis的持久化机制 - RDB.</p>
-<pre><code class="hljs yaml"><span class="hljs-string">rdbcompression</span> <span class="hljs-literal">yes</span>		<span class="hljs-comment"># 压缩RDB文件</span>
-<span class="hljs-string">rdbchecksum</span> <span class="hljs-literal">yes</span>			<span class="hljs-comment"># 对RDB文件进行校验</span>
-<span class="hljs-string">dbfilename</span> <span class="hljs-string">dump.rdb</span>		<span class="hljs-comment"># RDB数据库文件的文件名</span>
-<span class="hljs-string">dir</span> <span class="hljs-string">/var/local/redis</span>	<span class="hljs-comment"># RDB文件保存的目录</span></code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">rdbcompression</span> <span class="hljs-literal">yes</span>		<span class="hljs-comment"># 压缩RDB文件</span><br><span class="hljs-string">rdbchecksum</span> <span class="hljs-literal">yes</span>			<span class="hljs-comment"># 对RDB文件进行校验</span><br><span class="hljs-string">dbfilename</span> <span class="hljs-string">dump.rdb</span>		<span class="hljs-comment"># RDB数据库文件的文件名</span><br><span class="hljs-string">dir</span> <span class="hljs-string">/var/local/redis</span>	<span class="hljs-comment"># RDB文件保存的目录</span><br></code></pre></td></tr></table></figure>
 <p>7.配置Redis的持久化机制 - AOF.</p>
-<pre><code class="hljs nginx"><span class="hljs-attribute">appendonly</span> <span class="hljs-literal">no</span>
-appendfilename <span class="hljs-string">&quot;appendonly.aof&quot;</span></code></pre>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">appendonly</span> <span class="hljs-literal">no</span><br>appendfilename <span class="hljs-string">&quot;appendonly.aof&quot;</span><br></code></pre></td></tr></table></figure>
 <p>8.配置Redis的主从复制，通过主从复制可以实现读写分离</p>
-<pre><code class="hljs armasm"><span class="hljs-symbol">replicaof</span> 主机<span class="hljs-built_in">IP</span>地址 主机端口</code></pre>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">replicaof</span> 主机<span class="hljs-built_in">IP</span>地址 主机端口<br></code></pre></td></tr></table></figure>
 <p>9.配置慢查询</p>
-<pre><code class="hljs livecodeserver">slowlog-<span class="hljs-built_in">log</span>-slower-than <span class="hljs-number">10000</span> 	<span class="hljs-comment"># 一次操作超过10000毫秒被视作一次慢查询</span>
-slowlog-<span class="hljs-built_in">max</span>-<span class="hljs-built_in">len</span> <span class="hljs-number">128</span>				<span class="hljs-comment"># 最多记录128次慢查询</span></code></pre>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">slowlog-<span class="hljs-built_in">log</span>-slower-than <span class="hljs-number">10000</span> 	<span class="hljs-comment"># 一次操作超过10000毫秒被视作一次慢查询</span><br>slowlog-<span class="hljs-built_in">max</span>-<span class="hljs-built_in">len</span> <span class="hljs-number">128</span>				<span class="hljs-comment"># 最多记录128次慢查询</span><br></code></pre></td></tr></table></figure>
 <p>修改完配置项目后，建议将配置项目拷贝到一个地方，记住路径！</p>
-<h3 id="Redis启动"><a href="#Redis启动" class="headerlink" title="Redis启动"></a>Redis启动</h3><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 服务端启动</span>
-redis-server
-
-redis-server /usr/local/etc/redis.conf #指定配置项，建议这种方式
-
-<span class="hljs-meta">#</span><span class="bash"> 客户端启动</span>
-redis-cli
-
-redis-cli -h localhost -p 6379</code></pre>
-<h3 id="linux查询进程"><a href="#linux查询进程" class="headerlink" title="linux查询进程"></a>linux查询进程</h3><pre><code class="hljs shell">ps aux|grep redis</code></pre>
+<h3 id="Redis启动"><a href="#Redis启动" class="headerlink" title="Redis启动"></a>Redis启动</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 服务端启动</span><br>redis-server<br><br>redis-server /usr/local/etc/redis.conf #指定配置项，建议这种方式<br><br><span class="hljs-meta">#</span><span class="bash"> 客户端启动</span><br>redis-cli<br><br>redis-cli -h localhost -p 6379<br></code></pre></td></tr></table></figure>
+<h3 id="linux查询进程"><a href="#linux查询进程" class="headerlink" title="linux查询进程"></a>linux查询进程</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ps aux|grep redis<br></code></pre></td></tr></table></figure>
 <h2 id="Redis持久化"><a href="#Redis持久化" class="headerlink" title="Redis持久化"></a>Redis持久化</h2><p>Redis运行时，所有数据都保存在内存中，进程结束以后，<strong>会将数据写入硬盘中</strong>，启动Redis时，会读取硬盘中的内容，并将内容全部加载到内存中(会大量占用内存)。</p>
 <p>Redis持久化两种方式：</p>
 <ul>
 <li><p>RDB方式：默认的方式，对内存中的数据进行镜像，并以二进制的形式保存到<code>dump.rdb</code>文件中，会根据配置文件中的填写的时间节点对文件进行持久化。</p>
-<pre><code class="hljs apache"><span class="hljs-comment"># 这个就是时间节点</span>
-<span class="hljs-attribute">save</span> <span class="hljs-number">900</span> <span class="hljs-number">1</span>		# <span class="hljs-number">900</span>秒内修改过<span class="hljs-number">1</span>个key，写入一次数据库
-<span class="hljs-attribute">save</span> <span class="hljs-number">300</span> <span class="hljs-number">10</span>		# <span class="hljs-number">300</span>秒内修改过<span class="hljs-number">10</span>个key，写入一次数据库
-<span class="hljs-attribute">save</span> <span class="hljs-number">60</span> <span class="hljs-number">1000</span>	# <span class="hljs-number">60</span>秒内修改过<span class="hljs-number">10000</span>个key，写入一次数据库</code></pre>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># 这个就是时间节点</span><br><span class="hljs-attribute">save</span> <span class="hljs-number">900</span> <span class="hljs-number">1</span>		# <span class="hljs-number">900</span>秒内修改过<span class="hljs-number">1</span>个key，写入一次数据库<br><span class="hljs-attribute">save</span> <span class="hljs-number">300</span> <span class="hljs-number">10</span>		# <span class="hljs-number">300</span>秒内修改过<span class="hljs-number">10</span>个key，写入一次数据库<br><span class="hljs-attribute">save</span> <span class="hljs-number">60</span> <span class="hljs-number">1000</span>	# <span class="hljs-number">60</span>秒内修改过<span class="hljs-number">10000</span>个key，写入一次数据库<br></code></pre></td></tr></table></figure>
 <ul>
 <li>优点：速度快，直接镜像内存中的数据，文件小。</li>
 <li>缺点：数据可能会丢失，在两次保存间隔内的数据，有可能会丢失。</li>
@@ -323,58 +330,7 @@ redis-cli -h localhost -p 6379</code></pre>
 </ul>
 </li>
 </ul>
-<h2 id="Redis字符串"><a href="#Redis字符串" class="headerlink" title="Redis字符串"></a>Redis字符串</h2><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"><span class="hljs-built_in">set</span> key values [ex seconds|px millinsecond]</span>
-set name zhnagsan 	# &quot;name&#x27;:&quot;zhangsan&quot;
-
-set name colourso 	# &quot;name&quot;:&quot;colourso&quot; 会覆盖上一条
-
-127.0.0.1:6379&gt; setnx name wangwu # setnx 如果key存在则不进行操作
-(integer) 0
-
-127.0.0.1:6379&gt; get name
-&quot;colourso&quot;
-
-127.0.0.1:6379&gt; strlen name # 获取key对应value的长度
-(integer) 8
----
-127.0.0.1:6379&gt; set x 23 # 虽然存储的是字符串但是能够像数字一样操作
-
-127.0.0.1:6379&gt; get x
-&quot;23&quot;
----
-127.0.0.1:6379&gt; keys * # 获取所有的key
-1) &quot;name&quot;
-2) &quot;x&quot;
----
-127.0.0.1:6379&gt; set keywords IOU ex 20 # ex后接秒数，表示存在时间
-
-127.0.0.1:6379&gt; get keywords
-&quot;IOU&quot;
-
-127.0.0.1:6379&gt; ttl keywords # ttl 可查看过期剩余时间
-(integer) 12				 # ttl查询结果为-1表示永不过期
-
---- 等待15秒后
-127.0.0.1:6379&gt; get keywords
-(nil)
-
----
-127.0.0.1:6379&gt; mset p 10 q 30 #一次设置多个值
----
-127.0.0.1:6379&gt; set nu 1
-
-127.0.0.1:6379&gt; incr nu
-(integer) 2
-127.0.0.1:6379&gt; set nn 1.1
-
-127.0.0.1:6379&gt; incr nn
-(error) ERR value is not an integer or out of range
-
-127.0.0.1:6379&gt; incrby nu 11
-(integer) 13
-
-127.0.0.1:6379&gt; decr nu
-(integer) 12</code></pre>
+<h2 id="Redis字符串"><a href="#Redis字符串" class="headerlink" title="Redis字符串"></a>Redis字符串</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"><span class="hljs-built_in">set</span> key values [ex seconds|px millinsecond]</span><br>set name zhnagsan 	# &quot;name&#x27;:&quot;zhangsan&quot;<br><br>set name colourso 	# &quot;name&quot;:&quot;colourso&quot; 会覆盖上一条<br><br>127.0.0.1:6379&gt; setnx name wangwu # setnx 如果key存在则不进行操作<br>(integer) 0<br><br>127.0.0.1:6379&gt; get name<br>&quot;colourso&quot;<br><br>127.0.0.1:6379&gt; strlen name # 获取key对应value的长度<br>(integer) 8<br>---<br>127.0.0.1:6379&gt; set x 23 # 虽然存储的是字符串但是能够像数字一样操作<br><br>127.0.0.1:6379&gt; get x<br>&quot;23&quot;<br>---<br>127.0.0.1:6379&gt; keys * # 获取所有的key<br>1) &quot;name&quot;<br>2) &quot;x&quot;<br>---<br>127.0.0.1:6379&gt; set keywords IOU ex 20 # ex后接秒数，表示存在时间<br><br>127.0.0.1:6379&gt; get keywords<br>&quot;IOU&quot;<br><br>127.0.0.1:6379&gt; ttl keywords # ttl 可查看过期剩余时间<br>(integer) 12				 # ttl查询结果为-1表示永不过期<br><br>--- 等待15秒后<br>127.0.0.1:6379&gt; get keywords<br>(nil)<br><br>---<br>127.0.0.1:6379&gt; mset p 10 q 30 #一次设置多个值<br>---<br>127.0.0.1:6379&gt; set nu 1<br><br>127.0.0.1:6379&gt; incr nu<br>(integer) 2<br>127.0.0.1:6379&gt; set nn 1.1<br><br>127.0.0.1:6379&gt; incr nn<br>(error) ERR value is not an integer or out of range<br><br>127.0.0.1:6379&gt; incrby nu 11<br>(integer) 13<br><br>127.0.0.1:6379&gt; decr nu<br>(integer) 12<br></code></pre></td></tr></table></figure>
 <ul>
 <li>set ：设置key value</li>
 <li>setnx ： 如果key不存在就设置</li>
@@ -386,50 +342,7 @@ set name colourso 	# &quot;name&quot;:&quot;colourso&quot; 会覆盖上一条
 <li>incrby：key对应的value值增加一定的量</li>
 <li>decr：减一</li>
 </ul>
-<h2 id="Redis哈希表"><a href="#Redis哈希表" class="headerlink" title="Redis哈希表"></a>Redis哈希表</h2><pre><code class="hljs mysql">127.0.0.1:6379&gt; hset dog name kelly color white
-(integer) 2
-
-127.0.0.1:6379&gt; hget dog name
-&quot;kelly&quot;
-
-127.0.0.1:6379&gt; hset dog age 3 gender female #继续向dog中添加
-(integer) 2
-
-127.0.0.1:6379&gt; HEXISTS dog color #查看dog是否有color属性，有为1，没有为0
-(integer) 1
-
-127.0.0.1:6379&gt; HEXISTS dog height
-(integer) 0
-
-127.0.0.1:6379&gt; hdel dog gender #删除一个属性
-(integer) 1
-
-127.0.0.1:6379&gt; hget dog gender
-(nil)
-
-127.0.0.1:6379&gt; hlen dog #查看有几个属性
-(integer) 3
-
-127.0.0.1:6379&gt; hstrlen dog name #查看属性的具体长度
-(integer) 5
-
-127.0.0.1:6379&gt; hkeys dog #拿到dog所有的属性名
-1) &quot;name&quot;
-2) &quot;color&quot;
-3) &quot;age&quot;
-
-127.0.0.1:6379&gt; hvals dog #拿到dog所有的属性值
-1) &quot;kelly&quot;
-2) &quot;white&quot;
-3) &quot;3&quot;
-
-127.0.0.1:6379&gt; hgetall dog #拿到全部
-1) &quot;name&quot;
-2) &quot;kelly&quot;
-3) &quot;color&quot;
-4) &quot;white&quot;
-5) &quot;age&quot;
-6) &quot;3&quot;</code></pre>
+<h2 id="Redis哈希表"><a href="#Redis哈希表" class="headerlink" title="Redis哈希表"></a>Redis哈希表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs mysql">127.0.0.1:6379&gt; hset dog name kelly color white<br>(integer) 2<br><br>127.0.0.1:6379&gt; hget dog name<br>&quot;kelly&quot;<br><br>127.0.0.1:6379&gt; hset dog age 3 gender female #继续向dog中添加<br>(integer) 2<br><br>127.0.0.1:6379&gt; HEXISTS dog color #查看dog是否有color属性，有为1，没有为0<br>(integer) 1<br><br>127.0.0.1:6379&gt; HEXISTS dog height<br>(integer) 0<br><br>127.0.0.1:6379&gt; hdel dog gender #删除一个属性<br>(integer) 1<br><br>127.0.0.1:6379&gt; hget dog gender<br>(nil)<br><br>127.0.0.1:6379&gt; hlen dog #查看有几个属性<br>(integer) 3<br><br>127.0.0.1:6379&gt; hstrlen dog name #查看属性的具体长度<br>(integer) 5<br><br>127.0.0.1:6379&gt; hkeys dog #拿到dog所有的属性名<br>1) &quot;name&quot;<br>2) &quot;color&quot;<br>3) &quot;age&quot;<br><br>127.0.0.1:6379&gt; hvals dog #拿到dog所有的属性值<br>1) &quot;kelly&quot;<br>2) &quot;white&quot;<br>3) &quot;3&quot;<br><br>127.0.0.1:6379&gt; hgetall dog #拿到全部<br>1) &quot;name&quot;<br>2) &quot;kelly&quot;<br>3) &quot;color&quot;<br>4) &quot;white&quot;<br>5) &quot;age&quot;<br>6) &quot;3&quot;<br></code></pre></td></tr></table></figure>
 <ul>
 <li><p>hset key [field value]：创建一个hash形式大致如下：</p>
 <p>“dog”:{</p>
@@ -441,128 +354,13 @@ set name colourso 	# &quot;name&quot;:&quot;colourso&quot; 会覆盖上一条
 </li>
 </ul>
 <h2 id="Redis列表"><a href="#Redis列表" class="headerlink" title="Redis列表"></a>Redis列表</h2><p>Redis中的列表可以实现类似于队列与栈的结构。</p>
-<pre><code class="hljs mysql">127.0.0.1:6379&gt; lpush names zhangsan lisi wangwu #依次往左插入数据！
-(integer) 3
-
-127.0.0.1:6379&gt; lrange names 0 -1 # 获取一个范围的元素，-1表示最后一个元素
-1) &quot;wangwu&quot;							# 按照顺序获得元素
-2) &quot;lisi&quot;
-3) &quot;zhangsan&quot;
-
-127.0.0.1:6379&gt; rpush english bob kelly tom kelly # 依次往右插入数据，列表值允许重复
-(integer) 4
-
-127.0.0.1:6379&gt; lrange english 0 -1	# 按照顺序获得元素
-1) &quot;bob&quot;
-2) &quot;kelly&quot;
-3) &quot;tom&quot;
-4) &quot;kelly&quot;
-
-127.0.0.1:6379&gt; lpop english # 取走最左侧数据，不再保留
-&quot;bob&quot;
-
-127.0.0.1:6379&gt; lrange english 0 -1 
-1) &quot;kelly&quot;
-2) &quot;tom&quot;
-3) &quot;kelly&quot;
-
-127.0.0.1:6379&gt; lset english 2 carry # 修改index对应的值，下标从0开始
-OK
-
-127.0.0.1:6379&gt; lrange english 0 -1
-1) &quot;kelly&quot;
-2) &quot;tom&quot;
-3) &quot;carry&quot;
-
-127.0.0.1:6379&gt; llen english #获取长度
-(integer) 3
-
-127.0.0.1:6379&gt; lindex english 1 # 获取下标对应的值
-&quot;tom&quot;</code></pre>
-<h2 id="Redis集合"><a href="#Redis集合" class="headerlink" title="Redis集合"></a>Redis集合</h2><pre><code class="hljs mysql">127.0.0.1:6379&gt; sadd player liubei guanyu zhangfei
-(integer) 3
-
-127.0.0.1:6379&gt; sadd player caocao sunquan # 往player集合中添加成员
-(integer) 2
-
-127.0.0.1:6379&gt; sismember player liubei 
-(integer) 1
-
-127.0.0.1:6379&gt; sismember player machao # 判断machao是都是集合Player的成员，是的话输出1，不是输出0
-(integer) 0
-
-127.0.0.1:6379&gt; srandmember player 3 #随机取三个成员
-1) &quot;caocao&quot;
-2) &quot;zhangfei&quot;
-3) &quot;sunquan&quot;
-
-127.0.0.1:6379&gt; smembers player #查看全部成员
-1) &quot;guanyu&quot;
-2) &quot;liubei&quot;
-3) &quot;caocao&quot;
-4) &quot;zhangfei&quot;
-5) &quot;sunquan&quot;
-
-127.0.0.1:6379&gt; sadd superplayer caocao liubei sunquan
-(integer) 3
-
-127.0.0.1:6379&gt; sdiff player superplayer # 返回player中与superplayer中不一样的部分
-1) &quot;guanyu&quot;
-2) &quot;zhangfei&quot;
-
-127.0.0.1:6379&gt; sunion player superplayer # 两个集合的并集
-1) &quot;guanyu&quot;
-2) &quot;liubei&quot;
-3) &quot;caocao&quot;
-4) &quot;zhangfei&quot;
-5) &quot;sunquan&quot;
-
-127.0.0.1:6379&gt; sinter player superplayer # 两个集合的交集
-1) &quot;liubei&quot;
-2) &quot;sunquan&quot;
-3) &quot;caocao&quot;</code></pre>
-<h2 id="Redis有序集合"><a href="#Redis有序集合" class="headerlink" title="Redis有序集合"></a>Redis有序集合</h2><pre><code class="hljs mysql">127.0.0.1:6379&gt; zadd score 100 liubang 90 xiangyu 80 hanxin # score是key
-(integer) 3
-
-127.0.0.1:6379&gt; zrange score 0 -1 # 顺序输出，由小到大
-1) &quot;hanxin&quot;
-2) &quot;xiangyu&quot;
-3) &quot;liubang&quot;
-
-127.0.0.1:6379&gt; zrank score xiangyu # 查看xiangyu的排序
-(integer) 1
-
-127.0.0.1:6379&gt; ZREVRANGE score 0 -1 # 逆序输出
-1) &quot;liubang&quot;
-2) &quot;xiangyu&quot;
-3) &quot;hanxin&quot;
-
-127.0.0.1:6379&gt; ZREVRANGE score 0 -1 withscores # 逆序输出，并打印数据
-1) &quot;liubang&quot;
-2) &quot;100&quot;
-3) &quot;xiangyu&quot;
-4) &quot;90&quot;
-5) &quot;hanxin&quot;
-6) &quot;80&quot;
-
-127.0.0.1:6379&gt; zincrby score 5 xiangyu #给xiangyu增加5
-&quot;95&quot;</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs mysql">127.0.0.1:6379&gt; lpush names zhangsan lisi wangwu #依次往左插入数据！<br>(integer) 3<br><br>127.0.0.1:6379&gt; lrange names 0 -1 # 获取一个范围的元素，-1表示最后一个元素<br>1) &quot;wangwu&quot;							# 按照顺序获得元素<br>2) &quot;lisi&quot;<br>3) &quot;zhangsan&quot;<br><br>127.0.0.1:6379&gt; rpush english bob kelly tom kelly # 依次往右插入数据，列表值允许重复<br>(integer) 4<br><br>127.0.0.1:6379&gt; lrange english 0 -1	# 按照顺序获得元素<br>1) &quot;bob&quot;<br>2) &quot;kelly&quot;<br>3) &quot;tom&quot;<br>4) &quot;kelly&quot;<br><br>127.0.0.1:6379&gt; lpop english # 取走最左侧数据，不再保留<br>&quot;bob&quot;<br><br>127.0.0.1:6379&gt; lrange english 0 -1 <br>1) &quot;kelly&quot;<br>2) &quot;tom&quot;<br>3) &quot;kelly&quot;<br><br>127.0.0.1:6379&gt; lset english 2 carry # 修改index对应的值，下标从0开始<br>OK<br><br>127.0.0.1:6379&gt; lrange english 0 -1<br>1) &quot;kelly&quot;<br>2) &quot;tom&quot;<br>3) &quot;carry&quot;<br><br>127.0.0.1:6379&gt; llen english #获取长度<br>(integer) 3<br><br>127.0.0.1:6379&gt; lindex english 1 # 获取下标对应的值<br>&quot;tom&quot;<br></code></pre></td></tr></table></figure>
+<h2 id="Redis集合"><a href="#Redis集合" class="headerlink" title="Redis集合"></a>Redis集合</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs mysql">127.0.0.1:6379&gt; sadd player liubei guanyu zhangfei<br>(integer) 3<br><br>127.0.0.1:6379&gt; sadd player caocao sunquan # 往player集合中添加成员<br>(integer) 2<br><br>127.0.0.1:6379&gt; sismember player liubei <br>(integer) 1<br><br>127.0.0.1:6379&gt; sismember player machao # 判断machao是都是集合Player的成员，是的话输出1，不是输出0<br>(integer) 0<br><br>127.0.0.1:6379&gt; srandmember player 3 #随机取三个成员<br>1) &quot;caocao&quot;<br>2) &quot;zhangfei&quot;<br>3) &quot;sunquan&quot;<br><br>127.0.0.1:6379&gt; smembers player #查看全部成员<br>1) &quot;guanyu&quot;<br>2) &quot;liubei&quot;<br>3) &quot;caocao&quot;<br>4) &quot;zhangfei&quot;<br>5) &quot;sunquan&quot;<br><br>127.0.0.1:6379&gt; sadd superplayer caocao liubei sunquan<br>(integer) 3<br><br>127.0.0.1:6379&gt; sdiff player superplayer # 返回player中与superplayer中不一样的部分<br>1) &quot;guanyu&quot;<br>2) &quot;zhangfei&quot;<br><br>127.0.0.1:6379&gt; sunion player superplayer # 两个集合的并集<br>1) &quot;guanyu&quot;<br>2) &quot;liubei&quot;<br>3) &quot;caocao&quot;<br>4) &quot;zhangfei&quot;<br>5) &quot;sunquan&quot;<br><br>127.0.0.1:6379&gt; sinter player superplayer # 两个集合的交集<br>1) &quot;liubei&quot;<br>2) &quot;sunquan&quot;<br>3) &quot;caocao&quot;<br></code></pre></td></tr></table></figure>
+<h2 id="Redis有序集合"><a href="#Redis有序集合" class="headerlink" title="Redis有序集合"></a>Redis有序集合</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs mysql">127.0.0.1:6379&gt; zadd score 100 liubang 90 xiangyu 80 hanxin # score是key<br>(integer) 3<br><br>127.0.0.1:6379&gt; zrange score 0 -1 # 顺序输出，由小到大<br>1) &quot;hanxin&quot;<br>2) &quot;xiangyu&quot;<br>3) &quot;liubang&quot;<br><br>127.0.0.1:6379&gt; zrank score xiangyu # 查看xiangyu的排序<br>(integer) 1<br><br>127.0.0.1:6379&gt; ZREVRANGE score 0 -1 # 逆序输出<br>1) &quot;liubang&quot;<br>2) &quot;xiangyu&quot;<br>3) &quot;hanxin&quot;<br><br>127.0.0.1:6379&gt; ZREVRANGE score 0 -1 withscores # 逆序输出，并打印数据<br>1) &quot;liubang&quot;<br>2) &quot;100&quot;<br>3) &quot;xiangyu&quot;<br>4) &quot;90&quot;<br>5) &quot;hanxin&quot;<br>6) &quot;80&quot;<br><br>127.0.0.1:6379&gt; zincrby score 5 xiangyu #给xiangyu增加5<br>&quot;95&quot;<br></code></pre></td></tr></table></figure>
 <h2 id="在Python中安装与使用Redis"><a href="#在Python中安装与使用Redis" class="headerlink" title="在Python中安装与使用Redis"></a>在Python中安装与使用Redis</h2><p>安装：<code>pip3 install redis</code></p>
-<pre><code class="hljs python"><span class="hljs-keyword">import</span> redis
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> redis<br><br>client = redis.Redis()<span class="hljs-comment">#不写参数就使用其默认配置</span><br><br>client.get(<span class="hljs-string">&quot;name&quot;</span>)<br><span class="hljs-comment"># b&#x27;colourso&#x27;</span><br><span class="hljs-comment"># b表示为二进制</span><br><br>client.hget(<span class="hljs-string">&quot;dog&quot;</span>,<span class="hljs-string">&quot;name&quot;</span>)<br><span class="hljs-comment"># &#123;b&#x27;name&#x27;: b&#x27;kelly&#x27;, b&#x27;color&#x27;: b&#x27;white&#x27;, b&#x27;age&#x27;: b&#x27;3&#x27;&#125;</span><br><br>client.zrange(<span class="hljs-string">&quot;score&quot;</span>,<span class="hljs-number">0</span>,-<span class="hljs-number">1</span>)<br><span class="hljs-comment"># [b&#x27;hanxin&#x27;, b&#x27;xiangyu&#x27;, b&#x27;liubang&#x27;]</span><br></code></pre></td></tr></table></figure>
 
-client = redis.Redis()<span class="hljs-comment">#不写参数就使用其默认配置</span>
-
-client.get(<span class="hljs-string">&quot;name&quot;</span>)
-<span class="hljs-comment"># b&#x27;colourso&#x27;</span>
-<span class="hljs-comment"># b表示为二进制</span>
-
-client.hget(<span class="hljs-string">&quot;dog&quot;</span>,<span class="hljs-string">&quot;name&quot;</span>)
-<span class="hljs-comment"># &#123;b&#x27;name&#x27;: b&#x27;kelly&#x27;, b&#x27;color&#x27;: b&#x27;white&#x27;, b&#x27;age&#x27;: b&#x27;3&#x27;&#125;</span>
-
-client.zrange(<span class="hljs-string">&quot;score&quot;</span>,<span class="hljs-number">0</span>,-<span class="hljs-number">1</span>)
-<span class="hljs-comment"># [b&#x27;hanxin&#x27;, b&#x27;xiangyu&#x27;, b&#x27;liubang&#x27;]</span></code></pre>
-
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -591,8 +389,8 @@ client.zrange(<span class="hljs-string">&quot;score&quot;</span>,<span class="hl
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/mysql-use/">
@@ -601,8 +399,8 @@ client.zrange(<span class="hljs-string">&quot;score&quot;</span>,<span class="hl
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/CSS-learn/">
@@ -611,47 +409,45 @@ client.zrange(<span class="hljs-string">&quot;score&quot;</span>,<span class="hl
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
               <!-- Comments -->
-              <div class="comments" id="comments">
+              <article class="comments" id="comments">
                 
                 
   <div id="vcomments"></div>
-  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
-
   <script type="text/javascript">
-    var oldLoadVa = window.onload;
-    window.onload = function () {
-      oldLoadVa && oldLoadVa();
-
-      new Valine({
-        el: "#vcomments",
-        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
-        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
-        placeholder: "说点什么",
-        path: window.location.pathname,
-        avatar: "wavatar",
-        meta: ["nick","mail","link"],
-        pageSize: "10",
-        lang: "zh-CN",
-        highlight: false,
-        recordIP: false,
-        serverURLs: "",
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
       });
-    };
+    });
   </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
 
 
-              </div>
+              </article>
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -659,7 +455,7 @@ client.zrange(<span class="hljs-string">&quot;score&quot;</span>,<span class="hl
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
   <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
       </div>
@@ -671,16 +467,15 @@ client.zrange(<span class="hljs-string">&quot;score&quot;</span>,<span class="hl
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -701,24 +496,22 @@ client.zrange(<span class="hljs-string">&quot;score&quot;</span>,<span class="hl
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
-    <i class="iconfont icon-love"></i>
-    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
-    <br>
-    </div>
     
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
   <div class="statistics">
     
     
@@ -745,337 +538,153 @@ client.zrange(<span class="hljs-string">&quot;score&quot;</span>,<span class="hl
   </div>
 
 
-    
+  
 
-	
-    
+
   
-  
-  <!-- 网站运行时间的设置 -->
-  <script src="/js/HidenMath.js"></script>
-  <script>
-    var now = new Date();
-    function createtime() {
-      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
-      now.setTime(now.getTime() + 250);
-      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
-      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
-      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
-      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
-      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
-      document.getElementById("timeDate").innerHTML = dnum;
-      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
-    }
-    setInterval("createtime()", 250);
-  </script>
-  </div>
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  <script  src="/js/lazyload.js" ></script>
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
   
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '.post-content',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(response => response.json())
-          .then(({results}) => {
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(response => response.json())
-                .then((record) => {
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch(error => {
-          console.error('LeanCloud Counter Error', error);
-          reject(error);
-        });
-      })
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
-        }
-      }
-    }
-
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          resolve(res);
-        }).catch(error => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true'
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/redis/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
-    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
-    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "Redis的简单用法&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 80,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
       
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
   <script  src="/js/local-search.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
       }
-    );
+    })()
   </script>
 
 
 
 
 
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
 
 
 
@@ -1084,8 +693,24 @@ client.zrange(<span class="hljs-string">&quot;score&quot;</span>,<span class="hl
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

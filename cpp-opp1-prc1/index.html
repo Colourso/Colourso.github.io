@@ -1,7 +1,7 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -19,22 +19,33 @@
   <meta name="keywords" content="">
   <title>C++面向对象练习（一）—— 各种函数执行顺序 - Colourso</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -42,6 +53,12 @@
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 5.3.0"></head>
 
 
@@ -136,8 +153,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -145,25 +168,28 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="C++面向对象练习（一）—— 各种函数执行顺序">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-04-13 17:19">
-      星期一, 四月 13日 2020, 5:19 下午
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-04-13 17:19" pubdate>
+        2020年4月13日 下午
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
@@ -180,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      23
+      34
        分钟
     </span>
   
@@ -189,9 +215,9 @@
   
     
       <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
         <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-post-views"></span> 次
+        <span id="leancloud-page-views"></span> 次
       </span>
     
   
@@ -210,15 +236,23 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">C++面向对象练习（一）—— 各种函数执行顺序</h1>
             
-            <article class="markdown-body">
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年4月14日 上午
+                
+              </p>
+            
+            <div class="markdown-body">
               <p><strong>概览</strong>：C++面向对象练习：构造函数、拷贝构造函数、重载赋值运算符以及析构函数的执行顺序。</p>
 <a id="more"></a>
 
@@ -227,94 +261,7 @@
 <p>代码全部运行于VS2019</p>
 <p>博客后续会持续更新补充。</p>
 </blockquote>
-<h2 id="各个函数执行顺序"><a href="#各个函数执行顺序" class="headerlink" title="各个函数执行顺序"></a>各个函数执行顺序</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dog</span></span>
-<span class="hljs-class">&#123;</span>
-<span class="hljs-keyword">public</span>:
-    Dog() 
-    &#123;
-        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;默认构造函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    &#125;
-
-    Dog(<span class="hljs-keyword">int</span> age) :age(age) 
-    &#123;
-        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;有参构造函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    &#125;
-
-    Dog(<span class="hljs-keyword">const</span> Dog&amp; dog) :age(dog.age) 
-    &#123;
-        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;拷贝构造函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    &#125;
-
-    Dog&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> Dog&amp; dog)
-    &#123;
-        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;拷贝赋值运算&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span> == &amp;dog)<span class="hljs-comment">//自赋值</span>
-        	<span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;
-
-        <span class="hljs-keyword">this</span>-&gt;age = dog.age;
-        <span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;
-    &#125;
-
-    ~Dog() 
-    &#123;
-        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;析构函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    &#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">show</span><span class="hljs-params">()</span></span>
-<span class="hljs-function">    </span>&#123;
-        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;--  &quot;</span>&lt;&lt;<span class="hljs-keyword">this</span>-&gt;age &lt;&lt;<span class="hljs-string">&quot;  --&quot;</span>&lt;&lt; <span class="hljs-built_in">endl</span>;
-    &#125;
-
-<span class="hljs-keyword">private</span>:
-    <span class="hljs-keyword">int</span> age;
-&#125;;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test0</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;函数test0()开始执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    Dog d0;
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;函数test0()结束执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">(Dog dd)</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;函数test1()开始执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    dd.show();
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;函数test1()结束执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-&#125;
-
-<span class="hljs-function">Dog <span class="hljs-title">test2</span><span class="hljs-params">(Dog&amp; dd)</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;函数test2()开始执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    Dog tmp = dd;
-    tmp.show();
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;函数test2()结束执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    <span class="hljs-keyword">return</span> tmp;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;主函数main()开始执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    test0();
-
-    <span class="hljs-function">Dog <span class="hljs-title">d1</span><span class="hljs-params">(<span class="hljs-number">12</span>)</span></span>;
-
-    Dog d2 = d1;
-
-    Dog d3;
-
-    d3 = d1;
-    
-    test1(d3);
-
-    Dog d4;
-
-    d4 = test2(d1);
-
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;主函数main()结束执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+<h2 id="各个函数执行顺序"><a href="#各个函数执行顺序" class="headerlink" title="各个函数执行顺序"></a>各个函数执行顺序</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dog</span></span><br><span class="hljs-class">&#123;</span><br><span class="hljs-keyword">public</span>:<br>    Dog() <br>    &#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;默认构造函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br><br>    Dog(<span class="hljs-keyword">int</span> age) :age(age) <br>    &#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;有参构造函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br><br>    Dog(<span class="hljs-keyword">const</span> Dog&amp; dog) :age(dog.age) <br>    &#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;拷贝构造函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br><br>    Dog&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> Dog&amp; dog)<br>    &#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;拷贝赋值运算&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span> == &amp;dog)<span class="hljs-comment">//自赋值</span><br>        	<span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;<br><br>        <span class="hljs-keyword">this</span>-&gt;age = dog.age;<br>        <span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;<br>    &#125;<br><br>    ~Dog() <br>    &#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;析构函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">show</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;--  &quot;</span>&lt;&lt;<span class="hljs-keyword">this</span>-&gt;age &lt;&lt;<span class="hljs-string">&quot;  --&quot;</span>&lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-keyword">int</span> age;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test0</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;函数test0()开始执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    Dog d0;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;函数test0()结束执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">(Dog dd)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;函数test1()开始执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    dd.show();<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;函数test1()结束执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>&#125;<br><br><span class="hljs-function">Dog <span class="hljs-title">test2</span><span class="hljs-params">(Dog&amp; dd)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;函数test2()开始执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    Dog tmp = dd;<br>    tmp.show();<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;函数test2()结束执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-keyword">return</span> tmp;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;主函数main()开始执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    test0();<br><br>    <span class="hljs-function">Dog <span class="hljs-title">d1</span><span class="hljs-params">(<span class="hljs-number">12</span>)</span></span>;<br><br>    Dog d2 = d1;<br><br>    Dog d3;<br><br>    d3 = d1;<br>    <br>    test1(d3);<br><br>    Dog d4;<br><br>    d4 = test2(d1);<br><br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;主函数main()结束执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>执行结果如下：</p>
 <ul>
 <li><p>主函数main()开始执行</p>
@@ -373,28 +320,7 @@
 </li>
 </ul>
 <p><code>d4 = test2(d1)</code>在函数值返回时注意！</p>
-<pre><code class="hljs c++"><span class="hljs-function">Dog <span class="hljs-title">test3</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;函数test3()开始执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    <span class="hljs-function">Dog <span class="hljs-title">tmp</span><span class="hljs-params">(<span class="hljs-number">10</span>)</span></span>;
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;函数test3()结束执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    <span class="hljs-keyword">return</span> tmp;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;主函数main()开始执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-    Dog d5 = test3();
-    
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;--------&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-    test3();
-
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;主函数main()结束执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">Dog <span class="hljs-title">test3</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;函数test3()开始执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-function">Dog <span class="hljs-title">tmp</span><span class="hljs-params">(<span class="hljs-number">10</span>)</span></span>;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;函数test3()结束执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-keyword">return</span> tmp;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;主函数main()开始执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>    Dog d5 = test3();<br>    <br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;--------&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>    test3();<br><br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;主函数main()结束执行&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>结果为：</p>
 <ul>
 <li>主函数main()开始执行</li>
@@ -431,139 +357,9 @@
 <p>(4)在主函数中完成对该类的测试，主函数中定义一个长度为3的Student类的对象数组s,依次键入学号、成绩、姓名;注意，在输入每-一个学生的信息后，要判断所输入的学号是否已存在，如果存在，则要求重新输入该学生的信息。最后调用全局函数max(,得到成绩最高的学生信息并输出。</p>
 </blockquote>
 <p>参考链接： <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36426650/article/details/84647167">C++面向对象程序设计50道编程题（第21题）</a></p>
-<pre><code class="hljs c++"><span class="hljs-comment">/*测试环境： VS2019*/</span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">/*测试环境： VS2019*/</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span></span><br><span class="hljs-class">&#123;</span><br><span class="hljs-keyword">public</span>:<br>    Student();<br>    ~Student();<br><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Set</span><span class="hljs-params">(<span class="hljs-keyword">int</span> id, <span class="hljs-keyword">char</span>* na, <span class="hljs-keyword">int</span> sc)</span></span>; <span class="hljs-comment">//为数据成员赋值</span><br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">get_score</span><span class="hljs-params">()</span></span>;                    <span class="hljs-comment">//返回学生成绩</span><br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">get_num</span><span class="hljs-params">()</span></span>;                      <span class="hljs-comment">//返回学生学号</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">()</span></span>;                       <span class="hljs-comment">//输出学生的学号、姓名、成绩</span><br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-keyword">int</span> num;        <span class="hljs-comment">//学号</span><br>    <span class="hljs-keyword">int</span> score;      <span class="hljs-comment">//成绩</span><br>    <span class="hljs-keyword">char</span> name[<span class="hljs-number">9</span>];   <span class="hljs-comment">//姓名</span><br>&#125;;<br><br><span class="hljs-function">Student <span class="hljs-title">max</span><span class="hljs-params">(Student*, <span class="hljs-keyword">int</span> n)</span></span>;				<span class="hljs-comment">//求得并返回n个学生中成绩最高的</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">check_num</span><span class="hljs-params">(Student stu[], <span class="hljs-keyword">int</span> n,<span class="hljs-keyword">int</span> num)</span></span>;<span class="hljs-comment">//检查学号是否已经在stu中</span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    Student stu[<span class="hljs-number">3</span>];<br>    <span class="hljs-keyword">int</span> input_num;<br>    <span class="hljs-keyword">int</span> input_score;<br>    <span class="hljs-keyword">char</span> input_name[<span class="hljs-number">9</span>];<br>    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)<br>    &#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;请输入学生的学号&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>        <span class="hljs-built_in">cin</span> &gt;&gt; input_num;<br>        <span class="hljs-keyword">if</span> (check_num(stu, i, input_num) == <span class="hljs-number">1</span>)<br>        &#123;<br>            <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;已经存在，请重新输入&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>            <span class="hljs-keyword">continue</span>;<br>        &#125;<br>        <br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;请输入学生的成绩&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>        <span class="hljs-built_in">cin</span> &gt;&gt; input_score;<br><br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;请输入学生的姓名&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>        <span class="hljs-built_in">cin</span> &gt;&gt; input_name;<br><br>        stu[i].Set(input_num, input_name, input_score);<br><br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;信息录入成功&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>        i++;<br><br>        <span class="hljs-keyword">if</span> (i &gt;= <span class="hljs-number">3</span>) <span class="hljs-keyword">break</span>; <br>    &#125;<br><br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;学生信息如下：&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; i++)<br>    &#123;<br>        stu[i].print();<br>    &#125;<br><br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;成绩最高的学生信息如下：&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    max(stu, <span class="hljs-number">3</span>).print();<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br>Student::Student()<br>&#123;<br>    <span class="hljs-keyword">this</span>-&gt;num = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">this</span>-&gt;score = <span class="hljs-number">0</span>;<br>    strcpy_s(<span class="hljs-keyword">this</span>-&gt;name,<span class="hljs-string">&quot;&quot;</span>);<br>&#125;<br><br>Student::~Student()<br>&#123;<br><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Student::Set</span><span class="hljs-params">(<span class="hljs-keyword">int</span> id, <span class="hljs-keyword">char</span>* na, <span class="hljs-keyword">int</span> sc)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">this</span>-&gt;num = id;<br>    <span class="hljs-keyword">this</span>-&gt;score = sc;<br>    strcpy_s(<span class="hljs-keyword">this</span>-&gt;name, na);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Student::get_score</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;score;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Student::get_num</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;num;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Student::print</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Name: &quot;</span> &lt;&lt; <span class="hljs-keyword">this</span>-&gt;name &lt;&lt; <span class="hljs-string">&quot;: id:&quot;</span> &lt;&lt; <span class="hljs-keyword">this</span>-&gt;num<br>        &lt;&lt; <span class="hljs-string">&quot;, score: &quot;</span> &lt;&lt; <span class="hljs-keyword">this</span>-&gt;score &lt;&lt; <span class="hljs-built_in">endl</span>;<br>&#125;<br><br><span class="hljs-function">Student <span class="hljs-title">max</span><span class="hljs-params">(Student* stu, <span class="hljs-keyword">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> max = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">int</span> max_score = stu[<span class="hljs-number">0</span>].get_score();<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++)<br>    &#123;<br>        <span class="hljs-keyword">if</span> (max_score &lt; stu[i].get_score())<br>        &#123;<br>            max_score = stu[i].get_score();<br>            max = i;<br>        &#125;      <br>    &#125;<br>    <span class="hljs-keyword">return</span> stu[max];<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">check_num</span><span class="hljs-params">(Student stu[], <span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> num)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)<br>    &#123;<br>        <span class="hljs-keyword">if</span> (stu[i].get_num() == num)<br>        &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span></span>
-<span class="hljs-class">&#123;</span>
-<span class="hljs-keyword">public</span>:
-    Student();
-    ~Student();
-
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Set</span><span class="hljs-params">(<span class="hljs-keyword">int</span> id, <span class="hljs-keyword">char</span>* na, <span class="hljs-keyword">int</span> sc)</span></span>; <span class="hljs-comment">//为数据成员赋值</span>
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">get_score</span><span class="hljs-params">()</span></span>;                    <span class="hljs-comment">//返回学生成绩</span>
-    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">get_num</span><span class="hljs-params">()</span></span>;                      <span class="hljs-comment">//返回学生学号</span>
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">()</span></span>;                       <span class="hljs-comment">//输出学生的学号、姓名、成绩</span>
-
-<span class="hljs-keyword">private</span>:
-    <span class="hljs-keyword">int</span> num;        <span class="hljs-comment">//学号</span>
-    <span class="hljs-keyword">int</span> score;      <span class="hljs-comment">//成绩</span>
-    <span class="hljs-keyword">char</span> name[<span class="hljs-number">9</span>];   <span class="hljs-comment">//姓名</span>
-&#125;;
-
-<span class="hljs-function">Student <span class="hljs-title">max</span><span class="hljs-params">(Student*, <span class="hljs-keyword">int</span> n)</span></span>;				<span class="hljs-comment">//求得并返回n个学生中成绩最高的</span>
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">check_num</span><span class="hljs-params">(Student stu[], <span class="hljs-keyword">int</span> n,<span class="hljs-keyword">int</span> num)</span></span>;<span class="hljs-comment">//检查学号是否已经在stu中</span>
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    Student stu[<span class="hljs-number">3</span>];
-    <span class="hljs-keyword">int</span> input_num;
-    <span class="hljs-keyword">int</span> input_score;
-    <span class="hljs-keyword">char</span> input_name[<span class="hljs-number">9</span>];
-    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)
-    &#123;
-        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;请输入学生的学号&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-        <span class="hljs-built_in">cin</span> &gt;&gt; input_num;
-        <span class="hljs-keyword">if</span> (check_num(stu, i, input_num) == <span class="hljs-number">1</span>)
-        &#123;
-            <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;已经存在，请重新输入&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-            <span class="hljs-keyword">continue</span>;
-        &#125;
-        
-        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;请输入学生的成绩&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-        <span class="hljs-built_in">cin</span> &gt;&gt; input_score;
-
-        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;请输入学生的姓名&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-        <span class="hljs-built_in">cin</span> &gt;&gt; input_name;
-
-        stu[i].Set(input_num, input_name, input_score);
-
-        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;信息录入成功&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-        i++;
-
-        <span class="hljs-keyword">if</span> (i &gt;= <span class="hljs-number">3</span>) <span class="hljs-keyword">break</span>; 
-    &#125;
-
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;学生信息如下：&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; i++)
-    &#123;
-        stu[i].print();
-    &#125;
-
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;成绩最高的学生信息如下：&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    max(stu, <span class="hljs-number">3</span>).print();
-
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;
-
-Student::Student()
-&#123;
-    <span class="hljs-keyword">this</span>-&gt;num = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">this</span>-&gt;score = <span class="hljs-number">0</span>;
-    strcpy_s(<span class="hljs-keyword">this</span>-&gt;name,<span class="hljs-string">&quot;&quot;</span>);
-&#125;
-
-Student::~Student()
-&#123;
-
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Student::Set</span><span class="hljs-params">(<span class="hljs-keyword">int</span> id, <span class="hljs-keyword">char</span>* na, <span class="hljs-keyword">int</span> sc)</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-keyword">this</span>-&gt;num = id;
-    <span class="hljs-keyword">this</span>-&gt;score = sc;
-    strcpy_s(<span class="hljs-keyword">this</span>-&gt;name, na);
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Student::get_score</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;score;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Student::get_num</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;num;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Student::print</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Name: &quot;</span> &lt;&lt; <span class="hljs-keyword">this</span>-&gt;name &lt;&lt; <span class="hljs-string">&quot;: id:&quot;</span> &lt;&lt; <span class="hljs-keyword">this</span>-&gt;num
-        &lt;&lt; <span class="hljs-string">&quot;, score: &quot;</span> &lt;&lt; <span class="hljs-keyword">this</span>-&gt;score &lt;&lt; <span class="hljs-built_in">endl</span>;
-&#125;
-
-<span class="hljs-function">Student <span class="hljs-title">max</span><span class="hljs-params">(Student* stu, <span class="hljs-keyword">int</span> n)</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-keyword">int</span> max = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">int</span> max_score = stu[<span class="hljs-number">0</span>].get_score();
-
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++)
-    &#123;
-        <span class="hljs-keyword">if</span> (max_score &lt; stu[i].get_score())
-        &#123;
-            max_score = stu[i].get_score();
-            max = i;
-        &#125;      
-    &#125;
-    <span class="hljs-keyword">return</span> stu[max];
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">check_num</span><span class="hljs-params">(Student stu[], <span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> num)</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)
-    &#123;
-        <span class="hljs-keyword">if</span> (stu[i].get_num() == num)
-        &#123;
-            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
-        &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
-
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -588,8 +384,8 @@ Student::~Student()
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/cpp-opp1-prc2/">
@@ -598,8 +394,8 @@ Student::~Student()
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/cpp-opp1/">
@@ -608,47 +404,45 @@ Student::~Student()
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
               <!-- Comments -->
-              <div class="comments" id="comments">
+              <article class="comments" id="comments">
                 
                 
   <div id="vcomments"></div>
-  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
-
   <script type="text/javascript">
-    var oldLoadVa = window.onload;
-    window.onload = function () {
-      oldLoadVa && oldLoadVa();
-
-      new Valine({
-        el: "#vcomments",
-        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
-        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
-        placeholder: "说点什么",
-        path: window.location.pathname,
-        avatar: "wavatar",
-        meta: ["nick","mail","link"],
-        pageSize: "10",
-        lang: "zh-CN",
-        highlight: false,
-        recordIP: false,
-        serverURLs: "",
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
       });
-    };
+    });
   </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
 
 
-              </div>
+              </article>
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -656,7 +450,7 @@ Student::~Student()
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
   <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
       </div>
@@ -668,16 +462,15 @@ Student::~Student()
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -698,24 +491,22 @@ Student::~Student()
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
-    <i class="iconfont icon-love"></i>
-    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
-    <br>
-    </div>
     
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
   <div class="statistics">
     
     
@@ -742,337 +533,153 @@ Student::~Student()
   </div>
 
 
-    
+  
 
-	
-    
+
   
-  
-  <!-- 网站运行时间的设置 -->
-  <script src="/js/HidenMath.js"></script>
-  <script>
-    var now = new Date();
-    function createtime() {
-      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
-      now.setTime(now.getTime() + 250);
-      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
-      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
-      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
-      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
-      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
-      document.getElementById("timeDate").innerHTML = dnum;
-      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
-    }
-    setInterval("createtime()", 250);
-  </script>
-  </div>
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  <script  src="/js/lazyload.js" ></script>
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
   
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '.post-content',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(response => response.json())
-          .then(({results}) => {
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(response => response.json())
-                .then((record) => {
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch(error => {
-          console.error('LeanCloud Counter Error', error);
-          reject(error);
-        });
-      })
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
-        }
-      }
-    }
-
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          resolve(res);
-        }).catch(error => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true'
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/cpp-opp1-prc1/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
-    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
-    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "C++面向对象练习（一）—— 各种函数执行顺序&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 80,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
       
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
   <script  src="/js/local-search.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
       }
-    );
+    })()
   </script>
 
 
 
 
 
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
 
 
 
@@ -1081,8 +688,24 @@ Student::~Student()
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

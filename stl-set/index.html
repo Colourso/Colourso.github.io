@@ -1,7 +1,7 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -19,22 +19,33 @@
   <meta name="keywords" content="">
   <title>STL专题-set 集合 - Colourso</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -42,6 +53,12 @@
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 5.3.0"></head>
 
 
@@ -136,8 +153,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -145,25 +168,28 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="STL专题-set 集合">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2019-03-11 21:51">
-      星期一, 三月 11日 2019, 9:51 晚上
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-03-11 21:51" pubdate>
+        2019年3月11日 晚上
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
@@ -180,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      29
+      42
        分钟
     </span>
   
@@ -189,9 +215,9 @@
   
     
       <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
         <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-post-views"></span> 次
+        <span id="leancloud-page-views"></span> 次
       </span>
     
   
@@ -210,15 +236,23 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">STL专题-set 集合</h1>
             
-            <article class="markdown-body">
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年2月5日 上午
+                
+              </p>
+            
+            <div class="markdown-body">
               <p>STL中set集合、multiset集合的用法。</p>
 <a id="more"></a>
 
@@ -230,38 +264,8 @@
 <li>构造set集合的主要目的是为了快速检索，去重与排序。</li>
 </ul>
 <h2 id="set函数"><a href="#set函数" class="headerlink" title="set函数"></a>set函数</h2><p><img src="/stl-set/set_function.png" srcset="/img/loading.gif" alt="set_function"></p>
-<pre><code class="hljs c++"><span class="hljs-built_in">set</span>&lt;T&gt; st; <span class="hljs-comment">//默认构造函数：</span>
-
-<span class="hljs-built_in">set</span>(<span class="hljs-keyword">const</span> <span class="hljs-built_in">set</span> &amp;st); <span class="hljs-comment">//拷贝构造函数</span>
-
-<span class="hljs-built_in">set</span>&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> <span class="hljs-built_in">set</span> &amp;st); <span class="hljs-comment">//重载等号操作符</span>
-
-size(); <span class="hljs-comment">//返回容器中元素的数目</span>
-
-empty(); <span class="hljs-comment">//判断容器是否为空</span>
-
-swap(st); <span class="hljs-comment">//交换两个集合容器</span>
-
-insert(elem); <span class="hljs-comment">//在容器中插入元素，返回值是对组pair&lt;set&lt;T&gt;::iterator,bool&gt;，bool表示是否插入成功</span>
-
-clear(); <span class="hljs-comment">//清除所有元素</span>
-
-erase(pos); <span class="hljs-comment">//删除pos迭代器所指的元素，返回下一个元素的迭代器。</span>
-
-erase(beg, end); <span class="hljs-comment">//删除区间[beg,end)的所有元素 ，返回下一个元素的迭代器。</span>
-
-erase(elem); <span class="hljs-comment">//删除容器中值为elem的元素。</span>
-
-find(key); <span class="hljs-comment">//查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();</span>
-
-count(key); <span class="hljs-comment">//统计key的元素个数,set容器为0或者1，multiset可能会大于1</span></code></pre>
-<h2 id="set基本操作"><a href="#set基本操作" class="headerlink" title="set基本操作"></a>set基本操作</h2><h3 id="创建set对象"><a href="#创建set对象" class="headerlink" title="创建set对象"></a>创建set对象</h3><pre><code class="hljs c++"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt; a;	<span class="hljs-comment">//set&lt;类型&gt; 对象名</span>
-
-<span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>,myComp&gt; a;<span class="hljs-comment">//set&lt;类型，比较结构体或类&gt; 对象名，</span>
-
-<span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">const</span> <span class="hljs-built_in">set</span>&amp;&gt; <span class="hljs-comment">//set自带拷贝构造函数</span>
-
-set&lt;类型&gt; a(first,last);//使用[first,last)所指的对象。</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">set</span>&lt;T&gt; st; <span class="hljs-comment">//默认构造函数：</span><br><br><span class="hljs-built_in">set</span>(<span class="hljs-keyword">const</span> <span class="hljs-built_in">set</span> &amp;st); <span class="hljs-comment">//拷贝构造函数</span><br><br><span class="hljs-built_in">set</span>&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> <span class="hljs-built_in">set</span> &amp;st); <span class="hljs-comment">//重载等号操作符</span><br><br>size(); <span class="hljs-comment">//返回容器中元素的数目</span><br><br>empty(); <span class="hljs-comment">//判断容器是否为空</span><br><br>swap(st); <span class="hljs-comment">//交换两个集合容器</span><br><br>insert(elem); <span class="hljs-comment">//在容器中插入元素，返回值是对组pair&lt;set&lt;T&gt;::iterator,bool&gt;，bool表示是否插入成功</span><br><br>clear(); <span class="hljs-comment">//清除所有元素</span><br><br>erase(pos); <span class="hljs-comment">//删除pos迭代器所指的元素，返回下一个元素的迭代器。</span><br><br>erase(beg, end); <span class="hljs-comment">//删除区间[beg,end)的所有元素 ，返回下一个元素的迭代器。</span><br><br>erase(elem); <span class="hljs-comment">//删除容器中值为elem的元素。</span><br><br>find(key); <span class="hljs-comment">//查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();</span><br><br>count(key); <span class="hljs-comment">//统计key的元素个数,set容器为0或者1，multiset可能会大于1</span><br></code></pre></td></tr></table></figure>
+<h2 id="set基本操作"><a href="#set基本操作" class="headerlink" title="set基本操作"></a>set基本操作</h2><h3 id="创建set对象"><a href="#创建set对象" class="headerlink" title="创建set对象"></a>创建set对象</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt; a;	<span class="hljs-comment">//set&lt;类型&gt; 对象名</span><br><br><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>,myComp&gt; a;<span class="hljs-comment">//set&lt;类型，比较结构体或类&gt; 对象名，</span><br><br><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">const</span> <span class="hljs-built_in">set</span>&amp;&gt; <span class="hljs-comment">//set自带拷贝构造函数</span><br><br>set&lt;类型&gt; a(first,last);//使用[first,last)所指的对象。<br></code></pre></td></tr></table></figure>
 <ul>
 <li>set容器默认是从小到大进行排序，<code>set&lt;int,myComp&gt; a;</code>可通过这种方式来修改其默认的排序规则。具体实现看：自定义排序那一小节。</li>
 <li>对于自定义数据类型的set，必须在模板参数列表这里指定自定义的排序规则，否则编译器不知道该怎么插入。</li>
@@ -270,37 +274,15 @@ set&lt;类型&gt; a(first,last);//使用[first,last)所指的对象。</code></p
 <p>重复的值是不会被插入的，返回的位置是原先元素的位置，同时bool值为false。</p>
 <h3 id="find函数"><a href="#find函数" class="headerlink" title="find函数"></a>find函数</h3><p>find(const key_type &amp;key)函数用于查找与key值相同的元素，并返回其位置的迭代器。而<strong>如果没有找到将会返回end()指向的迭代器</strong>。</p>
 <h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p><strong>关联式容器不支持iterator+n的操作，n为1也不行，只能使用iter++这种操作。</strong></p>
-<h3 id="顺序遍历"><a href="#顺序遍历" class="headerlink" title="顺序遍历"></a>顺序遍历</h3><pre><code class="hljs c++"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt; a;
-<span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt;::iterator iter = a.begin();
-<span class="hljs-keyword">for</span>(;iter!=a.end();iter++)
-&#123;
-    <span class="hljs-built_in">cout</span>&lt;&lt;*iter&lt;&lt;<span class="hljs-built_in">endl</span>;
-&#125;</code></pre>
-<h3 id="逆序遍历"><a href="#逆序遍历" class="headerlink" title="逆序遍历"></a>逆序遍历</h3><pre><code class="hljs c++"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt; a;
-<span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt;::reverse_iterator iter = a.rbegin();
-<span class="hljs-keyword">for</span>(;iter!=a.rend();iter++)
-&#123;
-    <span class="hljs-built_in">cout</span>&lt;&lt;*iter&lt;&lt;<span class="hljs-built_in">endl</span>;
-&#125;</code></pre>
+<h3 id="顺序遍历"><a href="#顺序遍历" class="headerlink" title="顺序遍历"></a>顺序遍历</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt; a;<br><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt;::iterator iter = a.begin();<br><span class="hljs-keyword">for</span>(;iter!=a.end();iter++)<br>&#123;<br>    <span class="hljs-built_in">cout</span>&lt;&lt;*iter&lt;&lt;<span class="hljs-built_in">endl</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="逆序遍历"><a href="#逆序遍历" class="headerlink" title="逆序遍历"></a>逆序遍历</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt; a;<br><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt;::reverse_iterator iter = a.rbegin();<br><span class="hljs-keyword">for</span>(;iter!=a.rend();iter++)<br>&#123;<br>    <span class="hljs-built_in">cout</span>&lt;&lt;*iter&lt;&lt;<span class="hljs-built_in">endl</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>注意迭代器的写法，反向遍历使用reverse_iterator来定义迭代器，函数使用rbegin()与rend()方法！</p>
 <h2 id="pair对组"><a href="#pair对组" class="headerlink" title="pair对组"></a>pair对组</h2><ol>
 <li>pair对组可以创建成对出现的数据，可以用其来返回一对数据。</li>
 <li>pair有两种创建方式，使用默认构造创建或者使用<code>make_pair()</code>函数创建。</li>
 <li>使用<code>.first</code>访问第一个数据，<code>.second</code>访问第二个数据。</li>
 </ol>
-<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;
-
-	<span class="hljs-comment">//pair对组</span>
-
-	pair&lt;string, int&gt; person1(&quot;莫扎特&quot;,29);
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; person1.first &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; person1.second &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//莫扎特 29</span>
-
-	<span class="hljs-built_in">pair</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-keyword">int</span>&gt; person2 = <span class="hljs-built_in">make_pair</span>(<span class="hljs-string">&quot;哈利波特&quot;</span>,<span class="hljs-number">33</span>);
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; person2.first &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; person2.second &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//哈利波特 33</span>
-
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;<br><br>	<span class="hljs-comment">//pair对组</span><br><br>	pair&lt;string, int&gt; person1(&quot;莫扎特&quot;,29);<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; person1.first &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; person1.second &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//莫扎特 29</span><br><br>	<span class="hljs-built_in">pair</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-keyword">int</span>&gt; person2 = <span class="hljs-built_in">make_pair</span>(<span class="hljs-string">&quot;哈利波特&quot;</span>,<span class="hljs-number">33</span>);<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; person2.first &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; person2.second &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//哈利波特 33</span><br><br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="自定义排序"><a href="#自定义排序" class="headerlink" title="自定义排序"></a>自定义排序</h2><ul>
 <li>对于自定义数据类型，必须指定其排序规则，否则无法插入。</li>
 </ul>
@@ -318,69 +300,13 @@ set&lt;类型&gt; a(first,last);//使用[first,last)所指的对象。</code></p
 <ol>
 <li>自定义比较结构体，重载<code>()</code>操作符</li>
 </ol>
-<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">cmp</span>&#123;</span>	<span class="hljs-comment">//定义比较类也可以</span>
-    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> a,<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> b)</span></span>
-<span class="hljs-function">    </span>&#123;
-        <span class="hljs-keyword">return</span> a&gt;b;<span class="hljs-comment">//类似于sort算法，这样的‘&gt;’是从大到小</span>
-    &#125;
-&#125;;
-
-<span class="hljs-keyword">int</span> a[] = &#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">45</span>,<span class="hljs-number">44</span>,<span class="hljs-number">25</span>,<span class="hljs-number">35</span>,<span class="hljs-number">14</span>,<span class="hljs-number">03</span>&#125;;
-set&lt;int,cmp&gt; i_set(a,a+9);
-
-<span class="hljs-comment">//遍历</span>
-<span class="hljs-keyword">for</span>(<span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt;::iterator iter = i_set.begin();iter!=i_set.end();iter++)
-&#123;
-     <span class="hljs-built_in">cout</span>&lt;&lt;*iter&lt;&lt;<span class="hljs-string">&quot; &quot;</span>;
-&#125;
-
-<span class="hljs-comment">//输出结果：45 44 35 25 14 3 2 1</span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">cmp</span>&#123;</span>	<span class="hljs-comment">//定义比较类也可以</span><br>    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> a,<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> b)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">return</span> a&gt;b;<span class="hljs-comment">//类似于sort算法，这样的‘&gt;’是从大到小</span><br>    &#125;<br>&#125;;<br><br><span class="hljs-keyword">int</span> a[] = &#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">45</span>,<span class="hljs-number">44</span>,<span class="hljs-number">25</span>,<span class="hljs-number">35</span>,<span class="hljs-number">14</span>,<span class="hljs-number">03</span>&#125;;<br>set&lt;int,cmp&gt; i_set(a,a+9);<br><br><span class="hljs-comment">//遍历</span><br><span class="hljs-keyword">for</span>(<span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt;::iterator iter = i_set.begin();iter!=i_set.end();iter++)<br>&#123;<br>     <span class="hljs-built_in">cout</span>&lt;&lt;*iter&lt;&lt;<span class="hljs-string">&quot; &quot;</span>;<br>&#125;<br><br><span class="hljs-comment">//输出结果：45 44 35 25 14 3 2 1</span><br></code></pre></td></tr></table></figure>
 <ol start="2">
 <li>重载<code>&lt;</code>操作符</li>
 </ol>
-<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span></span>
-<span class="hljs-class">&#123;</span>
-<span class="hljs-keyword">public</span>:
-	Student(<span class="hljs-built_in">string</span> name, <span class="hljs-keyword">int</span> id) :m_name(name), m_id(id) &#123;&#125;
-	
-	<span class="hljs-comment">//末尾必须加const，否则二进制“ &lt; ” : 没有找到接受“const _Ty”类型的左操作数的运算符(或没有可接受的转换)</span>
-	<span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>&lt;(<span class="hljs-keyword">const</span> Student &amp; another) <span class="hljs-keyword">const</span>	
-
-	&#123;
-		<span class="hljs-keyword">if</span> (m_id == another.m_id) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-		<span class="hljs-comment">//表明根据id进行去重</span>
-		<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> m_id &lt; another.m_id;
-		<span class="hljs-comment">//否则按照id从小到大进行排序</span>
-	&#125;
-
-	<span class="hljs-built_in">string</span> m_name;
-	<span class="hljs-keyword">int</span> m_id;
-&#125;;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test4</span><span class="hljs-params">()</span> </span>&#123;
-
-	<span class="hljs-function">Student <span class="hljs-title">s0</span><span class="hljs-params">(<span class="hljs-string">&quot;扶苏&quot;</span>, <span class="hljs-number">5</span>)</span></span>;
-	<span class="hljs-function">Student <span class="hljs-title">s1</span><span class="hljs-params">(<span class="hljs-string">&quot;西施&quot;</span>,<span class="hljs-number">1</span>)</span></span>;
-	<span class="hljs-function">Student <span class="hljs-title">s2</span><span class="hljs-params">(<span class="hljs-string">&quot;范蠹&quot;</span>, <span class="hljs-number">2</span>)</span></span>;
-	<span class="hljs-function">Student <span class="hljs-title">s3</span><span class="hljs-params">(<span class="hljs-string">&quot;韩信&quot;</span>, <span class="hljs-number">2</span>)</span></span>;
-	<span class="hljs-function">Student <span class="hljs-title">s4</span><span class="hljs-params">(<span class="hljs-string">&quot;刘邦&quot;</span>, <span class="hljs-number">4</span>)</span></span>;
-
-	<span class="hljs-built_in">set</span>&lt;Student&gt; s;
-
-	s.insert(s0);
-	s.insert(s1);
-	s.insert(s2);
-	s.insert(s3);
-	s.insert(s4);
-
-	<span class="hljs-keyword">for</span> (<span class="hljs-built_in">set</span>&lt;Student&gt;::iterator it = s.begin(); it != s.end(); it++)
-		<span class="hljs-built_in">cout</span> &lt;&lt; (*it).m_name &lt;&lt; <span class="hljs-string">&quot; -- &quot;</span> &lt;&lt; (*it).m_id &lt;&lt; <span class="hljs-built_in">endl</span>;
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span></span><br><span class="hljs-class">&#123;</span><br><span class="hljs-keyword">public</span>:<br>	Student(<span class="hljs-built_in">string</span> name, <span class="hljs-keyword">int</span> id) :m_name(name), m_id(id) &#123;&#125;<br>	<br>	<span class="hljs-comment">//末尾必须加const，否则二进制“ &lt; ” : 没有找到接受“const _Ty”类型的左操作数的运算符(或没有可接受的转换)</span><br>	<span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>&lt;(<span class="hljs-keyword">const</span> Student &amp; another) <span class="hljs-keyword">const</span>	<br><br>	&#123;<br>		<span class="hljs-keyword">if</span> (m_id == another.m_id) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>		<span class="hljs-comment">//表明根据id进行去重</span><br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> m_id &lt; another.m_id;<br>		<span class="hljs-comment">//否则按照id从小到大进行排序</span><br>	&#125;<br><br>	<span class="hljs-built_in">string</span> m_name;<br>	<span class="hljs-keyword">int</span> m_id;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test4</span><span class="hljs-params">()</span> </span>&#123;<br><br>	<span class="hljs-function">Student <span class="hljs-title">s0</span><span class="hljs-params">(<span class="hljs-string">&quot;扶苏&quot;</span>, <span class="hljs-number">5</span>)</span></span>;<br>	<span class="hljs-function">Student <span class="hljs-title">s1</span><span class="hljs-params">(<span class="hljs-string">&quot;西施&quot;</span>,<span class="hljs-number">1</span>)</span></span>;<br>	<span class="hljs-function">Student <span class="hljs-title">s2</span><span class="hljs-params">(<span class="hljs-string">&quot;范蠹&quot;</span>, <span class="hljs-number">2</span>)</span></span>;<br>	<span class="hljs-function">Student <span class="hljs-title">s3</span><span class="hljs-params">(<span class="hljs-string">&quot;韩信&quot;</span>, <span class="hljs-number">2</span>)</span></span>;<br>	<span class="hljs-function">Student <span class="hljs-title">s4</span><span class="hljs-params">(<span class="hljs-string">&quot;刘邦&quot;</span>, <span class="hljs-number">4</span>)</span></span>;<br><br>	<span class="hljs-built_in">set</span>&lt;Student&gt; s;<br><br>	s.insert(s0);<br>	s.insert(s1);<br>	s.insert(s2);<br>	s.insert(s3);<br>	s.insert(s4);<br><br>	<span class="hljs-keyword">for</span> (<span class="hljs-built_in">set</span>&lt;Student&gt;::iterator it = s.begin(); it != s.end(); it++)<br>		<span class="hljs-built_in">cout</span> &lt;&lt; (*it).m_name &lt;&lt; <span class="hljs-string">&quot; -- &quot;</span> &lt;&lt; (*it).m_id &lt;&lt; <span class="hljs-built_in">endl</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>输出结果：</p>
-<pre><code class="hljs ada">西施 <span class="hljs-comment">-- 1</span>
-范蠹 <span class="hljs-comment">-- 2</span>
-刘邦 <span class="hljs-comment">-- 4</span>
-扶苏 <span class="hljs-comment">-- 5</span></code></pre>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ada">西施 <span class="hljs-comment">-- 1</span><br>范蠹 <span class="hljs-comment">-- 2</span><br>刘邦 <span class="hljs-comment">-- 4</span><br>扶苏 <span class="hljs-comment">-- 5</span><br></code></pre></td></tr></table></figure>
 <p>可以看到，重复id会被清除，然后按照从小到大的顺序排序。</p>
 <h2 id="set与multiset"><a href="#set与multiset" class="headerlink" title="set与multiset"></a>set与multiset</h2><p>二者均使用头文件<code>&lt;set&gt;</code>。</p>
 <p>但是二者的<code>insert()</code>函数返回值不同，set返回一个对组<code>pair&lt;set&lt;T&gt;::iterator,bool&gt;</code>，而multiset则直接返回插入位置的迭代器。</p>
@@ -416,42 +342,9 @@ set&lt;int,cmp&gt; i_set(a,a+9);
 <blockquote>
 <p>详细参见：<a target="_blank" rel="noopener" href="http://www.colourso.top/lanqiao-0/">蓝桥杯——一些零碎的注意事项</a></p>
 </blockquote>
-<pre><code class="hljs c++"><span class="hljs-comment">//测试环境 Code::Blocks 17.12</span>
-<span class="hljs-comment">//本代码已经通过了蓝桥杯练习系统的测试</span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;set&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-	
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-keyword">int</span> n,nums;
-    <span class="hljs-keyword">int</span> duan,chong;<span class="hljs-comment">//断的数，重复的数</span>
-    <span class="hljs-built_in">cin</span>&gt;&gt;n;<span class="hljs-comment">//等待输入几行，对于while(scanf(&quot;%d&quot;,&amp;nums)!=EOF)这种方法来说此数据无意义。</span>
-    <span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt; i_set;
-    <span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt;::iterator iter;
-    <span class="hljs-keyword">while</span>(<span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;nums)!=EOF)
-    &#123;
-        <span class="hljs-keyword">if</span>(i_set.insert(nums).second == <span class="hljs-literal">false</span>) chong = nums;
-    &#125;
-    <span class="hljs-keyword">int</span> first = *(i_set.begin());
-    <span class="hljs-keyword">int</span> ends = *(--i_set.end());
-    iter = i_set.begin();
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = first;i!=ends;i++)
-    &#123;
-        <span class="hljs-keyword">if</span>(i == (*iter)<span class="hljs-number">-1</span>)
-        &#123;
-            duan = i;
-            <span class="hljs-keyword">break</span>;
-        &#125;
-        <span class="hljs-keyword">else</span> iter++;
-    &#125;
-    <span class="hljs-built_in">cout</span>&lt;&lt;duan&lt;&lt;<span class="hljs-string">&quot; &quot;</span>&lt;&lt;chong&lt;&lt;<span class="hljs-built_in">endl</span>;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//测试环境 Code::Blocks 17.12</span><br><span class="hljs-comment">//本代码已经通过了蓝桥杯练习系统的测试</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;set&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br>	<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> n,nums;<br>    <span class="hljs-keyword">int</span> duan,chong;<span class="hljs-comment">//断的数，重复的数</span><br>    <span class="hljs-built_in">cin</span>&gt;&gt;n;<span class="hljs-comment">//等待输入几行，对于while(scanf(&quot;%d&quot;,&amp;nums)!=EOF)这种方法来说此数据无意义。</span><br>    <span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt; i_set;<br>    <span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt;::iterator iter;<br>    <span class="hljs-keyword">while</span>(<span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;nums)!=EOF)<br>    &#123;<br>        <span class="hljs-keyword">if</span>(i_set.insert(nums).second == <span class="hljs-literal">false</span>) chong = nums;<br>    &#125;<br>    <span class="hljs-keyword">int</span> first = *(i_set.begin());<br>    <span class="hljs-keyword">int</span> ends = *(--i_set.end());<br>    iter = i_set.begin();<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = first;i!=ends;i++)<br>    &#123;<br>        <span class="hljs-keyword">if</span>(i == (*iter)<span class="hljs-number">-1</span>)<br>        &#123;<br>            duan = i;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>        <span class="hljs-keyword">else</span> iter++;<br>    &#125;<br>    <span class="hljs-built_in">cout</span>&lt;&lt;duan&lt;&lt;<span class="hljs-string">&quot; &quot;</span>&lt;&lt;chong&lt;&lt;<span class="hljs-built_in">endl</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -480,8 +373,8 @@ set&lt;int,cmp&gt; i_set(a,a+9);
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/stl-stackqueue/">
@@ -490,8 +383,8 @@ set&lt;int,cmp&gt; i_set(a,a+9);
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/stl-map/">
@@ -500,47 +393,45 @@ set&lt;int,cmp&gt; i_set(a,a+9);
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
               <!-- Comments -->
-              <div class="comments" id="comments">
+              <article class="comments" id="comments">
                 
                 
   <div id="vcomments"></div>
-  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
-
   <script type="text/javascript">
-    var oldLoadVa = window.onload;
-    window.onload = function () {
-      oldLoadVa && oldLoadVa();
-
-      new Valine({
-        el: "#vcomments",
-        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
-        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
-        placeholder: "说点什么",
-        path: window.location.pathname,
-        avatar: "wavatar",
-        meta: ["nick","mail","link"],
-        pageSize: "10",
-        lang: "zh-CN",
-        highlight: false,
-        recordIP: false,
-        serverURLs: "",
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
       });
-    };
+    });
   </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
 
 
-              </div>
+              </article>
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -548,7 +439,7 @@ set&lt;int,cmp&gt; i_set(a,a+9);
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
   <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
       </div>
@@ -560,16 +451,15 @@ set&lt;int,cmp&gt; i_set(a,a+9);
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -590,24 +480,22 @@ set&lt;int,cmp&gt; i_set(a,a+9);
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
-    <i class="iconfont icon-love"></i>
-    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
-    <br>
-    </div>
     
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
   <div class="statistics">
     
     
@@ -634,337 +522,153 @@ set&lt;int,cmp&gt; i_set(a,a+9);
   </div>
 
 
-    
+  
 
-	
-    
+
   
-  
-  <!-- 网站运行时间的设置 -->
-  <script src="/js/HidenMath.js"></script>
-  <script>
-    var now = new Date();
-    function createtime() {
-      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
-      now.setTime(now.getTime() + 250);
-      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
-      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
-      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
-      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
-      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
-      document.getElementById("timeDate").innerHTML = dnum;
-      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
-    }
-    setInterval("createtime()", 250);
-  </script>
-  </div>
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  <script  src="/js/lazyload.js" ></script>
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
   
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '.post-content',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(response => response.json())
-          .then(({results}) => {
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(response => response.json())
-                .then((record) => {
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch(error => {
-          console.error('LeanCloud Counter Error', error);
-          reject(error);
-        });
-      })
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
-        }
-      }
-    }
-
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          resolve(res);
-        }).catch(error => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true'
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/stl-set/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
-    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
-    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "STL专题-set 集合&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 80,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
       
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
   <script  src="/js/local-search.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
       }
-    );
+    })()
   </script>
 
 
 
 
 
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
 
 
 
@@ -973,8 +677,24 @@ set&lt;int,cmp&gt; i_set(a,a+9);
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

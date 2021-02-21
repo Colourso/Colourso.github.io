@@ -1,7 +1,7 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -19,22 +19,33 @@
   <meta name="keywords" content="">
   <title>C++异常 - Colourso</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -42,6 +53,12 @@
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 5.3.0"></head>
 
 
@@ -136,8 +153,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -145,25 +168,28 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="C++异常">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2021-02-08 15:09">
-      星期一, 二月 8日 2021, 3:09 下午
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-02-08 15:09" pubdate>
+        2021年2月8日 下午
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
@@ -180,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      25
+      36
        分钟
     </span>
   
@@ -189,9 +215,9 @@
   
     
       <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
         <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-post-views"></span> 次
+        <span id="leancloud-page-views"></span> 次
       </span>
     
   
@@ -210,184 +236,46 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">C++异常</h1>
             
-            <article class="markdown-body">
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年2月8日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
               <p><strong>概览</strong>：C++异常，自定义异常类型以及栈解旋。</p>
 <a id="more"></a>
 
-<h2 id="c-异常之简单的语法"><a href="#c-异常之简单的语法" class="headerlink" title="c++异常之简单的语法"></a>c++异常之简单的语法</h2><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">division</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>&#123;
-	<span class="hljs-comment">//a是被除数，b是除数</span>
-
-	<span class="hljs-comment">//当b为0时，抛出异常</span>
-	<span class="hljs-keyword">if</span> (b == <span class="hljs-number">0</span>) <span class="hljs-keyword">throw</span> b;
-	<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> a / b;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
-
-	<span class="hljs-keyword">try</span>&#123;
-		division(<span class="hljs-number">10</span>, <span class="hljs-number">0</span>);
-	&#125;
-	<span class="hljs-keyword">catch</span> (<span class="hljs-keyword">int</span> e) &#123;<span class="hljs-comment">//捕获异常，e为接收异常的参数，与抛出的异常同类型</span>
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;被除数为&quot;</span> &lt;&lt; e &lt;&lt; <span class="hljs-built_in">endl</span>;
-	&#125;
-
-	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+<h2 id="c-异常之简单的语法"><a href="#c-异常之简单的语法" class="headerlink" title="c++异常之简单的语法"></a>c++异常之简单的语法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">division</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>&#123;<br>	<span class="hljs-comment">//a是被除数，b是除数</span><br><br>	<span class="hljs-comment">//当b为0时，抛出异常</span><br>	<span class="hljs-keyword">if</span> (b == <span class="hljs-number">0</span>) <span class="hljs-keyword">throw</span> b;<br>	<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> a / b;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br><br>	<span class="hljs-keyword">try</span>&#123;<br>		division(<span class="hljs-number">10</span>, <span class="hljs-number">0</span>);<br>	&#125;<br>	<span class="hljs-keyword">catch</span> (<span class="hljs-keyword">int</span> e) &#123;<span class="hljs-comment">//捕获异常，e为接收异常的参数，与抛出的异常同类型</span><br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;被除数为&quot;</span> &lt;&lt; e &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="C-异常的优点"><a href="#C-异常的优点" class="headerlink" title="C++异常的优点"></a>C++异常的优点</h2><ul>
 <li>C++函数的返回值可以被忽略，但是异常是不能被忽略的。如果程序出现了异常，但是没有被捕获，程序就会终止。<strong>（C++异常必须被处理）</strong>这样可以使得程序更加健壮。</li>
 <li>函数返回值可能没有什么语义信息，但是异常却可以包含语义信息，例如异常类名就可以。</li>
 <li>异常作为一个类，可以拥有自身的成员，这些成员足以传递信息。</li>
 <li>异常的处理可以跳级调用，当在多个函数的调用栈时出现了异常，不需要每级函数都进行处理，只需要在某一处进行处理即可。</li>
 </ul>
-<h2 id="C-异常接口声明"><a href="#C-异常接口声明" class="headerlink" title="C++异常接口声明"></a>C++异常接口声明</h2><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">excpt1</span><span class="hljs-params">()</span> <span class="hljs-title">throw</span> <span class="hljs-params">(<span class="hljs-keyword">int</span>,<span class="hljs-keyword">float</span>,<span class="hljs-keyword">double</span>)</span></span>
-<span class="hljs-function"></span>&#123;
-	<span class="hljs-comment">//表明函数只能够抛出这三种类型的异常，及其子类型的异常</span>
-
-	<span class="hljs-keyword">throw</span> <span class="hljs-string">&quot;abc&quot;</span>;
-
-	<span class="hljs-comment">//而&quot;abc&quot;是char*类型</span>
-	<span class="hljs-comment">//如果类的内部抛出的不是指定的异常，会导致程序调用terminate函数中断执行。</span>
-	<span class="hljs-comment">//在linux下是这样，windows处理不够</span>
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">excpt2</span><span class="hljs-params">()</span> <span class="hljs-title">throw</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-	<span class="hljs-comment">//表示函数不抛出任何异常</span>
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">excpt3</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-	<span class="hljs-comment">//不写异常的声明接口 表示函数可以抛出任何类型的异常</span>
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test3</span><span class="hljs-params">()</span> </span>&#123;
-
-	<span class="hljs-keyword">try</span> &#123;
-		excpt1();
-	&#125;
-	<span class="hljs-keyword">catch</span>(...)&#123;	<span class="hljs-comment">//...表示接收任意类型的异常</span>
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;1发生异常&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	&#125;
-
-	excpt2();
-
-	excpt3();
-&#125;</code></pre>
-<h2 id="异常类型自定义"><a href="#异常类型自定义" class="headerlink" title="异常类型自定义"></a>异常类型自定义</h2><pre><code class="hljs c++"><span class="hljs-comment">//自定义一个异常类型</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyException</span> &#123;</span>
-<span class="hljs-keyword">public</span>:
-	MyException(<span class="hljs-built_in">string</span> err) &#123;
-		m_err = err;
-	&#125;
-	MyException(<span class="hljs-keyword">const</span> MyException&amp; other) &#123;
-		m_err = other.m_err;
-	&#125;
-	MyException&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> MyException&amp; other) &#123;
-		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span> == &amp;other)<span class="hljs-comment">//自赋值</span>
-			<span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;
-
-		m_err = other.m_err;
-		<span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;
-	&#125;
-	
-	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showError</span><span class="hljs-params">()</span> </span>&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-keyword">this</span>-&gt;m_err &lt;&lt; <span class="hljs-built_in">endl</span>;
-	&#125;
-
-<span class="hljs-keyword">private</span>:
-	<span class="hljs-built_in">string</span> m_err;
-&#125;;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">throwEcp</span><span class="hljs-params">()</span> </span>&#123;
-	<span class="hljs-keyword">throw</span> MyException(<span class="hljs-string">&quot;异常发生&quot;</span>);
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test4</span><span class="hljs-params">()</span> </span>&#123;
-	<span class="hljs-keyword">try</span> &#123;
-		throwEcp();
-	&#125;
-	<span class="hljs-keyword">catch</span> (MyException e) &#123;
-		e.showError();
-	&#125;
-&#125;
-</code></pre>
+<h2 id="C-异常接口声明"><a href="#C-异常接口声明" class="headerlink" title="C++异常接口声明"></a>C++异常接口声明</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">excpt1</span><span class="hljs-params">()</span> <span class="hljs-title">throw</span> <span class="hljs-params">(<span class="hljs-keyword">int</span>,<span class="hljs-keyword">float</span>,<span class="hljs-keyword">double</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-comment">//表明函数只能够抛出这三种类型的异常，及其子类型的异常</span><br><br>	<span class="hljs-keyword">throw</span> <span class="hljs-string">&quot;abc&quot;</span>;<br><br>	<span class="hljs-comment">//而&quot;abc&quot;是char*类型</span><br>	<span class="hljs-comment">//如果类的内部抛出的不是指定的异常，会导致程序调用terminate函数中断执行。</span><br>	<span class="hljs-comment">//在linux下是这样，windows处理不够</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">excpt2</span><span class="hljs-params">()</span> <span class="hljs-title">throw</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-comment">//表示函数不抛出任何异常</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">excpt3</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-comment">//不写异常的声明接口 表示函数可以抛出任何类型的异常</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test3</span><span class="hljs-params">()</span> </span>&#123;<br><br>	<span class="hljs-keyword">try</span> &#123;<br>		excpt1();<br>	&#125;<br>	<span class="hljs-keyword">catch</span>(...)&#123;	<span class="hljs-comment">//...表示接收任意类型的异常</span><br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;1发生异常&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	&#125;<br><br>	excpt2();<br><br>	excpt3();<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="异常类型自定义"><a href="#异常类型自定义" class="headerlink" title="异常类型自定义"></a>异常类型自定义</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//自定义一个异常类型</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyException</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>	MyException(<span class="hljs-built_in">string</span> err) &#123;<br>		m_err = err;<br>	&#125;<br>	MyException(<span class="hljs-keyword">const</span> MyException&amp; other) &#123;<br>		m_err = other.m_err;<br>	&#125;<br>	MyException&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> MyException&amp; other) &#123;<br>		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span> == &amp;other)<span class="hljs-comment">//自赋值</span><br>			<span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;<br><br>		m_err = other.m_err;<br>		<span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;<br>	&#125;<br>	<br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showError</span><span class="hljs-params">()</span> </span>&#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-keyword">this</span>-&gt;m_err &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	&#125;<br><br><span class="hljs-keyword">private</span>:<br>	<span class="hljs-built_in">string</span> m_err;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">throwEcp</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-keyword">throw</span> MyException(<span class="hljs-string">&quot;异常发生&quot;</span>);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test4</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-keyword">try</span> &#123;<br>		throwEcp();<br>	&#125;<br>	<span class="hljs-keyword">catch</span> (MyException e) &#123;<br>		e.showError();<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>我在Applied C++这本书中看到了可以在类的成员中定义一个异常类，然后发生异常时抛出这个异常类的对象。</p>
 </blockquote>
 <h2 id="C-异常跨函数"><a href="#C-异常跨函数" class="headerlink" title="C++异常跨函数"></a>C++异常跨函数</h2><p>C++的异常机制可以跨函数进行处理，但是C++异常必须是需要处理的，否则就会报错。</p>
 <p>函数逐层调用时，一个函数抛出异常，则该异常会逐级向上抛出，如果该异常到了顶层都没有被处理的话，程序就会出错。</p>
-<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">division</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>&#123;
-	<span class="hljs-comment">//a是被除数，b是除数</span>
-
-	<span class="hljs-comment">//当b为0时，抛出异常</span>
-	<span class="hljs-keyword">if</span> (b == <span class="hljs-number">0</span>) <span class="hljs-keyword">throw</span> b;
-	<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> a / b;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">driver</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>&#123;
-
-	<span class="hljs-comment">//直接调用而不做异常处理</span>
-	<span class="hljs-keyword">return</span> division(a, b);
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;
-	<span class="hljs-keyword">try</span>&#123;
-		driver(<span class="hljs-number">10</span>,<span class="hljs-number">0</span>);
-	&#125;
-	<span class="hljs-keyword">catch</span>(<span class="hljs-keyword">int</span> e)&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;被除数为&quot;</span> &lt;&lt; e &lt;&lt; <span class="hljs-built_in">endl</span>;
-	&#125;
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">division</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>&#123;<br>	<span class="hljs-comment">//a是被除数，b是除数</span><br><br>	<span class="hljs-comment">//当b为0时，抛出异常</span><br>	<span class="hljs-keyword">if</span> (b == <span class="hljs-number">0</span>) <span class="hljs-keyword">throw</span> b;<br>	<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> a / b;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">driver</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>&#123;<br><br>	<span class="hljs-comment">//直接调用而不做异常处理</span><br>	<span class="hljs-keyword">return</span> division(a, b);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-keyword">try</span>&#123;<br>		driver(<span class="hljs-number">10</span>,<span class="hljs-number">0</span>);<br>	&#125;<br>	<span class="hljs-keyword">catch</span>(<span class="hljs-keyword">int</span> e)&#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;被除数为&quot;</span> &lt;&lt; e &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="栈解旋"><a href="#栈解旋" class="headerlink" title="栈解旋"></a>栈解旋</h2><p><strong>异常被抛出后，从进入try块起，到异常被抛出前的这段时间里，在栈上构造的所有对象，都会被自动析构</strong>。</p>
 <p>析构的顺序与构造的顺序相反，这就是栈解旋。</p>
-<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> &#123;</span>
-
-<span class="hljs-keyword">public</span>:
-	Person() &#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;对象创建&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
-	&#125;
-	~Person() &#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;对象析构&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	&#125;
-
-&#125;;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">personDriver</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>&#123;
-
-	Person p;
-	<span class="hljs-keyword">return</span> division(a, b);
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test4</span><span class="hljs-params">()</span> </span>&#123;
-
-	<span class="hljs-comment">//异常被抛出后，从进入try块起，到异常被抛出前的这段时间里，</span>
-	<span class="hljs-comment">//在栈上构造的所有对象，都会被自动析构。</span>
-	<span class="hljs-comment">//这就是栈解旋</span>
-
-	<span class="hljs-keyword">try</span> &#123;
-		personDriver(<span class="hljs-number">10</span>, <span class="hljs-number">0</span>);
-	&#125;
-	<span class="hljs-keyword">catch</span> (<span class="hljs-keyword">int</span> e) &#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;捕获异常: &quot;</span> &lt;&lt; e &lt;&lt; <span class="hljs-built_in">endl</span>;
-	&#125;
-
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> &#123;</span><br><br><span class="hljs-keyword">public</span>:<br>	Person() &#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;对象创建&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;<br>	&#125;<br>	~Person() &#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;对象析构&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	&#125;<br><br>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">personDriver</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>&#123;<br><br>	Person p;<br>	<span class="hljs-keyword">return</span> division(a, b);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test4</span><span class="hljs-params">()</span> </span>&#123;<br><br>	<span class="hljs-comment">//异常被抛出后，从进入try块起，到异常被抛出前的这段时间里，</span><br>	<span class="hljs-comment">//在栈上构造的所有对象，都会被自动析构。</span><br>	<span class="hljs-comment">//这就是栈解旋</span><br><br>	<span class="hljs-keyword">try</span> &#123;<br>		personDriver(<span class="hljs-number">10</span>, <span class="hljs-number">0</span>);<br>	&#125;<br>	<span class="hljs-keyword">catch</span> (<span class="hljs-keyword">int</span> e) &#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;捕获异常: &quot;</span> &lt;&lt; e &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	&#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
 <p>输出结果：</p>
-<pre><code class="hljs makefile">对象创建
-对象析构
-<span class="hljs-section">捕获异常: 0</span></code></pre>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs makefile">对象创建<br>对象析构<br><span class="hljs-section">捕获异常: 0</span><br></code></pre></td></tr></table></figure>
 
 
 <h2 id="异常变量的生命周期"><a href="#异常变量的生命周期" class="headerlink" title="异常变量的生命周期"></a>异常变量的生命周期</h2><ul>
@@ -395,86 +283,17 @@
 <li>而引用类型，也不会调用拷贝构造，异常处理之后就会析构。</li>
 <li>指针类型则比较特别，先构造然后析构。</li>
 </ul>
-<pre><code class="hljs c++"><span class="hljs-comment">//自定义一个异常类型</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyException</span> &#123;</span>
-<span class="hljs-keyword">public</span>:
-	MyException() &#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;普通构造函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	&#125;
-	MyException(<span class="hljs-keyword">const</span> MyException&amp; other) &#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;拷贝构造函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	&#125;
-	MyException&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> MyException&amp; other) &#123;
-
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;重载=函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-		<span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;
-	&#125;
-	~MyException() &#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;析构函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	&#125;
-
-	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showError</span><span class="hljs-params">()</span> </span>&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;抛出异常&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	&#125;
-&#125;;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">excp1</span><span class="hljs-params">()</span> </span>&#123;
-	<span class="hljs-keyword">throw</span> MyException();
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">excp2</span><span class="hljs-params">()</span> </span>&#123;
-	<span class="hljs-keyword">throw</span> &amp;MyException();
-&#125;
-<span class="hljs-comment">//不能返回局部变量的地址，因为这个对象在函数执行结束时会被释放掉</span>
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">excp3</span><span class="hljs-params">()</span> </span>&#123;
-	<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> MyException();
-&#125;</code></pre>
-<h3 id="1-普通类型对象"><a href="#1-普通类型对象" class="headerlink" title="1. 普通类型对象"></a>1. 普通类型对象</h3><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;
-
-	<span class="hljs-keyword">try</span> &#123;
-		excp1();
-	&#125;
-	<span class="hljs-keyword">catch</span> (MyException e) &#123;
-		e.showError();
-	&#125;
-
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//自定义一个异常类型</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyException</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>	MyException() &#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;普通构造函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	&#125;<br>	MyException(<span class="hljs-keyword">const</span> MyException&amp; other) &#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;拷贝构造函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	&#125;<br>	MyException&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> MyException&amp; other) &#123;<br><br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;重载=函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>		<span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;<br>	&#125;<br>	~MyException() &#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;析构函数&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showError</span><span class="hljs-params">()</span> </span>&#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;抛出异常&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	&#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">excp1</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-keyword">throw</span> MyException();<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">excp2</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-keyword">throw</span> &amp;MyException();<br>&#125;<br><span class="hljs-comment">//不能返回局部变量的地址，因为这个对象在函数执行结束时会被释放掉</span><br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">excp3</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> MyException();<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="1-普通类型对象"><a href="#1-普通类型对象" class="headerlink" title="1. 普通类型对象"></a>1. 普通类型对象</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;<br><br>	<span class="hljs-keyword">try</span> &#123;<br>		excp1();<br>	&#125;<br>	<span class="hljs-keyword">catch</span> (MyException e) &#123;<br>		e.showError();<br>	&#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
 <p>执行结果：</p>
-<pre><code class="hljs plain">普通构造函数
-拷贝构造函数
-抛出异常
-析构函数
-析构函数</code></pre>
-<h3 id="2-引用"><a href="#2-引用" class="headerlink" title="2.引用"></a>2.引用</h3><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;
-
-	<span class="hljs-keyword">try</span> &#123;
-		excp1();	<span class="hljs-comment">//注意这里是函数1,异常捕获采用引用的方式</span>
-	&#125;
-	<span class="hljs-keyword">catch</span> (MyException &amp;e) &#123;
-		e.showError();
-	&#125;
-&#125;</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">普通构造函数<br>拷贝构造函数<br>抛出异常<br>析构函数<br>析构函数<br></code></pre></td></tr></table></figure>
+<h3 id="2-引用"><a href="#2-引用" class="headerlink" title="2.引用"></a>2.引用</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;<br><br>	<span class="hljs-keyword">try</span> &#123;<br>		excp1();	<span class="hljs-comment">//注意这里是函数1,异常捕获采用引用的方式</span><br>	&#125;<br>	<span class="hljs-keyword">catch</span> (MyException &amp;e) &#123;<br>		e.showError();<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>执行结果：</p>
-<pre><code class="hljs plain">普通构造函数
-抛出异常
-析构函数</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">普通构造函数<br>抛出异常<br>析构函数<br></code></pre></td></tr></table></figure>
 <h3 id="3-指针"><a href="#3-指针" class="headerlink" title="3.指针"></a>3.指针</h3><p>对于使用指针来捕获异常对象，需要使用<code>excp3()</code>这样的方式，而不是<code>excp2()</code>这样的方式。函数2会产生错误。</p>
-<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test3</span><span class="hljs-params">()</span> </span>&#123;
-
-	<span class="hljs-keyword">try</span> &#123;
-		excp3();
-	&#125;
-	<span class="hljs-keyword">catch</span> (MyException *e) &#123;
-		e-&gt;showError();
-        <span class="hljs-keyword">delete</span> e;<span class="hljs-comment">//注意记得手动释放</span>
-	&#125;
-
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test3</span><span class="hljs-params">()</span> </span>&#123;<br><br>	<span class="hljs-keyword">try</span> &#123;<br>		excp3();<br>	&#125;<br>	<span class="hljs-keyword">catch</span> (MyException *e) &#123;<br>		e-&gt;showError();<br>        <span class="hljs-keyword">delete</span> e;<span class="hljs-comment">//注意记得手动释放</span><br>	&#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
 <p>执行结果：</p>
-<pre><code class="hljs plain">普通构造函数
-抛出异常
-析构函数</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plain">普通构造函数<br>抛出异常<br>析构函数<br></code></pre></td></tr></table></figure>
 <h2 id="编写自己的异常类"><a href="#编写自己的异常类" class="headerlink" title="编写自己的异常类"></a>编写自己的异常类</h2><p><img src="/cpp-exception/Cppexception.jpg" srcset="/img/loading.gif"></p>
 <ol>
 <li>建议自己的异常类要继承标准异常类，不容易导致混乱。</li>
@@ -483,79 +302,9 @@
 </ol>
 <p>标准异常类名：<code>exception</code>，其所在头文件为<code>#include &lt;stdexcept&gt;</code>。</p>
 <p><img src="/cpp-exception/stdexcept.jpg" srcset="/img/loading.gif"></p>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdexcept&gt;//标准异常的头文件</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdexcept&gt;//标准异常的头文件</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyException</span> :</span><span class="hljs-keyword">public</span> exception<br>&#123;<br><span class="hljs-keyword">public</span>:<br>	MyException(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* error)<br>	&#123;<br>		myError = <span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[<span class="hljs-built_in">strlen</span>(error) + <span class="hljs-number">1</span>];<br>		strcpy_s(myError, <span class="hljs-built_in">strlen</span>(error) + <span class="hljs-number">1</span>, error);<br>	&#125;<br>	MyException(<span class="hljs-keyword">const</span> MyException&amp; e)<br>	&#123;<br>		myError = <span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[<span class="hljs-built_in">strlen</span>(e.myError) + <span class="hljs-number">1</span>];<br>		strcpy_s(myError, <span class="hljs-built_in">strlen</span>(e.myError) + <span class="hljs-number">1</span>, e.myError);<br>	&#125;<br>	MyException&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> MyException&amp; e)<br>	&#123;<br>		myError = <span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[<span class="hljs-built_in">strlen</span>(e.myError) + <span class="hljs-number">1</span>];<br>		strcpy_s(myError, <span class="hljs-built_in">strlen</span>(e.myError) + <span class="hljs-number">1</span>, e.myError);<br>	&#125;<br>	~MyException()<br>	&#123;<br>		<span class="hljs-keyword">if</span> (myError != <span class="hljs-literal">nullptr</span>)<br>		&#123;<br>			<span class="hljs-keyword">delete</span>[] myError;<br>			myError = <span class="hljs-literal">nullptr</span>;<br>		&#125;<br>	&#125;<br>	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* <span class="hljs-title">what</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span><br><span class="hljs-function">	</span>&#123;<br>		<span class="hljs-keyword">return</span> myError;<br>	&#125;<br><span class="hljs-keyword">public</span>:<br>	<span class="hljs-keyword">char</span>* myError;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>	Person()<br>	&#123;<br>		mAge = <span class="hljs-number">0</span>;<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setAge</span><span class="hljs-params">(<span class="hljs-keyword">int</span> age)</span></span><br><span class="hljs-function">	</span>&#123;<br>		<span class="hljs-keyword">if</span> (age &lt; <span class="hljs-number">0</span> || age &gt;= <span class="hljs-number">120</span>)<br>		&#123;<br>			<span class="hljs-keyword">throw</span> MyException(<span class="hljs-string">&quot;年龄超出正常人类！&quot;</span>);<br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">this</span>-&gt;mAge = age;<br>	&#125;<br><span class="hljs-keyword">public</span>:<br>	<span class="hljs-keyword">int</span> mAge;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	Person p1;<br>	<span class="hljs-keyword">try</span> &#123;<br>		p1.setAge(<span class="hljs-number">-45</span>);<br>	&#125;<br>	<span class="hljs-keyword">catch</span> (exception&amp; e)<span class="hljs-comment">//这里采用引用，用不到拷贝构造。但是如果不使用引用的话，会出现Unknow exception！</span><br>						 <span class="hljs-comment">//必须使用引用，因为exception是抽象基类，不能够实例化对象(或者修改throw使其抛回一个指针，改用指针接收)</span><br>						 <span class="hljs-comment">//这里是父类引用指向子类对象，并且有虚函数以及子类的重写，是多态</span><br>	&#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; e.what() &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyException</span> :</span><span class="hljs-keyword">public</span> exception
-&#123;
-<span class="hljs-keyword">public</span>:
-	MyException(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* error)
-	&#123;
-		myError = <span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[<span class="hljs-built_in">strlen</span>(error) + <span class="hljs-number">1</span>];
-		strcpy_s(myError, <span class="hljs-built_in">strlen</span>(error) + <span class="hljs-number">1</span>, error);
-	&#125;
-	MyException(<span class="hljs-keyword">const</span> MyException&amp; e)
-	&#123;
-		myError = <span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[<span class="hljs-built_in">strlen</span>(e.myError) + <span class="hljs-number">1</span>];
-		strcpy_s(myError, <span class="hljs-built_in">strlen</span>(e.myError) + <span class="hljs-number">1</span>, e.myError);
-	&#125;
-	MyException&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> MyException&amp; e)
-	&#123;
-		myError = <span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[<span class="hljs-built_in">strlen</span>(e.myError) + <span class="hljs-number">1</span>];
-		strcpy_s(myError, <span class="hljs-built_in">strlen</span>(e.myError) + <span class="hljs-number">1</span>, e.myError);
-	&#125;
-	~MyException()
-	&#123;
-		<span class="hljs-keyword">if</span> (myError != <span class="hljs-literal">nullptr</span>)
-		&#123;
-			<span class="hljs-keyword">delete</span>[] myError;
-			myError = <span class="hljs-literal">nullptr</span>;
-		&#125;
-	&#125;
-	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* <span class="hljs-title">what</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>
-<span class="hljs-function">	</span>&#123;
-		<span class="hljs-keyword">return</span> myError;
-	&#125;
-<span class="hljs-keyword">public</span>:
-	<span class="hljs-keyword">char</span>* myError;
-&#125;;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> &#123;</span>
-<span class="hljs-keyword">public</span>:
-	Person()
-	&#123;
-		mAge = <span class="hljs-number">0</span>;
-	&#125;
-
-	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setAge</span><span class="hljs-params">(<span class="hljs-keyword">int</span> age)</span></span>
-<span class="hljs-function">	</span>&#123;
-		<span class="hljs-keyword">if</span> (age &lt; <span class="hljs-number">0</span> || age &gt;= <span class="hljs-number">120</span>)
-		&#123;
-			<span class="hljs-keyword">throw</span> MyException(<span class="hljs-string">&quot;年龄超出正常人类！&quot;</span>);
-		&#125;
-		<span class="hljs-keyword">else</span> <span class="hljs-keyword">this</span>-&gt;mAge = age;
-	&#125;
-<span class="hljs-keyword">public</span>:
-	<span class="hljs-keyword">int</span> mAge;
-&#125;;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-	Person p1;
-	<span class="hljs-keyword">try</span> &#123;
-		p1.setAge(<span class="hljs-number">-45</span>);
-	&#125;
-	<span class="hljs-keyword">catch</span> (exception&amp; e)<span class="hljs-comment">//这里采用引用，用不到拷贝构造。但是如果不使用引用的话，会出现Unknow exception！</span>
-						 <span class="hljs-comment">//必须使用引用，因为exception是抽象基类，不能够实例化对象(或者修改throw使其抛回一个指针，改用指针接收)</span>
-						 <span class="hljs-comment">//这里是父类引用指向子类对象，并且有虚函数以及子类的重写，是多态</span>
-	&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; e.what() &lt;&lt; <span class="hljs-built_in">endl</span>;
-	&#125;
-	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
-
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -580,18 +329,18 @@
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
-                      <a href="/math-base/">
+                      <a href="/leetcode-1/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【置顶】数学基础知识、常用公式总结</span>
+                        <span class="hidden-mobile">Leetcode刷题（一）</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/stl-minmax/">
@@ -600,47 +349,45 @@
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
               <!-- Comments -->
-              <div class="comments" id="comments">
+              <article class="comments" id="comments">
                 
                 
   <div id="vcomments"></div>
-  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
-
   <script type="text/javascript">
-    var oldLoadVa = window.onload;
-    window.onload = function () {
-      oldLoadVa && oldLoadVa();
-
-      new Valine({
-        el: "#vcomments",
-        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
-        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
-        placeholder: "说点什么",
-        path: window.location.pathname,
-        avatar: "wavatar",
-        meta: ["nick","mail","link"],
-        pageSize: "10",
-        lang: "zh-CN",
-        highlight: false,
-        recordIP: false,
-        serverURLs: "",
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
       });
-    };
+    });
   </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
 
 
-              </div>
+              </article>
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -648,7 +395,7 @@
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
   <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
       </div>
@@ -660,16 +407,15 @@
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -690,24 +436,22 @@
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
-    <i class="iconfont icon-love"></i>
-    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
-    <br>
-    </div>
     
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
   <div class="statistics">
     
     
@@ -734,337 +478,153 @@
   </div>
 
 
-    
+  
 
-	
-    
+
   
-  
-  <!-- 网站运行时间的设置 -->
-  <script src="/js/HidenMath.js"></script>
-  <script>
-    var now = new Date();
-    function createtime() {
-      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
-      now.setTime(now.getTime() + 250);
-      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
-      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
-      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
-      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
-      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
-      document.getElementById("timeDate").innerHTML = dnum;
-      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
-    }
-    setInterval("createtime()", 250);
-  </script>
-  </div>
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  <script  src="/js/lazyload.js" ></script>
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
   
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '.post-content',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(response => response.json())
-          .then(({results}) => {
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(response => response.json())
-                .then((record) => {
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch(error => {
-          console.error('LeanCloud Counter Error', error);
-          reject(error);
-        });
-      })
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
-        }
-      }
-    }
-
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          resolve(res);
-        }).catch(error => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true'
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/cpp-exception/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
-    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
-    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "C++异常&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 80,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
       
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
   <script  src="/js/local-search.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
       }
-    );
+    })()
   </script>
 
 
 
 
 
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
 
 
 
@@ -1073,8 +633,24 @@
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

@@ -1,7 +1,7 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -19,22 +19,33 @@
   <meta name="keywords" content="">
   <title>蓝桥杯-DFS深度应用与模板 - Colourso</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -42,6 +53,12 @@
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 5.3.0"></head>
 
 
@@ -136,8 +153,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -145,25 +168,28 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="蓝桥杯-DFS深度应用与模板">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2019-03-22 17:50">
-      星期五, 三月 22日 2019, 5:50 下午
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-03-22 17:50" pubdate>
+        2019年3月22日 下午
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
@@ -180,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      19
+      27
        分钟
     </span>
   
@@ -189,9 +215,9 @@
   
     
       <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
         <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-post-views"></span> 次
+        <span id="leancloud-page-views"></span> 次
       </span>
     
   
@@ -210,15 +236,23 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">蓝桥杯-DFS深度应用与模板</h1>
             
-            <article class="markdown-body">
+              <p class="note note-info">
+                
+                  本文最后更新于：2019年11月14日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
               <p><img src="/lanqiao-dfs/7.jpg" srcset="/img/loading.gif" alt="引图"></p>
 <center>着实头大</center>
 <a id="more"></a>
@@ -229,79 +263,19 @@
 <p>对每一个可能的路径深入到不能深入为止，且每一个节点只能访问一次。</p>
 <h2 id="案列：1-n的全排列"><a href="#案列：1-n的全排列" class="headerlink" title="案列：1-n的全排列"></a>案列：1-n的全排列</h2><p>如1-3的全排列为 123、132、213、231、312、321</p>
 <p>类似于n个标号为1-n的小球放入标号1-n的盒子中，共有多少种方法？</p>
-<h3 id="如何往盒子中放球？"><a href="#如何往盒子中放球？" class="headerlink" title="如何往盒子中放球？"></a>如何往盒子中放球？</h3><pre><code class="hljs CPP"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++)
-&#123;
-	a[step]=i;
-&#125;</code></pre>
+<h3 id="如何往盒子中放球？"><a href="#如何往盒子中放球？" class="headerlink" title="如何往盒子中放球？"></a>如何往盒子中放球？</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs CPP"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++)<br>&#123;<br>	a[step]=i;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>a数组表示盒子，step表示第几个盒子，上述表示将第i个球放入第step个盒子中。</p>
-<h3 id="如何判断哪些球被放过了？"><a href="#如何判断哪些球被放过了？" class="headerlink" title="如何判断哪些球被放过了？"></a>如何判断哪些球被放过了？</h3><pre><code class="hljs CPP"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++)
-&#123;
-	<span class="hljs-keyword">if</span>(book[i]==<span class="hljs-number">0</span>)
-	&#123;
-		a[step]=i;
-		book[i]=<span class="hljs-number">1</span>;
-	&#125;
-&#125;</code></pre>
+<h3 id="如何判断哪些球被放过了？"><a href="#如何判断哪些球被放过了？" class="headerlink" title="如何判断哪些球被放过了？"></a>如何判断哪些球被放过了？</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs CPP"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++)<br>&#123;<br>	<span class="hljs-keyword">if</span>(book[i]==<span class="hljs-number">0</span>)<br>	&#123;<br>		a[step]=i;<br>		book[i]=<span class="hljs-number">1</span>;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>增加<strong>标记数组</strong>来标记哪些小球被放过了。</p>
-<h3 id="如何继续处理下一个盒子？"><a href="#如何继续处理下一个盒子？" class="headerlink" title="如何继续处理下一个盒子？"></a>如何继续处理下一个盒子？</h3><pre><code class="hljs CPP"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> step)</span></span>
-<span class="hljs-function"></span>&#123;
-	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++)
-	&#123;
-		<span class="hljs-keyword">if</span>(book[i]==<span class="hljs-number">0</span>)
-		&#123;
-			a[step]=i;
-			book[i]=<span class="hljs-number">1</span>;
-			dfs(step+<span class="hljs-number">1</span>);
-			book[i]=<span class="hljs-number">0</span>;<span class="hljs-comment">//将盒子中的球收回，如果不进行收回，无法进行下一次摆放</span>
-		&#125;
-	&#125;
-	<span class="hljs-keyword">return</span>;
-&#125;</code></pre>
+<h3 id="如何继续处理下一个盒子？"><a href="#如何继续处理下一个盒子？" class="headerlink" title="如何继续处理下一个盒子？"></a>如何继续处理下一个盒子？</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs CPP"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> step)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++)<br>	&#123;<br>		<span class="hljs-keyword">if</span>(book[i]==<span class="hljs-number">0</span>)<br>		&#123;<br>			a[step]=i;<br>			book[i]=<span class="hljs-number">1</span>;<br>			dfs(step+<span class="hljs-number">1</span>);<br>			book[i]=<span class="hljs-number">0</span>;<span class="hljs-comment">//将盒子中的球收回，如果不进行收回，无法进行下一次摆放</span><br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>封装为函数，使用<strong>递归</strong>进行处理。</p>
-<h3 id="如何判断一次排列的结束？"><a href="#如何判断一次排列的结束？" class="headerlink" title="如何判断一次排列的结束？"></a>如何判断一次排列的结束？</h3><pre><code class="hljs CPP"><span class="hljs-keyword">if</span>(step==n+<span class="hljs-number">1</span>)
-&#123;
-	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++)
-		<span class="hljs-built_in">cout</span>&lt;&lt;a[i];
-	<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
-&#125;</code></pre>
+<h3 id="如何判断一次排列的结束？"><a href="#如何判断一次排列的结束？" class="headerlink" title="如何判断一次排列的结束？"></a>如何判断一次排列的结束？</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs CPP"><span class="hljs-keyword">if</span>(step==n+<span class="hljs-number">1</span>)<br>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++)<br>		<span class="hljs-built_in">cout</span>&lt;&lt;a[i];<br>	<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>如果站在第i+1个盒子面前时，说明前n个盒子已经放好球了。则结束</p>
-<h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><pre><code class="hljs CPP"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-<span class="hljs-keyword">int</span> a[<span class="hljs-number">1000</span>],book[<span class="hljs-number">1000</span>],n;
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> step)</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-keyword">if</span>(step==n+<span class="hljs-number">1</span>)
-    &#123;
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++)
-        &#123;
-            <span class="hljs-built_in">cout</span>&lt;&lt;a[i];
-        &#125;
-        <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
-        <span class="hljs-keyword">return</span>;
-    &#125;
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;i&lt;=n;i++)
-    &#123;
-        <span class="hljs-keyword">if</span>(book[i]==<span class="hljs-number">0</span>)<span class="hljs-comment">//如果第i个球没被放过，就放入，然后改变状态</span>
-        &#123;
-            a[step] = i;
-            book[i] = <span class="hljs-number">1</span>;
-            dfs(step+<span class="hljs-number">1</span>);
-            book[i]=<span class="hljs-number">0</span>;
-        &#125;
-    &#125;
-    <span class="hljs-keyword">return</span>;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-built_in">cin</span>&gt;&gt;n;
-    dfs(<span class="hljs-number">1</span>);
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+<h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs CPP"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><span class="hljs-keyword">int</span> a[<span class="hljs-number">1000</span>],book[<span class="hljs-number">1000</span>],n;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> step)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span>(step==n+<span class="hljs-number">1</span>)<br>    &#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++)<br>        &#123;<br>            <span class="hljs-built_in">cout</span>&lt;&lt;a[i];<br>        &#125;<br>        <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;i&lt;=n;i++)<br>    &#123;<br>        <span class="hljs-keyword">if</span>(book[i]==<span class="hljs-number">0</span>)<span class="hljs-comment">//如果第i个球没被放过，就放入，然后改变状态</span><br>        &#123;<br>            a[step] = i;<br>            book[i] = <span class="hljs-number">1</span>;<br>            dfs(step+<span class="hljs-number">1</span>);<br>            book[i]=<span class="hljs-number">0</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">cin</span>&gt;&gt;n;<br>    dfs(<span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h2 id="蓝桥杯真题——方格填数"><a href="#蓝桥杯真题——方格填数" class="headerlink" title="蓝桥杯真题——方格填数"></a>蓝桥杯真题——方格填数</h2><blockquote>
 <p><strong>题目描述</strong>：</p>
@@ -315,76 +289,7 @@
 <p>根据上面的模板，数值赋值部分不变，只需要改变逻辑判断的部分，用来方格填数的逻辑判断。</p>
 <p><img src="/lanqiao-dfs/fangge-1.jpg" srcset="/img/loading.gif" alt="方格填数图"></p>
 <p>参照底下逻辑判断的代码，非常容易理解。</p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><pre><code class="hljs CPP"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;math.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-<span class="hljs-keyword">int</span> cnt = <span class="hljs-number">0</span>;
-<span class="hljs-keyword">int</span> a[<span class="hljs-number">15</span>],book[<span class="hljs-number">15</span>];
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> step)</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-keyword">bool</span> isa = <span class="hljs-literal">true</span>;
-    <span class="hljs-keyword">if</span>(step == <span class="hljs-number">11</span>)
-    &#123;
-        <span class="hljs-comment">//judge</span>
-        <span class="hljs-comment">//左右相邻两数之间不连续</span>
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">1</span>;j&lt;=<span class="hljs-number">2</span>;j++)
-        &#123;
-            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(a[j]-a[j+<span class="hljs-number">1</span>]) == <span class="hljs-number">1</span>) isa = <span class="hljs-literal">false</span>;
-        &#125;
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">4</span>;j&lt;=<span class="hljs-number">6</span>;j++)
-        &#123;
-            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(a[j]-a[j+<span class="hljs-number">1</span>]) == <span class="hljs-number">1</span>) isa = <span class="hljs-literal">false</span>;
-        &#125;
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">8</span>;j&lt;=<span class="hljs-number">9</span>;j++)
-        &#123;
-            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(a[j]-a[j+<span class="hljs-number">1</span>]) == <span class="hljs-number">1</span>) isa = <span class="hljs-literal">false</span>;
-        &#125;
-        <span class="hljs-comment">//上下两数之间不连续</span>
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">1</span>;j&lt;=<span class="hljs-number">6</span>;j++)
-        &#123;
-            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(a[j]-a[j+<span class="hljs-number">4</span>]) == <span class="hljs-number">1</span>) isa = <span class="hljs-literal">false</span>;
-        &#125;
-        <span class="hljs-comment">//斜对角/这种不连续</span>
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">1</span>;j&lt;=<span class="hljs-number">3</span>;j++)
-        &#123;
-            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(a[j]-a[j+<span class="hljs-number">3</span>]) == <span class="hljs-number">1</span>) isa = <span class="hljs-literal">false</span>;
-        &#125;
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">5</span>;j&lt;=<span class="hljs-number">7</span>;j++)
-        &#123;
-            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(a[j]-a[j+<span class="hljs-number">3</span>]) == <span class="hljs-number">1</span>) isa = <span class="hljs-literal">false</span>;
-        &#125;
-        <span class="hljs-comment">//斜对角\这种不连续·</span>
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">1</span>;j&lt;=<span class="hljs-number">2</span>;j++)
-        &#123;
-            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(a[j]-a[j+<span class="hljs-number">5</span>]) == <span class="hljs-number">1</span>) isa = <span class="hljs-literal">false</span>;
-        &#125;
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">4</span>;j&lt;=<span class="hljs-number">5</span>;j++)
-        &#123;
-            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(a[j]-a[j+<span class="hljs-number">5</span>]) == <span class="hljs-number">1</span>) isa = <span class="hljs-literal">false</span>;
-        &#125;
-        <span class="hljs-keyword">if</span>(isa == <span class="hljs-literal">true</span>) ++cnt;
-        <span class="hljs-keyword">return</span>;
-    &#125;
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=<span class="hljs-number">10</span>;i++)
-    &#123;
-        <span class="hljs-keyword">if</span>(book[i]==<span class="hljs-number">0</span>)
-        &#123;
-            a[step] = i;
-            book[i] = <span class="hljs-number">1</span>;
-            dfs(step+<span class="hljs-number">1</span>);
-            book[i] = <span class="hljs-number">0</span>;
-        &#125;
-    &#125;
-    <span class="hljs-keyword">return</span>;
-&#125;
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    dfs(<span class="hljs-number">1</span>);
-    <span class="hljs-built_in">cout</span>&lt;&lt;cnt&lt;&lt;<span class="hljs-built_in">endl</span>;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;
-</code></pre>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><code class="hljs CPP"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;math.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><span class="hljs-keyword">int</span> cnt = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">int</span> a[<span class="hljs-number">15</span>],book[<span class="hljs-number">15</span>];<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> step)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">bool</span> isa = <span class="hljs-literal">true</span>;<br>    <span class="hljs-keyword">if</span>(step == <span class="hljs-number">11</span>)<br>    &#123;<br>        <span class="hljs-comment">//judge</span><br>        <span class="hljs-comment">//左右相邻两数之间不连续</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">1</span>;j&lt;=<span class="hljs-number">2</span>;j++)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(a[j]-a[j+<span class="hljs-number">1</span>]) == <span class="hljs-number">1</span>) isa = <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">4</span>;j&lt;=<span class="hljs-number">6</span>;j++)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(a[j]-a[j+<span class="hljs-number">1</span>]) == <span class="hljs-number">1</span>) isa = <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">8</span>;j&lt;=<span class="hljs-number">9</span>;j++)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(a[j]-a[j+<span class="hljs-number">1</span>]) == <span class="hljs-number">1</span>) isa = <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-comment">//上下两数之间不连续</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">1</span>;j&lt;=<span class="hljs-number">6</span>;j++)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(a[j]-a[j+<span class="hljs-number">4</span>]) == <span class="hljs-number">1</span>) isa = <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-comment">//斜对角/这种不连续</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">1</span>;j&lt;=<span class="hljs-number">3</span>;j++)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(a[j]-a[j+<span class="hljs-number">3</span>]) == <span class="hljs-number">1</span>) isa = <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">5</span>;j&lt;=<span class="hljs-number">7</span>;j++)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(a[j]-a[j+<span class="hljs-number">3</span>]) == <span class="hljs-number">1</span>) isa = <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-comment">//斜对角\这种不连续·</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">1</span>;j&lt;=<span class="hljs-number">2</span>;j++)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(a[j]-a[j+<span class="hljs-number">5</span>]) == <span class="hljs-number">1</span>) isa = <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">4</span>;j&lt;=<span class="hljs-number">5</span>;j++)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(a[j]-a[j+<span class="hljs-number">5</span>]) == <span class="hljs-number">1</span>) isa = <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span>(isa == <span class="hljs-literal">true</span>) ++cnt;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=<span class="hljs-number">10</span>;i++)<br>    &#123;<br>        <span class="hljs-keyword">if</span>(book[i]==<span class="hljs-number">0</span>)<br>        &#123;<br>            a[step] = i;<br>            book[i] = <span class="hljs-number">1</span>;<br>            dfs(step+<span class="hljs-number">1</span>);<br>            book[i] = <span class="hljs-number">0</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span>;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    dfs(<span class="hljs-number">1</span>);<br>    <span class="hljs-built_in">cout</span>&lt;&lt;cnt&lt;&lt;<span class="hljs-built_in">endl</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 
 <h4 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h4><p>1580种</p>
 <h2 id="蓝桥杯真题——方格分割"><a href="#蓝桥杯真题——方格分割" class="headerlink" title="蓝桥杯真题——方格分割"></a>蓝桥杯真题——方格分割</h2><blockquote>
@@ -396,50 +301,13 @@
 <p>试计算：<br>包括这3种分法在内，一共有多少种不同的分割方法。<br>注意：旋转对称的属于同一种分割法。<br>请提交该整数，不要填写任何多余的内容或说明文字。</p>
 </blockquote>
 <h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h4><p>6x6的方格，剪为两部分，一定会经过中心点，并且中心对称。要计算出所有的可能，就需要DFS。<br>当然需要注意两点，<strong>以中心点为出发点向周围进行dfs，所以中心点的状态是被访问过的。<br>另外由于是正方形，且中心对称，最后的结果要除以4</strong>。</p>
-<h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><pre><code class="hljs CPP"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-<span class="hljs-keyword">int</span> book[<span class="hljs-number">10</span>][<span class="hljs-number">10</span>];<span class="hljs-comment">//标记数组</span>
-<span class="hljs-keyword">int</span> cnt = <span class="hljs-number">0</span>;
-<span class="hljs-keyword">int</span> dir = &#123;<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">-1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">-1</span>&#125;;<span class="hljs-comment">//方向数组</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x,<span class="hljs-keyword">int</span> y)</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-keyword">if</span>(x==<span class="hljs-number">0</span>||x==<span class="hljs-number">6</span>||y==<span class="hljs-number">0</span>||y==<span class="hljs-number">6</span>)<span class="hljs-comment">//如若到达边境</span>
-    &#123;
-        ++cnt;
-        <span class="hljs-keyword">return</span>;
-    &#125;
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">4</span>;i++)
-    &#123;
-        <span class="hljs-keyword">int</span> nx = x+dir[i][<span class="hljs-number">0</span>];
-        <span class="hljs-keyword">int</span> ny = y+dir[i][<span class="hljs-number">1</span>];
-        <span class="hljs-keyword">if</span>(nx&lt;<span class="hljs-number">0</span>||nx&gt;<span class="hljs-number">6</span>||ny&lt;<span class="hljs-number">0</span>||ny&gt;<span class="hljs-number">6</span>) <span class="hljs-keyword">continue</span>;
-        <span class="hljs-keyword">if</span>(book[nx][ny]==<span class="hljs-number">0</span>)
-        &#123;
-            book[nx][ny]=<span class="hljs-number">1</span>;
-            book[<span class="hljs-number">6</span>-nx][<span class="hljs-number">6</span>-ny]=<span class="hljs-number">1</span>;
-
-            dfs(nx,ny);
-
-            book[nx][ny]=<span class="hljs-number">0</span>;
-            book[<span class="hljs-number">6</span>-nx][<span class="hljs-number">6</span>-ny]=<span class="hljs-number">0</span>;
-        &#125;
-    &#125;
-
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    book[<span class="hljs-number">3</span>][<span class="hljs-number">3</span>] = <span class="hljs-number">1</span>;
-    dfs(<span class="hljs-number">3</span>,<span class="hljs-number">3</span>);
-    <span class="hljs-built_in">cout</span> &lt;&lt; cnt/<span class="hljs-number">4</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+<h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs CPP"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><span class="hljs-keyword">int</span> book[<span class="hljs-number">10</span>][<span class="hljs-number">10</span>];<span class="hljs-comment">//标记数组</span><br><span class="hljs-keyword">int</span> cnt = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">int</span> dir = &#123;<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">-1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">-1</span>&#125;;<span class="hljs-comment">//方向数组</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x,<span class="hljs-keyword">int</span> y)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span>(x==<span class="hljs-number">0</span>||x==<span class="hljs-number">6</span>||y==<span class="hljs-number">0</span>||y==<span class="hljs-number">6</span>)<span class="hljs-comment">//如若到达边境</span><br>    &#123;<br>        ++cnt;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">4</span>;i++)<br>    &#123;<br>        <span class="hljs-keyword">int</span> nx = x+dir[i][<span class="hljs-number">0</span>];<br>        <span class="hljs-keyword">int</span> ny = y+dir[i][<span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">if</span>(nx&lt;<span class="hljs-number">0</span>||nx&gt;<span class="hljs-number">6</span>||ny&lt;<span class="hljs-number">0</span>||ny&gt;<span class="hljs-number">6</span>) <span class="hljs-keyword">continue</span>;<br>        <span class="hljs-keyword">if</span>(book[nx][ny]==<span class="hljs-number">0</span>)<br>        &#123;<br>            book[nx][ny]=<span class="hljs-number">1</span>;<br>            book[<span class="hljs-number">6</span>-nx][<span class="hljs-number">6</span>-ny]=<span class="hljs-number">1</span>;<br><br>            dfs(nx,ny);<br><br>            book[nx][ny]=<span class="hljs-number">0</span>;<br>            book[<span class="hljs-number">6</span>-nx][<span class="hljs-number">6</span>-ny]=<span class="hljs-number">0</span>;<br>        &#125;<br>    &#125;<br><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    book[<span class="hljs-number">3</span>][<span class="hljs-number">3</span>] = <span class="hljs-number">1</span>;<br>    dfs(<span class="hljs-number">3</span>,<span class="hljs-number">3</span>);<br>    <span class="hljs-built_in">cout</span> &lt;&lt; cnt/<span class="hljs-number">4</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h4 id="答案-1"><a href="#答案-1" class="headerlink" title="答案"></a>答案</h4><blockquote>
 <p>509</p>
 </blockquote>
 
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -466,8 +334,8 @@
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/assembly-language-0/">
@@ -476,8 +344,8 @@
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/stl-stackqueue/">
@@ -486,47 +354,45 @@
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
               <!-- Comments -->
-              <div class="comments" id="comments">
+              <article class="comments" id="comments">
                 
                 
   <div id="vcomments"></div>
-  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
-
   <script type="text/javascript">
-    var oldLoadVa = window.onload;
-    window.onload = function () {
-      oldLoadVa && oldLoadVa();
-
-      new Valine({
-        el: "#vcomments",
-        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
-        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
-        placeholder: "说点什么",
-        path: window.location.pathname,
-        avatar: "wavatar",
-        meta: ["nick","mail","link"],
-        pageSize: "10",
-        lang: "zh-CN",
-        highlight: false,
-        recordIP: false,
-        serverURLs: "",
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
       });
-    };
+    });
   </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
 
 
-              </div>
+              </article>
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -534,7 +400,7 @@
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
   <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
       </div>
@@ -546,16 +412,15 @@
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -576,24 +441,22 @@
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
-    <i class="iconfont icon-love"></i>
-    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
-    <br>
-    </div>
     
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
   <div class="statistics">
     
     
@@ -620,337 +483,153 @@
   </div>
 
 
-    
+  
 
-	
-    
+
   
-  
-  <!-- 网站运行时间的设置 -->
-  <script src="/js/HidenMath.js"></script>
-  <script>
-    var now = new Date();
-    function createtime() {
-      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
-      now.setTime(now.getTime() + 250);
-      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
-      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
-      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
-      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
-      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
-      document.getElementById("timeDate").innerHTML = dnum;
-      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
-    }
-    setInterval("createtime()", 250);
-  </script>
-  </div>
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  <script  src="/js/lazyload.js" ></script>
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
   
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '.post-content',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(response => response.json())
-          .then(({results}) => {
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(response => response.json())
-                .then((record) => {
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch(error => {
-          console.error('LeanCloud Counter Error', error);
-          reject(error);
-        });
-      })
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
-        }
-      }
-    }
-
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          resolve(res);
-        }).catch(error => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true'
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/lanqiao-dfs/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
-    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
-    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "蓝桥杯-DFS深度应用与模板&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 80,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
       
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
   <script  src="/js/local-search.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
       }
-    );
+    })()
   </script>
 
 
 
 
 
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
 
 
 
@@ -959,8 +638,24 @@
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

@@ -1,7 +1,7 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -19,22 +19,33 @@
   <meta name="keywords" content="">
   <title>C++面向对象（二) —— 继承 - Colourso</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -42,6 +53,12 @@
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 5.3.0"></head>
 
 
@@ -136,8 +153,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -145,25 +168,28 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="C++面向对象（二) —— 继承">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-04-16 14:09">
-      星期四, 四月 16日 2020, 2:09 下午
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-04-16 14:09" pubdate>
+        2020年4月16日 下午
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
@@ -180,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      48
+      69
        分钟
     </span>
   
@@ -189,9 +215,9 @@
   
     
       <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
         <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-post-views"></span> 次
+        <span id="leancloud-page-views"></span> 次
       </span>
     
   
@@ -210,15 +236,23 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">C++面向对象（二) —— 继承</h1>
             
-            <article class="markdown-body">
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年1月27日 下午
+                
+              </p>
+            
+            <div class="markdown-body">
               <p><strong>概览</strong>：C++面向对象之继承，继承实例、覆盖、多继承与虚继承、基类派生类对象兼容性赋值。</p>
 <a id="more"></a>
 
@@ -234,66 +268,7 @@
 <p>面向对象程序设计(object oriented programming)的核心思想是数据抽象、继承和动态绑定。通过使用数据抽象，我们可以将类的接口与实现分离；使用继承，可以定义相似的类型并对其相似关系建模；使用动态绑定，可以在一定程度上忽略相似类型的区别，而以统一的方式使用它们的对象。</p>
 <p>—— 《C++ Primer 第五版》</p>
 </blockquote>
-<h2 id="简单的继承"><a href="#简单的继承" class="headerlink" title="简单的继承"></a>简单的继承</h2><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span></span>
-<span class="hljs-class">&#123;</span>
-<span class="hljs-keyword">public</span>:
-    Animal() :name(<span class="hljs-string">&quot;&quot;</span>), age(<span class="hljs-number">0</span>), sex(<span class="hljs-literal">true</span>) &#123;&#125;
-    Animal(<span class="hljs-built_in">string</span> name, <span class="hljs-keyword">int</span> age, <span class="hljs-keyword">bool</span> sex) :
-        name(name), age(age), sex(sex) &#123;&#125;
-    ~Animal() &#123;&#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showInfo</span><span class="hljs-params">()</span></span>
-<span class="hljs-function">    </span>&#123;
-        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;name: &quot;</span> &lt;&lt; name &lt;&lt; <span class="hljs-string">&quot;,age: &quot;</span> &lt;&lt; age &lt;&lt; <span class="hljs-string">&quot;, sex: &quot;</span>
-            &lt;&lt; (sex ? <span class="hljs-string">&quot;male&quot;</span> : <span class="hljs-string">&quot;female&quot;</span>) &lt;&lt; <span class="hljs-built_in">endl</span>;
-    &#125;
-
-    <span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span> message;
-<span class="hljs-keyword">private</span>:
-    <span class="hljs-built_in">string</span> name;
-    <span class="hljs-keyword">int</span> age;
-    <span class="hljs-keyword">bool</span> sex;
-&#125;;
-
-<span class="hljs-comment">//静态变量赋值</span>
-<span class="hljs-built_in">string</span> Animal::message = <span class="hljs-string">&quot;on Earth&quot;</span>;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span> :</span><span class="hljs-keyword">public</span> Animal
-&#123;
-<span class="hljs-keyword">public</span>:
-    Cat() :Animal(), lovething(<span class="hljs-string">&quot;&quot;</span>) &#123;&#125;
-    Cat(<span class="hljs-built_in">string</span> name, <span class="hljs-keyword">int</span> age, <span class="hljs-keyword">bool</span> sex, <span class="hljs-built_in">string</span> lthing) :
-        Animal(name, age, sex), lovething(lthing) &#123;&#125;
-    ~Cat() &#123;&#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">makeSound</span><span class="hljs-params">()</span></span>
-<span class="hljs-function">    </span>&#123;
-        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;meow~&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    &#125;
-<span class="hljs-keyword">private</span>:
-    <span class="hljs-built_in">string</span> lovething;
-&#125;;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-function">Animal <span class="hljs-title">a</span><span class="hljs-params">(<span class="hljs-string">&quot;Bob&quot;</span>,<span class="hljs-number">3</span>,<span class="hljs-literal">true</span>)</span></span>;
-    a.showInfo();                   <span class="hljs-comment">//name: Bob,age: 3, sex: male</span>
-    <span class="hljs-built_in">cout</span> &lt;&lt; a.message &lt;&lt; <span class="hljs-built_in">endl</span>;      <span class="hljs-comment">//on Earth</span>
-
-    <span class="hljs-function">Cat <span class="hljs-title">b</span><span class="hljs-params">(<span class="hljs-string">&quot;kelly&quot;</span>,<span class="hljs-number">7</span>,<span class="hljs-literal">false</span>,<span class="hljs-string">&quot;fish&quot;</span>)</span></span>;  
-    b.showInfo();                   <span class="hljs-comment">//name: kelly,age: 7, sex: female</span>
-    								<span class="hljs-comment">//派生类并未定义这个函数，但是依旧可以访问</span>
-    b.makeSound();                  <span class="hljs-comment">//meow~</span>
-    <span class="hljs-built_in">cout</span> &lt;&lt; b.message &lt;&lt; <span class="hljs-built_in">endl</span>;      <span class="hljs-comment">//on Earth</span>
-
-    a.message = <span class="hljs-string">&quot;Earth&quot;</span>;            
-    <span class="hljs-built_in">cout</span> &lt;&lt; b.message &lt;&lt; <span class="hljs-built_in">endl</span>;      <span class="hljs-comment">//Earth</span>
-
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+<h2 id="简单的继承"><a href="#简单的继承" class="headerlink" title="简单的继承"></a>简单的继承</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span></span><br><span class="hljs-class">&#123;</span><br><span class="hljs-keyword">public</span>:<br>    Animal() :name(<span class="hljs-string">&quot;&quot;</span>), age(<span class="hljs-number">0</span>), sex(<span class="hljs-literal">true</span>) &#123;&#125;<br>    Animal(<span class="hljs-built_in">string</span> name, <span class="hljs-keyword">int</span> age, <span class="hljs-keyword">bool</span> sex) :<br>        name(name), age(age), sex(sex) &#123;&#125;<br>    ~Animal() &#123;&#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">showInfo</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;name: &quot;</span> &lt;&lt; name &lt;&lt; <span class="hljs-string">&quot;,age: &quot;</span> &lt;&lt; age &lt;&lt; <span class="hljs-string">&quot;, sex: &quot;</span><br>            &lt;&lt; (sex ? <span class="hljs-string">&quot;male&quot;</span> : <span class="hljs-string">&quot;female&quot;</span>) &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span> message;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-built_in">string</span> name;<br>    <span class="hljs-keyword">int</span> age;<br>    <span class="hljs-keyword">bool</span> sex;<br>&#125;;<br><br><span class="hljs-comment">//静态变量赋值</span><br><span class="hljs-built_in">string</span> Animal::message = <span class="hljs-string">&quot;on Earth&quot;</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span> :</span><span class="hljs-keyword">public</span> Animal<br>&#123;<br><span class="hljs-keyword">public</span>:<br>    Cat() :Animal(), lovething(<span class="hljs-string">&quot;&quot;</span>) &#123;&#125;<br>    Cat(<span class="hljs-built_in">string</span> name, <span class="hljs-keyword">int</span> age, <span class="hljs-keyword">bool</span> sex, <span class="hljs-built_in">string</span> lthing) :<br>        Animal(name, age, sex), lovething(lthing) &#123;&#125;<br>    ~Cat() &#123;&#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">makeSound</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;meow~&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-built_in">string</span> lovething;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-function">Animal <span class="hljs-title">a</span><span class="hljs-params">(<span class="hljs-string">&quot;Bob&quot;</span>,<span class="hljs-number">3</span>,<span class="hljs-literal">true</span>)</span></span>;<br>    a.showInfo();                   <span class="hljs-comment">//name: Bob,age: 3, sex: male</span><br>    <span class="hljs-built_in">cout</span> &lt;&lt; a.message &lt;&lt; <span class="hljs-built_in">endl</span>;      <span class="hljs-comment">//on Earth</span><br><br>    <span class="hljs-function">Cat <span class="hljs-title">b</span><span class="hljs-params">(<span class="hljs-string">&quot;kelly&quot;</span>,<span class="hljs-number">7</span>,<span class="hljs-literal">false</span>,<span class="hljs-string">&quot;fish&quot;</span>)</span></span>;  <br>    b.showInfo();                   <span class="hljs-comment">//name: kelly,age: 7, sex: female</span><br>    								<span class="hljs-comment">//派生类并未定义这个函数，但是依旧可以访问</span><br>    b.makeSound();                  <span class="hljs-comment">//meow~</span><br>    <span class="hljs-built_in">cout</span> &lt;&lt; b.message &lt;&lt; <span class="hljs-built_in">endl</span>;      <span class="hljs-comment">//on Earth</span><br><br>    a.message = <span class="hljs-string">&quot;Earth&quot;</span>;            <br>    <span class="hljs-built_in">cout</span> &lt;&lt; b.message &lt;&lt; <span class="hljs-built_in">endl</span>;      <span class="hljs-comment">//Earth</span><br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>继承是一种将C++的类联系在一起构成一种层级关系。在层次关系的底部的是<strong>基类</strong>(base class)，而其他的类都是直接或者间接地从基类继承而来，这些由继承而得到的类称为<strong>派生类</strong>(derived class)。<strong>基类负责定义在层次关系中所有类都共同拥有的成员，而派生类则额外定义自己特有的成员。</strong></p>
 <p>另外，基类希望它的某些函数派生类各自定义适合自身的版本，此时就会将这些函数声明为<strong>虚函数</strong>(virtual function)。</p>
 <p>例如定义一个基类动物类Animal，定义一个派生类Cat。Animal中包含一些动物拥有的特性，而Cat则是猫这种动物的特性，Cat就是Animal中的一种。是Cat <strong>is</strong> Animal的这种关系。</p>
@@ -306,27 +281,7 @@
 <li>在派生类中基类的私有数据成员要使用基类的构造函数来初始化。</li>
 <li><strong>友元不能被继承</strong>。</li>
 </ul>
-<h2 id="派生类对象的内存空间"><a href="#派生类对象的内存空间" class="headerlink" title="派生类对象的内存空间"></a>派生类对象的内存空间</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span></span>
-<span class="hljs-class">&#123;</span>
-<span class="hljs-keyword">private</span>:
-    <span class="hljs-keyword">int</span> a;
-    <span class="hljs-keyword">int</span> b;
-&#125;;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span>:</span><span class="hljs-keyword">public</span> A
-&#123;
-<span class="hljs-keyword">private</span>:
-    <span class="hljs-keyword">int</span> c;
-&#125;;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    A a;
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(a) &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//8</span>
-
-    B b;
-    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(b) &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//12</span>
-&#125;</code></pre>
+<h2 id="派生类对象的内存空间"><a href="#派生类对象的内存空间" class="headerlink" title="派生类对象的内存空间"></a>派生类对象的内存空间</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span></span><br><span class="hljs-class">&#123;</span><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-keyword">int</span> a;<br>    <span class="hljs-keyword">int</span> b;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span>:</span><span class="hljs-keyword">public</span> A<br>&#123;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-keyword">int</span> c;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    A a;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(a) &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//8</span><br><br>    B b;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(b) &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//12</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <p>派生类对象之中包含着基类对象，且基类对象存储位置位于派生类对象新增的成员变量之前。就相当于基类对象是头部。</p>
 <ul>
 <li><p><strong>派生类对象的大小 = 基类对象成员大小 + 派生类对象自己成员变量的大小。</strong></p>
@@ -334,112 +289,7 @@
 <li><p>即使基类中的私有成员派生类不能访问，但是依然存在于派生类之中。</p>
 </li>
 </ul>
-<h2 id="派生类继承的访问权限"><a href="#派生类继承的访问权限" class="headerlink" title="派生类继承的访问权限"></a>派生类继承的访问权限</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span></span>
-<span class="hljs-class">&#123;</span>
-<span class="hljs-keyword">public</span>:
-    Animal() :age(<span class="hljs-number">0</span>)&#123;&#125;
-    Animal(<span class="hljs-keyword">int</span> age) : age(age)&#123;&#125;
-    ~Animal() &#123;&#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">testPbulicFun</span><span class="hljs-params">()</span></span>
-<span class="hljs-function">    </span>&#123;
-        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Public function&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    &#125;
-
-<span class="hljs-keyword">protected</span>:
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">testProtecteFun</span><span class="hljs-params">()</span></span>
-<span class="hljs-function">    </span>&#123;
-        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Protected function&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    &#125;
-
-<span class="hljs-keyword">private</span>:
-    <span class="hljs-keyword">int</span> age;
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">testPrivateFun</span><span class="hljs-params">()</span></span>
-<span class="hljs-function">    </span>&#123;
-        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Private function&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-    &#125;
-&#125;;
-
-<span class="hljs-comment">//公有继承</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span> :</span><span class="hljs-keyword">public</span> Animal
-&#123;
-<span class="hljs-keyword">public</span>:
-    Cat() :Animal() &#123;&#125;
-    Cat(<span class="hljs-keyword">int</span> age) :Animal(age) &#123;&#125;
-    ~Cat() &#123;&#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">testPublicInher</span><span class="hljs-params">()</span></span>
-<span class="hljs-function">    </span>&#123;
-        <span class="hljs-keyword">this</span>-&gt;testPbulicFun();
-        <span class="hljs-keyword">this</span>-&gt;testProtecteFun();    <span class="hljs-comment">//正确，可在类内访问基类的保护成员</span>
-        <span class="hljs-comment">//this-&gt;testPrivateFun();   //错误，无法访问基类的私有成员</span>
-    &#125;
-&#125;;
-
-<span class="hljs-comment">//保护继承</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dog</span> :</span><span class="hljs-keyword">protected</span> Animal
-&#123;
-<span class="hljs-keyword">public</span>:
-    Dog() :Animal() &#123;&#125;
-    Dog(<span class="hljs-keyword">int</span> age):Animal(age) &#123;&#125;
-    ~Dog() &#123;&#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">testProtecteInher</span><span class="hljs-params">()</span></span>
-<span class="hljs-function">    </span>&#123;
-        <span class="hljs-keyword">this</span>-&gt;testPbulicFun();      <span class="hljs-comment">//正确，可在类内访问基类的共有成员</span>
-        <span class="hljs-keyword">this</span>-&gt;testProtecteFun();    <span class="hljs-comment">//正确，可在类内访问基类的保护成员</span>
-        <span class="hljs-comment">//this-&gt;testPrivateFun();   //错误，无法访问基类的私有成员</span>
-    &#125;
-&#125;;
-
-<span class="hljs-comment">//私有继承</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bull</span> :</span><span class="hljs-keyword">private</span> Animal
-&#123;
-<span class="hljs-keyword">public</span>:
-    Bull() :Animal() &#123;&#125;
-    Bull(<span class="hljs-keyword">int</span> age) :Animal(age) &#123;&#125;
-    ~Bull() &#123;&#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">testPrivateInher</span><span class="hljs-params">()</span></span>
-<span class="hljs-function">    </span>&#123;
-        <span class="hljs-keyword">this</span>-&gt;testPbulicFun();      <span class="hljs-comment">//正确，可在类内访问基类的共有成员</span>
-        <span class="hljs-keyword">this</span>-&gt;testProtecteFun();    <span class="hljs-comment">//正确，可在类内访问基类的保护成员</span>
-        <span class="hljs-comment">//this-&gt;testPrivateFun();   //错误，无法访问基类的私有成员</span>
-    &#125;
-
-&#125;;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-comment">/*----------------------------基类------------------------------*/</span>
-    <span class="hljs-function">Animal <span class="hljs-title">a</span><span class="hljs-params">(<span class="hljs-number">1</span>)</span></span>;
-    a.testPbulicFun();              <span class="hljs-comment">//正确，可以在类外访问类的公有成员</span>
-    <span class="hljs-comment">//a.testProtecteFun();          //错误，无法在类外访问类的保护成员</span>
-    <span class="hljs-comment">//a.testPrivateFun();           //错误，无法在类外访问类的私有成员</span>
-
-    <span class="hljs-comment">/*-------------------------公有继承类---------------------------*/</span>
-    <span class="hljs-function">Cat <span class="hljs-title">b</span><span class="hljs-params">(<span class="hljs-number">2</span>)</span></span>;  
-    b.testPublicInher();
-    b.testPbulicFun();              <span class="hljs-comment">//正确，可以在类外访问基类的公有成员</span>
-    <span class="hljs-comment">//b.testProtecteFun();          //错误，无法在类外访问基类的保护成员</span>
-    <span class="hljs-comment">//b.testPrivateFun();           //错误，无法在类外访问基类的私有成员</span>
-
-    <span class="hljs-comment">/*-------------------------保护继承类---------------------------*/</span>
-    <span class="hljs-function">Dog <span class="hljs-title">c</span><span class="hljs-params">(<span class="hljs-number">3</span>)</span></span>;
-    c.testProtecteInher();
-    <span class="hljs-comment">//c.testPbulicFun();            //错误，无法在类外访问基类的公有成员</span>
-    <span class="hljs-comment">//c.testProtecteFun();          //错误，无法在类外访问基类的保护成员</span>
-    <span class="hljs-comment">//c.testPrivateFun();           //错误，无法在类外访问基类的私有成员</span>
-
-    <span class="hljs-comment">/*-------------------------私有继承类---------------------------*/</span>
-    <span class="hljs-function">Bull <span class="hljs-title">d</span><span class="hljs-params">(<span class="hljs-number">4</span>)</span></span>;
-    d.testPrivateInher();
-    <span class="hljs-comment">//d.testPbulicFun();            //错误，无法在类外访问基类的公有成员</span>
-    <span class="hljs-comment">//d.testProtecteFun();          //错误，无法在类外访问基类的保护成员</span>
-    <span class="hljs-comment">//d.testPrivateFun();           //错误，无法在类外访问基类的私有成员</span>
-
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+<h2 id="派生类继承的访问权限"><a href="#派生类继承的访问权限" class="headerlink" title="派生类继承的访问权限"></a>派生类继承的访问权限</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span></span><br><span class="hljs-class">&#123;</span><br><span class="hljs-keyword">public</span>:<br>    Animal() :age(<span class="hljs-number">0</span>)&#123;&#125;<br>    Animal(<span class="hljs-keyword">int</span> age) : age(age)&#123;&#125;<br>    ~Animal() &#123;&#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">testPbulicFun</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Public function&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br><br><span class="hljs-keyword">protected</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">testProtecteFun</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Protected function&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-keyword">int</span> age;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">testPrivateFun</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Private function&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">//公有继承</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span> :</span><span class="hljs-keyword">public</span> Animal<br>&#123;<br><span class="hljs-keyword">public</span>:<br>    Cat() :Animal() &#123;&#125;<br>    Cat(<span class="hljs-keyword">int</span> age) :Animal(age) &#123;&#125;<br>    ~Cat() &#123;&#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">testPublicInher</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">this</span>-&gt;testPbulicFun();<br>        <span class="hljs-keyword">this</span>-&gt;testProtecteFun();    <span class="hljs-comment">//正确，可在类内访问基类的保护成员</span><br>        <span class="hljs-comment">//this-&gt;testPrivateFun();   //错误，无法访问基类的私有成员</span><br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">//保护继承</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dog</span> :</span><span class="hljs-keyword">protected</span> Animal<br>&#123;<br><span class="hljs-keyword">public</span>:<br>    Dog() :Animal() &#123;&#125;<br>    Dog(<span class="hljs-keyword">int</span> age):Animal(age) &#123;&#125;<br>    ~Dog() &#123;&#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">testProtecteInher</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">this</span>-&gt;testPbulicFun();      <span class="hljs-comment">//正确，可在类内访问基类的共有成员</span><br>        <span class="hljs-keyword">this</span>-&gt;testProtecteFun();    <span class="hljs-comment">//正确，可在类内访问基类的保护成员</span><br>        <span class="hljs-comment">//this-&gt;testPrivateFun();   //错误，无法访问基类的私有成员</span><br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">//私有继承</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bull</span> :</span><span class="hljs-keyword">private</span> Animal<br>&#123;<br><span class="hljs-keyword">public</span>:<br>    Bull() :Animal() &#123;&#125;<br>    Bull(<span class="hljs-keyword">int</span> age) :Animal(age) &#123;&#125;<br>    ~Bull() &#123;&#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">testPrivateInher</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">this</span>-&gt;testPbulicFun();      <span class="hljs-comment">//正确，可在类内访问基类的共有成员</span><br>        <span class="hljs-keyword">this</span>-&gt;testProtecteFun();    <span class="hljs-comment">//正确，可在类内访问基类的保护成员</span><br>        <span class="hljs-comment">//this-&gt;testPrivateFun();   //错误，无法访问基类的私有成员</span><br>    &#125;<br><br>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">/*----------------------------基类------------------------------*/</span><br>    <span class="hljs-function">Animal <span class="hljs-title">a</span><span class="hljs-params">(<span class="hljs-number">1</span>)</span></span>;<br>    a.testPbulicFun();              <span class="hljs-comment">//正确，可以在类外访问类的公有成员</span><br>    <span class="hljs-comment">//a.testProtecteFun();          //错误，无法在类外访问类的保护成员</span><br>    <span class="hljs-comment">//a.testPrivateFun();           //错误，无法在类外访问类的私有成员</span><br><br>    <span class="hljs-comment">/*-------------------------公有继承类---------------------------*/</span><br>    <span class="hljs-function">Cat <span class="hljs-title">b</span><span class="hljs-params">(<span class="hljs-number">2</span>)</span></span>;  <br>    b.testPublicInher();<br>    b.testPbulicFun();              <span class="hljs-comment">//正确，可以在类外访问基类的公有成员</span><br>    <span class="hljs-comment">//b.testProtecteFun();          //错误，无法在类外访问基类的保护成员</span><br>    <span class="hljs-comment">//b.testPrivateFun();           //错误，无法在类外访问基类的私有成员</span><br><br>    <span class="hljs-comment">/*-------------------------保护继承类---------------------------*/</span><br>    <span class="hljs-function">Dog <span class="hljs-title">c</span><span class="hljs-params">(<span class="hljs-number">3</span>)</span></span>;<br>    c.testProtecteInher();<br>    <span class="hljs-comment">//c.testPbulicFun();            //错误，无法在类外访问基类的公有成员</span><br>    <span class="hljs-comment">//c.testProtecteFun();          //错误，无法在类外访问基类的保护成员</span><br>    <span class="hljs-comment">//c.testPrivateFun();           //错误，无法在类外访问基类的私有成员</span><br><br>    <span class="hljs-comment">/*-------------------------私有继承类---------------------------*/</span><br>    <span class="hljs-function">Bull <span class="hljs-title">d</span><span class="hljs-params">(<span class="hljs-number">4</span>)</span></span>;<br>    d.testPrivateInher();<br>    <span class="hljs-comment">//d.testPbulicFun();            //错误，无法在类外访问基类的公有成员</span><br>    <span class="hljs-comment">//d.testProtecteFun();          //错误，无法在类外访问基类的保护成员</span><br>    <span class="hljs-comment">//d.testPrivateFun();           //错误，无法在类外访问基类的私有成员</span><br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p><img src="/cpp-opp2/inher.png" srcset="/img/loading.gif"></p>
 <ul>
 <li><p>继承有public、protected和private三种继承方式.</p>
@@ -455,112 +305,16 @@
 <li><p>私有的成员一直都是无法访问的，在派生类中想给基类成员赋值需要通过父类构造函数来完成。</p>
 </li>
 </ul>
-<h2 id="构造函数与析构函数"><a href="#构造函数与析构函数" class="headerlink" title="构造函数与析构函数"></a>构造函数与析构函数</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span></span>
-<span class="hljs-class">&#123;</span>
-<span class="hljs-keyword">public</span>:
-	Parent()
-	&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Parent()&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-		<span class="hljs-keyword">this</span>-&gt;a = <span class="hljs-number">0</span>;
-	&#125;
-	Parent(<span class="hljs-keyword">int</span> a)
-	&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Parent(int)&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-		<span class="hljs-keyword">this</span>-&gt;a = a;
-	&#125;
-	~Parent()
-	&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;~Parent()&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	&#125;
-<span class="hljs-keyword">private</span>:
-	<span class="hljs-keyword">int</span> a;
-&#125;;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span>:</span><span class="hljs-keyword">public</span> Parent
-&#123;
-<span class="hljs-keyword">public</span>:
-	Child()
-	&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Child()&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-		<span class="hljs-keyword">this</span>-&gt;b = <span class="hljs-number">0</span>;
-	&#125;
-	Child(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b):Parent(a)
-	&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Child(int,int)&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-		<span class="hljs-keyword">this</span>-&gt;b = b;
-	&#125;
-	~Child()
-	&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;~Child()&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	&#125;
-<span class="hljs-keyword">private</span>:
-	<span class="hljs-keyword">int</span> b;
-&#125;;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-	&#123;
-		Child ch;
-	&#125;
-	
-	&#123;
-		<span class="hljs-function">Child <span class="hljs-title">ch1</span><span class="hljs-params">(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)</span></span>;
-	&#125;
-&#125;</code></pre>
+<h2 id="构造函数与析构函数"><a href="#构造函数与析构函数" class="headerlink" title="构造函数与析构函数"></a>构造函数与析构函数</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span></span><br><span class="hljs-class">&#123;</span><br><span class="hljs-keyword">public</span>:<br>	Parent()<br>	&#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Parent()&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>		<span class="hljs-keyword">this</span>-&gt;a = <span class="hljs-number">0</span>;<br>	&#125;<br>	Parent(<span class="hljs-keyword">int</span> a)<br>	&#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Parent(int)&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>		<span class="hljs-keyword">this</span>-&gt;a = a;<br>	&#125;<br>	~Parent()<br>	&#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;~Parent()&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	&#125;<br><span class="hljs-keyword">private</span>:<br>	<span class="hljs-keyword">int</span> a;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span>:</span><span class="hljs-keyword">public</span> Parent<br>&#123;<br><span class="hljs-keyword">public</span>:<br>	Child()<br>	&#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Child()&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>		<span class="hljs-keyword">this</span>-&gt;b = <span class="hljs-number">0</span>;<br>	&#125;<br>	Child(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b):Parent(a)<br>	&#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Child(int,int)&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>		<span class="hljs-keyword">this</span>-&gt;b = b;<br>	&#125;<br>	~Child()<br>	&#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;~Child()&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	&#125;<br><span class="hljs-keyword">private</span>:<br>	<span class="hljs-keyword">int</span> b;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	&#123;<br>		Child ch;<br>	&#125;<br>	<br>	&#123;<br>		<span class="hljs-function">Child <span class="hljs-title">ch1</span><span class="hljs-params">(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)</span></span>;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>执行结果</p>
-<pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">Parent</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"><span class="hljs-title">Child</span><span class="hljs-params">()</span></span>
-~Child()
-~Parent()
-<span class="hljs-function"><span class="hljs-title">Parent</span><span class="hljs-params">(int)</span></span>
-<span class="hljs-function"><span class="hljs-title">Child</span><span class="hljs-params">(int,int)</span></span>
-~Child()
-~Parent()</code></pre>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">Parent</span><span class="hljs-params">()</span></span><br><span class="hljs-function"><span class="hljs-title">Child</span><span class="hljs-params">()</span></span><br>~Child()<br>~Parent()<br><span class="hljs-function"><span class="hljs-title">Parent</span><span class="hljs-params">(int)</span></span><br><span class="hljs-function"><span class="hljs-title">Child</span><span class="hljs-params">(int,int)</span></span><br>~Child()<br>~Parent()<br></code></pre></td></tr></table></figure>
 <ul>
 <li>派生类的构造函数在构造对象时<strong>一定会调用基类的构造函数</strong>。即使是无参构造也会调用父类的构造函数。</li>
 <li>执行构造函数时，会先调用基类的构造函数，父类还有父类就继续向上。</li>
 <li>当需要调用基类的<strong>有参构造函数</strong>时，需要写<strong>在初始化列表的位置</strong>！</li>
 <li>析构函数则是先触发派生类的，再触发基类的，辈分由小到大式的触发，即与构造函数调用顺序相反。</li>
 </ul>
-<h2 id="覆盖-——-派生类成员与基类成员重名"><a href="#覆盖-——-派生类成员与基类成员重名" class="headerlink" title="覆盖 —— 派生类成员与基类成员重名"></a>覆盖 —— 派生类成员与基类成员重名</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span></span>
-<span class="hljs-class">&#123;</span>
-<span class="hljs-keyword">public</span>:
-	Parent() :a(<span class="hljs-number">0</span>) &#123;&#125;
-	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span></span>
-<span class="hljs-function">	</span>&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Parent func&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	&#125;
-<span class="hljs-keyword">public</span>:
-	<span class="hljs-keyword">int</span> a;<span class="hljs-comment">//公有权限</span>
-&#125;;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span>:</span><span class="hljs-keyword">public</span> Parent
-&#123;
-<span class="hljs-keyword">public</span>:
-	Child():a(<span class="hljs-number">0</span>) &#123;&#125;
-	<span class="hljs-comment">//与基类函数同名</span>
-	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span></span>
-<span class="hljs-function">	</span>&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Child func&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	&#125;
-
-	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">myFunc</span><span class="hljs-params">()</span></span>
-<span class="hljs-function">	</span>&#123;
-		a = <span class="hljs-number">10</span>;
-		Parent::a = <span class="hljs-number">100</span>;<span class="hljs-comment">//可以通过这种方式访问基类的同名成员</span>
-		func();
-		Parent::func();
-	&#125;
-<span class="hljs-keyword">private</span>:
-	<span class="hljs-keyword">int</span> a;<span class="hljs-comment">//与基类成员同名</span>
-&#125;;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-	Child ch;
-	ch.func();
-	ch.myFunc();
-&#125;</code></pre>
+<h2 id="覆盖-——-派生类成员与基类成员重名"><a href="#覆盖-——-派生类成员与基类成员重名" class="headerlink" title="覆盖 —— 派生类成员与基类成员重名"></a>覆盖 —— 派生类成员与基类成员重名</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span></span><br><span class="hljs-class">&#123;</span><br><span class="hljs-keyword">public</span>:<br>	Parent() :a(<span class="hljs-number">0</span>) &#123;&#125;<br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span></span><br><span class="hljs-function">	</span>&#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Parent func&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	&#125;<br><span class="hljs-keyword">public</span>:<br>	<span class="hljs-keyword">int</span> a;<span class="hljs-comment">//公有权限</span><br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span>:</span><span class="hljs-keyword">public</span> Parent<br>&#123;<br><span class="hljs-keyword">public</span>:<br>	Child():a(<span class="hljs-number">0</span>) &#123;&#125;<br>	<span class="hljs-comment">//与基类函数同名</span><br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span></span><br><span class="hljs-function">	</span>&#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Child func&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">myFunc</span><span class="hljs-params">()</span></span><br><span class="hljs-function">	</span>&#123;<br>		a = <span class="hljs-number">10</span>;<br>		Parent::a = <span class="hljs-number">100</span>;<span class="hljs-comment">//可以通过这种方式访问基类的同名成员</span><br>		func();<br>		Parent::func();<br>	&#125;<br><span class="hljs-keyword">private</span>:<br>	<span class="hljs-keyword">int</span> a;<span class="hljs-comment">//与基类成员同名</span><br>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	Child ch;<br>	ch.func();<br>	ch.myFunc();<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>执行结果：</p>
 <p>Child func<br>Child func<br>Parent func</p>
 <ul>
@@ -571,128 +325,21 @@
 </ul>
 <h2 id="多继承"><a href="#多继承" class="headerlink" title="多继承"></a>多继承</h2><p>多继承是C++的特性，其他主流语言都没有。</p>
 <p>所谓多继承就是一个类同时继承两个类。</p>
-<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Wood</span> &#123;</span>
-<span class="hljs-keyword">public</span>:
-	<span class="hljs-keyword">int</span> m = <span class="hljs-number">0</span>;
-&#125;;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bed</span> :</span><span class="hljs-keyword">public</span> Wood &#123;&#125;;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sofa</span> :</span><span class="hljs-keyword">public</span> Wood &#123;&#125;;
-
-<span class="hljs-comment">//多继承。这个例子是菱形继承</span>
-<span class="hljs-comment">//</span>
-<span class="hljs-comment">//	   Wood</span>
-<span class="hljs-comment">//	  /	   \</span>
-<span class="hljs-comment">// Sofa	   Bed</span>
-<span class="hljs-comment">//    \    /</span>
-<span class="hljs-comment">//   SofaBed</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SofaBed</span> :</span><span class="hljs-keyword">public</span> Sofa, <span class="hljs-keyword">public</span> Bed &#123;&#125;;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;
-	<span class="hljs-comment">//访问数据m</span>
-	SofaBed sb;
-
-	<span class="hljs-comment">//cout &lt;&lt; &quot;SofaBed m: &quot; &lt;&lt; sb.m &lt;&lt; endl;	//错误，不明确</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;SofaBed Bed::m: &quot;</span> &lt;&lt; sb.Bed::m &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//0</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;SofaBed Sofa::m: &quot;</span> &lt;&lt; sb.Sofa::m &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//0</span>
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Wood</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>	<span class="hljs-keyword">int</span> m = <span class="hljs-number">0</span>;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bed</span> :</span><span class="hljs-keyword">public</span> Wood &#123;&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sofa</span> :</span><span class="hljs-keyword">public</span> Wood &#123;&#125;;<br><br><span class="hljs-comment">//多继承。这个例子是菱形继承</span><br><span class="hljs-comment">//</span><br><span class="hljs-comment">//	   Wood</span><br><span class="hljs-comment">//	  /	   \</span><br><span class="hljs-comment">// Sofa	   Bed</span><br><span class="hljs-comment">//    \    /</span><br><span class="hljs-comment">//   SofaBed</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SofaBed</span> :</span><span class="hljs-keyword">public</span> Sofa, <span class="hljs-keyword">public</span> Bed &#123;&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-comment">//访问数据m</span><br>	SofaBed sb;<br><br>	<span class="hljs-comment">//cout &lt;&lt; &quot;SofaBed m: &quot; &lt;&lt; sb.m &lt;&lt; endl;	//错误，不明确</span><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;SofaBed Bed::m: &quot;</span> &lt;&lt; sb.Bed::m &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//0</span><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;SofaBed Sofa::m: &quot;</span> &lt;&lt; sb.Sofa::m &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//0</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <p>但是多继承在特殊情况下会带来一些问题。比如上述例子中的<code>sofa</code>与<code>bed</code>都是继承于同一个基类<code>wood</code>，那基类<code>wood</code>所有的东西比如材质<code>m</code>，派生类<code>sofa</code>与<code>bed</code>都会用这份材质<code>m</code>，那么多继承的<code>sofabed</code>就会有两份<code>m</code>了。</p>
 <p>但是按照逻辑来说，这份材质还只应该出现一次的，于是就有了<strong>虚继承</strong>。</p>
 <h2 id="虚继承"><a href="#虚继承" class="headerlink" title="虚继承"></a>虚继承</h2><p>两个基类<code>Bed</code>与<code>Sofa</code>需继承它们的基类，即在继承前加入关键字<code>virtual</code>。</p>
-<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Wood</span> &#123;</span>
-<span class="hljs-keyword">public</span>:
-	<span class="hljs-keyword">int</span> m = <span class="hljs-number">0</span>;
-&#125;;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bed</span> :</span><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">public</span> Wood &#123;&#125;;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sofa</span> :</span><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">public</span> Wood &#123;&#125;;
-
-<span class="hljs-comment">//多继承</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SofaBed</span> :</span><span class="hljs-keyword">public</span> Sofa, <span class="hljs-keyword">public</span> Bed &#123;&#125;;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;
-	<span class="hljs-comment">//访问数据m</span>
-	SofaBed sb;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;SofaBed m: &quot;</span> &lt;&lt; sb.m &lt;&lt; <span class="hljs-built_in">endl</span>;				<span class="hljs-comment">//0</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;SofaBed Bed::m: &quot;</span> &lt;&lt; sb.Bed::m &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//0</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;SofaBed Sofa::m: &quot;</span> &lt;&lt; sb.Sofa::m &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//0</span>
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Wood</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>	<span class="hljs-keyword">int</span> m = <span class="hljs-number">0</span>;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bed</span> :</span><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">public</span> Wood &#123;&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sofa</span> :</span><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">public</span> Wood &#123;&#125;;<br><br><span class="hljs-comment">//多继承</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SofaBed</span> :</span><span class="hljs-keyword">public</span> Sofa, <span class="hljs-keyword">public</span> Bed &#123;&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-comment">//访问数据m</span><br>	SofaBed sb;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;SofaBed m: &quot;</span> &lt;&lt; sb.m &lt;&lt; <span class="hljs-built_in">endl</span>;				<span class="hljs-comment">//0</span><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;SofaBed Bed::m: &quot;</span> &lt;&lt; sb.Bed::m &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//0</span><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;SofaBed Sofa::m: &quot;</span> &lt;&lt; sb.Sofa::m &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//0</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <ul>
 <li>虚拟继承是多重继承中特有的概念，虚拟继承是为了解决多重继承而出现的。</li>
 <li>一般不建议使用，结构复杂，且内存开销比较大。</li>
 </ul>
 <h3 id="虚继承的类对象大小"><a href="#虚继承的类对象大小" class="headerlink" title="虚继承的类对象大小"></a>虚继承的类对象大小</h3><h3 id="虚继承下类的大小"><a href="#虚继承下类的大小" class="headerlink" title="虚继承下类的大小"></a>虚继承下类的大小</h3><p>普通模式下：</p>
-<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Wood</span> &#123;</span> <span class="hljs-keyword">int</span> m; &#125;;
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bed</span> :</span><span class="hljs-keyword">public</span> Wood &#123; &#125;;
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sofa</span> :</span><span class="hljs-keyword">public</span> Wood &#123; &#125;;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BedSofa</span> :</span><span class="hljs-keyword">public</span> Bed, <span class="hljs-keyword">public</span> Sofa &#123;&#125;;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;											<span class="hljs-comment">//x86</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Wood sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Wood) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//4</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Bed sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Bed) &lt;&lt; <span class="hljs-built_in">endl</span>;		<span class="hljs-comment">//4</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Sofa sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Sofa) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//4</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;BedSofa sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(BedSofa) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//8</span>
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Wood</span> &#123;</span> <span class="hljs-keyword">int</span> m; &#125;;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bed</span> :</span><span class="hljs-keyword">public</span> Wood &#123; &#125;;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sofa</span> :</span><span class="hljs-keyword">public</span> Wood &#123; &#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BedSofa</span> :</span><span class="hljs-keyword">public</span> Bed, <span class="hljs-keyword">public</span> Sofa &#123;&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;											<span class="hljs-comment">//x86</span><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Wood sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Wood) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//4</span><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Bed sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Bed) &lt;&lt; <span class="hljs-built_in">endl</span>;		<span class="hljs-comment">//4</span><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Sofa sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Sofa) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//4</span><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;BedSofa sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(BedSofa) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//8</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <p>虚继承之后</p>
-<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Wood</span> &#123;</span> <span class="hljs-keyword">int</span> m; &#125;;
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bed</span> :</span><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">public</span> Wood&#123; &#125;;
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sofa</span> :</span><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">public</span> Wood &#123; &#125;;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BedSofa</span> :</span><span class="hljs-keyword">public</span> Bed, <span class="hljs-keyword">public</span> Sofa &#123;&#125;;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;											<span class="hljs-comment">//x86</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Wood sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Wood) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//4</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Bed sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Bed) &lt;&lt; <span class="hljs-built_in">endl</span>;		<span class="hljs-comment">//8</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Sofa sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Sofa) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//8</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;BedSofa sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(BedSofa) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//12</span>
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Wood</span> &#123;</span> <span class="hljs-keyword">int</span> m; &#125;;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bed</span> :</span><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">public</span> Wood&#123; &#125;;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sofa</span> :</span><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">public</span> Wood &#123; &#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BedSofa</span> :</span><span class="hljs-keyword">public</span> Bed, <span class="hljs-keyword">public</span> Sofa &#123;&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;											<span class="hljs-comment">//x86</span><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Wood sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Wood) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//4</span><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Bed sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Bed) &lt;&lt; <span class="hljs-built_in">endl</span>;		<span class="hljs-comment">//8</span><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;Sofa sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Sofa) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//8</span><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;BedSofa sizeof = &quot;</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(BedSofa) &lt;&lt; <span class="hljs-built_in">endl</span>;	<span class="hljs-comment">//12</span><br>&#125;<br></code></pre></td></tr></table></figure>
 <p>类的大小与虚表有关，见多态。</p>
-<h2 id="子类与父类对象之间的关系–兼容性赋值原则"><a href="#子类与父类对象之间的关系–兼容性赋值原则" class="headerlink" title="子类与父类对象之间的关系–兼容性赋值原则"></a>子类与父类对象之间的关系–兼容性赋值原则</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Father</span></span>
-<span class="hljs-class">&#123;</span>
-<span class="hljs-keyword">public</span>:
-	Father() &#123; num = <span class="hljs-number">0</span>; &#125;
-	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">info</span><span class="hljs-params">()</span> </span>&#123; <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;hello\n&quot;</span>; &#125;
-<span class="hljs-keyword">private</span>:
-	<span class="hljs-keyword">int</span> num;
-&#125;;
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Son</span> :</span><span class="hljs-keyword">public</span> Father
-&#123;
-<span class="hljs-keyword">public</span>:
-	Son() &#123; d_num = <span class="hljs-number">0</span>; &#125;
-    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">s_info</span><span class="hljs-params">()</span> </span>&#123; <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;hi\n&quot;</span>; &#125;
-<span class="hljs-keyword">private</span>:
-	<span class="hljs-keyword">double</span> d_num;
-&#125;;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-	Son s;
-	<span class="hljs-comment">//1.派生类对象可以当基类对象使用，因为派生类对象拥有基类对象的全部方法。</span>
-	s.info();
-
-	<span class="hljs-comment">//2.派生类对象可以直接赋值给基类对象</span>
-	Father f;
-	f = s;
-	f.info();
-	
-	<span class="hljs-comment">//3.派生类对象可以直接初始化基类对象</span>
-	<span class="hljs-function">Father <span class="hljs-title">f1</span><span class="hljs-params">(s)</span></span>;
-	f1.info();
-
-	<span class="hljs-comment">//4.基类指针可以直接指向派生类对象</span>
-	Father* f2 = &amp;s;
-	f2-&gt;info();
-
-	<span class="hljs-comment">//5.基类引用可以直接引用派生类对象</span>
-	Father&amp; f3 = s;
-	f3.info();
-&#125;
-</code></pre>
+<h2 id="子类与父类对象之间的关系–兼容性赋值原则"><a href="#子类与父类对象之间的关系–兼容性赋值原则" class="headerlink" title="子类与父类对象之间的关系–兼容性赋值原则"></a>子类与父类对象之间的关系–兼容性赋值原则</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Father</span></span><br><span class="hljs-class">&#123;</span><br><span class="hljs-keyword">public</span>:<br>	Father() &#123; num = <span class="hljs-number">0</span>; &#125;<br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">info</span><span class="hljs-params">()</span> </span>&#123; <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;hello\n&quot;</span>; &#125;<br><span class="hljs-keyword">private</span>:<br>	<span class="hljs-keyword">int</span> num;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Son</span> :</span><span class="hljs-keyword">public</span> Father<br>&#123;<br><span class="hljs-keyword">public</span>:<br>	Son() &#123; d_num = <span class="hljs-number">0</span>; &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">s_info</span><span class="hljs-params">()</span> </span>&#123; <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;hi\n&quot;</span>; &#125;<br><span class="hljs-keyword">private</span>:<br>	<span class="hljs-keyword">double</span> d_num;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	Son s;<br>	<span class="hljs-comment">//1.派生类对象可以当基类对象使用，因为派生类对象拥有基类对象的全部方法。</span><br>	s.info();<br><br>	<span class="hljs-comment">//2.派生类对象可以直接赋值给基类对象</span><br>	Father f;<br>	f = s;<br>	f.info();<br>	<br>	<span class="hljs-comment">//3.派生类对象可以直接初始化基类对象</span><br>	<span class="hljs-function">Father <span class="hljs-title">f1</span><span class="hljs-params">(s)</span></span>;<br>	f1.info();<br><br>	<span class="hljs-comment">//4.基类指针可以直接指向派生类对象</span><br>	Father* f2 = &amp;s;<br>	f2-&gt;info();<br><br>	<span class="hljs-comment">//5.基类引用可以直接引用派生类对象</span><br>	Father&amp; f3 = s;<br>	f3.info();<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p><strong>当继承方式是public继承时：</strong></p>
 <ol>
 <li>子类对象可以当作父类对象使用。</li>
@@ -705,28 +352,7 @@
 <p>一个原因，根据父类与子类的内存分布决定，父类的结构子类有，而子类的结构父类只有一部分。子类的内存布局可以满足父类指针的所有需求.</p>
 </blockquote>
 <p><strong>而当继承方式是<code>protected</code>或者<code>private</code>时，上述五条规则均不适用！</strong></p>
-<h3 id="基类派生类指针强制转换"><a href="#基类派生类指针强制转换" class="headerlink" title="基类派生类指针强制转换"></a>基类派生类指针强制转换</h3><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-	Son s;
-	Father* f_p = &amp;s;
-	<span class="hljs-comment">//public继承方式下，基类指针可以指向派生类对象。</span>
-
-	f_p-&gt;info();		<span class="hljs-comment">//ok</span>
-	<span class="hljs-comment">//f_p-&gt;s_info();	//error</span>
-	<span class="hljs-comment">//这个基类指针只能访问基类里有的成员而不能访问派生类独有的成员</span>
-
-	Son* s_p = (Son*)f_p;<span class="hljs-comment">//强制类型转换</span>
-
-	s_p-&gt;info();	<span class="hljs-comment">//ok</span>
-	s_p-&gt;s_info();	<span class="hljs-comment">//ok</span>
-
-	Father f;
-	Son* s1 = (Son*)(&amp;f);
-	s1-&gt;info();		<span class="hljs-comment">//ok</span>
-	s1-&gt;s_info();	<span class="hljs-comment">//ok</span>
-    <span class="hljs-comment">//留存疑问？？这样的方式对于任意类都可以吗？还是我这个类太简单了？</span>
-&#125;
-</code></pre>
+<h3 id="基类派生类指针强制转换"><a href="#基类派生类指针强制转换" class="headerlink" title="基类派生类指针强制转换"></a>基类派生类指针强制转换</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	Son s;<br>	Father* f_p = &amp;s;<br>	<span class="hljs-comment">//public继承方式下，基类指针可以指向派生类对象。</span><br><br>	f_p-&gt;info();		<span class="hljs-comment">//ok</span><br>	<span class="hljs-comment">//f_p-&gt;s_info();	//error</span><br>	<span class="hljs-comment">//这个基类指针只能访问基类里有的成员而不能访问派生类独有的成员</span><br><br>	Son* s_p = (Son*)f_p;<span class="hljs-comment">//强制类型转换</span><br><br>	s_p-&gt;info();	<span class="hljs-comment">//ok</span><br>	s_p-&gt;s_info();	<span class="hljs-comment">//ok</span><br><br>	Father f;<br>	Son* s1 = (Son*)(&amp;f);<br>	s1-&gt;info();		<span class="hljs-comment">//ok</span><br>	s1-&gt;s_info();	<span class="hljs-comment">//ok</span><br>    <span class="hljs-comment">//留存疑问？？这样的方式对于任意类都可以吗？还是我这个类太简单了？</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
 <ul>
 <li>public继承方式下，基类指针可以指向派生类对象，但是该指针只能访问基类里有的方法和成员而不能访问派生类独有的方法和成员。</li>
 </ul>
@@ -734,7 +360,7 @@
 <p>参考链接：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Wa9MLte3g7H4E6myAwxhzA">C++ 一篇搞懂继承的常见特性</a></p>
 </blockquote>
 
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -759,8 +385,8 @@
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/cpp-opp2-prc3/">
@@ -769,8 +395,8 @@
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/cpp-opp1-prc2/">
@@ -779,47 +405,45 @@
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
               <!-- Comments -->
-              <div class="comments" id="comments">
+              <article class="comments" id="comments">
                 
                 
   <div id="vcomments"></div>
-  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
-
   <script type="text/javascript">
-    var oldLoadVa = window.onload;
-    window.onload = function () {
-      oldLoadVa && oldLoadVa();
-
-      new Valine({
-        el: "#vcomments",
-        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
-        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
-        placeholder: "说点什么",
-        path: window.location.pathname,
-        avatar: "wavatar",
-        meta: ["nick","mail","link"],
-        pageSize: "10",
-        lang: "zh-CN",
-        highlight: false,
-        recordIP: false,
-        serverURLs: "",
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
       });
-    };
+    });
   </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
 
 
-              </div>
+              </article>
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -827,7 +451,7 @@
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
   <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
       </div>
@@ -839,16 +463,15 @@
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -869,24 +492,22 @@
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
-    <i class="iconfont icon-love"></i>
-    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
-    <br>
-    </div>
     
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
   <div class="statistics">
     
     
@@ -913,337 +534,153 @@
   </div>
 
 
-    
+  
 
-	
-    
+
   
-  
-  <!-- 网站运行时间的设置 -->
-  <script src="/js/HidenMath.js"></script>
-  <script>
-    var now = new Date();
-    function createtime() {
-      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
-      now.setTime(now.getTime() + 250);
-      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
-      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
-      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
-      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
-      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
-      document.getElementById("timeDate").innerHTML = dnum;
-      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
-    }
-    setInterval("createtime()", 250);
-  </script>
-  </div>
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  <script  src="/js/lazyload.js" ></script>
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
   
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '.post-content',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(response => response.json())
-          .then(({results}) => {
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(response => response.json())
-                .then((record) => {
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch(error => {
-          console.error('LeanCloud Counter Error', error);
-          reject(error);
-        });
-      })
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
-        }
-      }
-    }
-
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          resolve(res);
-        }).catch(error => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true'
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/cpp-opp2/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
-    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
-    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "C++面向对象（二) —— 继承&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 80,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
       
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
   <script  src="/js/local-search.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
       }
-    );
+    })()
   </script>
 
 
 
 
 
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
 
 
 
@@ -1252,8 +689,24 @@
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

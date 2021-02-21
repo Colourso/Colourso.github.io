@@ -1,7 +1,7 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -19,22 +19,33 @@
   <meta name="keywords" content="">
   <title>lua快速入门 —— 函数 - Colourso</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -42,6 +53,12 @@
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 5.3.0"></head>
 
 
@@ -136,8 +153,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -145,25 +168,28 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="lua快速入门 —— 函数">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-01-26 16:14">
-      星期日, 一月 26日 2020, 4:14 下午
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-01-26 16:14" pubdate>
+        2020年1月26日 下午
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
@@ -180,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      61
+      86
        分钟
     </span>
   
@@ -189,9 +215,9 @@
   
     
       <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
         <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-post-views"></span> 次
+        <span id="leancloud-page-views"></span> 次
       </span>
     
   
@@ -210,15 +236,23 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">lua快速入门 —— 函数</h1>
             
-            <article class="markdown-body">
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年1月27日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
               <p><strong>概览</strong>：Lua的函数的基本形式、如何调用以及函数的多重返回值、变长参数、具名实参。此外还有Lua中函数的地位，即函数是类似于数字那样的第一类值，还有匿名函数、闭包、局部函数以及尾调用函数。</p>
 <a id="more"></a>
 
@@ -229,78 +263,22 @@
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Lua中的函数是第一类值，可以像变量那样被赋给其他的变量、被存储到表中、作为函数参数或者是函数的返回值，即实际上函数就像一个变量一样，函数是“匿名的”，函数名只不过是指向了那个函数而已。Lua中的函数可以有多个返回值，Lua可以接受非固定数量的参数，同时调用Lua函数时，可以指定参数以实参。此外Lua支持匿名函数，闭包，Lua中的函数尾调用类似于goto语句，可以避免栈操作。</p>
 <hr>
 <p>在Lua中函数是一种对语句或者表达式进行抽象的主要机制。</p>
-<h2 id="函数的基本形式"><a href="#函数的基本形式" class="headerlink" title="函数的基本形式"></a>函数的基本形式</h2><pre><code class="hljs lua"><span class="hljs-comment">-- 函数实现语法规则：</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">func_name</span><span class="hljs-params">(argument-list)</span></span> <span class="hljs-comment">-- 函数名(参数)</span>
-    statements-list; <span class="hljs-comment">-- 函数体</span>
-<span class="hljs-keyword">end</span></code></pre>
-<pre><code class="hljs lua"><span class="hljs-comment">-- 实例</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">func_name</span><span class="hljs-params">()</span></span>
-   <span class="hljs-built_in">print</span> <span class="hljs-string">&quot;hello&quot;</span> <span class="hljs-comment">-- 见下面的说明</span>
-<span class="hljs-keyword">end</span>
-
-func_name() <span class="hljs-comment">-- 函数的调用</span>
-
-<span class="hljs-comment">-- 计算从1加到n的和</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">adds</span><span class="hljs-params">(n)</span></span>
-  <span class="hljs-keyword">local</span> sum = <span class="hljs-number">0</span>
-  <span class="hljs-keyword">for</span> i = <span class="hljs-number">0</span>,n <span class="hljs-keyword">do</span>
-    sum = sum + i
-  <span class="hljs-keyword">end</span>
-  <span class="hljs-keyword">return</span> sum
-<span class="hljs-keyword">end</span>
-
-<span class="hljs-built_in">print</span>(adds(<span class="hljs-number">4</span>)) <span class="hljs-comment">-- 10</span></code></pre>
+<h2 id="函数的基本形式"><a href="#函数的基本形式" class="headerlink" title="函数的基本形式"></a>函数的基本形式</h2><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-comment">-- 函数实现语法规则：</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">func_name</span><span class="hljs-params">(argument-list)</span></span> <span class="hljs-comment">-- 函数名(参数)</span><br>    statements-list; <span class="hljs-comment">-- 函数体</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-comment">-- 实例</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">func_name</span><span class="hljs-params">()</span></span><br>   <span class="hljs-built_in">print</span> <span class="hljs-string">&quot;hello&quot;</span> <span class="hljs-comment">-- 见下面的说明</span><br><span class="hljs-keyword">end</span><br><br>func_name() <span class="hljs-comment">-- 函数的调用</span><br><br><span class="hljs-comment">-- 计算从1加到n的和</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">adds</span><span class="hljs-params">(n)</span></span><br>  <span class="hljs-keyword">local</span> sum = <span class="hljs-number">0</span><br>  <span class="hljs-keyword">for</span> i = <span class="hljs-number">0</span>,n <span class="hljs-keyword">do</span><br>    sum = sum + i<br>  <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">return</span> sum<br><span class="hljs-keyword">end</span><br><br><span class="hljs-built_in">print</span>(adds(<span class="hljs-number">4</span>)) <span class="hljs-comment">-- 10</span><br></code></pre></td></tr></table></figure>
 <h2 id="函数的调用"><a href="#函数的调用" class="headerlink" title="函数的调用"></a>函数的调用</h2><p>同其他语言类似，<code>函数名+（参数）</code> 若参数列表为空也需要加上括号()。</p>
 <p>例外：<strong>当函数有且只有一个参数，并且该参数是<font color="red">字符串</font>或者<font color="red">表构造式</font>时，()可有可无。</strong></p>
-<pre><code class="hljs lua"><span class="hljs-built_in">print</span> <span class="hljs-string">&quot;Hello World&quot;</span>      &lt;<span class="hljs-comment">--&gt;      print(&quot;Hello World&quot;)</span>
-
-<span class="hljs-built_in">dofile</span> <span class="hljs-string">&#x27;a.lua&#x27;</span>           &lt;<span class="hljs-comment">--&gt;       dofile (&#x27;a.lua&#x27;)</span>
-
-<span class="hljs-built_in">print</span> <span class="hljs-string">[[a multi-line     &lt;--&gt;       print([[a multi-line</span>
-<span class="hljs-string"></span>
-<span class="hljs-string">           message]]                          message]]</span>)
-
-f&#123;x=<span class="hljs-number">10</span>, y=<span class="hljs-number">20</span>&#125;            &lt;<span class="hljs-comment">--&gt;       f(&#123;x=10, y=20&#125;)</span>
-
-<span class="hljs-built_in">type</span>&#123;&#125;                   &lt;<span class="hljs-comment">--&gt;       type(&#123;&#125;)</span>
-</code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-built_in">print</span> <span class="hljs-string">&quot;Hello World&quot;</span>      &lt;<span class="hljs-comment">--&gt;      print(&quot;Hello World&quot;)</span><br><br><span class="hljs-built_in">dofile</span> <span class="hljs-string">&#x27;a.lua&#x27;</span>           &lt;<span class="hljs-comment">--&gt;       dofile (&#x27;a.lua&#x27;)</span><br><br><span class="hljs-built_in">print</span> <span class="hljs-string">[[a multi-line     &lt;--&gt;       print([[a multi-line</span><br><span class="hljs-string"></span><br><span class="hljs-string">           message]]                          message]]</span>)<br><br>f&#123;x=<span class="hljs-number">10</span>, y=<span class="hljs-number">20</span>&#125;            &lt;<span class="hljs-comment">--&gt;       f(&#123;x=10, y=20&#125;)</span><br><br><span class="hljs-built_in">type</span>&#123;&#125;                   &lt;<span class="hljs-comment">--&gt;       type(&#123;&#125;)</span><br><br></code></pre></td></tr></table></figure>
 <p>以及面向对象式的调用函数:</p>
-<pre><code class="hljs lua">o:foo(x)  &lt;<span class="hljs-comment">--&gt; o.foo(o,x)</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lua">o:foo(x)  &lt;<span class="hljs-comment">--&gt; o.foo(o,x)</span><br></code></pre></td></tr></table></figure>
 <p>此外，<strong>Lua程序既可以使用以Lua编写的程序，也可以调用C语言或者宿主程序使用的其他语言编写的程序</strong>。</p>
 <h2 id="函数的参数"><a href="#函数的参数" class="headerlink" title="函数的参数"></a>函数的参数</h2><p>若实参多于形参，则舍弃多余的实参，若实参不足，则多余的形参初始化为nil。</p>
-<pre><code class="hljs lua"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span><span class="hljs-params">(a, b)</span></span> <span class="hljs-keyword">return</span> a <span class="hljs-keyword">or</span> b <span class="hljs-keyword">end</span>
-
-CALL              PARAMETERS
-
-f(<span class="hljs-number">3</span>)              a=<span class="hljs-number">3</span>, b=<span class="hljs-literal">nil</span>
-
-f(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>)           a=<span class="hljs-number">3</span>, b=<span class="hljs-number">4</span>
-
-f(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>)        a=<span class="hljs-number">3</span>, b=<span class="hljs-number">4</span>   (<span class="hljs-number">5</span> is discarded)</code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span><span class="hljs-params">(a, b)</span></span> <span class="hljs-keyword">return</span> a <span class="hljs-keyword">or</span> b <span class="hljs-keyword">end</span><br><br>CALL              PARAMETERS<br><br>f(<span class="hljs-number">3</span>)              a=<span class="hljs-number">3</span>, b=<span class="hljs-literal">nil</span><br><br>f(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>)           a=<span class="hljs-number">3</span>, b=<span class="hljs-number">4</span><br><br>f(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>)        a=<span class="hljs-number">3</span>, b=<span class="hljs-number">4</span>   (<span class="hljs-number">5</span> is discarded)<br></code></pre></td></tr></table></figure>
 <p>用处：用于默认参数的应用。</p>
-<pre><code class="hljs lua"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">incCount</span><span class="hljs-params">(n)</span></span>
-    n = n <span class="hljs-keyword">or</span> <span class="hljs-number">1</span>
-    count = count + n
-<span class="hljs-keyword">end</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">incCount</span><span class="hljs-params">(n)</span></span><br>    n = n <span class="hljs-keyword">or</span> <span class="hljs-number">1</span><br>    count = count + n<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 <p>上述函数使用1作为默认参数，若直接调用IncCount()函数而不传递参数时，count值增加1。因为不传递参数则n被初始化为nil，而 <code>nil or 1</code> 返回值为1，故最终初始化为1.</p>
 <h2 id="多重返回值"><a href="#多重返回值" class="headerlink" title="多重返回值"></a>多重返回值</h2><p>Lua与众不同的特征：<strong>允许函数返回多个结果</strong>。</p>
-<pre><code class="hljs lua"><span class="hljs-comment">--例如 string.find() 返回匹配串的开始和结束的下标，如果不存在返回nil</span>
-s,e = <span class="hljs-built_in">string</span>.<span class="hljs-built_in">find</span>(<span class="hljs-string">&quot;hello Lua users&quot;</span>,<span class="hljs-string">&quot;Lua&quot;</span>)
-<span class="hljs-built_in">print</span>(s,e)  <span class="hljs-comment">--&gt; 7  9</span></code></pre>
-<pre><code class="hljs lua"><span class="hljs-comment">-- 取得一个table中最大的值和该值最大的下标</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">maximum</span><span class="hljs-params">(a)</span></span>
-  <span class="hljs-keyword">local</span> mi = <span class="hljs-number">1</span> <span class="hljs-comment">-- max value index</span>
-  <span class="hljs-keyword">local</span> m = a[mi] <span class="hljs-comment">-- max value</span>
-  <span class="hljs-keyword">for</span> i,val <span class="hljs-keyword">in</span> <span class="hljs-built_in">ipairs</span>(a) <span class="hljs-keyword">do</span>
-    <span class="hljs-keyword">if</span> val &gt; m <span class="hljs-keyword">then</span>
-      mi = i
-      m = val
-    <span class="hljs-keyword">end</span>
-  <span class="hljs-keyword">end</span>
-  <span class="hljs-keyword">return</span> m,mi
-<span class="hljs-keyword">end</span>
-
-<span class="hljs-built_in">print</span>(maximum(&#123;<span class="hljs-number">23</span>,<span class="hljs-number">56</span>,<span class="hljs-number">48</span>,<span class="hljs-number">10</span>&#125;)) <span class="hljs-comment">--&gt; 56  2</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-comment">--例如 string.find() 返回匹配串的开始和结束的下标，如果不存在返回nil</span><br>s,e = <span class="hljs-built_in">string</span>.<span class="hljs-built_in">find</span>(<span class="hljs-string">&quot;hello Lua users&quot;</span>,<span class="hljs-string">&quot;Lua&quot;</span>)<br><span class="hljs-built_in">print</span>(s,e)  <span class="hljs-comment">--&gt; 7  9</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-comment">-- 取得一个table中最大的值和该值最大的下标</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">maximum</span><span class="hljs-params">(a)</span></span><br>  <span class="hljs-keyword">local</span> mi = <span class="hljs-number">1</span> <span class="hljs-comment">-- max value index</span><br>  <span class="hljs-keyword">local</span> m = a[mi] <span class="hljs-comment">-- max value</span><br>  <span class="hljs-keyword">for</span> i,val <span class="hljs-keyword">in</span> <span class="hljs-built_in">ipairs</span>(a) <span class="hljs-keyword">do</span><br>    <span class="hljs-keyword">if</span> val &gt; m <span class="hljs-keyword">then</span><br>      mi = i<br>      m = val<br>    <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">return</span> m,mi<br><span class="hljs-keyword">end</span><br><br><span class="hljs-built_in">print</span>(maximum(&#123;<span class="hljs-number">23</span>,<span class="hljs-number">56</span>,<span class="hljs-number">48</span>,<span class="hljs-number">10</span>&#125;)) <span class="hljs-comment">--&gt; 56  2</span><br></code></pre></td></tr></table></figure>
 <h3 id="Lua的多重返回值使用"><a href="#Lua的多重返回值使用" class="headerlink" title="Lua的多重返回值使用"></a>Lua的多重返回值使用</h3><p>Lua会调整一个函数的返回值来适应不同的情况。</p>
 <ol>
 <li>若函数作为单独的语句时，Lua会丢弃函数的返回值。</li>
@@ -311,74 +289,20 @@ s,e = <span class="hljs-built_in">string</span>.<span class="hljs-built_in">find
 <li>return语句，例如<code>return maximum(&#123;23,56,48,10&#125;)</code>将返回函数的全部返回值。</li>
 <li>将函数调用单独放在一对圆括号之中，将会只返回一个结果，所以return语句也不要随意加括号。</li>
 </ol>
-<pre><code class="hljs lua">x,y = maximum(&#123;<span class="hljs-number">23</span>,<span class="hljs-number">56</span>,<span class="hljs-number">48</span>,<span class="hljs-number">10</span>&#125;) <span class="hljs-comment">--&gt; 56  2</span>
-
-x = maximum(&#123;<span class="hljs-number">23</span>,<span class="hljs-number">56</span>,<span class="hljs-number">48</span>,<span class="hljs-number">10</span>&#125;)  <span class="hljs-comment">--&gt; 56</span>
-
-<span class="hljs-comment">-- 情况3 获取所有的返回值</span>
-x,y,z = <span class="hljs-number">100</span>,maximum(&#123;<span class="hljs-number">23</span>,<span class="hljs-number">56</span>,<span class="hljs-number">48</span>,<span class="hljs-number">10</span>&#125;)  <span class="hljs-comment">--&gt;100 56 2</span>
-
-<span class="hljs-comment">-- 情况2 只产生一个值</span>
-x,y = maximum(&#123;<span class="hljs-number">23</span>,<span class="hljs-number">56</span>,<span class="hljs-number">48</span>,<span class="hljs-number">10</span>&#125;),<span class="hljs-number">100</span>  <span class="hljs-comment">--&gt; 56 100</span>
-
-<span class="hljs-comment">-- 情况4</span>
-<span class="hljs-built_in">print</span>(maximum(&#123;<span class="hljs-number">23</span>,<span class="hljs-number">56</span>,<span class="hljs-number">48</span>,<span class="hljs-number">10</span>&#125;)) <span class="hljs-comment">--&gt; 56  2</span>
-
-<span class="hljs-comment">-- 情况2</span>
-<span class="hljs-built_in">print</span>(maximum(&#123;<span class="hljs-number">23</span>,<span class="hljs-number">56</span>,<span class="hljs-number">48</span>,<span class="hljs-number">10</span>&#125;)..<span class="hljs-string">&quot;hello&quot;</span>)  <span class="hljs-comment">--&gt;56hello</span>
-
-<span class="hljs-comment">-- 情况5</span>
-t = &#123;maximum(&#123;<span class="hljs-number">23</span>,<span class="hljs-number">56</span>,<span class="hljs-number">48</span>,<span class="hljs-number">10</span>&#125;)&#125;
-<span class="hljs-built_in">print</span>(t[<span class="hljs-number">1</span>])  <span class="hljs-comment">--&gt; 56</span>
-<span class="hljs-built_in">print</span>(t[<span class="hljs-number">2</span>])  <span class="hljs-comment">--&gt; 2</span>
-
-t1 = &#123;maximum(&#123;<span class="hljs-number">23</span>,<span class="hljs-number">56</span>,<span class="hljs-number">48</span>,<span class="hljs-number">10</span>&#125;),<span class="hljs-number">100</span>&#125;
-<span class="hljs-built_in">print</span>(t1[<span class="hljs-number">1</span>])  <span class="hljs-comment">--&gt; 56</span>
-<span class="hljs-built_in">print</span>(t1[<span class="hljs-number">2</span>])  <span class="hljs-comment">--&gt; 100</span>
-
-<span class="hljs-comment">-- 情况6</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">a</span><span class="hljs-params">()</span></span>
-  <span class="hljs-keyword">return</span> maximum(&#123;<span class="hljs-number">23</span>,<span class="hljs-number">56</span>,<span class="hljs-number">48</span>,<span class="hljs-number">10</span>&#125;)
-<span class="hljs-keyword">end</span>
-
-<span class="hljs-built_in">print</span>(a())  <span class="hljs-comment">--&gt; 56   2</span>
-
-<span class="hljs-comment">-- 情况7</span>
-<span class="hljs-built_in">print</span>((a()))  <span class="hljs-comment">--&gt; 56</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs lua">x,y = maximum(&#123;<span class="hljs-number">23</span>,<span class="hljs-number">56</span>,<span class="hljs-number">48</span>,<span class="hljs-number">10</span>&#125;) <span class="hljs-comment">--&gt; 56  2</span><br><br>x = maximum(&#123;<span class="hljs-number">23</span>,<span class="hljs-number">56</span>,<span class="hljs-number">48</span>,<span class="hljs-number">10</span>&#125;)  <span class="hljs-comment">--&gt; 56</span><br><br><span class="hljs-comment">-- 情况3 获取所有的返回值</span><br>x,y,z = <span class="hljs-number">100</span>,maximum(&#123;<span class="hljs-number">23</span>,<span class="hljs-number">56</span>,<span class="hljs-number">48</span>,<span class="hljs-number">10</span>&#125;)  <span class="hljs-comment">--&gt;100 56 2</span><br><br><span class="hljs-comment">-- 情况2 只产生一个值</span><br>x,y = maximum(&#123;<span class="hljs-number">23</span>,<span class="hljs-number">56</span>,<span class="hljs-number">48</span>,<span class="hljs-number">10</span>&#125;),<span class="hljs-number">100</span>  <span class="hljs-comment">--&gt; 56 100</span><br><br><span class="hljs-comment">-- 情况4</span><br><span class="hljs-built_in">print</span>(maximum(&#123;<span class="hljs-number">23</span>,<span class="hljs-number">56</span>,<span class="hljs-number">48</span>,<span class="hljs-number">10</span>&#125;)) <span class="hljs-comment">--&gt; 56  2</span><br><br><span class="hljs-comment">-- 情况2</span><br><span class="hljs-built_in">print</span>(maximum(&#123;<span class="hljs-number">23</span>,<span class="hljs-number">56</span>,<span class="hljs-number">48</span>,<span class="hljs-number">10</span>&#125;)..<span class="hljs-string">&quot;hello&quot;</span>)  <span class="hljs-comment">--&gt;56hello</span><br><br><span class="hljs-comment">-- 情况5</span><br>t = &#123;maximum(&#123;<span class="hljs-number">23</span>,<span class="hljs-number">56</span>,<span class="hljs-number">48</span>,<span class="hljs-number">10</span>&#125;)&#125;<br><span class="hljs-built_in">print</span>(t[<span class="hljs-number">1</span>])  <span class="hljs-comment">--&gt; 56</span><br><span class="hljs-built_in">print</span>(t[<span class="hljs-number">2</span>])  <span class="hljs-comment">--&gt; 2</span><br><br>t1 = &#123;maximum(&#123;<span class="hljs-number">23</span>,<span class="hljs-number">56</span>,<span class="hljs-number">48</span>,<span class="hljs-number">10</span>&#125;),<span class="hljs-number">100</span>&#125;<br><span class="hljs-built_in">print</span>(t1[<span class="hljs-number">1</span>])  <span class="hljs-comment">--&gt; 56</span><br><span class="hljs-built_in">print</span>(t1[<span class="hljs-number">2</span>])  <span class="hljs-comment">--&gt; 100</span><br><br><span class="hljs-comment">-- 情况6</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">a</span><span class="hljs-params">()</span></span><br>  <span class="hljs-keyword">return</span> maximum(&#123;<span class="hljs-number">23</span>,<span class="hljs-number">56</span>,<span class="hljs-number">48</span>,<span class="hljs-number">10</span>&#125;)<br><span class="hljs-keyword">end</span><br><br><span class="hljs-built_in">print</span>(a())  <span class="hljs-comment">--&gt; 56   2</span><br><br><span class="hljs-comment">-- 情况7</span><br><span class="hljs-built_in">print</span>((a()))  <span class="hljs-comment">--&gt; 56</span><br></code></pre></td></tr></table></figure>
 <h3 id="特殊函数-unpack"><a href="#特殊函数-unpack" class="headerlink" title="特殊函数 unpack"></a>特殊函数 unpack</h3><p>unpack接收一个数组作为参数，并从下标1开始返回该数组的所有元素。</p>
-<pre><code class="hljs lua"><span class="hljs-built_in">print</span>(<span class="hljs-built_in">unpack</span>(&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>&#125;))  <span class="hljs-comment">--&gt; 1  2  3</span>
-<span class="hljs-built_in">print</span>(<span class="hljs-built_in">unpack</span>&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>&#125;)  <span class="hljs-comment">--&gt; 1  2   3</span>
-<span class="hljs-comment">-- 当函数有且只有一个参数，并且该参数是字符串或者表构造式时，()可有可无。</span>
-
-x,y = <span class="hljs-built_in">unpack</span>&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>&#125;  <span class="hljs-comment">--&gt; 1  2</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-built_in">print</span>(<span class="hljs-built_in">unpack</span>(&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>&#125;))  <span class="hljs-comment">--&gt; 1  2  3</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">unpack</span>&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>&#125;)  <span class="hljs-comment">--&gt; 1  2   3</span><br><span class="hljs-comment">-- 当函数有且只有一个参数，并且该参数是字符串或者表构造式时，()可有可无。</span><br><br>x,y = <span class="hljs-built_in">unpack</span>&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>&#125;  <span class="hljs-comment">--&gt; 1  2</span><br></code></pre></td></tr></table></figure>
 <p>unpack的一项重要用途体现在泛型调用机制中。泛型调用机制可以动态地以任何实参来调用任何函数。</p>
 <blockquote>
 <p>举例来说ANSI C中无法编写泛型调用的代码。最多是声明一个能接受变长参数的函数(stdarg.h)，或者使用一个函数指针来调用不同的函数。并且在C语言中，无法在同一函数调用中传入动态数量的参数，也就是说，在每次调用不同的函数时必须传入固定数量的参数，并且每个参数都具有确定的类型。</p>
 </blockquote>
 <p>在Lua中，如果你想调用任意函数f，而所有的参数都在数组a中，可以：<code>f(unpack(a))</code></p>
-<pre><code class="hljs lua">f = <span class="hljs-built_in">string</span>.<span class="hljs-built_in">find</span>
-a = &#123;<span class="hljs-string">&quot;hello&quot;</span>, <span class="hljs-string">&quot;ll&quot;</span>&#125;
-<span class="hljs-built_in">print</span>(f(<span class="hljs-built_in">unpack</span>(a)))      <span class="hljs-comment">--&gt; 3  4</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lua">f = <span class="hljs-built_in">string</span>.<span class="hljs-built_in">find</span><br>a = &#123;<span class="hljs-string">&quot;hello&quot;</span>, <span class="hljs-string">&quot;ll&quot;</span>&#125;<br><span class="hljs-built_in">print</span>(f(<span class="hljs-built_in">unpack</span>(a)))      <span class="hljs-comment">--&gt; 3  4</span><br></code></pre></td></tr></table></figure>
 <p>预定义的unpack函数是用C语言实现的，我们也可以用Lua来完成：</p>
-<pre><code class="hljs lua"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unpack</span><span class="hljs-params">(t, i)</span></span>
-    i = i <span class="hljs-keyword">or</span> <span class="hljs-number">1</span>
-    <span class="hljs-keyword">if</span> t[i] <span class="hljs-keyword">then</span>
-       <span class="hljs-keyword">return</span> t[i], <span class="hljs-built_in">unpack</span>(t, i + <span class="hljs-number">1</span>)
-    <span class="hljs-keyword">end</span>
-<span class="hljs-keyword">end</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unpack</span><span class="hljs-params">(t, i)</span></span><br>    i = i <span class="hljs-keyword">or</span> <span class="hljs-number">1</span><br>    <span class="hljs-keyword">if</span> t[i] <span class="hljs-keyword">then</span><br>       <span class="hljs-keyword">return</span> t[i], <span class="hljs-built_in">unpack</span>(t, i + <span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 <h2 id="变长参数"><a href="#变长参数" class="headerlink" title="变长参数"></a>变长参数</h2><p>在函数的实现中，括号里的参数列表使用三个点 (…) 来表示该函数可以接受不同数量的实参。</p>
 <p>而当函数内要调用变长参数时，仍然需要直接使用三个点 (…) 。</p>
-<pre><code class="hljs lua"><span class="hljs-comment">-- 计算所有参数的总和</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span><span class="hljs-params">(...)</span></span>
-  <span class="hljs-keyword">local</span> sum = <span class="hljs-number">0</span>
-  <span class="hljs-built_in">print</span>(...)  <span class="hljs-comment">--直接使用可变参数</span>
-  <span class="hljs-keyword">for</span> i,v <span class="hljs-keyword">in</span> <span class="hljs-built_in">ipairs</span>&#123;...&#125; <span class="hljs-keyword">do</span>
-    sum = sum + v
-  <span class="hljs-keyword">end</span>
-  <span class="hljs-keyword">return</span> sum
-<span class="hljs-keyword">end</span>
-
-<span class="hljs-built_in">print</span>(add(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>))  <span class="hljs-comment">--&gt;15</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-comment">-- 计算所有参数的总和</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span><span class="hljs-params">(...)</span></span><br>  <span class="hljs-keyword">local</span> sum = <span class="hljs-number">0</span><br>  <span class="hljs-built_in">print</span>(...)  <span class="hljs-comment">--直接使用可变参数</span><br>  <span class="hljs-keyword">for</span> i,v <span class="hljs-keyword">in</span> <span class="hljs-built_in">ipairs</span>&#123;...&#125; <span class="hljs-keyword">do</span><br>    sum = sum + v<br>  <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">return</span> sum<br><span class="hljs-keyword">end</span><br><br><span class="hljs-built_in">print</span>(add(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>))  <span class="hljs-comment">--&gt;15</span><br></code></pre></td></tr></table></figure>
 <ul>
 <li>若函数还有固定参数，固定参数必须放在可变参数之前。</li>
 <li>若函数还有固定参数，则实际传参时优先匹配固定参数，多余参数全部被赋予可变参数</li>
@@ -391,274 +315,67 @@ a = &#123;<span class="hljs-string">&quot;hello&quot;</span>, <span class="hljs-
 <li>否则selector只能为字符串”#”，这样select会返回变长参数的总数。</li>
 <li><code>select(&quot;#&quot;, ...)</code> 会返回所有变长参数的总数，其中包括nil。</li>
 </ul>
-<pre><code class="hljs lua"><span class="hljs-comment">-- 计算所有参数的总和</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span><span class="hljs-params">(...)</span></span>
-  <span class="hljs-keyword">local</span> sum = <span class="hljs-number">0</span>
-    
-  <span class="hljs-keyword">for</span> i=<span class="hljs-number">1</span>,<span class="hljs-built_in">select</span>(<span class="hljs-string">&quot;#&quot;</span>, ...) <span class="hljs-keyword">do</span>
-    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">select</span>(i,...))
-  <span class="hljs-keyword">end</span>
-  
-  <span class="hljs-keyword">for</span> i,v <span class="hljs-keyword">in</span> <span class="hljs-built_in">ipairs</span>&#123;...&#125; <span class="hljs-keyword">do</span>
-    sum = sum + v
-  <span class="hljs-keyword">end</span>
-  <span class="hljs-keyword">return</span> sum
-<span class="hljs-keyword">end</span>
-
-<span class="hljs-built_in">print</span>(add(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>))  <span class="hljs-comment">--&gt;15</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-comment">-- 计算所有参数的总和</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span><span class="hljs-params">(...)</span></span><br>  <span class="hljs-keyword">local</span> sum = <span class="hljs-number">0</span><br>    <br>  <span class="hljs-keyword">for</span> i=<span class="hljs-number">1</span>,<span class="hljs-built_in">select</span>(<span class="hljs-string">&quot;#&quot;</span>, ...) <span class="hljs-keyword">do</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">select</span>(i,...))<br>  <span class="hljs-keyword">end</span><br>  <br>  <span class="hljs-keyword">for</span> i,v <span class="hljs-keyword">in</span> <span class="hljs-built_in">ipairs</span>&#123;...&#125; <span class="hljs-keyword">do</span><br>    sum = sum + v<br>  <span class="hljs-keyword">end</span><br>  <span class="hljs-keyword">return</span> sum<br><span class="hljs-keyword">end</span><br><br><span class="hljs-built_in">print</span>(add(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>))  <span class="hljs-comment">--&gt;15</span><br></code></pre></td></tr></table></figure>
 <h2 id="具名实参"><a href="#具名实参" class="headerlink" title="具名实参"></a>具名实参</h2><p>顾名思义，就是使用函数时，通过指定形参的名称来给形参赋值。</p>
 <p>但是Lua不能像其他语言那样直接使用类似<code>rename(old=&quot;temp.lua&quot;,  new=&quot;temp1.lua&quot;)</code>这样的方式，Lua可以通过将所有的参数放在一个表中，把表作为函数的唯一参数来实现。</p>
-<pre><code class="hljs lua"><span class="hljs-built_in">rename</span>&#123;old=<span class="hljs-string">&quot;temp.lua&quot;</span>, new=<span class="hljs-string">&quot;temp1.lua&quot;</span>&#125;</code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-built_in">rename</span>&#123;old=<span class="hljs-string">&quot;temp.lua&quot;</span>, new=<span class="hljs-string">&quot;temp1.lua&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
 <p>然后根据这个想法可以重新定义rename</p>
-<pre><code class="hljs lua"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rename</span> <span class="hljs-params">(arg)</span></span>
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">os</span>.<span class="hljs-built_in">rename</span>(<span class="hljs-built_in">arg</span>.old, <span class="hljs-built_in">arg</span>.new)
-<span class="hljs-keyword">end</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rename</span> <span class="hljs-params">(arg)</span></span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">os</span>.<span class="hljs-built_in">rename</span>(<span class="hljs-built_in">arg</span>.old, <span class="hljs-built_in">arg</span>.new)<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 <p>当函数的参数很多的时候，这种函数参数的传递方式很方便的。例如GUI库中创建窗体的函数有很多参数并且大部分参数是可选的，可以用下面这种方式：</p>
-<pre><code class="hljs lua">w = Window &#123;
-    x=<span class="hljs-number">0</span>, y=<span class="hljs-number">0</span>, width=<span class="hljs-number">300</span>, height=<span class="hljs-number">200</span>,
-    title = <span class="hljs-string">&quot;Lua&quot;</span>, background=<span class="hljs-string">&quot;blue&quot;</span>,
-    border = <span class="hljs-literal">true</span>
-&#125;
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Window</span> <span class="hljs-params">(options)</span></span>
-    <span class="hljs-comment">-- check mandatory options</span>
-    <span class="hljs-keyword">if</span> <span class="hljs-built_in">type</span>(options.title) ~= <span class="hljs-string">&quot;string&quot;</span> <span class="hljs-keyword">then</span>
-       <span class="hljs-built_in">error</span>(<span class="hljs-string">&quot;no title&quot;</span>)
-    <span class="hljs-keyword">elseif</span> <span class="hljs-built_in">type</span>(options.width) ~= <span class="hljs-string">&quot;number&quot;</span> <span class="hljs-keyword">then</span>
-       <span class="hljs-built_in">error</span>(<span class="hljs-string">&quot;no width&quot;</span>)
-    <span class="hljs-keyword">elseif</span> <span class="hljs-built_in">type</span>(options.height) ~= <span class="hljs-string">&quot;number&quot;</span> <span class="hljs-keyword">then</span>
-       <span class="hljs-built_in">error</span>(<span class="hljs-string">&quot;no height&quot;</span>)
-    <span class="hljs-keyword">end</span>
-    <span class="hljs-comment">-- everything else is optional</span>
-    _Window(options.title,
-       options.x <span class="hljs-keyword">or</span> <span class="hljs-number">0</span>,          <span class="hljs-comment">-- default value</span>
-       options.y <span class="hljs-keyword">or</span> <span class="hljs-number">0</span>,          <span class="hljs-comment">-- default value</span>
-       options.width, options.height,
-       options.background <span class="hljs-keyword">or</span> <span class="hljs-string">&quot;white&quot;</span>,  <span class="hljs-comment">-- default</span>
-       options.border           <span class="hljs-comment">-- default is false (nil)</span>
-    )
-<span class="hljs-keyword">end</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs lua">w = Window &#123;<br>    x=<span class="hljs-number">0</span>, y=<span class="hljs-number">0</span>, width=<span class="hljs-number">300</span>, height=<span class="hljs-number">200</span>,<br>    title = <span class="hljs-string">&quot;Lua&quot;</span>, background=<span class="hljs-string">&quot;blue&quot;</span>,<br>    border = <span class="hljs-literal">true</span><br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Window</span> <span class="hljs-params">(options)</span></span><br>    <span class="hljs-comment">-- check mandatory options</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">type</span>(options.title) ~= <span class="hljs-string">&quot;string&quot;</span> <span class="hljs-keyword">then</span><br>       <span class="hljs-built_in">error</span>(<span class="hljs-string">&quot;no title&quot;</span>)<br>    <span class="hljs-keyword">elseif</span> <span class="hljs-built_in">type</span>(options.width) ~= <span class="hljs-string">&quot;number&quot;</span> <span class="hljs-keyword">then</span><br>       <span class="hljs-built_in">error</span>(<span class="hljs-string">&quot;no width&quot;</span>)<br>    <span class="hljs-keyword">elseif</span> <span class="hljs-built_in">type</span>(options.height) ~= <span class="hljs-string">&quot;number&quot;</span> <span class="hljs-keyword">then</span><br>       <span class="hljs-built_in">error</span>(<span class="hljs-string">&quot;no height&quot;</span>)<br>    <span class="hljs-keyword">end</span><br>    <span class="hljs-comment">-- everything else is optional</span><br>    _Window(options.title,<br>       options.x <span class="hljs-keyword">or</span> <span class="hljs-number">0</span>,          <span class="hljs-comment">-- default value</span><br>       options.y <span class="hljs-keyword">or</span> <span class="hljs-number">0</span>,          <span class="hljs-comment">-- default value</span><br>       options.width, options.height,<br>       options.background <span class="hljs-keyword">or</span> <span class="hljs-string">&quot;white&quot;</span>,  <span class="hljs-comment">-- default</span><br>       options.border           <span class="hljs-comment">-- default is false (nil)</span><br>    )<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 <hr>
 <h2 id="进阶：函数是第一类值"><a href="#进阶：函数是第一类值" class="headerlink" title="进阶：函数是第一类值"></a>进阶：函数是第一类值</h2><p>Lua中的函数是带有词法定界（lexical scoping）的<strong>第一类值</strong>（first-class values）。</p>
 <p><strong>第一类值指：在Lua中函数和其他值（数值、字符串）一样，函数可以被存放在变量中，也可以存放在表中，可以作为函数的参数，还可以作为函数的返回值。</strong></p>
 <p>词法定界指：嵌套的函数可以访问他外部函数中的变量。这一特性给Lua提供了强大的编程能力。</p>
 <p>在Lua中，”函数和所有其它的值一样都是匿名的“，当我们在说某个函数时，比如print，实际上是在讨论拥有了一个函数的变量而已，print也可以被赋值。</p>
-<pre><code class="hljs lua">b = <span class="hljs-built_in">print</span>
-b(<span class="hljs-string">&quot;123&quot;</span>)
-
-a = &#123;p = <span class="hljs-built_in">print</span>&#125;
-a.p(<span class="hljs-string">&quot;Hello World&quot;</span>)   <span class="hljs-comment">--&gt; Hello World</span>
-
-<span class="hljs-built_in">print</span> = <span class="hljs-built_in">math</span>.<span class="hljs-built_in">sin</span>  <span class="hljs-comment">-- `print&#x27;被赋值为正弦函数</span>
-a.p(<span class="hljs-built_in">print</span>(<span class="hljs-number">1</span>))     <span class="hljs-comment">--&gt; 0.841470</span>
-
-<span class="hljs-built_in">sin</span> = a.p         <span class="hljs-comment">-- `sin&#x27; now refers to the print function</span>
-<span class="hljs-built_in">sin</span>(<span class="hljs-number">10</span>, <span class="hljs-number">20</span>)       <span class="hljs-comment">--&gt; 10   20</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs lua">b = <span class="hljs-built_in">print</span><br>b(<span class="hljs-string">&quot;123&quot;</span>)<br><br>a = &#123;p = <span class="hljs-built_in">print</span>&#125;<br>a.p(<span class="hljs-string">&quot;Hello World&quot;</span>)   <span class="hljs-comment">--&gt; Hello World</span><br><br><span class="hljs-built_in">print</span> = <span class="hljs-built_in">math</span>.<span class="hljs-built_in">sin</span>  <span class="hljs-comment">-- `print&#x27;被赋值为正弦函数</span><br>a.p(<span class="hljs-built_in">print</span>(<span class="hljs-number">1</span>))     <span class="hljs-comment">--&gt; 0.841470</span><br><br><span class="hljs-built_in">sin</span> = a.p         <span class="hljs-comment">-- `sin&#x27; now refers to the print function</span><br><span class="hljs-built_in">sin</span>(<span class="hljs-number">10</span>, <span class="hljs-number">20</span>)       <span class="hljs-comment">--&gt; 10   20</span><br></code></pre></td></tr></table></figure>
 <p>所以函数就像一个变量一样，是可以由表达式创建的，我们在本篇博客开头看见的函数创建方式实际类似于“语法糖”。</p>
-<pre><code class="hljs lua"><span class="hljs-comment">-- function foo(x) return 2*x end</span>
-foo = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(x)</span></span> <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>*x <span class="hljs-keyword">end</span> <span class="hljs-comment">-- 创建一个变量，赋值为函数</span>
-<span class="hljs-built_in">print</span>(foo(<span class="hljs-number">1</span>)) <span class="hljs-comment">--&gt; 2</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-comment">-- function foo(x) return 2*x end</span><br>foo = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(x)</span></span> <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>*x <span class="hljs-keyword">end</span> <span class="hljs-comment">-- 创建一个变量，赋值为函数</span><br><span class="hljs-built_in">print</span>(foo(<span class="hljs-number">1</span>)) <span class="hljs-comment">--&gt; 2</span><br></code></pre></td></tr></table></figure>
 <p>这样创建的函数实际就像是创建了一个匿名函数，然后再将匿名函数赋予了一个变量。</p>
 <p>由于Lua是第一类值，所以不仅可以将其存储在全局变量中，还可以存储在局部变量中甚至table的字段中。</p>
 <h3 id="函数可以存储到table字段中"><a href="#函数可以存储到table字段中" class="headerlink" title="函数可以存储到table字段中"></a>函数可以存储到table字段中</h3><p>有部分Lua库将函数存储在table字段中，例如：io.read，math.sin。</p>
 <blockquote>
 <p>复习前面接触到的table的语法糖：a = {} a.x就是a[“x”]。即以字符串x为索引。</p>
 </blockquote>
-<pre><code class="hljs lua"><span class="hljs-comment">-- 方式一</span>
-Lib = &#123;&#125;
-Lib.foo = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(x,y)</span></span> <span class="hljs-keyword">return</span> x+y <span class="hljs-keyword">end</span>
-Lib.goo = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(x,y)</span></span> <span class="hljs-keyword">return</span> x-y <span class="hljs-keyword">end</span>
-
-<span class="hljs-built_in">print</span>(Lib.foo(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>))  <span class="hljs-comment">--&gt; 5</span>
-
-<span class="hljs-comment">-- 方式二</span>
-Lib = &#123;
-	foo = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(x,y)</span></span> <span class="hljs-keyword">return</span> x+y <span class="hljs-keyword">end</span>
-	goo = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(x,y)</span></span> <span class="hljs-keyword">return</span> x-y <span class="hljs-keyword">end</span>
-&#125;
-
-<span class="hljs-comment">-- 方式三</span>
-Lib = &#123;&#125;
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Lib.foo</span> <span class="hljs-params">(x,y)</span></span> <span class="hljs-keyword">return</span> x+y <span class="hljs-keyword">end</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Lib.goo</span> <span class="hljs-params">(x,y)</span></span> <span class="hljs-keyword">return</span> x+y <span class="hljs-keyword">end</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-comment">-- 方式一</span><br>Lib = &#123;&#125;<br>Lib.foo = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(x,y)</span></span> <span class="hljs-keyword">return</span> x+y <span class="hljs-keyword">end</span><br>Lib.goo = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(x,y)</span></span> <span class="hljs-keyword">return</span> x-y <span class="hljs-keyword">end</span><br><br><span class="hljs-built_in">print</span>(Lib.foo(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>))  <span class="hljs-comment">--&gt; 5</span><br><br><span class="hljs-comment">-- 方式二</span><br>Lib = &#123;<br>	foo = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(x,y)</span></span> <span class="hljs-keyword">return</span> x+y <span class="hljs-keyword">end</span><br>	goo = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(x,y)</span></span> <span class="hljs-keyword">return</span> x-y <span class="hljs-keyword">end</span><br>&#125;<br><br><span class="hljs-comment">-- 方式三</span><br>Lib = &#123;&#125;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Lib.foo</span> <span class="hljs-params">(x,y)</span></span> <span class="hljs-keyword">return</span> x+y <span class="hljs-keyword">end</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Lib.goo</span> <span class="hljs-params">(x,y)</span></span> <span class="hljs-keyword">return</span> x+y <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 <h2 id="匿名函数的应用"><a href="#匿名函数的应用" class="headerlink" title="匿名函数的应用"></a>匿名函数的应用</h2><p>table标准库提供一个排序函数，接受一个表作为输入参数并且排序表中的元素。这个函数必须能够对不同类型的值（字符串或者数值）按升序或者降序进行排序。Lua不是尽可能多地提供参数来满足这些情况的需要，而是接受一个排序函数作为参数（类似C++的函数对象），排序函数接受两个排序元素作为输入参数，并且返回两者的大小关系，例如：</p>
-<pre><code class="hljs lua">network = &#123;
-    &#123;name = <span class="hljs-string">&quot;grauna&quot;</span>,    IP = <span class="hljs-string">&quot;210.26.30.34&quot;</span>&#125;,
-    &#123;name = <span class="hljs-string">&quot;arraial&quot;</span>,   IP = <span class="hljs-string">&quot;210.26.30.23&quot;</span>&#125;,
-    &#123;name = <span class="hljs-string">&quot;lua&quot;</span>,       IP = <span class="hljs-string">&quot;210.26.23.12&quot;</span>&#125;,
-    &#123;name = <span class="hljs-string">&quot;derain&quot;</span>,    IP = <span class="hljs-string">&quot;210.26.23.20&quot;</span>&#125;,
-&#125;
-
-<span class="hljs-built_in">table</span>.<span class="hljs-built_in">sort</span>(network, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(a,b)</span></span> <span class="hljs-keyword">return</span> (a.name &gt; b.name) <span class="hljs-keyword">end</span>)
-
-<span class="hljs-keyword">for</span> i,v <span class="hljs-keyword">in</span> <span class="hljs-built_in">ipairs</span>(network) <span class="hljs-keyword">do</span>
-  <span class="hljs-built_in">print</span>(v.name , v.IP)
-<span class="hljs-keyword">end</span>
-
-<span class="hljs-comment">--[[</span>
-<span class="hljs-comment">lua	210.26.23.12</span>
-<span class="hljs-comment">grauna	210.26.30.34</span>
-<span class="hljs-comment">derain	210.26.23.20</span>
-<span class="hljs-comment">arraial	210.26.30.23</span>
-<span class="hljs-comment">--]]</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs lua">network = &#123;<br>    &#123;name = <span class="hljs-string">&quot;grauna&quot;</span>,    IP = <span class="hljs-string">&quot;210.26.30.34&quot;</span>&#125;,<br>    &#123;name = <span class="hljs-string">&quot;arraial&quot;</span>,   IP = <span class="hljs-string">&quot;210.26.30.23&quot;</span>&#125;,<br>    &#123;name = <span class="hljs-string">&quot;lua&quot;</span>,       IP = <span class="hljs-string">&quot;210.26.23.12&quot;</span>&#125;,<br>    &#123;name = <span class="hljs-string">&quot;derain&quot;</span>,    IP = <span class="hljs-string">&quot;210.26.23.20&quot;</span>&#125;,<br>&#125;<br><br><span class="hljs-built_in">table</span>.<span class="hljs-built_in">sort</span>(network, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(a,b)</span></span> <span class="hljs-keyword">return</span> (a.name &gt; b.name) <span class="hljs-keyword">end</span>)<br><br><span class="hljs-keyword">for</span> i,v <span class="hljs-keyword">in</span> <span class="hljs-built_in">ipairs</span>(network) <span class="hljs-keyword">do</span><br>  <span class="hljs-built_in">print</span>(v.name , v.IP)<br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">--[[</span><br><span class="hljs-comment">lua	210.26.23.12</span><br><span class="hljs-comment">grauna	210.26.30.34</span><br><span class="hljs-comment">derain	210.26.23.20</span><br><span class="hljs-comment">arraial	210.26.30.23</span><br><span class="hljs-comment">--]]</span><br></code></pre></td></tr></table></figure>
 <h2 id="闭包-closure"><a href="#闭包-closure" class="headerlink" title="闭包 closure"></a>闭包 closure</h2><p><strong>词法域</strong>：若将一个函数写在另一个函数内，那么这个位于内部的函数便可以访问外部函数中的局部变量，这项特征称之为“词法域”。</p>
 <p><strong>closure</strong>：<font color="red">简单的讲，一个closure就是一个函数加上该函数所需访问的所有的“<strong>非局部的变量</strong>”。</font></p>
-<h3 id="非局部的变量"><a href="#非局部的变量" class="headerlink" title="非局部的变量"></a>非局部的变量</h3><pre><code class="hljs lua">name = &#123;<span class="hljs-string">&quot;Peter&quot;</span>,<span class="hljs-string">&quot;Paul&quot;</span>,<span class="hljs-string">&quot;Mary&quot;</span>&#125;
-grades = &#123;Peter = <span class="hljs-number">8</span>,Paul = <span class="hljs-number">7</span>,Mary = <span class="hljs-number">10</span>&#125;
-<span class="hljs-built_in">table</span>.<span class="hljs-built_in">sort</span>(name, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(n1,n2)</span></span>
-    	<span class="hljs-keyword">return</span> grades[n1] &gt; grades[n2]  <span class="hljs-comment">-- 比较年级</span>
-    <span class="hljs-keyword">end</span>)
-
-<span class="hljs-comment">-- 改写代码，封装函数</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sortbygrade</span><span class="hljs-params">(names,grades)</span></span>
-   <span class="hljs-built_in">table</span>.<span class="hljs-built_in">sort</span>(names,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(n1,n2)</span></span>
-    	<span class="hljs-keyword">return</span> grades[n1] &gt; grades[n2]    
-    <span class="hljs-keyword">end</span>) 
-<span class="hljs-keyword">end</span></code></pre>
+<h3 id="非局部的变量"><a href="#非局部的变量" class="headerlink" title="非局部的变量"></a>非局部的变量</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs lua">name = &#123;<span class="hljs-string">&quot;Peter&quot;</span>,<span class="hljs-string">&quot;Paul&quot;</span>,<span class="hljs-string">&quot;Mary&quot;</span>&#125;<br>grades = &#123;Peter = <span class="hljs-number">8</span>,Paul = <span class="hljs-number">7</span>,Mary = <span class="hljs-number">10</span>&#125;<br><span class="hljs-built_in">table</span>.<span class="hljs-built_in">sort</span>(name, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(n1,n2)</span></span><br>    	<span class="hljs-keyword">return</span> grades[n1] &gt; grades[n2]  <span class="hljs-comment">-- 比较年级</span><br>    <span class="hljs-keyword">end</span>)<br><br><span class="hljs-comment">-- 改写代码，封装函数</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sortbygrade</span><span class="hljs-params">(names,grades)</span></span><br>   <span class="hljs-built_in">table</span>.<span class="hljs-built_in">sort</span>(names,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(n1,n2)</span></span><br>    	<span class="hljs-keyword">return</span> grades[n1] &gt; grades[n2]    <br>    <span class="hljs-keyword">end</span>) <br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 <p>对于<code>sortbygrade()</code>函数来说，传递给<code>sort</code>的匿名函数可以去访问参数<code>grades</code>，而<code>grades</code>是外部函数<code>sortbygrade()</code>的<strong>局部变量</strong>。但对于匿名函数来说，grades既不是全局变量，也不是局部变量，而是将其称为一个<strong>非局部的变量</strong>(non-local variable 或 <strong>upvalue</strong>)。</p>
-<h3 id="closure"><a href="#closure" class="headerlink" title="closure"></a>closure</h3><pre><code class="hljs lua"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">newCounter</span><span class="hljs-params">()</span></span>
-  <span class="hljs-keyword">local</span> i = <span class="hljs-number">0</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>
-    i = i + <span class="hljs-number">1</span>
-    <span class="hljs-keyword">return</span> i
-  <span class="hljs-keyword">end</span>
-<span class="hljs-keyword">end</span>
-
-c1 = newCounter()
-
-<span class="hljs-built_in">print</span>(c1())  <span class="hljs-comment">--》 1</span>
-<span class="hljs-built_in">print</span>(c1())  <span class="hljs-comment">--》 2</span>
-
-c2 = newCounter()
-<span class="hljs-built_in">print</span>(c2())  <span class="hljs-comment">--》 1</span></code></pre>
+<h3 id="closure"><a href="#closure" class="headerlink" title="closure"></a>closure</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">newCounter</span><span class="hljs-params">()</span></span><br>  <span class="hljs-keyword">local</span> i = <span class="hljs-number">0</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span><br>    i = i + <span class="hljs-number">1</span><br>    <span class="hljs-keyword">return</span> i<br>  <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><br>c1 = newCounter()<br><br><span class="hljs-built_in">print</span>(c1())  <span class="hljs-comment">--》 1</span><br><span class="hljs-built_in">print</span>(c1())  <span class="hljs-comment">--》 2</span><br><br>c2 = newCounter()<br><span class="hljs-built_in">print</span>(c2())  <span class="hljs-comment">--》 1</span><br></code></pre></td></tr></table></figure>
 <p>在这里c1和c2是同一个函数创建的两个不同的closure，他们各自之间拥有局部变量i的独立实例。</p>
 <blockquote>
 <p>闭包的内容对应于《Lua程序设计第二版 P47-50》</p>
 </blockquote>
-<pre><code class="hljs lua"><span class="hljs-comment">-- 计算y = a*x + b</span>
-
-<span class="hljs-comment">--普通函数写法</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">func</span><span class="hljs-params">(a,b,x)</span></span>
-    <span class="hljs-keyword">return</span> a*x+b
-<span class="hljs-keyword">end</span>
-
-<span class="hljs-comment">--闭包的写法</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">func1</span><span class="hljs-params">(a,b)</span></span>
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(x)</span></span>
-        <span class="hljs-keyword">return</span> a*x+b
-    <span class="hljs-keyword">end</span>
-<span class="hljs-keyword">end</span>
-
-<span class="hljs-comment">--这样对于计算ab固定的一阶函数的时候，比较方便</span>
-y1 = func1(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)
-
-ends = y1(<span class="hljs-number">5</span>)  <span class="hljs-comment">--&gt; 13</span>
-ends = y1(<span class="hljs-number">4</span>)  <span class="hljs-comment">--&gt; 11</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-comment">-- 计算y = a*x + b</span><br><br><span class="hljs-comment">--普通函数写法</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">func</span><span class="hljs-params">(a,b,x)</span></span><br>    <span class="hljs-keyword">return</span> a*x+b<br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">--闭包的写法</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">func1</span><span class="hljs-params">(a,b)</span></span><br>    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(x)</span></span><br>        <span class="hljs-keyword">return</span> a*x+b<br>    <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">--这样对于计算ab固定的一阶函数的时候，比较方便</span><br>y1 = func1(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)<br><br>ends = y1(<span class="hljs-number">5</span>)  <span class="hljs-comment">--&gt; 13</span><br>ends = y1(<span class="hljs-number">4</span>)  <span class="hljs-comment">--&gt; 11</span><br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>from Colourso&gt; </p>
 <p>Lua的闭包和Python的闭包有些相似，上面的这个例子就是我接触Python闭包时的例子，Python闭包网址： <a target="_blank" rel="noopener" href="http://www.colourso.top/Python/">http://www.colourso.top/Python/</a> </p>
 </blockquote>
 <h3 id="closure的用途举例：创建一个安全环境"><a href="#closure的用途举例：创建一个安全环境" class="headerlink" title="closure的用途举例：创建一个安全环境"></a>closure的用途举例：创建一个安全环境</h3><p><strong>把原始版本的函数放在一个局部变量里，然后这个函数被访问的唯一方法就是通过新版本的函数。</strong></p>
 <p>例如：当我们运行一段不信任的代码（比如我们运行网络服务器上获取的代码）时安全的环境是需要的，比如我们可以使用闭包重定义io库的open函数来限制程序打开的文件。</p>
-<pre><code class="hljs lua"><span class="hljs-keyword">do</span>
-    <span class="hljs-keyword">local</span> oldOpen = <span class="hljs-built_in">io</span>.<span class="hljs-built_in">open</span>
-    <span class="hljs-built_in">io</span>.<span class="hljs-built_in">open</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(filename, mode)</span></span>
-       <span class="hljs-keyword">if</span> access_OK(filename, mode) <span class="hljs-keyword">then</span>
-           <span class="hljs-keyword">return</span> oldOpen(filename, mode)
-       <span class="hljs-keyword">else</span>
-           <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, <span class="hljs-string">&quot;access denied&quot;</span>
-       <span class="hljs-keyword">end</span>
-    <span class="hljs-keyword">end</span>
-<span class="hljs-keyword">end</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-keyword">do</span><br>    <span class="hljs-keyword">local</span> oldOpen = <span class="hljs-built_in">io</span>.<span class="hljs-built_in">open</span><br>    <span class="hljs-built_in">io</span>.<span class="hljs-built_in">open</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(filename, mode)</span></span><br>       <span class="hljs-keyword">if</span> access_OK(filename, mode) <span class="hljs-keyword">then</span><br>           <span class="hljs-keyword">return</span> oldOpen(filename, mode)<br>       <span class="hljs-keyword">else</span><br>           <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, <span class="hljs-string">&quot;access denied&quot;</span><br>       <span class="hljs-keyword">end</span><br>    <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 <h2 id="非全局的函数"><a href="#非全局的函数" class="headerlink" title="非全局的函数"></a>非全局的函数</h2><p>将一个函数存储到一个局部变量中，即得到了一个“局部函数”，这个函数只能在某个特定的作用域中使用。</p>
-<pre><code class="hljs lua"><span class="hljs-keyword">local</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(x)</span></span> <span class="hljs-keyword">return</span> x <span class="hljs-keyword">end</span>
-
-<span class="hljs-comment">--Lua的语法糖</span>
-<span class="hljs-keyword">local</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span><span class="hljs-params">(x)</span></span>
-    <span class="hljs-keyword">return</span> x
-<span class="hljs-keyword">end</span></code></pre>
-<h3 id="局部递归函数注意事项"><a href="#局部递归函数注意事项" class="headerlink" title="局部递归函数注意事项"></a>局部递归函数注意事项</h3><pre><code class="hljs lua"><span class="hljs-comment">-- 错误</span>
-<span class="hljs-keyword">local</span> fact = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(n)</span></span>
-    <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span> <span class="hljs-keyword">then</span>
-       <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>
-    <span class="hljs-keyword">else</span>
-       <span class="hljs-keyword">return</span> n*fact(n<span class="hljs-number">-1</span>)   <span class="hljs-comment">-- 错误</span>
-    <span class="hljs-keyword">end</span>
-<span class="hljs-keyword">end</span>
-
-<span class="hljs-comment">-- 上面这种方式导致Lua编译时遇到fact(n-1)并不知道他是局部函数fact，Lua会去查找是否有这样的全局函数fact。为了解决这个问题我们必须在定义函数以前先声明：</span>
-
-<span class="hljs-keyword">local</span> fact
-fact = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(n)</span></span>
-    <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span> <span class="hljs-keyword">then</span>
-       <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>
-    <span class="hljs-keyword">else</span>
-       <span class="hljs-keyword">return</span> n*fact(n<span class="hljs-number">-1</span>)
-    <span class="hljs-keyword">end</span>
-<span class="hljs-keyword">end</span>
-<span class="hljs-comment">-- 这样在fact内部fact(n-1)调用是一个局部函数调用，运行时fact就可以获取正确的值了</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-keyword">local</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(x)</span></span> <span class="hljs-keyword">return</span> x <span class="hljs-keyword">end</span><br><br><span class="hljs-comment">--Lua的语法糖</span><br><span class="hljs-keyword">local</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span><span class="hljs-params">(x)</span></span><br>    <span class="hljs-keyword">return</span> x<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<h3 id="局部递归函数注意事项"><a href="#局部递归函数注意事项" class="headerlink" title="局部递归函数注意事项"></a>局部递归函数注意事项</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-comment">-- 错误</span><br><span class="hljs-keyword">local</span> fact = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(n)</span></span><br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span> <span class="hljs-keyword">then</span><br>       <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>    <span class="hljs-keyword">else</span><br>       <span class="hljs-keyword">return</span> n*fact(n<span class="hljs-number">-1</span>)   <span class="hljs-comment">-- 错误</span><br>    <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">-- 上面这种方式导致Lua编译时遇到fact(n-1)并不知道他是局部函数fact，Lua会去查找是否有这样的全局函数fact。为了解决这个问题我们必须在定义函数以前先声明：</span><br><br><span class="hljs-keyword">local</span> fact<br>fact = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(n)</span></span><br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span> <span class="hljs-keyword">then</span><br>       <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>    <span class="hljs-keyword">else</span><br>       <span class="hljs-keyword">return</span> n*fact(n<span class="hljs-number">-1</span>)<br>    <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><span class="hljs-comment">-- 这样在fact内部fact(n-1)调用是一个局部函数调用，运行时fact就可以获取正确的值了</span><br></code></pre></td></tr></table></figure>
 <h2 id="尾调用"><a href="#尾调用" class="headerlink" title="尾调用"></a>尾调用</h2><p>当函数最后一个动作是调用另外一个函数时，我们称这种调用尾调用。例如：</p>
-<pre><code class="hljs lua"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span><span class="hljs-params">(x)</span></span>
-    <span class="hljs-keyword">return</span> g(x)  <span class="hljs-comment">-- g的调用就是尾调用</span>
-<span class="hljs-keyword">end</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span><span class="hljs-params">(x)</span></span><br>    <span class="hljs-keyword">return</span> g(x)  <span class="hljs-comment">-- g的调用就是尾调用</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 <p>上面例子中f调用g后不会再做任何事情，这种情况下当被调用函数g结束时程序不需要返回到调用者f；所以<strong>尾调用之后程序不需要在栈中保留关于调用者的任何信息</strong>。一些编译器比如Lua解释器利用这种特性在处理尾调用时<strong>不使用额外的栈</strong>，我们称这种语言支持正确的尾调用。</p>
 <p>由于尾调用不需要使用栈空间，那么<strong>尾调用递归的层次可以无限制的</strong>。</p>
-<pre><code class="hljs lua"><span class="hljs-comment">-- 这个函数无论n为何值都不会导致栈溢出</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span><span class="hljs-params">(n)</span></span>
-    <span class="hljs-keyword">if</span> n &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">then</span> <span class="hljs-keyword">return</span> foo(n<span class="hljs-number">-1</span>) <span class="hljs-keyword">end</span>
- <span class="hljs-keyword">end</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-comment">-- 这个函数无论n为何值都不会导致栈溢出</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span><span class="hljs-params">(n)</span></span><br>    <span class="hljs-keyword">if</span> n &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">then</span> <span class="hljs-keyword">return</span> foo(n<span class="hljs-number">-1</span>) <span class="hljs-keyword">end</span><br> <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 <h3 id="正确的尾调用"><a href="#正确的尾调用" class="headerlink" title="正确的尾调用"></a>正确的尾调用</h3><p>形如：<code>return func(args)</code> 这样的调用形式才是真正的尾调用。</p>
-<pre><code class="hljs lua"><span class="hljs-keyword">return</span> x[i].foo(x[j] + a*b,i+j) <span class="hljs-comment">--正确的尾调用</span>
-<span class="hljs-comment">-- 以下都不是正确的尾调用，因为执行完g(x)后还需要额外做运算</span>
-<span class="hljs-keyword">return</span> g(x)+<span class="hljs-number">1</span>
-<span class="hljs-keyword">return</span> x <span class="hljs-keyword">or</span> g(x)
-<span class="hljs-keyword">return</span> (g(x))  <span class="hljs-comment">-- ()作用是把返回结果调整为一个值</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-keyword">return</span> x[i].foo(x[j] + a*b,i+j) <span class="hljs-comment">--正确的尾调用</span><br><span class="hljs-comment">-- 以下都不是正确的尾调用，因为执行完g(x)后还需要额外做运算</span><br><span class="hljs-keyword">return</span> g(x)+<span class="hljs-number">1</span><br><span class="hljs-keyword">return</span> x <span class="hljs-keyword">or</span> g(x)<br><span class="hljs-keyword">return</span> (g(x))  <span class="hljs-comment">-- ()作用是把返回结果调整为一个值</span><br></code></pre></td></tr></table></figure>
 <h3 id="尾调用的应用-——-编写状态机-state-machine"><a href="#尾调用的应用-——-编写状态机-state-machine" class="headerlink" title="尾调用的应用 —— 编写状态机(state machine)"></a>尾调用的应用 —— 编写状态机(state machine)</h3><blockquote>
 <p>状态机的应用要求函数记住每一个状态，改变状态只需要goto(or call)一个特定的函数。我们考虑一个迷宫游戏作为例子：迷宫有很多个房间，每个房间有东西南北四个门，每一步输入一个移动的方向，如果该方向存在即到达该方向对应的房间，否则程序打印警告信息。目标是：从开始的房间到达目的房间。</p>
 <p>这个迷宫游戏是典型的状态机，每个当前的房间是一个状态。我们可以对每个房间写一个函数实现这个迷宫游戏，我们使用尾调用从一个房间移动到另外一个房间。一个四个房间的迷宫代码如下：</p>
 <p>我们可以调用room1()开始这个游戏。</p>
 <p>如果没有正确的尾调用，每次移动都要创建一个栈，多次移动后可能导致栈溢出。但正确的尾调用可以无限制的尾调用，因为每次尾调用只是一个goto到另外一个函数并不是传统的函数调用。</p>
 </blockquote>
-<pre><code class="hljs lua"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">room1</span> <span class="hljs-params">()</span></span>
-    <span class="hljs-keyword">local</span> move = <span class="hljs-built_in">io</span>.<span class="hljs-built_in">read</span>()
-    <span class="hljs-keyword">if</span> move == <span class="hljs-string">&quot;south&quot;</span> <span class="hljs-keyword">then</span>
-      <span class="hljs-keyword">return</span> room3()
-    <span class="hljs-keyword">elseif</span> move == <span class="hljs-string">&quot;east&quot;</span> <span class="hljs-keyword">then</span>
-       <span class="hljs-keyword">return</span> room2()
-    <span class="hljs-keyword">else</span>
-       <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;invalid move&quot;</span>)
-      <span class="hljs-keyword">return</span> room1()   <span class="hljs-comment">-- stay in the same room</span>
-    <span class="hljs-keyword">end</span>
-<span class="hljs-keyword">end</span>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">room1</span> <span class="hljs-params">()</span></span><br>    <span class="hljs-keyword">local</span> move = <span class="hljs-built_in">io</span>.<span class="hljs-built_in">read</span>()<br>    <span class="hljs-keyword">if</span> move == <span class="hljs-string">&quot;south&quot;</span> <span class="hljs-keyword">then</span><br>      <span class="hljs-keyword">return</span> room3()<br>    <span class="hljs-keyword">elseif</span> move == <span class="hljs-string">&quot;east&quot;</span> <span class="hljs-keyword">then</span><br>       <span class="hljs-keyword">return</span> room2()<br>    <span class="hljs-keyword">else</span><br>       <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;invalid move&quot;</span>)<br>      <span class="hljs-keyword">return</span> room1()   <span class="hljs-comment">-- stay in the same room</span><br>    <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">room2</span> <span class="hljs-params">()</span></span><br>    <span class="hljs-keyword">local</span> move = <span class="hljs-built_in">io</span>.<span class="hljs-built_in">read</span>()<br>    <span class="hljs-keyword">if</span> move == <span class="hljs-string">&quot;south&quot;</span> <span class="hljs-keyword">then</span><br>       <span class="hljs-keyword">return</span> room4()<br>    <span class="hljs-keyword">elseif</span> move == <span class="hljs-string">&quot;west&quot;</span> <span class="hljs-keyword">then</span><br>       <span class="hljs-keyword">return</span> room1()<br>    <span class="hljs-keyword">else</span><br>       <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;invalid move&quot;</span>)<br>       <span class="hljs-keyword">return</span> room2()<br>    <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">room3</span> <span class="hljs-params">()</span></span><br>    <span class="hljs-keyword">local</span> move = <span class="hljs-built_in">io</span>.<span class="hljs-built_in">read</span>()<br>    <span class="hljs-keyword">if</span> move == <span class="hljs-string">&quot;north&quot;</span> <span class="hljs-keyword">then</span><br>       <span class="hljs-keyword">return</span> room1()<br>    <span class="hljs-keyword">elseif</span> move == <span class="hljs-string">&quot;east&quot;</span> <span class="hljs-keyword">then</span><br>       <span class="hljs-keyword">return</span> room4()<br>    <span class="hljs-keyword">else</span><br>       <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;invalid move&quot;</span>)<br>       <span class="hljs-keyword">return</span> room3()<br>    <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">room4</span> <span class="hljs-params">()</span></span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;congratilations!&quot;</span>)<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">room2</span> <span class="hljs-params">()</span></span>
-    <span class="hljs-keyword">local</span> move = <span class="hljs-built_in">io</span>.<span class="hljs-built_in">read</span>()
-    <span class="hljs-keyword">if</span> move == <span class="hljs-string">&quot;south&quot;</span> <span class="hljs-keyword">then</span>
-       <span class="hljs-keyword">return</span> room4()
-    <span class="hljs-keyword">elseif</span> move == <span class="hljs-string">&quot;west&quot;</span> <span class="hljs-keyword">then</span>
-       <span class="hljs-keyword">return</span> room1()
-    <span class="hljs-keyword">else</span>
-       <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;invalid move&quot;</span>)
-       <span class="hljs-keyword">return</span> room2()
-    <span class="hljs-keyword">end</span>
-<span class="hljs-keyword">end</span>
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">room3</span> <span class="hljs-params">()</span></span>
-    <span class="hljs-keyword">local</span> move = <span class="hljs-built_in">io</span>.<span class="hljs-built_in">read</span>()
-    <span class="hljs-keyword">if</span> move == <span class="hljs-string">&quot;north&quot;</span> <span class="hljs-keyword">then</span>
-       <span class="hljs-keyword">return</span> room1()
-    <span class="hljs-keyword">elseif</span> move == <span class="hljs-string">&quot;east&quot;</span> <span class="hljs-keyword">then</span>
-       <span class="hljs-keyword">return</span> room4()
-    <span class="hljs-keyword">else</span>
-       <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;invalid move&quot;</span>)
-       <span class="hljs-keyword">return</span> room3()
-    <span class="hljs-keyword">end</span>
-<span class="hljs-keyword">end</span>
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">room4</span> <span class="hljs-params">()</span></span>
-    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;congratilations!&quot;</span>)
-<span class="hljs-keyword">end</span></code></pre>
-
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -683,8 +400,8 @@ fact = <span class="hljs-function"><span class="hljs-keyword">function</span> <s
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/lua-3/">
@@ -693,8 +410,8 @@ fact = <span class="hljs-function"><span class="hljs-keyword">function</span> <s
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/%E4%B8%96%E7%95%8C%E4%B8%8A%E6%B2%A1%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%9C%E8%A5%BF%E6%AF%94%E4%B8%80%E9%A2%97%E7%A2%8E%E6%8E%89%E7%9A%84%E5%BF%83%E6%9B%B4%E5%AE%8C%E6%95%B4%E4%BA%86/">
@@ -703,47 +420,45 @@ fact = <span class="hljs-function"><span class="hljs-keyword">function</span> <s
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
               <!-- Comments -->
-              <div class="comments" id="comments">
+              <article class="comments" id="comments">
                 
                 
   <div id="vcomments"></div>
-  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
-
   <script type="text/javascript">
-    var oldLoadVa = window.onload;
-    window.onload = function () {
-      oldLoadVa && oldLoadVa();
-
-      new Valine({
-        el: "#vcomments",
-        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
-        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
-        placeholder: "说点什么",
-        path: window.location.pathname,
-        avatar: "wavatar",
-        meta: ["nick","mail","link"],
-        pageSize: "10",
-        lang: "zh-CN",
-        highlight: false,
-        recordIP: false,
-        serverURLs: "",
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
       });
-    };
+    });
   </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
 
 
-              </div>
+              </article>
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -751,7 +466,7 @@ fact = <span class="hljs-function"><span class="hljs-keyword">function</span> <s
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
   <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
       </div>
@@ -763,16 +478,15 @@ fact = <span class="hljs-function"><span class="hljs-keyword">function</span> <s
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -793,24 +507,22 @@ fact = <span class="hljs-function"><span class="hljs-keyword">function</span> <s
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
-    <i class="iconfont icon-love"></i>
-    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
-    <br>
-    </div>
     
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
   <div class="statistics">
     
     
@@ -837,337 +549,153 @@ fact = <span class="hljs-function"><span class="hljs-keyword">function</span> <s
   </div>
 
 
-    
+  
 
-	
-    
+
   
-  
-  <!-- 网站运行时间的设置 -->
-  <script src="/js/HidenMath.js"></script>
-  <script>
-    var now = new Date();
-    function createtime() {
-      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
-      now.setTime(now.getTime() + 250);
-      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
-      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
-      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
-      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
-      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
-      document.getElementById("timeDate").innerHTML = dnum;
-      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
-    }
-    setInterval("createtime()", 250);
-  </script>
-  </div>
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  <script  src="/js/lazyload.js" ></script>
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
   
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '.post-content',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(response => response.json())
-          .then(({results}) => {
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(response => response.json())
-                .then((record) => {
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch(error => {
-          console.error('LeanCloud Counter Error', error);
-          reject(error);
-        });
-      })
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
-        }
-      }
-    }
-
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          resolve(res);
-        }).catch(error => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true'
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/lua-2/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
-    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
-    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "lua快速入门 —— 函数&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 80,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
       
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
   <script  src="/js/local-search.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
       }
-    );
+    })()
   </script>
 
 
 
 
 
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
 
 
 
@@ -1176,8 +704,24 @@ fact = <span class="hljs-function"><span class="hljs-keyword">function</span> <s
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

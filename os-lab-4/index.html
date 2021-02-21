@@ -1,7 +1,7 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -19,22 +19,33 @@
   <meta name="keywords" content="">
   <title>操作系统课程设计 -- 磁盘管理 - Colourso</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -42,6 +53,12 @@
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 5.3.0"></head>
 
 
@@ -136,8 +153,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -145,25 +168,28 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="操作系统课程设计 -- 磁盘管理">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-01-04 16:47">
-      星期六, 一月 4日 2020, 4:47 下午
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-01-04 16:47" pubdate>
+        2020年1月4日 下午
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
@@ -180,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      59
+      84
        分钟
     </span>
   
@@ -189,9 +215,9 @@
   
     
       <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
         <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-post-views"></span> 次
+        <span id="leancloud-page-views"></span> 次
       </span>
     
   
@@ -210,15 +236,23 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">操作系统课程设计 -- 磁盘管理</h1>
             
-            <article class="markdown-body">
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年5月17日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
               <p><strong>概览</strong>：操作系统课程设计 —— 磁盘管理的实现，包含Java与C++，均采用面向对象的思想，包含代码。</p>
 <a id="more"></a>
 
@@ -247,240 +281,12 @@
 <p>  对于实现以上功能，可以采用任何熟悉的编程语言，不做具体要求。</p>
 <h2 id="磁盘管理"><a href="#磁盘管理" class="headerlink" title="磁盘管理"></a>磁盘管理</h2><p>由于我主要负责磁盘管理部分，所以只写了磁盘管理部分的代码。</p>
 <h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><p>DiskBlock.java – 定义单独的一块磁盘块，即磁盘的最小结构。</p>
-<pre><code class="hljs java"><span class="hljs-keyword">package</span> FileDiskDir;
-
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DiskBlock</span> </span>&#123;
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> blockNum;<span class="hljs-comment">//块号</span>
-    <span class="hljs-keyword">private</span> String blockData;<span class="hljs-comment">//块内数据</span>
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">DiskBlock</span><span class="hljs-params">()</span> </span>&#123;
-
-    &#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">DiskBlock</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum, String blockData)</span> </span>&#123;
-        <span class="hljs-keyword">this</span>.blockNum = blockNum;
-        <span class="hljs-keyword">this</span>.blockData = blockData;
-    &#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getBlockNum</span><span class="hljs-params">()</span> </span>&#123;
-        <span class="hljs-keyword">return</span> blockNum;
-    &#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setBlockNum</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum)</span> </span>&#123;
-        <span class="hljs-keyword">this</span>.blockNum = blockNum;
-    &#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getBlockData</span><span class="hljs-params">()</span> </span>&#123;
-        <span class="hljs-keyword">return</span> blockData;
-    &#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setBlockData</span><span class="hljs-params">(String blockData)</span> </span>&#123;
-        <span class="hljs-keyword">this</span>.blockData = blockData;
-    &#125;
-&#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> FileDiskDir;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DiskBlock</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> blockNum;<span class="hljs-comment">//块号</span><br>    <span class="hljs-keyword">private</span> String blockData;<span class="hljs-comment">//块内数据</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">DiskBlock</span><span class="hljs-params">()</span> </span>&#123;<br><br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">DiskBlock</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum, String blockData)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.blockNum = blockNum;<br>        <span class="hljs-keyword">this</span>.blockData = blockData;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getBlockNum</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> blockNum;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setBlockNum</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.blockNum = blockNum;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getBlockData</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> blockData;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setBlockData</span><span class="hljs-params">(String blockData)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.blockData = blockData;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>DiskManage.java – 磁盘管理。</p>
-<pre><code class="hljs java"><span class="hljs-keyword">package</span> FileDiskDir;
-
-<span class="hljs-keyword">import</span> java.io.*;
-<span class="hljs-keyword">import</span> java.util.HashMap;
-<span class="hljs-keyword">import</span> java.util.Map;
-
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DiskManage</span> </span>&#123;
-    <span class="hljs-keyword">private</span> Map&lt;String, MixIndex&gt; FileMixIndexMap = <span class="hljs-keyword">new</span> HashMap&lt;String, MixIndex&gt;();<span class="hljs-comment">//建立文件名和索引表的映射</span>
-    <span class="hljs-keyword">private</span> DiskBlock[] MyDisk = <span class="hljs-keyword">new</span> DiskBlock[<span class="hljs-number">1024</span>];<span class="hljs-comment">//1024个磁盘块</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span>[] MyDiskState = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[<span class="hljs-number">1024</span>];<span class="hljs-comment">//位示图,false表示未被使用，true表示被使用</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> freeDiskDataBlock;<span class="hljs-comment">//数据区中空闲的磁盘块数</span>
-    <span class="hljs-keyword">private</span> String diskTxtData;<span class="hljs-comment">//磁盘txt的全部数据</span>
-
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> DiskManage instance = <span class="hljs-keyword">new</span> DiskManage();
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">DiskManage</span><span class="hljs-params">()</span> </span>&#123;
-        freeDiskDataBlock = <span class="hljs-number">900</span>;
-        serializeToDisktxt();
-        diskTxtData = readDataFromDiskTxt();
-    &#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> DiskManage <span class="hljs-title">getInstance</span><span class="hljs-params">()</span></span>&#123;
-        <span class="hljs-keyword">return</span> instance;
-    &#125;
-
-    <span class="hljs-comment">//初始化文件DiskTxt</span>
-    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">serializeToDisktxt</span><span class="hljs-params">()</span> </span>&#123;
-        <span class="hljs-keyword">try</span> &#123;
-            <span class="hljs-comment">//将disk文件存满1024*4个#.</span>
-            File f = <span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;src/file/disk.txt&quot;</span>);
-            <span class="hljs-keyword">byte</span> data[] = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[<span class="hljs-number">4096</span>];
-            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;i&lt;<span class="hljs-number">4096</span>;i++)&#123;
-                data[i] = <span class="hljs-string">&#x27;#&#x27;</span>;
-            &#125;
-
-            <span class="hljs-comment">// 创建基于文件的输出流</span>
-            FileOutputStream fos = <span class="hljs-keyword">new</span> FileOutputStream(f);
-            <span class="hljs-comment">// 把数据写入到输出流</span>
-            fos.write(data);
-            <span class="hljs-comment">// 关闭输出流</span>
-            fos.close();
-
-        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;
-            <span class="hljs-comment">// TODO Auto-generated catch block</span>
-            e.printStackTrace();
-        &#125;
-    &#125;
-
-    <span class="hljs-comment">//从DiskTxt读取磁盘所有的内容，存储为string</span>
-    <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">readDataFromDiskTxt</span><span class="hljs-params">()</span></span>&#123;
-        String data = <span class="hljs-string">&quot;&quot;</span>;
-        <span class="hljs-keyword">try</span> &#123;
-            <span class="hljs-comment">//将disk文件存满1024*4个#.</span>
-            File f = <span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;src/file/disk.txt&quot;</span>);
-            FileReader reader = <span class="hljs-keyword">new</span> FileReader(f);
-            BufferedReader br = <span class="hljs-keyword">new</span> BufferedReader(reader);
-            String lines;
-            <span class="hljs-keyword">while</span>((lines = br.readLine() )!= <span class="hljs-keyword">null</span>)&#123;
-                data += lines;
-            &#125;
-
-            <span class="hljs-comment">// 关闭输出流</span>
-            br.close();
-            reader.close();
-
-        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;
-            <span class="hljs-comment">// TODO Auto-generated catch block</span>
-            e.printStackTrace();
-        &#125;
-        <span class="hljs-keyword">return</span> data;
-    &#125;
-
-    <span class="hljs-comment">//将全部数据写回磁盘文件</span>
-    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">writeDataToDiskTxt</span><span class="hljs-params">(String data)</span></span>&#123;
-        <span class="hljs-keyword">try</span> &#123;
-            File f = <span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;src/file/disk.txt&quot;</span>);
-            f.createNewFile();<span class="hljs-comment">//创建新文件,有同名的文件的话直接覆盖</span>
-            FileWriter writer = <span class="hljs-keyword">new</span> FileWriter(f);
-            BufferedWriter out = <span class="hljs-keyword">new</span> BufferedWriter(writer);
-            out.write(data);
-            out.flush();<span class="hljs-comment">//将缓存区内容压入文件</span>
-
-            out.close();
-            writer.close();
-        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;
-            e.printStackTrace();
-        &#125;
-    &#125;
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getFreeDiskDataBlock</span><span class="hljs-params">()</span> </span>&#123;
-        <span class="hljs-keyword">return</span> freeDiskDataBlock;
-    &#125;
-
-    <span class="hljs-comment">//写数据到磁盘块</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">WriteDataToBlock</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum,String data)</span></span>&#123;
-        MyDisk[blockNum] = <span class="hljs-keyword">new</span> DiskBlock();
-        MyDisk[blockNum].setBlockData(data);
-
-        MyDiskState[blockNum] = <span class="hljs-keyword">true</span>;
-        freeDiskDataBlock -= <span class="hljs-number">1</span>;
-
-        <span class="hljs-comment">//diskTxtData更新</span>
-        diskTxtData = readDataFromDiskTxt();
-
-        <span class="hljs-comment">//使用stringbuffer来替换</span>
-        StringBuffer sb = <span class="hljs-keyword">new</span> StringBuffer(diskTxtData);
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">4</span>;i++)&#123;
-            sb.setCharAt(blockNum*<span class="hljs-number">4</span> + i,data.charAt(i));
-        &#125;
-
-        <span class="hljs-comment">//</span>
-        writeDataToDiskTxt(sb.toString());
-
-    &#125;
-
-    <span class="hljs-comment">//从磁盘块读数据</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">ReadDataFromBlock</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum)</span></span>&#123;
-
-        <span class="hljs-keyword">return</span> MyDisk[blockNum].getBlockData();
-    &#125;
-
-    <span class="hljs-comment">//删除数据</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DeleteDataInBlock</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum)</span></span>&#123;
-        MyDiskState[blockNum] = <span class="hljs-keyword">false</span>;
-        freeDiskDataBlock += <span class="hljs-number">1</span>;
-    &#125;
-
-    <span class="hljs-comment">//创建文件保留数据到磁盘</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> MixIndex <span class="hljs-title">SaveFileDataToDisk</span><span class="hljs-params">(String fileName,<span class="hljs-keyword">int</span> size,String data)</span></span>&#123;
-
-        <span class="hljs-comment">//创建文件的索引表</span>
-        MixIndex fileMixIndexTable = <span class="hljs-keyword">new</span> MixIndex();
-
-        <span class="hljs-comment">//创建一个当前正在使用的索引表</span>
-        MixIndex nowMixIndexTable = fileMixIndexTable;
-
-        <span class="hljs-comment">//从位示图中寻找空闲的块,并且赋值</span>
-        <span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>;<span class="hljs-comment">//定义一个索引表里的index,同时表示字符串的读取位置</span>
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">900</span>;i++) &#123;
-            <span class="hljs-keyword">if</span>(MyDiskState[i] == <span class="hljs-keyword">false</span>)&#123;
-                <span class="hljs-keyword">if</span>(index &lt; size)&#123;
-                    <span class="hljs-keyword">if</span>(index / <span class="hljs-number">9</span> == <span class="hljs-number">0</span> &amp;&amp; index % <span class="hljs-number">9</span> == <span class="hljs-number">0</span> )&#123;
-                        <span class="hljs-comment">//创建文件的新一级索引表</span>
-                        MixIndex newfileMixIndexTable = <span class="hljs-keyword">new</span> MixIndex();
-                        nowMixIndexTable.setIndirectIndex(newfileMixIndexTable);
-                        nowMixIndexTable = newfileMixIndexTable;
-                    &#125;
-                    nowMixIndexTable.setDirectIndexByIndex(index%<span class="hljs-number">9</span>,i);
-                    <span class="hljs-comment">//位示图更新</span>
-                    MyDiskState[i] = <span class="hljs-keyword">true</span>;
-                    <span class="hljs-comment">//写入对应磁盘块的数据</span>
-                    WriteDataToBlock(i,data.substring(index*<span class="hljs-number">4</span>,index*<span class="hljs-number">4</span>+<span class="hljs-number">4</span>));<span class="hljs-comment">//截取[index*4,index*4+4)这一部分</span>
-                    index++;
-                &#125;
-                <span class="hljs-keyword">else</span> <span class="hljs-keyword">break</span>;
-            &#125;
-        &#125;
-        <span class="hljs-comment">//添加到FileMixIndexMap</span>
-        FileMixIndexMap.put(fileName,fileMixIndexTable);<span class="hljs-comment">//是否可以？</span>
-        <span class="hljs-keyword">return</span> fileMixIndexTable;
-    &#125;
-
-    <span class="hljs-comment">//读取文件在磁盘上的数据</span>
-    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">ReadFileDataInDisk</span><span class="hljs-params">(String fileName,<span class="hljs-keyword">int</span> size)</span></span>&#123;
-        MixIndex fileMixIndexTable = FileMixIndexMap.get(fileName);
-        String data = <span class="hljs-string">&quot;&quot;</span>;
-
-        <span class="hljs-comment">//计算次数</span>
-        <span class="hljs-keyword">int</span> times = size / <span class="hljs-number">9</span>;
-        <span class="hljs-keyword">int</span> lasttimes = size % <span class="hljs-number">9</span>;
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt; times;i++)&#123;
-            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>;j&lt;<span class="hljs-number">9</span>;j++)&#123;
-                data += ReadDataFromBlock(fileMixIndexTable.getDirectIndex(j));
-            &#125;
-            fileMixIndexTable = fileMixIndexTable.getIndirectIndex();
-        &#125;
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;i&lt;lasttimes;i++)&#123;
-            data += ReadDataFromBlock(fileMixIndexTable.getDirectIndex(i));
-        &#125;
-        <span class="hljs-keyword">return</span> data;
-    &#125;
-&#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> FileDiskDir;<br><br><span class="hljs-keyword">import</span> java.io.*;<br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DiskManage</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> Map&lt;String, MixIndex&gt; FileMixIndexMap = <span class="hljs-keyword">new</span> HashMap&lt;String, MixIndex&gt;();<span class="hljs-comment">//建立文件名和索引表的映射</span><br>    <span class="hljs-keyword">private</span> DiskBlock[] MyDisk = <span class="hljs-keyword">new</span> DiskBlock[<span class="hljs-number">1024</span>];<span class="hljs-comment">//1024个磁盘块</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span>[] MyDiskState = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[<span class="hljs-number">1024</span>];<span class="hljs-comment">//位示图,false表示未被使用，true表示被使用</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> freeDiskDataBlock;<span class="hljs-comment">//数据区中空闲的磁盘块数</span><br>    <span class="hljs-keyword">private</span> String diskTxtData;<span class="hljs-comment">//磁盘txt的全部数据</span><br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> DiskManage instance = <span class="hljs-keyword">new</span> DiskManage();<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">DiskManage</span><span class="hljs-params">()</span> </span>&#123;<br>        freeDiskDataBlock = <span class="hljs-number">900</span>;<br>        serializeToDisktxt();<br>        diskTxtData = readDataFromDiskTxt();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> DiskManage <span class="hljs-title">getInstance</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">return</span> instance;<br>    &#125;<br><br>    <span class="hljs-comment">//初始化文件DiskTxt</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">serializeToDisktxt</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">//将disk文件存满1024*4个#.</span><br>            File f = <span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;src/file/disk.txt&quot;</span>);<br>            <span class="hljs-keyword">byte</span> data[] = <span class="hljs-keyword">new</span> <span class="hljs-keyword">byte</span>[<span class="hljs-number">4096</span>];<br>            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;i&lt;<span class="hljs-number">4096</span>;i++)&#123;<br>                data[i] = <span class="hljs-string">&#x27;#&#x27;</span>;<br>            &#125;<br><br>            <span class="hljs-comment">// 创建基于文件的输出流</span><br>            FileOutputStream fos = <span class="hljs-keyword">new</span> FileOutputStream(f);<br>            <span class="hljs-comment">// 把数据写入到输出流</span><br>            fos.write(data);<br>            <span class="hljs-comment">// 关闭输出流</span><br>            fos.close();<br><br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            <span class="hljs-comment">// TODO Auto-generated catch block</span><br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//从DiskTxt读取磁盘所有的内容，存储为string</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">readDataFromDiskTxt</span><span class="hljs-params">()</span></span>&#123;<br>        String data = <span class="hljs-string">&quot;&quot;</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">//将disk文件存满1024*4个#.</span><br>            File f = <span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;src/file/disk.txt&quot;</span>);<br>            FileReader reader = <span class="hljs-keyword">new</span> FileReader(f);<br>            BufferedReader br = <span class="hljs-keyword">new</span> BufferedReader(reader);<br>            String lines;<br>            <span class="hljs-keyword">while</span>((lines = br.readLine() )!= <span class="hljs-keyword">null</span>)&#123;<br>                data += lines;<br>            &#125;<br><br>            <span class="hljs-comment">// 关闭输出流</span><br>            br.close();<br>            reader.close();<br><br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            <span class="hljs-comment">// TODO Auto-generated catch block</span><br>            e.printStackTrace();<br>        &#125;<br>        <span class="hljs-keyword">return</span> data;<br>    &#125;<br><br>    <span class="hljs-comment">//将全部数据写回磁盘文件</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">writeDataToDiskTxt</span><span class="hljs-params">(String data)</span></span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            File f = <span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;src/file/disk.txt&quot;</span>);<br>            f.createNewFile();<span class="hljs-comment">//创建新文件,有同名的文件的话直接覆盖</span><br>            FileWriter writer = <span class="hljs-keyword">new</span> FileWriter(f);<br>            BufferedWriter out = <span class="hljs-keyword">new</span> BufferedWriter(writer);<br>            out.write(data);<br>            out.flush();<span class="hljs-comment">//将缓存区内容压入文件</span><br><br>            out.close();<br>            writer.close();<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getFreeDiskDataBlock</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> freeDiskDataBlock;<br>    &#125;<br><br>    <span class="hljs-comment">//写数据到磁盘块</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">WriteDataToBlock</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum,String data)</span></span>&#123;<br>        MyDisk[blockNum] = <span class="hljs-keyword">new</span> DiskBlock();<br>        MyDisk[blockNum].setBlockData(data);<br><br>        MyDiskState[blockNum] = <span class="hljs-keyword">true</span>;<br>        freeDiskDataBlock -= <span class="hljs-number">1</span>;<br><br>        <span class="hljs-comment">//diskTxtData更新</span><br>        diskTxtData = readDataFromDiskTxt();<br><br>        <span class="hljs-comment">//使用stringbuffer来替换</span><br>        StringBuffer sb = <span class="hljs-keyword">new</span> StringBuffer(diskTxtData);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">4</span>;i++)&#123;<br>            sb.setCharAt(blockNum*<span class="hljs-number">4</span> + i,data.charAt(i));<br>        &#125;<br><br>        <span class="hljs-comment">//</span><br>        writeDataToDiskTxt(sb.toString());<br><br>    &#125;<br><br>    <span class="hljs-comment">//从磁盘块读数据</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">ReadDataFromBlock</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum)</span></span>&#123;<br><br>        <span class="hljs-keyword">return</span> MyDisk[blockNum].getBlockData();<br>    &#125;<br><br>    <span class="hljs-comment">//删除数据</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DeleteDataInBlock</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum)</span></span>&#123;<br>        MyDiskState[blockNum] = <span class="hljs-keyword">false</span>;<br>        freeDiskDataBlock += <span class="hljs-number">1</span>;<br>    &#125;<br><br>    <span class="hljs-comment">//创建文件保留数据到磁盘</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> MixIndex <span class="hljs-title">SaveFileDataToDisk</span><span class="hljs-params">(String fileName,<span class="hljs-keyword">int</span> size,String data)</span></span>&#123;<br><br>        <span class="hljs-comment">//创建文件的索引表</span><br>        MixIndex fileMixIndexTable = <span class="hljs-keyword">new</span> MixIndex();<br><br>        <span class="hljs-comment">//创建一个当前正在使用的索引表</span><br>        MixIndex nowMixIndexTable = fileMixIndexTable;<br><br>        <span class="hljs-comment">//从位示图中寻找空闲的块,并且赋值</span><br>        <span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>;<span class="hljs-comment">//定义一个索引表里的index,同时表示字符串的读取位置</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">900</span>;i++) &#123;<br>            <span class="hljs-keyword">if</span>(MyDiskState[i] == <span class="hljs-keyword">false</span>)&#123;<br>                <span class="hljs-keyword">if</span>(index &lt; size)&#123;<br>                    <span class="hljs-keyword">if</span>(index / <span class="hljs-number">9</span> == <span class="hljs-number">0</span> &amp;&amp; index % <span class="hljs-number">9</span> == <span class="hljs-number">0</span> )&#123;<br>                        <span class="hljs-comment">//创建文件的新一级索引表</span><br>                        MixIndex newfileMixIndexTable = <span class="hljs-keyword">new</span> MixIndex();<br>                        nowMixIndexTable.setIndirectIndex(newfileMixIndexTable);<br>                        nowMixIndexTable = newfileMixIndexTable;<br>                    &#125;<br>                    nowMixIndexTable.setDirectIndexByIndex(index%<span class="hljs-number">9</span>,i);<br>                    <span class="hljs-comment">//位示图更新</span><br>                    MyDiskState[i] = <span class="hljs-keyword">true</span>;<br>                    <span class="hljs-comment">//写入对应磁盘块的数据</span><br>                    WriteDataToBlock(i,data.substring(index*<span class="hljs-number">4</span>,index*<span class="hljs-number">4</span>+<span class="hljs-number">4</span>));<span class="hljs-comment">//截取[index*4,index*4+4)这一部分</span><br>                    index++;<br>                &#125;<br>                <span class="hljs-keyword">else</span> <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-comment">//添加到FileMixIndexMap</span><br>        FileMixIndexMap.put(fileName,fileMixIndexTable);<span class="hljs-comment">//是否可以？</span><br>        <span class="hljs-keyword">return</span> fileMixIndexTable;<br>    &#125;<br><br>    <span class="hljs-comment">//读取文件在磁盘上的数据</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">ReadFileDataInDisk</span><span class="hljs-params">(String fileName,<span class="hljs-keyword">int</span> size)</span></span>&#123;<br>        MixIndex fileMixIndexTable = FileMixIndexMap.get(fileName);<br>        String data = <span class="hljs-string">&quot;&quot;</span>;<br><br>        <span class="hljs-comment">//计算次数</span><br>        <span class="hljs-keyword">int</span> times = size / <span class="hljs-number">9</span>;<br>        <span class="hljs-keyword">int</span> lasttimes = size % <span class="hljs-number">9</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt; times;i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>;j&lt;<span class="hljs-number">9</span>;j++)&#123;<br>                data += ReadDataFromBlock(fileMixIndexTable.getDirectIndex(j));<br>            &#125;<br>            fileMixIndexTable = fileMixIndexTable.getIndirectIndex();<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;i&lt;lasttimes;i++)&#123;<br>            data += ReadDataFromBlock(fileMixIndexTable.getDirectIndex(i));<br>        &#125;<br>        <span class="hljs-keyword">return</span> data;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>main.java – 测试代码</p>
-<pre><code class="hljs java"><span class="hljs-keyword">import</span> FileDiskDir.DiskManage;
-
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>&#123;
-
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
-
-        System.out.println(<span class="hljs-string">&quot;Hello World!&quot;</span>);
-
-        DiskManage disk = <span class="hljs-keyword">new</span> DiskManage();
-
-        String data = <span class="hljs-string">&quot;1234567812345678123456781234567812345678123456781234567812345678&quot;</span>;
-
-        disk.SaveFileDataToDisk(<span class="hljs-string">&quot;hello&quot;</span>,<span class="hljs-number">16</span>,data);
-
-        System.out.println(disk.ReadFileDataInDisk(<span class="hljs-string">&quot;hello&quot;</span>,<span class="hljs-number">16</span>));
-
-    &#125;
-&#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> FileDiskDir.DiskManage;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>&#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br><br>        System.out.println(<span class="hljs-string">&quot;Hello World!&quot;</span>);<br><br>        DiskManage disk = <span class="hljs-keyword">new</span> DiskManage();<br><br>        String data = <span class="hljs-string">&quot;1234567812345678123456781234567812345678123456781234567812345678&quot;</span>;<br><br>        disk.SaveFileDataToDisk(<span class="hljs-string">&quot;hello&quot;</span>,<span class="hljs-number">16</span>,data);<br><br>        System.out.println(disk.ReadFileDataInDisk(<span class="hljs-string">&quot;hello&quot;</span>,<span class="hljs-number">16</span>));<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="java代码大致思路"><a href="#java代码大致思路" class="headerlink" title="java代码大致思路"></a>java代码大致思路</h3><ul>
 <li>采用了普通的一维数组来表示位示图，用于记录磁盘块的状态。</li>
 <li>MyDisk[1024] 来表示磁盘。存取操作都对这个数组进行。</li>
@@ -489,292 +295,13 @@
 <li>实际上的存储数据会有一定的bug（存储数据的第一部分，即索引表的第一部分读取时会出现问题）。</li>
 </ul>
 <h3 id="C-代码"><a href="#C-代码" class="headerlink" title="C++代码"></a>C++代码</h3><p>common_data.h – 公共数据的结构体定义头文件</p>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
-
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;map&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;conio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;ctime&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;Windows.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iomanip&gt;</span></span>
-
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-
-<span class="hljs-comment">/*----------定义磁盘块-------------*/</span>
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">DiskBlock</span> &#123;</span>
-	<span class="hljs-keyword">int</span> BlockNum;<span class="hljs-comment">//定义块号</span>
-	<span class="hljs-built_in">string</span> data;<span class="hljs-comment">//数据</span>
-&#125;;
-
-<span class="hljs-comment">/*----------定义索引表的结构-------------*/</span>
-<span class="hljs-comment">//直接索引</span>
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">DireIndexTable</span> &#123;</span>
-	<span class="hljs-keyword">int</span> addr_1[<span class="hljs-number">10</span>];
-&#125;;
-
-<span class="hljs-comment">//一级间接索引</span>
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">IndireIndexTable</span> &#123;</span>
-	DireIndexTable addr_2[<span class="hljs-number">10</span>];
-&#125;;
-
-<span class="hljs-comment">//混合索引</span>
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">MixIndexTable</span> &#123;</span>
-	<span class="hljs-keyword">int</span> addr_1[<span class="hljs-number">10</span>];<span class="hljs-comment">//10个直接索引，直接存储盘块号</span>
-	DireIndexTable addr_2[<span class="hljs-number">10</span>];<span class="hljs-comment">//10个一级索引，每个一级索引存储了10个直接索引</span>
-	IndireIndexTable addr_3[<span class="hljs-number">10</span>];<span class="hljs-comment">//10个二级索引</span>
-&#125;;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;map&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;conio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;ctime&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;Windows.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iomanip&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><br><span class="hljs-comment">/*----------定义磁盘块-------------*/</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">DiskBlock</span> &#123;</span><br>	<span class="hljs-keyword">int</span> BlockNum;<span class="hljs-comment">//定义块号</span><br>	<span class="hljs-built_in">string</span> data;<span class="hljs-comment">//数据</span><br>&#125;;<br><br><span class="hljs-comment">/*----------定义索引表的结构-------------*/</span><br><span class="hljs-comment">//直接索引</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">DireIndexTable</span> &#123;</span><br>	<span class="hljs-keyword">int</span> addr_1[<span class="hljs-number">10</span>];<br>&#125;;<br><br><span class="hljs-comment">//一级间接索引</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">IndireIndexTable</span> &#123;</span><br>	DireIndexTable addr_2[<span class="hljs-number">10</span>];<br>&#125;;<br><br><span class="hljs-comment">//混合索引</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">MixIndexTable</span> &#123;</span><br>	<span class="hljs-keyword">int</span> addr_1[<span class="hljs-number">10</span>];<span class="hljs-comment">//10个直接索引，直接存储盘块号</span><br>	DireIndexTable addr_2[<span class="hljs-number">10</span>];<span class="hljs-comment">//10个一级索引，每个一级索引存储了10个直接索引</span><br>	IndireIndexTable addr_3[<span class="hljs-number">10</span>];<span class="hljs-comment">//10个二级索引</span><br>&#125;;<br></code></pre></td></tr></table></figure>
 <p>DiskManage.h  –  磁盘管理类的定义头文件</p>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;common_data.h&quot;</span></span>
-
-<span class="hljs-comment">/*----------磁盘管理类-------------*/</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DiskManage</span>&#123;</span>
-
-<span class="hljs-keyword">public</span>:
-	DiskBlock MyDisk[<span class="hljs-number">1024</span>];<span class="hljs-comment">//磁盘，有1024个块</span>
-	<span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">string</span>, MixIndexTable*&gt; MyMixIndexTable;<span class="hljs-comment">//文件名与混合索引表的映射</span>
-	<span class="hljs-keyword">int</span> BitMap[<span class="hljs-number">32</span>][<span class="hljs-number">32</span>];<span class="hljs-comment">//位示图 32 * 32，0表示未被使用，1表示已经使用</span>
-	<span class="hljs-keyword">int</span> FreeDataBlockNum;<span class="hljs-comment">//空闲数据区的块数</span>
-	<span class="hljs-keyword">int</span> FreeSwapBlockNum;<span class="hljs-comment">//空闲交换区的块数</span>
-	
-<span class="hljs-keyword">public</span>:
-
-	DiskManage();
-	~DiskManage();
-
-	<span class="hljs-comment">/*----------单例模式创建实例-------------*/</span>
-	<span class="hljs-function"><span class="hljs-keyword">static</span> DiskManage *<span class="hljs-title">getInstance</span><span class="hljs-params">()</span></span>;
-
-	<span class="hljs-comment">/*----------磁盘操作的最微操作-------------*/</span>
-	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">WriteDataToBlock</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum, <span class="hljs-built_in">string</span> data)</span></span>;
-
-	<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">ReadDataFromBlock</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum)</span></span>;
-
-	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DeleteDataInBlock</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum)</span></span>;
-
-	<span class="hljs-comment">/*----------保存文件数据到磁盘，返回混合索引表-------------*/</span>
-	<span class="hljs-function">MixIndexTable* <span class="hljs-title">SaveFileDataToDisk</span><span class="hljs-params">(<span class="hljs-built_in">string</span> fileName, <span class="hljs-keyword">int</span> size, <span class="hljs-built_in">string</span> data)</span></span>;
-
-	<span class="hljs-comment">/*----------保存内存数据到交换区，返回块号-------------*/</span>
-	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">SaveMmToSwap</span><span class="hljs-params">(<span class="hljs-built_in">string</span> data)</span></span>;
-
-	<span class="hljs-comment">/*----------读取文件数据-------------*/</span>
-	<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">ReadFileDataFromDisk</span><span class="hljs-params">(<span class="hljs-built_in">string</span> fileName, <span class="hljs-keyword">int</span> size)</span></span>;
-
-	<span class="hljs-comment">/*----------打印磁盘数据-------------*/</span>
-	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PrintMyDisk</span><span class="hljs-params">()</span></span>;
-
-	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PrintBitMap</span><span class="hljs-params">()</span></span>;
-&#125;;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">pragma</span> once</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;common_data.h&quot;</span></span><br><br><span class="hljs-comment">/*----------磁盘管理类-------------*/</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DiskManage</span>&#123;</span><br><br><span class="hljs-keyword">public</span>:<br>	DiskBlock MyDisk[<span class="hljs-number">1024</span>];<span class="hljs-comment">//磁盘，有1024个块</span><br>	<span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">string</span>, MixIndexTable*&gt; MyMixIndexTable;<span class="hljs-comment">//文件名与混合索引表的映射</span><br>	<span class="hljs-keyword">int</span> BitMap[<span class="hljs-number">32</span>][<span class="hljs-number">32</span>];<span class="hljs-comment">//位示图 32 * 32，0表示未被使用，1表示已经使用</span><br>	<span class="hljs-keyword">int</span> FreeDataBlockNum;<span class="hljs-comment">//空闲数据区的块数</span><br>	<span class="hljs-keyword">int</span> FreeSwapBlockNum;<span class="hljs-comment">//空闲交换区的块数</span><br>	<br><span class="hljs-keyword">public</span>:<br><br>	DiskManage();<br>	~DiskManage();<br><br>	<span class="hljs-comment">/*----------单例模式创建实例-------------*/</span><br>	<span class="hljs-function"><span class="hljs-keyword">static</span> DiskManage *<span class="hljs-title">getInstance</span><span class="hljs-params">()</span></span>;<br><br>	<span class="hljs-comment">/*----------磁盘操作的最微操作-------------*/</span><br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">WriteDataToBlock</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum, <span class="hljs-built_in">string</span> data)</span></span>;<br><br>	<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">ReadDataFromBlock</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum)</span></span>;<br><br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DeleteDataInBlock</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum)</span></span>;<br><br>	<span class="hljs-comment">/*----------保存文件数据到磁盘，返回混合索引表-------------*/</span><br>	<span class="hljs-function">MixIndexTable* <span class="hljs-title">SaveFileDataToDisk</span><span class="hljs-params">(<span class="hljs-built_in">string</span> fileName, <span class="hljs-keyword">int</span> size, <span class="hljs-built_in">string</span> data)</span></span>;<br><br>	<span class="hljs-comment">/*----------保存内存数据到交换区，返回块号-------------*/</span><br>	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">SaveMmToSwap</span><span class="hljs-params">(<span class="hljs-built_in">string</span> data)</span></span>;<br><br>	<span class="hljs-comment">/*----------读取文件数据-------------*/</span><br>	<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">ReadFileDataFromDisk</span><span class="hljs-params">(<span class="hljs-built_in">string</span> fileName, <span class="hljs-keyword">int</span> size)</span></span>;<br><br>	<span class="hljs-comment">/*----------打印磁盘数据-------------*/</span><br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PrintMyDisk</span><span class="hljs-params">()</span></span>;<br><br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PrintBitMap</span><span class="hljs-params">()</span></span>;<br>&#125;;<br></code></pre></td></tr></table></figure>
 <p>DiskManage.cpp  – 磁盘管理类的实现文件</p>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;DiskManage.h&quot;</span></span>
-
-DiskManage::DiskManage()&#123;
-
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1024</span>; i++) &#123;
-		MyDisk[i].BlockNum = i;
-		MyDisk[i].data = <span class="hljs-string">&quot;####&quot;</span>;
-	&#125;
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">32</span>; i++) &#123;
-		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">32</span>; j++) &#123;
-			BitMap[i][j] = <span class="hljs-number">0</span>;
-		&#125;
-	&#125;
-	FreeDataBlockNum = <span class="hljs-number">900</span>;
-	FreeSwapBlockNum = <span class="hljs-number">124</span>;
-&#125;
-
-
-DiskManage::~DiskManage()&#123;
-&#125;
-
-<span class="hljs-function">DiskManage * <span class="hljs-title">DiskManage::getInstance</span><span class="hljs-params">()</span></span>&#123;
-
-	<span class="hljs-keyword">static</span> DiskManage * instance;
-	<span class="hljs-keyword">if</span> (instance == <span class="hljs-literal">nullptr</span>) &#123;
-		instance = <span class="hljs-keyword">new</span> DiskManage();
-	&#125;
-	<span class="hljs-keyword">return</span> instance;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DiskManage::WriteDataToBlock</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum, <span class="hljs-built_in">string</span> data)</span></span>&#123;
-
-	MyDisk[blockNum].data = data;
-	
-	<span class="hljs-comment">//修改位示图</span>
-	<span class="hljs-keyword">int</span> i = blockNum / <span class="hljs-number">32</span>;
-	<span class="hljs-keyword">int</span> j = blockNum % <span class="hljs-number">32</span>;
-	BitMap[i][j] = <span class="hljs-number">1</span>;
-
-	<span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * 900/32 =28 余4</span>
-<span class="hljs-comment"> * 所以第一块swap坐标是cacheBlock【28】【4】</span>
-<span class="hljs-comment"> * 第29行第五个</span>
-<span class="hljs-comment"> */</span>
-	<span class="hljs-keyword">if</span> (i &gt;= <span class="hljs-number">28</span> &amp;&amp; j &gt;= <span class="hljs-number">4</span> ) &#123;
-		FreeSwapBlockNum -= <span class="hljs-number">1</span>;
-	&#125;
-	<span class="hljs-keyword">else</span> &#123;
-		FreeDataBlockNum -= <span class="hljs-number">1</span>;
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">DiskManage::ReadDataFromBlock</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum)</span></span>&#123;
-
-	<span class="hljs-keyword">return</span> MyDisk[blockNum].data;
-	
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DiskManage::DeleteDataInBlock</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum)</span></span>&#123;
-
-	MyDisk[blockNum].data = <span class="hljs-string">&quot;####&quot;</span>;
-
-	<span class="hljs-comment">//修改位示图</span>
-	<span class="hljs-keyword">int</span> i = blockNum / <span class="hljs-number">32</span>;
-	<span class="hljs-keyword">int</span> j = blockNum % <span class="hljs-number">32</span>;
-	BitMap[i][j] = <span class="hljs-number">0</span>;
-
-	<span class="hljs-comment">//修改空闲块数</span>
-	<span class="hljs-keyword">if</span> (i &gt;= <span class="hljs-number">28</span> &amp;&amp; j &gt;= <span class="hljs-number">4</span>) &#123;
-		FreeSwapBlockNum += <span class="hljs-number">1</span>;
-	&#125;
-	<span class="hljs-keyword">else</span> &#123;
-		FreeDataBlockNum += <span class="hljs-number">1</span>;
-	&#125;
-
-&#125;
-
-<span class="hljs-function">MixIndexTable * <span class="hljs-title">DiskManage::SaveFileDataToDisk</span><span class="hljs-params">(<span class="hljs-built_in">string</span> fileName, <span class="hljs-keyword">int</span> size, <span class="hljs-built_in">string</span> data)</span></span>&#123;
-
-	MixIndexTable *mit = <span class="hljs-keyword">new</span> MixIndexTable;
-
-	<span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>;
-
-	<span class="hljs-comment">//从位示图寻找空闲的块</span>
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> blockNum = <span class="hljs-number">0</span>; blockNum &lt; <span class="hljs-number">900</span>; blockNum++) &#123;
-		<span class="hljs-keyword">if</span> (BitMap[blockNum / <span class="hljs-number">32</span>][blockNum % <span class="hljs-number">32</span>] == <span class="hljs-number">0</span>)&#123;
-			<span class="hljs-keyword">if</span> (index &lt; size) &#123;
-				<span class="hljs-keyword">if</span> (index &lt; <span class="hljs-number">10</span>) &#123;
-					mit-&gt;addr_1[index] = blockNum;
-				&#125;
-				<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (index &gt;= <span class="hljs-number">10</span> &amp;&amp; index &lt; <span class="hljs-number">110</span>) &#123;
-					mit-&gt;addr_2[(index - <span class="hljs-number">10</span>) / <span class="hljs-number">10</span>].addr_1[(index - <span class="hljs-number">10</span>) % <span class="hljs-number">10</span>] = blockNum;
-				&#125;
-				<span class="hljs-keyword">else</span> &#123;
-					mit-&gt;addr_3[(index - <span class="hljs-number">110</span>) / <span class="hljs-number">100</span>].addr_2[((index - <span class="hljs-number">110</span>) % <span class="hljs-number">100</span>) / <span class="hljs-number">10</span>].addr_1[((index - <span class="hljs-number">110</span>) % <span class="hljs-number">100</span>) % <span class="hljs-number">10</span>];
-				&#125;
-
-				<span class="hljs-comment">//位示图更新</span>
-				BitMap[blockNum / <span class="hljs-number">32</span>][blockNum % <span class="hljs-number">32</span>] == <span class="hljs-number">1</span>;
-				<span class="hljs-comment">//写入对应的数据</span>
-				WriteDataToBlock(blockNum, data.substr(index*<span class="hljs-number">4</span>,<span class="hljs-number">4</span>));
-				index++;
-			&#125;
-			<span class="hljs-keyword">else</span> <span class="hljs-keyword">break</span>;
-		&#125;
-	&#125;
-
-	<span class="hljs-comment">//加入文件名与混合索引表的映射</span>
-	MyMixIndexTable.insert(<span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">string</span>,MixIndexTable*&gt;::value_type(fileName,mit));
-	<span class="hljs-keyword">return</span> mit;
-
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">DiskManage::SaveMmToSwap</span><span class="hljs-params">(<span class="hljs-built_in">string</span> data)</span></span>&#123;
-
-	<span class="hljs-keyword">int</span> blockNum = <span class="hljs-number">900</span>;
-	<span class="hljs-comment">//从位示图寻找空闲的块</span>
-	<span class="hljs-keyword">for</span> (blockNum = <span class="hljs-number">900</span>; blockNum &lt; <span class="hljs-number">1024</span>; blockNum++) &#123;
-		<span class="hljs-keyword">if</span> (BitMap[blockNum / <span class="hljs-number">32</span>][blockNum % <span class="hljs-number">32</span>] == <span class="hljs-number">0</span>) &#123;
-			<span class="hljs-comment">//位示图更新</span>
-			BitMap[blockNum / <span class="hljs-number">32</span>][blockNum % <span class="hljs-number">32</span>] == <span class="hljs-number">1</span>;
-			<span class="hljs-comment">//写入对应的数据</span>
-			WriteDataToBlock(blockNum, data);
-			<span class="hljs-keyword">break</span>;
-		&#125;
-	&#125;
-	<span class="hljs-keyword">return</span> blockNum;
-&#125;
-
-<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">DiskManage::ReadFileDataFromDisk</span><span class="hljs-params">(<span class="hljs-built_in">string</span> fileName, <span class="hljs-keyword">int</span> size)</span></span>&#123;
-
-	MixIndexTable *mit = MyMixIndexTable.find(fileName)-&gt;second;
-	<span class="hljs-built_in">string</span> data = <span class="hljs-string">&quot;&quot;</span>;
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++) &#123;
-		<span class="hljs-keyword">if</span> (i &lt; <span class="hljs-number">10</span>) &#123;
-			data.append(ReadDataFromBlock(mit-&gt;addr_1[i]));
-		&#125;
-		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (i &gt;= <span class="hljs-number">10</span> &amp;&amp; i &lt; <span class="hljs-number">110</span>) &#123;
-			data.append(ReadDataFromBlock(mit-&gt;addr_2[(i - <span class="hljs-number">10</span>) / <span class="hljs-number">10</span>].addr_1[(i - <span class="hljs-number">10</span>) % <span class="hljs-number">10</span>]));
-		&#125;
-		<span class="hljs-keyword">else</span> &#123;
-			data.append(ReadDataFromBlock(mit-&gt;addr_3[(i - <span class="hljs-number">110</span>) / <span class="hljs-number">100</span>].addr_2[((i - <span class="hljs-number">110</span>) % <span class="hljs-number">100</span>) / <span class="hljs-number">10</span>].addr_1[((i - <span class="hljs-number">110</span>) % <span class="hljs-number">100</span>) % <span class="hljs-number">10</span>]));
-		&#125;
-	&#125;
-	<span class="hljs-keyword">return</span> data;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DiskManage::PrintMyDisk</span><span class="hljs-params">()</span></span>&#123;
-
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">1024</span>; i++) &#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; MyDisk[i<span class="hljs-number">-1</span>].data &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
-		<span class="hljs-keyword">if</span> (i % <span class="hljs-number">16</span> == <span class="hljs-number">0</span>) <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DiskManage::PrintBitMap</span><span class="hljs-params">()</span></span>&#123;
-
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">32</span>; i++) &#123;
-		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= <span class="hljs-number">32</span>; j++) &#123;
-			<span class="hljs-built_in">cout</span> &lt;&lt; BitMap[i][j<span class="hljs-number">-1</span>] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
-			<span class="hljs-keyword">if</span> (j % <span class="hljs-number">16</span> == <span class="hljs-number">0</span>) <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-		&#125;
-	&#125;
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;DiskManage.h&quot;</span></span><br><br>DiskManage::DiskManage()&#123;<br><br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1024</span>; i++) &#123;<br>		MyDisk[i].BlockNum = i;<br>		MyDisk[i].data = <span class="hljs-string">&quot;####&quot;</span>;<br>	&#125;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">32</span>; i++) &#123;<br>		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">32</span>; j++) &#123;<br>			BitMap[i][j] = <span class="hljs-number">0</span>;<br>		&#125;<br>	&#125;<br>	FreeDataBlockNum = <span class="hljs-number">900</span>;<br>	FreeSwapBlockNum = <span class="hljs-number">124</span>;<br>&#125;<br><br><br>DiskManage::~DiskManage()&#123;<br>&#125;<br><br><span class="hljs-function">DiskManage * <span class="hljs-title">DiskManage::getInstance</span><span class="hljs-params">()</span></span>&#123;<br><br>	<span class="hljs-keyword">static</span> DiskManage * instance;<br>	<span class="hljs-keyword">if</span> (instance == <span class="hljs-literal">nullptr</span>) &#123;<br>		instance = <span class="hljs-keyword">new</span> DiskManage();<br>	&#125;<br>	<span class="hljs-keyword">return</span> instance;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DiskManage::WriteDataToBlock</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum, <span class="hljs-built_in">string</span> data)</span></span>&#123;<br><br>	MyDisk[blockNum].data = data;<br>	<br>	<span class="hljs-comment">//修改位示图</span><br>	<span class="hljs-keyword">int</span> i = blockNum / <span class="hljs-number">32</span>;<br>	<span class="hljs-keyword">int</span> j = blockNum % <span class="hljs-number">32</span>;<br>	BitMap[i][j] = <span class="hljs-number">1</span>;<br><br>	<span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 900/32 =28 余4</span><br><span class="hljs-comment"> * 所以第一块swap坐标是cacheBlock【28】【4】</span><br><span class="hljs-comment"> * 第29行第五个</span><br><span class="hljs-comment"> */</span><br>	<span class="hljs-keyword">if</span> (i &gt;= <span class="hljs-number">28</span> &amp;&amp; j &gt;= <span class="hljs-number">4</span> ) &#123;<br>		FreeSwapBlockNum -= <span class="hljs-number">1</span>;<br>	&#125;<br>	<span class="hljs-keyword">else</span> &#123;<br>		FreeDataBlockNum -= <span class="hljs-number">1</span>;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">DiskManage::ReadDataFromBlock</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum)</span></span>&#123;<br><br>	<span class="hljs-keyword">return</span> MyDisk[blockNum].data;<br>	<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DiskManage::DeleteDataInBlock</span><span class="hljs-params">(<span class="hljs-keyword">int</span> blockNum)</span></span>&#123;<br><br>	MyDisk[blockNum].data = <span class="hljs-string">&quot;####&quot;</span>;<br><br>	<span class="hljs-comment">//修改位示图</span><br>	<span class="hljs-keyword">int</span> i = blockNum / <span class="hljs-number">32</span>;<br>	<span class="hljs-keyword">int</span> j = blockNum % <span class="hljs-number">32</span>;<br>	BitMap[i][j] = <span class="hljs-number">0</span>;<br><br>	<span class="hljs-comment">//修改空闲块数</span><br>	<span class="hljs-keyword">if</span> (i &gt;= <span class="hljs-number">28</span> &amp;&amp; j &gt;= <span class="hljs-number">4</span>) &#123;<br>		FreeSwapBlockNum += <span class="hljs-number">1</span>;<br>	&#125;<br>	<span class="hljs-keyword">else</span> &#123;<br>		FreeDataBlockNum += <span class="hljs-number">1</span>;<br>	&#125;<br><br>&#125;<br><br><span class="hljs-function">MixIndexTable * <span class="hljs-title">DiskManage::SaveFileDataToDisk</span><span class="hljs-params">(<span class="hljs-built_in">string</span> fileName, <span class="hljs-keyword">int</span> size, <span class="hljs-built_in">string</span> data)</span></span>&#123;<br><br>	MixIndexTable *mit = <span class="hljs-keyword">new</span> MixIndexTable;<br><br>	<span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>;<br><br>	<span class="hljs-comment">//从位示图寻找空闲的块</span><br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> blockNum = <span class="hljs-number">0</span>; blockNum &lt; <span class="hljs-number">900</span>; blockNum++) &#123;<br>		<span class="hljs-keyword">if</span> (BitMap[blockNum / <span class="hljs-number">32</span>][blockNum % <span class="hljs-number">32</span>] == <span class="hljs-number">0</span>)&#123;<br>			<span class="hljs-keyword">if</span> (index &lt; size) &#123;<br>				<span class="hljs-keyword">if</span> (index &lt; <span class="hljs-number">10</span>) &#123;<br>					mit-&gt;addr_1[index] = blockNum;<br>				&#125;<br>				<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (index &gt;= <span class="hljs-number">10</span> &amp;&amp; index &lt; <span class="hljs-number">110</span>) &#123;<br>					mit-&gt;addr_2[(index - <span class="hljs-number">10</span>) / <span class="hljs-number">10</span>].addr_1[(index - <span class="hljs-number">10</span>) % <span class="hljs-number">10</span>] = blockNum;<br>				&#125;<br>				<span class="hljs-keyword">else</span> &#123;<br>					mit-&gt;addr_3[(index - <span class="hljs-number">110</span>) / <span class="hljs-number">100</span>].addr_2[((index - <span class="hljs-number">110</span>) % <span class="hljs-number">100</span>) / <span class="hljs-number">10</span>].addr_1[((index - <span class="hljs-number">110</span>) % <span class="hljs-number">100</span>) % <span class="hljs-number">10</span>];<br>				&#125;<br><br>				<span class="hljs-comment">//位示图更新</span><br>				BitMap[blockNum / <span class="hljs-number">32</span>][blockNum % <span class="hljs-number">32</span>] == <span class="hljs-number">1</span>;<br>				<span class="hljs-comment">//写入对应的数据</span><br>				WriteDataToBlock(blockNum, data.substr(index*<span class="hljs-number">4</span>,<span class="hljs-number">4</span>));<br>				index++;<br>			&#125;<br>			<span class="hljs-keyword">else</span> <span class="hljs-keyword">break</span>;<br>		&#125;<br>	&#125;<br><br>	<span class="hljs-comment">//加入文件名与混合索引表的映射</span><br>	MyMixIndexTable.insert(<span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">string</span>,MixIndexTable*&gt;::value_type(fileName,mit));<br>	<span class="hljs-keyword">return</span> mit;<br><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">DiskManage::SaveMmToSwap</span><span class="hljs-params">(<span class="hljs-built_in">string</span> data)</span></span>&#123;<br><br>	<span class="hljs-keyword">int</span> blockNum = <span class="hljs-number">900</span>;<br>	<span class="hljs-comment">//从位示图寻找空闲的块</span><br>	<span class="hljs-keyword">for</span> (blockNum = <span class="hljs-number">900</span>; blockNum &lt; <span class="hljs-number">1024</span>; blockNum++) &#123;<br>		<span class="hljs-keyword">if</span> (BitMap[blockNum / <span class="hljs-number">32</span>][blockNum % <span class="hljs-number">32</span>] == <span class="hljs-number">0</span>) &#123;<br>			<span class="hljs-comment">//位示图更新</span><br>			BitMap[blockNum / <span class="hljs-number">32</span>][blockNum % <span class="hljs-number">32</span>] == <span class="hljs-number">1</span>;<br>			<span class="hljs-comment">//写入对应的数据</span><br>			WriteDataToBlock(blockNum, data);<br>			<span class="hljs-keyword">break</span>;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> blockNum;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">DiskManage::ReadFileDataFromDisk</span><span class="hljs-params">(<span class="hljs-built_in">string</span> fileName, <span class="hljs-keyword">int</span> size)</span></span>&#123;<br><br>	MixIndexTable *mit = MyMixIndexTable.find(fileName)-&gt;second;<br>	<span class="hljs-built_in">string</span> data = <span class="hljs-string">&quot;&quot;</span>;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++) &#123;<br>		<span class="hljs-keyword">if</span> (i &lt; <span class="hljs-number">10</span>) &#123;<br>			data.append(ReadDataFromBlock(mit-&gt;addr_1[i]));<br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (i &gt;= <span class="hljs-number">10</span> &amp;&amp; i &lt; <span class="hljs-number">110</span>) &#123;<br>			data.append(ReadDataFromBlock(mit-&gt;addr_2[(i - <span class="hljs-number">10</span>) / <span class="hljs-number">10</span>].addr_1[(i - <span class="hljs-number">10</span>) % <span class="hljs-number">10</span>]));<br>		&#125;<br>		<span class="hljs-keyword">else</span> &#123;<br>			data.append(ReadDataFromBlock(mit-&gt;addr_3[(i - <span class="hljs-number">110</span>) / <span class="hljs-number">100</span>].addr_2[((i - <span class="hljs-number">110</span>) % <span class="hljs-number">100</span>) / <span class="hljs-number">10</span>].addr_1[((i - <span class="hljs-number">110</span>) % <span class="hljs-number">100</span>) % <span class="hljs-number">10</span>]));<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> data;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DiskManage::PrintMyDisk</span><span class="hljs-params">()</span></span>&#123;<br><br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">1024</span>; i++) &#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; MyDisk[i<span class="hljs-number">-1</span>].data &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>		<span class="hljs-keyword">if</span> (i % <span class="hljs-number">16</span> == <span class="hljs-number">0</span>) <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DiskManage::PrintBitMap</span><span class="hljs-params">()</span></span>&#123;<br><br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">32</span>; i++) &#123;<br>		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= <span class="hljs-number">32</span>; j++) &#123;<br>			<span class="hljs-built_in">cout</span> &lt;&lt; BitMap[i][j<span class="hljs-number">-1</span>] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>			<span class="hljs-keyword">if</span> (j % <span class="hljs-number">16</span> == <span class="hljs-number">0</span>) <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>mian.cpp  –  测试文件</p>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;DiskManage.h&quot;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;conio.h&gt;</span></span>
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;打印磁盘&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	DiskManage::getInstance()-&gt;PrintMyDisk();
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;打印位示图&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	DiskManage::getInstance()-&gt;PrintBitMap();
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;\t\t----模拟创建文件----&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;文件数据内容：1234xxzz5678ccvv9999oooo0x0xcccc1234xxzz5678ccvv9999oooo0x0xcccc&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	<span class="hljs-built_in">string</span> data = <span class="hljs-string">&quot;1234xxzz5678ccvv9999oooo0x0xcccc1234xxzz5678ccvv9999oooo0x0xcccc&quot;</span>;
-	DiskManage::getInstance()-&gt;SaveFileDataToDisk(<span class="hljs-string">&quot;hello&quot;</span>,<span class="hljs-number">16</span>,data);
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;\t\t----创建文件完成----&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;打印磁盘&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	DiskManage::getInstance()-&gt;PrintMyDisk();
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;打印位示图&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	DiskManage::getInstance()-&gt;PrintBitMap();
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;\t\t----模拟数据写入交换区----&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;文件数据内容：cccc&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	data = <span class="hljs-string">&quot;cccc&quot;</span>;
-	DiskManage::getInstance()-&gt;SaveMmToSwap(data);
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;\t\t----数据写入交换区完成----&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;打印磁盘&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	DiskManage::getInstance()-&gt;PrintMyDisk();
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;打印位示图&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	DiskManage::getInstance()-&gt;PrintBitMap();
-
-	_getch();
-	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;DiskManage.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;conio.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;打印磁盘&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	DiskManage::getInstance()-&gt;PrintMyDisk();<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;打印位示图&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	DiskManage::getInstance()-&gt;PrintBitMap();<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;\t\t----模拟创建文件----&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;文件数据内容：1234xxzz5678ccvv9999oooo0x0xcccc1234xxzz5678ccvv9999oooo0x0xcccc&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	<span class="hljs-built_in">string</span> data = <span class="hljs-string">&quot;1234xxzz5678ccvv9999oooo0x0xcccc1234xxzz5678ccvv9999oooo0x0xcccc&quot;</span>;<br>	DiskManage::getInstance()-&gt;SaveFileDataToDisk(<span class="hljs-string">&quot;hello&quot;</span>,<span class="hljs-number">16</span>,data);<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;\t\t----创建文件完成----&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;打印磁盘&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	DiskManage::getInstance()-&gt;PrintMyDisk();<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;打印位示图&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	DiskManage::getInstance()-&gt;PrintBitMap();<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;\t\t----模拟数据写入交换区----&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;文件数据内容：cccc&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	data = <span class="hljs-string">&quot;cccc&quot;</span>;<br>	DiskManage::getInstance()-&gt;SaveMmToSwap(data);<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;\t\t----数据写入交换区完成----&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;打印磁盘&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	DiskManage::getInstance()-&gt;PrintMyDisk();<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;打印位示图&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	DiskManage::getInstance()-&gt;PrintBitMap();<br><br>	_getch();<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="C-代码思路"><a href="#C-代码思路" class="headerlink" title="C++代码思路"></a>C++代码思路</h3><p>第一遍是用Java写的，当时思路还不够清晰明确，混合索引定义也有问题，而且代码还有BUG，而且出于整个组的代码合并的考虑，改写成了C++。并且重新建立了结构体，以及混合索引表的结构。</p>
 <ul>
 <li>混合索引表有三部分，第一部分是10个直接索引，直接指向存储数据的磁盘块号，这样能表示大小占10个块的数据；第二部分是10个间接索引，每个间接索引都指向了10个直接索引，实际上就是二维数组，这样能表示大小占100个块的数据；第三部分是10个二级索引，每个索引都指向了10个一级间接索引，而每个一级间接索引都能够指向10直接索引，实际上就是三维数组，这样就能够表示1000个块的数据。这样一个混合索引表最多能存储1110个块的数据，足够满足本次课设的要求。</li>
@@ -788,7 +315,7 @@ DiskManage::~DiskManage()&#123;
 <h2 id="代码下载"><a href="#代码下载" class="headerlink" title="代码下载"></a>代码下载</h2><p>本次代码里有java实现的代码，以及小组最终去展示的C++代码。线程管理的那一部分完全没有做。</p>
 <p>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1uFze_G3Dp337vlfYhJFb9A">https://pan.baidu.com/s/1uFze_G3Dp337vlfYhJFb9A</a><br>提取码：37ef</p>
 
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -817,8 +344,8 @@ DiskManage::~DiskManage()&#123;
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/%E9%BB%84%E9%87%91%E6%89%8B%E9%93%90/">
@@ -827,8 +354,8 @@ DiskManage::~DiskManage()&#123;
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/cpudesign/">
@@ -837,47 +364,45 @@ DiskManage::~DiskManage()&#123;
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
               <!-- Comments -->
-              <div class="comments" id="comments">
+              <article class="comments" id="comments">
                 
                 
   <div id="vcomments"></div>
-  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
-
   <script type="text/javascript">
-    var oldLoadVa = window.onload;
-    window.onload = function () {
-      oldLoadVa && oldLoadVa();
-
-      new Valine({
-        el: "#vcomments",
-        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
-        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
-        placeholder: "说点什么",
-        path: window.location.pathname,
-        avatar: "wavatar",
-        meta: ["nick","mail","link"],
-        pageSize: "10",
-        lang: "zh-CN",
-        highlight: false,
-        recordIP: false,
-        serverURLs: "",
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
       });
-    };
+    });
   </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
 
 
-              </div>
+              </article>
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -885,7 +410,7 @@ DiskManage::~DiskManage()&#123;
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
   <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
       </div>
@@ -897,16 +422,15 @@ DiskManage::~DiskManage()&#123;
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -927,24 +451,22 @@ DiskManage::~DiskManage()&#123;
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
-    <i class="iconfont icon-love"></i>
-    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
-    <br>
-    </div>
     
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
   <div class="statistics">
     
     
@@ -971,337 +493,153 @@ DiskManage::~DiskManage()&#123;
   </div>
 
 
-    
+  
 
-	
-    
+
   
-  
-  <!-- 网站运行时间的设置 -->
-  <script src="/js/HidenMath.js"></script>
-  <script>
-    var now = new Date();
-    function createtime() {
-      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
-      now.setTime(now.getTime() + 250);
-      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
-      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
-      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
-      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
-      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
-      document.getElementById("timeDate").innerHTML = dnum;
-      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
-    }
-    setInterval("createtime()", 250);
-  </script>
-  </div>
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  <script  src="/js/lazyload.js" ></script>
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
   
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '.post-content',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(response => response.json())
-          .then(({results}) => {
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(response => response.json())
-                .then((record) => {
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch(error => {
-          console.error('LeanCloud Counter Error', error);
-          reject(error);
-        });
-      })
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
-        }
-      }
-    }
-
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          resolve(res);
-        }).catch(error => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true'
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/os-lab-4/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
-    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
-    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "操作系统课程设计 -- 磁盘管理&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 80,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
       
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
   <script  src="/js/local-search.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
       }
-    );
+    })()
   </script>
 
 
 
 
 
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
 
 
 
@@ -1310,8 +648,24 @@ DiskManage::~DiskManage()&#123;
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

@@ -1,7 +1,7 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -19,22 +19,33 @@
   <meta name="keywords" content="">
   <title>C++引用与指针 - Colourso</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -42,6 +53,12 @@
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 5.3.0"></head>
 
 
@@ -136,8 +153,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -145,25 +168,28 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="C++引用与指针">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-03-28 12:40">
-      星期六, 三月 28日 2020, 12:40 下午
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-03-28 12:40" pubdate>
+        2020年3月28日 下午
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
@@ -180,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      16
+      22
        分钟
     </span>
   
@@ -189,9 +215,9 @@
   
     
       <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
         <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-post-views"></span> 次
+        <span id="leancloud-page-views"></span> 次
       </span>
     
   
@@ -210,41 +236,41 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">C++引用与指针</h1>
             
-            <article class="markdown-body">
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年4月13日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
               <p>引用与指针</p>
 <a id="more"></a>
 <h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><blockquote>
 <p>大部分时候，当我们使用引用时，使用的是左值引用，lvalue reference，C++11 中新增了一种引用，右值引用，rvalue reference ，主要用于内置类。</p>
 </blockquote>
 <p>引用是为对象起了另外一个名字，<strong>引用类型</strong> 引用 <strong>另外一种类型</strong>。通过将声明符写成&amp;d的形式来定义引用类型。</p>
-<pre><code class="hljs C++"><span class="hljs-keyword">int</span> ival = <span class="hljs-number">1024</span>;
-<span class="hljs-keyword">int</span> &amp;refVal = ival; <span class="hljs-comment">//refVal 指向ival，实际上refVal就是ival的另一个名字</span>
-<span class="hljs-keyword">int</span> &amp;refVal2;		<span class="hljs-comment">// error,引用必须被初始化！</span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">int</span> ival = <span class="hljs-number">1024</span>;<br><span class="hljs-keyword">int</span> &amp;refVal = ival; <span class="hljs-comment">//refVal 指向ival，实际上refVal就是ival的另一个名字</span><br><span class="hljs-keyword">int</span> &amp;refVal2;		<span class="hljs-comment">// error,引用必须被初始化！</span><br></code></pre></td></tr></table></figure>
 <p>一般在初始化的时候，初始值会被拷贝到新建的对象之中。</p>
 <p>然而在定义引用中，程序是把引用和它的初始值**绑定(bind)**在一起，而非拷贝。</p>
 <p>一旦初始化完成，引用将和它的初始值对象一直绑定在一起。<strong>因为无法令引用重新绑定到另外一个对象，因此引用必须初始化。</strong></p>
 <p>此外：<strong>因为引用本身不是一个对象，所以不能定义引用的引用</strong>。</p>
-<pre><code class="hljs c++">refVal = <span class="hljs-number">2</span>;				<span class="hljs-comment">//对引用的操作实际上就是对对象本身的操作。</span>
-
-<span class="hljs-keyword">int</span> &amp;refVal3 = refVal;	<span class="hljs-comment">//将refVal3绑定到了refVal绑定的对象上。</span>
-
-<span class="hljs-keyword">int</span> &amp;refVal4 = <span class="hljs-number">10</span>;		<span class="hljs-comment">//error,引用类型的初始值必须是一个对象</span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++">refVal = <span class="hljs-number">2</span>;				<span class="hljs-comment">//对引用的操作实际上就是对对象本身的操作。</span><br><br><span class="hljs-keyword">int</span> &amp;refVal3 = refVal;	<span class="hljs-comment">//将refVal3绑定到了refVal绑定的对象上。</span><br><br><span class="hljs-keyword">int</span> &amp;refVal4 = <span class="hljs-number">10</span>;		<span class="hljs-comment">//error,引用类型的初始值必须是一个对象</span><br></code></pre></td></tr></table></figure>
 
 
 <h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><p>指针是<strong>指向</strong>另外一种类型的复合类型。</p>
-<h3 id="指针的定义"><a href="#指针的定义" class="headerlink" title="指针的定义"></a>指针的定义</h3><pre><code class="hljs c++"><span class="hljs-keyword">int</span> *ip1;		<span class="hljs-comment">//指向Int型对象的指针</span>
-<span class="hljs-keyword">double</span> *dp1;</code></pre>
+<h3 id="指针的定义"><a href="#指针的定义" class="headerlink" title="指针的定义"></a>指针的定义</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> *ip1;		<span class="hljs-comment">//指向Int型对象的指针</span><br><span class="hljs-keyword">double</span> *dp1;<br></code></pre></td></tr></table></figure>
 <h3 id="获取对象的地址"><a href="#获取对象的地址" class="headerlink" title="获取对象的地址"></a>获取对象的地址</h3><p>指针是存放某个对象的地址，获取对象的地址需要使用<code>取地址符 &amp;</code>  。</p>
-<pre><code class="hljs c++"><span class="hljs-keyword">int</span> ival = <span class="hljs-number">42</span>;
-<span class="hljs-keyword">int</span> *p = &amp;ival;		<span class="hljs-comment">//p是指向ival的指针</span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> ival = <span class="hljs-number">42</span>;<br><span class="hljs-keyword">int</span> *p = &amp;ival;		<span class="hljs-comment">//p是指向ival的指针</span><br></code></pre></td></tr></table></figure>
 <h3 id="指针值"><a href="#指针值" class="headerlink" title="指针值"></a>指针值</h3><p>指针的值也就是地址，应当属于下列四种状态之一。</p>
 <ul>
 <li>指向一个对象</li>
@@ -254,79 +280,28 @@
 </ul>
 <p>试图拷贝或者说是以其他方式访问无效指针的值都将会引发错误，访问无效指针的后果无法预计。</p>
 <h3 id="使用指针访问对象"><a href="#使用指针访问对象" class="headerlink" title="使用指针访问对象"></a>使用指针访问对象</h3><p>如果指针指向了一个对象，那么可以使用 <code>解引用符 * </code> 来访问对象。</p>
-<pre><code class="hljs c++"><span class="hljs-keyword">int</span> ival = <span class="hljs-number">24</span>;
-<span class="hljs-keyword">int</span> *p = &amp;ival;
-
-<span class="hljs-built_in">cout</span> &lt;&lt; *p;
-*p = <span class="hljs-number">0</span>;</code></pre>
-<h3 id="’-amp-‘-和-‘-’-的多重含义"><a href="#’-amp-‘-和-‘-’-的多重含义" class="headerlink" title="’&amp;‘ 和 ‘*’  的多重含义"></a>’&amp;‘ 和 ‘*’  的多重含义</h3><pre><code class="hljs c++"><span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>;
-<span class="hljs-keyword">int</span> &amp;r = i;		<span class="hljs-comment">//&amp;紧随类型名出现，是声明的一部分，r是一个引用</span>
-<span class="hljs-keyword">int</span> *p;			<span class="hljs-comment">//*紧随类型名出现，是声明的一部分，p是一个指针</span>
-p = &amp;i;			<span class="hljs-comment">//&amp;出现在表达式之中，是一个取地址符</span>
-*p = i;			<span class="hljs-comment">//*出现在表达式之中，是一个解引用符</span>
-<span class="hljs-keyword">int</span> &amp;r2 = *p;	<span class="hljs-comment">//&amp;是声明的一部分，而*是解引用符</span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> ival = <span class="hljs-number">24</span>;<br><span class="hljs-keyword">int</span> *p = &amp;ival;<br><br><span class="hljs-built_in">cout</span> &lt;&lt; *p;<br>*p = <span class="hljs-number">0</span>;<br></code></pre></td></tr></table></figure>
+<h3 id="’-amp-‘-和-‘-’-的多重含义"><a href="#’-amp-‘-和-‘-’-的多重含义" class="headerlink" title="’&amp;‘ 和 ‘*’  的多重含义"></a>’&amp;‘ 和 ‘*’  的多重含义</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>;<br><span class="hljs-keyword">int</span> &amp;r = i;		<span class="hljs-comment">//&amp;紧随类型名出现，是声明的一部分，r是一个引用</span><br><span class="hljs-keyword">int</span> *p;			<span class="hljs-comment">//*紧随类型名出现，是声明的一部分，p是一个指针</span><br>p = &amp;i;			<span class="hljs-comment">//&amp;出现在表达式之中，是一个取地址符</span><br>*p = i;			<span class="hljs-comment">//*出现在表达式之中，是一个解引用符</span><br><span class="hljs-keyword">int</span> &amp;r2 = *p;	<span class="hljs-comment">//&amp;是声明的一部分，而*是解引用符</span><br></code></pre></td></tr></table></figure>
 <h3 id="空指针"><a href="#空指针" class="headerlink" title="空指针"></a>空指针</h3><p>空指针 null pointer，不指向任何对象。</p>
-<pre><code class="hljs c++"><span class="hljs-keyword">int</span> *p1 = <span class="hljs-literal">nullptr</span>;		<span class="hljs-comment">//等价于int *p1 = 0</span>
-
-<span class="hljs-keyword">int</span> *p2 = <span class="hljs-number">0</span>;			<span class="hljs-comment">//直接将p2初始化为字面常量0</span>
-
-<span class="hljs-comment">//需要先 #include cstdlib</span>
-<span class="hljs-keyword">int</span> *p3 = <span class="hljs-literal">NULL</span>;			<span class="hljs-comment">//等价于int *p3 = 0</span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> *p1 = <span class="hljs-literal">nullptr</span>;		<span class="hljs-comment">//等价于int *p1 = 0</span><br><br><span class="hljs-keyword">int</span> *p2 = <span class="hljs-number">0</span>;			<span class="hljs-comment">//直接将p2初始化为字面常量0</span><br><br><span class="hljs-comment">//需要先 #include cstdlib</span><br><span class="hljs-keyword">int</span> *p3 = <span class="hljs-literal">NULL</span>;			<span class="hljs-comment">//等价于int *p3 = 0</span><br></code></pre></td></tr></table></figure>
 <p>得到空指针最直接的办法就是使用字面值nullptr来初始化指针，这是C++11 新标准引入的方法。nullptr是特殊类型的字面值，它可以被转换成任意其他的指针类型。</p>
 <h3 id="void-指针"><a href="#void-指针" class="headerlink" title="void* 指针"></a>void* 指针</h3><p>待续……</p>
 <h2 id="指针与引用的异同点"><a href="#指针与引用的异同点" class="headerlink" title="指针与引用的异同点"></a>指针与引用的异同点</h2><p>指针和引用类似，实现了对其他对象的间接访问。</p>
 <p>指针本身就是一个对象，允许对指针赋值和拷贝，而且在指针的生命周期内它可以先后指向几个不同的对象。</p>
 <p>引用必须在定义时赋值(或者说是绑定)，而指针无须在定义时进行赋值。和其他内置类型一样，在块作用域内定义的指针如果没有被初始化，也将拥有一个不确定的值。</p>
 <hr>
-<h2 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h2><pre><code class="hljs c++"><span class="hljs-keyword">char</span> *p1 = <span class="hljs-string">&quot;abc&quot;</span>;
-
-<span class="hljs-keyword">char</span> p2[] = <span class="hljs-string">&quot;abc&quot;</span>;</code></pre>
+<h2 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">char</span> *p1 = <span class="hljs-string">&quot;abc&quot;</span>;<br><br><span class="hljs-keyword">char</span> p2[] = <span class="hljs-string">&quot;abc&quot;</span>;<br></code></pre></td></tr></table></figure>
 <p>上述两者不同，对p1来说，不能修改p1指向的内存，即它是类似 <code>char const *p1</code> ，p1是指向文字常量区的指针变量。</p>
 <p>p2呢，可以改变数组元素，因为它的实际上是将”abc”拷贝到数组p2之中。</p>
-<pre><code class="hljs c++"><span class="hljs-keyword">char</span> p3[<span class="hljs-number">100</span>];
-
-p3 = <span class="hljs-string">&quot;abc&quot;</span>;	<span class="hljs-comment">//这样是错误的，数组名是一个常量</span>
-
-<span class="hljs-built_in">strcpy</span>(p3,<span class="hljs-string">&quot;abc&quot;</span>);</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">char</span> p3[<span class="hljs-number">100</span>];<br><br>p3 = <span class="hljs-string">&quot;abc&quot;</span>;	<span class="hljs-comment">//这样是错误的，数组名是一个常量</span><br><br><span class="hljs-built_in">strcpy</span>(p3,<span class="hljs-string">&quot;abc&quot;</span>);<br></code></pre></td></tr></table></figure>
 
 
-<pre><code class="hljs c++"><span class="hljs-keyword">int</span> a,b,c;
-
-<span class="hljs-keyword">int</span> *p[] = &#123;&amp;a,&amp;b,&amp;c&#125;;
-<span class="hljs-comment">// p是指针数组，他是数组，每个元素都是指针 int*，指向int</span>
-
-<span class="hljs-keyword">char</span> a,b,c;
-<span class="hljs-keyword">char</span> *p[] = &#123;&amp;a,&amp;b,&amp;c&#125;;	<span class="hljs-comment">//这种不常用</span>
-
-<span class="hljs-keyword">char</span> *p2[] = &#123;<span class="hljs-string">&quot;hello&quot;</span>,<span class="hljs-string">&quot;abc&quot;</span>,<span class="hljs-string">&quot;mike&quot;</span>&#125;;<span class="hljs-comment">//这种常用</span>
-
-<span class="hljs-comment">//p2是指针数组，是数组，每个元素都是指针char *，保存了三个字符串的首元素地址</span>
-p2[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;hello&quot;</span>;
-</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> a,b,c;<br><br><span class="hljs-keyword">int</span> *p[] = &#123;&amp;a,&amp;b,&amp;c&#125;;<br><span class="hljs-comment">// p是指针数组，他是数组，每个元素都是指针 int*，指向int</span><br><br><span class="hljs-keyword">char</span> a,b,c;<br><span class="hljs-keyword">char</span> *p[] = &#123;&amp;a,&amp;b,&amp;c&#125;;	<span class="hljs-comment">//这种不常用</span><br><br><span class="hljs-keyword">char</span> *p2[] = &#123;<span class="hljs-string">&quot;hello&quot;</span>,<span class="hljs-string">&quot;abc&quot;</span>,<span class="hljs-string">&quot;mike&quot;</span>&#125;;<span class="hljs-comment">//这种常用</span><br><br><span class="hljs-comment">//p2是指针数组，是数组，每个元素都是指针char *，保存了三个字符串的首元素地址</span><br>p2[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;hello&quot;</span>;<br><br></code></pre></td></tr></table></figure>
 
 
-<pre><code class="hljs c++"><span class="hljs-keyword">char</span> *p2[] = &#123;<span class="hljs-string">&quot;hello&quot;</span>,<span class="hljs-string">&quot;abc&quot;</span>,<span class="hljs-string">&quot;mike&quot;</span>&#125;;
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">char</span> *p2[] = &#123;<span class="hljs-string">&quot;hello&quot;</span>,<span class="hljs-string">&quot;abc&quot;</span>,<span class="hljs-string">&quot;mike&quot;</span>&#125;;<br><br><span class="hljs-keyword">char</span> **p2 = &#123;<span class="hljs-string">&quot;hello&quot;</span>,<span class="hljs-string">&quot;abc&quot;</span>,<span class="hljs-string">&quot;mike&quot;</span>&#125;; <span class="hljs-comment">//err错误</span><br><span class="hljs-comment">//p2是char**类型，它要指向char *类型</span><br><br><span class="hljs-keyword">char</span> *tmp;<br><span class="hljs-keyword">char</span> **p = &amp;tmp;<br><br><span class="hljs-keyword">char</span> *str[] = &#123;<span class="hljs-string">&quot;hello&quot;</span>,<span class="hljs-string">&quot;abc&quot;</span>,<span class="hljs-string">&quot;mike&quot;</span>&#125;;<br><span class="hljs-comment">//str首元素是char*类型</span><br><span class="hljs-comment">//&amp;str[0]代表首元素的地址，str等价于&amp;str[0],类型是char *</span><br><span class="hljs-keyword">char</span> **p3 = str;	<span class="hljs-comment">//等价于char **p3 = &amp;str[0];</span><br><br><span class="hljs-comment">//故函数参数：fun(str),定义时 是void fun(char **p)</span><br><span class="hljs-comment">// 如果char *str[] 作为函数参数，可以改为char **str;</span><br><br><span class="hljs-comment">//下面三者等价，编译器都当作char **p处理</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-keyword">char</span> **p)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *p[])</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *p[<span class="hljs-number">100</span>])</span></span><br></code></pre></td></tr></table></figure>
 
-<span class="hljs-keyword">char</span> **p2 = &#123;<span class="hljs-string">&quot;hello&quot;</span>,<span class="hljs-string">&quot;abc&quot;</span>,<span class="hljs-string">&quot;mike&quot;</span>&#125;; <span class="hljs-comment">//err错误</span>
-<span class="hljs-comment">//p2是char**类型，它要指向char *类型</span>
-
-<span class="hljs-keyword">char</span> *tmp;
-<span class="hljs-keyword">char</span> **p = &amp;tmp;
-
-<span class="hljs-keyword">char</span> *str[] = &#123;<span class="hljs-string">&quot;hello&quot;</span>,<span class="hljs-string">&quot;abc&quot;</span>,<span class="hljs-string">&quot;mike&quot;</span>&#125;;
-<span class="hljs-comment">//str首元素是char*类型</span>
-<span class="hljs-comment">//&amp;str[0]代表首元素的地址，str等价于&amp;str[0],类型是char *</span>
-<span class="hljs-keyword">char</span> **p3 = str;	<span class="hljs-comment">//等价于char **p3 = &amp;str[0];</span>
-
-<span class="hljs-comment">//故函数参数：fun(str),定义时 是void fun(char **p)</span>
-<span class="hljs-comment">// 如果char *str[] 作为函数参数，可以改为char **str;</span>
-
-<span class="hljs-comment">//下面三者等价，编译器都当作char **p处理</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-keyword">char</span> **p)</span></span>;
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *p[])</span></span>;
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *p[<span class="hljs-number">100</span>])</span></span></code></pre>
-
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -351,8 +326,8 @@ p2[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;hello&q
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/cpp-opp1/">
@@ -361,8 +336,8 @@ p2[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;hello&q
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/python-sequence/">
@@ -371,47 +346,45 @@ p2[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;hello&q
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
               <!-- Comments -->
-              <div class="comments" id="comments">
+              <article class="comments" id="comments">
                 
                 
   <div id="vcomments"></div>
-  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
-
   <script type="text/javascript">
-    var oldLoadVa = window.onload;
-    window.onload = function () {
-      oldLoadVa && oldLoadVa();
-
-      new Valine({
-        el: "#vcomments",
-        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
-        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
-        placeholder: "说点什么",
-        path: window.location.pathname,
-        avatar: "wavatar",
-        meta: ["nick","mail","link"],
-        pageSize: "10",
-        lang: "zh-CN",
-        highlight: false,
-        recordIP: false,
-        serverURLs: "",
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
       });
-    };
+    });
   </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
 
 
-              </div>
+              </article>
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -419,7 +392,7 @@ p2[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;hello&q
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
   <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
       </div>
@@ -431,16 +404,15 @@ p2[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;hello&q
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -461,24 +433,22 @@ p2[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;hello&q
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
-    <i class="iconfont icon-love"></i>
-    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
-    <br>
-    </div>
     
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
   <div class="statistics">
     
     
@@ -505,337 +475,153 @@ p2[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;hello&q
   </div>
 
 
-    
+  
 
-	
-    
+
   
-  
-  <!-- 网站运行时间的设置 -->
-  <script src="/js/HidenMath.js"></script>
-  <script>
-    var now = new Date();
-    function createtime() {
-      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
-      now.setTime(now.getTime() + 250);
-      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
-      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
-      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
-      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
-      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
-      document.getElementById("timeDate").innerHTML = dnum;
-      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
-    }
-    setInterval("createtime()", 250);
-  </script>
-  </div>
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  <script  src="/js/lazyload.js" ></script>
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
   
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '.post-content',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(response => response.json())
-          .then(({results}) => {
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(response => response.json())
-                .then((record) => {
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch(error => {
-          console.error('LeanCloud Counter Error', error);
-          reject(error);
-        });
-      })
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
-        }
-      }
-    }
-
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          resolve(res);
-        }).catch(error => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true'
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/c-reference&amp;point/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
-    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
-    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "C++引用与指针&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 80,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
       
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
   <script  src="/js/local-search.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
       }
-    );
+    })()
   </script>
 
 
 
 
 
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
 
 
 
@@ -844,8 +630,24 @@ p2[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;hello&q
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

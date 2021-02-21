@@ -1,7 +1,7 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -19,22 +19,33 @@
   <meta name="keywords" content="">
   <title>选择排序算法——简单选择排序、堆排序排序 - Colourso</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -42,6 +53,12 @@
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 5.3.0"></head>
 
 
@@ -136,8 +153,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -145,25 +168,28 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="选择排序算法——简单选择排序、堆排序排序">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2021-01-09 22:36">
-      星期六, 一月 9日 2021, 10:36 晚上
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-09 22:36" pubdate>
+        2021年1月9日 晚上
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
@@ -180,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      41
+      59
        分钟
     </span>
   
@@ -189,9 +215,9 @@
   
     
       <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
         <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-post-views"></span> 次
+        <span id="leancloud-page-views"></span> 次
       </span>
     
   
@@ -210,15 +236,23 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">选择排序算法——简单选择排序、堆排序排序</h1>
             
-            <article class="markdown-body">
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年1月11日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
               <p><strong>概览</strong>：简单选择排序、堆排序算法思想以及C++代码的实现。</p>
 <a id="more"></a>
 
@@ -226,25 +260,7 @@
 <h2 id="简单选择排序"><a href="#简单选择排序" class="headerlink" title="简单选择排序"></a>简单选择排序</h2><p>即选择排序最直接的实现方式。</p>
 <p><img src="/ds_03_SelectSort/simplesort.png" srcset="/img/loading.gif"></p>
 <p>在这里中每次选择待排序序列中最小的那个元素，然后与已经有序的子序列的下一位交换位置。待排序序列缩短，循环往复，直到待排序序列还剩一个元素时终止。</p>
-<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> &amp;a, <span class="hljs-keyword">int</span> &amp;b)</span> </span>&#123;
-	<span class="hljs-keyword">int</span> temp = a;
-	a = b;
-	b = temp;
-&#125;
-
-<span class="hljs-comment">//简单选择排序</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SelectSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> n)</span> </span>&#123;
-	<span class="hljs-keyword">int</span> minpos;
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n<span class="hljs-number">-1</span>; i++) &#123;		<span class="hljs-comment">//一共进行n-1趟，最后一个元素不用再进行</span>
-		minpos = i;						<span class="hljs-comment">//假设当前元素是最小的，记录其下标</span>
-		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i; j &lt; n; j++) &#123;
-			<span class="hljs-keyword">if</span> (A[minpos] &gt; A[j]) &#123;		<span class="hljs-comment">//若找到了更小的元素，更新下标</span>
-				minpos = j;
-			&#125;
-		&#125;
-		<span class="hljs-keyword">if</span>(minpos != i) swap(A[i], A[minpos]);	<span class="hljs-comment">//交换位置</span>
-	&#125;
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> &amp;a, <span class="hljs-keyword">int</span> &amp;b)</span> </span>&#123;<br>	<span class="hljs-keyword">int</span> temp = a;<br>	a = b;<br>	b = temp;<br>&#125;<br><br><span class="hljs-comment">//简单选择排序</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SelectSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> n)</span> </span>&#123;<br>	<span class="hljs-keyword">int</span> minpos;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n<span class="hljs-number">-1</span>; i++) &#123;		<span class="hljs-comment">//一共进行n-1趟，最后一个元素不用再进行</span><br>		minpos = i;						<span class="hljs-comment">//假设当前元素是最小的，记录其下标</span><br>		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i; j &lt; n; j++) &#123;<br>			<span class="hljs-keyword">if</span> (A[minpos] &gt; A[j]) &#123;		<span class="hljs-comment">//若找到了更小的元素，更新下标</span><br>				minpos = j;<br>			&#125;<br>		&#125;<br>		<span class="hljs-keyword">if</span>(minpos != i) swap(A[i], A[minpos]);	<span class="hljs-comment">//交换位置</span><br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
 <li><p>空间复杂度：<code>O(1)</code>，需要常量个辅助空间。</p>
@@ -278,48 +294,14 @@
 <p>当第五步调整完之后，根节点的右子树不再满足大根堆的要求，所以还需要再对其进行额外的调整。</p>
 <p>最终调整结果如图所示：</p>
 <p><img src="/ds_03_SelectSort/bigheap.png" srcset="/img/loading.gif"></p>
-<pre><code class="hljs c++"><span class="hljs-comment">//大根堆调整</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MaxHeapAdjust</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span> len)</span> </span>&#123;
-	A[<span class="hljs-number">0</span>] = A[k];	<span class="hljs-comment">//暂存待调整子树的根节点</span>
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span> * k; i &lt;= len; i *= <span class="hljs-number">2</span>) &#123;	<span class="hljs-comment">//沿着值较大的子节点向下筛选</span>
-		<span class="hljs-keyword">if</span> (i+<span class="hljs-number">1</span> &lt;= len &amp;&amp; A[i] &lt; A[i + <span class="hljs-number">1</span>])		<span class="hljs-comment">//选择较大的孩子节点</span>
-			i++;
-		<span class="hljs-keyword">if</span> (A[<span class="hljs-number">0</span>] &gt;= A[i]) <span class="hljs-keyword">break</span>;	<span class="hljs-comment">//若原本就符合大根堆的要求，则结束</span>
-		<span class="hljs-keyword">else</span> &#123;
-			A[k] = A[i];	<span class="hljs-comment">//不符合时就进行替换</span>
-			k = i;			<span class="hljs-comment">//修改k值，以便于继续向下调整当前堆的子树</span>
-		&#125;
-	&#125;
-	A[k] = A[<span class="hljs-number">0</span>];			<span class="hljs-comment">//填入最终位置</span>
-&#125;
-
-<span class="hljs-comment">//建立大根堆</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BuildMaxHeap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[],<span class="hljs-keyword">int</span> len)</span> </span>&#123;
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len/<span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">1</span>; i--)	<span class="hljs-comment">//从最后一个非终端节点向前进行调整</span>
-		MaxHeapAdjust(A, i, len);
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//大根堆调整</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MaxHeapAdjust</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span> len)</span> </span>&#123;<br>	A[<span class="hljs-number">0</span>] = A[k];	<span class="hljs-comment">//暂存待调整子树的根节点</span><br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span> * k; i &lt;= len; i *= <span class="hljs-number">2</span>) &#123;	<span class="hljs-comment">//沿着值较大的子节点向下筛选</span><br>		<span class="hljs-keyword">if</span> (i+<span class="hljs-number">1</span> &lt;= len &amp;&amp; A[i] &lt; A[i + <span class="hljs-number">1</span>])		<span class="hljs-comment">//选择较大的孩子节点</span><br>			i++;<br>		<span class="hljs-keyword">if</span> (A[<span class="hljs-number">0</span>] &gt;= A[i]) <span class="hljs-keyword">break</span>;	<span class="hljs-comment">//若原本就符合大根堆的要求，则结束</span><br>		<span class="hljs-keyword">else</span> &#123;<br>			A[k] = A[i];	<span class="hljs-comment">//不符合时就进行替换</span><br>			k = i;			<span class="hljs-comment">//修改k值，以便于继续向下调整当前堆的子树</span><br>		&#125;<br>	&#125;<br>	A[k] = A[<span class="hljs-number">0</span>];			<span class="hljs-comment">//填入最终位置</span><br>&#125;<br><br><span class="hljs-comment">//建立大根堆</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BuildMaxHeap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[],<span class="hljs-keyword">int</span> len)</span> </span>&#123;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len/<span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">1</span>; i--)	<span class="hljs-comment">//从最后一个非终端节点向前进行调整</span><br>		MaxHeapAdjust(A, i, len);<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>这段代码来自王道，不得不说代码写的非常精炼。选择两个孩子中较大的那段代码，非常巧妙的包含了所有情况，<code>i+1&lt;=len</code>，就包含了<code>当前节点只有一个孩子的情况，此时k=4,i=8,len=8,不会执行后续的语句，从而避免了A[i+1]导致数组越界的情况</code>。而若<code>A[i]&lt;A[i+1]</code>时，<code>i++</code>条件满足时<code>i</code>会指向值大的那个孩子节点。</p>
 <h3 id="堆排序-1"><a href="#堆排序-1" class="headerlink" title="堆排序"></a>堆排序</h3><p><strong>基本思想</strong>：将当前堆顶的元素与当前最大的叶子节点交换位置，然后将剩下的n-1个元素再次整理成为堆，重复执行上述过程，最后直到生意一个元素时停止。这是整个序列就是一个从小到大排序的序列。</p>
 <p><img src="/ds_03_SelectSort/heapsort.png" srcset="/img/loading.gif"></p>
 <p>步骤如上如所示：<strong>整理成堆 —— 堆顶元素与堆底元素交换位置 —— 调整新的堆 —— 重复执行。</strong></p>
 <p>最终执行结果：</p>
 <p><img src="/ds_03_SelectSort/heapsortend.png" srcset="/img/loading.gif"></p>
-<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> &amp;a, <span class="hljs-keyword">int</span> &amp;b)</span> </span>&#123;
-	<span class="hljs-keyword">int</span> temp = a;
-	a = b;
-	b = temp;
-&#125;
-
-<span class="hljs-comment">//大顶堆排序</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MaxHeapSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> n)</span> </span>&#123;
-	BuildMaxHeap(A, n);
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n - <span class="hljs-number">1</span>; i++) &#123;	<span class="hljs-comment">//一共进行n-1趟排序</span>
-		<span class="hljs-comment">//先调整成堆</span>
-		MaxHeadAdjust(A,<span class="hljs-number">1</span>,n-i+<span class="hljs-number">1</span>);
-		<span class="hljs-comment">//交换位置</span>
-		swap(A[<span class="hljs-number">1</span>], A[n-i+<span class="hljs-number">1</span>]);	<span class="hljs-comment">//堆顶元素和最后一个元素交换</span>
-	&#125;
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> &amp;a, <span class="hljs-keyword">int</span> &amp;b)</span> </span>&#123;<br>	<span class="hljs-keyword">int</span> temp = a;<br>	a = b;<br>	b = temp;<br>&#125;<br><br><span class="hljs-comment">//大顶堆排序</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MaxHeapSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> n)</span> </span>&#123;<br>	BuildMaxHeap(A, n);<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n - <span class="hljs-number">1</span>; i++) &#123;	<span class="hljs-comment">//一共进行n-1趟排序</span><br>		<span class="hljs-comment">//先调整成堆</span><br>		MaxHeadAdjust(A,<span class="hljs-number">1</span>,n-i+<span class="hljs-number">1</span>);<br>		<span class="hljs-comment">//交换位置</span><br>		swap(A[<span class="hljs-number">1</span>], A[n-i+<span class="hljs-number">1</span>]);	<span class="hljs-comment">//堆顶元素和最后一个元素交换</span><br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="算法分析-1"><a href="#算法分析-1" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
 <li><p>空间复杂度：<code>O(1)</code>，显然只需要常量个辅助空间。</p>
 </li>
@@ -335,197 +317,8 @@
 <li>堆排序算法是<strong>不稳定</strong>的算法，再大根堆调整的算法中，当两个孩子值相同时，优先与左孩子进行交换位置。eg：<code>1 2 2</code>，对其进行排序，调整成堆<code>2 1 2</code>，然后根节点与末尾节点互换位置，导致两个2的先后次序发生了变化。</li>
 <li>算法适用：顺序表和<strong>单链表</strong>均可。</li>
 </ul>
-<h3 id="大根堆的链表代码实现"><a href="#大根堆的链表代码实现" class="headerlink" title="大根堆的链表代码实现"></a>大根堆的链表代码实现</h3><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;time.h&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-
-<span class="hljs-comment">//链表定义</span>
-<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">LinkNode</span>&#123;</span>
-	<span class="hljs-keyword">int</span> data;
-	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">LinkNode</span>* <span class="hljs-title">next</span>;</span>
-&#125;LinkNode,*LinkList;
-
-<span class="hljs-comment">//获取当前链表的最后一个节点</span>
-<span class="hljs-function">LinkNode* <span class="hljs-title">LastNode</span><span class="hljs-params">(LinkList L, <span class="hljs-keyword">int</span> len)</span> </span>&#123;
-	LinkNode *p = L-&gt;next;
-	<span class="hljs-keyword">int</span> index = <span class="hljs-number">1</span>;
-	<span class="hljs-keyword">while</span> (index &lt; len) &#123;
-		index++;
-		p = p-&gt;next;
-	&#125;
-	<span class="hljs-keyword">return</span> p;
-&#125;
-
-<span class="hljs-comment">//交换两个链表元素的值</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(LinkNode &amp;a, LinkNode &amp;b)</span> </span>&#123;
-	<span class="hljs-keyword">int</span> temp = a.data;
-	a.data = b.data;
-	b.data = temp;
-&#125;
-
-<span class="hljs-comment">//大根堆调整</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MaxHeapAdjust</span><span class="hljs-params">(LinkList &amp;L,<span class="hljs-keyword">int</span> k,<span class="hljs-keyword">int</span> len)</span> </span>&#123;
-	<span class="hljs-keyword">int</span> i = k;
-
-	<span class="hljs-keyword">while</span>(i &lt;= len/<span class="hljs-number">2</span>)&#123;
-		LinkNode* pre = L-&gt;next;
-		LinkNode* parent = <span class="hljs-literal">nullptr</span>;
-		LinkNode* lchild = <span class="hljs-literal">nullptr</span>;
-		LinkNode* rchild = <span class="hljs-literal">nullptr</span>;
-
-		<span class="hljs-keyword">int</span> index = <span class="hljs-number">1</span>;
-		<span class="hljs-keyword">while</span> (index &lt; i) &#123;
-			pre = pre-&gt;next;	<span class="hljs-comment">//找到了当前的节点</span>
-			index++;
-		&#125;
-		parent = pre;		<span class="hljs-comment">//父节点的位置</span>
-
-		<span class="hljs-comment">//寻找其左右孩子</span>
-		<span class="hljs-keyword">while</span> (index &lt; <span class="hljs-number">2</span>*i) &#123;
-			pre = pre-&gt;next;
-			index++;
-		&#125;
-		lchild = pre;		<span class="hljs-comment">//一定有左孩子</span>
-		<span class="hljs-keyword">if</span> (<span class="hljs-number">2</span>*i+<span class="hljs-number">1</span> &lt;= len) rchild = pre-&gt;next;<span class="hljs-comment">//若存在右孩子</span>
-
-		<span class="hljs-keyword">if</span> (rchild != <span class="hljs-literal">nullptr</span> &amp;&amp; lchild-&gt;data &lt; rchild-&gt;data) &#123;
-			<span class="hljs-keyword">if</span> (parent-&gt;data &lt; rchild-&gt;data) &#123;
-				swap(*parent, *rchild); <span class="hljs-comment">//与右孩子交换</span>
-				i = <span class="hljs-number">2</span>*i+<span class="hljs-number">1</span>;
-			&#125;
-			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (parent-&gt;data &lt; lchild-&gt;data) &#123;
-				swap(*parent, *lchild);<span class="hljs-comment">//与左孩子进行交换</span>
-				i = <span class="hljs-number">2</span>*i;
-			&#125;
-			<span class="hljs-keyword">else</span> <span class="hljs-keyword">break</span>; <span class="hljs-comment">//满足条件，结束循环</span>
-		&#125;
-		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (parent-&gt;data &lt; lchild-&gt;data) &#123;
-			swap(*parent, *lchild);<span class="hljs-comment">//与左孩子进行交换</span>
-			i = <span class="hljs-number">2</span>*i;
-		&#125;
-		<span class="hljs-keyword">else</span> <span class="hljs-keyword">break</span>;	<span class="hljs-comment">//满足条件，结束循环</span>
-	&#125;
-&#125;
-
-<span class="hljs-comment">//建立大根堆</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BuildMaxHeap</span><span class="hljs-params">(LinkList &amp;L,<span class="hljs-keyword">int</span> len)</span> </span>&#123;
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len/<span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">1</span>; i--) &#123;	<span class="hljs-comment">//从逻辑上的最后一个非终端节点向前建立</span>
-		MaxHeapAdjust(L,i,len);
-	&#125;
-&#125;
-
-<span class="hljs-comment">//大根堆排序</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MaxHeapSort</span><span class="hljs-params">(LinkList &amp;L,<span class="hljs-keyword">int</span> len)</span> </span>&#123;
-	BuildMaxHeap(L, len);				<span class="hljs-comment">//初始建堆</span>
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len - <span class="hljs-number">1</span>; i++) &#123; <span class="hljs-comment">//len个元素，共进行len-1趟排序</span>
-		MaxHeapAdjust(L,<span class="hljs-number">1</span>,len-i);		<span class="hljs-comment">//调整大根堆</span>
-		<span class="hljs-comment">//堆顶元素和最后一个元素交换位置</span>
-		swap(*(L-&gt;next), *(LastNode(L,len-i)));
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-	LinkList L = (LinkNode*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(LinkNode));<span class="hljs-comment">//头节点</span>
-	L-&gt;next = <span class="hljs-literal">nullptr</span>;
-	LinkNode* pre = L;
-
-	srand(time(<span class="hljs-number">0</span>));
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">8</span>; i++) &#123;
-		LinkNode* q = (LinkNode*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(LinkNode));
-		<span class="hljs-keyword">int</span> randnum = rand() % <span class="hljs-number">100</span>; <span class="hljs-comment">//0 - 99之间的随机数</span>
-		q-&gt;data = randnum;
-		q-&gt;next = <span class="hljs-literal">nullptr</span>;
-		pre-&gt;next = q;
-		pre = pre-&gt;next;
-	&#125;
-	
-	<span class="hljs-comment">//输出链表的元素</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;初始链表元素为：&quot;</span>;
-	pre = L-&gt;next;
-	<span class="hljs-keyword">while</span> (pre != <span class="hljs-literal">nullptr</span>) &#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; pre-&gt;data &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
-		pre = pre-&gt;next;
-	&#125;
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-comment">//建立一个大根堆</span>
-	BuildMaxHeap(L, <span class="hljs-number">8</span>);
-	<span class="hljs-comment">//输出链表的元素</span>
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;初始大根堆元素为：&quot;</span>;
-	pre = L-&gt;next;
-	<span class="hljs-keyword">while</span> (pre != <span class="hljs-literal">nullptr</span>) &#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; pre-&gt;data &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
-		pre = pre-&gt;next;
-	&#125;
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-comment">//输出链表的元素</span>
-	MaxHeapSort(L, <span class="hljs-number">8</span>);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;大根堆排序结果为：&quot;</span>;
-	pre = L-&gt;next;
-	<span class="hljs-keyword">while</span> (pre != <span class="hljs-literal">nullptr</span>) &#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; pre-&gt;data &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
-		pre = pre-&gt;next;
-	&#125;
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-&#125;</code></pre>
-<h3 id="小根堆的实现"><a href="#小根堆的实现" class="headerlink" title="小根堆的实现"></a>小根堆的实现</h3><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> &amp;a, <span class="hljs-keyword">int</span> &amp;b)</span> </span>&#123;
-	<span class="hljs-keyword">int</span> temp = a;
-	a = b;
-	b = temp;
-&#125;
-
-<span class="hljs-comment">//小根堆的调整</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MinHeapAdjust</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span> len)</span> </span>&#123;
-	A[<span class="hljs-number">0</span>] = A[k];	<span class="hljs-comment">//暂存</span>
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>*k; i &lt;= len; i *= <span class="hljs-number">2</span>) &#123;
-		<span class="hljs-keyword">if</span> (i+<span class="hljs-number">1</span> &lt;= len &amp;&amp; A[i] &gt; A[i+<span class="hljs-number">1</span>])	<span class="hljs-comment">//小根堆是选择孩子中较小的那个</span>
-			i++;
-		<span class="hljs-keyword">if</span> (A[<span class="hljs-number">0</span>] &lt;= A[i]) <span class="hljs-keyword">break</span>;
-		<span class="hljs-keyword">else</span> &#123;
-			A[k] = A[i];
-			k = i;
-		&#125;
-	&#125;
-	A[k] = A[<span class="hljs-number">0</span>];	<span class="hljs-comment">//填入最终位置</span>
-&#125;
-
-<span class="hljs-comment">//建立小根堆</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BuildMinHeap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> len)</span> </span>&#123;
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len/<span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">1</span>; i--)	<span class="hljs-comment">//从最后一个非终端节点向前调整</span>
-		MinHeapAdjust(A, i, len);
-&#125;
-
-<span class="hljs-comment">//小根堆排序</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MinHeapSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> n)</span> </span>&#123;
-	BuildMinHeap(A, n);
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n - <span class="hljs-number">1</span>; i++) &#123;
-		<span class="hljs-comment">//先调整堆</span>
-		MinHeapAdjust(A,<span class="hljs-number">1</span>,n-i+<span class="hljs-number">1</span>);
-		<span class="hljs-comment">//堆顶和最后一个元素交换位置</span>
-		swap(A[<span class="hljs-number">1</span>], A[n-i+<span class="hljs-number">1</span>]);
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-	<span class="hljs-keyword">int</span> A[<span class="hljs-number">9</span>] = &#123; <span class="hljs-number">0</span>,<span class="hljs-number">53</span>,<span class="hljs-number">17</span>,<span class="hljs-number">78</span>,<span class="hljs-number">9</span>,<span class="hljs-number">45</span>,<span class="hljs-number">65</span>,<span class="hljs-number">87</span>,<span class="hljs-number">32</span> &#125;;
-	BuildMinHeap(A, <span class="hljs-number">8</span>);
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">8</span>; i++) &#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; A[i] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
-	&#125;
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	MinHeapSort(A, <span class="hljs-number">8</span>);
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">8</span>; i++) &#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; A[i] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
-	&#125;
-	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+<h3 id="大根堆的链表代码实现"><a href="#大根堆的链表代码实现" class="headerlink" title="大根堆的链表代码实现"></a>大根堆的链表代码实现</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;time.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><br><span class="hljs-comment">//链表定义</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">LinkNode</span>&#123;</span><br>	<span class="hljs-keyword">int</span> data;<br>	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">LinkNode</span>* <span class="hljs-title">next</span>;</span><br>&#125;LinkNode,*LinkList;<br><br><span class="hljs-comment">//获取当前链表的最后一个节点</span><br><span class="hljs-function">LinkNode* <span class="hljs-title">LastNode</span><span class="hljs-params">(LinkList L, <span class="hljs-keyword">int</span> len)</span> </span>&#123;<br>	LinkNode *p = L-&gt;next;<br>	<span class="hljs-keyword">int</span> index = <span class="hljs-number">1</span>;<br>	<span class="hljs-keyword">while</span> (index &lt; len) &#123;<br>		index++;<br>		p = p-&gt;next;<br>	&#125;<br>	<span class="hljs-keyword">return</span> p;<br>&#125;<br><br><span class="hljs-comment">//交换两个链表元素的值</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(LinkNode &amp;a, LinkNode &amp;b)</span> </span>&#123;<br>	<span class="hljs-keyword">int</span> temp = a.data;<br>	a.data = b.data;<br>	b.data = temp;<br>&#125;<br><br><span class="hljs-comment">//大根堆调整</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MaxHeapAdjust</span><span class="hljs-params">(LinkList &amp;L,<span class="hljs-keyword">int</span> k,<span class="hljs-keyword">int</span> len)</span> </span>&#123;<br>	<span class="hljs-keyword">int</span> i = k;<br><br>	<span class="hljs-keyword">while</span>(i &lt;= len/<span class="hljs-number">2</span>)&#123;<br>		LinkNode* pre = L-&gt;next;<br>		LinkNode* parent = <span class="hljs-literal">nullptr</span>;<br>		LinkNode* lchild = <span class="hljs-literal">nullptr</span>;<br>		LinkNode* rchild = <span class="hljs-literal">nullptr</span>;<br><br>		<span class="hljs-keyword">int</span> index = <span class="hljs-number">1</span>;<br>		<span class="hljs-keyword">while</span> (index &lt; i) &#123;<br>			pre = pre-&gt;next;	<span class="hljs-comment">//找到了当前的节点</span><br>			index++;<br>		&#125;<br>		parent = pre;		<span class="hljs-comment">//父节点的位置</span><br><br>		<span class="hljs-comment">//寻找其左右孩子</span><br>		<span class="hljs-keyword">while</span> (index &lt; <span class="hljs-number">2</span>*i) &#123;<br>			pre = pre-&gt;next;<br>			index++;<br>		&#125;<br>		lchild = pre;		<span class="hljs-comment">//一定有左孩子</span><br>		<span class="hljs-keyword">if</span> (<span class="hljs-number">2</span>*i+<span class="hljs-number">1</span> &lt;= len) rchild = pre-&gt;next;<span class="hljs-comment">//若存在右孩子</span><br><br>		<span class="hljs-keyword">if</span> (rchild != <span class="hljs-literal">nullptr</span> &amp;&amp; lchild-&gt;data &lt; rchild-&gt;data) &#123;<br>			<span class="hljs-keyword">if</span> (parent-&gt;data &lt; rchild-&gt;data) &#123;<br>				swap(*parent, *rchild); <span class="hljs-comment">//与右孩子交换</span><br>				i = <span class="hljs-number">2</span>*i+<span class="hljs-number">1</span>;<br>			&#125;<br>			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (parent-&gt;data &lt; lchild-&gt;data) &#123;<br>				swap(*parent, *lchild);<span class="hljs-comment">//与左孩子进行交换</span><br>				i = <span class="hljs-number">2</span>*i;<br>			&#125;<br>			<span class="hljs-keyword">else</span> <span class="hljs-keyword">break</span>; <span class="hljs-comment">//满足条件，结束循环</span><br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (parent-&gt;data &lt; lchild-&gt;data) &#123;<br>			swap(*parent, *lchild);<span class="hljs-comment">//与左孩子进行交换</span><br>			i = <span class="hljs-number">2</span>*i;<br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">break</span>;	<span class="hljs-comment">//满足条件，结束循环</span><br>	&#125;<br>&#125;<br><br><span class="hljs-comment">//建立大根堆</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BuildMaxHeap</span><span class="hljs-params">(LinkList &amp;L,<span class="hljs-keyword">int</span> len)</span> </span>&#123;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len/<span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">1</span>; i--) &#123;	<span class="hljs-comment">//从逻辑上的最后一个非终端节点向前建立</span><br>		MaxHeapAdjust(L,i,len);<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">//大根堆排序</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MaxHeapSort</span><span class="hljs-params">(LinkList &amp;L,<span class="hljs-keyword">int</span> len)</span> </span>&#123;<br>	BuildMaxHeap(L, len);				<span class="hljs-comment">//初始建堆</span><br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len - <span class="hljs-number">1</span>; i++) &#123; <span class="hljs-comment">//len个元素，共进行len-1趟排序</span><br>		MaxHeapAdjust(L,<span class="hljs-number">1</span>,len-i);		<span class="hljs-comment">//调整大根堆</span><br>		<span class="hljs-comment">//堆顶元素和最后一个元素交换位置</span><br>		swap(*(L-&gt;next), *(LastNode(L,len-i)));<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	LinkList L = (LinkNode*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(LinkNode));<span class="hljs-comment">//头节点</span><br>	L-&gt;next = <span class="hljs-literal">nullptr</span>;<br>	LinkNode* pre = L;<br><br>	srand(time(<span class="hljs-number">0</span>));<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">8</span>; i++) &#123;<br>		LinkNode* q = (LinkNode*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(LinkNode));<br>		<span class="hljs-keyword">int</span> randnum = rand() % <span class="hljs-number">100</span>; <span class="hljs-comment">//0 - 99之间的随机数</span><br>		q-&gt;data = randnum;<br>		q-&gt;next = <span class="hljs-literal">nullptr</span>;<br>		pre-&gt;next = q;<br>		pre = pre-&gt;next;<br>	&#125;<br>	<br>	<span class="hljs-comment">//输出链表的元素</span><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;初始链表元素为：&quot;</span>;<br>	pre = L-&gt;next;<br>	<span class="hljs-keyword">while</span> (pre != <span class="hljs-literal">nullptr</span>) &#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; pre-&gt;data &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>		pre = pre-&gt;next;<br>	&#125;<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-comment">//建立一个大根堆</span><br>	BuildMaxHeap(L, <span class="hljs-number">8</span>);<br>	<span class="hljs-comment">//输出链表的元素</span><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;初始大根堆元素为：&quot;</span>;<br>	pre = L-&gt;next;<br>	<span class="hljs-keyword">while</span> (pre != <span class="hljs-literal">nullptr</span>) &#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; pre-&gt;data &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>		pre = pre-&gt;next;<br>	&#125;<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-comment">//输出链表的元素</span><br>	MaxHeapSort(L, <span class="hljs-number">8</span>);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;大根堆排序结果为：&quot;</span>;<br>	pre = L-&gt;next;<br>	<span class="hljs-keyword">while</span> (pre != <span class="hljs-literal">nullptr</span>) &#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; pre-&gt;data &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>		pre = pre-&gt;next;<br>	&#125;<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="小根堆的实现"><a href="#小根堆的实现" class="headerlink" title="小根堆的实现"></a>小根堆的实现</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> &amp;a, <span class="hljs-keyword">int</span> &amp;b)</span> </span>&#123;<br>	<span class="hljs-keyword">int</span> temp = a;<br>	a = b;<br>	b = temp;<br>&#125;<br><br><span class="hljs-comment">//小根堆的调整</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MinHeapAdjust</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span> len)</span> </span>&#123;<br>	A[<span class="hljs-number">0</span>] = A[k];	<span class="hljs-comment">//暂存</span><br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>*k; i &lt;= len; i *= <span class="hljs-number">2</span>) &#123;<br>		<span class="hljs-keyword">if</span> (i+<span class="hljs-number">1</span> &lt;= len &amp;&amp; A[i] &gt; A[i+<span class="hljs-number">1</span>])	<span class="hljs-comment">//小根堆是选择孩子中较小的那个</span><br>			i++;<br>		<span class="hljs-keyword">if</span> (A[<span class="hljs-number">0</span>] &lt;= A[i]) <span class="hljs-keyword">break</span>;<br>		<span class="hljs-keyword">else</span> &#123;<br>			A[k] = A[i];<br>			k = i;<br>		&#125;<br>	&#125;<br>	A[k] = A[<span class="hljs-number">0</span>];	<span class="hljs-comment">//填入最终位置</span><br>&#125;<br><br><span class="hljs-comment">//建立小根堆</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">BuildMinHeap</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> len)</span> </span>&#123;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len/<span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">1</span>; i--)	<span class="hljs-comment">//从最后一个非终端节点向前调整</span><br>		MinHeapAdjust(A, i, len);<br>&#125;<br><br><span class="hljs-comment">//小根堆排序</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MinHeapSort</span><span class="hljs-params">(<span class="hljs-keyword">int</span> A[], <span class="hljs-keyword">int</span> n)</span> </span>&#123;<br>	BuildMinHeap(A, n);<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n - <span class="hljs-number">1</span>; i++) &#123;<br>		<span class="hljs-comment">//先调整堆</span><br>		MinHeapAdjust(A,<span class="hljs-number">1</span>,n-i+<span class="hljs-number">1</span>);<br>		<span class="hljs-comment">//堆顶和最后一个元素交换位置</span><br>		swap(A[<span class="hljs-number">1</span>], A[n-i+<span class="hljs-number">1</span>]);<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">int</span> A[<span class="hljs-number">9</span>] = &#123; <span class="hljs-number">0</span>,<span class="hljs-number">53</span>,<span class="hljs-number">17</span>,<span class="hljs-number">78</span>,<span class="hljs-number">9</span>,<span class="hljs-number">45</span>,<span class="hljs-number">65</span>,<span class="hljs-number">87</span>,<span class="hljs-number">32</span> &#125;;<br>	BuildMinHeap(A, <span class="hljs-number">8</span>);<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">8</span>; i++) &#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; A[i] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>	&#125;<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	MinHeapSort(A, <span class="hljs-number">8</span>);<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">8</span>; i++) &#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; A[i] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="堆排序的应用1-——-优先级队列"><a href="#堆排序的应用1-——-优先级队列" class="headerlink" title="堆排序的应用1 —— 优先级队列"></a>堆排序的应用1 —— 优先级队列</h3><p>常见的操作是使用堆来实现<strong>优先级队列</strong>，这种优先级队列只对最高或者最低优先级的元素进行删除，但是在任何时刻，都可以把任意优先级的元素插入到优先级队列。</p>
 <blockquote>
 <p>操作系统中的进程管理是优先级队列的一个应用实例，系统中使用一个优先队列来管理进程。 每个进程有进程任务号和优先级两部分组成。当有多个进程排队时，优先级高的先操作。</p>
@@ -533,7 +326,7 @@
 <h3 id="堆排序的应用2-——-找前K个最大的数"><a href="#堆排序的应用2-——-找前K个最大的数" class="headerlink" title="堆排序的应用2 —— 找前K个最大的数"></a>堆排序的应用2 —— 找前K个最大的数</h3><p>例如给定了N个数，要在其中找到最大的K个数。</p>
 <p>先取前K个数建立小根堆，然后从剩下的序列中顺序读取数据，比小根堆堆顶元素小的直接丢弃，比小根堆堆顶元素大的则进行替换它，之后重新调整成小根堆。这样最后读取完毕之后堆中的数据就是堆的前K个最大的值。</p>
 
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -562,8 +355,8 @@
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/cpp-opp3/">
@@ -572,8 +365,8 @@
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/ds_02_ExchangeSort/">
@@ -582,47 +375,45 @@
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
               <!-- Comments -->
-              <div class="comments" id="comments">
+              <article class="comments" id="comments">
                 
                 
   <div id="vcomments"></div>
-  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
-
   <script type="text/javascript">
-    var oldLoadVa = window.onload;
-    window.onload = function () {
-      oldLoadVa && oldLoadVa();
-
-      new Valine({
-        el: "#vcomments",
-        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
-        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
-        placeholder: "说点什么",
-        path: window.location.pathname,
-        avatar: "wavatar",
-        meta: ["nick","mail","link"],
-        pageSize: "10",
-        lang: "zh-CN",
-        highlight: false,
-        recordIP: false,
-        serverURLs: "",
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
       });
-    };
+    });
   </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
 
 
-              </div>
+              </article>
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -630,7 +421,7 @@
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
   <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
       </div>
@@ -642,16 +433,15 @@
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -672,24 +462,22 @@
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
-    <i class="iconfont icon-love"></i>
-    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
-    <br>
-    </div>
     
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
   <div class="statistics">
     
     
@@ -716,337 +504,153 @@
   </div>
 
 
-    
+  
 
-	
-    
+
   
-  
-  <!-- 网站运行时间的设置 -->
-  <script src="/js/HidenMath.js"></script>
-  <script>
-    var now = new Date();
-    function createtime() {
-      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
-      now.setTime(now.getTime() + 250);
-      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
-      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
-      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
-      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
-      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
-      document.getElementById("timeDate").innerHTML = dnum;
-      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
-    }
-    setInterval("createtime()", 250);
-  </script>
-  </div>
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  <script  src="/js/lazyload.js" ></script>
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
   
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '.post-content',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(response => response.json())
-          .then(({results}) => {
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(response => response.json())
-                .then((record) => {
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch(error => {
-          console.error('LeanCloud Counter Error', error);
-          reject(error);
-        });
-      })
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
-        }
-      }
-    }
-
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          resolve(res);
-        }).catch(error => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true'
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/ds_03_SelectSort/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
-    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
-    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "选择排序算法——简单选择排序、堆排序排序&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 80,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
       
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
   <script  src="/js/local-search.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
       }
-    );
+    })()
   </script>
 
 
 
 
 
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
 
 
 
@@ -1055,8 +659,24 @@
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

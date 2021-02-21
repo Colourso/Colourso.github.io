@@ -1,7 +1,7 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -19,22 +19,33 @@
   <meta name="keywords" content="">
   <title>操作系统实验（二）—— 使用动态分区分配方式的模拟 - Colourso</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -42,6 +53,12 @@
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 5.3.0"></head>
 
 
@@ -136,8 +153,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -145,25 +168,28 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="操作系统实验（二）—— 使用动态分区分配方式的模拟">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2019-11-09 16:36">
-      星期六, 十一月 9日 2019, 4:36 下午
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-11-09 16:36" pubdate>
+        2019年11月9日 下午
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
@@ -180,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      61
+      88
        分钟
     </span>
   
@@ -189,9 +215,9 @@
   
     
       <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
         <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-post-views"></span> 次
+        <span id="leancloud-page-views"></span> 次
       </span>
     
   
@@ -210,41 +236,29 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">操作系统实验（二）—— 使用动态分区分配方式的模拟</h1>
             
-            <article class="markdown-body">
+              <p class="note note-info">
+                
+                  本文最后更新于：2019年12月21日 上午
+                
+              </p>
+            
+            <div class="markdown-body">
               <p><strong>概览</strong>：<strong>首次适应算法</strong>和<strong>最佳适应算法</strong>的动态分区分配。</p>
 <a id="more"></a>
 
 <h2 id="实验内容"><a href="#实验内容" class="headerlink" title="实验内容"></a>实验内容</h2><p>用C语言分别实现采用首次适应算法和最佳适应算法的动态分区分配过程alloc( )和回收过程free( )。其中，空闲分区通过空闲分区链来管理：在进行内存分配时，系统优先使用空闲区低端的空间。</p>
 <p>假设初始状态下，<strong>可用的内存空间为640KB</strong>，并有下列的请求序列：</p>
-<pre><code class="hljs plain">•作业1申请130KB。
-
-•作业2申请60KB。
-
-•作业3申请100KB。
-
-•作业2释放60KB。
-
-•作业4申请200KB。
-
-•作业3释放100KB。
-
-•作业1释放130KB。
-
-•作业5申请140KB。
-
-•作业6申请60KB。
-
-•作业7申请50KB。
-
-•作业6释放60KB。</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs plain">•作业1申请130KB。<br><br>•作业2申请60KB。<br><br>•作业3申请100KB。<br><br>•作业2释放60KB。<br><br>•作业4申请200KB。<br><br>•作业3释放100KB。<br><br>•作业1释放130KB。<br><br>•作业5申请140KB。<br><br>•作业6申请60KB。<br><br>•作业7申请50KB。<br><br>•作业6释放60KB。<br></code></pre></td></tr></table></figure>
 <p>请分别采用首次适应算法和最佳适应算法，对内存块进行分配和回收，要求每次分配和回收后显示出空闲分区链的情况。</p>
 <h2 id="首次适应算法-FF"><a href="#首次适应算法-FF" class="headerlink" title="首次适应算法 FF"></a>首次适应算法 FF</h2><p>该算法从空闲分区链首开始查找，直至找到一个能满足其大小要求的空闲分区为止。然后再按照作业的大小，从该分区中划出一块内存分配给请求者，余下的空闲分区仍留在空闲分区链    中。</p>
 <p>特点： 该算法倾向于使用内存中低地址部分的空闲区，在高地址部分的空闲区很少被利用，从而保留了高地址部分的大空闲区。显然为以后到达的大作业分配大的内存空间创造了条件。</p>
@@ -255,537 +269,15 @@
 <h2 id="代码思路"><a href="#代码思路" class="headerlink" title="代码思路"></a>代码思路</h2><p>采用单链表来完成区间的分配释放的模拟。</p>
 <p>需要申请一块空间就给单链表增加一个节点，然后修改原来节点的参数。</p>
 <p>需要释放一块空间就找到单链表中对应的节点，改变其空间状态(占用 -&gt; 空闲)，然后查看该节点周边的节点状态，判断是否需要合并。</p>
-<h2 id="首次适应算法代码"><a href="#首次适应算法代码" class="headerlink" title="首次适应算法代码"></a>首次适应算法代码</h2><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;conio.h&gt;</span></span>
-
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Memory</span></span>
-<span class="hljs-class">&#123;</span>
-	<span class="hljs-keyword">int</span> begin_add;
-	<span class="hljs-keyword">int</span> end_add;
-	<span class="hljs-keyword">int</span> size;
-	<span class="hljs-keyword">bool</span> state;<span class="hljs-comment">//false表示空闲</span>
-	<span class="hljs-keyword">int</span> pro_id;<span class="hljs-comment">//申请内存的作业id</span>
-	Memory *next;
-&#125;;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitMemory</span><span class="hljs-params">(Memory* oneMemoryHead)</span></span>
-<span class="hljs-function"></span>&#123;
-	Memory* oneMemory = (Memory*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Memory));
-	oneMemory-&gt;begin_add = <span class="hljs-number">0</span>;
-	oneMemory-&gt;end_add = <span class="hljs-number">640</span>;
-	oneMemory-&gt;size = <span class="hljs-number">640</span>;
-	oneMemory-&gt;state = <span class="hljs-literal">false</span>;
-	oneMemory-&gt;pro_id = <span class="hljs-number">-1</span>; <span class="hljs-comment">//当分区域空闲时 pro_id为-1</span>
-	oneMemory-&gt;next = <span class="hljs-literal">NULL</span>;
-
-	oneMemoryHead-&gt;next = oneMemory;
-&#125;
-
-<span class="hljs-comment">//FF算法</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">RequestMemoryByFF</span><span class="hljs-params">(Memory* oneMemoryHead,<span class="hljs-keyword">int</span> RequestId,<span class="hljs-keyword">int</span> RequestSize)</span></span>
-<span class="hljs-function"></span>&#123;
-	Memory * p_before = oneMemoryHead;
-	Memory *p = oneMemoryHead-&gt;next;
-	<span class="hljs-keyword">while</span> (p!=<span class="hljs-literal">NULL</span>)
-	&#123;
-		<span class="hljs-keyword">if</span> (p-&gt;state == <span class="hljs-literal">false</span> &amp;&amp; p-&gt;size &gt;= RequestSize)
-		&#123;
-			<span class="hljs-comment">//申请内存</span>
-			Memory * newMemory = (Memory*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Memory));
-			newMemory-&gt;begin_add = p-&gt;begin_add;
-			newMemory-&gt;end_add = p-&gt;begin_add + RequestSize;
-			newMemory-&gt;size = RequestSize;
-			newMemory-&gt;pro_id = RequestId;
-			newMemory-&gt;state = <span class="hljs-literal">true</span>;
-			newMemory-&gt;next = p;
-
-			p_before-&gt;next = newMemory;
-
-			<span class="hljs-comment">//修改剩余内存的</span>
-			p-&gt;begin_add = p-&gt;begin_add + RequestSize;
-			p-&gt;size = p-&gt;size - RequestSize;
-
-			<span class="hljs-comment">//如果剩余内存变成0</span>
-			<span class="hljs-keyword">if</span> (p-&gt;size == <span class="hljs-number">0</span>)
-			&#123;
-				p_before-&gt;next = p-&gt;next;
-			&#125;
-			<span class="hljs-comment">//跳出循环</span>
-			<span class="hljs-keyword">break</span>;
-		&#125;
-		<span class="hljs-keyword">else</span>
-		&#123;
-			p_before = p;
-			p = p-&gt;next;
-		&#125;
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">FreeMemory</span><span class="hljs-params">(Memory* oneMemoryHead, <span class="hljs-keyword">int</span> FreeId, <span class="hljs-keyword">int</span> FreeSize)</span></span>
-<span class="hljs-function"></span>&#123;
-	Memory * p_before = oneMemoryHead;
-	Memory *p = oneMemoryHead-&gt;next;
-	<span class="hljs-keyword">while</span> (p != <span class="hljs-literal">NULL</span>)
-	&#123;
-		<span class="hljs-keyword">if</span> (p-&gt;pro_id == FreeId)
-		&#123;
-			<span class="hljs-comment">//释放内存</span>
-			p-&gt;state = <span class="hljs-literal">false</span>;
-			p-&gt;pro_id = <span class="hljs-number">-1</span>;
-			<span class="hljs-comment">//寻找周围的内存，查看是否是空闲内存</span>
-			<span class="hljs-keyword">if</span> (p_before-&gt;state == <span class="hljs-literal">false</span>)
-			&#123;
-				<span class="hljs-comment">//前面的内存，合并</span>
-				p_before-&gt;end_add += FreeSize;
-				p_before-&gt;size += FreeSize;
-				p_before-&gt;next = p-&gt;next;
-				p = p_before;
-			&#125;
-
-			<span class="hljs-keyword">if</span> (p-&gt;next!= <span class="hljs-literal">NULL</span> &amp;&amp; p-&gt;next-&gt;state == <span class="hljs-literal">false</span>)
-			&#123;
-				<span class="hljs-comment">//后面的内存，合并</span>
-				p-&gt;end_add += p-&gt;next-&gt;size;
-				p-&gt;size += p-&gt;next-&gt;size;
-				p-&gt;next = p-&gt;next-&gt;next;
-			&#125;
-
-			<span class="hljs-comment">//跳出循环</span>
-			<span class="hljs-keyword">break</span>;
-		&#125;
-		<span class="hljs-keyword">else</span>
-		&#123;
-			p_before = p;
-			p = p-&gt;next;
-		&#125;
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ShowMemory</span><span class="hljs-params">(Memory* oneMemoryHead)</span></span>
-<span class="hljs-function"></span>&#123;
-	Memory* p = oneMemoryHead-&gt;next;
-	<span class="hljs-keyword">while</span> (p!=<span class="hljs-literal">NULL</span>)
-	&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;\tBegin Address: &quot;</span> &lt;&lt; p-&gt;begin_add &lt;&lt; <span class="hljs-string">&quot; End Address: &quot;</span> &lt;&lt; p-&gt;end_add  &lt;&lt; <span class="hljs-string">&quot; Size: &quot;</span> &lt;&lt; p-&gt;size&lt;&lt;
-			<span class="hljs-string">&quot; State: &quot;</span>&lt;&lt;p-&gt;state&lt;&lt;<span class="hljs-string">&quot; Pro_Id:&quot;</span>&lt;&lt;p-&gt;pro_id&lt;&lt; <span class="hljs-built_in">endl</span>;
-		p = p-&gt;next;
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-	Memory *oneMemoryHead = (Memory *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Memory));
-	oneMemoryHead-&gt;state = <span class="hljs-literal">true</span>;
-	oneMemoryHead-&gt;next = <span class="hljs-literal">NULL</span>;
-	InitMemory(oneMemoryHead);
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;FF&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业1申请130KB&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	RequestMemoryByFF(oneMemoryHead,<span class="hljs-number">1</span>,<span class="hljs-number">130</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业2申请60KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	RequestMemoryByFF(oneMemoryHead,<span class="hljs-number">2</span>,<span class="hljs-number">60</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业3申请100KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	RequestMemoryByFF(oneMemoryHead,<span class="hljs-number">3</span>,<span class="hljs-number">100</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业2释放60KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	FreeMemory(oneMemoryHead,<span class="hljs-number">2</span>,<span class="hljs-number">60</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业4申请200KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	RequestMemoryByFF(oneMemoryHead, <span class="hljs-number">4</span>, <span class="hljs-number">200</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业3释放100KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	FreeMemory(oneMemoryHead, <span class="hljs-number">3</span>, <span class="hljs-number">100</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业1释放130KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	FreeMemory(oneMemoryHead, <span class="hljs-number">1</span>, <span class="hljs-number">130</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业5申请140KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	RequestMemoryByFF(oneMemoryHead, <span class="hljs-number">5</span>, <span class="hljs-number">140</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业6申请60KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	RequestMemoryByFF(oneMemoryHead, <span class="hljs-number">6</span>, <span class="hljs-number">60</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业7申请50KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	RequestMemoryByFF(oneMemoryHead, <span class="hljs-number">7</span>, <span class="hljs-number">50</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业6释放60KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	FreeMemory(oneMemoryHead, <span class="hljs-number">6</span>, <span class="hljs-number">60</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	_getch();
-	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+<h2 id="首次适应算法代码"><a href="#首次适应算法代码" class="headerlink" title="首次适应算法代码"></a>首次适应算法代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;conio.h&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Memory</span></span><br><span class="hljs-class">&#123;</span><br>	<span class="hljs-keyword">int</span> begin_add;<br>	<span class="hljs-keyword">int</span> end_add;<br>	<span class="hljs-keyword">int</span> size;<br>	<span class="hljs-keyword">bool</span> state;<span class="hljs-comment">//false表示空闲</span><br>	<span class="hljs-keyword">int</span> pro_id;<span class="hljs-comment">//申请内存的作业id</span><br>	Memory *next;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitMemory</span><span class="hljs-params">(Memory* oneMemoryHead)</span></span><br><span class="hljs-function"></span>&#123;<br>	Memory* oneMemory = (Memory*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Memory));<br>	oneMemory-&gt;begin_add = <span class="hljs-number">0</span>;<br>	oneMemory-&gt;end_add = <span class="hljs-number">640</span>;<br>	oneMemory-&gt;size = <span class="hljs-number">640</span>;<br>	oneMemory-&gt;state = <span class="hljs-literal">false</span>;<br>	oneMemory-&gt;pro_id = <span class="hljs-number">-1</span>; <span class="hljs-comment">//当分区域空闲时 pro_id为-1</span><br>	oneMemory-&gt;next = <span class="hljs-literal">NULL</span>;<br><br>	oneMemoryHead-&gt;next = oneMemory;<br>&#125;<br><br><span class="hljs-comment">//FF算法</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">RequestMemoryByFF</span><span class="hljs-params">(Memory* oneMemoryHead,<span class="hljs-keyword">int</span> RequestId,<span class="hljs-keyword">int</span> RequestSize)</span></span><br><span class="hljs-function"></span>&#123;<br>	Memory * p_before = oneMemoryHead;<br>	Memory *p = oneMemoryHead-&gt;next;<br>	<span class="hljs-keyword">while</span> (p!=<span class="hljs-literal">NULL</span>)<br>	&#123;<br>		<span class="hljs-keyword">if</span> (p-&gt;state == <span class="hljs-literal">false</span> &amp;&amp; p-&gt;size &gt;= RequestSize)<br>		&#123;<br>			<span class="hljs-comment">//申请内存</span><br>			Memory * newMemory = (Memory*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Memory));<br>			newMemory-&gt;begin_add = p-&gt;begin_add;<br>			newMemory-&gt;end_add = p-&gt;begin_add + RequestSize;<br>			newMemory-&gt;size = RequestSize;<br>			newMemory-&gt;pro_id = RequestId;<br>			newMemory-&gt;state = <span class="hljs-literal">true</span>;<br>			newMemory-&gt;next = p;<br><br>			p_before-&gt;next = newMemory;<br><br>			<span class="hljs-comment">//修改剩余内存的</span><br>			p-&gt;begin_add = p-&gt;begin_add + RequestSize;<br>			p-&gt;size = p-&gt;size - RequestSize;<br><br>			<span class="hljs-comment">//如果剩余内存变成0</span><br>			<span class="hljs-keyword">if</span> (p-&gt;size == <span class="hljs-number">0</span>)<br>			&#123;<br>				p_before-&gt;next = p-&gt;next;<br>			&#125;<br>			<span class="hljs-comment">//跳出循环</span><br>			<span class="hljs-keyword">break</span>;<br>		&#125;<br>		<span class="hljs-keyword">else</span><br>		&#123;<br>			p_before = p;<br>			p = p-&gt;next;<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">FreeMemory</span><span class="hljs-params">(Memory* oneMemoryHead, <span class="hljs-keyword">int</span> FreeId, <span class="hljs-keyword">int</span> FreeSize)</span></span><br><span class="hljs-function"></span>&#123;<br>	Memory * p_before = oneMemoryHead;<br>	Memory *p = oneMemoryHead-&gt;next;<br>	<span class="hljs-keyword">while</span> (p != <span class="hljs-literal">NULL</span>)<br>	&#123;<br>		<span class="hljs-keyword">if</span> (p-&gt;pro_id == FreeId)<br>		&#123;<br>			<span class="hljs-comment">//释放内存</span><br>			p-&gt;state = <span class="hljs-literal">false</span>;<br>			p-&gt;pro_id = <span class="hljs-number">-1</span>;<br>			<span class="hljs-comment">//寻找周围的内存，查看是否是空闲内存</span><br>			<span class="hljs-keyword">if</span> (p_before-&gt;state == <span class="hljs-literal">false</span>)<br>			&#123;<br>				<span class="hljs-comment">//前面的内存，合并</span><br>				p_before-&gt;end_add += FreeSize;<br>				p_before-&gt;size += FreeSize;<br>				p_before-&gt;next = p-&gt;next;<br>				p = p_before;<br>			&#125;<br><br>			<span class="hljs-keyword">if</span> (p-&gt;next!= <span class="hljs-literal">NULL</span> &amp;&amp; p-&gt;next-&gt;state == <span class="hljs-literal">false</span>)<br>			&#123;<br>				<span class="hljs-comment">//后面的内存，合并</span><br>				p-&gt;end_add += p-&gt;next-&gt;size;<br>				p-&gt;size += p-&gt;next-&gt;size;<br>				p-&gt;next = p-&gt;next-&gt;next;<br>			&#125;<br><br>			<span class="hljs-comment">//跳出循环</span><br>			<span class="hljs-keyword">break</span>;<br>		&#125;<br>		<span class="hljs-keyword">else</span><br>		&#123;<br>			p_before = p;<br>			p = p-&gt;next;<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ShowMemory</span><span class="hljs-params">(Memory* oneMemoryHead)</span></span><br><span class="hljs-function"></span>&#123;<br>	Memory* p = oneMemoryHead-&gt;next;<br>	<span class="hljs-keyword">while</span> (p!=<span class="hljs-literal">NULL</span>)<br>	&#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;\tBegin Address: &quot;</span> &lt;&lt; p-&gt;begin_add &lt;&lt; <span class="hljs-string">&quot; End Address: &quot;</span> &lt;&lt; p-&gt;end_add  &lt;&lt; <span class="hljs-string">&quot; Size: &quot;</span> &lt;&lt; p-&gt;size&lt;&lt;<br>			<span class="hljs-string">&quot; State: &quot;</span>&lt;&lt;p-&gt;state&lt;&lt;<span class="hljs-string">&quot; Pro_Id:&quot;</span>&lt;&lt;p-&gt;pro_id&lt;&lt; <span class="hljs-built_in">endl</span>;<br>		p = p-&gt;next;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	Memory *oneMemoryHead = (Memory *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Memory));<br>	oneMemoryHead-&gt;state = <span class="hljs-literal">true</span>;<br>	oneMemoryHead-&gt;next = <span class="hljs-literal">NULL</span>;<br>	InitMemory(oneMemoryHead);<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;FF&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业1申请130KB&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	RequestMemoryByFF(oneMemoryHead,<span class="hljs-number">1</span>,<span class="hljs-number">130</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业2申请60KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	RequestMemoryByFF(oneMemoryHead,<span class="hljs-number">2</span>,<span class="hljs-number">60</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业3申请100KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	RequestMemoryByFF(oneMemoryHead,<span class="hljs-number">3</span>,<span class="hljs-number">100</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业2释放60KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	FreeMemory(oneMemoryHead,<span class="hljs-number">2</span>,<span class="hljs-number">60</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业4申请200KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	RequestMemoryByFF(oneMemoryHead, <span class="hljs-number">4</span>, <span class="hljs-number">200</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业3释放100KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	FreeMemory(oneMemoryHead, <span class="hljs-number">3</span>, <span class="hljs-number">100</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业1释放130KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	FreeMemory(oneMemoryHead, <span class="hljs-number">1</span>, <span class="hljs-number">130</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业5申请140KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	RequestMemoryByFF(oneMemoryHead, <span class="hljs-number">5</span>, <span class="hljs-number">140</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业6申请60KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	RequestMemoryByFF(oneMemoryHead, <span class="hljs-number">6</span>, <span class="hljs-number">60</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业7申请50KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	RequestMemoryByFF(oneMemoryHead, <span class="hljs-number">7</span>, <span class="hljs-number">50</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业6释放60KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	FreeMemory(oneMemoryHead, <span class="hljs-number">6</span>, <span class="hljs-number">60</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	_getch();<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p><strong>结果</strong>：</p>
-<pre><code class="hljs groovy">FF
-作业<span class="hljs-number">1</span>申请<span class="hljs-number">130</span>KB
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">510</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================
-作业<span class="hljs-number">2</span>申请<span class="hljs-number">60</span>KB。
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">2</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">450</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================
-作业<span class="hljs-number">3</span>申请<span class="hljs-number">100</span>KB。
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">2</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">100</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">3</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">350</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================
-作业<span class="hljs-number">2</span>释放<span class="hljs-number">60</span>KB。
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">100</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">3</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">350</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================
-作业<span class="hljs-number">4</span>申请<span class="hljs-number">200</span>KB。
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">100</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">3</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================
-作业<span class="hljs-number">3</span>释放<span class="hljs-number">100</span>KB。
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">160</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================
-作业<span class="hljs-number">1</span>释放<span class="hljs-number">130</span>KB。
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">290</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================
-作业<span class="hljs-number">5</span>申请<span class="hljs-number">140</span>KB。
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">140</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">140</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">5</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">140</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================
-作业<span class="hljs-number">6</span>申请<span class="hljs-number">60</span>KB。
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">140</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">140</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">5</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">140</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">200</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">6</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">200</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">90</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================
-作业<span class="hljs-number">7</span>申请<span class="hljs-number">50</span>KB。
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">140</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">140</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">5</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">140</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">200</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">6</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">200</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">250</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">50</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">7</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">250</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">40</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================
-作业<span class="hljs-number">6</span>释放<span class="hljs-number">60</span>KB。
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">140</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">140</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">5</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">140</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">200</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">200</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">250</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">50</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">7</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">250</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">40</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================</code></pre>
-<h2 id="最佳适应算法代码"><a href="#最佳适应算法代码" class="headerlink" title="最佳适应算法代码"></a>最佳适应算法代码</h2><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;conio.h&gt;</span></span>
-
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-
-<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Memory</span></span>
-<span class="hljs-class">&#123;</span>
-	<span class="hljs-keyword">int</span> begin_add;
-	<span class="hljs-keyword">int</span> end_add;
-	<span class="hljs-keyword">int</span> size;
-	<span class="hljs-keyword">bool</span> state;<span class="hljs-comment">//false表示空闲</span>
-	<span class="hljs-keyword">int</span> pro_id;<span class="hljs-comment">//申请内存的作业id</span>
-	Memory *next;
-&#125;;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitMemory</span><span class="hljs-params">(Memory* oneMemoryHead)</span></span>
-<span class="hljs-function"></span>&#123;
-	Memory* oneMemory = (Memory*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Memory));
-	oneMemory-&gt;begin_add = <span class="hljs-number">0</span>;
-	oneMemory-&gt;end_add = <span class="hljs-number">640</span>;
-	oneMemory-&gt;size = <span class="hljs-number">640</span>;
-	oneMemory-&gt;state = <span class="hljs-literal">false</span>;
-	oneMemory-&gt;pro_id = <span class="hljs-number">-1</span>;
-	oneMemory-&gt;next = <span class="hljs-literal">NULL</span>;
-
-	oneMemoryHead-&gt;next = oneMemory;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">FreeMemory</span><span class="hljs-params">(Memory* oneMemoryHead, <span class="hljs-keyword">int</span> FreeId, <span class="hljs-keyword">int</span> FreeSize)</span></span>
-<span class="hljs-function"></span>&#123;
-	Memory * p_before = oneMemoryHead;
-	Memory *p = oneMemoryHead-&gt;next;
-	<span class="hljs-keyword">while</span> (p != <span class="hljs-literal">NULL</span>)
-	&#123;
-		<span class="hljs-keyword">if</span> (p-&gt;pro_id == FreeId)
-		&#123;
-			<span class="hljs-comment">//释放内存</span>
-			p-&gt;state = <span class="hljs-literal">false</span>;
-			p-&gt;pro_id = <span class="hljs-number">-1</span>;
-			<span class="hljs-comment">//寻找周围的内存，查看是否是空闲内存</span>
-			<span class="hljs-keyword">if</span> (p_before-&gt;state == <span class="hljs-literal">false</span>)
-			&#123;
-				<span class="hljs-comment">//前面的内存，合并</span>
-				p_before-&gt;end_add += FreeSize;
-				p_before-&gt;size += FreeSize;
-				p_before-&gt;next = p-&gt;next;
-				p = p_before;
-			&#125;
-
-			<span class="hljs-keyword">if</span> (p-&gt;next != <span class="hljs-literal">NULL</span> &amp;&amp; p-&gt;next-&gt;state == <span class="hljs-literal">false</span>)
-			&#123;
-				<span class="hljs-comment">//后面的内存，合并</span>
-				p-&gt;end_add += p-&gt;next-&gt;size;
-				p-&gt;size += p-&gt;next-&gt;size;
-				p-&gt;next = p-&gt;next-&gt;next;
-			&#125;
-
-			<span class="hljs-comment">//跳出循环</span>
-			<span class="hljs-keyword">break</span>;
-		&#125;
-		<span class="hljs-keyword">else</span>
-		&#123;
-			p_before = p;
-			p = p-&gt;next;
-		&#125;
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ShowMemory</span><span class="hljs-params">(Memory* oneMemoryHead)</span></span>
-<span class="hljs-function"></span>&#123;
-	Memory* p = oneMemoryHead-&gt;next;
-	<span class="hljs-keyword">while</span> (p != <span class="hljs-literal">NULL</span>)
-	&#123;
-		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;\tBegin Address: &quot;</span> &lt;&lt; p-&gt;begin_add &lt;&lt; <span class="hljs-string">&quot; End Address: &quot;</span> &lt;&lt; p-&gt;end_add &lt;&lt; <span class="hljs-string">&quot; Size: &quot;</span> &lt;&lt; p-&gt;size &lt;&lt;
-			<span class="hljs-string">&quot; State: &quot;</span> &lt;&lt; p-&gt;state &lt;&lt; <span class="hljs-string">&quot; Pro_Id:&quot;</span> &lt;&lt; p-&gt;pro_id &lt;&lt; <span class="hljs-built_in">endl</span>;
-		p = p-&gt;next;
-	&#125;
-&#125;
-
-<span class="hljs-comment">//找到合适的大小，适合当前申请的空间的 空闲分区中最小的那一块空间</span>
-<span class="hljs-function">Memory * <span class="hljs-title">FindJustyMemory</span><span class="hljs-params">(Memory* oneMemoryHead, <span class="hljs-keyword">int</span> RequestSize)</span></span>
-<span class="hljs-function"></span>&#123;
-	Memory * p_before = oneMemoryHead;
-	Memory * p = oneMemoryHead-&gt;next;
-	Memory *tmp = <span class="hljs-literal">NULL</span>;
-	<span class="hljs-keyword">int</span> tmpsize = <span class="hljs-number">641</span>;
-	<span class="hljs-keyword">while</span> (p!=<span class="hljs-literal">NULL</span>)
-	&#123;
-		<span class="hljs-keyword">if</span> (p-&gt;state == <span class="hljs-literal">false</span> &amp;&amp; p-&gt;size &gt;= RequestSize)
-		&#123;
-			<span class="hljs-keyword">if</span> (tmpsize &gt; p-&gt;size)
-			&#123;
-				tmp = p;
-				tmpsize = p-&gt;size;
-			&#125;
-		&#125;
-		p_before = p;
-		p = p-&gt;next;
-	&#125;
-	<span class="hljs-keyword">return</span> tmp;
-&#125;
-
-<span class="hljs-comment">//BF算法</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">RequestMemoryByBF</span><span class="hljs-params">(Memory* oneMemoryHead, <span class="hljs-keyword">int</span> RequestId, <span class="hljs-keyword">int</span> RequestSize)</span></span>
-<span class="hljs-function"></span>&#123;
-	Memory *p = FindJustyMemory(oneMemoryHead, RequestSize);
-	Memory * p_before = oneMemoryHead;
-	<span class="hljs-keyword">while</span> (p_before-&gt;next != p)
-	&#123;
-		p_before = p_before-&gt;next;
-	&#125;
-    <span class="hljs-comment">//维护 p_before永远时p的前一个</span>
-
-	<span class="hljs-comment">//申请内存</span>
-	Memory * newMemory = (Memory*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Memory));
-	newMemory-&gt;begin_add = p-&gt;begin_add;
-	newMemory-&gt;end_add = p-&gt;begin_add + RequestSize;
-	newMemory-&gt;size = RequestSize;
-	newMemory-&gt;pro_id = RequestId;
-	newMemory-&gt;state = <span class="hljs-literal">true</span>;
-	newMemory-&gt;next = p;
-
-	p_before-&gt;next = newMemory;
-
-	<span class="hljs-comment">//修改剩余内存的</span>
-	p-&gt;begin_add = p-&gt;begin_add + RequestSize;
-	p-&gt;size = p-&gt;size - RequestSize;
-
-	<span class="hljs-comment">//如果剩余内存变成0</span>
-	<span class="hljs-keyword">if</span> (p-&gt;size == <span class="hljs-number">0</span>)
-	&#123;
-		p_before-&gt;next = p-&gt;next;
-	&#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-	Memory *oneMemoryHead = (Memory *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Memory));
-	oneMemoryHead-&gt;state = <span class="hljs-literal">true</span>;
-	oneMemoryHead-&gt;next = <span class="hljs-literal">NULL</span>;
-	InitMemory(oneMemoryHead);
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;BF&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业1申请130KB&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	RequestMemoryByBF(oneMemoryHead, <span class="hljs-number">1</span>, <span class="hljs-number">130</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业2申请60KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	RequestMemoryByBF(oneMemoryHead, <span class="hljs-number">2</span>, <span class="hljs-number">60</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业3申请100KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	RequestMemoryByBF(oneMemoryHead, <span class="hljs-number">3</span>, <span class="hljs-number">100</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业2释放60KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	FreeMemory(oneMemoryHead, <span class="hljs-number">2</span>, <span class="hljs-number">60</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业4申请200KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	RequestMemoryByBF(oneMemoryHead, <span class="hljs-number">4</span>, <span class="hljs-number">200</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业3释放100KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	FreeMemory(oneMemoryHead, <span class="hljs-number">3</span>, <span class="hljs-number">100</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业1释放130KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	FreeMemory(oneMemoryHead, <span class="hljs-number">1</span>, <span class="hljs-number">130</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业5申请140KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	RequestMemoryByBF(oneMemoryHead, <span class="hljs-number">5</span>, <span class="hljs-number">140</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业6申请60KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	RequestMemoryByBF(oneMemoryHead, <span class="hljs-number">6</span>, <span class="hljs-number">60</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业7申请50KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	RequestMemoryByBF(oneMemoryHead, <span class="hljs-number">7</span>, <span class="hljs-number">50</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业6释放60KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-	FreeMemory(oneMemoryHead, <span class="hljs-number">6</span>, <span class="hljs-number">60</span>);
-	ShowMemory(oneMemoryHead);
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	_getch();
-	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><code class="hljs groovy">FF<br>作业<span class="hljs-number">1</span>申请<span class="hljs-number">130</span>KB<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">510</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br>作业<span class="hljs-number">2</span>申请<span class="hljs-number">60</span>KB。<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">2</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">450</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br>作业<span class="hljs-number">3</span>申请<span class="hljs-number">100</span>KB。<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">2</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">100</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">3</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">350</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br>作业<span class="hljs-number">2</span>释放<span class="hljs-number">60</span>KB。<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">100</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">3</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">350</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br>作业<span class="hljs-number">4</span>申请<span class="hljs-number">200</span>KB。<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">100</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">3</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br>作业<span class="hljs-number">3</span>释放<span class="hljs-number">100</span>KB。<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">160</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br>作业<span class="hljs-number">1</span>释放<span class="hljs-number">130</span>KB。<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">290</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br>作业<span class="hljs-number">5</span>申请<span class="hljs-number">140</span>KB。<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">140</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">140</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">5</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">140</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br>作业<span class="hljs-number">6</span>申请<span class="hljs-number">60</span>KB。<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">140</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">140</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">5</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">140</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">200</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">6</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">200</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">90</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br>作业<span class="hljs-number">7</span>申请<span class="hljs-number">50</span>KB。<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">140</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">140</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">5</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">140</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">200</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">6</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">200</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">250</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">50</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">7</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">250</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">40</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br>作业<span class="hljs-number">6</span>释放<span class="hljs-number">60</span>KB。<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">140</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">140</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">5</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">140</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">200</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">200</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">250</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">50</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">7</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">250</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">40</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br></code></pre></td></tr></table></figure>
+<h2 id="最佳适应算法代码"><a href="#最佳适应算法代码" class="headerlink" title="最佳适应算法代码"></a>最佳适应算法代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;conio.h&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Memory</span></span><br><span class="hljs-class">&#123;</span><br>	<span class="hljs-keyword">int</span> begin_add;<br>	<span class="hljs-keyword">int</span> end_add;<br>	<span class="hljs-keyword">int</span> size;<br>	<span class="hljs-keyword">bool</span> state;<span class="hljs-comment">//false表示空闲</span><br>	<span class="hljs-keyword">int</span> pro_id;<span class="hljs-comment">//申请内存的作业id</span><br>	Memory *next;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InitMemory</span><span class="hljs-params">(Memory* oneMemoryHead)</span></span><br><span class="hljs-function"></span>&#123;<br>	Memory* oneMemory = (Memory*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Memory));<br>	oneMemory-&gt;begin_add = <span class="hljs-number">0</span>;<br>	oneMemory-&gt;end_add = <span class="hljs-number">640</span>;<br>	oneMemory-&gt;size = <span class="hljs-number">640</span>;<br>	oneMemory-&gt;state = <span class="hljs-literal">false</span>;<br>	oneMemory-&gt;pro_id = <span class="hljs-number">-1</span>;<br>	oneMemory-&gt;next = <span class="hljs-literal">NULL</span>;<br><br>	oneMemoryHead-&gt;next = oneMemory;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">FreeMemory</span><span class="hljs-params">(Memory* oneMemoryHead, <span class="hljs-keyword">int</span> FreeId, <span class="hljs-keyword">int</span> FreeSize)</span></span><br><span class="hljs-function"></span>&#123;<br>	Memory * p_before = oneMemoryHead;<br>	Memory *p = oneMemoryHead-&gt;next;<br>	<span class="hljs-keyword">while</span> (p != <span class="hljs-literal">NULL</span>)<br>	&#123;<br>		<span class="hljs-keyword">if</span> (p-&gt;pro_id == FreeId)<br>		&#123;<br>			<span class="hljs-comment">//释放内存</span><br>			p-&gt;state = <span class="hljs-literal">false</span>;<br>			p-&gt;pro_id = <span class="hljs-number">-1</span>;<br>			<span class="hljs-comment">//寻找周围的内存，查看是否是空闲内存</span><br>			<span class="hljs-keyword">if</span> (p_before-&gt;state == <span class="hljs-literal">false</span>)<br>			&#123;<br>				<span class="hljs-comment">//前面的内存，合并</span><br>				p_before-&gt;end_add += FreeSize;<br>				p_before-&gt;size += FreeSize;<br>				p_before-&gt;next = p-&gt;next;<br>				p = p_before;<br>			&#125;<br><br>			<span class="hljs-keyword">if</span> (p-&gt;next != <span class="hljs-literal">NULL</span> &amp;&amp; p-&gt;next-&gt;state == <span class="hljs-literal">false</span>)<br>			&#123;<br>				<span class="hljs-comment">//后面的内存，合并</span><br>				p-&gt;end_add += p-&gt;next-&gt;size;<br>				p-&gt;size += p-&gt;next-&gt;size;<br>				p-&gt;next = p-&gt;next-&gt;next;<br>			&#125;<br><br>			<span class="hljs-comment">//跳出循环</span><br>			<span class="hljs-keyword">break</span>;<br>		&#125;<br>		<span class="hljs-keyword">else</span><br>		&#123;<br>			p_before = p;<br>			p = p-&gt;next;<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ShowMemory</span><span class="hljs-params">(Memory* oneMemoryHead)</span></span><br><span class="hljs-function"></span>&#123;<br>	Memory* p = oneMemoryHead-&gt;next;<br>	<span class="hljs-keyword">while</span> (p != <span class="hljs-literal">NULL</span>)<br>	&#123;<br>		<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;\tBegin Address: &quot;</span> &lt;&lt; p-&gt;begin_add &lt;&lt; <span class="hljs-string">&quot; End Address: &quot;</span> &lt;&lt; p-&gt;end_add &lt;&lt; <span class="hljs-string">&quot; Size: &quot;</span> &lt;&lt; p-&gt;size &lt;&lt;<br>			<span class="hljs-string">&quot; State: &quot;</span> &lt;&lt; p-&gt;state &lt;&lt; <span class="hljs-string">&quot; Pro_Id:&quot;</span> &lt;&lt; p-&gt;pro_id &lt;&lt; <span class="hljs-built_in">endl</span>;<br>		p = p-&gt;next;<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">//找到合适的大小，适合当前申请的空间的 空闲分区中最小的那一块空间</span><br><span class="hljs-function">Memory * <span class="hljs-title">FindJustyMemory</span><span class="hljs-params">(Memory* oneMemoryHead, <span class="hljs-keyword">int</span> RequestSize)</span></span><br><span class="hljs-function"></span>&#123;<br>	Memory * p_before = oneMemoryHead;<br>	Memory * p = oneMemoryHead-&gt;next;<br>	Memory *tmp = <span class="hljs-literal">NULL</span>;<br>	<span class="hljs-keyword">int</span> tmpsize = <span class="hljs-number">641</span>;<br>	<span class="hljs-keyword">while</span> (p!=<span class="hljs-literal">NULL</span>)<br>	&#123;<br>		<span class="hljs-keyword">if</span> (p-&gt;state == <span class="hljs-literal">false</span> &amp;&amp; p-&gt;size &gt;= RequestSize)<br>		&#123;<br>			<span class="hljs-keyword">if</span> (tmpsize &gt; p-&gt;size)<br>			&#123;<br>				tmp = p;<br>				tmpsize = p-&gt;size;<br>			&#125;<br>		&#125;<br>		p_before = p;<br>		p = p-&gt;next;<br>	&#125;<br>	<span class="hljs-keyword">return</span> tmp;<br>&#125;<br><br><span class="hljs-comment">//BF算法</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">RequestMemoryByBF</span><span class="hljs-params">(Memory* oneMemoryHead, <span class="hljs-keyword">int</span> RequestId, <span class="hljs-keyword">int</span> RequestSize)</span></span><br><span class="hljs-function"></span>&#123;<br>	Memory *p = FindJustyMemory(oneMemoryHead, RequestSize);<br>	Memory * p_before = oneMemoryHead;<br>	<span class="hljs-keyword">while</span> (p_before-&gt;next != p)<br>	&#123;<br>		p_before = p_before-&gt;next;<br>	&#125;<br>    <span class="hljs-comment">//维护 p_before永远时p的前一个</span><br><br>	<span class="hljs-comment">//申请内存</span><br>	Memory * newMemory = (Memory*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Memory));<br>	newMemory-&gt;begin_add = p-&gt;begin_add;<br>	newMemory-&gt;end_add = p-&gt;begin_add + RequestSize;<br>	newMemory-&gt;size = RequestSize;<br>	newMemory-&gt;pro_id = RequestId;<br>	newMemory-&gt;state = <span class="hljs-literal">true</span>;<br>	newMemory-&gt;next = p;<br><br>	p_before-&gt;next = newMemory;<br><br>	<span class="hljs-comment">//修改剩余内存的</span><br>	p-&gt;begin_add = p-&gt;begin_add + RequestSize;<br>	p-&gt;size = p-&gt;size - RequestSize;<br><br>	<span class="hljs-comment">//如果剩余内存变成0</span><br>	<span class="hljs-keyword">if</span> (p-&gt;size == <span class="hljs-number">0</span>)<br>	&#123;<br>		p_before-&gt;next = p-&gt;next;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	Memory *oneMemoryHead = (Memory *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Memory));<br>	oneMemoryHead-&gt;state = <span class="hljs-literal">true</span>;<br>	oneMemoryHead-&gt;next = <span class="hljs-literal">NULL</span>;<br>	InitMemory(oneMemoryHead);<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;BF&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业1申请130KB&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	RequestMemoryByBF(oneMemoryHead, <span class="hljs-number">1</span>, <span class="hljs-number">130</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业2申请60KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	RequestMemoryByBF(oneMemoryHead, <span class="hljs-number">2</span>, <span class="hljs-number">60</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业3申请100KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	RequestMemoryByBF(oneMemoryHead, <span class="hljs-number">3</span>, <span class="hljs-number">100</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业2释放60KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	FreeMemory(oneMemoryHead, <span class="hljs-number">2</span>, <span class="hljs-number">60</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业4申请200KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	RequestMemoryByBF(oneMemoryHead, <span class="hljs-number">4</span>, <span class="hljs-number">200</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业3释放100KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	FreeMemory(oneMemoryHead, <span class="hljs-number">3</span>, <span class="hljs-number">100</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业1释放130KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	FreeMemory(oneMemoryHead, <span class="hljs-number">1</span>, <span class="hljs-number">130</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业5申请140KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	RequestMemoryByBF(oneMemoryHead, <span class="hljs-number">5</span>, <span class="hljs-number">140</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业6申请60KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	RequestMemoryByBF(oneMemoryHead, <span class="hljs-number">6</span>, <span class="hljs-number">60</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业7申请50KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	RequestMemoryByBF(oneMemoryHead, <span class="hljs-number">7</span>, <span class="hljs-number">50</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;作业6释放60KB。&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	FreeMemory(oneMemoryHead, <span class="hljs-number">6</span>, <span class="hljs-number">60</span>);<br>	ShowMemory(oneMemoryHead);<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;==================&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	_getch();<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p><strong>结果</strong>：</p>
-<pre><code class="hljs groovy">BF
-作业<span class="hljs-number">1</span>申请<span class="hljs-number">130</span>KB
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">510</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================
-作业<span class="hljs-number">2</span>申请<span class="hljs-number">60</span>KB。
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">2</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">450</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================
-作业<span class="hljs-number">3</span>申请<span class="hljs-number">100</span>KB。
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">2</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">100</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">3</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">350</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================
-作业<span class="hljs-number">2</span>释放<span class="hljs-number">60</span>KB。
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">100</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">3</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">350</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================
-作业<span class="hljs-number">4</span>申请<span class="hljs-number">200</span>KB。
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">100</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">3</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================
-作业<span class="hljs-number">3</span>释放<span class="hljs-number">100</span>KB。
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">160</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================
-作业<span class="hljs-number">1</span>释放<span class="hljs-number">130</span>KB。
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">290</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================
-作业<span class="hljs-number">5</span>申请<span class="hljs-number">140</span>KB。
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">290</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">630</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">140</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">5</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">630</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">10</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================
-作业<span class="hljs-number">6</span>申请<span class="hljs-number">60</span>KB。
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">60</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">6</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">60</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">230</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">630</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">140</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">5</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">630</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">10</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================
-作业<span class="hljs-number">7</span>申请<span class="hljs-number">50</span>KB。
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">60</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">6</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">60</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">110</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">50</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">7</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">110</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">180</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">630</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">140</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">5</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">630</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">10</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================
-作业<span class="hljs-number">6</span>释放<span class="hljs-number">60</span>KB。
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">60</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">60</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">110</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">50</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">7</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">110</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">180</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">630</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">140</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">5</span>
-        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">630</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">10</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span>
-==================</code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><code class="hljs groovy">BF<br>作业<span class="hljs-number">1</span>申请<span class="hljs-number">130</span>KB<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">510</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br>作业<span class="hljs-number">2</span>申请<span class="hljs-number">60</span>KB。<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">2</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">450</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br>作业<span class="hljs-number">3</span>申请<span class="hljs-number">100</span>KB。<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">2</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">100</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">3</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">350</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br>作业<span class="hljs-number">2</span>释放<span class="hljs-number">60</span>KB。<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">100</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">3</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">350</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br>作业<span class="hljs-number">4</span>申请<span class="hljs-number">200</span>KB。<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">190</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">100</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">3</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br>作业<span class="hljs-number">3</span>释放<span class="hljs-number">100</span>KB。<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">130</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">130</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">160</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br>作业<span class="hljs-number">1</span>释放<span class="hljs-number">130</span>KB。<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">290</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">150</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br>作业<span class="hljs-number">5</span>申请<span class="hljs-number">140</span>KB。<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">290</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">630</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">140</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">5</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">630</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">10</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br>作业<span class="hljs-number">6</span>申请<span class="hljs-number">60</span>KB。<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">60</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">6</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">60</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">230</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">630</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">140</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">5</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">630</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">10</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br>作业<span class="hljs-number">7</span>申请<span class="hljs-number">50</span>KB。<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">60</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">6</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">60</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">110</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">50</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">7</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">110</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">180</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">630</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">140</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">5</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">630</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">10</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br>作业<span class="hljs-number">6</span>释放<span class="hljs-number">60</span>KB。<br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">0</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">60</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">60</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">60</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">110</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">50</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">7</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">110</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">180</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">290</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">200</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">4</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">490</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">630</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">140</span> <span class="hljs-attr">State:</span> <span class="hljs-number">1</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">5</span><br>        Begin <span class="hljs-attr">Address:</span> <span class="hljs-number">630</span> End <span class="hljs-attr">Address:</span> <span class="hljs-number">640</span> <span class="hljs-attr">Size:</span> <span class="hljs-number">10</span> <span class="hljs-attr">State:</span> <span class="hljs-number">0</span> <span class="hljs-attr">Pro_Id:</span><span class="hljs-number">-1</span><br>==================<br></code></pre></td></tr></table></figure>
 <h2 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h2><p>出于实验的考虑，没有增加任何的逻辑判断语句来判断内存不足或者其他情况</p>
 
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -810,8 +302,8 @@
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/network-chapter-all/">
@@ -820,8 +312,8 @@
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/lua-1/">
@@ -830,47 +322,45 @@
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
               <!-- Comments -->
-              <div class="comments" id="comments">
+              <article class="comments" id="comments">
                 
                 
   <div id="vcomments"></div>
-  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
-
   <script type="text/javascript">
-    var oldLoadVa = window.onload;
-    window.onload = function () {
-      oldLoadVa && oldLoadVa();
-
-      new Valine({
-        el: "#vcomments",
-        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
-        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
-        placeholder: "说点什么",
-        path: window.location.pathname,
-        avatar: "wavatar",
-        meta: ["nick","mail","link"],
-        pageSize: "10",
-        lang: "zh-CN",
-        highlight: false,
-        recordIP: false,
-        serverURLs: "",
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
       });
-    };
+    });
   </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
 
 
-              </div>
+              </article>
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -878,7 +368,7 @@
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
   <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
       </div>
@@ -890,16 +380,15 @@
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -920,24 +409,22 @@
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
-    <i class="iconfont icon-love"></i>
-    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
-    <br>
-    </div>
     
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
   <div class="statistics">
     
     
@@ -964,337 +451,153 @@
   </div>
 
 
-    
+  
 
-	
-    
+
   
-  
-  <!-- 网站运行时间的设置 -->
-  <script src="/js/HidenMath.js"></script>
-  <script>
-    var now = new Date();
-    function createtime() {
-      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
-      now.setTime(now.getTime() + 250);
-      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
-      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
-      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
-      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
-      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
-      document.getElementById("timeDate").innerHTML = dnum;
-      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
-    }
-    setInterval("createtime()", 250);
-  </script>
-  </div>
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  <script  src="/js/lazyload.js" ></script>
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
   
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '.post-content',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(response => response.json())
-          .then(({results}) => {
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(response => response.json())
-                .then((record) => {
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch(error => {
-          console.error('LeanCloud Counter Error', error);
-          reject(error);
-        });
-      })
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
-        }
-      }
-    }
-
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          resolve(res);
-        }).catch(error => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true'
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/os-lab-2/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
-    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
-    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "操作系统实验（二）—— 使用动态分区分配方式的模拟&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 80,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
       
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
   <script  src="/js/local-search.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
       }
-    );
+    })()
   </script>
 
 
 
 
 
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
 
 
 
@@ -1303,8 +606,24 @@
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

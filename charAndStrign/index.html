@@ -1,7 +1,7 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -19,22 +19,33 @@
   <meta name="keywords" content="">
   <title>char* 、char[]、与string 的区别，以及求取字符串长度 - Colourso</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -42,6 +53,12 @@
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 5.3.0"></head>
 
 
@@ -136,8 +153,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -145,25 +168,28 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="char* 、char[]、与string 的区别，以及求取字符串长度">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2018-10-22 00:00">
-      星期一, 十月 22日 2018, 12:00 凌晨
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-10-22 00:00" pubdate>
+        2018年10月22日 凌晨
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
@@ -180,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      16
+      23
        分钟
     </span>
   
@@ -189,9 +215,9 @@
   
     
       <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
         <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-post-views"></span> 次
+        <span id="leancloud-page-views"></span> 次
       </span>
     
   
@@ -210,38 +236,29 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">char* 、char[]、与string 的区别，以及求取字符串长度</h1>
             
-            <article class="markdown-body">
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年1月15日 下午
+                
+              </p>
+            
+            <div class="markdown-body">
               <a id="more"></a>
 
 <h2 id="普通char-数组的使用"><a href="#普通char-数组的使用" class="headerlink" title="普通char[]数组的使用"></a>普通char[]数组的使用</h2><p>看一个小案例</p>
-<pre><code class="hljs c++"><span class="hljs-comment">//运行环境 VS2017</span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-	<span class="hljs-keyword">char</span> as[<span class="hljs-number">10</span>] = <span class="hljs-string">&quot;123456789&quot;</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;数组内容：&quot;</span>&lt;&lt;as &lt;&lt; <span class="hljs-built_in">endl</span>;
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;输入数组内容：&quot;</span>;
-
-	<span class="hljs-built_in">cin</span> &gt;&gt; as;			<span class="hljs-comment">//这样赋值是可以的</span>
-
-	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;新的数组内容：&quot;</span> &lt;&lt; as;
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//运行环境 VS2017</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">char</span> as[<span class="hljs-number">10</span>] = <span class="hljs-string">&quot;123456789&quot;</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;数组内容：&quot;</span>&lt;&lt;as &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;输入数组内容：&quot;</span>;<br><br>	<span class="hljs-built_in">cin</span> &gt;&gt; as;			<span class="hljs-comment">//这样赋值是可以的</span><br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;新的数组内容：&quot;</span> &lt;&lt; as;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>执行结果：</p>
-<pre><code class="hljs dns">数组内容：<span class="hljs-number">123456789</span>
-输入数组内容：fox
-新的数组内容：fox</code></pre>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dns">数组内容：<span class="hljs-number">123456789</span><br>输入数组内容：fox<br>新的数组内容：fox<br></code></pre></td></tr></table></figure>
 <ol>
 <li>char数组的赋值语句中，“123456789”这一串长度为</li>
 <li><code>cin&gt;&gt;as</code>这样的输入数组的方式是可以的，但是一旦长度超过了9(\0是在输入中默认填充的)，就会引发异常，至少Windows平台的VS2017是如此，这样的输入方式非常的不安全，慎用。</li>
@@ -250,128 +267,32 @@
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ksws0292756/article/details/79432329">https://blog.csdn.net/ksws0292756/article/details/79432329</a></p>
 </blockquote>
 <h2 id="一个常见的错误——指针与元素"><a href="#一个常见的错误——指针与元素" class="headerlink" title="一个常见的错误——指针与元素"></a>一个常见的错误——指针与元素</h2><p>问题出在我上数据结构对串进行操作时需要对一段字符串的长度进行计算，当时卡住了壳，之后再次回顾时发现还是自己粗心大意，基础太差，所以再这里做一个总结归纳。<br>这是我当初的代码</p>
-<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getLength</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *p)</span></span>
-<span class="hljs-function"></span>&#123;
-   <span class="hljs-keyword">int</span> length=<span class="hljs-number">0</span>;
-   <span class="hljs-keyword">for</span>(;p!=<span class="hljs-string">&#x27;\0&#x27;</span>;p++)<span class="hljs-comment">//p是一个指针</span>
-     length++;
-   <span class="hljs-keyword">return</span> length;  
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getLength</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *p)</span></span><br><span class="hljs-function"></span>&#123;<br>   <span class="hljs-keyword">int</span> length=<span class="hljs-number">0</span>;<br>   <span class="hljs-keyword">for</span>(;p!=<span class="hljs-string">&#x27;\0&#x27;</span>;p++)<span class="hljs-comment">//p是一个指针</span><br>     length++;<br>   <span class="hljs-keyword">return</span> length;  <br>&#125;<br></code></pre></td></tr></table></figure>
 <p>我实际上调用的时<code>getLength(&quot;asdfg&quot;);</code>然后程序运行了好长一段时间，结果是一个巨大的负值。事实上是for循环的判断条件出错了。p是指针，直接用指针与字符<code>‘\0’</code>作比较会出现问题，所以会有这样的结果。<br>所以实际上可以说是少写了一个符号<code>*</code>导致的。所以正确的代码是</p>
-<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getLength</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *p)</span></span>
-<span class="hljs-function"></span>&#123;
-   <span class="hljs-keyword">int</span> length=<span class="hljs-number">0</span>;
-   <span class="hljs-keyword">for</span>(;*p!=<span class="hljs-string">&#x27;\0&#x27;</span>;p++)<span class="hljs-comment">//这里的*是解引用符，表示取出地址对应的元素</span>
-     length++;
-   <span class="hljs-keyword">return</span> length;  
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getLength</span><span class="hljs-params">(<span class="hljs-keyword">char</span> *p)</span></span><br><span class="hljs-function"></span>&#123;<br>   <span class="hljs-keyword">int</span> length=<span class="hljs-number">0</span>;<br>   <span class="hljs-keyword">for</span>(;*p!=<span class="hljs-string">&#x27;\0&#x27;</span>;p++)<span class="hljs-comment">//这里的*是解引用符，表示取出地址对应的元素</span><br>     length++;<br>   <span class="hljs-keyword">return</span> length;  <br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="char-、char-的区别"><a href="#char-、char-的区别" class="headerlink" title="char* 、char[]的区别"></a>char* 、char[]的区别</h2><ul>
 <li>char* 是字符型指针类型，用来声明一个变量是字符指针类型的。</li>
 <li>char[]则是一个字符数组，使用一段连续的内存空间存储多个字符。</li>
 </ul>
 <p>他们两个在普通地方差别挺明显的，而对于函数形参来说几乎没有区别。</p>
-<h3 id="普通位置时"><a href="#普通位置时" class="headerlink" title="普通位置时"></a>普通位置时</h3><pre><code class="hljs c++"><span class="hljs-comment">/*-----编译环境VC2010-----*/</span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-	<span class="hljs-keyword">char</span> a[] = &#123;<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-string">&#x27;\0&#x27;</span>&#125;;
-	<span class="hljs-keyword">char</span> * b = <span class="hljs-string">&quot;abc&quot;</span>;
-	<span class="hljs-built_in">cout</span>&lt;&lt;a&lt;&lt;<span class="hljs-built_in">endl</span>;
-	<span class="hljs-built_in">cout</span>&lt;&lt;b&lt;&lt;<span class="hljs-built_in">endl</span>;
-	a[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;s&#x27;</span>;
-	b[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;s&#x27;</span>;
-	system(<span class="hljs-string">&quot;pause&quot;</span>);
-	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+<h3 id="普通位置时"><a href="#普通位置时" class="headerlink" title="普通位置时"></a>普通位置时</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">/*-----编译环境VC2010-----*/</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">char</span> a[] = &#123;<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-string">&#x27;\0&#x27;</span>&#125;;<br>	<span class="hljs-keyword">char</span> * b = <span class="hljs-string">&quot;abc&quot;</span>;<br>	<span class="hljs-built_in">cout</span>&lt;&lt;a&lt;&lt;<span class="hljs-built_in">endl</span>;<br>	<span class="hljs-built_in">cout</span>&lt;&lt;b&lt;&lt;<span class="hljs-built_in">endl</span>;<br>	a[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;s&#x27;</span>;<br>	b[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;s&#x27;</span>;<br>	system(<span class="hljs-string">&quot;pause&quot;</span>);<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>代码会在<code>b[0] = &#39;s&#39;;</code>处停止运行，发生错误，原因在于<code>char []</code> 与<code>char *</code>内存分区是不同的。字符数组<code>char[]</code>存放于_栈区_，_是可以进行读写操作的_。而<code>char *</code>所指向的字符串<code>abc</code>是存放于_文字常量区_的,_文字常量区_是不能更改的，_是只读区域_。所以尝试对其进行修改时就会报错。</p>
 <h3 id="作为函数参数时"><a href="#作为函数参数时" class="headerlink" title="作为函数参数时"></a>作为函数参数时</h3><blockquote>
 <p>当数组作为函数参数时，实际上传递的是数组首元素的地址。<br>即C++只是把形参数组名作为一个指针变量来处理，用来接收从实参传过来的地址。<br>——（谭浩强-C++程序设计第三版）</p>
 </blockquote>
-<pre><code class="hljs c++"><span class="hljs-comment">//所以对于以下两个函数，完全的等价</span>
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num,<span class="hljs-keyword">char</span> a[])</span></span>
-<span class="hljs-function"></span>
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num,<span class="hljs-keyword">char</span>* a)</span></span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//所以对于以下两个函数，完全的等价</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num,<span class="hljs-keyword">char</span> a[])</span></span><br><span class="hljs-function"></span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num,<span class="hljs-keyword">char</span>* a)</span></span><br></code></pre></td></tr></table></figure>
 <p>看一个示例：实现<code>atoi()</code>函数 ——字符串与Int类型的转换。</p>
-<pre><code class="hljs c++"><span class="hljs-comment">/*-----编译环境VS2019-----*/</span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">my_atoi</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* str)</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* tmp = str;
-    <span class="hljs-keyword">int</span> flag = <span class="hljs-number">0</span>;<span class="hljs-comment">//0表示正数，1表示负数</span>
-
-    <span class="hljs-keyword">if</span> (*tmp == <span class="hljs-string">&#x27;-&#x27;</span>)
-    &#123;
-        flag = <span class="hljs-number">1</span>;
-        tmp = tmp + <span class="hljs-number">1</span>;<span class="hljs-comment">//负数从第二个字符开始转化</span>
-    &#125;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(*tmp == <span class="hljs-string">&#x27;+&#x27;</span>)
-    &#123;
-        tmp = tmp + <span class="hljs-number">1</span>;<span class="hljs-comment">//带符号的正数也从第二个字符转化</span>
-    &#125;
-    
-    <span class="hljs-keyword">int</span> num = <span class="hljs-number">0</span>;
-
-    <span class="hljs-keyword">while</span> (*tmp != <span class="hljs-string">&#x27;\0&#x27;</span>)
-    &#123;
-        num = num * <span class="hljs-number">10</span> + (*tmp - <span class="hljs-string">&#x27;0&#x27;</span>);
-        tmp++;
-    &#125;
-
-    <span class="hljs-keyword">if</span> (flag == <span class="hljs-number">0</span>)
-        <span class="hljs-keyword">return</span> num;
-    <span class="hljs-keyword">else</span>
-        <span class="hljs-keyword">return</span> (<span class="hljs-number">-1</span>) * num;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"></span>&#123;
-    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; my_atoi(<span class="hljs-string">&quot;+123&quot;</span>) &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
-    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; my_atoi(<span class="hljs-string">&quot;-456&quot;</span>) &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
-    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; my_atoi(<span class="hljs-string">&quot;789&quot;</span>) &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
-
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">/*-----编译环境VS2019-----*/</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">my_atoi</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* str)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* tmp = str;<br>    <span class="hljs-keyword">int</span> flag = <span class="hljs-number">0</span>;<span class="hljs-comment">//0表示正数，1表示负数</span><br><br>    <span class="hljs-keyword">if</span> (*tmp == <span class="hljs-string">&#x27;-&#x27;</span>)<br>    &#123;<br>        flag = <span class="hljs-number">1</span>;<br>        tmp = tmp + <span class="hljs-number">1</span>;<span class="hljs-comment">//负数从第二个字符开始转化</span><br>    &#125;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(*tmp == <span class="hljs-string">&#x27;+&#x27;</span>)<br>    &#123;<br>        tmp = tmp + <span class="hljs-number">1</span>;<span class="hljs-comment">//带符号的正数也从第二个字符转化</span><br>    &#125;<br>    <br>    <span class="hljs-keyword">int</span> num = <span class="hljs-number">0</span>;<br><br>    <span class="hljs-keyword">while</span> (*tmp != <span class="hljs-string">&#x27;\0&#x27;</span>)<br>    &#123;<br>        num = num * <span class="hljs-number">10</span> + (*tmp - <span class="hljs-string">&#x27;0&#x27;</span>);<br>        tmp++;<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> (flag == <span class="hljs-number">0</span>)<br>        <span class="hljs-keyword">return</span> num;<br>    <span class="hljs-keyword">else</span><br>        <span class="hljs-keyword">return</span> (<span class="hljs-number">-1</span>) * num;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; my_atoi(<span class="hljs-string">&quot;+123&quot;</span>) &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;<br>    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; my_atoi(<span class="hljs-string">&quot;-456&quot;</span>) &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;<br>    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; my_atoi(<span class="hljs-string">&quot;789&quot;</span>) &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
-<h3 id="字符串数组"><a href="#字符串数组" class="headerlink" title="字符串数组"></a>字符串数组</h3><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> M 5</span>
- <span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> N 20</span>
- <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-keyword">char</span>(* ss)[N], <span class="hljs-keyword">int</span> *n)</span></span>
-<span class="hljs-function"> </span>&#123;
-     <span class="hljs-keyword">int</span> i, k = <span class="hljs-number">0</span>, len = N;
-     <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; ______; i++)
-     &#123;
-         len = <span class="hljs-built_in">strlen</span>(ss[i]);
-         <span class="hljs-keyword">if</span> (i == <span class="hljs-number">0</span>)
-             *n = len;
-         <span class="hljs-keyword">if</span> (len ____ * n)
-         &#123;
-             *n = len;
-             k = i;
-         &#125;
-     &#125;
-     <span class="hljs-keyword">return</span> ( _____ );
- &#125;
- main( )
- &#123;
-     <span class="hljs-keyword">char</span> ss[M][N] = &#123;<span class="hljs-string">&quot;shanghai&quot;</span>, <span class="hljs-string">&quot;guangzhou&quot;</span>, <span class="hljs-string">&quot;beijing&quot;</span>, <span class="hljs-string">&quot;tianjing&quot;</span>, <span class="hljs-string">&quot;chongqing&quot;</span>&#125;;
-     <span class="hljs-keyword">int</span> n, k, i;
-     <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\nThe originalb stringsare:\n&quot;</span>);
-     <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; M; i++)
-         <span class="hljs-built_in">puts</span>(ss[i]);
-     k = fun(ss, &amp;n);
-     <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\nThe length of shortest string is: % d\n&quot;</span>, n);
-     <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\nThe shortest string is: % s\n&quot;</span>, ss[k]);
- &#125;</code></pre>
+<h3 id="字符串数组"><a href="#字符串数组" class="headerlink" title="字符串数组"></a>字符串数组</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> M 5</span><br> <span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> N 20</span><br> <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-keyword">char</span>(* ss)[N], <span class="hljs-keyword">int</span> *n)</span></span><br><span class="hljs-function"> </span>&#123;<br>     <span class="hljs-keyword">int</span> i, k = <span class="hljs-number">0</span>, len = N;<br>     <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; ______; i++)<br>     &#123;<br>         len = <span class="hljs-built_in">strlen</span>(ss[i]);<br>         <span class="hljs-keyword">if</span> (i == <span class="hljs-number">0</span>)<br>             *n = len;<br>         <span class="hljs-keyword">if</span> (len ____ * n)<br>         &#123;<br>             *n = len;<br>             k = i;<br>         &#125;<br>     &#125;<br>     <span class="hljs-keyword">return</span> ( _____ );<br> &#125;<br> main( )<br> &#123;<br>     <span class="hljs-keyword">char</span> ss[M][N] = &#123;<span class="hljs-string">&quot;shanghai&quot;</span>, <span class="hljs-string">&quot;guangzhou&quot;</span>, <span class="hljs-string">&quot;beijing&quot;</span>, <span class="hljs-string">&quot;tianjing&quot;</span>, <span class="hljs-string">&quot;chongqing&quot;</span>&#125;;<br>     <span class="hljs-keyword">int</span> n, k, i;<br>     <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\nThe originalb stringsare:\n&quot;</span>);<br>     <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; M; i++)<br>         <span class="hljs-built_in">puts</span>(ss[i]);<br>     k = fun(ss, &amp;n);<br>     <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\nThe length of shortest string is: % d\n&quot;</span>, n);<br>     <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\nThe shortest string is: % s\n&quot;</span>, ss[k]);<br> &#125;<br></code></pre></td></tr></table></figure>
 
 
 
 
 <h2 id="char-c-“agdbh”-存储的是字符串的首地址吗？"><a href="#char-c-“agdbh”-存储的是字符串的首地址吗？" class="headerlink" title="char *c = “agdbh”; 存储的是字符串的首地址吗？"></a>char *c = “agdbh”; 存储的是字符串的首地址吗？</h2><h2 id="C风格字符数组-p109"><a href="#C风格字符数组-p109" class="headerlink" title="C风格字符数组 p109"></a>C风格字符数组 p109</h2>
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -396,8 +317,8 @@
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/C++%E5%8E%86%E5%8F%B2/">
@@ -406,8 +327,8 @@
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/hello-world/">
@@ -416,47 +337,45 @@
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
               <!-- Comments -->
-              <div class="comments" id="comments">
+              <article class="comments" id="comments">
                 
                 
   <div id="vcomments"></div>
-  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
-
   <script type="text/javascript">
-    var oldLoadVa = window.onload;
-    window.onload = function () {
-      oldLoadVa && oldLoadVa();
-
-      new Valine({
-        el: "#vcomments",
-        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
-        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
-        placeholder: "说点什么",
-        path: window.location.pathname,
-        avatar: "wavatar",
-        meta: ["nick","mail","link"],
-        pageSize: "10",
-        lang: "zh-CN",
-        highlight: false,
-        recordIP: false,
-        serverURLs: "",
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
       });
-    };
+    });
   </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
 
 
-              </div>
+              </article>
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -464,7 +383,7 @@
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
   <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
       </div>
@@ -476,16 +395,15 @@
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -506,24 +424,22 @@
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
-    <i class="iconfont icon-love"></i>
-    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
-    <br>
-    </div>
     
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
   <div class="statistics">
     
     
@@ -550,337 +466,153 @@
   </div>
 
 
-    
+  
 
-	
-    
+
   
-  
-  <!-- 网站运行时间的设置 -->
-  <script src="/js/HidenMath.js"></script>
-  <script>
-    var now = new Date();
-    function createtime() {
-      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
-      now.setTime(now.getTime() + 250);
-      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
-      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
-      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
-      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
-      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
-      document.getElementById("timeDate").innerHTML = dnum;
-      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
-    }
-    setInterval("createtime()", 250);
-  </script>
-  </div>
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  <script  src="/js/lazyload.js" ></script>
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
   
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '.post-content',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(response => response.json())
-          .then(({results}) => {
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(response => response.json())
-                .then((record) => {
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch(error => {
-          console.error('LeanCloud Counter Error', error);
-          reject(error);
-        });
-      })
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
-        }
-      }
-    }
-
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          resolve(res);
-        }).catch(error => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true'
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/charAndStrign/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
-    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
-    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "char* 、char[]、与string 的区别，以及求取字符串长度&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 80,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
       
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
   <script  src="/js/local-search.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
       }
-    );
+    })()
   </script>
 
 
 
 
 
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
 
 
 
@@ -889,8 +621,24 @@
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

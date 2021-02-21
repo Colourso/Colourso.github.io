@@ -1,7 +1,7 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -19,22 +19,33 @@
   <meta name="keywords" content="">
   <title>Linux基础命令 - Colourso</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -42,6 +53,12 @@
 <!-- 自定义样式保持在最底部 -->
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
 <meta name="generator" content="Hexo 5.3.0"></head>
 
 
@@ -136,8 +153,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
@@ -145,25 +168,28 @@
   </div>
 </nav>
 
-    <div class="view intro-2" id="background" parallax=true
+    <div class="banner" id="banner" parallax=true
          style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Linux基础命令">
               
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2019-07-07 22:34">
-      星期日, 七月 7日 2019, 10:34 晚上
-    </time>
-  </div>
-
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-07-07 22:34" pubdate>
+        2019年7月7日 晚上
+      </time>
+    </span>
+  
+</div>
 
 <div class="mt-1">
   
@@ -180,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      22
+      31
        分钟
     </span>
   
@@ -189,9 +215,9 @@
   
     
       <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-post-views-container" class="post-meta" style="display: none">
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
         <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-post-views"></span> 次
+        <span id="leancloud-page-views"></span> 次
       </span>
     
   
@@ -210,108 +236,68 @@
     
       
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
     <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
         <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Linux基础命令</h1>
             
-            <article class="markdown-body">
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年1月10日 下午
+                
+              </p>
+            
+            <div class="markdown-body">
               <p><strong>概览</strong>：Linux目录结构，Linux用户与用户组，文件目录操作命令，修改权限，文件查找以及压缩指令。</p>
 <a id="more"></a>
 
 <p><strong>Linux下一切皆文件。</strong></p>
 <h2 id="Linux的一般文件目录的颜色"><a href="#Linux的一般文件目录的颜色" class="headerlink" title="Linux的一般文件目录的颜色"></a>Linux的一般文件目录的颜色</h2><p>我使用的是<code>ubuntu-18.04.2</code>。</p>
-<pre><code class="hljs ada">白色 <span class="hljs-comment">-- 普通文件</span>
-绿色 <span class="hljs-comment">-- 可执行文件</span>
-红色 <span class="hljs-comment">-- 压缩文件</span>
-蓝色 <span class="hljs-comment">-- 目录文件</span>
-青色 <span class="hljs-comment">-- 链接文件</span>
-黄色 <span class="hljs-comment">-- 设备文件</span>
-灰色 <span class="hljs-comment">-- 其他文件</span></code></pre>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs ada">白色 <span class="hljs-comment">-- 普通文件</span><br>绿色 <span class="hljs-comment">-- 可执行文件</span><br>红色 <span class="hljs-comment">-- 压缩文件</span><br>蓝色 <span class="hljs-comment">-- 目录文件</span><br>青色 <span class="hljs-comment">-- 链接文件</span><br>黄色 <span class="hljs-comment">-- 设备文件</span><br>灰色 <span class="hljs-comment">-- 其他文件</span><br></code></pre></td></tr></table></figure>
 <h2 id="Linux目录结构"><a href="#Linux目录结构" class="headerlink" title="Linux目录结构"></a>Linux目录结构</h2><p><img src="/linux-base/linux-base%5Clinux-catalog.png" srcset="/img/loading.gif"></p>
-<pre><code class="hljs jboss-cli"><span class="hljs-string">/root</span> : Linux超级用户的家目录
-<span class="hljs-string">/bin</span>: binary，二进制文件，有许多可执行程序。
-<span class="hljs-string">/dev</span>: device，设备。硬盘显卡等设备被抽象成为文件。
-<span class="hljs-string">/etc</span>：存放配置文件<span class="hljs-params">(/etc/password 密码文件，/etc/group 当前有哪些用户组)</span>
-<span class="hljs-string">/home</span>: linux操作系统所有用户的家目录。<span class="hljs-params">(/home/colorso 我的宿主目录)</span>
-<span class="hljs-string">/lib</span> : Linux运行时会加载的一些动态库
-<span class="hljs-string">/mnt</span> : 手动挂载的目录，比如嵌入式挂载U盘。
-<span class="hljs-string">/media</span> : 外设的自动挂载目录
-<span class="hljs-string">/usr</span> : unix system resourse 资源目录。里面有个games文件夹😁
-<span class="hljs-string">/opt</span> ： 安装的第三方应用程序
-<span class="hljs-string">/tmp</span> ： 存放临时文件，重启电脑时目录会清空</code></pre>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-string">/root</span> : Linux超级用户的家目录<br><span class="hljs-string">/bin</span>: binary，二进制文件，有许多可执行程序。<br><span class="hljs-string">/dev</span>: device，设备。硬盘显卡等设备被抽象成为文件。<br><span class="hljs-string">/etc</span>：存放配置文件<span class="hljs-params">(/etc/password 密码文件，/etc/group 当前有哪些用户组)</span><br><span class="hljs-string">/home</span>: linux操作系统所有用户的家目录。<span class="hljs-params">(/home/colorso 我的宿主目录)</span><br><span class="hljs-string">/lib</span> : Linux运行时会加载的一些动态库<br><span class="hljs-string">/mnt</span> : 手动挂载的目录，比如嵌入式挂载U盘。<br><span class="hljs-string">/media</span> : 外设的自动挂载目录<br><span class="hljs-string">/usr</span> : unix system resourse 资源目录。里面有个games文件夹😁<br><span class="hljs-string">/opt</span> ： 安装的第三方应用程序<br><span class="hljs-string">/tmp</span> ： 存放临时文件，重启电脑时目录会清空<br></code></pre></td></tr></table></figure>
 <p>安装Ubuntu的时候就接触了/etc这个目录🙃</p>
 <h2 id="文件或者目录的相关命令"><a href="#文件或者目录的相关命令" class="headerlink" title="文件或者目录的相关命令"></a>文件或者目录的相关命令</h2><ul>
 <li><strong>ls</strong>  –  查看文件与目录</li>
 </ul>
 <p>ls命令可以查看一个文件夹之内的文件与目录。</p>
 <p>常用命令：</p>
-<pre><code class="hljs stata"><span class="hljs-keyword">ls</span> [<span class="hljs-keyword">dir</span>] 直接显示出<span class="hljs-keyword">dir</span>目录下的文件与文件夹，默认以文件名进行排序。
-<span class="hljs-keyword">ls</span> -al [<span class="hljs-keyword">dir</span>]  将<span class="hljs-keyword">dir</span>目录下的文件，包括隐藏文件以及各个文件的属性显示出来。</code></pre>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stata"><span class="hljs-keyword">ls</span> [<span class="hljs-keyword">dir</span>] 直接显示出<span class="hljs-keyword">dir</span>目录下的文件与文件夹，默认以文件名进行排序。<br><span class="hljs-keyword">ls</span> -al [<span class="hljs-keyword">dir</span>]  将<span class="hljs-keyword">dir</span>目录下的文件，包括隐藏文件以及各个文件的属性显示出来。<br></code></pre></td></tr></table></figure>
 <ul>
 <li><p><code>ll</code> 命令就是 <code>ls -l</code>  的简写，列出一长串数据，包含文件的属性和权限。</p>
 </li>
 <li><p>cd  –  切换目录</p>
-<pre><code class="hljs shell">cd dir #直接进入对应的目录
-cd /home/用户名 #进入home目录
-cd ~  #进入home目录
-cd #进入home目录，什么也不加</code></pre></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd dir #直接进入对应的目录<br>cd /home/用户名 #进入home目录<br>cd ~  #进入home目录<br>cd #进入home目录，什么也不加<br></code></pre></td></tr></table></figure></li>
 <li><p><strong>cp</strong>  –  复制文件或者目录。</p>
-<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">cp 要拷贝的文件/目录 到达的位置/文件</span>
-cp file file1(存在)  #file将会覆盖掉file1
-cp file file1(不存在)  #创建file1,将file中的内容拷贝到file1中
-cp file dir(目录、存在)  #拷贝file到dir目录中
-cp dir(存在) dir1(存在)  #将dir整个拷贝到dir1之中，也包括dir这一层目录
-cp dir(存在) dir1(不存在)  #创建 dir1这个目录，然后把dir中的内容拷贝到dir1之中，不包括dir。</code></pre></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">cp 要拷贝的文件/目录 到达的位置/文件</span><br>cp file file1(存在)  #file将会覆盖掉file1<br>cp file file1(不存在)  #创建file1,将file中的内容拷贝到file1中<br>cp file dir(目录、存在)  #拷贝file到dir目录中<br>cp dir(存在) dir1(存在)  #将dir整个拷贝到dir1之中，也包括dir这一层目录<br>cp dir(存在) dir1(不存在)  #创建 dir1这个目录，然后把dir中的内容拷贝到dir1之中，不包括dir。<br></code></pre></td></tr></table></figure></li>
 <li><p><strong>mv</strong> –  改名或者移动文件。</p>
-<pre><code class="hljs shell">mv file(存在) file1(不存在) # file文件改名
-mv dir(目录) dir1(不存在)   # dir目录改名
-mv file(文件) dir(存在目录)  # 移动文件file到目录dir中
-mv dir(目录存在) dir1(目录存在) # 目录dir移动到dir1目录中
-mv file(文件存在) file1(文件存在) # file文件会覆盖file1文件，并且file文件会被删除掉</code></pre></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">mv file(存在) file1(不存在) # file文件改名<br>mv dir(目录) dir1(不存在)   # dir目录改名<br>mv file(文件) dir(存在目录)  # 移动文件file到目录dir中<br>mv dir(目录存在) dir1(目录存在) # 目录dir移动到dir1目录中<br>mv file(文件存在) file1(文件存在) # file文件会覆盖file1文件，并且file文件会被删除掉<br></code></pre></td></tr></table></figure></li>
 <li><p><strong>rm</strong> – 删除文件或者目录，删除目录时加上参数 <code>-r</code>。</p>
-<pre><code class="hljs shell">rm dir -r</code></pre></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">rm dir -r<br></code></pre></td></tr></table></figure></li>
 <li><p><strong>pwd</strong> – 输出当前所在用户路径</p>
 </li>
 <li><p><strong>mkdir</strong> – 创建目录</p>
-<pre><code class="hljs shell">mkdir dir #创建一个目录
-mkdir dir/dir1/dir2 #目录不存在或者创建多级目录时加上参数 -p</code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">mkdir dir #创建一个目录<br>mkdir dir/dir1/dir2 #目录不存在或者创建多级目录时加上参数 -p<br></code></pre></td></tr></table></figure>
 
 </li>
 </ul>
 <h2 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h2><p>使用 <code>ll</code> 命令时可以看到每一个文件对应的类型。</p>
-<pre><code class="hljs stylus">-  代表普通文件
-d  代表目录
-l  代表符号链接，linkfile,类似于windows的快捷方式
-<span class="hljs-selector-tag">p</span>  代表管道
-s  代表套接字 socket
-c  代表字符设备，例如鼠标键盘
-<span class="hljs-selector-tag">b</span>  代表块设备，例如U盘硬盘</code></pre>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs stylus">-  代表普通文件<br>d  代表目录<br>l  代表符号链接，linkfile,类似于windows的快捷方式<br><span class="hljs-selector-tag">p</span>  代表管道<br>s  代表套接字 socket<br>c  代表字符设备，例如鼠标键盘<br><span class="hljs-selector-tag">b</span>  代表块设备，例如U盘硬盘<br></code></pre></td></tr></table></figure>
 <h2 id="用户与用户组"><a href="#用户与用户组" class="headerlink" title="用户与用户组"></a>用户与用户组</h2><p>Linux之下一切都是文件，并且Linux是多用户多任务的系统。</p>
 <p>通过用户身份、与该用户所支持的用户组的概念，可以帮助我们让多任务的Linux环境变得更容易管理。</p>
-<pre><code class="hljs pgsql"><span class="hljs-keyword">user</span>  <span class="hljs-comment">-- 文件所有者</span>
-<span class="hljs-keyword">group</span> <span class="hljs-comment">-- 文件所属组用户</span>
-others <span class="hljs-comment">-- 其他人</span></code></pre>
-<h2 id="修改文件、目录权限"><a href="#修改文件、目录权限" class="headerlink" title="修改文件、目录权限"></a>修改文件、目录权限</h2><h3 id="chmod-–-文字设定法"><a href="#chmod-–-文字设定法" class="headerlink" title="chmod – 文字设定法"></a>chmod – 文字设定法</h3><pre><code class="hljs brainfuck"><span class="hljs-comment">chmod</span>  <span class="hljs-comment">who</span><span class="hljs-title">[</span><span class="hljs-literal">+</span><span class="hljs-comment">|</span><span class="hljs-literal">-</span><span class="hljs-comment">|=</span><span class="hljs-title">]</span><span class="hljs-comment">mode</span>  <span class="hljs-comment">文件名</span>
-<span class="hljs-comment"></span>
-<span class="hljs-comment">这里的who指三种身份：u</span>--<span class="hljs-comment">代表user</span><span class="hljs-string">,</span><span class="hljs-comment">g</span> -- <span class="hljs-comment">group</span><span class="hljs-string">,</span><span class="hljs-comment">o</span> -- <span class="hljs-comment">other</span><span class="hljs-string">,</span>
-<span class="hljs-comment">				</span>  <span class="hljs-comment">a</span> -- <span class="hljs-comment">all</span><span class="hljs-string">,</span><span class="hljs-comment">不写时默认就是all。</span>
-<span class="hljs-comment"></span><span class="hljs-literal">+</span><span class="hljs-comment">、</span><span class="hljs-literal">-</span><span class="hljs-comment">、=，三种操作见名知意</span>
-<span class="hljs-comment">mode指修改的执行权限：r</span> -- <span class="hljs-comment">读，w</span> -- <span class="hljs-comment">写，</span> <span class="hljs-comment">x</span> -- <span class="hljs-comment">执行</span>
-<span class="hljs-comment">				</span>   <span class="hljs-literal">-</span> -- <span class="hljs-comment">表示没有任何权限</span></code></pre>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">user</span>  <span class="hljs-comment">-- 文件所有者</span><br><span class="hljs-keyword">group</span> <span class="hljs-comment">-- 文件所属组用户</span><br>others <span class="hljs-comment">-- 其他人</span><br></code></pre></td></tr></table></figure>
+<h2 id="修改文件、目录权限"><a href="#修改文件、目录权限" class="headerlink" title="修改文件、目录权限"></a>修改文件、目录权限</h2><h3 id="chmod-–-文字设定法"><a href="#chmod-–-文字设定法" class="headerlink" title="chmod – 文字设定法"></a>chmod – 文字设定法</h3><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">chmod</span>  <span class="hljs-comment">who</span><span class="hljs-title">[</span><span class="hljs-literal">+</span><span class="hljs-comment">|</span><span class="hljs-literal">-</span><span class="hljs-comment">|=</span><span class="hljs-title">]</span><span class="hljs-comment">mode</span>  <span class="hljs-comment">文件名</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">这里的who指三种身份：u</span>--<span class="hljs-comment">代表user</span><span class="hljs-string">,</span><span class="hljs-comment">g</span> -- <span class="hljs-comment">group</span><span class="hljs-string">,</span><span class="hljs-comment">o</span> -- <span class="hljs-comment">other</span><span class="hljs-string">,</span><br><span class="hljs-comment">				</span>  <span class="hljs-comment">a</span> -- <span class="hljs-comment">all</span><span class="hljs-string">,</span><span class="hljs-comment">不写时默认就是all。</span><br><span class="hljs-comment"></span><span class="hljs-literal">+</span><span class="hljs-comment">、</span><span class="hljs-literal">-</span><span class="hljs-comment">、=，三种操作见名知意</span><br><span class="hljs-comment">mode指修改的执行权限：r</span> -- <span class="hljs-comment">读，w</span> -- <span class="hljs-comment">写，</span> <span class="hljs-comment">x</span> -- <span class="hljs-comment">执行</span><br><span class="hljs-comment">				</span>   <span class="hljs-literal">-</span> -- <span class="hljs-comment">表示没有任何权限</span><br></code></pre></td></tr></table></figure>
 <p><img src="/linux-base/linux-base%5Cchmod1.png" srcset="/img/loading.gif"></p>
 <p>上图表示去除test文件的文件所有者以及其他人的执行权限。</p>
 <ul>
 <li>并列的操作可以使用逗号进行分割：<code>chmod u+x,g-x test</code>.</li>
 </ul>
-<h3 id="chmod-–-数字设定法"><a href="#chmod-–-数字设定法" class="headerlink" title="chmod – 数字设定法"></a>chmod – 数字设定法</h3><pre><code class="hljs brainfuck"><span class="hljs-comment">chmod</span>  <span class="hljs-title">[</span><span class="hljs-literal">+</span><span class="hljs-comment">|</span><span class="hljs-literal">-</span><span class="hljs-comment">|=</span><span class="hljs-title">]</span><span class="hljs-comment">mode</span>  <span class="hljs-comment">文件名</span>
-<span class="hljs-comment"></span>
-<span class="hljs-comment"></span><span class="hljs-literal">+</span><span class="hljs-comment">、</span><span class="hljs-literal">-</span><span class="hljs-comment">、=，三种操作见名知意</span>
-<span class="hljs-comment">mode指修改的执行权限，只不过使用数字来代替：</span>
-<span class="hljs-comment">				r</span> -- <span class="hljs-comment">4，w</span> -- <span class="hljs-comment">2</span><span class="hljs-string">,</span> <span class="hljs-comment">x</span> -- <span class="hljs-comment">1，</span> <span class="hljs-literal">-</span> -- <span class="hljs-comment">0</span><span class="hljs-string">.</span></code></pre>
+<h3 id="chmod-–-数字设定法"><a href="#chmod-–-数字设定法" class="headerlink" title="chmod – 数字设定法"></a>chmod – 数字设定法</h3><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">chmod</span>  <span class="hljs-title">[</span><span class="hljs-literal">+</span><span class="hljs-comment">|</span><span class="hljs-literal">-</span><span class="hljs-comment">|=</span><span class="hljs-title">]</span><span class="hljs-comment">mode</span>  <span class="hljs-comment">文件名</span><br><span class="hljs-comment"></span><br><span class="hljs-comment"></span><span class="hljs-literal">+</span><span class="hljs-comment">、</span><span class="hljs-literal">-</span><span class="hljs-comment">、=，三种操作见名知意</span><br><span class="hljs-comment">mode指修改的执行权限，只不过使用数字来代替：</span><br><span class="hljs-comment">				r</span> -- <span class="hljs-comment">4，w</span> -- <span class="hljs-comment">2</span><span class="hljs-string">,</span> <span class="hljs-comment">x</span> -- <span class="hljs-comment">1，</span> <span class="hljs-literal">-</span> -- <span class="hljs-comment">0</span><span class="hljs-string">.</span><br></code></pre></td></tr></table></figure>
 <ul>
 <li>chmod 777 文件名  就表示为文件<code>加满</code>权限。</li>
 </ul>
@@ -329,90 +315,41 @@ others <span class="hljs-comment">-- 其他人</span></code></pre>
 </ul>
 <h2 id="文件的查找和检索"><a href="#文件的查找和检索" class="headerlink" title="文件的查找和检索"></a>文件的查找和检索</h2><h3 id="find指令"><a href="#find指令" class="headerlink" title="find指令"></a>find指令</h3><ul>
 <li><p>按照文件名进行查找</p>
-<pre><code class="hljs linux">find [dir] -name &quot;[names]&quot;
-dir -- 表示查找的目录
-names -- 表示查找的文件名</code></pre></li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs linux">find [dir] -name &quot;[names]&quot;<br>dir -- 表示查找的目录<br>names -- 表示查找的文件名<br></code></pre></td></tr></table></figure></li>
 <li><p>按照文件类型查找，linux一共就有7种文件类型</p>
-<pre><code class="hljs linux">find [dir] -type [types]
-dir -- 表示查找的目录
-types -- 表示查找的文件类型
-但是普通文件的对应符号不再是 ll 命令时看到的&#39;-&#39;，而是&#39;f&#39;，其余都相同</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs linux">find [dir] -type [types]<br>dir -- 表示查找的目录<br>types -- 表示查找的文件类型<br>但是普通文件的对应符号不再是 ll 命令时看到的&#39;-&#39;，而是&#39;f&#39;，其余都相同<br></code></pre></td></tr></table></figure>
 <p><img src="/linux-base/findtype.png" srcset="/img/loading.gif"></p>
 </li>
 <li><p>按照文件大小进行查找</p>
-<pre><code class="hljs lua"><span class="hljs-built_in">find</span> [dir] -size +<span class="hljs-number">10</span>M/<span class="hljs-number">-10</span>k/<span class="hljs-number">10</span>k
-dir <span class="hljs-comment">-- 表示查找的目录</span>
-+<span class="hljs-number">10</span>M <span class="hljs-comment">-- 表示查找大于10M的文件，</span>
-<span class="hljs-number">-10</span>k <span class="hljs-comment">-- 表示查找小于10k的文件</span>
-<span class="hljs-number">10</span>k <span class="hljs-comment">-- 表示查找等于10k的文件</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-built_in">find</span> [dir] -size +<span class="hljs-number">10</span>M/<span class="hljs-number">-10</span>k/<span class="hljs-number">10</span>k<br>dir <span class="hljs-comment">-- 表示查找的目录</span><br>+<span class="hljs-number">10</span>M <span class="hljs-comment">-- 表示查找大于10M的文件，</span><br><span class="hljs-number">-10</span>k <span class="hljs-comment">-- 表示查找小于10k的文件</span><br><span class="hljs-number">10</span>k <span class="hljs-comment">-- 表示查找等于10k的文件</span><br></code></pre></td></tr></table></figure>
 <ul>
 <li><p>如何查找大于10k小于100k的文件–区间查找</p>
-<pre><code class="hljs arduino"><span class="hljs-built_in">find</span> -<span class="hljs-built_in">size</span> +<span class="hljs-number">10</span>k -<span class="hljs-built_in">size</span> <span class="hljs-number">-100</span>k</code></pre></li>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-built_in">find</span> -<span class="hljs-built_in">size</span> +<span class="hljs-number">10</span>k -<span class="hljs-built_in">size</span> <span class="hljs-number">-100</span>k<br></code></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p>按照日期查找</p>
-<pre><code class="hljs excel"><span class="hljs-built_in">find</span> [dir] -atime -<span class="hljs-built_in">n</span>/+<span class="hljs-built_in">n</span>
-
-创建日期  -ctime -<span class="hljs-built_in">n</span>/+<span class="hljs-built_in">n</span>
-修改日期  -mtime -<span class="hljs-built_in">n</span>/+<span class="hljs-built_in">n</span>
-访问日期  -atime -<span class="hljs-built_in">n</span>/+<span class="hljs-built_in">n</span>
--<span class="hljs-built_in">n</span>  代表<span class="hljs-built_in">n</span>天之内
-+<span class="hljs-built_in">n</span>  代表<span class="hljs-built_in">n</span>天之外</code></pre>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs excel"><span class="hljs-built_in">find</span> [dir] -atime -<span class="hljs-built_in">n</span>/+<span class="hljs-built_in">n</span><br><br>创建日期  -ctime -<span class="hljs-built_in">n</span>/+<span class="hljs-built_in">n</span><br>修改日期  -mtime -<span class="hljs-built_in">n</span>/+<span class="hljs-built_in">n</span><br>访问日期  -atime -<span class="hljs-built_in">n</span>/+<span class="hljs-built_in">n</span><br>-<span class="hljs-built_in">n</span>  代表<span class="hljs-built_in">n</span>天之内<br>+<span class="hljs-built_in">n</span>  代表<span class="hljs-built_in">n</span>天之外<br></code></pre></td></tr></table></figure>
 <p><img src="/linux-base/findtime.png" srcset="/img/loading.gif"></p>
 </li>
 <li><p>根据目录深度搜索</p>
 </li>
 </ul>
-<pre><code class="hljs lua"><span class="hljs-built_in">find</span> [dir] -maxdepth/mindepth <span class="hljs-number">3</span>
-dir <span class="hljs-comment">-- 表示查找的目录</span>
-maxdepth <span class="hljs-number">3</span> <span class="hljs-comment">-- 表示最多搜索三层目录</span>
-mindepth <span class="hljs-number">3</span> <span class="hljs-comment">-- 表示搜索目录从第三层开始更大的搜索</span></code></pre>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-built_in">find</span> [dir] -maxdepth/mindepth <span class="hljs-number">3</span><br>dir <span class="hljs-comment">-- 表示查找的目录</span><br>maxdepth <span class="hljs-number">3</span> <span class="hljs-comment">-- 表示最多搜索三层目录</span><br>mindepth <span class="hljs-number">3</span> <span class="hljs-comment">-- 表示搜索目录从第三层开始更大的搜索</span><br></code></pre></td></tr></table></figure>
 <p><img src="/linux-base/finddepth2.png" srcset="/img/loading.gif"></p>
-<h3 id="grep指令-–-查找文件里的内容"><a href="#grep指令-–-查找文件里的内容" class="headerlink" title="grep指令 – 查找文件里的内容"></a>grep指令 – 查找文件里的内容</h3><pre><code class="hljs excel">grep -r <span class="hljs-string">&quot;查找的内容&quot;</span> [dir] -<span class="hljs-built_in">n</span>
--r 如果查询的范围内有目录就加上
-dir 表示查找的目录
--<span class="hljs-built_in">n</span>  会显示找出的文件的内容在对应文件的第几行</code></pre>
+<h3 id="grep指令-–-查找文件里的内容"><a href="#grep指令-–-查找文件里的内容" class="headerlink" title="grep指令 – 查找文件里的内容"></a>grep指令 – 查找文件里的内容</h3><figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs excel">grep -r <span class="hljs-string">&quot;查找的内容&quot;</span> [dir] -<span class="hljs-built_in">n</span><br>-r 如果查询的范围内有目录就加上<br>dir 表示查找的目录<br>-<span class="hljs-built_in">n</span>  会显示找出的文件的内容在对应文件的第几行<br></code></pre></td></tr></table></figure>
 
 <h2 id="压缩文件"><a href="#压缩文件" class="headerlink" title="压缩文件"></a>压缩文件</h2><p>Linux常见的压缩格式是  <code>.gz</code> 、 <code>.bzip2</code> 。</p>
 <p><code>.gz</code> 是 gzip程序压缩的文件， <code>.bzip2</code>  是bzip2程序压缩的文件。</p>
 <p>直接使用这两个程序可以进行压缩，但是功能不够强大（不能压缩目录）。</p>
-<h3 id="tar命令"><a href="#tar命令" class="headerlink" title="tar命令"></a>tar命令</h3><pre><code class="hljs css">参数：
-	<span class="hljs-selector-tag">c</span>  <span class="hljs-selector-tag">--</span> 创建压缩文件
-	<span class="hljs-selector-tag">x</span>  <span class="hljs-selector-tag">--</span> 释放压缩文件
-	<span class="hljs-selector-tag">v</span>  <span class="hljs-selector-tag">--</span> 打印提示信息（可不写）
-	<span class="hljs-selector-tag">f</span>  <span class="hljs-selector-tag">--</span> 指定压缩包的名字
-	<span class="hljs-selector-tag">z</span>  <span class="hljs-selector-tag">--</span> 使用<span class="hljs-selector-tag">gzip</span>压缩文件，文件最好命名为：<span class="hljs-selector-tag">-xxx</span><span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span>
-	<span class="hljs-selector-tag">j</span>  <span class="hljs-selector-tag">--</span> 使用<span class="hljs-selector-tag">bzip2</span>压缩文件，文件最好命名为：<span class="hljs-selector-tag">-xxx</span><span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.bzip2</span>
-	
-压缩
-格式：<span class="hljs-selector-tag">tar</span> <span class="hljs-selector-attr">[参数]</span> <span class="hljs-selector-attr">[压缩包文件名]</span> <span class="hljs-selector-attr">[原材料]</span>
-	<span class="hljs-selector-tag">tar</span> <span class="hljs-selector-tag">zcvf</span> <span class="hljs-selector-tag">test</span><span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span> <span class="hljs-selector-tag">test</span><span class="hljs-selector-class">.txt</span>
-	
-解压缩
-格式：<span class="hljs-selector-tag">tar</span> <span class="hljs-selector-attr">[参数]</span> <span class="hljs-selector-attr">[压缩包文件名]</span> 
-	<span class="hljs-selector-tag">tar</span> <span class="hljs-selector-tag">zxcf</span> <span class="hljs-selector-tag">test</span><span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span>
-	其后可接<span class="hljs-selector-tag">-C</span> 解压目录，来指定解压放置的地点</code></pre>
+<h3 id="tar命令"><a href="#tar命令" class="headerlink" title="tar命令"></a>tar命令</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs css">参数：<br>	<span class="hljs-selector-tag">c</span>  <span class="hljs-selector-tag">--</span> 创建压缩文件<br>	<span class="hljs-selector-tag">x</span>  <span class="hljs-selector-tag">--</span> 释放压缩文件<br>	<span class="hljs-selector-tag">v</span>  <span class="hljs-selector-tag">--</span> 打印提示信息（可不写）<br>	<span class="hljs-selector-tag">f</span>  <span class="hljs-selector-tag">--</span> 指定压缩包的名字<br>	<span class="hljs-selector-tag">z</span>  <span class="hljs-selector-tag">--</span> 使用<span class="hljs-selector-tag">gzip</span>压缩文件，文件最好命名为：<span class="hljs-selector-tag">-xxx</span><span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span><br>	<span class="hljs-selector-tag">j</span>  <span class="hljs-selector-tag">--</span> 使用<span class="hljs-selector-tag">bzip2</span>压缩文件，文件最好命名为：<span class="hljs-selector-tag">-xxx</span><span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.bzip2</span><br>	<br>压缩<br>格式：<span class="hljs-selector-tag">tar</span> <span class="hljs-selector-attr">[参数]</span> <span class="hljs-selector-attr">[压缩包文件名]</span> <span class="hljs-selector-attr">[原材料]</span><br>	<span class="hljs-selector-tag">tar</span> <span class="hljs-selector-tag">zcvf</span> <span class="hljs-selector-tag">test</span><span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span> <span class="hljs-selector-tag">test</span><span class="hljs-selector-class">.txt</span><br>	<br>解压缩<br>格式：<span class="hljs-selector-tag">tar</span> <span class="hljs-selector-attr">[参数]</span> <span class="hljs-selector-attr">[压缩包文件名]</span> <br>	<span class="hljs-selector-tag">tar</span> <span class="hljs-selector-tag">zxcf</span> <span class="hljs-selector-tag">test</span><span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span><br>	其后可接<span class="hljs-selector-tag">-C</span> 解压目录，来指定解压放置的地点<br></code></pre></td></tr></table></figure>
 <p><img src="/linux-base/tar.png" srcset="/img/loading.gif"></p>
 <h3 id="rar命令"><a href="#rar命令" class="headerlink" title="rar命令"></a>rar命令</h3><p>需要安装  <code>sudo apt-get install rar</code></p>
-<pre><code class="hljs cmake">压缩：
-	rar a 压缩包名(不用指定后缀) 压缩内容
-	rar a <span class="hljs-keyword">test</span> <span class="hljs-keyword">test</span>.txt
-	如果压缩的内容包括目录，后面接 -r
-解压缩
-	rar x 压缩包名 解压目录
-	rar x <span class="hljs-keyword">test</span> aa/</code></pre>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cmake">压缩：<br>	rar a 压缩包名(不用指定后缀) 压缩内容<br>	rar a <span class="hljs-keyword">test</span> <span class="hljs-keyword">test</span>.txt<br>	如果压缩的内容包括目录，后面接 -r<br>解压缩<br>	rar x 压缩包名 解压目录<br>	rar x <span class="hljs-keyword">test</span> aa/<br></code></pre></td></tr></table></figure>
 <p><img src="/linux-base/rar.png" srcset="/img/loading.gif"></p>
-<h3 id="zip-unzip命令"><a href="#zip-unzip命令" class="headerlink" title="zip/unzip命令"></a>zip/unzip命令</h3><pre><code class="hljs stata">压缩
-	<span class="hljs-keyword">zip</span> 压缩包名(不用指定后缀) 压缩内容
-	<span class="hljs-keyword">zip</span> <span class="hljs-keyword">test</span> <span class="hljs-keyword">test</span>.txt
-	如果压缩的内容包括目录，后面接 -r
-解压缩
-	unzip 压缩包名
-	unzip <span class="hljs-keyword">test</span>.<span class="hljs-keyword">zip</span>
-	解压至指定目录，后面接-<span class="hljs-keyword">d</span> 指定目录</code></pre>
+<h3 id="zip-unzip命令"><a href="#zip-unzip命令" class="headerlink" title="zip/unzip命令"></a>zip/unzip命令</h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs stata">压缩<br>	<span class="hljs-keyword">zip</span> 压缩包名(不用指定后缀) 压缩内容<br>	<span class="hljs-keyword">zip</span> <span class="hljs-keyword">test</span> <span class="hljs-keyword">test</span>.txt<br>	如果压缩的内容包括目录，后面接 -r<br>解压缩<br>	unzip 压缩包名<br>	unzip <span class="hljs-keyword">test</span>.<span class="hljs-keyword">zip</span><br>	解压至指定目录，后面接-<span class="hljs-keyword">d</span> 指定目录<br></code></pre></td></tr></table></figure>
 <p><img src="/linux-base/zip.png" srcset="/img/loading.gif"></p>
 
-            </article>
+            </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
@@ -437,8 +374,8 @@ dir 表示查找的目录
                 <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
               
               
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
                     
                     
                       <a href="/e-design/">
@@ -447,8 +384,8 @@ dir 表示查找的目录
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
-                  </div>
-                  <div class="post-next col-6">
+                  </article>
+                  <article class="post-next col-6">
                     
                     
                       <a href="/ubuntu-set-up/">
@@ -457,47 +394,45 @@ dir 表示查找的目录
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
-                  </div>
+                  </article>
                 </div>
               
             </div>
 
             
               <!-- Comments -->
-              <div class="comments" id="comments">
+              <article class="comments" id="comments">
                 
                 
   <div id="vcomments"></div>
-  <script defer src="https://cdn.staticfile.org/valine/1.4.14/Valine.min.js" ></script>
-
   <script type="text/javascript">
-    var oldLoadVa = window.onload;
-    window.onload = function () {
-      oldLoadVa && oldLoadVa();
-
-      new Valine({
-        el: "#vcomments",
-        app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
-        app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
-        placeholder: "说点什么",
-        path: window.location.pathname,
-        avatar: "wavatar",
-        meta: ["nick","mail","link"],
-        pageSize: "10",
-        lang: "zh-CN",
-        highlight: false,
-        recordIP: false,
-        serverURLs: "",
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
       });
-    };
+    });
   </script>
-  <noscript>Please enable JavaScript to view the <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
 
 
-              </div>
+              </article>
             
-          </div>
+          </article>
         </div>
       </div>
     </div>
@@ -505,7 +440,7 @@ dir 表示查找的目录
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
   <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
       </div>
@@ -517,16 +452,15 @@ dir 表示查找的目录
 
 
     
-  </main>
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
      aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
@@ -547,24 +481,22 @@ dir 表示查找的目录
     </div>
   </div>
 </div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
-    <i class="iconfont icon-love"></i>
-    主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
-    <br>
-
-	<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
-    <br>
-    </div>
     
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
   <div class="statistics">
     
     
@@ -591,337 +523,153 @@ dir 表示查找的目录
   </div>
 
 
-    
+  
 
-	
-    
+
   
-  
-  <!-- 网站运行时间的设置 -->
-  <script src="/js/HidenMath.js"></script>
-  <script>
-    var now = new Date();
-    function createtime() {
-      var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
-      now.setTime(now.getTime() + 250);
-      days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
-      hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
-      if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
-      mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
-      seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-      snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
-      document.getElementById("timeDate").innerHTML = dnum;
-      document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
-    }
-    setInterval("createtime()", 250);
-  </script>
-  </div>
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  <script  src="/js/lazyload.js" ></script>
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
   
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
   <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '.post-content',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-  <script defer>
-  (function () {
-    // 查询存储的记录
-    function getRecord(Counter, target) {
-      return new Promise(function (resolve, reject) {
-        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({target})))
-          .then(response => response.json())
-          .then(({results}) => {
-            if (results && results.length > 0) {
-              var record = results[0];
-              resolve(record);
-            } else {
-              Counter('post', '/classes/Counter', {target, time: 0})
-                .then(response => response.json())
-                .then((record) => {
-                  resolve(record);
-                }).catch(error => {
-                console.error('Failed to create', error);
-                reject(error);
-              });
-            }
-          }).catch(error => {
-          console.error('LeanCloud Counter Error', error);
-          reject(error);
-        });
-      })
-    }
-
-    // 构建自增请求体
-    function buildIncrement(objectId) {
-      return {
-        "method": "PUT",
-        "path": `/1.1/classes/Counter/${ objectId }`,
-        "body": {
-          "time": {
-            '__op': 'Increment',
-            'amount': 1
-          }
-        }
-      }
-    }
-
-    // 发起自增请求
-    function increment(Counter, incrArr) {
-      return new Promise(function (resolve, reject) {
-        Counter('post', '/batch', {
-          "requests": incrArr
-        }).then((res) => {
-          resolve(res);
-        }).catch(error => {
-          console.error('Failed to save visitor count', error);
-          reject(error);
-        });
-      });
-    }
-
-    // 校验是否为有效的 UV
-    function validUV() {
-      var key = 'LeanCloud_UV_Flag';
-      var flag = localStorage.getItem(key);
-      if (flag) {
-        // 距离标记小于 24 小时则不计为 UV
-        if (new Date().getTime() - parseInt(flag) <= 86400000) {
-          return false;
-        }
-      }
-      localStorage.setItem(key, new Date().getTime().toString());
-      return true;
-    }
-
-    function addCount(Counter) {
-      var enableIncr = 'true' === 'true'
-      var getterArr = [];
-      var incrArr = [];
-
-      // 请求 PV 并自增
-      var pvCtn = document.querySelector('#leancloud-site-pv-container');
-      if (pvCtn || enableIncr) {
-        var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
-          incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-pv');
-          if (ele) {
-            ele.innerText = record.time + 1;
-            if (pvCtn) {
-              pvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(pvGetter);
-      }
-
-      // 请求 UV 并自增
-      var uvCtn = document.querySelector('#leancloud-site-uv-container');
-      if (uvCtn || enableIncr) {
-        var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
-          var vuv = validUV();
-          vuv && incrArr.push(buildIncrement(record.objectId))
-          var ele = document.querySelector('#leancloud-site-uv');
-          if (ele) {
-            ele.innerText = record.time + (vuv ? 1 : 0);
-            if (uvCtn) {
-              uvCtn.style.display = 'inline';
-            }
-          }
-        });
-        getterArr.push(uvGetter);
-      }
-
-      // 如果是文章，请求文章的浏览数，并自增
-      if ('true' === 'true') {
-        var viewCtn = document.querySelector('#leancloud-post-views-container');
-        if (viewCtn || enableIncr) {
-          var target = decodeURI('/linux-base/');
-          var viewGetter = getRecord(Counter, target).then((record) => {
-            incrArr.push(buildIncrement(record.objectId))
-            if (viewCtn) {
-              var ele = document.querySelector('#leancloud-post-views');
-              if (ele) {
-                ele.innerText = (record.time || 0) + 1;
-                viewCtn.style.display = 'inline';
-              }
-            }
-          });
-          getterArr.push(viewGetter);
-        }
-      }
-
-      // 如果启动计数自增，批量发起自增请求
-      if (enableIncr) {
-        Promise.all(getterArr).then(() => {
-          incrArr.length > 0 && increment(Counter, incrArr);
-        })
-      }
-    }
-
-    var app_id = 'MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz'
-    var app_key = 'VxW97jqxtcjGJrb9AWmPKqrK'
-    var server_url = 'https://mtnfjgph.lc-cn-n1-shared.com'
-
-    function fetchData(api_server) {
-      var Counter = (method, url, data) => {
-        return fetch(`${ api_server }/1.1${ url }`, {
-          method,
-          headers: {
-            'X-LC-Id': app_id,
-            'X-LC-Key': app_key,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        });
-      };
-
-      addCount(Counter);
-    }
-
-    var api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${ app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
-
-    if (api_server) {
-      fetchData(api_server);
-    } else {
-      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
-        .then(response => response.json())
-        .then(({api_server}) => {
-          fetchData('https://' + api_server);
-        });
-    }
-  })();
-</script>
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "Linux基础命令&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 80,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
       
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
+      typing(title)
+      
+    })(window, document);
   </script>
 
 
 
   <script  src="/js/local-search.js" ></script>
   <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
       }
-    );
+    })()
   </script>
 
 
 
 
 
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
 
 
 
@@ -930,8 +678,24 @@ dir 表示查找的目录
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 
