@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Colourso">
   <meta name="keywords" content="">
-  <title>Leetcode刷题（一） - Colourso</title>
+  <title>算法题（一） - Colourso</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -174,7 +174,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Leetcode刷题（一）">
+            <span class="h2" id="subtitle" title="算法题（一）">
               
             </span>
 
@@ -184,8 +184,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-02-20 13:34" pubdate>
-        2020年2月20日 下午
+      <time datetime="2021-02-20 13:34" pubdate>
+        2021年2月20日 下午
       </time>
     </span>
   
@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.5k 字
+      1.9k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      29
+      38
        分钟
     </span>
   
@@ -244,11 +244,11 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Leetcode刷题（一）</h1>
+            <h1 style="display: none">算法题（一）</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年2月22日 晚上
+                  本文最后更新于：2021年2月26日 下午
                 
               </p>
             
@@ -296,6 +296,14 @@
 <p><code>0 &lt;= limit &lt;= 10^9</code></p>
 <p>来源：力扣（LeetCode）<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit">https://leetcode-cn.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
 </blockquote>
+<h2 id="字节教育一面-三十六进制数相加"><a href="#字节教育一面-三十六进制数相加" class="headerlink" title="字节教育一面 三十六进制数相加"></a>字节教育一面 三十六进制数相加</h2><blockquote>
+<p>36进制由0-9，a-z，共36个字符表示，最小为’0’, ‘0’、’9’对应十进制的09，‘a’、’z’对应十进制的1035</p>
+<p>例如：</p>
+<p>‘1b’ 换算成10进制等于 1 * 36^1 + 11 * 36^0 = 36 + 11 = 47</p>
+<p>要求按照加法规则计算出任意两个36进制正整数的和</p>
+<p>如：按照加法规则，计算’1b’ + ‘2x’ = ‘48’</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><br><span class="hljs-built_in">string</span> allchar = <span class="hljs-string">&quot;0123456789abcdefghijkLmnopqrstuvwxyz&quot;</span>;<br><br><span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">add36</span><span class="hljs-params">(<span class="hljs-built_in">string</span> first, <span class="hljs-built_in">string</span> second)</span> </span>&#123;<br><br>	<span class="hljs-comment">//计算长度，找到短的那段，然后翻转字符串，相加</span><br>	<span class="hljs-comment">//使得段的字符串为 first，长的为second</span><br>	<span class="hljs-keyword">int</span> firstlen = first.size();<br>	<span class="hljs-keyword">int</span> secondlen = second.size();<br><br>	<span class="hljs-keyword">int</span> len = <span class="hljs-number">0</span>;<br><br>	<span class="hljs-keyword">if</span> (firstlen &lt;= secondlen) &#123;<br>		len = firstlen;<br>	&#125;<br>	<span class="hljs-keyword">else</span> &#123;<br>		len = secondlen;<br>		<span class="hljs-built_in">string</span> temp = first;<br>		first = second;<br>		second = temp;<br>	&#125;<br><br>	<span class="hljs-comment">//翻转字符串</span><br>	reverse(first.begin(),first.end());<br>	reverse(second.begin(),second.end());<br><br>	<span class="hljs-built_in">string</span> result = <span class="hljs-string">&quot;&quot;</span>;<br>	<span class="hljs-keyword">int</span> A, B, C = <span class="hljs-number">0</span>;<span class="hljs-comment">//c为进位</span><br><br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;<br>		<span class="hljs-comment">//读取两个字母位置</span><br>		A = allchar.find(first[i]);<br>		B = allchar.find(second[i]);<br><br>		<span class="hljs-comment">//与进位相加,对 36求除数和余数</span><br>		result.push_back(allchar[(A+B+C)%<span class="hljs-number">36</span>]);<br>		C = allchar.find(allchar[(A+B+C)/<span class="hljs-number">36</span>]);<br>	&#125;<br><br>	<span class="hljs-comment">//之后对于较长的字符串，逐步插入</span><br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = len; i &lt; second.size(); i++) &#123;<br>		B = allchar.find(second[i]);<br>		result.push_back(allchar[(B + C) % <span class="hljs-number">36</span>]);<br>		C = allchar.find(allchar[(B + C) / <span class="hljs-number">36</span>]);<br>	&#125;<br>	<br>	<span class="hljs-comment">//若最后的进位不是0，则也要添加</span><br>	<span class="hljs-keyword">if</span> (C != <span class="hljs-number">0</span>) &#123;<br>		result.push_back(allchar[C]);<br>	&#125;<br><br>	<span class="hljs-comment">//最后字符串进行翻转</span><br>	reverse(result.begin(),result.end());<br><br>	<span class="hljs-keyword">return</span> result;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br><br>	<br>	<span class="hljs-built_in">string</span> a, b;<br>	<span class="hljs-built_in">cin</span> &gt;&gt; a;<br>	<span class="hljs-built_in">cin</span> &gt;&gt; b;<br><br>	<span class="hljs-built_in">string</span> result = add36(a, b);<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="hljs-string">&quot; + &quot;</span> &lt;&lt; b &lt;&lt; <span class="hljs-string">&quot; = &quot;</span> &lt;&lt; result &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
@@ -326,9 +334,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/python-pollcode/">
+                      <a href="/math-base/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Python小项目 —— 企业编码生成系统</span>
+                        <span class="hidden-mobile">【置顶】数学基础知识、常用公式总结</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -336,8 +344,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/compile-aseprite/">
-                        <span class="hidden-mobile">记一次在Win+Ubuntu双平台编译软件Aseprite</span>
+                      <a href="/cpp-exception/">
+                        <span class="hidden-mobile">C++异常</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
