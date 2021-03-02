@@ -1,0 +1,793 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>gcc以及静态库和动态库 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="gcc以及静态库和动态库">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-01 22:34" pubdate>
+        2021年3月1日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      99
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">gcc以及静态库和动态库</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年3月2日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p><strong>概览</strong>：gcc命令与工作流程，静态库的制作与使用，动态库的制作与使用，动态库加载失败原因与解决方案。</p>
+<a id="more"></a>
+
+<h2 id="gcc简单命令与其工作流程"><a href="#gcc简单命令与其工作流程" class="headerlink" title="gcc简单命令与其工作流程"></a>gcc简单命令与其工作流程</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//prog.c</span><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;10 + 11 = %d \n&quot;</span>,<span class="hljs-number">10</span>+<span class="hljs-number">11</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h3 id="生成可执行目标文件"><a href="#生成可执行目标文件" class="headerlink" title="生成可执行目标文件"></a>生成可执行目标文件</h3><p>对于上述文件，在shell中输入命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gcc -o prog prog.c<br></code></pre></td></tr></table></figure>
+<p>即可生成可执行的目标文件<code>prog</code>。</p>
+<p>而实际上这一简单的过程有四步主要步骤：预处理，编译，汇编，以及最后的链接，才能生成可执行的目标文件。</p>
+<p><img src="/linux-gcc-lib/gccwork.png" srcset="/img/loading.gif"></p>
+<h3 id="1-预处理-gcc-E"><a href="#1-预处理-gcc-E" class="headerlink" title="1.预处理 gcc -E"></a>1.预处理 gcc -E</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gcc -E prog.c -o prog.i<br></code></pre></td></tr></table></figure>
+<p><code>gcc - E</code> 表示进行预处理，调用了<code>cpp预处理器</code>，进行头文件展开，宏替换，以及去掉注释等操作。</p>
+<p>进行预处理之后的仍然是一个文本文件，后缀名<code>.i</code>，大致能看懂一些。</p>
+<p><code>-o</code> 后接要生成的目标文件名，这里的<code>prog.i</code>即为自己要生成的文件名。</p>
+<p>上述命令可以使用<code>cpp prog.c prog.i</code>来代替。</p>
+<h3 id="2-编译-gcc-S"><a href="#2-编译-gcc-S" class="headerlink" title="2.编译 gcc -S"></a>2.编译 gcc -S</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gcc -S prog.i -o prog.s<br></code></pre></td></tr></table></figure>
+<p><code>gcc - S</code> 表示进行预处理，调用了<code>cc1</code> C编译器，将<code>.i</code>文件编译成为ASCII汇编语言文件<code>.s</code>.</p>
+<p>上述命令可以使用<code>cc1 prog.i -o prog.s</code>来代替。</p>
+<p>生成的汇编代码：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">	<span class="hljs-string">.file</span>	<span class="hljs-string">&quot;prog.c&quot;</span><br>	<span class="hljs-string">.text</span><br>	<span class="hljs-string">.section</span>	<span class="hljs-string">.rodata</span><br><span class="hljs-string">.LC0</span>:<br>	<span class="hljs-string">.string</span>	<span class="hljs-string">&quot;10 + 11 = %d \n&quot;</span><br>	<span class="hljs-string">.text</span><br>	<span class="hljs-string">.globl</span>	main<br>	<span class="hljs-string">.type</span>	main, @function<br>main:<br><span class="hljs-string">.LFB0</span>:<br>	<span class="hljs-string">.cfi_startproc</span><br>	endbr64<br>	pushq	%rbp<br>	<span class="hljs-string">.cfi_def_cfa_offset</span> 16<br>	<span class="hljs-string">.cfi_offset</span> 6, -16<br>	movq	%rsp, %rbp<br>	<span class="hljs-string">.cfi_def_cfa_register</span> 6<br>	movl	$21, %esi<br>	leaq	<span class="hljs-string">.LC0</span><span class="hljs-params">(%rip)</span>, %rdi<br>	movl	$0, %eax<br>	call	printf@PLT<br>	movl	$0, %eax<br>	popq	%rbp<br>	<span class="hljs-string">.cfi_def_cfa</span> 7, 8<br>	ret<br>	<span class="hljs-string">.cfi_endproc</span><br><span class="hljs-string">.LFE0</span>:<br>	<span class="hljs-string">.size</span>	main, <span class="hljs-string">.-main</span><br>	<span class="hljs-string">.ident</span>	<span class="hljs-string">&quot;GCC: (Ubuntu 9.2.1-9ubuntu2) 9.2.1 20191008&quot;</span><br>	<span class="hljs-string">.section</span>	<span class="hljs-string">.note.GNU-stack</span>,<span class="hljs-string">&quot;&quot;</span>,@progbits<br>	<span class="hljs-string">.section</span>	<span class="hljs-string">.note.gnu.property</span>,<span class="hljs-string">&quot;a&quot;</span><br>	<span class="hljs-string">.align</span> 8<br>	<span class="hljs-string">.long</span>	 1f - 0f<br>	<span class="hljs-string">.long</span>	 4f - 1f<br>	<span class="hljs-string">.long</span>	 5<br>0:<br>	<span class="hljs-string">.string</span>	 <span class="hljs-string">&quot;GNU&quot;</span><br>1:<br>	<span class="hljs-string">.align</span> 8<br>	<span class="hljs-string">.long</span>	 0xc0000002<br>	<span class="hljs-string">.long</span>	 3f - 2f<br>2:<br>	<span class="hljs-string">.long</span>	 0x3<br>3:<br>	<span class="hljs-string">.align</span> 8<br>4:<br></code></pre></td></tr></table></figure>
+<h3 id="3-汇编-gcc-c"><a href="#3-汇编-gcc-c" class="headerlink" title="3.汇编 gcc -c"></a>3.汇编 gcc -c</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gcc -c prog.s -o prog.o<br></code></pre></td></tr></table></figure>
+<p><code>gcc -c</code> 表示进行汇编的工作，调用了<code>as</code> 汇编器，将<code>.s</code>文件编译成为二进制文件 —— 可重定位目标文件(relocatable object file) <code>.o</code>.</p>
+<p>上述命令可以使用<code>as -o prog.o prog.s</code>来代替。</p>
+<p><code>.o</code>文件是二进制文件，普通的文本查看工具不能打开，这里可以使用linux中的工具<code>objdump</code>来查看。</p>
+<p>输入命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">objdump -d prog.o<br></code></pre></td></tr></table></figure>
+<p>得到了<code>.o</code>文件的二进制以及对应的汇编语言</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">prog</span>.o：     文件格式 elf<span class="hljs-number">64</span>-x<span class="hljs-number">86</span>-<span class="hljs-number">64</span><br><br><br><span class="hljs-attribute">Disassembly</span> of section .text:<br><br><span class="hljs-attribute">0000000000000000</span> &lt;main&gt;:<br>   <span class="hljs-attribute">0</span>:	f<span class="hljs-number">3</span> <span class="hljs-number">0</span>f <span class="hljs-number">1</span>e fa          	endbr<span class="hljs-number">64</span> <br>   <span class="hljs-attribute">4</span>:	<span class="hljs-number">55</span>                   	push   %rbp<br>   <span class="hljs-attribute">5</span>:	<span class="hljs-number">48</span> <span class="hljs-number">89</span> e<span class="hljs-number">5</span>             	mov    %rsp,%rbp<br>   <span class="hljs-attribute">8</span>:	be <span class="hljs-number">15</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span>       	mov    $<span class="hljs-number">0</span>x<span class="hljs-number">15</span>,%esi<br>   <span class="hljs-attribute">d</span>:	<span class="hljs-number">48</span> <span class="hljs-number">8</span>d <span class="hljs-number">3</span>d <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	lea    <span class="hljs-number">0</span>x<span class="hljs-number">0</span>(%rip),%rdi        # <span class="hljs-number">14</span> &lt;main+<span class="hljs-number">0</span>x<span class="hljs-number">14</span>&gt;<br>  <span class="hljs-attribute">14</span>:	b<span class="hljs-number">8</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span>       	mov    $<span class="hljs-number">0</span>x<span class="hljs-number">0</span>,%eax<br>  <span class="hljs-attribute">19</span>:	e<span class="hljs-number">8</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span>       	callq  <span class="hljs-number">1</span>e &lt;main+<span class="hljs-number">0</span>x<span class="hljs-number">1</span>e&gt;<br>  <span class="hljs-attribute">1e</span>:	b<span class="hljs-number">8</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span>       	mov    $<span class="hljs-number">0</span>x<span class="hljs-number">0</span>,%eax<br>  <span class="hljs-attribute">23</span>:	<span class="hljs-number">5</span>d                   	pop    %rbp<br>  <span class="hljs-attribute">24</span>:	c<span class="hljs-number">3</span>                   	retq   <br></code></pre></td></tr></table></figure>
+<h3 id="4-链接"><a href="#4-链接" class="headerlink" title="4.链接"></a>4.链接</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gcc -o prog prog.o<br></code></pre></td></tr></table></figure>
+<p>这一步gcc将会调用链接器程序<code>ld</code>，将<code>prog.o</code>以及某些必要的系统目标文件组合起来，最终创建创建一个可执行的目标文件(executable object file)。</p>
+<p>上述命令可以使用<code>ld -o prog [一些系统文件与参数] prog.o</code>来代替。</p>
+<p>同样可以使用<code>objdump</code>来反编译来进行查看汇编代码：</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">objdump -d prog</span><br></code></pre></td></tr></table></figure>
+<p>内容比较多：</p>
+<details>
+    <summary>点击查看/折叠代码</summary>
+
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">prog</span>：     文件格式 elf<span class="hljs-number">64</span>-x<span class="hljs-number">86</span>-<span class="hljs-number">64</span><br><br><br><span class="hljs-attribute">Disassembly</span> of section .init:<br><br><span class="hljs-attribute">0000000000001000</span> &lt;_init&gt;:<br>    <span class="hljs-attribute">1000</span>:	f<span class="hljs-number">3</span> <span class="hljs-number">0</span>f <span class="hljs-number">1</span>e fa          	endbr<span class="hljs-number">64</span> <br>    <span class="hljs-attribute">1004</span>:	<span class="hljs-number">48</span> <span class="hljs-number">83</span> ec <span class="hljs-number">08</span>          	sub    $<span class="hljs-number">0</span>x<span class="hljs-number">8</span>,%rsp<br>    <span class="hljs-attribute">1008</span>:	<span class="hljs-number">48</span> <span class="hljs-number">8</span>b <span class="hljs-number">05</span> d<span class="hljs-number">9</span> <span class="hljs-number">2</span>f <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	mov    <span class="hljs-number">0</span>x<span class="hljs-number">2</span>fd<span class="hljs-number">9</span>(%rip),%rax        # <span class="hljs-number">3</span>fe<span class="hljs-number">8</span> &lt;__gmon_start__&gt;<br>    <span class="hljs-attribute">100f</span>:	<span class="hljs-number">48</span> <span class="hljs-number">85</span> c<span class="hljs-number">0</span>             	test   %rax,%rax<br>    <span class="hljs-attribute">1012</span>:	<span class="hljs-number">74</span> <span class="hljs-number">02</span>                	je     <span class="hljs-number">1016</span> &lt;_init+<span class="hljs-number">0</span>x<span class="hljs-number">16</span>&gt;<br>    <span class="hljs-attribute">1014</span>:	ff d<span class="hljs-number">0</span>                	callq  *%rax<br>    <span class="hljs-attribute">1016</span>:	<span class="hljs-number">48</span> <span class="hljs-number">83</span> c<span class="hljs-number">4</span> <span class="hljs-number">08</span>          	add    $<span class="hljs-number">0</span>x<span class="hljs-number">8</span>,%rsp<br>    <span class="hljs-attribute">101a</span>:	c<span class="hljs-number">3</span>                   	retq   <br><br><span class="hljs-attribute">Disassembly</span> of section .plt:<br><br><span class="hljs-attribute">0000000000001020</span> &lt;.plt&gt;:<br>    <span class="hljs-attribute">1020</span>:	ff <span class="hljs-number">35</span> <span class="hljs-number">9</span>a <span class="hljs-number">2</span>f <span class="hljs-number">00</span> <span class="hljs-number">00</span>    	pushq  <span class="hljs-number">0</span>x<span class="hljs-number">2</span>f<span class="hljs-number">9</span>a(%rip)        # <span class="hljs-number">3</span>fc<span class="hljs-number">0</span> &lt;_GLOBAL_OFFSET_TABLE_+<span class="hljs-number">0</span>x<span class="hljs-number">8</span>&gt;<br>    <span class="hljs-attribute">1026</span>:	f<span class="hljs-number">2</span> ff <span class="hljs-number">25</span> <span class="hljs-number">9</span>b <span class="hljs-number">2</span>f <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	bnd jmpq *<span class="hljs-number">0</span>x<span class="hljs-number">2</span>f<span class="hljs-number">9</span>b(%rip)        # <span class="hljs-number">3</span>fc<span class="hljs-number">8</span> &lt;_GLOBAL_OFFSET_TABLE_+<span class="hljs-number">0</span>x<span class="hljs-number">10</span>&gt;<br>    <span class="hljs-attribute">102d</span>:	<span class="hljs-number">0</span>f <span class="hljs-number">1</span>f <span class="hljs-number">00</span>             	nopl   (%rax)<br>    <span class="hljs-attribute">1030</span>:	f<span class="hljs-number">3</span> <span class="hljs-number">0</span>f <span class="hljs-number">1</span>e fa          	endbr<span class="hljs-number">64</span> <br>    <span class="hljs-attribute">1034</span>:	<span class="hljs-number">68</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span>       	pushq  $<span class="hljs-number">0</span>x<span class="hljs-number">0</span><br>    <span class="hljs-attribute">1039</span>:	f<span class="hljs-number">2</span> e<span class="hljs-number">9</span> e<span class="hljs-number">1</span> ff ff ff    	bnd jmpq <span class="hljs-number">1020</span> &lt;.plt&gt;<br>    <span class="hljs-attribute">103f</span>:	<span class="hljs-number">90</span>                   	nop<br><br><span class="hljs-attribute">Disassembly</span> of section .plt.got:<br><br><span class="hljs-attribute">0000000000001040</span> &lt;__cxa_finalize@plt&gt;:<br>    <span class="hljs-attribute">1040</span>:	f<span class="hljs-number">3</span> <span class="hljs-number">0</span>f <span class="hljs-number">1</span>e fa          	endbr<span class="hljs-number">64</span> <br>    <span class="hljs-attribute">1044</span>:	f<span class="hljs-number">2</span> ff <span class="hljs-number">25</span> ad <span class="hljs-number">2</span>f <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	bnd jmpq *<span class="hljs-number">0</span>x<span class="hljs-number">2</span>fad(%rip)        # <span class="hljs-number">3</span>ff<span class="hljs-number">8</span> &lt;__cxa_finalize@GLIBC_<span class="hljs-number">2</span>.<span class="hljs-number">2</span>.<span class="hljs-number">5</span>&gt;<br>    <span class="hljs-attribute">104b</span>:	<span class="hljs-number">0</span>f <span class="hljs-number">1</span>f <span class="hljs-number">44</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span>       	nopl   <span class="hljs-number">0</span>x<span class="hljs-number">0</span>(%rax,%rax,<span class="hljs-number">1</span>)<br><br><span class="hljs-attribute">Disassembly</span> of section .plt.sec:<br><br><span class="hljs-attribute">0000000000001050</span> &lt;printf@plt&gt;:<br>    <span class="hljs-attribute">1050</span>:	f<span class="hljs-number">3</span> <span class="hljs-number">0</span>f <span class="hljs-number">1</span>e fa          	endbr<span class="hljs-number">64</span> <br>    <span class="hljs-attribute">1054</span>:	f<span class="hljs-number">2</span> ff <span class="hljs-number">25</span> <span class="hljs-number">75</span> <span class="hljs-number">2</span>f <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	bnd jmpq *<span class="hljs-number">0</span>x<span class="hljs-number">2</span>f<span class="hljs-number">75</span>(%rip)        # <span class="hljs-number">3</span>fd<span class="hljs-number">0</span> &lt;printf@GLIBC_<span class="hljs-number">2</span>.<span class="hljs-number">2</span>.<span class="hljs-number">5</span>&gt;<br>    <span class="hljs-attribute">105b</span>:	<span class="hljs-number">0</span>f <span class="hljs-number">1</span>f <span class="hljs-number">44</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span>       	nopl   <span class="hljs-number">0</span>x<span class="hljs-number">0</span>(%rax,%rax,<span class="hljs-number">1</span>)<br><br><span class="hljs-attribute">Disassembly</span> of section .text:<br><br><span class="hljs-attribute">0000000000001060</span> &lt;_start&gt;:<br>    <span class="hljs-attribute">1060</span>:	f<span class="hljs-number">3</span> <span class="hljs-number">0</span>f <span class="hljs-number">1</span>e fa          	endbr<span class="hljs-number">64</span> <br>    <span class="hljs-attribute">1064</span>:	<span class="hljs-number">31</span> ed                	xor    %ebp,%ebp<br>    <span class="hljs-attribute">1066</span>:	<span class="hljs-number">49</span> <span class="hljs-number">89</span> d<span class="hljs-number">1</span>             	mov    %rdx,%r<span class="hljs-number">9</span><br>    <span class="hljs-attribute">1069</span>:	<span class="hljs-number">5</span>e                   	pop    %rsi<br>    <span class="hljs-attribute">106a</span>:	<span class="hljs-number">48</span> <span class="hljs-number">89</span> e<span class="hljs-number">2</span>             	mov    %rsp,%rdx<br>    <span class="hljs-attribute">106d</span>:	<span class="hljs-number">48</span> <span class="hljs-number">83</span> e<span class="hljs-number">4</span> f<span class="hljs-number">0</span>          	and    $<span class="hljs-number">0</span>xfffffffffffffff<span class="hljs-number">0</span>,%rsp<br>    <span class="hljs-attribute">1071</span>:	<span class="hljs-number">50</span>                   	push   %rax<br>    <span class="hljs-attribute">1072</span>:	<span class="hljs-number">54</span>                   	push   %rsp<br>    <span class="hljs-attribute">1073</span>:	<span class="hljs-number">4</span>c <span class="hljs-number">8</span>d <span class="hljs-number">05</span> <span class="hljs-number">66</span> <span class="hljs-number">01</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	lea    <span class="hljs-number">0</span>x<span class="hljs-number">166</span>(%rip),%r<span class="hljs-number">8</span>        # <span class="hljs-number">11</span>e<span class="hljs-number">0</span> &lt;__libc_csu_fini&gt;<br>    <span class="hljs-attribute">107a</span>:	<span class="hljs-number">48</span> <span class="hljs-number">8</span>d <span class="hljs-number">0</span>d ef <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	lea    <span class="hljs-number">0</span>xef(%rip),%rcx        # <span class="hljs-number">1170</span> &lt;__libc_csu_init&gt;<br>    <span class="hljs-attribute">1081</span>:	<span class="hljs-number">48</span> <span class="hljs-number">8</span>d <span class="hljs-number">3</span>d c<span class="hljs-number">1</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	lea    <span class="hljs-number">0</span>xc<span class="hljs-number">1</span>(%rip),%rdi        # <span class="hljs-number">1149</span> &lt;main&gt;<br>    <span class="hljs-attribute">1088</span>:	ff <span class="hljs-number">15</span> <span class="hljs-number">52</span> <span class="hljs-number">2</span>f <span class="hljs-number">00</span> <span class="hljs-number">00</span>    	callq  *<span class="hljs-number">0</span>x<span class="hljs-number">2</span>f<span class="hljs-number">52</span>(%rip)        # <span class="hljs-number">3</span>fe<span class="hljs-number">0</span> &lt;__libc_start_main@GLIBC_<span class="hljs-number">2</span>.<span class="hljs-number">2</span>.<span class="hljs-number">5</span>&gt;<br>    <span class="hljs-attribute">108e</span>:	f<span class="hljs-number">4</span>                   	hlt    <br>    <span class="hljs-attribute">108f</span>:	<span class="hljs-number">90</span>                   	nop<br><br><span class="hljs-attribute">0000000000001090</span> &lt;deregister_tm_clones&gt;:<br>    <span class="hljs-attribute">1090</span>:	<span class="hljs-number">48</span> <span class="hljs-number">8</span>d <span class="hljs-number">3</span>d <span class="hljs-number">79</span> <span class="hljs-number">2</span>f <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	lea    <span class="hljs-number">0</span>x<span class="hljs-number">2</span>f<span class="hljs-number">79</span>(%rip),%rdi        # <span class="hljs-number">4010</span> &lt;__TMC_END__&gt;<br>    <span class="hljs-attribute">1097</span>:	<span class="hljs-number">48</span> <span class="hljs-number">8</span>d <span class="hljs-number">05</span> <span class="hljs-number">72</span> <span class="hljs-number">2</span>f <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	lea    <span class="hljs-number">0</span>x<span class="hljs-number">2</span>f<span class="hljs-number">72</span>(%rip),%rax        # <span class="hljs-number">4010</span> &lt;__TMC_END__&gt;<br>    <span class="hljs-attribute">109e</span>:	<span class="hljs-number">48</span> <span class="hljs-number">39</span> f<span class="hljs-number">8</span>             	cmp    %rdi,%rax<br>    <span class="hljs-attribute">10a1</span>:	<span class="hljs-number">74</span> <span class="hljs-number">15</span>                	je     <span class="hljs-number">10</span>b<span class="hljs-number">8</span> &lt;deregister_tm_clones+<span class="hljs-number">0</span>x<span class="hljs-number">28</span>&gt;<br>    <span class="hljs-attribute">10a3</span>:	<span class="hljs-number">48</span> <span class="hljs-number">8</span>b <span class="hljs-number">05</span> <span class="hljs-number">2</span>e <span class="hljs-number">2</span>f <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	mov    <span class="hljs-number">0</span>x<span class="hljs-number">2</span>f<span class="hljs-number">2</span>e(%rip),%rax        # <span class="hljs-number">3</span>fd<span class="hljs-number">8</span> &lt;_ITM_deregisterTMCloneTable&gt;<br>    <span class="hljs-attribute">10aa</span>:	<span class="hljs-number">48</span> <span class="hljs-number">85</span> c<span class="hljs-number">0</span>             	test   %rax,%rax<br>    <span class="hljs-attribute">10ad</span>:	<span class="hljs-number">74</span> <span class="hljs-number">09</span>                	je     <span class="hljs-number">10</span>b<span class="hljs-number">8</span> &lt;deregister_tm_clones+<span class="hljs-number">0</span>x<span class="hljs-number">28</span>&gt;<br>    <span class="hljs-attribute">10af</span>:	ff e<span class="hljs-number">0</span>                	jmpq   *%rax<br>    <span class="hljs-attribute">10b1</span>:	<span class="hljs-number">0</span>f <span class="hljs-number">1</span>f <span class="hljs-number">80</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	nopl   <span class="hljs-number">0</span>x<span class="hljs-number">0</span>(%rax)<br>    <span class="hljs-attribute">10b8</span>:	c<span class="hljs-number">3</span>                   	retq   <br>    <span class="hljs-attribute">10b9</span>:	<span class="hljs-number">0</span>f <span class="hljs-number">1</span>f <span class="hljs-number">80</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	nopl   <span class="hljs-number">0</span>x<span class="hljs-number">0</span>(%rax)<br><br><span class="hljs-attribute">00000000000010c0</span> &lt;register_tm_clones&gt;:<br>    <span class="hljs-attribute">10c0</span>:	<span class="hljs-number">48</span> <span class="hljs-number">8</span>d <span class="hljs-number">3</span>d <span class="hljs-number">49</span> <span class="hljs-number">2</span>f <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	lea    <span class="hljs-number">0</span>x<span class="hljs-number">2</span>f<span class="hljs-number">49</span>(%rip),%rdi        # <span class="hljs-number">4010</span> &lt;__TMC_END__&gt;<br>    <span class="hljs-attribute">10c7</span>:	<span class="hljs-number">48</span> <span class="hljs-number">8</span>d <span class="hljs-number">35</span> <span class="hljs-number">42</span> <span class="hljs-number">2</span>f <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	lea    <span class="hljs-number">0</span>x<span class="hljs-number">2</span>f<span class="hljs-number">42</span>(%rip),%rsi        # <span class="hljs-number">4010</span> &lt;__TMC_END__&gt;<br>    <span class="hljs-attribute">10ce</span>:	<span class="hljs-number">48</span> <span class="hljs-number">29</span> fe             	sub    %rdi,%rsi<br>    <span class="hljs-attribute">10d1</span>:	<span class="hljs-number">48</span> <span class="hljs-number">89</span> f<span class="hljs-number">0</span>             	mov    %rsi,%rax<br>    <span class="hljs-attribute">10d4</span>:	<span class="hljs-number">48</span> c<span class="hljs-number">1</span> ee <span class="hljs-number">3</span>f          	shr    $<span class="hljs-number">0</span>x<span class="hljs-number">3</span>f,%rsi<br>    <span class="hljs-attribute">10d8</span>:	<span class="hljs-number">48</span> c<span class="hljs-number">1</span> f<span class="hljs-number">8</span> <span class="hljs-number">03</span>          	sar    $<span class="hljs-number">0</span>x<span class="hljs-number">3</span>,%rax<br>    <span class="hljs-attribute">10dc</span>:	<span class="hljs-number">48</span> <span class="hljs-number">01</span> c<span class="hljs-number">6</span>             	add    %rax,%rsi<br>    <span class="hljs-attribute">10df</span>:	<span class="hljs-number">48</span> d<span class="hljs-number">1</span> fe             	sar    %rsi<br>    <span class="hljs-attribute">10e2</span>:	<span class="hljs-number">74</span> <span class="hljs-number">14</span>                	je     <span class="hljs-number">10</span>f<span class="hljs-number">8</span> &lt;register_tm_clones+<span class="hljs-number">0</span>x<span class="hljs-number">38</span>&gt;<br>    <span class="hljs-attribute">10e4</span>:	<span class="hljs-number">48</span> <span class="hljs-number">8</span>b <span class="hljs-number">05</span> <span class="hljs-number">05</span> <span class="hljs-number">2</span>f <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	mov    <span class="hljs-number">0</span>x<span class="hljs-number">2</span>f<span class="hljs-number">05</span>(%rip),%rax        # <span class="hljs-number">3</span>ff<span class="hljs-number">0</span> &lt;_ITM_registerTMCloneTable&gt;<br>    <span class="hljs-attribute">10eb</span>:	<span class="hljs-number">48</span> <span class="hljs-number">85</span> c<span class="hljs-number">0</span>             	test   %rax,%rax<br>    <span class="hljs-attribute">10ee</span>:	<span class="hljs-number">74</span> <span class="hljs-number">08</span>                	je     <span class="hljs-number">10</span>f<span class="hljs-number">8</span> &lt;register_tm_clones+<span class="hljs-number">0</span>x<span class="hljs-number">38</span>&gt;<br>    <span class="hljs-attribute">10f0</span>:	ff e<span class="hljs-number">0</span>                	jmpq   *%rax<br>    <span class="hljs-attribute">10f2</span>:	<span class="hljs-number">66</span> <span class="hljs-number">0</span>f <span class="hljs-number">1</span>f <span class="hljs-number">44</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span>    	nopw   <span class="hljs-number">0</span>x<span class="hljs-number">0</span>(%rax,%rax,<span class="hljs-number">1</span>)<br>    <span class="hljs-attribute">10f8</span>:	c<span class="hljs-number">3</span>                   	retq   <br>    <span class="hljs-attribute">10f9</span>:	<span class="hljs-number">0</span>f <span class="hljs-number">1</span>f <span class="hljs-number">80</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	nopl   <span class="hljs-number">0</span>x<span class="hljs-number">0</span>(%rax)<br><br><span class="hljs-attribute">0000000000001100</span> &lt;__do_global_dtors_aux&gt;:<br>    <span class="hljs-attribute">1100</span>:	f<span class="hljs-number">3</span> <span class="hljs-number">0</span>f <span class="hljs-number">1</span>e fa          	endbr<span class="hljs-number">64</span> <br>    <span class="hljs-attribute">1104</span>:	<span class="hljs-number">80</span> <span class="hljs-number">3</span>d <span class="hljs-number">05</span> <span class="hljs-number">2</span>f <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	cmpb   $<span class="hljs-number">0</span>x<span class="hljs-number">0</span>,<span class="hljs-number">0</span>x<span class="hljs-number">2</span>f<span class="hljs-number">05</span>(%rip)        # <span class="hljs-number">4010</span> &lt;__TMC_END__&gt;<br>    <span class="hljs-attribute">110b</span>:	<span class="hljs-number">75</span> <span class="hljs-number">2</span>b                	jne    <span class="hljs-number">1138</span> &lt;__do_global_dtors_aux+<span class="hljs-number">0</span>x<span class="hljs-number">38</span>&gt;<br>    <span class="hljs-attribute">110d</span>:	<span class="hljs-number">55</span>                   	push   %rbp<br>    <span class="hljs-attribute">110e</span>:	<span class="hljs-number">48</span> <span class="hljs-number">83</span> <span class="hljs-number">3</span>d e<span class="hljs-number">2</span> <span class="hljs-number">2</span>e <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	cmpq   $<span class="hljs-number">0</span>x<span class="hljs-number">0</span>,<span class="hljs-number">0</span>x<span class="hljs-number">2</span>ee<span class="hljs-number">2</span>(%rip)        # <span class="hljs-number">3</span>ff<span class="hljs-number">8</span> &lt;__cxa_finalize@GLIBC_<span class="hljs-number">2</span>.<span class="hljs-number">2</span>.<span class="hljs-number">5</span>&gt;<br>    <span class="hljs-attribute">1115</span>:	<span class="hljs-number">00</span> <br>    <span class="hljs-attribute">1116</span>:	<span class="hljs-number">48</span> <span class="hljs-number">89</span> e<span class="hljs-number">5</span>             	mov    %rsp,%rbp<br>    <span class="hljs-attribute">1119</span>:	<span class="hljs-number">74</span> <span class="hljs-number">0</span>c                	je     <span class="hljs-number">1127</span> &lt;__do_global_dtors_aux+<span class="hljs-number">0</span>x<span class="hljs-number">27</span>&gt;<br>    <span class="hljs-attribute">111b</span>:	<span class="hljs-number">48</span> <span class="hljs-number">8</span>b <span class="hljs-number">3</span>d e<span class="hljs-number">6</span> <span class="hljs-number">2</span>e <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	mov    <span class="hljs-number">0</span>x<span class="hljs-number">2</span>ee<span class="hljs-number">6</span>(%rip),%rdi        # <span class="hljs-number">4008</span> &lt;__dso_handle&gt;<br>    <span class="hljs-attribute">1122</span>:	e<span class="hljs-number">8</span> <span class="hljs-number">19</span> ff ff ff       	callq  <span class="hljs-number">1040</span> &lt;__cxa_finalize@plt&gt;<br>    <span class="hljs-attribute">1127</span>:	e<span class="hljs-number">8</span> <span class="hljs-number">64</span> ff ff ff       	callq  <span class="hljs-number">1090</span> &lt;deregister_tm_clones&gt;<br>    <span class="hljs-attribute">112c</span>:	c<span class="hljs-number">6</span> <span class="hljs-number">05</span> dd <span class="hljs-number">2</span>e <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">01</span> 	movb   $<span class="hljs-number">0</span>x<span class="hljs-number">1</span>,<span class="hljs-number">0</span>x<span class="hljs-number">2</span>edd(%rip)        # <span class="hljs-number">4010</span> &lt;__TMC_END__&gt;<br>    <span class="hljs-attribute">1133</span>:	<span class="hljs-number">5</span>d                   	pop    %rbp<br>    <span class="hljs-attribute">1134</span>:	c<span class="hljs-number">3</span>                   	retq   <br>    <span class="hljs-attribute">1135</span>:	<span class="hljs-number">0</span>f <span class="hljs-number">1</span>f <span class="hljs-number">00</span>             	nopl   (%rax)<br>    <span class="hljs-attribute">1138</span>:	c<span class="hljs-number">3</span>                   	retq   <br>    <span class="hljs-attribute">1139</span>:	<span class="hljs-number">0</span>f <span class="hljs-number">1</span>f <span class="hljs-number">80</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	nopl   <span class="hljs-number">0</span>x<span class="hljs-number">0</span>(%rax)<br><br><span class="hljs-attribute">0000000000001140</span> &lt;frame_dummy&gt;:<br>    <span class="hljs-attribute">1140</span>:	f<span class="hljs-number">3</span> <span class="hljs-number">0</span>f <span class="hljs-number">1</span>e fa          	endbr<span class="hljs-number">64</span> <br>    <span class="hljs-attribute">1144</span>:	e<span class="hljs-number">9</span> <span class="hljs-number">77</span> ff ff ff       	jmpq   <span class="hljs-number">10</span>c<span class="hljs-number">0</span> &lt;register_tm_clones&gt;<br><br><span class="hljs-attribute">0000000000001149</span> &lt;main&gt;:<br>    <span class="hljs-attribute">1149</span>:	f<span class="hljs-number">3</span> <span class="hljs-number">0</span>f <span class="hljs-number">1</span>e fa          	endbr<span class="hljs-number">64</span> <br>    <span class="hljs-attribute">114d</span>:	<span class="hljs-number">55</span>                   	push   %rbp<br>    <span class="hljs-attribute">114e</span>:	<span class="hljs-number">48</span> <span class="hljs-number">89</span> e<span class="hljs-number">5</span>             	mov    %rsp,%rbp<br>    <span class="hljs-attribute">1151</span>:	be <span class="hljs-number">15</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span>       	mov    $<span class="hljs-number">0</span>x<span class="hljs-number">15</span>,%esi<br>    <span class="hljs-attribute">1156</span>:	<span class="hljs-number">48</span> <span class="hljs-number">8</span>d <span class="hljs-number">3</span>d a<span class="hljs-number">7</span> <span class="hljs-number">0</span>e <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	lea    <span class="hljs-number">0</span>xea<span class="hljs-number">7</span>(%rip),%rdi        # <span class="hljs-number">2004</span> &lt;_IO_stdin_used+<span class="hljs-number">0</span>x<span class="hljs-number">4</span>&gt;<br>    <span class="hljs-attribute">115d</span>:	b<span class="hljs-number">8</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span>       	mov    $<span class="hljs-number">0</span>x<span class="hljs-number">0</span>,%eax<br>    <span class="hljs-attribute">1162</span>:	e<span class="hljs-number">8</span> e<span class="hljs-number">9</span> fe ff ff       	callq  <span class="hljs-number">1050</span> &lt;printf@plt&gt;<br>    <span class="hljs-attribute">1167</span>:	b<span class="hljs-number">8</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span>       	mov    $<span class="hljs-number">0</span>x<span class="hljs-number">0</span>,%eax<br>    <span class="hljs-attribute">116c</span>:	<span class="hljs-number">5</span>d                   	pop    %rbp<br>    <span class="hljs-attribute">116d</span>:	c<span class="hljs-number">3</span>                   	retq   <br>    <span class="hljs-attribute">116e</span>:	<span class="hljs-number">66</span> <span class="hljs-number">90</span>                	xchg   %ax,%ax<br><br><span class="hljs-attribute">0000000000001170</span> &lt;__libc_csu_init&gt;:<br>    <span class="hljs-attribute">1170</span>:	f<span class="hljs-number">3</span> <span class="hljs-number">0</span>f <span class="hljs-number">1</span>e fa          	endbr<span class="hljs-number">64</span> <br>    <span class="hljs-attribute">1174</span>:	<span class="hljs-number">41</span> <span class="hljs-number">57</span>                	push   %r<span class="hljs-number">15</span><br>    <span class="hljs-attribute">1176</span>:	<span class="hljs-number">4</span>c <span class="hljs-number">8</span>d <span class="hljs-number">3</span>d <span class="hljs-number">3</span>b <span class="hljs-number">2</span>c <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	lea    <span class="hljs-number">0</span>x<span class="hljs-number">2</span>c<span class="hljs-number">3</span>b(%rip),%r<span class="hljs-number">15</span>        # <span class="hljs-number">3</span>db<span class="hljs-number">8</span> &lt;__frame_dummy_init_array_entry&gt;<br>    <span class="hljs-attribute">117d</span>:	<span class="hljs-number">41</span> <span class="hljs-number">56</span>                	push   %r<span class="hljs-number">14</span><br>    <span class="hljs-attribute">117f</span>:	<span class="hljs-number">49</span> <span class="hljs-number">89</span> d<span class="hljs-number">6</span>             	mov    %rdx,%r<span class="hljs-number">14</span><br>    <span class="hljs-attribute">1182</span>:	<span class="hljs-number">41</span> <span class="hljs-number">55</span>                	push   %r<span class="hljs-number">13</span><br>    <span class="hljs-attribute">1184</span>:	<span class="hljs-number">49</span> <span class="hljs-number">89</span> f<span class="hljs-number">5</span>             	mov    %rsi,%r<span class="hljs-number">13</span><br>    <span class="hljs-attribute">1187</span>:	<span class="hljs-number">41</span> <span class="hljs-number">54</span>                	push   %r<span class="hljs-number">12</span><br>    <span class="hljs-attribute">1189</span>:	<span class="hljs-number">41</span> <span class="hljs-number">89</span> fc             	mov    %edi,%r<span class="hljs-number">12</span>d<br>    <span class="hljs-attribute">118c</span>:	<span class="hljs-number">55</span>                   	push   %rbp<br>    <span class="hljs-attribute">118d</span>:	<span class="hljs-number">48</span> <span class="hljs-number">8</span>d <span class="hljs-number">2</span>d <span class="hljs-number">2</span>c <span class="hljs-number">2</span>c <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	lea    <span class="hljs-number">0</span>x<span class="hljs-number">2</span>c<span class="hljs-number">2</span>c(%rip),%rbp        # <span class="hljs-number">3</span>dc<span class="hljs-number">0</span> &lt;__init_array_end&gt;<br>    <span class="hljs-attribute">1194</span>:	<span class="hljs-number">53</span>                   	push   %rbx<br>    <span class="hljs-attribute">1195</span>:	<span class="hljs-number">4</span>c <span class="hljs-number">29</span> fd             	sub    %r<span class="hljs-number">15</span>,%rbp<br>    <span class="hljs-attribute">1198</span>:	<span class="hljs-number">48</span> <span class="hljs-number">83</span> ec <span class="hljs-number">08</span>          	sub    $<span class="hljs-number">0</span>x<span class="hljs-number">8</span>,%rsp<br>    <span class="hljs-attribute">119c</span>:	e<span class="hljs-number">8</span> <span class="hljs-number">5</span>f fe ff ff       	callq  <span class="hljs-number">1000</span> &lt;_init&gt;<br>    <span class="hljs-attribute">11a1</span>:	<span class="hljs-number">48</span> c<span class="hljs-number">1</span> fd <span class="hljs-number">03</span>          	sar    $<span class="hljs-number">0</span>x<span class="hljs-number">3</span>,%rbp<br>    <span class="hljs-attribute">11a5</span>:	<span class="hljs-number">74</span> <span class="hljs-number">1</span>f                	je     <span class="hljs-number">11</span>c<span class="hljs-number">6</span> &lt;__libc_csu_init+<span class="hljs-number">0</span>x<span class="hljs-number">56</span>&gt;<br>    <span class="hljs-attribute">11a7</span>:	<span class="hljs-number">31</span> db                	xor    %ebx,%ebx<br>    <span class="hljs-attribute">11a9</span>:	<span class="hljs-number">0</span>f <span class="hljs-number">1</span>f <span class="hljs-number">80</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> 	nopl   <span class="hljs-number">0</span>x<span class="hljs-number">0</span>(%rax)<br>    <span class="hljs-attribute">11b0</span>:	<span class="hljs-number">4</span>c <span class="hljs-number">89</span> f<span class="hljs-number">2</span>             	mov    %r<span class="hljs-number">14</span>,%rdx<br>    <span class="hljs-attribute">11b3</span>:	<span class="hljs-number">4</span>c <span class="hljs-number">89</span> ee             	mov    %r<span class="hljs-number">13</span>,%rsi<br>    <span class="hljs-attribute">11b6</span>:	<span class="hljs-number">44</span> <span class="hljs-number">89</span> e<span class="hljs-number">7</span>             	mov    %r<span class="hljs-number">12</span>d,%edi<br>    <span class="hljs-attribute">11b9</span>:	<span class="hljs-number">41</span> ff <span class="hljs-number">14</span> df          	callq  *(%r<span class="hljs-number">15</span>,%rbx,<span class="hljs-number">8</span>)<br>    <span class="hljs-attribute">11bd</span>:	<span class="hljs-number">48</span> <span class="hljs-number">83</span> c<span class="hljs-number">3</span> <span class="hljs-number">01</span>          	add    $<span class="hljs-number">0</span>x<span class="hljs-number">1</span>,%rbx<br>    <span class="hljs-attribute">11c1</span>:	<span class="hljs-number">48</span> <span class="hljs-number">39</span> dd             	cmp    %rbx,%rbp<br>    <span class="hljs-attribute">11c4</span>:	<span class="hljs-number">75</span> ea                	jne    <span class="hljs-number">11</span>b<span class="hljs-number">0</span> &lt;__libc_csu_init+<span class="hljs-number">0</span>x<span class="hljs-number">40</span>&gt;<br>    <span class="hljs-attribute">11c6</span>:	<span class="hljs-number">48</span> <span class="hljs-number">83</span> c<span class="hljs-number">4</span> <span class="hljs-number">08</span>          	add    $<span class="hljs-number">0</span>x<span class="hljs-number">8</span>,%rsp<br>    <span class="hljs-attribute">11ca</span>:	<span class="hljs-number">5</span>b                   	pop    %rbx<br>    <span class="hljs-attribute">11cb</span>:	<span class="hljs-number">5</span>d                   	pop    %rbp<br>    <span class="hljs-attribute">11cc</span>:	<span class="hljs-number">41</span> <span class="hljs-number">5</span>c                	pop    %r<span class="hljs-number">12</span><br>    <span class="hljs-attribute">11ce</span>:	<span class="hljs-number">41</span> <span class="hljs-number">5</span>d                	pop    %r<span class="hljs-number">13</span><br>    <span class="hljs-attribute">11d0</span>:	<span class="hljs-number">41</span> <span class="hljs-number">5</span>e                	pop    %r<span class="hljs-number">14</span><br>    <span class="hljs-attribute">11d2</span>:	<span class="hljs-number">41</span> <span class="hljs-number">5</span>f                	pop    %r<span class="hljs-number">15</span><br>    <span class="hljs-attribute">11d4</span>:	c<span class="hljs-number">3</span>                   	retq   <br>    <span class="hljs-attribute">11d5</span>:	<span class="hljs-number">66</span> <span class="hljs-number">66</span> <span class="hljs-number">2</span>e <span class="hljs-number">0</span>f <span class="hljs-number">1</span>f <span class="hljs-number">84</span> <span class="hljs-number">00</span> 	data<span class="hljs-number">16</span> nopw %cs:<span class="hljs-number">0</span>x<span class="hljs-number">0</span>(%rax,%rax,<span class="hljs-number">1</span>)<br>    <span class="hljs-attribute">11dc</span>:	<span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span> <br><br><span class="hljs-attribute">00000000000011e0</span> &lt;__libc_csu_fini&gt;:<br>    <span class="hljs-attribute">11e0</span>:	f<span class="hljs-number">3</span> <span class="hljs-number">0</span>f <span class="hljs-number">1</span>e fa          	endbr<span class="hljs-number">64</span> <br>    <span class="hljs-attribute">11e4</span>:	c<span class="hljs-number">3</span>                   	retq   <br><br><span class="hljs-attribute">Disassembly</span> of section .fini:<br><br><span class="hljs-attribute">00000000000011e8</span> &lt;_fini&gt;:<br>    <span class="hljs-attribute">11e8</span>:	f<span class="hljs-number">3</span> <span class="hljs-number">0</span>f <span class="hljs-number">1</span>e fa          	endbr<span class="hljs-number">64</span> <br>    <span class="hljs-attribute">11ec</span>:	<span class="hljs-number">48</span> <span class="hljs-number">83</span> ec <span class="hljs-number">08</span>          	sub    $<span class="hljs-number">0</span>x<span class="hljs-number">8</span>,%rsp<br>    <span class="hljs-attribute">11f0</span>:	<span class="hljs-number">48</span> <span class="hljs-number">83</span> c<span class="hljs-number">4</span> <span class="hljs-number">08</span>          	add    $<span class="hljs-number">0</span>x<span class="hljs-number">8</span>,%rsp<br>    <span class="hljs-attribute">11f4</span>:	c<span class="hljs-number">3</span>                   	retq <br></code></pre></td></tr></table></figure>
+</details>
+
+
+<p>然后再输入命令<code>./prog</code>即可执行编译出来的文件.</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">linux</span>&gt; ./prog<br><span class="hljs-attribute">10</span> + <span class="hljs-number">11</span> = <span class="hljs-number">21</span> <br></code></pre></td></tr></table></figure>
+<h3 id="其他gcc命令参数"><a href="#其他gcc命令参数" class="headerlink" title="其他gcc命令参数"></a>其他gcc命令参数</h3><p><code>-I dir</code> : 用于指定include包含文件的搜索目录。</p>
+<p><code>-g</code> : 在编译时生成调试信息，该程序可以被调试器调试。</p>
+<p><code>-D</code> : 在程序编译时，指定一个宏。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> DEBUG</span><br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;调试信息打印中\n&quot;</span>);<br><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span><br><br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;正常输出\n&quot;</span>);<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>若使用gcc时指定了<code>DEBUG</code>宏，则实际运行时将会打印调试信息，实际上这种方式也是调试的一种好方式。</p>
+<ul>
+<li><code>-D DEBUG</code>这里可以有空格。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">colourso@c:~/桌面/gcctest$ gcc -o prog prog.c -DDEBUG<br>colourso@c:~/桌面/gcctest$ ./prog <br>调试信息打印中<br>正常输出<br>colourso@c:~/桌面/gcctest$ gcc -o prog prog.c<br>colourso@c:~/桌面/gcctest$ ./prog <br>正常输出<br></code></pre></td></tr></table></figure>
+<p><code>-w</code>：不生成任何警告信息。</p>
+<p><code>-Wall</code>：生成所有的警告信息。</p>
+<p><code>-On</code>：n的取值范围是0-3，表示编译器优化选项的几个级别，<code>-O1</code>为缺省值，<code>-O3</code>为优化级别最高。<code>-o0</code>与<code>-Og</code>表示没有优化。</p>
+<p><code>-l xx</code> ：在程序编译的时候，指定使用的库。</p>
+<p><code>-L dir</code>：指定编译的时候，搜索的库的路径。</p>
+<p><code>-fPIC/fpic</code>：生成与位置无关的代码，一般用于动态库的制作。</p>
+<p><code>-shared</code>：生成共享目标文件，一般用于动态库的制作。</p>
+<p><code>-std=c99</code>：指定c方言，gcc默认方言是<code>GUN C</code>。</p>
+<h2 id="静态库"><a href="#静态库" class="headerlink" title="静态库"></a>静态库</h2><p>文件：head.h，add.c，sub.c，mult.c，div.c，main.c</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//head.h</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> HEAD_H</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> HEAD_H</span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sub</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">mult</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">div</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b)</span></span>;<br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span><br></code></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//add.c</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;head.h&quot;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b)</span></span>&#123;<br>    <span class="hljs-keyword">return</span> a+b;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//sub.c</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;head.h&quot;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sub</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b)</span></span>&#123;<br>    <span class="hljs-keyword">return</span> a-b;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//mult.c</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;head.h&quot;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">mult</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b)</span></span>&#123;<br>    <span class="hljs-keyword">return</span> a*b;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//div.c</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;head.h&quot;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">div</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b)</span></span>&#123;<br>    <span class="hljs-keyword">return</span> a/b;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//main.c</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;head.h&quot;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br><br>    <span class="hljs-keyword">int</span> a = <span class="hljs-number">10</span>;<br>    <span class="hljs-keyword">int</span> b = <span class="hljs-number">5</span>;<br><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d + %d = %d\n&quot;</span>,a,b,add(a,b));<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d - %d = %d\n&quot;</span>,a,b,sub(a,b));<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d * %d = %d\n&quot;</span>,a,b,mult(a,b));<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d / %d = %d\n&quot;</span>,a,b,div(a,b));<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="静态库的命名规则"><a href="#静态库的命名规则" class="headerlink" title="静态库的命名规则"></a>静态库的命名规则</h3><p>Linux：libxxx.a</p>
+<ul>
+<li>lib ：前缀，固定</li>
+<li>xxx ：库的名字，自己起</li>
+<li>.a ：后缀，固定</li>
+</ul>
+<p>Windows：libxxx.lib</p>
+<h3 id="制作"><a href="#制作" class="headerlink" title="制作"></a>制作</h3><ol>
+<li>使用<code>gcc -c</code>生成<code>.o</code>文件；</li>
+<li>使用ar工具（archive）打包生成静态库。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ar rcs libxxx.a aaa.o bbb.o<br></code></pre></td></tr></table></figure>
+<ul>
+<li>r ：将文件插入备存文件中</li>
+<li>c ：建立备存文件</li>
+<li>s ：索引</li>
+</ul>
+<p>对于上述文件，生成静态库：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">colourso@c:~/桌面/ch1linux/05staticlib$ ls<br>add.c  div.c  head.h  main.c  mult.c  sub.c<br>colourso@c:~/桌面/ch1linux/05staticlib$ gcc -c add.c sub.c mult.c div.c <br>colourso@c:~/桌面/ch1linux/05staticlib$ ls<br>add.c  add.o  div.c  div.o  head.h  main.c  mult.c  mult.o  sub.c  sub.o<br>colourso@c:~/桌面/ch1linux/05staticlib$ ar rcs libmycalc.a add.o sub.o mult.o div.o<br>colourso@c:~/桌面/ch1linux/05staticlib$ ls<br>add.c  add.o  div.c  div.o  head.h  libmycalc.a  main.c  mult.c  mult.o  sub.c  sub.o<br></code></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">colourso@c:~/桌面/ch1linux/05staticlib$ gcc -o prog main.c -L . -l mycalc<br>colourso@c:~/桌面/ch1linux/05staticlib$ ls<br>add.c  add.o  div.c  div.o  head.h  libmycalc.a  main.c  mult.c  mult.o  prog  sub.c  sub.o<br>colourso@c:~/桌面/ch1linux/05staticlib$ ./prog<br>10 + 5 = 15<br>10 - 5 = 5<br>10 * 5 = 50<br>10 / 5 = 2<br></code></pre></td></tr></table></figure>
+<p>对于命令<code>gcc -o prog main.c -L . -l mycalc</code></p>
+<p><code>-L .</code>表示在当前目录下搜索库。<br><code>-l mycalc</code>表示使用库<code>libmycalc.a</code>，这里只需要指定库的名字即可。</p>
+<h2 id="动态库"><a href="#动态库" class="headerlink" title="动态库"></a>动态库</h2><h3 id="动态库的命名规则"><a href="#动态库的命名规则" class="headerlink" title="动态库的命名规则"></a>动态库的命名规则</h3><p>Linux：libxxx.so</p>
+<ul>
+<li>lib ：前缀，固定</li>
+<li>xxx ：库的名字，自己起</li>
+<li>.sp ：后缀，固定</li>
+</ul>
+<p>Windows：libxxx.dll</p>
+<h3 id="动态库的制作"><a href="#动态库的制作" class="headerlink" title="动态库的制作"></a>动态库的制作</h3><ol>
+<li>使用<code>gcc -c -fpic</code>生成<code>.o</code>文件，但是要得到位置无关的文件；</li>
+<li>使用<code>gcc -shared xx.o -o libxxx.so</code>生成动态库。</li>
+</ol>
+<p>先将上述文件重新整理后放到新的文件夹下：</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs llvm">.<br>├── include<br>│   └── head.h<br>├── lib<br>├── main.<span class="hljs-keyword">c</span><br>└── src<br>    ├── <span class="hljs-keyword">add</span>.<span class="hljs-keyword">c</span><br>    ├── div.<span class="hljs-keyword">c</span><br>    ├── mult.<span class="hljs-keyword">c</span><br>    └── <span class="hljs-keyword">sub</span>.<span class="hljs-keyword">c</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">colourso@c:~/桌面/ch1linux/06dll/src$ gcc -c -fpic *.c -I ../include<br>colourso@c:~/桌面/ch1linux/06dll/src$ ls<br>add.c  add.o  div.c  div.o  mult.c  mult.o  sub.c  sub.o<br>colourso@c:~/桌面/ch1linux/06dll/src$ gcc -shared *.o -o libmycalc.so<br>colourso@c:~/桌面/ch1linux/06dll/src$ ls<br>add.c  add.o  div.c  div.o  libmycalc.so  mult.c  mult.o  sub.c  sub.o<br></code></pre></td></tr></table></figure>
+<p>然后将<code>.so</code>文件移动至<code>lib</code>目录下。</p>
+<h3 id="动态库的使用"><a href="#动态库的使用" class="headerlink" title="动态库的使用"></a>动态库的使用</h3><p>文件分布：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs stylus">.<br>├── include<br>│   └── head.h<br>├── lib<br>│   └── libmycalc.so<br>├── main.c<br>└── src<br>    ├── add.c<br>    ├── add.o<br>    ├── <span class="hljs-selector-tag">div</span>.c<br>    ├── <span class="hljs-selector-tag">div</span>.o<br>    ├── mult.c<br>    ├── mult.o<br>    ├── sub.c<br>    └── sub.o<br></code></pre></td></tr></table></figure>
+<p>使用动态库，生成可执行程序，但是在执行程序的时候却报错了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">colourso@c:~/桌面/ch1linux/06dll$ gcc -o main main.c -I ./include -L lib/ -l mycalc<br>colourso@c:~/桌面/ch1linux/06dll$ ls<br>include  lib  main  main.c  src<br>colourso@c:~/桌面/ch1linux/06dll$ ./main<br>./main: error while loading shared libraries: libmycalc.so: cannot open shared object file: No such file or directory<br><br></code></pre></td></tr></table></figure>
+<p>然后使用ldd命令（list dynamic dependencies）检查动态库依赖关系，可以看到<code>libmycalc.so</code>未找到。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">colourso@c:~/桌面/ch1linux/06dll$ ldd main<br>	linux-vdso.so.1 (0x00007ffc44d16000)<br>	libmycalc.so =&gt; not found<br>	libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007fa620ff8000)<br>	/lib64/ld-linux-x86-64.so.2 (0x00007fa621200000)<br></code></pre></td></tr></table></figure>
+<h3 id="动态库报错原因"><a href="#动态库报错原因" class="headerlink" title="动态库报错原因"></a>动态库报错原因</h3><ul>
+<li>静态库：GCC进行链接时，会把静态库中代码打包到可执行程序中；</li>
+<li>动态库：GCC进行链接时，动态库的代码不会被打包到可执行程序中，而是在程序启动之后，动态库会被动态加载到内存之中，再被原先程序调用。</li>
+</ul>
+<p>当系统加载可执行代码时候，能够知道其所依赖的库的名字，但是还需要知道<strong>绝对路径</strong>。此时就需要系统的<strong>动态载入器</strong>来获取该绝对路径。</p>
+<p>对于elf格式的可执行程序，是由<code>ld-linux.so</code>来完成的，它会先后搜索elf文件的<code>DT_RPATH段</code> ——&gt; 环境变量<code>LD_LIBRARY_PATH</code> ——&gt; <code>/etc/ld.so.cache</code>文件列表 ——&gt; <code>/lib/</code>，<code>/usr/lib</code>目录找到库文件后将其载入内存。</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p><code>DT_RPATH段</code>一般不考虑，我们一般改变不了。</p>
+<h4 id="配置环境变量LD-LIBRARY-PATH"><a href="#配置环境变量LD-LIBRARY-PATH" class="headerlink" title="配置环境变量LD_LIBRARY_PATH"></a>配置环境变量<code>LD_LIBRARY_PATH</code></h4><ol>
+<li>临时配置，在当前的终端之内有效</li>
+</ol>
+<p>当终端关掉或者更换一个终端时就会失效。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash">colourso@c:~/桌面/ch1linux/06dll$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$LD_LIBRARY_PATH</span><br>【空白，什么也没有】<br>colourso@c:~/桌面/ch1linux/06dll$ <span class="hljs-built_in">export</span> LD_LIBRARY_PATH=<span class="hljs-variable">$LD_LIBRARY_PATH</span>:/home/colourso/桌面/ch1linux/06dll/lib<br>colourso@c:~/桌面/ch1linux/06dll$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$LD_LIBRARY_PATH</span><br>:/home/colourso/桌面/ch1linux/06dll/lib<br>colourso@c:~/桌面/ch1linux/06dll$ ldd main<br>	linux-vdso.so.1 (0x00007ffef9dc2000)<br>	libmycalc.so =&gt; /home/colourso/桌面/ch1linux/06dll/lib/libmycalc.so (0x00007f82b4f5b000)<br>	libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007f82b4d5a000)<br>	/lib64/ld-linux-x86-64.so.2 (0x00007f82b4f67000)<br>colourso@c:~/桌面/ch1linux/06dll$ ./main<br>10 + 5 = 15<br>10 - 5 = 5<br>10 * 5 = 50<br>10 / 5 = 2<br></code></pre></td></tr></table></figure>
+<ol start="2">
+<li>用户级别的配置</li>
+</ol>
+<p>在用户目录<code>~</code>下有一个文件<code>.bashrc</code>，通过修改文件，添加配置即可解决问题。</p>
+<p>通过vi编辑，在其文件末尾添加命令<code>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/colourso/桌面/ch1linux/06dll/lib</code>，然后要使修改生效，输入命令<code>source .bashrc</code>即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">colourso@c:~/桌面/ch1linux/06dll$ <span class="hljs-built_in">cd</span> ~<br>colourso@c:~$ vi .bashrc<br>colourso@c:~$ <span class="hljs-built_in">source</span> .bashrc<br></code></pre></td></tr></table></figure>
+<p>此时再执行原来的文件，也没有任何问题。</p>
+<ol start="3">
+<li>系统级别的配置</li>
+</ol>
+<p>先将上述用户级别的配置删除。<br>修改文件<code>/etc/profile</code>，和上述相同的操作来实现配置。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">colourso@c:~/桌面/ch1linux/06dll$ sudo vi /etc/profile<br>colourso@c:~/桌面/ch1linux/06dll$ <span class="hljs-built_in">source</span> /etc/profile<br>colourso@c:~/桌面/ch1linux/06dll$ ldd main<br>	linux-vdso.so.1 (0x00007fffe52ef000)<br>	libmycalc.so =&gt; /home/colourso/桌面/ch1linux/06dll/lib/libmycalc.so (0x00007fbfaf973000)<br>	libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007fbfaf772000)<br>	/lib64/ld-linux-x86-64.so.2 (0x00007fbfaf97f000)<br></code></pre></td></tr></table></figure>
+<h4 id="配置-etc-ld-so-cache文件列表"><a href="#配置-etc-ld-so-cache文件列表" class="headerlink" title="配置/etc/ld.so.cache文件列表"></a>配置<code>/etc/ld.so.cache</code>文件列表</h4><p>配置之前，先将上述过程的配置修改为原样。</p>
+<p>实际上<code>/etc/ld.so.cache</code>是一个二进制文件不能修改，我们通常配置的是<code>/etc/ld.so.conf</code>文件。</p>
+<p>打开文件之后，只需要在文件末尾添加路径即可<code>/home/colourso/桌面/ch1linux/06dll/lib</code>。之后更新配置<code>sudo ldconfig</code>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">colourso@c:~/桌面/ch1linux/06dll$ sudo vi /etc/ld.so.conf<br>colourso@c:~/桌面/ch1linux/06dll$ sudo ldconfig<br>colourso@c:~/桌面/ch1linux/06dll$ ldd main<br>	linux-vdso.so.1 (0x00007ffeb4979000)<br>	libmycalc.so =&gt; /home/colourso/桌面/ch1linux/06dll/lib/libmycalc.so (0x00007f5ca4cab000)<br>	libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007f5ca4aba000)<br>	/lib64/ld-linux-x86-64.so.2 (0x00007f5ca4cc7000)<br></code></pre></td></tr></table></figure>
+<h4 id="lib-以及-usr-lib目录"><a href="#lib-以及-usr-lib目录" class="headerlink" title="/lib/以及/usr/lib目录"></a><code>/lib/</code>以及<code>/usr/lib</code>目录</h4><p>一般不建议将自己的动态库放置到这两个目录下，因为原本它就含有很多的库文件，如果一不小心重名覆盖，将会有很大的隐患。</p>
+<h2 id="静态库与动态库对比"><a href="#静态库与动态库对比" class="headerlink" title="静态库与动态库对比"></a>静态库与动态库对比</h2><ol>
+<li>链接阶段不同，链接的方式分别称为静态链接方式和动态链接方式。</li>
+</ol>
+<ul>
+<li>静态链接方式：GCC进行链接时，会把静态库中代码打包到可执行程序中；</li>
+<li>动态链接方式：GCC进行链接时，动态库的代码不会被打包到可执行程序中，而是在程序启动之后，动态库会被动态加载到内存之中，再被原先程序调用。</li>
+</ul>
+<ol start="2">
+<li>制作过程</li>
+</ol>
+<ul>
+<li>静态库：生成<code>.o</code>文件，ar工具制作</li>
+<li>动态库：使用命令<code>-fpic</code>生成位置无关的<code>.o</code>文件，然后再用GCC命令<code>-shared</code>生成动态库。</li>
+</ul>
+<ol start="3">
+<li><p>动态库使用时需要额外的配置</p>
+</li>
+<li><p>静态库优点</p>
+</li>
+</ol>
+<ul>
+<li>静态库被打包到应用程序，加载速度快</li>
+<li>发布程序不需要提供静态库，移植也比较方便</li>
+</ul>
+<ol start="5">
+<li>静态库缺点</li>
+</ol>
+<ul>
+<li>消耗系统资源，浪费内存。例如10个程序都需要使用静态库a，那么这个库就会被加载10份在内存之中。</li>
+<li>更新，部署、发布麻烦。一旦静态库更新，整个程序都要重新编译。</li>
+</ul>
+<ol start="6">
+<li>动态库优点</li>
+</ol>
+<ul>
+<li>可以实现进程间的资源共享。多个程序只需要一份动态库被加载到内存即可。</li>
+<li>更新、部署、发布简单。</li>
+<li>可以控制何时加载动态库。</li>
+</ul>
+<ol start="7">
+<li>动态库缺点</li>
+</ol>
+<ul>
+<li>加载速度比静态库慢。</li>
+<li>发布程序的时候需要提供依赖的动态库。</li>
+</ul>
+<h2 id="makefile文件"><a href="#makefile文件" class="headerlink" title="makefile文件"></a>makefile文件</h2><h3 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h3><p>目标 ： 依赖<br>(tab) 命令</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/math-base/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【置顶】数学基础知识、常用公式总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/leetcode-1/">
+                        <span class="hidden-mobile">算法题（一）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+
+  
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
