@@ -1,0 +1,780 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>Git基本操作 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Git基本操作">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-05-21 14:14" pubdate>
+        2020年5月21日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      62
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Git基本操作</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年3月3日 下午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p><strong>概览</strong>：Git安装以及使用。</p>
+<a id="more"></a>
+
+<h2 id="Git学习"><a href="#Git学习" class="headerlink" title="Git学习"></a>Git学习</h2><p>Git是一个 <strong>分布式版本控制系统</strong>。</p>
+<ul>
+<li>集中式版本控制：版本库集中存放在中央服务器，工作时需要用自己的电脑从中央服务器取得最新版本。</li>
+<li>分布式版本控制：没有“中央服务器”，每个人的电脑上都是一个完整的版本库，多人协作时只需将各自的修改推送给对方。</li>
+<li>实际使用时，分布式版本控制系统通常有一台电脑充当中央服务器，方便所有人交换修改。</li>
+<li>分布式版本控制的优点：可以不联网、可以不需要中央服务器、比集中式安全和及其强大的分支管理。</li>
+</ul>
+<h2 id="Git安装配置"><a href="#Git安装配置" class="headerlink" title="Git安装配置"></a>Git安装配置</h2><p>Windows下直接去官网下载： <a target="_blank" rel="noopener" href="https://git-scm.com/">https://git-scm.com/</a> </p>
+<p>安装完成后记得在命令行设置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git config --global user.name <span class="hljs-string">&quot;Your Name&quot;</span><br>$ git config --global user.email <span class="hljs-string">&quot;email@example.com&quot;</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>因为Git是分布式版本控制系统，所以，每个机器都必须自报家门：你的名字和Email地址。 </li>
+<li><code>--global</code>参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置 .</li>
+</ul>
+<h2 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h2><blockquote>
+<p>什么是版本库呢？版本库又名仓库，英文名<strong>repository</strong>，你可以简单理解成一个目录，这个目录里面的所有文件都可以被Git管理起来，每个文件的修改、删除，Git都能跟踪，以便任何时刻都可以追踪历史，或者在将来某个时刻可以“还原”。 </p>
+</blockquote>
+<ul>
+<li><p>创建一个空目录，最好路径最好不要有中文。</p>
+</li>
+<li><p>打开Git工具，在此目录下执行<code>git init</code>。这样一个空仓库就创建完成，路径下有一个<code>.git</code>目录。</p>
+<ul>
+<li><code>.git</code>目录是Git工具用于跟踪管理版本库的，不要随意修改。</li>
+</ul>
+</li>
+<li><p>所有的版本控制系统都只能追踪文本文件的修改，可以告诉你每次的改动，但二进制文件就无法跟踪了。</p>
+</li>
+</ul>
+<h3 id="添加文件到版本库中"><a href="#添加文件到版本库中" class="headerlink" title="添加文件到版本库中"></a>添加文件到版本库中</h3><p>例如在这个目录创建一个<code>readme.md</code>文件，然后编辑两行内容。</p>
+<p>第一步：把文件添加进仓库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git add readme.md<br></code></pre></td></tr></table></figure>
+<p>无任何消息提示，说明添加成功</p>
+<p>第二步：用命令告诉Git，把文件提交到仓库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git commit -m<span class="hljs-string">&quot;wrote a readme file&quot;</span><br></code></pre></td></tr></table></figure>
+<p>提示信息为</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">[master (root-commit) 2ddec99] wrote a reaeadme file<br> 1 file changed, 3 insertions(+)<br> create mode 100644 readme.md<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>-m</code>后面接本次提交的说明，最好输入有意义的内容。</li>
+<li>可以先<code>add</code>多个文件，然后<code>commit</code>。</li>
+</ul>
+<h3 id="查看仓库的当前状态"><a href="#查看仓库的当前状态" class="headerlink" title="查看仓库的当前状态"></a>查看仓库的当前状态</h3><p>当修改<code>readme.md</code>文档后，直接运行<code>git status</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">On branch master<br>Changes not staged <span class="hljs-keyword">for</span> commit:<br>  (use <span class="hljs-string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)<br>  (use <span class="hljs-string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="hljs-keyword">in</span> working directory)<br>        modified:   readme.md<br><br>no changes added to commit (use <span class="hljs-string">&quot;git add&quot;</span> and/or <span class="hljs-string">&quot;git commit -a&quot;</span>)<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>git status</code>可以让我们得知仓库当前的状态。上述内容就告诉我们文件修改但未提交。</li>
+</ul>
+<h3 id="查看文档修改内容"><a href="#查看文档修改内容" class="headerlink" title="查看文档修改内容"></a>查看文档修改内容</h3><p>使用<code>git diff &lt;filename&gt;</code>这个命令就可以查看和原内容的区别。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">diff --git a/readme.md b/readme.md<br>index 00521b4..2a74408 100644<br>--- a/readme.md<br>+++ b/readme.md<br>@@ -1,3 +1,3 @@<br>-123<br>+Git is powerful too.<br><br>-456<br>\ No newline at end of file<br>+By Colourso.<br>\ No newline at end of file<br></code></pre></td></tr></table></figure>
+<ul>
+<li>删去了123，增加了<code>Git is powerful too.</code>。……</li>
+</ul>
+<h3 id="提交修改"><a href="#提交修改" class="headerlink" title="提交修改"></a>提交修改</h3><p>同提交新文件。</p>
+<p>第一步：<code>git add readme.md</code></p>
+<p>第二步：<code>git commit -m&quot;……&quot;</code></p>
+<p>然后再查询状态<code>git status</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">On branch master<br>nothing to commit, working tree clean<br></code></pre></td></tr></table></figure>
+<h2 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h2><h3 id="查看commit记录"><a href="#查看commit记录" class="headerlink" title="查看commit记录"></a>查看commit记录</h3><p>使用<code>git log</code>就可以查看git记录了，从最近到远。</p>
+<ul>
+<li>一长串的无规律字符是<code>commit id</code>，及版本号。</li>
+<li><code>--pretty=oneline</code>这个参数用来简化输出结果，只有版本号以及修改信息</li>
+</ul>
+<p>同时还能看到我们<code>commit</code>的后接参数<code>-m</code>里的信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">commit 5520407e2933d035fa2fbdfeb23e5599b6409fcc (HEAD -&gt; master)<br>Author: Colourso &lt;colourso@outlook.com&gt;<br>Date:   Thu May 14 16:32:14 2020 +0800<br><br>    alter new content<br><br>commit 257d8d9e93d784c98162fdc3ae77a6f77dcec19a<br>Author: Colourso &lt;colourso@outlook.com&gt;<br>Date:   Thu May 14 16:25:42 2020 +0800<br><br>    wrote a readme file<br></code></pre></td></tr></table></figure>
+<h3 id="HEAD-当前版本"><a href="#HEAD-当前版本" class="headerlink" title="HEAD 当前版本"></a>HEAD 当前版本</h3><blockquote>
+<p> 在Git中，用<code>HEAD</code>表示当前版本，也就是最新的提交<code>1094adb...</code>（注意我的提交ID和你的肯定不一样），上一个版本就是<code>HEAD^</code>，上上一个版本就是<code>HEAD^^</code>，当然往上100个版本写100个<code>^</code>比较容易数不过来，所以写成<code>HEAD~100</code>。 </p>
+<p><code>HEAD</code>其实是指向当前版本的指针，下面的回退或者到未来的操作都是改变<code>HEAD</code>指针的指向。</p>
+</blockquote>
+<h3 id="回退上一版本"><a href="#回退上一版本" class="headerlink" title="回退上一版本"></a>回退上一版本</h3><p>使用命令<code>git reset</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git reset --hard HEAD^<br><br>输出结果：HEAD is now at 257d8d9 wrote a readme file<br></code></pre></td></tr></table></figure>
+<p>这时再查询<code>git log</code>就会发现比上面少了一个记录，说明回退成功。</p>
+<h3 id="回到未来的版本"><a href="#回到未来的版本" class="headerlink" title="回到未来的版本"></a>回到未来的版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git reset --hard 552040 <span class="hljs-comment">#只需要commit id的几位即可</span><br></code></pre></td></tr></table></figure>
+<p>如果找不到了<code>commit id</code>，可使用<code>git reflog</code>来找到你的命令，前面几位数字就是<code>commit id</code>的前几位。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git reflog<br>5520407 (HEAD -&gt; master) HEAD@&#123;0&#125;: reset: moving to 5520<br>257d8d9 HEAD@&#123;1&#125;: reset: moving to HEAD^<br>5520407 (HEAD -&gt; master) HEAD@&#123;2&#125;: reset: moving to HEAD<br>5520407 (HEAD -&gt; master) HEAD@&#123;3&#125;: commit: alter new content<br>257d8d9 HEAD@&#123;4&#125;: commit (initial): wrote a readme file<br></code></pre></td></tr></table></figure>
+<h3 id="工作区与暂存区的概念"><a href="#工作区与暂存区的概念" class="headerlink" title="工作区与暂存区的概念"></a>工作区与暂存区的概念</h3><ul>
+<li><strong>工作区</strong>：Working Directory，即我们创建的哪个文件夹。</li>
+<li><strong>版本库</strong>：Repository，工作区里的<code>.git</code>目录，暂存区就存在其中。</li>
+<li>暂存区：叫stage，或者index。</li>
+<li> 因为我们创建Git版本库时，Git自动为我们创建了唯一一个<code>master</code>分支，所以，现在，<code>git commit</code>就是往<code>master</code>分支上提交更改。 </li>
+</ul>
+<p><code>git add</code>操作，实际是把文件添加到暂存区。</p>
+<p><code>git commit</code>操作，提交更改，将暂存区内容提交到。</p>
+<ul>
+<li>使用<code>git status</code>可以查看到未被添加的文件是<code>Untracked</code>。</li>
+<li>提交修改以及新文件之后，使用<code>git status</code>就能看到<code>nothing to commit, working tree clean</code>。</li>
+</ul>
+<h3 id="管理修改"><a href="#管理修改" class="headerlink" title="管理修改"></a>管理修改</h3><p><strong>git跟踪并管理的是修改，而非文件</strong>。</p>
+<p>当你修改文件并且<code>git add</code>之后，修改就会放入暂存区，而接着进行第二次修改，没有<code>git add</code>直接<code>git commit</code>的话，提交到master的是第一次修改的内容。</p>
+<p>所以每次修改如果不主动<code>git add</code>添加到暂存区，那么修改也不会加入到<code>commit</code>中。</p>
+<h3 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h3><blockquote>
+<p>场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令<code>git checkout -- file</code>。</p>
+<ul>
+<li>命令<code>git checkout -- readme.txt</code>意思就是，把<code>readme.txt</code>文件在工作区的修改全部撤销，这里有两种情况：<ul>
+<li>一种是<code>readme.txt</code>自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；</li>
+<li>一种是<code>readme.txt</code>已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。</li>
+<li>总之，就是让这个文件回到最近一次<code>git commit</code>或<code>git add</code>时的状态。</li>
+</ul>
+</li>
+</ul>
+<p>场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令<code>git reset HEAD &lt;file&gt;</code>，就回到了场景1，第二步按场景1操作。</p>
+<p>场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。</p>
+</blockquote>
+<h3 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h3><p>当把一个文件commit到仓库之后，在工作区删除了，使用<code>git status</code>就会看到这个文件是<code>deleted</code>。</p>
+<p>删除工作区文件后两种选择：</p>
+<ol>
+<li><p>一起删除版本库中的文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">colou@LAPTOP-0MEIEISE MINGW64 /d/learn/git/helloworld3 (master)<br>$ git rm hello.txt<br>rm <span class="hljs-string">&#x27;hello.txt&#x27;</span><br><br>colou@LAPTOP-0MEIEISE MINGW64 /d/learn/git/helloworld3 (master)<br>$ git commit -m<span class="hljs-string">&quot;remove a txt file&quot;</span><br>[master ab13cff] remove a txt file<br> 1 file changed, 1 deletion(-)<br> delete mode 100644 hello.txt<br></code></pre></td></tr></table></figure></li>
+<li><p>误删除，恢复误删的文件。(此时没有commit)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git checkout -- hello.txt<br></code></pre></td></tr></table></figure>
+<p>这样就可以恢复删除的文件了，</p>
+<blockquote>
+<p> <code>git checkout</code>其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”。 </p>
+</blockquote>
+</li>
+</ol>
+<h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><h3 id="配置SSH-Key"><a href="#配置SSH-Key" class="headerlink" title="配置SSH Key"></a>配置SSH Key</h3><blockquote>
+<p>为什么GitHub需要SSH Key呢？因为GitHub需要识别出你推送的提交确实是你推送的，而不是别人冒充的，而Git支持SSH协议，所以，GitHub只要知道了你的公钥，就可以确认只有你自己才能推送。</p>
+<p>当然，GitHub允许你添加多个Key。假定你有若干电脑，你一会儿在公司提交，一会儿在家里提交，只要把每台电脑的Key都添加到GitHub，就可以在每台电脑上往GitHub推送了。</p>
+</blockquote>
+<p>先检查自己电脑路径<code>C:\Users\你的用户名\</code>下是否有<code>.ssh</code>目录以及目录下是否有<code>id_rsa</code>和<code>id_rsa.pub</code>两个文件，没有的话执行命令<code>ssh-keygen -t rsa -C &quot;youremail@example.com&quot;</code>，邮箱填写自己的，一直回车即可。</p>
+<p>如果已经有的话就直接登陆Github，在账户的设置中，选择<code>SSH and GPG keys</code>，然后起一个<code>title</code>，将刚才生成的<code>id_rsa.pub</code>文件使用记事本打开。复制内容粘贴到<code>Key</code>中，这样就添加完成。</p>
+<p>可以使用命令<code>ssh -T git@github.com</code>来测试是否成功，这里不需要修改那个邮箱地址。有问题输入yes，然后如果出现类似<code>You’ve successfully authenticated, but GitHub does not provide shell access.</code>这种话就成功了。</p>
+<h3 id="添加一个远程库"><a href="#添加一个远程库" class="headerlink" title="添加一个远程库"></a>添加一个远程库</h3><p>以我要新建的仓库<code>Collect-Simple-Web</code>为例。</p>
+<p>本地新建一个目录就叫做<code>Collect-Simple-Web</code>，然后将我收集整理好的文件放到这个目录中。</p>
+<p>使用git工具，<code>git init</code>进行初始化。</p>
+<p>然后执行<code>git add .</code>，意思是将所有的文件添加到暂存库。结果如下，会有一堆关于<code>LF</code>被替换成<code>CRLF</code>的警告，忽略就好。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git add .<br>warning: LF will be replaced by CRLF <span class="hljs-keyword">in</span> 01 Self-adaption login page/assets/css/login.css.<br>The file will have its original line endings <span class="hljs-keyword">in</span> your working directory<br>warning: LF will be replaced by CRLF <span class="hljs-keyword">in</span> 01 Self-adaption login page/assets/libs/layui/css/layui.css.<br></code></pre></td></tr></table></figure>
+<p>然后<code>git commit</code>一下。</p>
+<p>之后执行下列指令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git remote add origin git@github.com:Colourso/Collect-Simple-Web.git<br><br>$ git push -u origin master<br>Enumerating objects: 183, <span class="hljs-keyword">done</span>.<br>Counting objects: 100% (183/183), <span class="hljs-keyword">done</span>.<br>Delta compression using up to 8 threads<br>Compressing objects: 100% (175/175), <span class="hljs-keyword">done</span>.<br>Writing objects: 100% (183/183), 7.23 MiB | 127.00 KiB/s, <span class="hljs-keyword">done</span>.<br>Total 183 (delta 4), reused 0 (delta 0)<br>remote: Resolving deltas: 100% (4/4), <span class="hljs-keyword">done</span>.<br>To github.com:Colourso/Collect-Simple-Web.git<br> * [new branch]      master -&gt; master<br>Branch <span class="hljs-string">&#x27;master&#x27;</span> <span class="hljs-built_in">set</span> up to track remote branch <span class="hljs-string">&#x27;master&#x27;</span> from <span class="hljs-string">&#x27;origin&#x27;</span>.<br></code></pre></td></tr></table></figure>
+<ul>
+<li><p><code>origin</code>是远程库的名字，这是Git默认的叫法，也可以改成别的，但是origin这个名字一看就知道是远程库。</p>
+</li>
+<li><p>把本地库的内容推送到远程，用<code>git push</code>命令，实际上是把当前分支master推送到远程。</p>
+<p>由于远程库是空的，我们第一次推送master分支时，加上了<code>-u</code>参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。</p>
+</li>
+<li><p>此后，每次本地commit后，只要有必要，就可以使用命令<code>git push origin master</code>推送最新修改；无需再加<code>-u</code>。</p>
+</li>
+</ul>
+<h3 id="从远程库克隆"><a href="#从远程库克隆" class="headerlink" title="从远程库克隆"></a>从远程库克隆</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> git@github.com:Colourso/Books.git<br></code></pre></td></tr></table></figure>
+<p>Github还提供了<code>https</code>地址来克隆，但是<code>https</code>比<code>ssh</code>协议要慢。</p>
+<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><blockquote>
+<p>分支在实际中有什么用呢？假设你准备开发一个新功能，但是需要两周才能完成，第一周你写了50%的代码，如果立刻提交，由于代码还没写完，不完整的代码库会导致别人不能干活了。如果等代码全部写完再一次提交，又存在丢失每天进度的巨大风险。</p>
+<p>现在有了分支，就不用怕了。你创建了一个属于你自己的分支，别人看不到，还继续在原来的分支上正常工作，而你在自己的分支上干活，想提交就提交，直到开发完毕后，再一次性合并到原来的分支上，这样，既安全，又不影响别人工作。</p>
+</blockquote>
+<h3 id="创建与合并分支"><a href="#创建与合并分支" class="headerlink" title="创建与合并分支"></a>创建与合并分支</h3><p>链接： <a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/896043488029600/900003767775424">https://www.liaoxuefeng.com/wiki/896043488029600/900003767775424</a></p>
+<p>包含相关图例</p>
+<blockquote>
+<p> 每次提交，Git都把它们串成一条时间线，这条时间线就是一个分支。截止到目前，只有一条时间线，在Git里，这个分支叫主分支，即<code>master</code>分支。<code>HEAD</code>严格来说不是指向提交，而是指向<code>master</code>，<code>master</code>才是指向提交的，所以，<code>HEAD</code>指向的就是当前分支。 </p>
+</blockquote>
+<p>Git用<code>master</code>分支指向最新的提交，再用<code>HEAD</code>指针指向<code>master</code>。</p>
+<p>当我们创建新的分支，例如<code>dev</code>时，Git新建了一个指针叫<code>dev</code>，指向<code>master</code>相同的提交，再把<code>HEAD</code>指向<code>dev</code>，就表示当前分支在<code>dev</code>上。</p>
+<p>这时候提交新的内容，全部都保存在<code>dev</code>分支上，如果切换到<code>master</code>分支的话，将不会看到修改变化的内容。</p>
+<p>而当想合并<code>dev</code>到<code>master</code>分支时，直接修改<code>master</code>指针到dev最新的节点即可。</p>
+<p>上述的切换分支、合并分支以及创建分支、删除分支等操作只需要修改修改指针、改变<code>HEAD</code>指针的指向即可，所以这些操作非常的快。</p>
+<blockquote>
+<p> Git鼓励你使用分支完成某个任务，合并后再删掉分支，这和直接在<code>master</code>分支上工作效果是一样的，但过程更安全。 </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git checkout -b dev 		<span class="hljs-comment"># 创建并且切换到分支dev</span><br>Switched to a new branch <span class="hljs-string">&#x27;dev&#x27;</span><br><br>$ git branch				<span class="hljs-comment"># 查看所有分支，*表示当前分支</span><br>* dev<br>  master<br><br><span class="hljs-comment"># 在dev分支，提交相关东西、完成一个规划……</span><br><br>$ git checkout master		<span class="hljs-comment"># 切换当前分支到master分支</span><br>Switched to branch <span class="hljs-string">&#x27;master&#x27;</span><br><br>$ git merge dev				<span class="hljs-comment"># 合并分支</span><br>Updating ab13cff..6c72d67<br>Fast-forward<br>……<br><br>$ git branch -d dev			<span class="hljs-comment"># 删除dev分支</span><br>Deleted branch dev (was 6c72d67).<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>Git鼓励大量使用分支：</p>
+<p>查看分支：<code>git branch</code></p>
+<p>创建分支：<code>git branch </code></p>
+<p>切换分支：<code>git checkout </code>或者<code>git switch </code></p>
+<p>创建+切换分支：<code>git checkout -b </code>或者<code>git switch -c </code></p>
+<p>合并某分支到当前分支：<code>git merge </code></p>
+<p>删除分支：<code>git branch -d </code></p>
+</blockquote>
+<blockquote>
+<p> Git常用命令参考手册： <a target="_blank" rel="noopener" href="https://github.com/xjh22222228/git-manual">https://github.com/xjh22222228/git-manual</a></p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/GIT/">GIT</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/SOP/">SOP</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/c-snake-pro2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">C++基于EasyX制作贪吃蛇游戏（二）第一版代码与程序简单更新</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/Js-learn/">
+                        <span class="hidden-mobile">【转载】跟着9张思维导图学习Javascript</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+
+  
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
