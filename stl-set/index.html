@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.3k 字
+      2.4k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      42
+      44
        分钟
     </span>
   
@@ -248,12 +248,12 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年2月5日 上午
+                  本文最后更新于：2021年3月4日 下午
                 
               </p>
             
             <div class="markdown-body">
-              <p>STL中set集合、multiset集合的用法。</p>
+              <p>STL中set集合、multiset集合、unordered_set的用法。</p>
 <a id="more"></a>
 
 <hr>
@@ -263,8 +263,7 @@
 <li>此外不能够通过set的迭代器修改set元素的值，因为其本身就是<strong>键值</strong>，任意改变会破坏set的组织结构。</li>
 <li>构造set集合的主要目的是为了快速检索，去重与排序。</li>
 </ul>
-<h2 id="set函数"><a href="#set函数" class="headerlink" title="set函数"></a>set函数</h2><p><img src="/stl-set/set_function.png" srcset="/img/loading.gif" alt="set_function"></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">set</span>&lt;T&gt; st; <span class="hljs-comment">//默认构造函数：</span><br><br><span class="hljs-built_in">set</span>(<span class="hljs-keyword">const</span> <span class="hljs-built_in">set</span> &amp;st); <span class="hljs-comment">//拷贝构造函数</span><br><br><span class="hljs-built_in">set</span>&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> <span class="hljs-built_in">set</span> &amp;st); <span class="hljs-comment">//重载等号操作符</span><br><br>size(); <span class="hljs-comment">//返回容器中元素的数目</span><br><br>empty(); <span class="hljs-comment">//判断容器是否为空</span><br><br>swap(st); <span class="hljs-comment">//交换两个集合容器</span><br><br>insert(elem); <span class="hljs-comment">//在容器中插入元素，返回值是对组pair&lt;set&lt;T&gt;::iterator,bool&gt;，bool表示是否插入成功</span><br><br>clear(); <span class="hljs-comment">//清除所有元素</span><br><br>erase(pos); <span class="hljs-comment">//删除pos迭代器所指的元素，返回下一个元素的迭代器。</span><br><br>erase(beg, end); <span class="hljs-comment">//删除区间[beg,end)的所有元素 ，返回下一个元素的迭代器。</span><br><br>erase(elem); <span class="hljs-comment">//删除容器中值为elem的元素。</span><br><br>find(key); <span class="hljs-comment">//查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();</span><br><br>count(key); <span class="hljs-comment">//统计key的元素个数,set容器为0或者1，multiset可能会大于1</span><br></code></pre></td></tr></table></figure>
+<h2 id="set函数"><a href="#set函数" class="headerlink" title="set函数"></a>set函数</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">set</span>&lt;T&gt; st; <span class="hljs-comment">//默认构造函数：</span><br><br><span class="hljs-built_in">set</span>(<span class="hljs-keyword">const</span> <span class="hljs-built_in">set</span> &amp;st); <span class="hljs-comment">//拷贝构造函数</span><br><br><span class="hljs-built_in">set</span>&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> <span class="hljs-built_in">set</span> &amp;st); <span class="hljs-comment">//重载等号操作符</span><br><br>size(); <span class="hljs-comment">//返回容器中元素的数目</span><br><br>empty(); <span class="hljs-comment">//判断容器是否为空</span><br><br>swap(st); <span class="hljs-comment">//交换两个集合容器</span><br><br>insert(elem); <span class="hljs-comment">//在容器中插入元素，返回值是对组pair&lt;set&lt;T&gt;::iterator,bool&gt;，bool表示是否插入成功</span><br><br>clear(); <span class="hljs-comment">//清除所有元素</span><br><br>erase(pos); <span class="hljs-comment">//删除pos迭代器所指的元素，返回下一个元素的迭代器。</span><br><br>erase(beg, end); <span class="hljs-comment">//删除区间[beg,end)的所有元素 ，返回下一个元素的迭代器。</span><br><br>erase(elem); <span class="hljs-comment">//删除容器中值为elem的元素。</span><br><br>find(key); <span class="hljs-comment">//查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();</span><br><br>count(key); <span class="hljs-comment">//统计key的元素个数,set容器为0或者1，multiset可能会大于1</span><br></code></pre></td></tr></table></figure>
 <h2 id="set基本操作"><a href="#set基本操作" class="headerlink" title="set基本操作"></a>set基本操作</h2><h3 id="创建set对象"><a href="#创建set对象" class="headerlink" title="创建set对象"></a>创建set对象</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt; a;	<span class="hljs-comment">//set&lt;类型&gt; 对象名</span><br><br><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>,myComp&gt; a;<span class="hljs-comment">//set&lt;类型，比较结构体或类&gt; 对象名，</span><br><br><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">const</span> <span class="hljs-built_in">set</span>&amp;&gt; <span class="hljs-comment">//set自带拷贝构造函数</span><br><br>set&lt;类型&gt; a(first,last);//使用[first,last)所指的对象。<br></code></pre></td></tr></table></figure>
 <ul>
 <li>set容器默认是从小到大进行排序，<code>set&lt;int,myComp&gt; a;</code>可通过这种方式来修改其默认的排序规则。具体实现看：自定义排序那一小节。</li>
@@ -314,6 +313,10 @@
 <li>如果不允许插入重复数据可以利用set。</li>
 <li>如果需要插入重复数据利用multiset。</li>
 </ul>
+<h2 id="unordered-set-无序集合"><a href="#unordered-set-无序集合" class="headerlink" title="unordered_set 无序集合"></a>unordered_set 无序集合</h2><p>头文件：<code>#include &lt;unordered_set&gt;</code></p>
+<p>底层实现：哈希表，插入结果是<strong>无序</strong>的，而set则会自动排序。</p>
+<p>常用api：<code>insert/find/erase</code>，find找到返回迭代器，找不到返回end()。</p>
+<p>insert/find/erase的平均复杂度是O(1)，但是最坏复杂度是O(N)的</p>
 <h2 id="蓝桥杯真题——错误票据"><a href="#蓝桥杯真题——错误票据" class="headerlink" title="蓝桥杯真题——错误票据"></a>蓝桥杯真题——错误票据</h2><blockquote>
 <p><strong>题目描述</strong>：</p>
 <p>某涉密单位下发了某种票据，并要在年终全部收回。每张票据有唯一的ID号。全年所有票据的ID号是连续的，但ID的开始数码是随机选定的。</p>
