@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.1k 字
+      5k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      83
+      102
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月5日 晚上
+                  本文最后更新于：2021年3月7日 下午
                 
               </p>
             
@@ -383,11 +383,107 @@
 </blockquote>
 <h3 id="思路1：暴力法"><a href="#思路1：暴力法" class="headerlink" title="思路1：暴力法"></a>思路1：暴力法</h3><details>
  <summary>点击查看/关闭代码</summary>
-    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span> </span>&#123;<br><br>        <span class="hljs-built_in">string</span> maxsubstr;<br>        maxsubstr.push_back(s[<span class="hljs-number">0</span>]);<br>        <span class="hljs-keyword">int</span> maxlen = <span class="hljs-number">1</span>;<br>        <span class="hljs-built_in">string</span> substr = <span class="hljs-string">&quot;&quot;</span>;<br><br>        <span class="hljs-keyword">int</span> size = s.size();<br>        <span class="hljs-keyword">int</span> sublen = <span class="hljs-number">0</span>;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++) &#123;<br>            substr.clear();<br>            substr.push_back(s[i]);<br>            sublen = <span class="hljs-number">1</span>;<br><br>            <span class="hljs-comment">//然后看后面的能否构成回文</span><br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i + <span class="hljs-number">1</span>; j &lt; size; j++) &#123;<br>                substr.push_back(s[j]);<br>                sublen = substr.size();<br>                <span class="hljs-keyword">if</span> (substr == <span class="hljs-built_in">string</span>(substr.rbegin(), substr.rend())) &#123;<br>                    <span class="hljs-keyword">if</span> (maxlen &lt; sublen) &#123;<br>                        maxsubstr = substr;<br>                        maxlen = sublen;<br>                    &#125;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> maxsubstr;<br>    &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br><br>    <span class="hljs-built_in">string</span> s = <span class="hljs-string">&quot;babad&quot;</span>;<br>    <span class="hljs-built_in">string</span> s1 = <span class="hljs-string">&quot;asdfghjkllkjhgfdsa&quot;</span>;<br>    <span class="hljs-built_in">string</span> s2 = <span class="hljs-string">&quot;cddb&quot;</span>;<br>    <span class="hljs-built_in">string</span> s3 = <span class="hljs-string">&quot;a&quot;</span>;<br>    <span class="hljs-built_in">string</span> s4 = <span class="hljs-string">&quot;ac&quot;</span>;<br>    <span class="hljs-built_in">string</span> s5 = <span class="hljs-string">&quot;anugnxshgonmqydttcvmtsoaprxnhpmpovdolbidqiyqubirkvhwppcdyeouvgedccipsvnobrccbndzjdbgxkzdbcjsjjovnhpnbkurxqfupiprpbiwqdnwaqvjbqoaqzkqgdxkfczdkznqxvupdmnyiidqpnbvgjraszbvvztpapxmomnghfaywkzlrupvjpcvascgvstqmvuveiiixjmdofdwyvhgkydrnfuojhzulhobyhtsxmcovwmamjwljioevhafdlpjpmqstguqhrhvsdvinphejfbdvrvabthpyyphyqharjvzriosrdnwmaxtgriivdqlmugtagvsoylqfwhjpmjxcysfujdvcqovxabjdbvyvembfpahvyoybdhweikcgnzrdqlzusgoobysfmlzifwjzlazuepimhbgkrfimmemhayxeqxynewcnynmgyjcwrpqnayvxoebgyjusppfpsfeonfwnbsdonucaipoafavmlrrlplnnbsaghbawooabsjndqnvruuwvllpvvhuepmqtprgktnwxmflmmbifbbsfthbeafseqrgwnwjxkkcqgbucwusjdipxuekanzwimuizqynaxrvicyzjhulqjshtsqswehnozehmbsdmacciflcgsrlyhjukpvosptmsjfteoimtewkrivdllqiotvtrubgkfcacvgqzxjmhmmqlikrtfrurltgtcreafcgisjpvasiwmhcofqkcteudgjoqqmtucnwcocsoiqtfuoazxdayricnmwcg&quot;</span>;<br><br>    Solution so;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; so.longestPalindrome(s) &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; so.longestPalindrome(s1) &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; so.longestPalindrome(s2) &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; so.longestPalindrome(s3) &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; so.longestPalindrome(s4) &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; so.longestPalindrome(s5) &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>	<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span> </span>&#123;<br>		<span class="hljs-comment">//substr(pos,n);可以返回从pos开始的长度为n的子串</span><br>		<span class="hljs-keyword">int</span> len = s.size();<br><br>		<span class="hljs-keyword">int</span> beginpos = <span class="hljs-number">0</span>;	<span class="hljs-comment">//开始位置</span><br>		<span class="hljs-keyword">int</span> maxsublen = <span class="hljs-number">1</span>;		<span class="hljs-comment">//子串长度</span><br><br>		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;<br>			<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i+<span class="hljs-number">1</span>; j &lt; len; j++) &#123;<br>				<span class="hljs-built_in">string</span> str = s.substr(i, j - i + <span class="hljs-number">1</span>);<br>				<span class="hljs-keyword">if</span> (j-i+<span class="hljs-number">1</span> &gt; maxsublen &amp;&amp; str == <span class="hljs-built_in">string</span>(str.rbegin(),str.rend())) &#123;<span class="hljs-comment">//若是回文串</span><br>					beginpos = i;<br>					maxsublen = j - i + <span class="hljs-number">1</span>;<br>				&#125;<br>			&#125;<br>		&#125;<br>		<span class="hljs-keyword">return</span> s.substr(beginpos, maxsublen);<br>	&#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br><br>    <span class="hljs-built_in">string</span> s = <span class="hljs-string">&quot;babad&quot;</span>;<br>    <span class="hljs-built_in">string</span> s1 = <span class="hljs-string">&quot;asdfghjkllkjhgfdsa&quot;</span>;<br>    <span class="hljs-built_in">string</span> s2 = <span class="hljs-string">&quot;cddb&quot;</span>;<br>    <span class="hljs-built_in">string</span> s3 = <span class="hljs-string">&quot;a&quot;</span>;<br>    <span class="hljs-built_in">string</span> s4 = <span class="hljs-string">&quot;ac&quot;</span>;<br>    <span class="hljs-built_in">string</span> s5 = <span class="hljs-string">&quot;anugnxshgonmqydttcvmtsoaprxnhpmpovdolbidqiyqubirkvhwppcdyeouvgedccipsvnobrccbndzjdbgxkzdbcjsjjovnhpnbkurxqfupiprpbiwqdnwaqvjbqoaqzkqgdxkfczdkznqxvupdmnyiidqpnbvgjraszbvvztpapxmomnghfaywkzlrupvjpcvascgvstqmvuveiiixjmdofdwyvhgkydrnfuojhzulhobyhtsxmcovwmamjwljioevhafdlpjpmqstguqhrhvsdvinphejfbdvrvabthpyyphyqharjvzriosrdnwmaxtgriivdqlmugtagvsoylqfwhjpmjxcysfujdvcqovxabjdbvyvembfpahvyoybdhweikcgnzrdqlzusgoobysfmlzifwjzlazuepimhbgkrfimmemhayxeqxynewcnynmgyjcwrpqnayvxoebgyjusppfpsfeonfwnbsdonucaipoafavmlrrlplnnbsaghbawooabsjndqnvruuwvllpvvhuepmqtprgktnwxmflmmbifbbsfthbeafseqrgwnwjxkkcqgbucwusjdipxuekanzwimuizqynaxrvicyzjhulqjshtsqswehnozehmbsdmacciflcgsrlyhjukpvosptmsjfteoimtewkrivdllqiotvtrubgkfcacvgqzxjmhmmqlikrtfrurltgtcreafcgisjpvasiwmhcofqkcteudgjoqqmtucnwcocsoiqtfuoazxdayricnmwcg&quot;</span>;<br><br>    Solution so;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; so.longestPalindrome(s) &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; so.longestPalindrome(s1) &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; so.longestPalindrome(s2) &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; so.longestPalindrome(s3) &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; so.longestPalindrome(s4) &lt;&lt; <span class="hljs-built_in">endl</span>;<br>    <span class="hljs-built_in">cout</span> &lt;&lt; so.longestPalindrome(s5) &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 </details>
 
 <ul>
 <li>不出所料，时间超限。</li>
+</ul>
+<h3 id="思路2：动态规划"><a href="#思路2：动态规划" class="headerlink" title="思路2：动态规划"></a>思路2：动态规划</h3><blockquote>
+<p>参考题解：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zhong-xin-kuo-san-dong-tai-gui-hua-by-liweiwei1419/">https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zhong-xin-kuo-san-dong-tai-gui-hua-by-liweiwei1419/</a></p>
+<p>「状态转移方程」是原始问题的不同规模的子问题的联系。即大问题的最优解如何由小问题的最优解得到。</p>
+</blockquote>
+<p>回文有一个特性，去除首尾字符后仍然是回文（回文长度&gt;= 2）。</p>
+<p>则当前这个字符串是否是回文取决于</p>
+<ol>
+<li>首尾字符是否相同</li>
+<li>去除首位字符的子串是否是回文。</li>
+</ol>
+<p>状态转移方程：<code>s[i..j] == (s[i] == s[j] &amp;&amp; s[i+1 .. j-1])</code>。</p>
+<ul>
+<li><p><code>s[i..j]</code>表示从i到j下标所组成的字符串。</p>
+</li>
+<li><p><code>s[i+1 .. j-1] </code>是 <code>s[i .. j]</code>的子问题。 </p>
+</li>
+</ul>
+<p>整体思路：</p>
+<ul>
+<li><p>若s[i] != s[j] 则s[i .. j]不是回文</p>
+</li>
+<li><p>若s[i] == s[j] 则s[i .. j]就看s[i+1 .. j-1]是不是回文</p>
+</li>
+<li><p>边界条件：s[i+1 .. j-1]不再构成区间的时候<code> (j-1) - (i+1) + 1 &lt; 2</code>时 –&gt;<code>j-i &lt; 3</code>时</p>
+<ul>
+<li>若只剩下一个字符，则一定是回文</li>
+<li>若为空，也一定是回文。</li>
+<li>即j-i&lt;3时，<strong>无论如何都是回文</strong>。</li>
+</ul>
+</li>
+</ul>
+<p>所以需要一个二维数组来记录<code>s[i..j]</code>是不是回文，在循环遍历中要小心顺序。</p>
+<p>eg: <code>babad</code>这个字符串，顺序是<code>ba</code>、<code>bab</code>、<code>baba</code>、<code>babad</code>。</p>
+<ul>
+<li><code>baba</code>查询时，分别查询下标<code>(i,j)</code>–&gt;<code>(0,3)</code>、<code>(1,3)</code>、<code>(2,3)</code>三个子串是不是回文</li>
+<li>j从1开始至4结束，i从0开始，至j结束。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">纵j|横i</th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1|a</td>
+<td align="center">ba不是</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">2|b</td>
+<td align="center">(0,2) bab是</td>
+<td align="center">(1,2)ab不是</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">3|a</td>
+<td align="center">(0,3)baba不是</td>
+<td align="center">(1,3)aba是</td>
+<td align="center">(2,3)ba不是</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">4|d</td>
+<td align="center">(0,4)babad不是</td>
+<td align="center">(1,4)abad不是</td>
+<td align="center">。。</td>
+<td align="center">。。</td>
+</tr>
+</tbody></table>
+<p><img src="/leetcode-1/shunxu.png" srcset="/img/loading.gif"></p>
+<p>图源上述思路的链接。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>	<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span> </span>&#123;<br>		<br>		<span class="hljs-keyword">int</span> len = s.size();<br><br>		<span class="hljs-keyword">int</span> beginpos = <span class="hljs-number">0</span>;	<span class="hljs-comment">//开始位置</span><br>		<span class="hljs-keyword">int</span> maxlen = <span class="hljs-number">1</span>;		<span class="hljs-comment">//长度</span><br><br>		<span class="hljs-comment">//bool dp[len][len] = &#123; 0 &#125;;不能这样用，老生常谈的问题。</span><br>		<span class="hljs-comment">//二维数组，初始化了初始长度为10，元素都是vector&lt;int&gt;(len)的vector</span><br>		<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &gt;dp(len,<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;(len));<br><br>		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;<br>			dp[i][i] = <span class="hljs-number">1</span>;<span class="hljs-comment">//长为1的一定是回文</span><br>		&#125;<br><br>		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; len; j++) &#123;<br>			<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; j; i++) &#123;<br>				<span class="hljs-keyword">if</span> (s[i] != s[j]) &#123;<br>					dp[i][j] == <span class="hljs-number">0</span>;<br>				&#125;<br>				<span class="hljs-keyword">else</span> &#123;<span class="hljs-comment">//s[i] == s[j]</span><br>					<span class="hljs-keyword">if</span> (j - i &lt; <span class="hljs-number">3</span>) &#123;	<span class="hljs-comment">//即(j-1)-(i+1)+1 &lt; 2，到达边界</span><br>						dp[i][j] = <span class="hljs-number">1</span>;<br>					&#125;<br>					<span class="hljs-keyword">else</span> &#123;<br>						dp[i][j] = dp[i + <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>];<br>					&#125;<br>				&#125;<br><br>				<span class="hljs-keyword">if</span> (dp[i][j] == <span class="hljs-number">1</span> &amp;&amp; (j - i + <span class="hljs-number">1</span> &gt; maxlen)) &#123;<br>					maxlen = j - i + <span class="hljs-number">1</span>;<br>					beginpos = i;<br>				&#125;<br>			&#125;<br>		&#125;<br><br>		<span class="hljs-keyword">return</span> s.substr(beginpos, maxlen);<br>	&#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>时间复杂度<code>O(n^2)</code></li>
+<li>空间复杂度<code>O(n^2)</code>。</li>
+</ul>
+<h3 id="思路3：中心扩散法"><a href="#思路3：中心扩散法" class="headerlink" title="思路3：中心扩散法"></a>思路3：中心扩散法</h3><p>遍历每一个索引，以这个索引为中心，利用回文串的中心对称特点，向两端扩散。</p>
+<p>当然要分奇数串偶数串的情况：</p>
+<ul>
+<li>奇数串：以一个字符为中心；</li>
+<li>偶数串：以两个字符之间的空隙为中心。</li>
+</ul>
+<p>中心扩散时这两种情况都应该考虑到。</p>
+<p>可以使用一个函数来设置不同的参数达到这样的效果。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution2</span> &#123;</span><br><span class="hljs-keyword">private</span>:<br>	<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">findcenter</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s, <span class="hljs-keyword">int</span> left,<span class="hljs-keyword">int</span> right)</span> </span>&#123;<br><br>		<span class="hljs-keyword">int</span> i = left;<br>		<span class="hljs-keyword">int</span> j = right;<br><br>		<span class="hljs-keyword">while</span> (i &gt;= <span class="hljs-number">0</span> &amp;&amp; j &lt; s.size()) &#123;<br>			<span class="hljs-keyword">if</span> (s[i] == s[j]) &#123;<br>				i--;<br>				j++;<br>			&#125;<br>			<span class="hljs-keyword">else</span> <span class="hljs-keyword">break</span>;<br>		&#125;<br>		<span class="hljs-keyword">return</span> s.substr(i+<span class="hljs-number">1</span>,j-i<span class="hljs-number">-1</span>);<span class="hljs-comment">//注意这里</span><br>	&#125;<br><br><span class="hljs-keyword">public</span>:<br>	<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span> </span>&#123;<br><br>		<span class="hljs-built_in">string</span> substr = <span class="hljs-built_in">string</span>(<span class="hljs-number">1</span>,s[<span class="hljs-number">0</span>]);<br>		<span class="hljs-keyword">int</span> maxlen = <span class="hljs-number">1</span>;<br><br>		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; s.size()<span class="hljs-number">-1</span>; i++) &#123;<br>			<span class="hljs-built_in">string</span> str1 = findcenter(s,i,i);<span class="hljs-comment">//奇数</span><br>			<span class="hljs-built_in">string</span> str2 = findcenter(s,i,i+<span class="hljs-number">1</span>);<span class="hljs-comment">//偶数</span><br><br>			<span class="hljs-keyword">if</span> (str1.size() &lt; str2.size()) &#123;<br>				str1 = str2;<br>			&#125;<br>			<span class="hljs-keyword">if</span> (maxlen &lt; str1.size()) &#123;<br>				substr = str1;<br>				maxlen = substr.size();<br>			&#125;<br>		&#125;<br><br>		<span class="hljs-keyword">return</span> substr;<br>	&#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>时间复杂度<code>O(n^2)</code>。</li>
+<li>空间复杂度<code>O(1)</code>。</li>
 </ul>
 
             </div>
