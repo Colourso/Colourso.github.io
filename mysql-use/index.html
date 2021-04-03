@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.7k 字
+      5.3k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      84
+      94
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年5月17日 晚上
+                  本文最后更新于：2021年4月4日 凌晨
                 
               </p>
             
@@ -410,6 +410,7 @@
 <li>完全重复的记录只一次<br>当查询结果中的多行记录一模一样时，只显示一行。一般查询所有列时很少会有这种情况，但只查询一列（或几列）时，这总可能就大了！</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT DISTINCT * | 列1 [, 列2, ... 列N] FROM 表名;<br>SELECT DISTINCT sal FROM emp;<br> --&gt; 保查询员工表的工资，如果存在相同的工资只显示一次！<br></code></pre></td></tr></table></figure>
+<p><code>distinct</code> 应用于它所有的列，而非其前置的列！</p>
 <ol start="4">
 <li>列运算</li>
 </ol>
@@ -418,9 +419,9 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT sal*1.5 FROM emp;<br>SELECT sal+comm FROM emp;<br></code></pre></td></tr></table></figure>
 <ul>
-<li> 字符串类型可以做连续运算</li>
+<li> 字符串类型可以做连续运算，拼接字段CONCAT</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT CONCAT(&#39;$&#39;, sal) FROM emp;<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT CONCAT(&#39;$&#39;, sal) FROM emp;<br>--&gt; 把多个串连接起来形成一个较长的串<br>--&gt; concat(name,&#39;(&#39;,coun,&#39;)&#39;)<br>--&gt; 输出：ACME(USA)<br></code></pre></td></tr></table></figure>
 <ul>
 <li>转换NULL值<br>   有时需要把NULL转换成其它值，例如com+1000时，如果com列存在NULL值，那么NULL+1000还是NULL，而我们这时希望把NULL当前0来运算。</li>
 </ul>
@@ -429,35 +430,49 @@
 <li>给列起别名<br>   你也许已经注意到了，当使用列运算后，查询出的结果集中的列名称很不好看，这时我们需要给列名起个别名，这样在结果集中列名就显示别名了</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT IFNULL(comm, 0)+1000 AS 奖金 FROM emp;<br>--&gt; 其中AS可以省略<br></code></pre></td></tr></table></figure>
+<ul>
+<li>去除空格 TRIM函数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">RTRIM() 去掉值右边的所有空格<br>LTRIM() 去除左边的空格<br>TRIM() 去掉串左右两边的空格<br></code></pre></td></tr></table></figure>
 <h3 id="条件控制"><a href="#条件控制" class="headerlink" title="条件控制"></a>条件控制</h3><ol>
 <li><p>条件查询<br>  与前面介绍的UPDATE和DELETE语句一样，SELECT语句也可以使用WHERE子句来控制记录。</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT empno,ename,sal,comm FROM emp WHERE sal &gt; 10000 AND comm IS NOT NULL;<br>SELECT empno,ename,sal FROM emp WHERE sal BETWEEN 20000 AND 30000;<br>SELECT empno,ename,job FROM emp WHERE job IN (&#39;经理&#39;, &#39;董事长&#39;);<br></code></pre></td></tr></table></figure></li>
 <li><p>模糊查询<br>当你想查询姓张，并且姓名一共两个字的员工时，这时就可以使用模糊查询</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT * FROM emp WHERE ename LIKE &#39;张_&#39;;<br>--&gt; 模糊查询需要使用运算符：LIKE，其中_匹配一个任意字符，注意，只匹配一个字符而不是多个。<br>--&gt; 上面语句查询的是姓张，名字由两个字组成的员工。<br>SELECT * FROM emp WHERE ename LIKE &#39;___&#39;; &#x2F;*姓名由3个字组成的员工*&#x2F;<br><br># 如果我们想查询姓张，名字是几个字都可以的员工时就要使用“%”了。<br>SELECT * FROM emp WHERE ename LIKE &#39;张%&#39;;<br>--&gt; 其中%匹配0~N个任意字符，所以上面语句查询的是姓张的所有员工。<br><br>SELECT * FROM emp WHERE ename LIKE &#39;%阿%&#39;;<br>--&gt; 千万不要认为上面语句是在查询姓名中间带有阿字的员工，因为%匹配0~N个字符，所以姓名以阿开头和结尾的员工也都会查询到。<br><br>SELECT * FROM emp WHERE ename LIKE &#39;%&#39;;<br>--&gt; 这个条件等同于不存在，但如果姓名为NULL的查询不出来！<br></code></pre></td></tr></table></figure>
-<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3></li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT * FROM emp WHERE ename LIKE &#39;张_&#39;;<br>--&gt; 模糊查询需要使用运算符：LIKE，其中_匹配一个任意字符，注意，只匹配一个字符而不是多个。<br>--&gt; 上面语句查询的是姓张，名字由两个字组成的员工。<br>SELECT * FROM emp WHERE ename LIKE &#39;___&#39;; &#x2F;*姓名由3个字组成的员工*&#x2F;<br><br># 如果我们想查询姓张，名字是几个字都可以的员工时就要使用“%”了。<br>SELECT * FROM emp WHERE ename LIKE &#39;张%&#39;;<br>--&gt; 其中%匹配0~N个任意字符、任意次数，所以上面语句查询的是姓张的所有员工。<br><br>SELECT * FROM emp WHERE ename LIKE &#39;%阿%&#39;;<br>--&gt; 千万不要认为上面语句是在查询姓名中间带有阿字的员工，因为%匹配0~N个字符，所以姓名以阿开头和结尾的员工也都会查询到。<br><br>SELECT * FROM emp WHERE ename LIKE &#39;%&#39;;<br>--&gt; 这个条件等同于不存在，但如果姓名为NULL的查询不出来！<br></code></pre></td></tr></table></figure></li>
+<li><p>正则表达式</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT prod FROM pro WHERE prod_name REGEXP &#39;.000&#39;;<br>--&gt; REGEXP后接正则表达式<br>--&gt; 点 . 在正则表达式中匹配一个任意字符<br><br>与LIKE的区别<br>--&gt; LIKE匹配整个列值，如果匹配的值只是在列值中出现，例如&#96;lilei 1000&#96;，匹配1000，不使用通配符就找不到<br>--&gt; REGEXP则会在列值内进行匹配，只要列值中出现过，例如&#96;lilei 1000&#96;，匹配1000，也会匹配成功<br><br>&#96;1|2|3&#96;表示或匹配,等价于&#96;[123]&#96;<br>&#96;[^123]&#96; 表示匹配除这些字符的任何东西<br><br>范围&#96;[1-9]&#96;，匹配1-9<br><br>转义字符，匹配&#96;.&#96;需要使用&#96;\\.&#96;，两个反斜杠，MYSQL自己解释一个，正则表达式解释另一个。<br><br>匹配字符类：<br>&#96;[:alnum:]&#96;任意字母和数字，同&#96;a-zA-Z0-9&#96;<br>&#96;[:digit:]&#96;任意数组<br>&#96;[:upper:]&#96;任意可打印字符<br></code></pre></td></tr></table></figure>
+<h3 id="IN子句"><a href="#IN子句" class="headerlink" title="IN子句"></a>IN子句</h3></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT prod FROM pro WHERE id IN(1002,1003);<br>--&gt; 可用OR代替 id&#x3D;1002 OR id&#x3D;1003<br>--&gt; 但是在使用长的合法选项清单时，IN的操作更直观；<br>--&gt; IN操作符一般比OR执行要快<br>--&gt; IN的最大优点是可以包含其他select语句，能够动态的建立WHERE子句。<br></code></pre></td></tr></table></figure>
+<h3 id="NOT"><a href="#NOT" class="headerlink" title="NOT"></a>NOT</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">MYSQL 中 NOT支持对IN BETWEEN EXISTS子句取反<br>NOT IN (1002,1003) 找出不匹配的<br></code></pre></td></tr></table></figure>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><ol>
 <li><p>升序</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT * FROM emp ORDER BY sal ASC;<br>--&gt; 按sal排序，升序！<br>--&gt; 其中ASC是可以省略的<br></code></pre></td></tr></table></figure></li>
 <li><p>降序</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT * FROM WHERE emp ORDER BY comm DESC;<br>--&gt; 按comm排序，降序！<br>--&gt; 其中DESC不能省略<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT * FROM WHERE emp ORDER BY comm DESC;<br>--&gt; 按comm排序，降序！<br>--&gt; 其中DESC不能省略<br>--&gt; 指定多个列 BY prod DESC,prod1;<br>--&gt; DESC关键字只应用于位于其前面的列名<br></code></pre></td></tr></table></figure></li>
 <li><p>使用多列作为排序条件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT * FROM WHERE emp ORDER BY sal ASC, comm DESC;<br>--&gt; 使用sal升序排，如果sal相同时，使用comm的降序排<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT * FROM WHERE emp ORDER BY sal ASC, comm DESC;<br>--&gt; 使用sal升序排，如果sal相同时，使用comm的降序排<br></code></pre></td></tr></table></figure></li>
+<li><p>使用ORDER BY和LIMIT</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT prod_price FROM products ORDER BY prod_price DESC LIMIT 1;<br>--&gt; LIMIT限制仅返回一行<br>--&gt; 降序排列且返回一行，将返回最大值。<br></code></pre></td></tr></table></figure></li>
+<li><p>使用WHERE和ORDER BY</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">同时使用ORDER BY子句和WHERE子句时，应该让ORDER BY位于WHERE子句之后，否则会产生错误。<br></code></pre></td></tr></table></figure>
 <h3 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h3></li>
 </ol>
 <p>聚合函数用来做某列的纵向运算。</p>
 <ol>
 <li><p>COUNT</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT COUNT(*) FROM emp;<br>--&gt; 计算emp表中所有列都不为NULL的记录的行数<br>SELECT COUNT(comm) FROM emp;<br>--&gt; 云计算emp表中comm列不为NULL的记录的行数<br></code></pre></td></tr></table></figure></li>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT COUNT(*) FROM emp;<br>--&gt; 计算emp表中所有列记录的行数，不管是否为NULL<br>SELECT COUNT(comm) FROM emp;<br>--&gt; 云计算emp表中comm列不为NULL的记录的行数<br></code></pre></td></tr></table></figure></li>
 <li><p>MAX</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT MAX(sal) FROM emp;<br>--&gt; 查询最高工资<br></code></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT MAX(sal) FROM emp;<br>--&gt; 查询最高工资<br>--&gt; 忽略值为NULL的行<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>MIN</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT MIN(sal) FROM emp;<br>--&gt; 查询最低工资<br></code></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT MIN(sal) FROM emp;<br>--&gt; 查询最低工资<br>--&gt; 忽略值为NULL的行<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>SUM</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT SUM(sal) FROM emp;<br>--&gt; 查询工资合<br></code></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT SUM(sal) FROM emp;<br>--&gt; 查询工资合<br>--&gt; 忽略值为NULL的行<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>AVG</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT AVG(sal) FROM emp;<br>--&gt; 查询平均工资<br></code></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT AVG(sal) FROM emp;<br>--&gt; 查询平均工资<br>--&gt; 忽略值为NULL的行<br></code></pre></td></tr></table></figure>
 <h3 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h3></li>
 </ol>
 <p>分组查询是把记录使用某一列进行分组，然后查询组信息。<br>例如：查看所有部门的记录数。</p>
