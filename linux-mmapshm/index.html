@@ -1,0 +1,689 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>Linux 进程间通信——内存映射与共享内存 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Linux 进程间通信——内存映射与共享内存">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-29 20:34" pubdate>
+        2021年3月29日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      68
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Linux 进程间通信——内存映射与共享内存</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月4日 下午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p><strong>概览</strong>：Linux内存映射、共享内存。</p>
+<a id="more"></a>
+
+<h2 id="内存映射"><a href="#内存映射" class="headerlink" title="内存映射"></a>内存映射</h2><p>内存映射（Memory-mapped I/O）是将磁盘文件的数据映射到内存，用户通过修改内存就能修改磁盘文件。</p>
+<p>可以做进程间通信，而且效率较高。</p>
+<h3 id="通信方式"><a href="#通信方式" class="headerlink" title="通信方式"></a>通信方式</h3><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">使用内存映射实现进程间通信：<br>1.有关系的进程（父子进程）<br><span class="hljs-bullet">- </span>还没有子进程的时候<br><span class="hljs-bullet">- </span>通过唯一的父进程，先创建内存映射区<br><span class="hljs-bullet">- </span>有了内存映射区以后，创建子进程<br><span class="hljs-bullet">- </span>父子进程共享创建的内存映射区<br><br>2.没有关系的进程间通信<br><span class="hljs-bullet">- </span>准备一个大小不是0的磁盘文件<br><span class="hljs-bullet">- </span>进程1 通过磁盘文件创建内存映射区<br><span class="hljs-bullet">- </span>得到一个操作这块内存的指针<br><span class="hljs-bullet">- </span>进程2 通过磁盘文件创建内存映射区<br><span class="hljs-bullet">- </span>得到一个操作这块内存的指针<br><span class="hljs-bullet">- </span>使用内存映射区通信<br><br>注意：内存映射区通信，是非阻塞。<br></code></pre></td></tr></table></figure>
+<p>注意：内存映射区域通信，是<strong>非阻塞的</strong>。</p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/mman.h&gt;</span></span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> *<span class="hljs-title">mmap</span><span class="hljs-params">(<span class="hljs-keyword">void</span> *addr, <span class="hljs-keyword">size_t</span> length, <span class="hljs-keyword">int</span> prot, <span class="hljs-keyword">int</span> flags,<span class="hljs-keyword">int</span> fd, <span class="hljs-keyword">off_t</span> offset)</span></span>;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">- 功能：将一个文件或者设备的数据映射到内存中</span><br><span class="hljs-comment">- 参数：</span><br><span class="hljs-comment">    - void *addr: 指定NULL时, 由内核指定分配</span><br><span class="hljs-comment">    - length : 要映射的数据的长度，这个值不能为0。建议使用文件的长度。</span><br><span class="hljs-comment">                    获取文件的长度：stat lseek(fd,0,SEEK_END)</span><br><span class="hljs-comment">    - prot : 对申请的内存映射区的操作权限</span><br><span class="hljs-comment">           -PROT_EXEC ：可执行的权限</span><br><span class="hljs-comment">           -PROT_READ ：读权限</span><br><span class="hljs-comment">           -PROT_WRITE ：写权限</span><br><span class="hljs-comment">           -PROT_NONE ：没有权限</span><br><span class="hljs-comment">             要操作映射内存，必须要有读的权限。</span><br><span class="hljs-comment">             PROT_READ、PROT_READ|PROT_WRITE</span><br><span class="hljs-comment">     - flags :</span><br><span class="hljs-comment">           - MAP_SHARED : 映射区的数据会自动和磁盘文件进行同步，进程间通信，必须要设置这个选项</span><br><span class="hljs-comment">          - MAP_PRIVATE ：不同步，内存映射区的数据改变了，对原来的文件不会修改，会重新创建一个新的文件。（copy on write）</span><br><span class="hljs-comment">     - fd: 需要映射的那个文件的文件描述符</span><br><span class="hljs-comment">           - 通过open得到，open的是一个磁盘文件</span><br><span class="hljs-comment">           - 注意：文件的大小不能为0，open指定的权限不能和prot参数有冲突。</span><br><span class="hljs-comment">                    prot: PROT_READ                open:只读/读写 </span><br><span class="hljs-comment">                    prot: PROT_READ | PROT_WRITE   open:读写</span><br><span class="hljs-comment">            - offset：偏移量，一般不用。必须指定的是4k的整数倍，0表示不便宜。</span><br><span class="hljs-comment">    - 返回值：返回创建的内存的首地址</span><br><span class="hljs-comment">            失败返回MAP_FAILED，即是(void *) -1</span><br><span class="hljs-comment">*/</span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">munmap</span><span class="hljs-params">(<span class="hljs-keyword">void</span> *addr, <span class="hljs-keyword">size_t</span> length)</span></span>;<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">- 功能：释放内存映射</span><br><span class="hljs-comment">- 参数：</span><br><span class="hljs-comment">     - addr : 要释放的内存的首地址</span><br><span class="hljs-comment">     - length : 要释放的内存的大小，要和mmap函数中的length参数的值一样。</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+<h3 id="父子进程间通过内存映射沟通"><a href="#父子进程间通过内存映射沟通" class="headerlink" title="父子进程间通过内存映射沟通"></a>父子进程间通过内存映射沟通</h3><blockquote>
+<p>思路：父进程先创建内存映射区域，然后创建子进程，之后父子进程就共享同一块内存映射区域。</p>
+<p>子进程能通过文件描述符的方式写文件吗？？？可以</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/mman.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;fcntl.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/types.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;wait.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br><br>     <span class="hljs-comment">//打开文件，创建内存映射区域</span><br>    <span class="hljs-keyword">int</span> fd = open(<span class="hljs-string">&quot;test.txt&quot;</span>,O_RDWR);<br>    <span class="hljs-keyword">if</span>(fd &lt;= <span class="hljs-number">0</span>)&#123;<br>        perror(<span class="hljs-string">&quot;open&quot;</span>);<br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>    &#125;<br>    <span class="hljs-keyword">int</span> len = lseek(fd,<span class="hljs-number">0</span>,SEEK_END);<br>    <span class="hljs-keyword">void</span> * addr = mmap(<span class="hljs-literal">NULL</span>,len,PROT_READ|PROT_WRITE,MAP_SHARED,fd,<span class="hljs-number">0</span>);<br>    <br>    <span class="hljs-keyword">if</span>(addr == MAP_FAILED)&#123;<br>        perror(<span class="hljs-string">&quot;mmap&quot;</span>);<br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>    &#125;<br>    <br>    <span class="hljs-keyword">pid_t</span> pid = fork();<br>    <span class="hljs-keyword">if</span>(pid &gt; <span class="hljs-number">0</span>)&#123;<br>        <span class="hljs-comment">//父进程</span><br>        wait(<span class="hljs-literal">NULL</span>);<span class="hljs-comment">//回收子进程</span><br>        <br>        <span class="hljs-comment">//读取并输出子进程的结果</span><br>        <span class="hljs-keyword">char</span> buf[<span class="hljs-number">128</span>];<br>        <span class="hljs-built_in">strcpy</span>(buf,(<span class="hljs-keyword">char</span> *)addr);<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;read data: %s \n&quot;</span>,buf);<br><br>        <br>        <br>    &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(pid == <span class="hljs-number">0</span>)&#123;<br>        <span class="hljs-comment">//子进程</span><br>        <span class="hljs-comment">//向内存映射区域写入内容</span><br>        <span class="hljs-keyword">char</span> *str1 = <span class="hljs-string">&quot;你好啊！&quot;</span>;<br>        <span class="hljs-built_in">strcpy</span>((<span class="hljs-keyword">char</span> *)addr,str1);<br>        sleep(<span class="hljs-number">2</span>);<br>        <span class="hljs-built_in">strcpy</span>((<span class="hljs-keyword">char</span> *)addr + <span class="hljs-built_in">strlen</span>(str1),<span class="hljs-string">&quot;今天的风甚是喧嚣！&quot;</span>);<br><br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        perror(<span class="hljs-string">&quot;fork&quot;</span>);<br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>    &#125;<br>    <br>    <span class="hljs-comment">//关闭内存映射区域</span><br>    munmap(addr,len);<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>父进程、子进程读取方式<ul>
+<li>能否用fd来读写：可以</li>
+<li>读写之后，内容还在不在？ 修改都保存在了内容之中</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//当采用向文件写入的时候</span><br><span class="hljs-keyword">if</span>(pid &gt; <span class="hljs-number">0</span>)&#123;<br>    <span class="hljs-comment">//父进程</span><br>    wait(<span class="hljs-literal">NULL</span>);<span class="hljs-comment">//回收子进程</span><br><br>    <span class="hljs-comment">//内容多的时候应当采用循环读入的方式</span><br>    <span class="hljs-comment">//读取并输出子进程的结果</span><br>    <span class="hljs-keyword">char</span> buf[<span class="hljs-number">128</span>];<br>    <span class="hljs-built_in">strcpy</span>(buf,(<span class="hljs-keyword">char</span> *)addr);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;read data: %s \n&quot;</span>,buf); <br>&#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(pid == <span class="hljs-number">0</span>)&#123;<br>    <span class="hljs-comment">//子进程</span><br>    <span class="hljs-comment">//子进程使用fd写入文件</span><br>    <span class="hljs-keyword">char</span> *str1 = <span class="hljs-string">&quot;你好啊！&quot;</span>;<br>    write(fd,str1,<span class="hljs-built_in">strlen</span>(str1));<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>子进程向文件写入，默认就写到了文件的末尾，而父进程读取的话，就会将整个文件内容都读入。</li>
+</ul>
+<blockquote>
+<p>无关系的两个进程通信的话，方式就是打开同一个文件。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//pro1</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <br>    <span class="hljs-comment">//打开文件，创建内存映射区域</span><br>    <span class="hljs-keyword">int</span> fd = open(<span class="hljs-string">&quot;test.txt&quot;</span>,O_RDWR);<br>    <span class="hljs-keyword">if</span>(fd &lt;= <span class="hljs-number">0</span>)&#123;<br>        perror(<span class="hljs-string">&quot;open&quot;</span>);<br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>    &#125;<br>    <span class="hljs-keyword">int</span> len = lseek(fd,<span class="hljs-number">0</span>,SEEK_END);<br>    <span class="hljs-keyword">void</span> * addr = mmap(<span class="hljs-literal">NULL</span>,len,PORT_READ|PORT_WRITE,MAP_SHARED,fd,<span class="hljs-number">0</span>);<br>    <br>    <span class="hljs-keyword">if</span>(addr == MAP_FAILED)&#123;<br>        perror(<span class="hljs-string">&quot;mmap&quot;</span>);<br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>    &#125;<br>    <br>    <span class="hljs-comment">//进程1等待进程2发送消息</span><br>    <span class="hljs-comment">//？如何写？阻塞吗？</span><br>    <span class="hljs-comment">//可以等待进程2发送完消息之后，进程1再开启，再读</span><br>    <br>    <span class="hljs-comment">//关闭内存映射区域</span><br>    munmap(addr,len);<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//pro2</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <br>    <span class="hljs-comment">//打开文件，创建内存映射区域</span><br>    <span class="hljs-keyword">int</span> fd = open(<span class="hljs-string">&quot;test.txt&quot;</span>,O_RDWR);<br>    <span class="hljs-keyword">if</span>(fd &lt;= <span class="hljs-number">0</span>)&#123;<br>        perror(<span class="hljs-string">&quot;open&quot;</span>);<br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>    &#125;<br>    <span class="hljs-keyword">int</span> len = lseek(fd,<span class="hljs-number">0</span>,SEEK_END);<br>    <span class="hljs-keyword">void</span> * addr = mmap(<span class="hljs-literal">NULL</span>,len,PORT_READ|PORT_WRITE,MAP_SHARED,fd,<span class="hljs-number">0</span>);<br>    <br>    <span class="hljs-keyword">if</span>(addr == MAP_FAILED)&#123;<br>        perror(<span class="hljs-string">&quot;mmap&quot;</span>);<br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>    &#125;<br>    <br>    <span class="hljs-comment">//进程2发送消息</span><br>    <span class="hljs-comment">//？发送消息的方式？</span><br>    <br>    <span class="hljs-comment">//关闭内存映射区域</span><br>    munmap(addr,len);<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="使用内存映射做文件拷贝"><a href="#使用内存映射做文件拷贝" class="headerlink" title="使用内存映射做文件拷贝"></a>使用内存映射做文件拷贝</h3><p>一般不用做内存拷贝，文件太大， 内存可能放不下。</p>
+<p>方法：建立一个新文件，并且扩展大小，之后将源文件和新文件都映射到内存之中，再使用内存拷贝memcpy的方式来完成文件拷贝，最后释放资源即可。</p>
+<h3 id="内存映射注意事项"><a href="#内存映射注意事项" class="headerlink" title="内存映射注意事项"></a>内存映射注意事项</h3><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs perl"><span class="hljs-number">1</span>.如果对mmap的返回值(ptr)做++操作(ptr++), munmap是否能够成功?<br>void * ptr = mmap(...);<br>ptr++;  可以对其进行++操作<br>munmap(ptr, len);   <span class="hljs-regexp">//</span> 错误,要保存地址<br><br><span class="hljs-number">2</span>.如果<span class="hljs-keyword">open</span>时O_RDONLY, mmap时prot参数指定PROT_READ | PROT_WRITE会怎样?<br>错误，返回MAP_FAILED<br><span class="hljs-keyword">open</span>()函数中的权限建议和prot参数的权限保持一致。<br><br><span class="hljs-number">3</span>.如果文件偏移量为<span class="hljs-number">1000</span>会怎样?<br>偏移量必须是<span class="hljs-number">4</span>K的整数倍，返回MAP_FAILED<br><br><span class="hljs-number">4</span>.mmap什么情况下会调用失败?<br>    - 第二个参数：<span class="hljs-keyword">length</span> = <span class="hljs-number">0</span><br>    - 第三个参数：prot<br>        - 只指定了写权限<br>        - prot PROT_READ | PROT_WRITE<br>          第<span class="hljs-number">5</span>个参数fd 通过<span class="hljs-keyword">open</span>函数时指定的 O_RDONLY / O_WRONLY<br><br><span class="hljs-number">5</span>.可以<span class="hljs-keyword">open</span>的时候O_CREAT一个新文件来创建映射区吗?<br>    - 可以的，但是创建的文件的大小如果为<span class="hljs-number">0</span>的话，肯定不行<br>    - 可以对新的文件进行扩展<br>        - lseek()<br>        - <span class="hljs-keyword">truncate</span>()<br><br><span class="hljs-number">6</span>.mmap后关闭文件描述符，对mmap映射有没有影响？<br>    <span class="hljs-keyword">int</span> fd = <span class="hljs-keyword">open</span>(<span class="hljs-string">&quot;XXX&quot;</span>);<br>    mmap(,,,,fd,<span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">close</span>(fd); <br>    映射区还存在，创建映射区的fd被关闭，没有任何影响。<br><br><span class="hljs-number">7</span>.对ptr越界操作会怎样？<br>越界操作操作的是非法的内存 -&gt; 段错误<br></code></pre></td></tr></table></figure>
+<h3 id="匿名映射"><a href="#匿名映射" class="headerlink" title="匿名映射"></a>匿名映射</h3><p>不需要文件实体的一种内存映射。只能用于父子关系之间的映射。</p>
+<p>需要一个特殊的设置，<code>MAP_SAHRED | MAP_ANONYMOUS</code>，同时，文件描述符传递-1，offset必须从0开始。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">void</span> * addr = mmap(<span class="hljs-literal">NULL</span>,<span class="hljs-number">4096</span>,MAP_READ|MAP_WRITE,MAP_SHARED | MAP_ANONYMOUS,<span class="hljs-number">-1</span>,<span class="hljs-number">0</span>);<br></code></pre></td></tr></table></figure>
+<hr>
+<h2 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h2><p>共享内存允许两个或者多个进程共享物理内存的同一块区域（通常被称为段）。由于一个共享内存段会成为<strong>一个进程用户空间的一部分</strong>，因此这种 IPC 机制无需内核介入。所有需要做的就是让一个进程将数据复制进共享内存中，并且这部分数据会对其他所有共享同一个段的进程可用。</p>
+<p>与管道等要求发送进程将数据从用户空间的缓冲区复制进内核内存和接收进程将数据从内核内存复制进用户空间的缓冲区的做法相比，这种 IPC 技术的<strong>速度更快</strong>。</p>
+<h3 id="共享内存使用步骤"><a href="#共享内存使用步骤" class="headerlink" title="共享内存使用步骤"></a>共享内存使用步骤</h3><ul>
+<li><p>调用 shmget() 创建一个新共享内存段或取得一个既有共享内存段的标识符（即由其他进程创建的共享内存段）。这个调用将返回后续调用中需要用到的共享内存标识符。</p>
+</li>
+<li><p>使用 shmat() 来附上共享内存段，即使该段成为调用进程的虚拟内存的一部分。</p>
+</li>
+<li><p>此刻在程序中可以像对待其他可用内存那样对待这个共享内存段。为引用这块共享内存，程序需要使用由 shmat() 调用返回的 addr 值，它是一个指向进程的虚拟地址空间中该共享内存段的起点的指针。</p>
+</li>
+<li><p>调用 shmdt() 来分离共享内存段。在这个调用之后，进程就无法再引用这块共享内存了。这一步是可选的，并且在进程终止时会自动完成这一步。</p>
+</li>
+<li><p>调用 shmctl() 来删除共享内存段。只有当当前所有附加内存段的进程都与之分离之后内存段才会销毁。只有一个进程需要执行这一步。</p>
+</li>
+</ul>
+<h3 id="共享内存操作函数"><a href="#共享内存操作函数" class="headerlink" title="共享内存操作函数"></a>共享内存操作函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/ipc.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/shm.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">shmget</span><span class="hljs-params">(<span class="hljs-keyword">key_t</span> key, <span class="hljs-keyword">size_t</span> size, <span class="hljs-keyword">int</span> shmflg)</span></span>;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">- 功能：创建一个新的共享内存段，或者获取一个既有的共享内存段的标识。</span><br><span class="hljs-comment">    新创建的内存段中的数据都会被初始化为0</span><br><span class="hljs-comment">- 参数：</span><br><span class="hljs-comment">    - key : key_t类型是一个整形，通过这个找到或者创建一个共享内存。</span><br><span class="hljs-comment">            一般使用16进制表示，非0值</span><br><span class="hljs-comment">    - size: 共享内存的大小</span><br><span class="hljs-comment">    - shmflg: 属性</span><br><span class="hljs-comment">        - 访问权限</span><br><span class="hljs-comment">        - 附加属性：创建/判断共享内存是不是存在</span><br><span class="hljs-comment">            - 创建：IPC_CREAT</span><br><span class="hljs-comment">            - 判断共享内存是否存在： IPC_EXCL , 需要和IPC_CREAT一起使用</span><br><span class="hljs-comment">                IPC_CREAT | IPC_EXCL | 0664</span><br><span class="hljs-comment">    - 返回值：</span><br><span class="hljs-comment">        失败：-1 并设置错误号</span><br><span class="hljs-comment">        成功：&gt;0 返回共享内存的引用的ID，后面操作共享内存都是通过这个值。</span><br><span class="hljs-comment">*/</span><br><br><span class="hljs-function"><span class="hljs-keyword">void</span> *<span class="hljs-title">shmat</span><span class="hljs-params">(<span class="hljs-keyword">int</span> shmid, <span class="hljs-keyword">const</span> <span class="hljs-keyword">void</span> *shmaddr, <span class="hljs-keyword">int</span> shmflg)</span></span>;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">- 功能：和当前的进程进行关联</span><br><span class="hljs-comment">- 参数：</span><br><span class="hljs-comment">    - shmid : 共享内存的标识（ID）,由shmget返回值获取</span><br><span class="hljs-comment">    - shmaddr: 申请的共享内存的起始地址，指定NULL，内核指定</span><br><span class="hljs-comment">    - shmflg : 对共享内存的操作</span><br><span class="hljs-comment">        - 读 ： SHM_RDONLY, 必须要有读权限</span><br><span class="hljs-comment">        - 读写： 0</span><br><span class="hljs-comment">- 返回值：</span><br><span class="hljs-comment">    成功：返回共享内存的首（起始）地址。  失败(void *) -1</span><br><span class="hljs-comment">*/</span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">shmdt</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">void</span> *shmaddr)</span></span>;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">- 功能：解除当前进程和共享内存的关联</span><br><span class="hljs-comment">- 参数：</span><br><span class="hljs-comment">    shmaddr：共享内存的首地址</span><br><span class="hljs-comment">- 返回值：成功 0， 失败 -1</span><br><span class="hljs-comment">*/</span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">shmctl</span><span class="hljs-params">(<span class="hljs-keyword">int</span> shmid, <span class="hljs-keyword">int</span> cmd, struct shmid_ds *buf)</span></span>;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">- 功能：对共享内存进行操作。删除共享内存，共享内存要删除才会消失，创建共享内存的进行被销毁了对共享内存是没有任何影响。</span><br><span class="hljs-comment">- 参数：</span><br><span class="hljs-comment">    - shmid: 共享内存的ID</span><br><span class="hljs-comment">    - cmd : 要做的操作</span><br><span class="hljs-comment">        - IPC_STAT : 获取共享内存的当前的状态</span><br><span class="hljs-comment">        - IPC_SET : 设置共享内存的状态</span><br><span class="hljs-comment">        - IPC_RMID: 标记共享内存被销毁</span><br><span class="hljs-comment">    - buf：需要设置或者获取的共享内存的属性信息</span><br><span class="hljs-comment">        - IPC_STAT : buf存储数据</span><br><span class="hljs-comment">        - IPC_SET : buf中需要初始化数据，设置到内核中</span><br><span class="hljs-comment">        - IPC_RMID : 没有用，NULL</span><br><span class="hljs-comment">*/</span><br><br><span class="hljs-function"><span class="hljs-keyword">key_t</span> <span class="hljs-title">ftok</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *pathname, <span class="hljs-keyword">int</span> proj_id)</span></span>;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">- 功能：根据指定的路径名，和int值，生成一个共享内存的key</span><br><span class="hljs-comment">- 参数：</span><br><span class="hljs-comment">    - pathname:指定一个存在的路径</span><br><span class="hljs-comment">        /home/nowcoder/Linux/a.txt</span><br><span class="hljs-comment">        / </span><br><span class="hljs-comment">    - proj_id: int类型的值，但是这系统调用只会使用其中的1个字节</span><br><span class="hljs-comment">                范围 ： 0-255  一般指定一个字符 &#x27;a&#x27;</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>一个进程创建共享内存，并且向内存中写入数据</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/ipc.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/shm.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br><br>    <span class="hljs-comment">//1.创建一个共享内存</span><br>    <span class="hljs-keyword">int</span> shmid = shmget(<span class="hljs-number">100</span>,<span class="hljs-number">4096</span>,IPC_CREAT|<span class="hljs-number">0664</span>);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;shmid : %d\n&quot;</span>,shmid);<br><br>    <span class="hljs-comment">//2.和当前进程相关联</span><br>    <span class="hljs-keyword">void</span> *ptr = shmat(shmid,<span class="hljs-literal">NULL</span>,<span class="hljs-number">0</span>);<br><br>    <span class="hljs-comment">//3.写数据</span><br>    <span class="hljs-keyword">char</span> *str = <span class="hljs-string">&quot;hello world&quot;</span>;<br>    <span class="hljs-built_in">memcpy</span>(ptr,str,<span class="hljs-built_in">strlen</span>(str)+<span class="hljs-number">1</span>);<br><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;按任意键继续\n&quot;</span>);<br>    getchar();<span class="hljs-comment">//阻塞进程，以便运行另一个进程，否则开辟完的这块内存又会被关闭</span><br><br>    <span class="hljs-comment">//4.解除关联</span><br>    shmdt(ptr);<br><br>    <span class="hljs-comment">//5.删除共享内存</span><br>    shmctl(shmid,IPC_RMID,<span class="hljs-literal">NULL</span>);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>另一个进程关联那块共享内存，然后读取其中的数据。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/ipc.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/shm.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br><br>    <span class="hljs-comment">//获取一个共享内存</span><br>    <span class="hljs-keyword">int</span> shmid = shmget(<span class="hljs-number">100</span>,<span class="hljs-number">0</span>,IPC_CREAT);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;shmid : %d\n&quot;</span>,shmid);<br>	<br>    <span class="hljs-comment">//2.然后关联</span><br>    <span class="hljs-keyword">void</span> *ptr = shmat(shmid,<span class="hljs-literal">NULL</span>,<span class="hljs-number">0</span>);<br><br>    <span class="hljs-comment">//3.读取数据</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;recv: %s\n&quot;</span>,(<span class="hljs-keyword">char</span>*)ptr);<br><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;按任意键继续\n&quot;</span>);<br>    getchar();<br><br>    <span class="hljs-comment">//4.解除关联</span><br>    shmdt(ptr);<br><br>    <span class="hljs-comment">//5.删除共享内存</span><br>    shmctl(shmid,IPC_RMID,<span class="hljs-literal">NULL</span>);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h3><p>问题1：操作系统如何知道一块共享内存被多少个进程关联？</p>
+<ul>
+<li>共享内存维护了一个结构体<code>struct shmid_ds</code> 这个结构体中有一个成员 <code>shm_nattch</code></li>
+<li><code>shm_nattach</code> 记录了关联的进程个数</li>
+</ul>
+<p>linux中有一些命令可以来查看相关信息</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs awk">ipcs 用法<br>ipcs -a <span class="hljs-regexp">//</span> 打印当前系统中所有的进程间通信方式的信息<br>ipcs -m <span class="hljs-regexp">//</span> 打印出使用共享内存进行进程间通信的信息，常用<br>ipcs -q <span class="hljs-regexp">//</span> 打印出使用消息队列进行进程间通信的信息<br>ipcs -s <span class="hljs-regexp">//</span> 打印出使用信号进行进程间通信的信息<br><br>ipcrm 用法<br>ipcrm -M shmkey <span class="hljs-regexp">//</span> 移除用shmkey创建的共享内存段<br>ipcrm -m shmid <span class="hljs-regexp">//</span> 移除用shmid标识的共享内存段<br>ipcrm -Q msgkey <span class="hljs-regexp">//</span> 移除用msqkey创建的消息队列<br>ipcrm -q msqid <span class="hljs-regexp">//</span> 移除用msqid标识的消息队列<br>ipcrm -S semkey <span class="hljs-regexp">//</span> 移除用semkey创建的信号<br>ipcrm -s semid <span class="hljs-regexp">//</span> 移除用semid标识的信号<br></code></pre></td></tr></table></figure>
+<p>例如执行上面的写入程序</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs typescript">aliyun<span class="hljs-meta">@ali</span>-colourso:~<span class="hljs-regexp">/learn/</span>02sig$ ipcs -m<br><br>------ Shared Memory Segments --------<br>key        shmid      owner      perms      bytes      nattch     status      <br><span class="hljs-number">0x00000064</span> <span class="hljs-number">32768</span>      aliyun     <span class="hljs-number">664</span>        <span class="hljs-number">4096</span>       <span class="hljs-number">1</span>    <br>aliyun<span class="hljs-meta">@ali</span>-colourso:~<span class="hljs-regexp">/learn/</span>02sig$ ipcrm -m <span class="hljs-number">32768</span> <span class="hljs-comment">//删除</span><br>aliyun<span class="hljs-meta">@ali</span>-colourso:~<span class="hljs-regexp">/learn/</span>02sig$ ipcs -m<br><br>------ Shared Memory Segments --------<br>key        shmid      owner      perms      bytes      nattch     status      <br><span class="hljs-number">0x00000000</span> <span class="hljs-number">32768</span>      aliyun     <span class="hljs-number">664</span>        <span class="hljs-number">4096</span>       <span class="hljs-number">1</span>          dest   <br></code></pre></td></tr></table></figure>
+<p>key值其实就是100的十六进制形式，删除之后key变成了0，表示被标记删除，但是当前程序还没执行完。</p>
+<p>问题2：可不可以对共享内存进行多次删除 shmctl</p>
+<ul>
+<li>可以的,因为shmctl <strong>标记删除</strong>共享内存，不是直接删除</li>
+</ul>
+<p>什么时候真正删除呢?</p>
+<ul>
+<li>当和共享内存<strong>关联的进程数为0</strong>的时候，就真正被删除</li>
+<li>当共享内存的key为0的时候，表示共享内存被标记删除了</li>
+<li>如果一个进程和共享内存取消关联，那么这个进程就不能继续操作这个共享内存。也不能再次进行关联。</li>
+</ul>
+<h3 id="共享内存和内存映射的区别"><a href="#共享内存和内存映射的区别" class="headerlink" title="共享内存和内存映射的区别"></a>共享内存和内存映射的区别</h3><p>内存映射，需要文件，匿名映射不需要，但只能用于有亲缘关系的进程之间。</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs haml">共享内存和内存映射的区别<br>1.共享内存可以直接创建，内存映射需要磁盘文件（匿名映射除外）<br>2.共享内存效果更高<br>3.内存<br>    所有的进程操作的是同一块共享内存。<br>    内存映射，每个进程在自己的虚拟地址空间中有一个独立的内存。<br>4.数据安全<br>    -<span class="ruby"> 进程突然退出</span><br><span class="ruby">        共享内存还存在</span><br><span class="ruby">        内存映射区消失</span><br><span class="ruby">    - 运行进程的电脑死机，宕机了</span><br><span class="ruby">        数据存在在共享内存中，没有了</span><br><span class="ruby">        内存映射区的数据 ，由于磁盘文件中的数据还在，所以内存映射区的数据还存在。</span><br><br><span class="ruby"><span class="hljs-number">5</span>.生命周期</span><br><span class="ruby">    - 内存映射区：进程退出，内存映射区销毁</span><br><span class="ruby">    - 共享内存：进程退出，共享内存还在，标记删除（所有的关联的进程数为<span class="hljs-number">0</span>），或者关机</span><br><span class="ruby">        如果一个进程退出，会自动和共享内存进行取消关联。</span><br></code></pre></td></tr></table></figure>
+
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/linux-signal/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Linux 进程间通信——信号、信号捕获与处理</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/linux-pipefifo/">
+                        <span class="hidden-mobile">Linux 进程间通信——匿名管道和有名管道</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+
+  
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

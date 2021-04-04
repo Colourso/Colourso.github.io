@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3k 字
+      3.6k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      56
+      66
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月3日 晚上
+                  本文最后更新于：2021年4月4日 下午
                 
               </p>
             
@@ -355,8 +355,40 @@
 <p><img src="/leetcode-2/dp4.png" srcset="/img/loading.gif"></p>
 <p>这也就是<strong>动态规划</strong>的思想。现有的判断，基于原来的判断再加上一点新的判断</p>
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs maxima"><span class="hljs-keyword">if</span>(str1[<span class="hljs-built_in">row</span>-<span class="hljs-number">1</span>] == str2[<span class="hljs-built_in">col</span>-<span class="hljs-number">1</span>])&#123;<br>	dp[<span class="hljs-built_in">row</span>][<span class="hljs-built_in">col</span>] = dp[<span class="hljs-built_in">row</span>-<span class="hljs-number">1</span>][<span class="hljs-built_in">col</span>-<span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>	dp[<span class="hljs-built_in">row</span>][<span class="hljs-built_in">col</span>] = <span class="hljs-built_in">max</span>(dp[<span class="hljs-built_in">row</span>][<span class="hljs-built_in">col</span>-<span class="hljs-number">1</span>],dp[<span class="hljs-built_in">row</span>-<span class="hljs-number">1</span>][<span class="hljs-built_in">col</span>]);<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>	<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">longestCommonSubsequence</span><span class="hljs-params">(<span class="hljs-built_in">string</span> text1, <span class="hljs-built_in">string</span> text2)</span> </span>&#123;<br>		<span class="hljs-keyword">int</span> len1 = text1.size(), len2 = text2.size();<br><br>		<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &gt; dp(len2+<span class="hljs-number">1</span>,<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;(len1+<span class="hljs-number">1</span>));<br>		<span class="hljs-comment">//text1 横向，text2纵向</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= len2; j++) &#123;<br>			<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= len1; i++) &#123;<br>				<span class="hljs-keyword">if</span> (text1[i - <span class="hljs-number">1</span>] == text2[j - <span class="hljs-number">1</span>]) &#123;<br>					dp[j][i] = dp[j - <span class="hljs-number">1</span>][i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;<br>				&#125;<br>				<span class="hljs-keyword">else</span> &#123;<br>					dp[j][i] = max(dp[j - <span class="hljs-number">1</span>][i], dp[j][i - <span class="hljs-number">1</span>]);<br>				&#125;<br>			&#125;<br>		&#125;<br>		<span class="hljs-keyword">return</span> dp[len2][len1];<br>	&#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><details>
+    <summary>折叠/查看代码</summary>
+    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">longestCommonSubsequence</span><span class="hljs-params">(<span class="hljs-built_in">string</span> text1, <span class="hljs-built_in">string</span> text2)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> len1 = text1.size(), len2 = text2.size();<br><br>        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &gt; dp(len2+<span class="hljs-number">1</span>,<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;(len1+<span class="hljs-number">1</span>));<br>        <span class="hljs-comment">//text1 横向，text2纵向</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= len2; j++) &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= len1; i++) &#123;<br>                <span class="hljs-keyword">if</span> (text1[i - <span class="hljs-number">1</span>] == text2[j - <span class="hljs-number">1</span>]) &#123;<br>                    dp[j][i] = dp[j - <span class="hljs-number">1</span>][i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;<br>                &#125;<br>                <span class="hljs-keyword">else</span> &#123;<br>                    dp[j][i] = max(dp[j - <span class="hljs-number">1</span>][i], dp[j][i - <span class="hljs-number">1</span>]);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[len2][len1];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+</details>
+
 <p>动态规划，妙不可言。</p>
+<h2 id="11-乘最多水的容器"><a href="#11-乘最多水的容器" class="headerlink" title="11 乘最多水的容器"></a>11 乘最多水的容器</h2><blockquote>
+<p>21/04/04</p>
+<p>给你 n 个非负整数 a1，a2，…，an，每个数代表坐标中的一个点 (i, ai) 。<br>在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0) 。<br>找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。</p>
+<p>说明：你不能倾斜容器。</p>
+<p>输入：[1,8,6,2,5,4,8,3,7]<br>输出：49<br>解释：图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。<br>示例 2：</p>
+<p>输入：height = [1,1]<br>输出：1<br>示例 3：</p>
+<p>输入：height = [4,3,2,1,4]<br>输出：16<br>示例 4：</p>
+<p>输入：height = [1,2,1]<br>输出：2</p>
+<p>n = height.length<br>2 &lt;= n &lt;= 3 * 104<br>0 &lt;= height[i] &lt;= 3 * 104</p>
+<p>来源：力扣（LeetCode）<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/container-with-most-water">https://leetcode-cn.com/problems/container-with-most-water</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+</blockquote>
+<h3 id="暴力解法"><a href="#暴力解法" class="headerlink" title="暴力解法"></a>暴力解法</h3><p>找出所有柱子的可能组合，然后求得其最大值。当然时间超限。O(n^2)的复杂度。</p>
+<h3 id="双指针法——削减解空间"><a href="#双指针法——削减解空间" class="headerlink" title="双指针法——削减解空间"></a>双指针法——削减解空间</h3><p>对于最左右两根柱子，假设左边的比较短，如果右边的柱子随意更换，其宽度都小于原来，同时由于左边的柱子短，所以其新构成的体积均会小于原来的体积。<br>–&gt; 由此得出，包含左边柱子的全部情况中，最初始的情况是体积最大的。</p>
+<p>所以思想就是，每次消去两根柱子中最短的那根对应的全部解空间，中间使用max来记录，最大值当搜索的两根柱子的指针碰到一起的时候，停止搜索。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/container-with-most-water/solution/on-shuang-zhi-zhen-jie-fa-li-jie-zheng-que-xing-tu/">https://leetcode-cn.com/problems/container-with-most-water/solution/on-shuang-zhi-zhen-jie-fa-li-jie-zheng-que-xing-tu/</a></p>
+</blockquote>
+<details>
+    <summary>折叠/查看代码</summary>
+    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxArea</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; height)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> maxarea = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">int</span> j = height.size() - <span class="hljs-number">1</span>;<br><br>        <span class="hljs-keyword">while</span> (i &lt; j) &#123;<br>            <span class="hljs-keyword">int</span> area = (j - i)*min(height[i], height[j]);<br>            maxarea = max(maxarea, area);<br>            <span class="hljs-keyword">if</span> (height[i] &lt; height[j]) &#123;<br>                i++;<br>            &#125;<br>            <span class="hljs-keyword">else</span> &#123;<br>                j--;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> maxarea;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+</details>
+
+
+
+
+
+
+
 
             </div>
             <hr>
@@ -397,8 +429,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/tiny-webserver/">
-                        <span class="hidden-mobile">Tiny Web服务器</span>
+                      <a href="/linux-signal/">
+                        <span class="hidden-mobile">Linux 进程间通信——信号、信号捕获与处理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
