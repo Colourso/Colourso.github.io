@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.1k 字
+      1.2k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      19
+      20
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年2月5日 上午
+                  本文最后更新于：2021年4月6日 晚上
                 
               </p>
             
@@ -288,6 +288,8 @@
 <li>算法<code>&lt;algorithm&gt;</code>有sort()排序算法，但是这个算法是只支持可以<strong>随机访问</strong>的容器。由于list不支持，所以其自己提供了实现函数。</li>
 <li>对于自定义的数据类型，使用list存储，如果需要进行排序，必须要自行指定排序规则。</li>
 </ol>
+<h3 id="unique-——-去重函数"><a href="#unique-——-去重函数" class="headerlink" title="unique() —— 去重函数"></a>unique() —— 去重函数</h3><p>unique() 是删除容器中<strong>相邻重复的元素</strong>。</p>
+<p>所以应当先进行排序，使用list的<code>sort()</code>，然后再调用<code>unique</code>，才能尽可能地删去重复地元素。</p>
 <h3 id="使用情景"><a href="#使用情景" class="headerlink" title="使用情景"></a>使用情景</h3><ul>
 <li>注意list不支持随机访问、使用下标进行访问。只能从头遍历整个链表。</li>
 </ul>
