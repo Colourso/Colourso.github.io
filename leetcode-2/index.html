@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.4k 字
+      6.6k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      102
+      125
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月7日 凌晨
+                  本文最后更新于：2021年4月7日 晚上
                 
               </p>
             
@@ -275,7 +275,7 @@
     <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">convert</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s, <span class="hljs-keyword">int</span> numRows)</span> </span>&#123;<br><br>        <span class="hljs-keyword">if</span> (numRows == <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-keyword">return</span> s;<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; <span class="hljs-title">vecstr</span><span class="hljs-params">(numRows,<span class="hljs-string">&quot;&quot;</span>)</span></span>;<br><br>        <span class="hljs-keyword">int</span> len = s.size();<br>        <span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>;	<span class="hljs-comment">//对应字符串索引</span><br>        <span class="hljs-keyword">bool</span> asc = <span class="hljs-literal">true</span>;<span class="hljs-comment">//顺序扫描还是逆序扫描</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;<br>            vecstr[index].push_back(s[i]);<br>            <span class="hljs-keyword">if</span> (asc) &#123;<br>                <span class="hljs-keyword">if</span> (index &gt;= numRows<span class="hljs-number">-1</span>) &#123;<br>                    asc = <span class="hljs-literal">false</span>;<br>                    index = numRows<span class="hljs-number">-2</span>;<br>                &#125;<br>                <span class="hljs-keyword">else</span> &#123;<br>                    index++;<br>                &#125;<br>            &#125;<br>            <span class="hljs-keyword">else</span>&#123;<br>                <span class="hljs-keyword">if</span> (index &lt;= <span class="hljs-number">0</span>) &#123;<br>                    asc = <span class="hljs-literal">true</span>;<br>                    index = <span class="hljs-number">1</span>;<br>                &#125;<br>                <span class="hljs-keyword">else</span> &#123;<br>                    index--;<br>                &#125;<br>            &#125;<br><br>        &#125;<br><br>        <span class="hljs-built_in">string</span> result = <span class="hljs-string">&quot;&quot;</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> i : vecstr) &#123;<br>            result += i;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 </details>
 
-<h2 id="去除重复字母-找出字典序最小的字母组合，保持相对位置"><a href="#去除重复字母-找出字典序最小的字母组合，保持相对位置" class="headerlink" title="去除重复字母 | 找出字典序最小的字母组合，保持相对位置"></a>去除重复字母 | 找出字典序最小的字母组合，保持相对位置</h2><blockquote>
+<h2 id="找出字典序最小的字母组合，保持相对位置-【游奕互动笔试】"><a href="#找出字典序最小的字母组合，保持相对位置-【游奕互动笔试】" class="headerlink" title="找出字典序最小的字母组合，保持相对位置 | 【游奕互动笔试】"></a>找出字典序最小的字母组合，保持相对位置 | 【游奕互动笔试】</h2><blockquote>
 <p>2021/04/01</p>
 <p>给定一个字符串s，返回其 最小字典序 的子字符串，且该子串包含了s中 所有出现的字母，并只出现一次 。如:s=“dbadcdbd”，返回“acbd”。s=“dbbbbbbaaaabbbc”,返回“dabc”</p>
 <p>函数声明如下：string GetSubString(string&amp; s);</p>
@@ -326,7 +326,7 @@
     <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>&#123;</span><br><br><span class="hljs-keyword">public</span>:<br><br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">myAtoi</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span></span>&#123;<br><br>        <span class="hljs-keyword">bool</span> neg = <span class="hljs-literal">false</span>;<br>        <span class="hljs-keyword">int</span> result = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">int</span> len = s.size();<br><br>        <span class="hljs-keyword">while</span>(index &lt; len &amp;&amp; s[index] == <span class="hljs-string">&#x27; &#x27;</span>)&#123;<br>            index++;<br>        &#125;<br><br>        <span class="hljs-keyword">if</span>(index &lt; len &amp;&amp; (s[index] == <span class="hljs-string">&#x27;-&#x27;</span> || s[index] == <span class="hljs-string">&#x27;+&#x27;</span>))&#123;<br>            <span class="hljs-keyword">if</span>(s[index] == <span class="hljs-string">&#x27;-&#x27;</span>) neg = <span class="hljs-literal">true</span>;<br>            index++;<br>        &#125;<br><br>        <span class="hljs-keyword">while</span>(index &lt;len &amp;&amp;(s[index] &gt;= <span class="hljs-string">&#x27;0&#x27;</span> &amp;&amp; s[index] &lt;= <span class="hljs-string">&#x27;9&#x27;</span>))&#123;<br>            <span class="hljs-keyword">if</span>(result &gt; INT_MAX / <span class="hljs-number">10</span> || (result == INT_MAX / <span class="hljs-number">10</span> &amp;&amp; (s[index] - <span class="hljs-string">&#x27;0&#x27;</span>) &gt; <span class="hljs-number">7</span>))<span class="hljs-comment">//溢出</span><br>                <span class="hljs-keyword">return</span> neg?INT_MIN:INT_MAX;<br><br>            result = result* <span class="hljs-number">10</span>  + (s[index] - <span class="hljs-string">&#x27;0&#x27;</span>);<br>            index++;<br>        &#125;<br>        <span class="hljs-keyword">return</span> result *(neg ? <span class="hljs-number">-1</span> : <span class="hljs-number">1</span>);<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 </details>
 
-<h2 id="1143-最长公共子序列"><a href="#1143-最长公共子序列" class="headerlink" title="1143 最长公共子序列"></a>1143 最长公共子序列</h2><blockquote>
+<h2 id="1143-最长公共子序列【动态规划】"><a href="#1143-最长公共子序列【动态规划】" class="headerlink" title="1143 最长公共子序列【动态规划】"></a>1143 最长公共子序列【动态规划】</h2><blockquote>
 <p>21/04/03</p>
 <p>给定两个字符串 text1 和 text2，返回这两个字符串的最长 公共子序列 的长度。如果不存在 公共子序列 ，返回 0 。</p>
 <p>一个字符串的 子序列 是指这样一个新的字符串：它是由原字符串在不改变字符的相对顺序的情况下删除某些字符<br>（也可以不删除任何字符）后组成的新字符串。</p>
@@ -361,7 +361,7 @@
 </details>
 
 <p>动态规划，妙不可言。</p>
-<h2 id="11-乘最多水的容器"><a href="#11-乘最多水的容器" class="headerlink" title="11 乘最多水的容器"></a>11 乘最多水的容器</h2><blockquote>
+<h2 id="11-乘最多水的容器【双指针】"><a href="#11-乘最多水的容器【双指针】" class="headerlink" title="11 乘最多水的容器【双指针】"></a>11 乘最多水的容器【双指针】</h2><blockquote>
 <p>21/04/04</p>
 <p>给你 n 个非负整数 a1，a2，…，an，每个数代表坐标中的一个点 (i, ai) 。<br>在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0) 。<br>找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。</p>
 <p>说明：你不能倾斜容器。</p>
@@ -385,7 +385,7 @@
 
 
 
-<h2 id="42-接雨水"><a href="#42-接雨水" class="headerlink" title="42 接雨水"></a>42 接雨水</h2><blockquote>
+<h2 id="42-接雨水【单调栈】"><a href="#42-接雨水【单调栈】" class="headerlink" title="42 接雨水【单调栈】"></a>42 接雨水【单调栈】</h2><blockquote>
 <p>2021/04/05</p>
 <p>给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。</p>
 <p>输入：height = [0,1,0,2,1,0,1,3,2,1,2,1]<br>输出：6<br>解释：上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。</p>
@@ -445,7 +445,7 @@
 
 
 
-<h2 id="获得有向边输出单链表-偶数科技笔试"><a href="#获得有向边输出单链表-偶数科技笔试" class="headerlink" title="获得有向边输出单链表 | 偶数科技笔试"></a>获得有向边输出单链表 | 偶数科技笔试</h2><blockquote>
+<h2 id="获得有向边输出单链表-【偶数科技笔试】"><a href="#获得有向边输出单链表-【偶数科技笔试】" class="headerlink" title="获得有向边输出单链表 | 【偶数科技笔试】"></a>获得有向边输出单链表 | 【偶数科技笔试】</h2><blockquote>
 <p>2021/04/06</p>
 <p>输入一系列有向边，判断其是否构成一个单向链表。若构成单向链表，则输出该单向链表的反向形式。若不构成，输出NO。</p>
 <p>Input<br>每行为一条有向边src dst，以空格分隔出发点和到达点。src和dst可能为字符串，输入以EOF结束。<br>Output<br>情况1：每行一个点名，输出该单向链表的反向形式。<br>情况2：NO</p>
@@ -465,9 +465,64 @@
 
 
 
+<h2 id="77-组合-【回溯】"><a href="#77-组合-【回溯】" class="headerlink" title="77 组合 【回溯】"></a>77 组合 【回溯】</h2><blockquote>
+<p>2021/04/07</p>
+<p>给定两个整数 n 和 k，返回 1 … n 中所有可能的 k 个数的组合。</p>
+<p>示例:</p>
+<p>输入: n = 4, k = 2<br>输出:<br>[<br>  [2,4],<br>  [3,4],<br>  [2,3],<br>  [1,2],<br>  [1,3],<br>  [1,4],<br>]</p>
+<p>来源：力扣（LeetCode）<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/combinations">https://leetcode-cn.com/problems/combinations</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+</blockquote>
+<p>经典的回溯解法，一般最好画一个树，查看其访问路径。</p>
+<p><img src="/leetcode-2/trackback.png" srcset="/img/loading.gif"></p>
+<p>回溯一般就是与递归相互挂钩的，其本身就是一种暴力穷举的过程。</p>
+<p>回溯框架</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">void</span> <span class="hljs-function"><span class="hljs-title">trackback</span>(<span class="hljs-params">参数</span>)</span>&#123;<br>	<span class="hljs-keyword">if</span>(终止条件)&#123;	<span class="hljs-comment">//树搜索到了叶子时 就存储结果，返回</span><br>		存放结果<br>		<span class="hljs-keyword">return</span>;<br>	&#125;<br>	<br>	<span class="hljs-comment">//for循环 横向遍历</span><br>	<span class="hljs-keyword">for</span>(选择：本层集合中元素)&#123;<br>		处理节点，比如记录路径;<br>		trackback(路径，选择列表);<span class="hljs-comment">//递归 纵向遍历</span><br>		回溯，撤销上一步记录的结果;<br>	&#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong>终止条件</strong>：记录的元素个数达到了要求的数量</li>
+<li>剪枝：若当前需要的元素个数大于了还能选择的个数，就没必要再递归了。</li>
+<li>参数：由于我们要的是当前节点选择之后，其后面节点的组合，所以需要一个开始位置，表明我们应当从哪里找。</li>
+<li>处理节点：使用一个数组记录路径，达到了条件就存储进入最终结果集。</li>
+</ul>
+<details>
+    <summary>折叠/查看代码</summary>
+    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">trackback</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n,<span class="hljs-keyword">int</span> k,<span class="hljs-keyword">int</span> start,<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; &amp;result,<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;path)</span></span>&#123;<br>        <span class="hljs-comment">//结束条件 还需要的数 小于 还有的数</span><br>        <span class="hljs-keyword">if</span>( k - path.size() &gt; n-start+<span class="hljs-number">1</span>)<br>            <span class="hljs-keyword">return</span>;<br>        <span class="hljs-keyword">if</span>(path.size() == k)&#123;<br>            result.push_back(path);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-comment">//横向遍历</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=start;i&lt;=n;i++)&#123;<br>            path.push_back(i);<br>            trackback(n,k,i+<span class="hljs-number">1</span>,result,path);<span class="hljs-comment">//递归，纵向遍历</span><br>            path.pop_back();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; combine(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> k) &#123;<br>            <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; result;<br>            <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; path;<br>            trackback(n,k,<span class="hljs-number">1</span>,result,path);<br>            <span class="hljs-keyword">return</span> result;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+</details>
+
+<p>此外另一种更好的优化思路：剪枝操作直接在for循环中来进行处理：</p>
+<ul>
+<li>至多能刚好凑够一次结果时应当所处的位置：<code>n - (k-path.size()) + 1</code><ul>
+<li>例如当前元素0个，需要两个元素，则至少要从3号位置开始。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//还需要1个元素 遍历到n-1就可以</span><br><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=start; i&lt;= n-(k-path.size()) +<span class="hljs-number">1</span>;i++)&#123;<br>...<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+<h2 id="46-全排列【回溯】"><a href="#46-全排列【回溯】" class="headerlink" title="46 全排列【回溯】"></a>46 全排列【回溯】</h2><blockquote>
+<p>2021/04/07</p>
+<p>给定一个 没有重复 数字的序列，返回其所有可能的全排列。</p>
+<p>示例:</p>
+<p>输入: [1,2,3]<br>输出:<br>[<br>  [1,2,3],<br>  [1,3,2],<br>  [2,1,3],<br>  [2,3,1],<br>  [3,1,2],<br>  [3,2,1]<br>]</p>
+<p>来源：力扣（LeetCode）<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutations">https://leetcode-cn.com/problems/permutations</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+</blockquote>
+<p>依旧是很经典的回溯问题，但是不同于上一个组合问题，这里的细节又发生了变化。</p>
+<p>全排列时，要看当前数据有没有被使用过，它要搜索全部的数据，然后找出一个没有被使用过的数据，所以每次横向搜索都是完全遍历，使用辅助数组来标记是否被使用，若被使用，就立即结束当前的循环。</p>
+<details>
+    <summary>折叠/查看代码</summary>
+    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">trackback</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;nums,<span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; &amp;result,<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;path,<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;used)</span></span>&#123;<br>        <span class="hljs-keyword">if</span>(path.size() == nums.size())&#123;<br>            result.push_back(path);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.size();i++)&#123;<br>            <span class="hljs-keyword">if</span>(used[i] == <span class="hljs-number">1</span>) <span class="hljs-keyword">continue</span>;<span class="hljs-comment">//若使用过了，就跳过</span><br>            used[i] = <span class="hljs-number">1</span>;<br>            path.push_back(nums[i]);<br><br>            trackback(nums,result,path,used);<br><br>            path.pop_back();<br>            used[i] =<span class="hljs-number">0</span>;<br><br>        &#125;<br><br>    &#125;<br>    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; permute(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums) &#123;<br><br>        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&gt; result;<br>        <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">used</span><span class="hljs-params">(nums.size(),<span class="hljs-number">0</span>)</span></span>;<span class="hljs-comment">//记得初始化</span><br>        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; path;<br><br>        trackback(nums,result,path,used);<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+</details>
 
 
 
+<h2 id="55-跳跃游戏-【偶数科技面试】"><a href="#55-跳跃游戏-【偶数科技面试】" class="headerlink" title="55 跳跃游戏 【偶数科技面试】"></a>55 跳跃游戏 【偶数科技面试】</h2><blockquote>
+<p>2021/04/07</p>
+<p>给定一个非负整数数组 nums ，你最初位于数组的 第一个下标 。</p>
+<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
+<p>判断你是否能够到达最后一个下标。</p>
+<p>示例 1：</p>
+<p>输入：nums = [2,3,1,1,4]<br>输出：true<br>解释：可以先跳 1 步，从下标 0 到达下标 1, 然后再从下标 1 跳 3 步到达最后一个下标。<br>示例 2：</p>
+<p>输入：nums = [3,2,1,0,4]<br>输出：false<br>解释：无论怎样，总会到达下标为 3 的位置。但该下标的最大跳跃长度是 0 ， 所以永远不可能到达最后一个下标。</p>
+<p>来源：力扣（LeetCode）<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/jump-game">https://leetcode-cn.com/problems/jump-game</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+</blockquote>
 <h2 id="25-K个一组翻转链表"><a href="#25-K个一组翻转链表" class="headerlink" title="25 K个一组翻转链表"></a>25 K个一组翻转链表</h2>
             </div>
             <hr>
