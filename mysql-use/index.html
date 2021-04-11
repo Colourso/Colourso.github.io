@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.3k 字
+      5.5k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      94
+      98
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月4日 凌晨
+                  本文最后更新于：2021年4月11日 上午
                 
               </p>
             
@@ -618,6 +618,18 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs mysql">create table student(<br>    sid int PRIMARY KEY,<br>    ...<br>);<br><br>create table teacher(<br>    tid int PRIMARY KEY,<br>    ...<br>);<br><br>create table stu_tea(<br> sid int,<br> tid int,<br> ADD CONSTRAINT fk_stu_tea_sid FOREIGN KEY(sid) REFERENCES student(sid),<br> ADD CONSTRAINT fk_stu_tea_tid FOREIGN KEY(tid) REFERENCES teacher(tid)<br>);<br></code></pre></td></tr></table></figure>
 <p>  这时在stu_tea这个中间表中的每条记录都是来说明student和teacher表的关系.</p>
 <p>  例如在stu_tea表中的记录：sid为1001，tid为2001，这说明编号为1001的学生有一个编号为2001的老师</p>
+<hr>
+<h2 id="count-、count-1-、count-column"><a href="#count-、count-1-、count-column" class="headerlink" title="count(*) 、count(1)、count(column)"></a>count(*) 、count(1)、count(column)</h2><ul>
+<li><code>count(*) 、count(1)</code>是直接计数，不管是不是NULL</li>
+<li><code>count(column)</code>则是只对非NULL的值进行计数。</li>
+</ul>
+<p>mysql实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; select * from mytest2;<br>+------+<br>| name |<br>+------+<br>| NULL |<br>| NULL |<br>| NULL |<br>| NULL |<br>| NULL |<br>+------+<br>5 rows in set (0.00 sec)<br><br>mysql&gt; select count(1) from mytest2;<br>+----------+<br>| count(1) |<br>+----------+<br>|        5 |<br>+----------+<br>1 row in set (0.00 sec)<br><br>mysql&gt; select count(*) from mytest2;<br>+----------+<br>| count(*) |<br>+----------+<br>|        5 |<br>+----------+<br>1 row in set (0.00 sec)<br><br>mysql&gt; select count(name) from mytest2;<br>+-------------+<br>| count(name) |<br>+-------------+<br>|           0 |<br>+-------------+<br>1 row in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>假如表沒有主键(Primary key), 那么count(1)比count(*)快，</p>
+<p> 如果有主键的話，那主键作为count的条件时候count(主键)最快</p>
+<p> 如果你的表只有一个字段的话那count(*)就是最快的</p>
+</blockquote>
 
             </div>
             <hr>
