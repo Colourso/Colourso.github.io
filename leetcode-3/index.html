@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      102
+      101
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月13日 凌晨
+                  本文最后更新于：2021年4月13日 下午
                 
               </p>
             
@@ -312,9 +312,10 @@
     <summary>折叠/查看代码</summary>
     <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">canJump</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> len = nums.size();<br>        <span class="hljs-keyword">if</span> (len &lt;= <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<span class="hljs-comment">//长度为1肯定直接达到</span><br><br>        <span class="hljs-keyword">int</span> cur = nums[<span class="hljs-number">0</span>];<span class="hljs-comment">//表示最远能够到达的范围</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;<br>            <span class="hljs-keyword">if</span> (cur &gt;= len - <span class="hljs-number">1</span>) &#123;<span class="hljs-comment">//到达边界</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            &#125;<br><br>            <span class="hljs-comment">//只有这个范围可达，才能进入</span><br>            <span class="hljs-keyword">if</span>(cur &gt;= i)&#123;<br>                cur = max(cur, nums[i] + i);<br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<span class="hljs-comment">//若当前的点都到不了，那么之后肯定都到不了</span><br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 </details>
-## 45 跳跃游戏2 【贪心】
 
-<blockquote>
+
+
+<h2 id="45-跳跃游戏2-【贪心】"><a href="#45-跳跃游戏2-【贪心】" class="headerlink" title="45  跳跃游戏2 【贪心】"></a>45  跳跃游戏2 【贪心】</h2><blockquote>
 <p>2021/04/08</p>
 <p>给定一个非负整数数组，你最初位于数组的第一个位置。</p>
 <p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
@@ -512,43 +513,20 @@
 </blockquote>
 <p>思路：就是比较大小然后串接起来，但是串接节点时出现了问题！</p>
 <ul>
-<li><p>方式1：在堆上开辟节点，然后串接。需要额外的空间！</p>
+<li>方式1：在堆上开辟节点，然后串接。需要额外的空间！</li>
+</ul>
+<details>
+    <summary>折叠/查看代码</summary>
+    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//双指针向后移动</span><br><span class="hljs-keyword">while</span>(l1 != <span class="hljs-literal">nullptr</span> &amp;&amp; l2 != <span class="hljs-literal">nullptr</span>)&#123;<br>    <span class="hljs-keyword">if</span>(l1-&gt;val &lt; l2-&gt;val)&#123;<br>        ListNode* tmp = <span class="hljs-keyword">new</span> ListNode(l1-&gt;val);<br>        newlist-&gt;next = tmp;<br>        l1 = l1-&gt;next;<br>        newlist = newlist-&gt;next;<br><br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        ListNode* tmp = <span class="hljs-keyword">new</span> ListNode(l2-&gt;val);<br>        newlist-&gt;next = tmp;<br>        newlist = newlist-&gt;next;<br>        l2 = l2-&gt;next;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">while</span>(l1 != <span class="hljs-literal">nullptr</span>)&#123;<br>    ListNode* tmp = <span class="hljs-keyword">new</span> ListNode(l1-&gt;val);<br>    newlist-&gt;next = tmp;<br>    l1 = l1-&gt;next;<br>    newlist = newlist-&gt;next;<br>&#125;<br><br><span class="hljs-keyword">if</span>(l2 != <span class="hljs-literal">nullptr</span>)&#123;<br>    ListNode* tmp = <span class="hljs-keyword">new</span> ListNode(l2-&gt;val);<br>    newlist-&gt;next = tmp;<br>    newlist = newlist-&gt;next;<br>    l2 = l2-&gt;next;<br>&#125;<br></code></pre></td></tr></table></figure>
+</details>
+
 <ul>
-<li><pre><code class="c++">//双指针向后移动
-while(l1 != nullptr &amp;&amp; l2 != nullptr)&#123;
-    if(l1-&gt;val &lt; l2-&gt;val)&#123;
-        ListNode* tmp = new ListNode(l1-&gt;val);
-        newlist-&gt;next = tmp;
-        l1 = l1-&gt;next;
-        newlist = newlist-&gt;next;
-
-    &#125;else&#123;
-        ListNode* tmp = new ListNode(l2-&gt;val);
-        newlist-&gt;next = tmp;
-        newlist = newlist-&gt;next;
-        l2 = l2-&gt;next;
-    &#125;
-&#125;
-
-while(l1 != nullptr)&#123;
-    ListNode* tmp = new ListNode(l1-&gt;val);
-    newlist-&gt;next = tmp;
-    l1 = l1-&gt;next;
-    newlist = newlist-&gt;next;
-&#125;
-
-if(l2 != nullptr)&#123;
-    ListNode* tmp = new ListNode(l2-&gt;val);
-    newlist-&gt;next = tmp;
-    newlist = newlist-&gt;next;
-    l2 = l2-&gt;next;
-&#125;
-<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs xl"><br>- 方法二：串接原来的节点，但是要注意串接时各个变量的放置顺序！<br><br>&lt;details&gt;<br>    &lt;summary&gt;折叠/查看代码&lt;/summary&gt;<br>    ```c++<br>    class Solution &#123;<br>    public:<br>        ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) &#123;<br>            <span class="hljs-keyword">if</span> (l1 == nullptr)<br>                return l2;<br>            <span class="hljs-keyword">if</span> (l2 == nullptr)<br>                return l1;<br><br>            ListNode * newlist = new ListNode(<span class="hljs-number">0</span>);<br>            ListNode * pre = newlist;<br>    <br>            <span class="hljs-comment">//双指针向后移动</span><br>            <span class="hljs-keyword">while</span> (l1 != nullptr &amp;&amp; l2 != nullptr) &#123;<br>                <span class="hljs-function"><span class="hljs-title">if</span> (l1-&gt;</span><span class="hljs-function"><span class="hljs-title">val</span> &lt; l2-&gt;</span>val) &#123;<br>                    <span class="hljs-function"><span class="hljs-title">newlist</span>-&gt;</span>next = l1;				<br>                    <span class="hljs-function"><span class="hljs-title">newlist</span> = newlist-&gt;</span>next;<br>                    <span class="hljs-function"><span class="hljs-title">l1</span> = l1-&gt;</span>next;<br>                &#125;<br>                <span class="hljs-keyword">else</span> &#123;<br>                    <span class="hljs-function"><span class="hljs-title">newlist</span>-&gt;</span>next = l2;<br>                    <span class="hljs-function"><span class="hljs-title">newlist</span> = newlist-&gt;</span>next;<br>                    <span class="hljs-function"><span class="hljs-title">l2</span> = l2-&gt;</span>next;<br>                &#125;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (l1 != nullptr) &#123;<br>                <span class="hljs-function"><span class="hljs-title">newlist</span>-&gt;</span>next = l1;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (l2 != nullptr) &#123;<br>                <span class="hljs-function"><span class="hljs-title">newlist</span>-&gt;</span>next = l2;<br>            &#125;<br>            <span class="hljs-function"><span class="hljs-title">return</span> pre-&gt;</span>next;<br>        &#125;<br>    &#125;;<br></code></pre></td></tr></table></figure>
-&lt;/details&gt;</code></pre>
-</li>
+<li>方法二：串接原来的节点，但是要注意串接时各个变量的放置顺序！</li>
 </ul>
-</li>
-</ul>
+<details>
+    <summary>折叠/查看代码</summary>
+    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">ListNode* <span class="hljs-title">mergeTwoLists</span><span class="hljs-params">(ListNode* l1, ListNode* l2)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (l1 == <span class="hljs-literal">nullptr</span>)<br>            <span class="hljs-keyword">return</span> l2;<br>        <span class="hljs-keyword">if</span> (l2 == <span class="hljs-literal">nullptr</span>)<br>            <span class="hljs-keyword">return</span> l1;<br><br>        ListNode * newlist = <span class="hljs-keyword">new</span> ListNode(<span class="hljs-number">0</span>);<br>        ListNode * pre = newlist;<br><br>        <span class="hljs-comment">//双指针向后移动</span><br>        <span class="hljs-keyword">while</span> (l1 != <span class="hljs-literal">nullptr</span> &amp;&amp; l2 != <span class="hljs-literal">nullptr</span>) &#123;<br>            <span class="hljs-keyword">if</span> (l1-&gt;val &lt; l2-&gt;val) &#123;<br>                newlist-&gt;next = l1;				<br>                newlist = newlist-&gt;next;<br>                l1 = l1-&gt;next;<br>            &#125;<br>            <span class="hljs-keyword">else</span> &#123;<br>                newlist-&gt;next = l2;<br>                newlist = newlist-&gt;next;<br>                l2 = l2-&gt;next;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (l1 != <span class="hljs-literal">nullptr</span>) &#123;<br>            newlist-&gt;next = l1;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (l2 != <span class="hljs-literal">nullptr</span>) &#123;<br>            newlist-&gt;next = l2;<br>        &#125;<br>        <span class="hljs-keyword">return</span> pre-&gt;next;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+</details>
 
             </div>
             <hr>
