@@ -1,0 +1,748 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>LinuxIO多路复用 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="LinuxIO多路复用">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-04-13 08:34" pubdate>
+        2021年4月13日 早上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      63
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">LinuxIO多路复用</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月14日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p><strong>概览</strong>：LinuxIO多路复用</p>
+<a id="more"></a>
+
+<h2 id="同步-异步、阻塞-非阻塞、并行-并发"><a href="#同步-异步、阻塞-非阻塞、并行-并发" class="headerlink" title="同步/异步、阻塞/非阻塞、并行/并发"></a>同步/异步、阻塞/非阻塞、并行/并发</h2><p><strong>同步</strong>：发出一个功能调用，在没有得到结果之前，该调用就不返回或这继续执行后续才做，必须一件一件事情去做。<strong>调用者主动等待调用结果</strong></p>
+<p><strong>异步</strong>：当一个异步过程调用发出以后，调用者在没有得到结果之前，就可以继续执行后续操作，且当调用完成以后，<strong>一般会通过状态、通知和回调来通知调用者</strong>，对于异步调用，调用的返回并不受调用者的控制。</p>
+<p><strong>同步/异步关心的时消息通知机制。</strong></p>
+<blockquote>
+<p>在同步的情况下，由调用者自己去处理去等待消息被触发</p>
+<p>而异步情况下，则是由某些触发机制来通知处理消息者。</p>
+</blockquote>
+<p><strong>阻塞/非阻塞关心的是程序等待调用结果时的状态。</strong></p>
+<p><strong>阻塞</strong>：是指调用结果返回之前，当前线程会被挂起，只有在得到结果之后才会返回。</p>
+<p><strong>非阻塞</strong>：是指不能立刻得到结果之前，该调用不会阻塞当前进程，通过轮询的凡是查询调用是否完成。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/88403724">https://zhuanlan.zhihu.com/p/88403724</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/74a63eab9cbe">https://www.jianshu.com/p/74a63eab9cbe</a></p>
+</blockquote>
+<p>并行和并发表示CPU执行多个任务的方式。</p>
+<p><strong>并行</strong>：多个CPU时会出现并行，两个进程占用两个不同的CPU，可以同时进行，指多个任务同一时间点发生，不会相互抢占资源。</p>
+<p><strong>并发</strong>：在操作系统之中，某个时间段内多个进程都已经启动运行，它们共同占用一个处理机。指同一时间段内发生，多个任务之间会互相抢占资源。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1424249">https://cloud.tencent.com/developer/article/1424249</a></p>
+</blockquote>
+<hr>
+<h2 id="IO多路复用"><a href="#IO多路复用" class="headerlink" title="IO多路复用"></a>IO多路复用</h2><p>IO多路复用使得程序<strong>能够同时监听多个文件描述符</strong>，能够提高程序的性能。</p>
+<p>是最常使用的<strong>I/O通知机制</strong>，它指的是应用程序通过I/O复用函数向内核注册一组事件，内核通过I/O复用函数把其中就绪的事件通知给应用程序</p>
+<ul>
+<li>常用api：<code>select、poll、epoll_wait</code>。</li>
+<li>I/O复用函数本身是阻塞的，它们能提高程序效率的原因在于它们具有同时监听多个I/O事件的能力。</li>
+</ul>
+<p><strong>需要使用IO多路复用的情况</strong></p>
+<ul>
+<li>客户端程序要同时处理多个socket</li>
+<li>客户端程序要同时处理用户输入和网络连接</li>
+<li>TCP服务器要同时处理监听socket和连接socket。</li>
+<li>服务器要同时处理TCP请求和UDP请求。</li>
+<li>服务器要同时监听多个端口，或者处理多种服务。</li>
+</ul>
+<p>且当多个文件描述符同时就绪时，如果不采取额外措施，程序就只能按顺序依次处理其中的每一个文件描述符，就像是在串行工作。要实现并发，需要多进程或者多线程。</p>
+<h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><p>思想：</p>
+<p>首先要构造一个关于文件描述符的<strong>列表</strong>，将要监听的文件描述符添加到该列表中。</p>
+<p>调用一个系统函数，监听该列表中的文件描述符，直到这些描述符中的一个或者多个进行I/O 操作时，该函数才返回。 （这个函数是<strong>阻塞</strong> ，函数对文件描述符的检测的操作是由内核完成的 ）</p>
+<p>在返回时，它会告诉进程有多少（哪些）描述符要进行I/O操作。</p>
+<p>API:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// sizeof(fd_set) = 128 1024</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/time.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/types.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/select.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">select</span><span class="hljs-params">(<span class="hljs-keyword">int</span> nfds, fd_set *readfds, fd_set *writefds,</span></span><br><span class="hljs-function"><span class="hljs-params">fd_set *exceptfds, struct timeval *timeout)</span></span>;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">    - 参数：</span><br><span class="hljs-comment">    - nfds : 委托内核检测的最大文件描述符的值 + 1</span><br><span class="hljs-comment">    - readfds : 要检测的文件描述符的读的集合，委托内核检测哪些文件描述符的读的属性</span><br><span class="hljs-comment">        - 一般检测读操作</span><br><span class="hljs-comment">        - 对应的是对方发送过来的数据，因为读是被动的接收数据，检测的就是读缓冲</span><br><span class="hljs-comment">        区</span><br><span class="hljs-comment">        - 是一个传入传出参数</span><br><span class="hljs-comment">    - writefds : 要检测的文件描述符的写的集合，委托内核检测哪些文件描述符的写的属性</span><br><span class="hljs-comment">    	- 委托内核检测写缓冲区是不是还可以写数据（不满的就可以写）</span><br><span class="hljs-comment">    - exceptfds : 检测发生异常的文件描述符的集合</span><br><span class="hljs-comment">    - timeout : 设置的超时时间</span><br><span class="hljs-comment">        struct timeval &#123;</span><br><span class="hljs-comment">        long tv_sec; // seconds </span><br><span class="hljs-comment">        long tv_usec; // microseconds </span><br><span class="hljs-comment">        &#125;;</span><br><span class="hljs-comment">        - NULL : 永久阻塞，直到检测到了文件描述符有变化</span><br><span class="hljs-comment">        - tv_sec = 0 tv_usec = 0， 不阻塞</span><br><span class="hljs-comment">        - tv_sec &gt; 0 tv_usec &gt; 0， 阻塞对应的时间</span><br><span class="hljs-comment">- 返回值 :</span><br><span class="hljs-comment">    - -1 : 失败</span><br><span class="hljs-comment">    - &gt;0(n) : 检测的集合中有n个文件描述符发生了变化</span><br><span class="hljs-comment">*/</span><br><span class="hljs-comment">// 将参数文件描述符fd对应的标志位设置为0</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">FD_CLR</span><span class="hljs-params">(<span class="hljs-keyword">int</span> fd, fd_set *<span class="hljs-built_in">set</span>)</span></span>;<br><span class="hljs-comment">// 判断fd对应的标志位是0还是1， 返回值 ： fd对应的标志位的值，0，返回0， 1，返回1</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">FD_ISSET</span><span class="hljs-params">(<span class="hljs-keyword">int</span> fd, fd_set *<span class="hljs-built_in">set</span>)</span></span>;<br><span class="hljs-comment">// 将参数文件描述符fd 对应的标志位，设置为1</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">FD_SET</span><span class="hljs-params">(<span class="hljs-keyword">int</span> fd, fd_set *<span class="hljs-built_in">set</span>)</span></span>;<br><span class="hljs-comment">// fd_set一共有1024 bit, 全部初始化为0</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">FD_ZERO</span><span class="hljs-params">(fd_set *<span class="hljs-built_in">set</span>)</span></span>;<br></code></pre></td></tr></table></figure>
+<h3 id="select的缺点"><a href="#select的缺点" class="headerlink" title="select的缺点"></a>select的缺点</h3><ol>
+<li>每次调用select，都需要把fd集合从用户态拷贝到内核态，这个开销在fd很多时会很大。</li>
+<li>在内核中也要遍历传递进来的所有fd，这个开销也比较大</li>
+<li>select默认支持的文件描述符集合是1024，<code>fd_set</code>是128字节的。</li>
+<li>fds集合不能够重用，每次都要重置！</li>
+</ol>
+<h3 id="select使用"><a href="#select使用" class="headerlink" title="select使用"></a>select使用</h3><h2 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;poll.h&gt;</span></span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">pollfd</span> &#123;</span><br>    <span class="hljs-keyword">int</span> fd; <span class="hljs-comment">/* 委托内核检测的文件描述符 */</span><br>    <span class="hljs-keyword">short</span> events; <span class="hljs-comment">/* 委托内核检测文件描述符的什么事件 */</span><br>    <span class="hljs-keyword">short</span> revents; <span class="hljs-comment">/* 文件描述符实际发生的事件 */</span><br>&#125;;<br><br><span class="hljs-comment">//使用实例</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">pollfd</span> <span class="hljs-title">myfd</span>;</span><br>myfd.fd = <span class="hljs-number">5</span>;<br>myfd.events = POLLIN | POLLOUT;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">poll</span><span class="hljs-params">(struct pollfd *fds, <span class="hljs-keyword">nfds_t</span> nfds, <span class="hljs-keyword">int</span> timeout)</span></span>;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">- 参数：</span><br><span class="hljs-comment">    - fds : 是一个struct pollfd 结构体数组，这是一个需要检测的文件描述符的集合</span><br><span class="hljs-comment">    - nfds : 这个是第一个参数数组中最后一个有效元素的下标 + 1</span><br><span class="hljs-comment">    - timeout : 阻塞时长</span><br><span class="hljs-comment">        0 : 不阻塞</span><br><span class="hljs-comment">        -1 : 阻塞，当检测到需要检测的文件描述符有变化，解除阻塞</span><br><span class="hljs-comment">        &gt;0 : 阻塞的时长</span><br><span class="hljs-comment">- 返回值：</span><br><span class="hljs-comment">    -1 : 失败</span><br><span class="hljs-comment">    &gt;0（n） : 成功,n表示检测到集合中有n个文件描述符发生变化</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+<p>常用的一些事件：</p>
+<p><img src="/linux-iopoll/polleven.png" srcset="/img/loading.gif"></p>
+<h3 id="poll比select的优点"><a href="#poll比select的优点" class="headerlink" title="poll比select的优点"></a>poll比select的优点</h3><ul>
+<li>能够支持更多的文件描述符</li>
+<li>文件描述符集合不用重置，方便编程！</li>
+</ul>
+<h3 id="poll的缺点"><a href="#poll的缺点" class="headerlink" title="poll的缺点"></a>poll的缺点</h3><ul>
+<li>依旧是select的问题，拷贝的开销较大、每次都是轮询，花销也比较大！</li>
+</ul>
+<h3 id="poll的使用"><a href="#poll的使用" class="headerlink" title="poll的使用"></a>poll的使用</h3><h2 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h2><h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs c">include &lt;sys/epoll.h&gt;<br><span class="hljs-comment">// 创建一个新的epoll实例。在内核中创建了一个数据，这个数据中有两个比较重要的数据，一个是需要检测的文件描述符的信息（红黑树），还有一个是就绪列表，存放检测到数据发送改变的文件描述符信息（双向链表）。</span><br>    <br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">epoll_create</span><span class="hljs-params">(<span class="hljs-keyword">int</span> size)</span></span>;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">- 参数：</span><br><span class="hljs-comment">	size : 目前没有意义了。随便写一个数，必须大于0</span><br><span class="hljs-comment">- 返回值：</span><br><span class="hljs-comment">    -1 : 失败</span><br><span class="hljs-comment">    &gt; 0 : 文件描述符，操作epoll实例的</span><br><span class="hljs-comment">*/</span><br><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">union</span> <span class="hljs-title">epoll_data</span> &#123;</span><br>    <span class="hljs-keyword">void</span> *ptr;<br>    <span class="hljs-keyword">int</span> fd;<br>    <span class="hljs-keyword">uint32_t</span> u32;<br>    <span class="hljs-keyword">uint64_t</span> u64;<br>&#125; <span class="hljs-keyword">epoll_data_t</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">epoll_event</span> &#123;</span><br>    <span class="hljs-keyword">uint32_t</span> events; <span class="hljs-comment">/* Epoll events */</span><br>    <span class="hljs-keyword">epoll_data_t</span> data; <span class="hljs-comment">/* User data variable */</span><br>&#125;;<br><br>常见的Epoll检测事件：<br>- EPOLLIN<br>- EPOLLOUT<br>- EPOLLERR<br>    <br>    <br><span class="hljs-comment">// 对epoll实例进行管理：添加文件描述符信息，删除信息，修改信息</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">epoll_ctl</span><span class="hljs-params">(<span class="hljs-keyword">int</span> epfd, <span class="hljs-keyword">int</span> op, <span class="hljs-keyword">int</span> fd, struct epoll_event *event)</span></span>;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">    - 参数：</span><br><span class="hljs-comment">    - epfd : epoll实例对应的文件描述符</span><br><span class="hljs-comment">    - op : 要进行什么操作</span><br><span class="hljs-comment">        EPOLL_CTL_ADD: 添加</span><br><span class="hljs-comment">        EPOLL_CTL_MOD: 修改</span><br><span class="hljs-comment">        EPOLL_CTL_DEL: 删除</span><br><span class="hljs-comment">    - fd : 要检测的文件描述符</span><br><span class="hljs-comment">    - event : 检测文件描述符什么事情</span><br><span class="hljs-comment">*/</span><br><br><span class="hljs-comment">// 检测函数</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">epoll_wait</span><span class="hljs-params">(<span class="hljs-keyword">int</span> epfd, struct epoll_event *events, <span class="hljs-keyword">int</span> maxevents, <span class="hljs-keyword">int</span> timeout)</span></span>;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">    - 参数：</span><br><span class="hljs-comment">        - epfd : epoll实例对应的文件描述符</span><br><span class="hljs-comment">        - events : 传出参数，保存了发送了变化的文件描述符的信息</span><br><span class="hljs-comment">        - maxevents : 第二个参数结构体数组的大小</span><br><span class="hljs-comment">        - timeout : 阻塞时间</span><br><span class="hljs-comment">            - 0 : 不阻塞</span><br><span class="hljs-comment">            - -1 : 阻塞，直到检测到fd数据发生变化，解除阻塞</span><br><span class="hljs-comment">            - &gt; 0 : 阻塞的时长（毫秒）</span><br><span class="hljs-comment">    - 返回值：</span><br><span class="hljs-comment">        - 成功，返回发送变化的文件描述符的个数 &gt; 0</span><br><span class="hljs-comment">        - 失败 -1</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="epoll的工作模式"><a href="#epoll的工作模式" class="headerlink" title="epoll的工作模式"></a>epoll的工作模式</h3><p>1.LT模式 水平触发</p>
+<p>假设委托内核检测读事件 -&gt; 检测fd的读缓冲区</p>
+<p>读缓冲区有数据 - &gt; epoll检测到了会给用户通知</p>
+<ol>
+<li>用户不读数据，数据一直在缓冲区，epoll 会一直通知</li>
+<li>用户只读了一部分数据，epoll会通知</li>
+<li>缓冲区的数据读完了，不通知</li>
+</ol>
+<p>LT（level - triggered）是缺省的工作方式，并且同时支持 block 和 no-block socket。在这种做法中，内核告诉你一个文件描述符是否就绪了，然后你可以对这个就绪的 fd 进行 IO 操 作。如果你不作任何操作，内核还是会继续通知你的。</p>
+<p>2.ET模式 边沿触发</p>
+<p>假设委托内核检测读事件 -&gt; 检测fd的读缓冲区</p>
+<p>读缓冲区有数据 - &gt; epoll检测到了会给用户通知</p>
+<ol>
+<li>用户不读数据，数据一致在缓冲区中，epoll下次检测的时候就不通知了</li>
+<li>用户只读了一部分数据，epoll不通知</li>
+<li>缓冲区的数据读完了，不通知</li>
+</ol>
+<p>ET（edge - triggered）是高速工作方式，只支持 no-block socket。在这种模式下，当描述符从未就绪变为就绪时，内核通过epoll告诉你。然后它会假设你知道文件描述符已经就绪， 并且不会再为那个文件描述符发送更多的就绪通知，直到你做了某些操作导致那个文件描述 符不再为就绪状态了。</p>
+<p>但是请注意，如果一直不对这个 fd 作 IO 操作（从而导致它再次变成未就绪），内核不会发送更多的通知（only once）。 </p>
+<p>ET 模式在很大程度上减少了 epoll 事件被重复触发的次数，因此效率要比 LT 模式高。epoll 工作在 ET 模式的时候，<strong>必须使用非阻塞套接口</strong>，以避免由于一个文件句柄的阻塞读/阻塞写操作把处理多个文件描述符的任务饿死。</p>
+<hr>
+<h2 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h2><p>从理论上来说，<code>阻塞IO</code>、<code>I/O复用</code>、<code>信号驱动IO</code>都是同步I/O模型，I/O读写操作都是在I/O事件发生后，由应用程序来完成的。</p>
+<p>异步IO，用户可以直接对IO执行读写操作，这些操作告诉内核用户读写缓冲区的位置，以及IO操作完成之后内核通知应用程序的方式。</p>
+<p><strong>异步IO操作总是立即返回，无论IO是否阻塞</strong>，因为<strong>真正的读写操作已经由内核接管</strong>。</p>
+<blockquote>
+<p>p127</p>
+<p>同步IO模型要求用户自行执行IO操作（将数据从内核缓冲区读入用户缓冲区，或将数据从用户缓冲区写入内核缓冲区）</p>
+<p>异步IO机制则由内核来执行IO操作，（数据在内核缓冲区和用户缓冲区之间的移动是由内核在后台自动完成的）</p>
+<p>同步IO向应用程序通知的是IO就绪事件</p>
+<p>异步IO向应用程序通知的是IO完成事件</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">IO模型</th>
+<th align="center">读写操作和阻塞阶段</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">阻塞IO</td>
+<td align="center">程序阻塞于读写函数</td>
+</tr>
+<tr>
+<td align="center">IO复用</td>
+<td align="center">程序阻塞于IO复用系统调用，但可同时监听多个IO事件，对IO本身的速写=读写操作是非阻塞的。</td>
+</tr>
+<tr>
+<td align="center">SIGIO信号</td>
+<td align="center">信号触发读写就绪事件，用户程序执行读写阶段，程序没有阻塞阶段。</td>
+</tr>
+<tr>
+<td align="center">异步IO</td>
+<td align="center">内核执行读写操作并触发读写完成事件，程序没有阻塞阶段。</td>
+</tr>
+</tbody></table>
+<h3 id="事件处理模式"><a href="#事件处理模式" class="headerlink" title="事件处理模式"></a>事件处理模式</h3><ul>
+<li>Reactor模式：同步IO模型</li>
+<li>Proactor模式：异步IO模型</li>
+</ul>
+<p>同步：通知IO就绪事件</p>
+<p>异步：通知IO完成事件</p>
+<h3 id="Reactor模式-—-同步"><a href="#Reactor模式-—-同步" class="headerlink" title="Reactor模式 — 同步"></a>Reactor模式 — 同步</h3><p>要求主线程（I/O处理单元）只负责监听文件描述符上是否有事件发生，有的话就立即将该事件通知给工作线程。除此之外，主线程不做任何其他实质性地工作。</p>
+<p>读写数据、接收新的连接、以及处理客户请求均在工作线程中完成。</p>
+<p>使用同步I/O模型（epoll_wait为例）实现地Reactor模式工作流程</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver"><span class="hljs-number">1.</span> 主线程往epoll内核事件表中注册<span class="hljs-built_in">socket</span>上的读就绪事件<br><span class="hljs-number">2.</span> 主线程调用epoll_wait等待<span class="hljs-built_in">socket</span>上有数据可以读<br><span class="hljs-number">3.</span> 当<span class="hljs-built_in">socket</span>上有数据可以读的时候，epoll_wait通知主线程，<br>	主线程则将<span class="hljs-built_in">socket</span>可读事件放入请求队列<br><span class="hljs-number">4.</span> 睡眠在请求队列上的某个工作线程就被唤醒，它从<span class="hljs-built_in">socket</span>上读取数据，<br>	并处理客户请求，然后往epoll内核事件表中注册<span class="hljs-built_in">socket</span>上的写就绪事件<br><span class="hljs-number">5.</span> 主线程调用epoll_wait等待<span class="hljs-built_in">socket</span>可写<br><span class="hljs-number">6.</span> 当<span class="hljs-built_in">socket</span>可写时，epoll_wait通知主线程。<br>	主线程将<span class="hljs-built_in">socket</span>可写事件放入请求队列<br><span class="hljs-number">7.</span> 睡眠在请求队列上的某个工作线程被唤醒，<br>	它往<span class="hljs-built_in">socket</span>上写入服务器处理客户请求的结果<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="Proactor模式-—-异步"><a href="#Proactor模式-—-异步" class="headerlink" title="Proactor模式 — 异步"></a>Proactor模式 — 异步</h3><p>Proactor将所有的IO操作都交给主线程和内核来处理，工作线程仅仅负责业务逻辑。</p>
+<p>使用异步I/O模型（以aio_read和aio_write为例)实现Proactor模式的工作流程</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver"><span class="hljs-number">1.</span> 主线程调用aio_read函数向内核注册<span class="hljs-built_in">socket</span>上的读完成事件，<br>	并告诉内核 用户缓冲区的位置 以及读操作完成时如何通知应用程序。<br><span class="hljs-number">2.</span> 主线程继续处理其他逻辑<br><span class="hljs-number">3.</span> 当<span class="hljs-built_in">socket</span>上的数据被读入用户缓冲区后，内核将向应用程序发送一个信号，<br>	来通知应用程序数据已经可用<br><span class="hljs-number">4.</span> 应用程序预先定义好的信号处理函数 选择一个工作线程来处理客户请求。<br>	工作线程来处理客户请求之后，调用aio_write函数向内核注册<span class="hljs-built_in">socket</span>上的写完成事件<br>	并告诉内核 用户写缓冲区的位置，以及写操作完成时如何通知应用程序。<br><span class="hljs-number">5.</span> 主线程继续处理其他逻辑<br><span class="hljs-number">6.</span> 当用户缓冲区的数据被写入<span class="hljs-built_in">socket</span>之后，内核将向应用程序发送一个信号，<br>	来通知应用程序数据已经发送完毕<br><span class="hljs-number">7.</span> 应用程序预先定义好的信号处理函数许纳泽一个工作线程来做善后处理，<br>	比如决定是否关闭<span class="hljs-built_in">socket</span><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="同步方式模拟Proactor模式"><a href="#同步方式模拟Proactor模式" class="headerlink" title="同步方式模拟Proactor模式"></a>同步方式模拟Proactor模式</h3><p>原理：主线程执行数据读写操作，读写完成之后，主线程向工作线程通知这一“完成事件”。</p>
+<p>从工作线程的角度来看，它直接获得了数据读写的结果，接下来只要对读写的结果进行逻辑处理。</p>
+<p>使用同步I/O模型（epoll_wait为例）模拟地Proactor模式工作流程</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver"><span class="hljs-number">1.</span> 主线程往epoll内核事件表中注册<span class="hljs-built_in">socket</span>上的读就绪函数<br><span class="hljs-number">2.</span> 主线程调用epoll_wait等待soket上有数据可读<br><span class="hljs-number">3.</span> 当soket上有数据可读时，epoll_wait通知主线程，<br>	主线程从<span class="hljs-built_in">socket</span>循环读取数据，直到没有更多数据可读<br>	然后将读取到的数据封装成一个请求对象并插入请求队列。<br><span class="hljs-number">4.</span> 睡眠在请求队列上的某个工作线程被唤醒，它获取请求对象并处理客户请求<br>	然后往epoll内核事件表中注册<span class="hljs-built_in">socket</span>上的写就绪事件<br><span class="hljs-number">5.</span> 主线程调用epoll_wait等待<span class="hljs-built_in">socket</span>可写<br><span class="hljs-number">6.</span> 当<span class="hljs-built_in">socket</span>可写时，epoll_wait通知主线程，<br>	主线程往<span class="hljs-built_in">socket</span>上写入服务器处理客户端请求的结果<br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/singleton/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">单例模式实现</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/linux-pthread-sync/">
+                        <span class="hidden-mobile">Linux线程同步</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+
+  
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
