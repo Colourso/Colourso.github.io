@@ -187,13 +187,19 @@
                 
 
 <div class="list-group">
-  <p class="h4">共计 136 篇文章</p>
+  <p class="h4">共计 137 篇文章</p>
   <hr>
   
   
     
       
       <p class="h5">2021</p>
+    
+    <a href="/leetcode-4/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">算法题（四）</span>
+      <time style="float: right;">04-16</time>
+    </a>
+  
     
     <a href="/linux-gdb/" class="list-group-item list-group-item-action">
       <span class="archive-post-title">Linux GDB调试</span>
@@ -248,14 +254,20 @@
       <time style="float: right;">04-01</time>
     </a>
   
-    
-    <a href="/linux-signal/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Linux 进程间通信——信号、信号捕获与处理</span>
-      <time style="float: right;">04-01</time>
-    </a>
-  
 </div>
 
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/archives/2021/04/page/2/">2</a><a class="extend next" rel="next" href="/archives/2021/04/page/2/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 
