@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Colourso">
   <meta name="keywords" content="">
-  <title>位图原理以及C++实现 - Colourso</title>
+  <title>归并排序 - Colourso</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -174,7 +174,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="位图原理以及C++实现">
+            <span class="h2" id="subtitle" title="归并排序">
               
             </span>
 
@@ -184,8 +184,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-04-16 09:24" pubdate>
-        2021年4月16日 上午
+      <time datetime="2021-04-17 23:18" pubdate>
+        2021年4月17日 晚上
       </time>
     </span>
   
@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      887 字
+      252 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17
+      5
        分钟
     </span>
   
@@ -244,47 +244,22 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">位图原理以及C++实现</h1>
+            <h1 style="display: none">归并排序</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月16日 上午
+                  本文最后更新于：2021年4月17日 晚上
                 
               </p>
             
             <div class="markdown-body">
-              <p>位图原理以及C++实现</p>
+              <p><strong>概览</strong>：归并排序！</p>
 <a id="more"></a>
 
-<h2 id="位图"><a href="#位图" class="headerlink" title="位图"></a>位图</h2><p>位图就是一个数组的每一个数据的每一个二进制位来表示一个数据，0表示数据不存在，1表示数据存在。</p>
-<p>例如136这个数字，</p>
-<ul>
-<li><code>136 / 32 = 4</code>，一个int的二进位制可以存放32个数，136存放于第4个区间，（区间从0开始）</li>
-<li><code>136 % 32 = 8</code>，表示136存放于8号位置，（位置从0开始）</li>
-</ul>
-<p>然后将那个位置置为1即可。</p>
-<h3 id="位图代码实现"><a href="#位图代码实现" class="headerlink" title="位图代码实现"></a>位图代码实现</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BitMap</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>	BitMap(<span class="hljs-keyword">int</span> size) &#123;<br>		<span class="hljs-comment">//要存储数据的大致范围</span><br>		m_bitmap.resize(size / <span class="hljs-number">32</span> + <span class="hljs-number">1</span>);<br>	&#125;<br><br>	<span class="hljs-comment">//设置位</span><br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Set</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;<br>		<span class="hljs-keyword">int</span> block = x / <span class="hljs-number">32</span>;<br>		<span class="hljs-keyword">int</span> index = x % <span class="hljs-number">32</span>;<br>		m_bitmap[block] |= (<span class="hljs-number">1</span> &lt;&lt; index);<span class="hljs-comment">//或运算 将对应位标识位为1 </span><br>		<span class="hljs-comment">//eg:  原来无数据，存储0，</span><br>		<span class="hljs-comment">//00000000 | 00000001 = 00000001</span><br>	&#125;<br><br>	<span class="hljs-comment">//清除位</span><br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Reset</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;<br>		<span class="hljs-keyword">int</span> block = x / <span class="hljs-number">32</span>;<br>		<span class="hljs-keyword">int</span> index = x % <span class="hljs-number">32</span>;<br>		m_bitmap[block] &amp;= ~(<span class="hljs-number">1</span> &lt;&lt; index);<br>		<span class="hljs-comment">//eg: 原来存储了0，消去0</span><br>		<span class="hljs-comment">//00000001 &amp; 11111110 = 00000000</span><br>	&#125;<br><br>	<span class="hljs-comment">//检查位</span><br>	<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">Test</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;<br>		<span class="hljs-keyword">int</span> block = x / <span class="hljs-number">32</span>;<br>		<span class="hljs-keyword">int</span> index = x % <span class="hljs-number">32</span>;<br>		<span class="hljs-keyword">if</span> (m_bitmap[block] &amp; (<span class="hljs-number">1</span> &lt;&lt; index))<br>			<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>	&#125;<br><br><span class="hljs-keyword">private</span>:<br>	<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; m_bitmap;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<h3 id="代码实例"><a href="#代码实例" class="headerlink" title="代码实例"></a>代码实例</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br><br>	<span class="hljs-comment">//int a = 1;</span><br><br>	<span class="hljs-comment">//cout &lt;&lt; a &lt;&lt; &quot;--&quot; &lt;&lt; (a &lt;&lt; 1) &lt;&lt; endl;</span><br><br>	<span class="hljs-comment">//设置136记录到位图，然后查看其是否存在</span><br>	<span class="hljs-function">BitMap <span class="hljs-title">bitmap</span><span class="hljs-params">(<span class="hljs-number">136</span>)</span></span>;<br>	bitmap.Set(<span class="hljs-number">136</span>);<br>	<span class="hljs-keyword">if</span> (bitmap.Test(<span class="hljs-number">136</span>)) <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;136位于位图之中&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	<span class="hljs-keyword">else</span> <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;136不在位图中&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-keyword">if</span>(bitmap.Test(<span class="hljs-number">120</span>)) <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;120位于位图之中&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	<span class="hljs-keyword">else</span> <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;120不在位图中&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	bitmap.Reset(<span class="hljs-number">136</span>);<br>	<span class="hljs-keyword">if</span> (bitmap.Test(<span class="hljs-number">136</span>)) <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;136位于位图之中&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	<span class="hljs-keyword">else</span> <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;136不在位图中&quot;</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br><br>	<span class="hljs-comment">//给定一个数组：存储1-10000，现在随机删除两个数字，求被删去的两个数字</span><br>	<span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">nums</span><span class="hljs-params">(<span class="hljs-number">10000</span>)</span></span>;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10000</span>; i++) &#123;<br>		nums[i] = i + <span class="hljs-number">1</span>;<br>	&#125;<br><br>	nums[<span class="hljs-number">3546</span>] = <span class="hljs-number">0</span>;<br>	nums[<span class="hljs-number">9856</span>] = <span class="hljs-number">0</span>;<br><br>	<span class="hljs-comment">//重新打算数组元素</span><br>	random_shuffle(nums.begin(), nums.end());<br><br>	<span class="hljs-comment">//找出被删除的那两个元素</span><br>	<span class="hljs-function">BitMap <span class="hljs-title">bits</span><span class="hljs-params">(<span class="hljs-number">10000</span>)</span></span>;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10000</span>; i++) &#123;<br>		bits.Set(nums[i]);<br>	&#125;<br><br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;被删除的元素： &quot;</span>;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">10000</span>; i++) &#123;<br>		<span class="hljs-keyword">if</span> (!bits.Test(i)) &#123;<br>			<span class="hljs-built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>		&#125;<br>	&#125;<br>	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	<br><br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-number">136</span><span class="hljs-string">位于位图之中</span><br><span class="hljs-number">120</span><span class="hljs-string">不在位图中</span><br><span class="hljs-number">136</span><span class="hljs-string">不在位图中</span><br><span class="hljs-string">被删除的元素：</span> <span class="hljs-number">3547 </span><span class="hljs-number">9857</span><br></code></pre></td></tr></table></figure>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>一个文件无序存放了1万个数字，每行1个，数字范围1-1w，不重复，现在随机删除两个数字，请把两个数字找出来。</p>
-<ul>
-<li>使用hash，遍历文件，每遍历到一个数字，就以该数字为下标的数组元素置1</li>
-<li>然后再遍历一遍hash，值为0的元素对应的下标就是所求的数字。</li>
-</ul>
-<h3 id="内存优化"><a href="#内存优化" class="headerlink" title="内存优化"></a>内存优化</h3><p>使用bitmap，每一个bit可以代表一个数字。这样可以压缩到内存。</p>
-<h3 id="压缩率"><a href="#压缩率" class="headerlink" title="压缩率"></a>压缩率</h3><p>bit表示一位数字，而之前一个数字就是int，压缩率32倍</p>
-<h3 id="适用bitmap的场景"><a href="#适用bitmap的场景" class="headerlink" title="适用bitmap的场景"></a>适用bitmap的场景</h3><ul>
-<li>数据比较密集、数据连续不重复，数据有范围！</li>
-</ul>
-<h3 id="若数据有重复"><a href="#若数据有重复" class="headerlink" title="若数据有重复"></a>若数据有重复</h3><ul>
-<li>使用2-bitmap。00表示不出现、01表示出现1次，10表示出现2次，11表示无定义</li>
-<li>若是随机统计一个数具体出现了多少次呢？<ul>
-<li>最多出现1万次，那么二进制就是14位</li>
-<li>用14位来记录一个数，也比32位记录一个数开销小。</li>
-</ul>
-</li>
-</ul>
+<h2 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h2><p>2路归并的思想：</p>
+<p>将待排序表拆分，直到每个子表的长度为1，然后两两归并，得到n/2个长度为2的有序表。</p>
+<p>继续归并，直到合并成为一个长度为n的有序表为止！</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Merge</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;num, <span class="hljs-keyword">int</span> left,<span class="hljs-keyword">int</span> mid, <span class="hljs-keyword">int</span> right)</span> </span>&#123;<br>	<span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">tmpv</span><span class="hljs-params">(num.size())</span></span>;<span class="hljs-comment">//辅助数组</span><br><br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = left; i &lt;= right; i++)<br>		tmpv[i] = num[i];<span class="hljs-comment">//拷贝</span><br>	<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>,j = <span class="hljs-number">0</span>,k = <span class="hljs-number">0</span>;;<br>	<span class="hljs-keyword">for</span> (i = left, j = mid + <span class="hljs-number">1</span>, k = i; i &lt;= mid &amp;&amp; j &lt;= right; k++) &#123;<br>		<span class="hljs-keyword">if</span> (tmpv[i] &lt;= tmpv[j])<br>			num[k] = tmpv[i++];<br>		<span class="hljs-keyword">else</span><br>			num[k] = tmpv[j++];<br>	&#125;<br><br>	<span class="hljs-keyword">while</span> (i &lt;= mid) num[k++] = tmpv[i++];<br>	<span class="hljs-keyword">while</span> (j &lt;= right) num[k++] = tmpv[j++];<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MergeSort</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &amp;num,<span class="hljs-keyword">int</span> left,<span class="hljs-keyword">int</span> right)</span> </span>&#123;<br>	<span class="hljs-keyword">if</span> (left &lt; right) &#123;<br>		<span class="hljs-comment">//持续拆分表，直到待排序表长为1</span><br>		<span class="hljs-keyword">int</span> mid = (left + right) / <span class="hljs-number">2</span>;<br>		MergeSort(num, left, mid);<br>		MergeSort(num, mid, right);<br>		Merge(num, left, mid, right);<span class="hljs-comment">//归并左边和右边， 逐个缩小，然后最后使用归并合并起来！</span><br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
@@ -302,7 +277,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                      <a class="hover-with-bg" href="/tags/C-C/">C/C++</a>
                     
                   </div>
                 
@@ -315,9 +290,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/ds_04_Mergesort/">
+                      <a href="/math-base/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">归并排序</span>
+                        <span class="hidden-mobile">【置顶】数学基础知识、常用公式总结</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -325,8 +300,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode-4/">
-                        <span class="hidden-mobile">算法题（四）</span>
+                      <a href="/bitmap/">
+                        <span class="hidden-mobile">位图原理以及C++实现</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
