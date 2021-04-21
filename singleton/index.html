@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      828 字
+      942 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14
+      16
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月14日 晚上
+                  本文最后更新于：2021年4月19日 晚上
                 
               </p>
             
@@ -277,6 +277,12 @@
 <li>缺点：复杂！</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span></span><br><span class="hljs-class">&#123;</span><br><span class="hljs-keyword">public</span>:<br>	<span class="hljs-function"><span class="hljs-keyword">static</span> Singleton* <span class="hljs-title">GetInstance</span><span class="hljs-params">()</span> </span>&#123;<br>		<span class="hljs-comment">// 注意这里一定要使用Double-Check的方式加锁，才能保证效率和线程安全</span><br>		<span class="hljs-keyword">if</span> (<span class="hljs-literal">nullptr</span> == m_pInstance) &#123;<br>			m_mtx.lock();<br>			<span class="hljs-keyword">if</span> (<span class="hljs-literal">nullptr</span> == m_pInstance) &#123;<br>				m_pInstance = <span class="hljs-keyword">new</span> Singleton();<br>			&#125;<br>			m_mtx.unlock();<br>		&#125;<br>		<span class="hljs-keyword">return</span> m_pInstance;<br>	&#125;<br>	<span class="hljs-comment">// 实现一个内嵌垃圾回收类</span><br>	<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CGarbo</span> &#123;</span><br>	<span class="hljs-keyword">public</span>:<br>		~CGarbo()&#123;<br>			<span class="hljs-keyword">if</span> (Singleton::m_pInstance)<br>				<span class="hljs-keyword">delete</span> Singleton::m_pInstance;<br>		&#125;<br>	&#125;;<br>	<span class="hljs-comment">// 定义一个静态成员变量，程序结束时，系统会自动调用它的析构函数从而释放单例对象</span><br>	<span class="hljs-keyword">static</span> CGarbo Garbo;<br><span class="hljs-keyword">private</span>:<br>	<span class="hljs-comment">// 构造函数私有</span><br>	Singleton()&#123;&#125;;<br>	<span class="hljs-comment">// 防拷贝</span><br>	Singleton(Singleton <span class="hljs-keyword">const</span>&amp;);<br>	Singleton&amp; <span class="hljs-keyword">operator</span>=(Singleton <span class="hljs-keyword">const</span>&amp;);<br>	<span class="hljs-keyword">static</span> Singleton* m_pInstance; <span class="hljs-comment">// 单例对象指针</span><br>	<span class="hljs-keyword">static</span> mutex m_mtx; <span class="hljs-comment">//互斥锁</span><br>&#125;;<br><br>Singleton* Singleton::m_pInstance = <span class="hljs-literal">nullptr</span>;<br>Singleton::CGarbo Garbo;<span class="hljs-comment">//程序结束后遍历死亡，触发析构！</span><br>mutex Singleton::m_mtx;<br><br><span class="hljs-comment">//////////////////////////////////</span><br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">func</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-built_in">cout</span> &lt;&lt; Singleton::GetInstance() &lt;&lt; <span class="hljs-built_in">endl</span>;<br>&#125;<br><span class="hljs-comment">// 多线程环境下演示上面GetInstance()加锁和不加锁的区别。</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-function">thread <span class="hljs-title">t1</span><span class="hljs-params">(func, <span class="hljs-number">10</span>)</span></span>;<br>	<span class="hljs-function">thread <span class="hljs-title">t2</span><span class="hljs-params">(func, <span class="hljs-number">10</span>)</span></span>;<br>	t1.join();<br>	t2.join();<br>	<span class="hljs-built_in">cout</span> &lt;&lt; Singleton::GetInstance() &lt;&lt; <span class="hljs-built_in">endl</span>;<br>	<span class="hljs-built_in">cout</span> &lt;&lt; Singleton::GetInstance() &lt;&lt; <span class="hljs-built_in">endl</span>;<br>&#125;<br><br><span class="hljs-comment">////////////////</span><br>输出结果：<br>    <span class="hljs-number">4</span>个相同的地址！<br></code></pre></td></tr></table></figure>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><blockquote>
+<p>2021/04/17 蓝信移动面试</p>
+</blockquote>
+<p>二面中一不小心被面试官问到了懒汉模式，延迟加载的实现，他问我解决并发问题的方法？</p>
+<p>支支吾吾好久之后，面试官给我讲了<code>check - lock - check</code>的方法。</p>
+<p>思想和上面的方法类似，先检测，然后加锁，获得锁之后再次进行检测，如果检测到已经被实例化，直接返回即可！</p>
 
             </div>
             <hr>
