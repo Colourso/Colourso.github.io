@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.4k 字
+      4.9k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      66
+      95
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月19日 中午
+                  本文最后更新于：2021年4月21日 中午
                 
               </p>
             
@@ -411,6 +411,90 @@
     <summary>折叠/查看代码</summary>
     <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MedianFinder</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">/** initialize your data structure here. */</span><br><br>    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; min;<br>    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; max;<br><br>    MedianFinder() &#123;<br>        min.clear();<br>        max.clear();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addNum</span><span class="hljs-params">(<span class="hljs-keyword">int</span> data)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (min.size() &gt; max.size()) &#123;<br>            <span class="hljs-comment">//插入到大根堆</span><br><br>            <span class="hljs-comment">//同时还要保证 该元素要有序</span><br>            <span class="hljs-keyword">if</span> (data &gt; min[<span class="hljs-number">0</span>]) &#123;<br>                <span class="hljs-comment">//若大于等于小根堆的最小元素，则小根堆元素先弹出</span><br>                pop_heap(min.begin(), min.end(), greater&lt;<span class="hljs-keyword">int</span>&gt;());<br>                <span class="hljs-keyword">int</span> tmp = min.back();<br>                min.pop_back();<br><br>                <span class="hljs-comment">//将元素插入小根堆</span><br>                min.push_back(data);<br>                push_heap(min.begin(), min.end(), greater&lt;<span class="hljs-keyword">int</span>&gt;());<br>                data = tmp;<br>            &#125;<br><br>            max.push_back(data);<br>            push_heap(max.begin(), max.end(),less&lt;<span class="hljs-keyword">int</span>&gt;());<br>        &#125;<br>        <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">//此时 要么元素数量相同，都为0，或者都为一定数目</span><br>            <span class="hljs-keyword">if</span> (min.size() == <span class="hljs-number">0</span>) &#123;<br>                min.push_back(data);<br>                push_heap(min.begin(), min.end(), greater&lt;<span class="hljs-keyword">int</span>&gt;());<br>            &#125;<br><br>            <span class="hljs-keyword">else</span> &#123;<br>                    <span class="hljs-comment">//先插入大根堆</span><br>                    max.push_back(data);<br>                    push_heap(max.begin(), max.end(), less&lt;<span class="hljs-keyword">int</span>&gt;());<br><br>                    <span class="hljs-comment">//先将大根堆元素插入小根堆</span><br>                    pop_heap(max.begin(), max.end(), less&lt;<span class="hljs-keyword">int</span>&gt;());<br>                    <span class="hljs-keyword">int</span> tmp = max.back();<br>                    max.pop_back();<br><br>                    min.push_back(tmp);<br>                    push_heap(min.begin(), min.end(), greater&lt;<span class="hljs-keyword">int</span>&gt;());<br><br>                &#125;<br>            &#125;<br>        &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">findMedian</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (((min.size() + max.size()) &amp; <span class="hljs-number">1</span>) == <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-keyword">return</span> min[<span class="hljs-number">0</span>];<br>        &#125;<br>        <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> (min[<span class="hljs-number">0</span>] + max[<span class="hljs-number">0</span>]) / <span class="hljs-number">2.0</span>;<br>        &#125;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 </details>
+
+
+
+<h2 id="206-翻转链表"><a href="#206-翻转链表" class="headerlink" title="206 翻转链表"></a>206 翻转链表</h2><blockquote>
+<p>2021/04/21</p>
+<p>反转一个单链表。</p>
+<p>示例:</p>
+<p>输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL<br>输出: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL<br>进阶:<br>你可以迭代或递归地反转链表。你能否用两种方法解决这道题？</p>
+<p>来源：力扣（LeetCode）<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-linked-list">https://leetcode-cn.com/problems/reverse-linked-list</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+</blockquote>
+<h3 id="迭代式"><a href="#迭代式" class="headerlink" title="迭代式"></a>迭代式</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-linked-list/solution/fan-zhuan-lian-biao-shuang-zhi-zhen-di-gui-yao-mo-/">https://leetcode-cn.com/problems/reverse-linked-list/solution/fan-zhuan-lian-biao-shuang-zhi-zhen-di-gui-yao-mo-/</a></p>
+</blockquote>
+<p><img src="/leetcode-4/diedai.gif" srcset="/img/loading.gif"></p>
+<details>
+    <summary>折叠/查看代码</summary>
+    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">/*</span><br><span class="hljs-comment">    迭代式的翻转链表</span><br><span class="hljs-comment">    将从第二个节点开始，逐个插入到头节点和第一个节点之间</span><br><span class="hljs-comment">    */</span><br>    <span class="hljs-function">ListNode* <span class="hljs-title">reverseList</span><span class="hljs-params">(ListNode* head)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(head == <span class="hljs-literal">nullptr</span> || head-&gt;next == <span class="hljs-literal">nullptr</span>) <span class="hljs-keyword">return</span> head;<br><br>        ListNode *prehead = <span class="hljs-keyword">new</span> ListNode(<span class="hljs-number">0</span>,head);<br>        ListNode *next;<br>        ListNode* cur = head-&gt;next;<br>        head-&gt;next = <span class="hljs-literal">nullptr</span>;<span class="hljs-comment">//记得将末端置空</span><br>        <span class="hljs-keyword">while</span>(cur != <span class="hljs-literal">nullptr</span>)&#123;<br>            next = cur-&gt;next;<br>            cur-&gt;next = prehead-&gt;next;<br>            prehead-&gt;next = cur;<br>            cur = next;<br>        &#125;<br>        <span class="hljs-keyword">return</span> prehead-&gt;next;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+</details>
+
+<h3 id="递归式"><a href="#递归式" class="headerlink" title="递归式"></a>递归式</h3><ul>
+<li>递归的找到最后一个节点，返回，中间不对那个节点做任何处理，单纯的返回，这样就成了第一个节点。</li>
+<li>head表示每个递归中的当前的那个节点，使得其后一个节点指向它，然后它在指向Null.</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-linked-list/solution/fan-zhuan-lian-biao-shuang-zhi-zhen-di-gui-yao-mo-/">https://leetcode-cn.com/problems/reverse-linked-list/solution/fan-zhuan-lian-biao-shuang-zhi-zhen-di-gui-yao-mo-/</a></p>
+</blockquote>
+<p><img src="/leetcode-4/trackback.gif" srcset="/img/loading.gif"></p>
+<details>
+    <summary>折叠/查看代码</summary>
+    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">ListNode* <span class="hljs-title">reverseList</span><span class="hljs-params">(ListNode* head)</span> </span>&#123;<br><br>    <span class="hljs-comment">//递归结束条件, 到最后一个节点</span><br>    <span class="hljs-comment">//head == nullptr只是为了防止整个链表都为空设置的</span><br>    <span class="hljs-keyword">if</span>(head == <span class="hljs-literal">nullptr</span> || head-&gt;next == <span class="hljs-literal">nullptr</span>) <span class="hljs-keyword">return</span> head;<br>    <br>    ListNode* ret = reverseList(head-&gt;next);<span class="hljs-comment">//寻找到最终端的节点，作为起始节点</span><br>    head-&gt;next-&gt;next = head;<span class="hljs-comment">//后一个节点指向前一个节点</span><br>    head-&gt;next = <span class="hljs-literal">nullptr</span>;<br>    <span class="hljs-keyword">return</span> ret; <span class="hljs-comment">//中间不对ret做任何更改，每次都返回，这样最终尾节点，就成为了头节点</span><br>    <br>&#125;<br></code></pre></td></tr></table></figure>
+</details>
+
+<h3 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h3><p>思想就是：fast指针指向low指针，局部反转，直到fast走到了末尾。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-linked-list/solution/fan-zhuan-lian-biao-shuang-zhi-zhen-di-gui-yao-mo-/">https://leetcode-cn.com/problems/reverse-linked-list/solution/fan-zhuan-lian-biao-shuang-zhi-zhen-di-gui-yao-mo-/</a></p>
+</blockquote>
+<p><img src="/leetcode-4/doupointer.gif" srcset="/img/loading.gif"></p>
+<details>
+    <summary>折叠/查看代码</summary>
+    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//前后指针</span><br><span class="hljs-function">ListNode* <span class="hljs-title">reverseList</span><span class="hljs-params">(ListNode* head)</span> </span>&#123;<br><br>    <span class="hljs-keyword">if</span>(head == <span class="hljs-literal">nullptr</span> || head-&gt;next == <span class="hljs-literal">nullptr</span>) <span class="hljs-keyword">return</span> head;<br><br>    ListNode * fast= head-&gt;next;<br>    ListNode *low = head;<br>    low-&gt;next = <span class="hljs-literal">nullptr</span>;<br><br>    <span class="hljs-keyword">while</span>(fast != <span class="hljs-literal">nullptr</span>)&#123;<br>        ListNode * ne = fast-&gt;next;<br>        fast-&gt;next = low;<br>        low = fast;<br>        fast = ne;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> low;<br>&#125;<br></code></pre></td></tr></table></figure>
+</details>
+
+<h2 id="617-合并二叉树"><a href="#617-合并二叉树" class="headerlink" title="617 合并二叉树"></a>617 合并二叉树</h2><blockquote>
+<p>2021/04/21</p>
+<p>给定两个二叉树，想象当你将它们中的一个覆盖到另一个上时，两个二叉树的一些节点便会重叠。</p>
+<p>你需要将他们合并为一个新的二叉树。合并的规则是如果两个节点重叠，那么将他们的值相加作为节点合并后的新值，否则不为 NULL 的节点将直接作为新二叉树的节点。</p>
+<p>示例 1:</p>
+<p>输入:<br>    Tree 1                     Tree 2<br>          1                         2<br>         / \                       / \<br>        3   2                     1   3<br>       /                           \   \<br>      5                             4   7<br>输出:<br>合并后的树:<br>         3<br>        / <br>       4   5<br>      / \   \<br>     5   4   7<br>注意: 合并必须从两个树的根节点开始。</p>
+<p>来源：力扣（LeetCode）<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/merge-two-binary-trees">https://leetcode-cn.com/problems/merge-two-binary-trees</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+</blockquote>
+<h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><details>
+    <summary>折叠/查看代码</summary>
+    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">TreeNode *<span class="hljs-title">mergeTrees</span><span class="hljs-params">(TreeNode *root1,TreeNode * root2)</span></span>&#123;<br>    <span class="hljs-keyword">if</span>(root1 == <span class="hljs-literal">nullptr</span> || root2 == <span class="hljs-literal">nullptr</span>)&#123;<br>        <span class="hljs-keyword">return</span> root1 == <span class="hljs-literal">nullptr</span> ? root2:root1;<br>    &#125;<br><br>    root1-&gt;val += root2-&gt;val;<br>    root1-&gt;left = mergeTrees(root1-&gt;left,root2-&gt;left);<br>    root1-&gt;right = mergeTrees(root1-&gt;right,root2-&gt;right);<br>    <span class="hljs-keyword">return</span> root1;<br>&#125;<br></code></pre></td></tr></table></figure>
+</details>
+
+<p>或者使用广度优先遍历的思想实现，使用两个辅助队列。</p>
+<h2 id="剑指-二叉搜索树的最近公共祖先"><a href="#剑指-二叉搜索树的最近公共祖先" class="headerlink" title="剑指 二叉搜索树的最近公共祖先"></a>剑指 二叉搜索树的最近公共祖先</h2><blockquote>
+<p>2021/04/21</p>
+<p>给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。</p>
+<p>百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”</p>
+<p>例如，给定如下二叉搜索树:  root = [6,2,8,0,4,7,9,null,null,3,5]</p>
+<p>示例 1:</p>
+<p>输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8<br>输出: 6<br>解释: 节点 2 和节点 8 的最近公共祖先是 6。<br>示例 2:</p>
+<p>输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4<br>输出: 2<br>解释: 节点 2 和节点 4 的最近公共祖先是 2, 因为根据定义最近公共祖先节点可以为节点本身。</p>
+<p>说明:</p>
+<p>所有节点的值都是唯一的。<br>p、q 为不同节点且均存在于给定的二叉搜索树中。</p>
+<p>来源：力扣（LeetCode）<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof">https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+</blockquote>
+<p>因为是二叉搜索树，所以找到节点的同时，走过的路径就是其对应的祖先节点。</p>
+<p>获得全部的祖先节点之后，从后向前找到两个路径中都有的。</p>
+<ul>
+<li>vector没有提供find方法，使用算法头文件的方法即可。</li>
+</ul>
+<details>
+    <summary>折叠/查看代码</summary>
+    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">TreeNode* <span class="hljs-title">lowestCommonAncestor</span><span class="hljs-params">(TreeNode* root, TreeNode* p, TreeNode* q)</span> </span>&#123;<br>    <span class="hljs-built_in">vector</span>&lt;TreeNode *&gt;path1;<br>    <span class="hljs-built_in">vector</span>&lt;TreeNode*&gt; path2;<br><br>    TreeNode *tmp = root;<br>    <span class="hljs-keyword">while</span>(tmp != p)&#123;<br>        path1.push_back(tmp);<br>        <span class="hljs-keyword">if</span>(tmp-&gt;val &gt; p-&gt;val)&#123;<br>            tmp = tmp-&gt;left;<br>        &#125;<br>        <span class="hljs-keyword">else</span>&#123;<br>            tmp = tmp-&gt;right;<br>        &#125;<br>    &#125; <br>    path1.push_back(tmp);<br><br>    tmp = root;<br>    <span class="hljs-keyword">while</span>(tmp != q)&#123;<br>        path2.push_back(tmp);<br>        <span class="hljs-keyword">if</span>(tmp-&gt;val &gt; q-&gt;val)&#123;<br>            tmp = tmp-&gt;left;<br>        &#125;<br>        <span class="hljs-keyword">else</span>&#123;<br>            tmp = tmp-&gt;right;<br>        &#125;<br>    &#125; <br>    path2.push_back(tmp);<br><br>    <span class="hljs-comment">//然后比对两个数据结构</span><br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> it = path1.rbegin();it!= path1.rend();it++)&#123;<br>        <span class="hljs-keyword">auto</span> result = find(path2.begin(),path2.end(),*it);<br>        <span class="hljs-keyword">if</span>(result != path2.end())&#123;<br>            <span class="hljs-keyword">return</span> *it;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+</details>
+
+<ul>
+<li>另一种思路，巧妙运用二叉搜索树的特性，若当前节点均大于两个节点，当前节点向左，若均小于两个节点，向右。</li>
+<li>其他情况下，<strong>一大一小，就是中间节点</strong>。</li>
+<li>这样一次遍历，而且不用去对比和查找。</li>
+</ul>
+
             </div>
             <hr>
             <div>
