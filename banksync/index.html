@@ -1,0 +1,645 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>银行窗口服务 —— 生产者与消费者 —— 线程同步实例 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="银行窗口服务 —— 生产者与消费者 —— 线程同步实例">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-04-23 14:34" pubdate>
+        2021年4月23日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      36
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">银行窗口服务 —— 生产者与消费者 —— 线程同步实例</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月24日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p><strong>概览</strong>：生产者与消费者 —— 线程同步实例，信号量与条件变量</p>
+<a id="more"></a>
+
+<h2 id="生产者与消费者-——-线程同步实例"><a href="#生产者与消费者-——-线程同步实例" class="headerlink" title="生产者与消费者 —— 线程同步实例"></a>生产者与消费者 —— 线程同步实例</h2><blockquote>
+<p>2021/04/23 招银网络科技一面</p>
+</blockquote>
+<p>场景：银行</p>
+<p>2个柜台窗口，服务顾客</p>
+<p>10个空闲座位，供还未办理服务的顾客暂坐，只有通过预约机拿到号码的顾客才能坐。</p>
+<p>1个预约机，顾客通过预约机器拿到对应号码。</p>
+<p>1个叫号机，柜台人员通过叫号机才能呼叫顾客前往。</p>
+<hr>
+<p>使用多线程模拟这个问题，写出程序。</p>
+<ol>
+<li>行人互斥的访问预约机器，若队列不满时，可以申请到号，做到对应座位。（生产者）</li>
+<li>2个柜台窗口互斥的访问叫号机，若队列不空的时候，可以叫到顾客。（消费者）</li>
+</ol>
+<hr>
+<h3 id="信号量与锁"><a href="#信号量与锁" class="headerlink" title="信号量与锁"></a>信号量与锁</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;pthread.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;semaphore.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;time.h&gt;</span></span><br><br><br><span class="hljs-keyword">int</span> ticket = <span class="hljs-number">1</span>;<span class="hljs-comment">//号码开始位置</span><br><br><span class="hljs-keyword">pthread_mutex_t</span> booked;	<span class="hljs-comment">//预约机器</span><br><span class="hljs-keyword">pthread_mutex_t</span> called;	<span class="hljs-comment">//叫号机器</span><br><br><span class="hljs-keyword">sem_t</span> sites;	<span class="hljs-comment">//信号量，10个位置</span><br><span class="hljs-keyword">sem_t</span> person;	<span class="hljs-comment">//信号量，待服务人数</span><br><br><br><span class="hljs-comment">//队列</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span>&#123;</span><br>    <span class="hljs-keyword">int</span> val;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span> * <span class="hljs-title">next</span>;</span><br>&#125;Node;<br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span>* <span class="hljs-title">head</span>;</span><span class="hljs-comment">//头节点,指向头部的节点</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span>* <span class="hljs-title">tail</span>;</span><span class="hljs-comment">//尾节点</span><br><br><br><span class="hljs-comment">//行人线程，不断预约，申请号码</span><br><span class="hljs-function"><span class="hljs-keyword">void</span>* <span class="hljs-title">passerby</span><span class="hljs-params">(<span class="hljs-keyword">void</span> * arg)</span></span>&#123;<br>    srand((<span class="hljs-keyword">unsigned</span>)time( <span class="hljs-literal">NULL</span> ));<br>    <span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br><br>        sem_wait(&amp;sites);<span class="hljs-comment">//申请一个位置</span><br>        <br>        pthread_mutex_lock(&amp;booked);<span class="hljs-comment">//加锁</span><br>        <br>        <span class="hljs-comment">//创建新节点</span><br>        Node* newNode = (Node*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Node));<br><br>        <span class="hljs-keyword">int</span> val = <span class="hljs-number">0</span>;<br>        sem_getvalue(&amp;sites,&amp;val);<br>        <br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%ld 顾客正在叫号：%d, 剩余位置：%d\n&quot;</span>,pthread_self(),ticket,val);<br><br>        newNode-&gt;val = ticket++;<br>        newNode-&gt;next = <span class="hljs-literal">NULL</span>;<br>        tail-&gt;next = newNode;<br>        tail = newNode;<br>        <br>        pthread_mutex_unlock(&amp;booked);<br>        <br>        sem_post(&amp;person);<br>        <span class="hljs-keyword">int</span> waitnum = rand()% <span class="hljs-number">10</span>;<br>        sleep(waitnum);<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>&#125;<br><br><span class="hljs-comment">//服务线程，不断叫号，处理</span><br><span class="hljs-function"><span class="hljs-keyword">void</span>* <span class="hljs-title">server</span><span class="hljs-params">(<span class="hljs-keyword">void</span>* arg)</span></span>&#123;<br>    srand((<span class="hljs-keyword">unsigned</span>)time( <span class="hljs-literal">NULL</span> ));<br>    <span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>        <br>        sem_wait(&amp;person);<span class="hljs-comment">//叫一个人</span><br>        <br>        pthread_mutex_lock(&amp;called);<span class="hljs-comment">//加锁</span><br>        <br>        <span class="hljs-comment">//消耗一个节点</span><br>        Node* tmp = head-&gt;next;<br>        <span class="hljs-keyword">if</span>(tmp == tail)&#123;<br>            tail = head;<br>        &#125;<br><br>        <span class="hljs-keyword">int</span> val = <span class="hljs-number">0</span>;<br>        sem_getvalue(&amp;person,&amp;val);<br><br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%ld 正在服务 %d 号顾客, 剩余顾客%d \n&quot;</span>,pthread_self(),tmp-&gt;val,val);<br>        head-&gt;next = tmp-&gt;next;<br>        <span class="hljs-built_in">free</span>(tmp);<br>        <br>        pthread_mutex_unlock(&amp;called);<span class="hljs-comment">//解锁</span><br>        <br>        sem_post(&amp;sites);<br>        <br>        <span class="hljs-keyword">int</span> sleeptime = rand()%<span class="hljs-number">20</span>;<br>        sleep(sleeptime);<br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br><br>    <span class="hljs-comment">//信号量、互斥量初始化</span><br>    pthread_mutex_init(&amp;called,<span class="hljs-literal">NULL</span>);<br>    pthread_mutex_init(&amp;booked,<span class="hljs-literal">NULL</span>);<br>    sem_init(&amp;sites,<span class="hljs-number">0</span>,<span class="hljs-number">10</span>);<br>    sem_init(&amp;person,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>);<br><br>    <span class="hljs-comment">//链表初始化</span><br>    head = (Node *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Node));<br>    head-&gt;next = <span class="hljs-literal">NULL</span>;<br>    tail = head;<br><br>    <span class="hljs-comment">//两个服务窗口，2个地方不断地来人预约</span><br>    <span class="hljs-keyword">pthread_t</span> sertid[<span class="hljs-number">2</span>],pastid[<span class="hljs-number">2</span>];<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">2</span>;i++)&#123;<br>        pthread_create(&amp;sertid[i],<span class="hljs-literal">NULL</span>,server,<span class="hljs-literal">NULL</span>);<br>        pthread_create(&amp;pastid[i],<span class="hljs-literal">NULL</span>,passerby,<span class="hljs-literal">NULL</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//回收线程</span><br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">2</span>;i++)&#123;<br>        pthread_join(sertid[i],<span class="hljs-literal">NULL</span>);<br>        pthread_join(pastid[i],<span class="hljs-literal">NULL</span>);<br>    &#125;<br><br>    pthread_mutex_destroy(&amp;booked);<br>    pthread_mutex_destroy(&amp;called);<br><br>    pthread_exit(<span class="hljs-literal">NULL</span>);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">140260868921088 </span>顾客正在叫号：<span class="hljs-number">1</span>, 剩余位置：<span class="hljs-number">9</span><br><span class="hljs-symbol">140260852135680 </span>顾客正在叫号：<span class="hljs-number">2</span>, 剩余位置：<span class="hljs-number">8</span><br><span class="hljs-symbol">140260877313792 </span>正在服务 <span class="hljs-number">1</span> 号顾客, 剩余顾客<span class="hljs-number">0</span> <br><span class="hljs-symbol">140260852135680 </span>顾客正在叫号：<span class="hljs-number">3</span>, 剩余位置：<span class="hljs-number">7</span><br><span class="hljs-symbol">140260860528384 </span>正在服务 <span class="hljs-number">2</span> 号顾客, 剩余顾客<span class="hljs-number">1</span> <br><span class="hljs-symbol">140260868921088 </span>顾客正在叫号：<span class="hljs-number">4</span>, 剩余位置：<span class="hljs-number">8</span><br><span class="hljs-symbol">140260852135680 </span>顾客正在叫号：<span class="hljs-number">5</span>, 剩余位置：<span class="hljs-number">7</span><br><span class="hljs-symbol">140260860528384 </span>正在服务 <span class="hljs-number">3</span> 号顾客, 剩余顾客<span class="hljs-number">2</span> <br><span class="hljs-symbol">140260852135680 </span>顾客正在叫号：<span class="hljs-number">6</span>, 剩余位置：<span class="hljs-number">7</span><br><span class="hljs-symbol">140260852135680 </span>顾客正在叫号：<span class="hljs-number">7</span>, 剩余位置：<span class="hljs-number">6</span><br><span class="hljs-symbol">140260868921088 </span>顾客正在叫号：<span class="hljs-number">8</span>, 剩余位置：<span class="hljs-number">5</span><br><span class="hljs-symbol">140260877313792 </span>正在服务 <span class="hljs-number">4</span> 号顾客, 剩余顾客<span class="hljs-number">4</span> <br><span class="hljs-symbol">140260868921088 </span>顾客正在叫号：<span class="hljs-number">9</span>, 剩余位置：<span class="hljs-number">5</span><br><span class="hljs-symbol">140260860528384 </span>正在服务 <span class="hljs-number">5</span> 号顾客, 剩余顾客<span class="hljs-number">4</span> <br><span class="hljs-symbol">140260852135680 </span>顾客正在叫号：<span class="hljs-number">10</span>, 剩余位置：<span class="hljs-number">5</span><br><span class="hljs-symbol">140260860528384 </span>正在服务 <span class="hljs-number">6</span> 号顾客, 剩余顾客<span class="hljs-number">4</span> <br><span class="hljs-symbol">140260868921088 </span>顾客正在叫号：<span class="hljs-number">11</span>, 剩余位置：<span class="hljs-number">5</span><br><span class="hljs-symbol">140260852135680 </span>顾客正在叫号：<span class="hljs-number">12</span>, 剩余位置：<span class="hljs-number">4</span><br><span class="hljs-symbol">140260877313792 </span>正在服务 <span class="hljs-number">7</span> 号顾客, 剩余顾客<span class="hljs-number">5</span> <br><span class="hljs-symbol">140260868921088 </span>顾客正在叫号：<span class="hljs-number">13</span>, 剩余位置：<span class="hljs-number">4</span><br><span class="hljs-symbol">140260852135680 </span>顾客正在叫号：<span class="hljs-number">14</span>, 剩余位置：<span class="hljs-number">3</span><br><span class="hljs-symbol">140260860528384 </span>正在服务 <span class="hljs-number">8</span> 号顾客, 剩余顾客<span class="hljs-number">5</span><br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="条件变量与锁"><a href="#条件变量与锁" class="headerlink" title="条件变量与锁"></a>条件变量与锁</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;pthread.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;semaphore.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;time.h&gt;</span></span><br><br><br><span class="hljs-keyword">int</span> ticket = <span class="hljs-number">1</span>;<br><br><span class="hljs-keyword">pthread_mutex_t</span> called;<br><span class="hljs-keyword">pthread_mutex_t</span> booked;<br><br><span class="hljs-keyword">pthread_cond_t</span> cond;	<span class="hljs-comment">//条件变量</span><br><br><span class="hljs-comment">//队列</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span>&#123;</span><br>    <span class="hljs-keyword">int</span> val;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span> * <span class="hljs-title">next</span>;</span><br>&#125;Node;<br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span>* <span class="hljs-title">head</span>;</span><span class="hljs-comment">//头节点,指向头部的节点</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span>* <span class="hljs-title">tail</span>;</span><span class="hljs-comment">//尾节点</span><br><br><span class="hljs-keyword">int</span> sitenum;<br><span class="hljs-keyword">int</span> personnum;<br><br><span class="hljs-comment">//行人线程，不断预约，申请号码</span><br><span class="hljs-function"><span class="hljs-keyword">void</span>* <span class="hljs-title">passerby</span><span class="hljs-params">(<span class="hljs-keyword">void</span> * arg)</span></span>&#123;<br>    srand((<span class="hljs-keyword">unsigned</span>)time( <span class="hljs-literal">NULL</span> ));<br>    <span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br> <br>        pthread_mutex_lock(&amp;booked);<span class="hljs-comment">//加锁</span><br>        <br>        <span class="hljs-comment">//创建新节点</span><br>        Node* newNode = (Node*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Node));<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;顾客正在叫号：%d, 剩余位置：%d\n&quot;</span>,ticket,--sitenum);<br>        newNode-&gt;val = ticket++;<br>        newNode-&gt;next = <span class="hljs-literal">NULL</span>;<br>        tail-&gt;next = newNode;<br>        tail = newNode;<br>        personnum++;<br><br>        pthread_cond_signal(&amp;cond);<span class="hljs-comment">//通知消费者</span><br>        <br>        pthread_mutex_unlock(&amp;booked);<br>        <br>        <span class="hljs-keyword">int</span> waitnum = rand()% <span class="hljs-number">10</span>;<br>        sleep(waitnum);<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>&#125;<br><br><span class="hljs-comment">//服务线程，不断叫号，处理</span><br><span class="hljs-function"><span class="hljs-keyword">void</span>* <span class="hljs-title">server</span><span class="hljs-params">(<span class="hljs-keyword">void</span>* arg)</span></span>&#123;<br>    srand((<span class="hljs-keyword">unsigned</span>)time( <span class="hljs-literal">NULL</span> ));<br>    <span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br><br>        pthread_mutex_lock(&amp;called);<span class="hljs-comment">//加锁</span><br>        <br>        <span class="hljs-comment">//消耗一个节点</span><br>        <span class="hljs-keyword">if</span>(head-&gt;next != <span class="hljs-literal">NULL</span>)&#123;<br>            Node* tmp = head-&gt;next;<br>            <span class="hljs-keyword">if</span>(tmp == tail)&#123;<br>                tail = head;<br>            &#125;<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%ld 正在服务 %d 号顾客, 剩余顾客%d \n&quot;</span>,pthread_self(),tmp-&gt;val,--personnum);<br>            head-&gt;next = tmp-&gt;next;<br>            <span class="hljs-built_in">free</span>(tmp);<br>            sitenum++;<br>            <br>            pthread_mutex_unlock(&amp;called);<span class="hljs-comment">//解锁</span><br><br>            <span class="hljs-keyword">int</span> sleeptime = rand()%<span class="hljs-number">20</span>;<br>            sleep(sleeptime);<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-comment">//等待，进入阻塞，会解锁，当不阻塞地时候，又会再次加锁，然后继续向下执行</span><br>            pthread_cond_wait(&amp;cond,&amp;called);<br>            pthread_mutex_unlock(&amp;called);<span class="hljs-comment">//解锁</span><br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br><br>    <span class="hljs-comment">//信号量、互斥量初始化</span><br>    pthread_mutex_init(&amp;called,<span class="hljs-literal">NULL</span>);<br>    pthread_mutex_init(&amp;booked,<span class="hljs-literal">NULL</span>);<br>    pthread_cond_init(&amp;cond,<span class="hljs-literal">NULL</span>);<br><br>    <span class="hljs-comment">//链表初始化</span><br>    head = (Node *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(Node));<br>    head-&gt;next = <span class="hljs-literal">NULL</span>;<br>    tail = head;<br><br>    sitenum = <span class="hljs-number">10</span>;<br>    personnum = <span class="hljs-number">0</span>;<br><br>    <span class="hljs-comment">//两个服务窗口，2个地方不断地来人预约</span><br>    <span class="hljs-keyword">pthread_t</span> sertid[<span class="hljs-number">2</span>],pastid[<span class="hljs-number">2</span>];<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">2</span>;i++)&#123;<br>        pthread_create(&amp;sertid[i],<span class="hljs-literal">NULL</span>,server,<span class="hljs-literal">NULL</span>);<br>        pthread_create(&amp;pastid[i],<span class="hljs-literal">NULL</span>,passerby,<span class="hljs-literal">NULL</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//回收线程</span><br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">2</span>;i++)&#123;<br>        pthread_join(sertid[i],<span class="hljs-literal">NULL</span>);<br>        pthread_join(pastid[i],<span class="hljs-literal">NULL</span>);<br>    &#125;<br><br>    pthread_cond_destroy(&amp;cond);<br>    pthread_mutex_destroy(&amp;booked);<br>    pthread_mutex_destroy(&amp;called);<br><br>    pthread_exit(<span class="hljs-literal">NULL</span>);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>注意：只是为了显示直观，所以加了两个变量来查看剩余顾客数和座位数，这两个变量是没有锁保护的，在并发条件下可能会出问题！</li>
+</ul>
+<p>运行结果：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs tap">顾客正在叫号：1, 剩余位置：9<br>140507854608128 正在服务<span class="hljs-number"> 1 </span>号顾客, 剩余顾客0 <br>顾客正在叫号：2, 剩余位置：9<br>140507837822720 正在服务<span class="hljs-number"> 2 </span>号顾客, 剩余顾客0 <br>顾客正在叫号：3, 剩余位置：9<br>140507854608128 正在服务<span class="hljs-number"> 3 </span>号顾客, 剩余顾客0 <br>顾客正在叫号：4, 剩余位置：9<br>140507854608128 正在服务<span class="hljs-number"> 4 </span>号顾客, 剩余顾客0 <br>顾客正在叫号：5, 剩余位置：9<br>140507837822720 正在服务<span class="hljs-number"> 5 </span>号顾客, 剩余顾客0 <br>顾客正在叫号：6, 剩余位置：8<br>140507854608128 正在服务<span class="hljs-number"> 6 </span>号顾客, 剩余顾客0 <br>顾客正在叫号：7, 剩余位置：8<br>顾客正在叫号：8, 剩余位置：8<br>顾客正在叫号：9, 剩余位置：7<br>顾客正在叫号：10, 剩余位置：6<br>顾客正在叫号：11, 剩余位置：5<br>140507837822720 正在服务<span class="hljs-number"> 7 </span>号顾客, 剩余顾客4 <br>顾客正在叫号：12, 剩余位置：5<br>140507837822720 正在服务<span class="hljs-number"> 8 </span>号顾客, 剩余顾客4 <br>140507837822720 正在服务<span class="hljs-number"> 9 </span>号顾客, 剩余顾客3 <br>顾客正在叫号：13, 剩余位置：6<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+<hr>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/liushall/article/details/81569609">(7条消息) 【操作系统】生产者消费者问题_liushall-CSDN博客_生产者消费者问题</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/iteye_10993/article/details/82333238?utm_medium=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.control&amp;dist_request_id=&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.control">https://blog.csdn.net/iteye_10993/article/details/82333238?utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control&amp;dist_request_id=&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/math-base/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【置顶】数学基础知识、常用公式总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/leetcode-5/">
+                        <span class="hidden-mobile">算法题（五）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+
+  
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
