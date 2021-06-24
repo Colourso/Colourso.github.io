@@ -1,0 +1,900 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>Java基础（二）—— 面向对象、抽象类、接口与内部类 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java基础（二）—— 面向对象、抽象类、接口与内部类">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-21 10:28" pubdate>
+        2021年6月21日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      88
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java基础（二）—— 面向对象、抽象类、接口与内部类</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年6月22日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p><strong>概览</strong>：Java面向对象基本概念学习，还包括抽象类、接口等。</p>
+<a id="more"></a>
+
+<blockquote>
+<p>预警！仅用于本人快速自学，不过欢迎指正。</p>
+</blockquote>
+<h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><h3 id="Java类成员"><a href="#Java类成员" class="headerlink" title="Java类成员"></a>Java类成员</h3><ol>
+<li><strong>属性</strong>：类中的成员变量，不同于局部变量，会有默认值。</li>
+<li><strong>方法</strong>：类中的成员函数，也叫行为。</li>
+<li><strong>构造器</strong>：用于创建对象，给对象的属性赋值。</li>
+</ol>
+<h3 id="构造器"><a href="#构造器" class="headerlink" title="构造器"></a>构造器</h3><p>声明构造器的方法：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">权限 类名(形参)&#123; &#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>设计类时不显式声明一个构造器则会默认提供一个空参的构造函数。</li>
+<li>而一旦显式的声明了一个构造函数，那么默认无参构造函数就不会再提供了。</li>
+<li>类的多个构造函数之间是发生重载的。</li>
+<li>构造器没有返回类型，也不能写void！</li>
+</ul>
+<h3 id="权限修饰"><a href="#权限修饰" class="headerlink" title="权限修饰"></a>权限修饰</h3><p>用于修饰对类的成员的访问权限：</p>
+<table>
+<thead>
+<tr>
+<th align="center">修饰符</th>
+<th align="center">类内</th>
+<th align="center">同一个包</th>
+<th align="center">子类</th>
+<th align="center">任意</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">private</td>
+<td align="center">Y</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">缺省</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">protected</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">public</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+</tr>
+</tbody></table>
+<ul>
+<li>类的方法总是可以访问该类的变量，与权限符号无关。</li>
+</ul>
+<h3 id="this关键字"><a href="#this关键字" class="headerlink" title="this关键字"></a>this关键字</h3><ul>
+<li>this可以理解为当前对象或者当前正在创造的对象。</li>
+<li>this可以用来区分成员变量和局部变量（同名时）。</li>
+<li>this可以去调用同类的其他方法，也包括构造器。</li>
+<li>在构造器中使用<code>this(参数)</code>这样可以显示调用当前类的其他构造函数。<ul>
+<li>只能用于构造器中。</li>
+<li>且只能用于构造器中的第一句。</li>
+</ul>
+</li>
+</ul>
+<h3 id="创建与初始化对象"><a href="#创建与初始化对象" class="headerlink" title="创建与初始化对象"></a>创建与初始化对象</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span></span>&#123;<br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Person</span><span class="hljs-params">()</span></span>&#123;<br>        name = <span class="hljs-string">&quot;&quot;</span>;<br>        age = <span class="hljs-number">0</span>;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Person</span><span class="hljs-params">(String name,<span class="hljs-keyword">int</span> age)</span></span>&#123;<br>        <span class="hljs-keyword">this</span>.name = name;<br>        <span class="hljs-keyword">this</span>.age = age;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ShowInfo</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;name: &quot;</span> + <span class="hljs-keyword">this</span>.name + <span class="hljs-string">&quot;, age: &quot;</span>+<span class="hljs-keyword">this</span>.age);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Learn</span><span class="hljs-params">(String info)</span></span>&#123;<br>        System.out.println(<span class="hljs-keyword">this</span>.name + <span class="hljs-string">&quot;正在学习 &quot;</span>+info);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OPPP</span> </span>&#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        Person p1 = <span class="hljs-keyword">new</span> Person(<span class="hljs-string">&quot;小明&quot;</span>,<span class="hljs-number">18</span>);<br>        p1.ShowInfo();<br>        p1.Learn(<span class="hljs-string">&quot;英语&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>实际过程：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-bullet">1.</span> 类加载,同时初始化类中静态的属性<br><span class="hljs-bullet">2.</span> 执行静态代码块<br><span class="hljs-bullet">3.</span> 分配内存空间,同时初始化非静态的属性(赋默认值,0/false/null)<br><span class="hljs-bullet">4.</span> 调用Student的父类构造器<br><span class="hljs-bullet">5.</span> 对Student中的属性进行显示赋值(如果有的话)<br><span class="hljs-bullet">6.</span> 执行匿名代码块<br><span class="hljs-bullet">7.</span> 执行构造器<br><span class="hljs-bullet">8.</span> 返回内存地址<br></code></pre></td></tr></table></figure>
+<h3 id="面向对象三大特性——封装"><a href="#面向对象三大特性——封装" class="headerlink" title="面向对象三大特性——封装"></a>面向对象三大特性——封装</h3><p>一般将属性私有化，然后提供公有的set、get方法。</p>
+<h3 id="面向对象三大特性——继承"><a href="#面向对象三大特性——继承" class="headerlink" title="面向对象三大特性——继承"></a>面向对象三大特性——继承</h3><p>利用继承，可以先编写一个具有公共属性的一般类，然后再根据各自特有的属性来编写具有特殊属性的子类。</p>
+<p>由继承得到的类是一个子类，被继承的类是父类（超类）。可以理解为:“子类 is a 父类”——<code>student is a person</code></p>
+<p>Java不支持多继承，即一个子类只能有一个父类。但是一个父类可以有多个子类。子类还可以拥有自己的子类。</p>
+<p>如果一个类的声明中没有extends，则这个类是默认为是Object的子类。</p>
+<ul>
+<li>继承的出现提高了代码的复用性。</li>
+<li>继承的出现让类与类之间产生了关系，提供了多态的前提。</li>
+<li>子类继承了父类，就继承了父类的方法和属性。继承的成员变量或方法的访问权限保持不变。</li>
+<li>子类不能直接访问父类中私有的(private)的成员变量和方法</li>
+<li>子类可以使用间接父类的方法。</li>
+</ul>
+<p>java中的每一个类都是”直接” 或者 “间接”的继承了Object类.所以每一个对象都和Object类有”is a”的关系。</p>
+<p>在Object类中,提供了一些方法被子类继承,那么就意味着,在java中,任何一个对象都可以调用这些被继承过来的方法。例如:<code>toString</code>方法、<code>equals</code>方法、<code>getClass</code>方法等。</p>
+<h3 id="方法的重写-override"><a href="#方法的重写-override" class="headerlink" title="方法的重写 override"></a>方法的重写 override</h3><p>子类可根据需要来对从父类中继承的方法进行改造，覆盖父类的方法。</p>
+<p>要求：</p>
+<ul>
+<li><p>重写方法必须和被重写方法具有相同的方法名称、参数列表。</p>
+</li>
+<li><p>返回类型可以相同，也可以不同，子类重写的返回值不同于父类返回值时子类返回值必须是父类方法返回值的子类型。</p>
+</li>
+<li><p>重写方法不能使用比被重写方法更严格的访问权限,（private &lt; protected &lt; default &lt; public），即必须大于等于原权限。</p>
+</li>
+<li><p>静态方法不能够重写，子类可以定义与父类同名的静态方法。</p>
+</li>
+<li><p>重写和被重写的方法须同时非static的，不能增加static修饰。</p>
+</li>
+<li><p>子类方法抛出的异常不能大于父类被重写方法的异常</p>
+</li>
+<li><p>子类不能重写父类中声明为private的方法</p>
+</li>
+<li><p><code>final</code>关键字修饰的<strong>无法再被重写</strong>！</p>
+</li>
+</ul>
+<h3 id="super关键字"><a href="#super关键字" class="headerlink" title="super关键字"></a>super关键字</h3><p>super关键字可用于访问父类中定义的属性</p>
+<ul>
+<li><p>可用其来调用父类中定义的成员方法，包括父类构造器，和被子类重写的方法。</p>
+</li>
+<li><p>当父类与子类出现同名成员时，可用super关键字进行区分。</p>
+</li>
+<li><p>super与this类似，this代表本类对象的引用，super代表父类的内存空间的标识。</p>
+<ul>
+<li>不管是显式还是隐式的父类的构造器,super语句一定要出现在子类构造器中第一行代码。所以this和super不可能同时使用它们调用构造器的功能,因为它们都要出现在第一行代码位置。</li>
+</ul>
+</li>
+</ul>
+<h3 id="instanceof关键字"><a href="#instanceof关键字" class="headerlink" title="instanceof关键字"></a>instanceof关键字</h3><ul>
+<li><code>x instanceof A</code>检查对象x是否是类A的对象，返回值为boolean类型。</li>
+<li>要求x所属类必须与类A是子类与父类的关系，否则编译报错！</li>
+</ul>
+<h3 id="向上转型与强制转型"><a href="#向上转型与强制转型" class="headerlink" title="向上转型与强制转型"></a>向上转型与强制转型</h3><ol>
+<li>父类引用可以指向子类对象，子类引用不能够指向父类对象。</li>
+<li>把子类对象直接赋给父类引用的这种叫做向上转型。<code>Person p = new Student();</code></li>
+<li>把原本指向子类对象的父类引用再赋给子类引用的叫做向下转型，这里需要强制转型。<code>Person p = new Student(); Student s = (Student)p;</code></li>
+<li>向上转型既是多态，会丢失子类特有的方法，但是会保存子类重写的方法。</li>
+</ol>
+<h3 id="面向对象三大特性——多态"><a href="#面向对象三大特性——多态" class="headerlink" title="面向对象三大特性——多态"></a>面向对象三大特性——多态</h3><p>程序的最终状态只有在<strong>执行过程</strong>中才被决定而非在编译期间就决定了。这对于大型系统来说能提高系统的灵活性和扩展性。</p>
+<ul>
+<li>一个类的实际类型是确定的，但是能够指向对象的引用类型却有很多，即这个对象所属类型可能有很多。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span></span>&#123;&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Person</span></span>&#123;&#125;;<br><br>Student s1 = <span class="hljs-keyword">new</span> Student();<br>Person s2 = <span class="hljs-keyword">new</span> Student();<br>Object s3 = <span class="hljs-keyword">new</span> Student();<br></code></pre></td></tr></table></figure>
+<ul>
+<li>即指向对象的引用的类型，可以是该对象实际类型的任意父类型。</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span></span>&#123;<br>    <span class="hljs-keyword">public</span> String name;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> sex;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Person</span><span class="hljs-params">()</span></span>&#123;&#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Person</span><span class="hljs-params">(String name,<span class="hljs-keyword">boolean</span> sex)</span></span>&#123;<br>        <span class="hljs-keyword">this</span>.name = name;<br>        <span class="hljs-keyword">this</span>.sex = sex;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ShowInfo</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(name + <span class="hljs-string">&quot; &quot;</span>+ (sex ? <span class="hljs-string">&quot;男&quot;</span>:<span class="hljs-string">&quot;女&quot;</span>));<br>    &#125;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Person</span></span>&#123;<br>    <span class="hljs-keyword">public</span> String id;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Student</span><span class="hljs-params">()</span></span>&#123;&#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Student</span><span class="hljs-params">(String name,<span class="hljs-keyword">boolean</span> sex,String id)</span></span>&#123;<br>        <span class="hljs-keyword">super</span>(name,sex);<br>        <span class="hljs-keyword">this</span>.id = id;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ShowInfo</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(name + <span class="hljs-string">&quot; &quot;</span> + (sex ? <span class="hljs-string">&quot;男&quot;</span> : <span class="hljs-string">&quot;女&quot;</span>) + <span class="hljs-string">&quot; &quot;</span> + id);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Jicheng</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        Student s1 = <span class="hljs-keyword">new</span> Student(<span class="hljs-string">&quot;小明&quot;</span>,<span class="hljs-keyword">true</span>,<span class="hljs-string">&quot;01&quot;</span>);<br>        Person s2 = <span class="hljs-keyword">new</span> Student(<span class="hljs-string">&quot;小红&quot;</span>,<span class="hljs-keyword">false</span>,<span class="hljs-string">&quot;02&quot;</span>);<br>        Object s3 = <span class="hljs-keyword">new</span> Student(<span class="hljs-string">&quot;小黄&quot;</span>,<span class="hljs-keyword">true</span>,<span class="hljs-string">&quot;03&quot;</span>);<br><br>        s1.ShowInfo();<span class="hljs-comment">//Student的方法</span><br>        s2.ShowInfo();<span class="hljs-comment">//Student的方法</span><br>        <span class="hljs-comment">//s3.ShowInfo();//无此方法 编译报错，Object检查发现自己并没有这个方法</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="多态注意事项"><a href="#多态注意事项" class="headerlink" title="多态注意事项"></a>多态注意事项</h3><ol>
+<li>多态是方法的多态，属性没有多态！</li>
+<li>重载是编译时多态，重写则是运行时多态！</li>
+<li>多态三大条件：继承、重写、父类引用指向子类对象。</li>
+</ol>
+<h3 id="方法绑定"><a href="#方法绑定" class="headerlink" title="方法绑定"></a>方法绑定</h3><p><strong>静态绑定</strong>：在编译期完成，可以提高代码执行速度。</p>
+<p><strong>动态绑定</strong>：通过对象调用的方法，采用动态绑定机制。这虽然让我们编程灵活，但是降低了代码的执行速度。这也是JAVA比C/C++速度慢的主要因素之一。JAVA中除了<strong>final类、final方法、static方法</strong>，所有方法都是JVM在运行期才进行动态绑定的。</p>
+<hr>
+<h2 id="static"><a href="#static" class="headerlink" title="static"></a>static</h2><p>static修饰的变量称为静态变量</p>
+<ul>
+<li><p>静态变量属于类，可以用<strong>类名</strong>来访问或者使用对象去访问。</p>
+</li>
+<li><p>静态变量属于类，被所有类的实例即对象所共享。</p>
+</li>
+<li><p>在加载类的过程中就会为静态变量分配内存，而实例变量则是在创建对象时分配内存。</p>
+</li>
+</ul>
+<p>static修饰的方法称为静态方法</p>
+<ul>
+<li>静态方法属于类，可以使用类名或者对象明去调用。</li>
+<li>静态方法不能够访问类中的非静态变量和非静态方法，可以访问静态变量和方法，实际上静态方法没有this和super指针。</li>
+<li>非静态方法是可以访问静态变量和静态方法的，毕竟非静态方法加载的时间要落后于静态方法的。</li>
+<li>父类的静态方法可以被子类继承，但是不能够被子类重写。即使子类有一个同名的静态方法，也不会发生多态！</li>
+</ul>
+<h3 id="代码块和静态代码块"><a href="#代码块和静态代码块" class="headerlink" title="代码块和静态代码块"></a>代码块和静态代码块</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">P</span></span>&#123;<br>    <br>    &#123;<br>        <span class="hljs-comment">//匿名代码块</span><br>    &#125;<br>    <br>    <span class="hljs-keyword">static</span>&#123;<br>        <span class="hljs-comment">//静态代码块</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>因为没有名字,在程序并不能主动调用这些代码块。</p>
+<p>匿名代码块是在创建对象的时候自动执行的,并且在构造器执行之前。同时匿名代码块在每次创建对象的时候都会自动执行.</p>
+<p>静态代码块是在类加载完成之后就自动执行,并且只执行一次.</p>
+<p>注:每个类在第一次被使用的时候就会被加载,并且一般只会加载一次</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Code</span></span>&#123;<br>    <span class="hljs-comment">//匿名代码块</span><br>    &#123;<br>        System.out.println(<span class="hljs-string">&quot;匿名代码块&quot;</span>);<br>    &#125;<br>    <span class="hljs-comment">//静态代码块</span><br>    <span class="hljs-keyword">static</span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;静态代码块&quot;</span>);<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Cooo</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(<span class="hljs-keyword">this</span> + <span class="hljs-string">&quot;普通函数执行&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CodeBlock</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        Code c1 = <span class="hljs-keyword">new</span> Code();<br>        Code c2 = <span class="hljs-keyword">new</span> Code();<br>        c1.Cooo();<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">/****执行结果***/</span><br>静态代码块<br>匿名代码块<br>匿名代码块<br>col.Code@1b6d3586普通函数执行<br></code></pre></td></tr></table></figure>
+<ul>
+<li>匿名代码块的工作与构造器类似，因此被用到的概率并不大。</li>
+<li>静态代码块的主要作用是给类中的静态成员变量进行初始化赋值操作。</li>
+</ul>
+<h2 id="final"><a href="#final" class="headerlink" title="final"></a>final</h2><h3 id="修饰类"><a href="#修饰类" class="headerlink" title="修饰类"></a>修饰类</h3><p>final修饰的类是不能被继承的，无法有子类，例如String类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span></span>&#123;&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="修饰方法"><a href="#修饰方法" class="headerlink" title="修饰方法"></a>修饰方法</h3><p>final修饰的方法可以被继承，但是不能够被重写。例如Object的getClass方法不能重写。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Info</span><span class="hljs-params">()</span></span>&#123;<br>        <br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="修饰变量"><a href="#修饰变量" class="headerlink" title="修饰变量"></a>修饰变量</h3><p>final修饰的变量表示常量，一经赋值不能修改。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//修饰参数</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Info</span><span class="hljs-params">(<span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> a)</span></span>&#123;<br>    <span class="hljs-comment">//error final在传参时赋值不能再进行修改</span><br>    <span class="hljs-comment">//a = 1;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>修饰类的成员属性，也是仅有一次赋值机会！</p>
+<ol>
+<li>声明的同时赋值</li>
+<li>构造函数中赋值</li>
+<li>匿名代码块中赋值</li>
+</ol>
+<p>修饰类的静态成员属性，仅有一次赋值机会</p>
+<ol>
+<li>声明的同时赋值</li>
+<li>静态代码块赋值</li>
+</ol>
+<p>修饰引用变量，已经赋值不能再修改！</p>
+<hr>
+<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><p>随着继承层次中一个个新子类的定义，类变得越来越具体，而父类则更一般，更通用。类的设计应该保证父类和子类能够共享特征。有时将一个父类设计得非常抽象，以至于它没有具体的实例，这样的类叫做<strong>抽象类</strong>。</p>
+<ul>
+<li>抽象类中可以没有抽象方法，但是抽象方法的类中一定要声明为抽象类。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Do</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//抽象方法 无实现</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>抽象类不能够使用new来创建对象，它是用来让子类继承的！</li>
+<li>抽象方法只有声明没有实现，是用来让子类重写的，若不重写，则子类依旧是抽象类。</li>
+</ul>
+<p>其他：</p>
+<ul>
+<li>abstract类<strong>有构造器</strong>，因为其子类一定会有构造器。</li>
+<li>final和abstract不能够同时修饰一个方法。因为如果一个非抽象类是一个抽象类的子类，那它必须重写父类的方法，并且给出方法体。</li>
+</ul>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>从本质上讲，接口是一种特殊的抽象类，这种抽象类中<strong>只包含常量和方法的定义</strong>，而没有变量和方法的实现。</p>
+<ul>
+<li><p>从接口的实现者角度看，接口定义了可以向外部提供的服务。</p>
+</li>
+<li><p>从接口的调用者角度看，接口定义了实现者能提供那些服务。</p>
+</li>
+</ul>
+<h3 id="接口与抽象类的区别"><a href="#接口与抽象类的区别" class="headerlink" title="接口与抽象类的区别"></a>接口与抽象类的区别</h3><ol>
+<li>抽象类是类，只是不能new，和普通的类没什么大的区别，而接口和类有很大的不同。</li>
+<li>接口中仅能包含常量和方法的定义！</li>
+<li>类的声明用<code>class</code>，接口的声明用<code>interface</code>。</li>
+<li>接口<strong>没有构造方法</strong>！不能够被实例化！</li>
+<li>抽象类是被<strong>用于继承</strong>的，且只能是<strong>单继承</strong>，关键字<code>extends</code>。而接口是被<strong>用于实现</strong>的，可以被<strong>多实现</strong>，关键字<code>implements</code>。</li>
+</ol>
+<h3 id="接口中的方法"><a href="#接口中的方法" class="headerlink" title="接口中的方法"></a>接口中的方法</h3><p>接口中的方法默认都是<strong>公有抽象方法</strong>，由<code>public abstarct</code>来进行修饰，当然这个可以省略。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">MyInter</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Func</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-comment">//同 void Func();</span><br>    <span class="hljs-comment">//同 public abstract void Func();</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="接口中的变量"><a href="#接口中的变量" class="headerlink" title="接口中的变量"></a>接口中的变量</h3><p>接口中的变量默认都是<strong>公有静态常量</strong>，由<code>public static final</code>来进行修饰。</p>
+<ul>
+<li>声明的同时就要同时赋值！因为接口中不能够编写静态代码块！</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">MyInter</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">double</span> PI = <span class="hljs-number">3.14</span>;<br>    <span class="hljs-comment">// 同 public double PI = 3.14;</span><br>    <span class="hljs-comment">// 同 double PI = 3.14;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="一个类可以实现多个接口"><a href="#一个类可以实现多个接口" class="headerlink" title="一个类可以实现多个接口"></a>一个类可以实现多个接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">A</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> M_A = <span class="hljs-number">10</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Test</span><span class="hljs-params">()</span></span>;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">B</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> M_B = <span class="hljs-number">20</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Run</span><span class="hljs-params">()</span></span>;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">C</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> M_C = <span class="hljs-number">30</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Work</span><span class="hljs-params">()</span></span>;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">A</span>,<span class="hljs-title">B</span>,<span class="hljs-title">C</span></span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Test</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;A &quot;</span> + A.M_A);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Run</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;B &quot;</span> + B.M_B);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Work</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;C &quot;</span> + C.M_C);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        A s1 = <span class="hljs-keyword">new</span> MyClass();<br>        B s2 = <span class="hljs-keyword">new</span> MyClass();<br>        C s3 = <span class="hljs-keyword">new</span> MyClass();<br>        MyClass s4 = <span class="hljs-keyword">new</span> MyClass();<br><br>        s1.Test();<span class="hljs-comment">//仅能执行接口A提供的方法和Object的方法！</span><br>        s4.Work();<span class="hljs-comment">//均可执行！</span><br><br>        <span class="hljs-comment">//强制类型变换</span><br>        <span class="hljs-keyword">if</span>(s1 <span class="hljs-keyword">instanceof</span> B)&#123;<br>            ((B)s1).Run();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="接口的继承"><a href="#接口的继承" class="headerlink" title="接口的继承"></a>接口的继承</h3><ul>
+<li>一个接口可以<strong>继承多个接口</strong>，而当一个类实现了该接口，就要实现全部的抽象方法！</li>
+<li>但是一个接口不能够实现另一个接口。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">C</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span>,<span class="hljs-title">B</span></span>&#123;<span class="hljs-comment">//可多继承</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">CC</span><span class="hljs-params">()</span></span>;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">D</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">C</span></span>&#123;<br>    <span class="hljs-comment">//实现全部接口的方法！</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="接口的作用"><a href="#接口的作用" class="headerlink" title="接口的作用"></a>接口的作用</h3><p>接口最主要的作用就是达到统一访问，即在创建对象时用接口创建</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs haxe">接口名 对象名 = <span class="hljs-keyword">new</span> <span class="hljs-type"></span>类名();<br></code></pre></td></tr></table></figure>
+<p>这样就可以统一访问，方法名相同，但实现内容不同！</p>
+<ul>
+<li>不允许创建一个接口的实例，但允许定义接口类型的引用变量，该引用变量指向了实现了接口的类的实例。</li>
+</ul>
+<hr>
+<h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><p>即在一个类的内部定义一个类。例如类A中定义一个类B，则成B为A的内部类。</p>
+<h3 id="成员内部类"><a href="#成员内部类" class="headerlink" title="成员内部类"></a>成员内部类</h3><ul>
+<li>这个成员内部类中不能写静态属性和方法！</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Outer</span></span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> id;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Out</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;out&quot;</span>);<br>    &#125;<br>    <br>    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Inner</span></span>&#123;<br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> id = <span class="hljs-number">183</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">In</span><span class="hljs-params">()</span></span>&#123;<br>            System.out.println(<span class="hljs-string">&quot;out id : &quot;</span> + (Outer.<span class="hljs-keyword">this</span>.id+<span class="hljs-number">1</span>));<br>            System.out.println(<span class="hljs-string">&quot;in  id : &quot;</span> + id);<br>            Out();<br>        &#125;<br>    &#125;<br>&#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OutIn</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">//实例化内部类！</span><br><br>        Outer ou = <span class="hljs-keyword">new</span> Outer();<br>        Outer.Inner inn = ou.<span class="hljs-function">new <span class="hljs-title">Inner</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//暂不理解为什么折磨写</span><br>        inn.In();<span class="hljs-comment">//内部类实例调用！</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>内部类可以访问外部类的属性和方法，包括私有的。</li>
+<li>内部类能够访问外部类的原因在于：在通过外部类对象来访问内部类对象时，外部类对象会将自己的引用传递给内部类，内部类需要通过<code>Outer.this</code>来调用外部类的属性和方法。</li>
+</ul>
+<h3 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h3><p>被static修饰的内部类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Outer</span></span>&#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> id;<br><br>    <span class="hljs-comment">//外部类的普通方法</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Test0</span><span class="hljs-params">()</span></span>&#123;<br>        StaticInner inner = <span class="hljs-keyword">new</span> StaticInner();<br>        inner.age = <span class="hljs-number">5</span>;<br>        <span class="hljs-keyword">this</span>.age = <span class="hljs-number">6</span>;<br>    &#125;<br><br>    <span class="hljs-comment">//静态内部类</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StaticInner</span></span>&#123;<br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age;<br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> id;<br><br>        <span class="hljs-comment">//静态内部类的普通方法</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Test1</span><span class="hljs-params">()</span></span>&#123;<br>            System.out.println(age);<br>            System.out.println(id);<br>            System.out.println(Outer.id);<br>            <span class="hljs-comment">//System.out.println(Outer.this.age); 错误</span><br>            <span class="hljs-comment">//System.out.println(Outer.age); 错误</span><br>        &#125;<br><br>        <span class="hljs-comment">//静态内部类的静态方法</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Test2</span><span class="hljs-params">()</span></span>&#123;<br>            System.out.println(id);<br>            System.out.println(Outer.id);<br>            <span class="hljs-comment">//静态方法不能够访问非静态属性和方法！</span><br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Inners</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        Outer.StaticInner inner = <span class="hljs-keyword">new</span> Outer.StaticInner();	<span class="hljs-comment">//直接初始化，不需要外部类对象</span><br>        inner.Test1();<br>        inner.Test2();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>静态内部类不同于成员内部类，静态内部类中<strong>没有指向外部类对象的引用</strong>。</li>
+<li>静态内部类中可以声明静态方法和静态变量，但是非静态内部类中就不可以声明静态方法和静态变量。</li>
+</ul>
+<h3 id="局部内部类"><a href="#局部内部类" class="headerlink" title="局部内部类"></a>局部内部类</h3><p>是在一个方法的内部声明的类。</p>
+<ul>
+<li>局部内部类可以访问外部类的成员变量以及方法。</li>
+<li>局部内部类中如果要访问该内部类所在<strong>方法中的局部变量</strong>,那么这个局部变量就<strong>必须是final修饰的</strong>。<ul>
+<li>不过从Java8开始，只要局部变量没有发生过改变，也是不会报错的~</li>
+<li>final修饰变量：变为常量，会在常量池中放着，逆向思维想这个问题，如果不使用final修饰，当局部内部类被实例化后，方法弹栈，局部变量随着跟着消失，这个时候局部内部类对象再想去调用该局部变量，就会报错，因为该局部变量已经没了，当局部变量用final修饰后，就会将其加入常量池中，即使方法弹栈了，该局部变量还在常量池中呆着，局部内部类也就是够调用。所以局部内部类想要调用局部变量时，需要使用final修饰，不使用，编译通不过。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Outer1</span></span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age = <span class="hljs-number">100</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Test</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-comment">//final int id = 101;</span><br>        <span class="hljs-keyword">int</span> id = <span class="hljs-number">101</span>;<br><br>        <span class="hljs-comment">//局部内部类</span><br>        <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Inner</span></span>&#123;<br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Test1</span><span class="hljs-params">()</span></span>&#123;<br>                System.out.println(<span class="hljs-string">&quot;age:&quot;</span> + age + <span class="hljs-string">&quot; , id:&quot;</span> + id);<br>            &#125;<br>        &#125;<br>        Inner inner = <span class="hljs-keyword">new</span> Inner();<br>        inner.Test1();<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LocalClass</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        Outer1 ou = <span class="hljs-keyword">new</span> Outer1();<br>        ou.Test();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>不过实际上测试访问局部变量不加final并没有报错！</li>
+<li>局部内部类不能通过外部类对象直接实例化，而是在方法中实例化自己。</li>
+<li>局部内部类只能用于那个方法之中！相当于一个局部变量。</li>
+</ul>
+<h3 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h3><ul>
+<li>匿名对象：仅需要使用一次，可以直接<code>new Object().method()</code>调用完其对应方法即可。</li>
+<li>匿名内部类：也只需要用一次，仅当需要使用时 临时实现内部类。</li>
+</ul>
+<p>创建：</p>
+<ol>
+<li>匿名内部类需要依托其他类或者接口来创建。<ul>
+<li>如果依托于类，则创建出的匿名内部类就是这个类的子类</li>
+<li>依托于接口，则是这个接口的实现类</li>
+</ul>
+</li>
+<li>匿名内部类的声明必须是在使用<code>new 关键字</code>的时候。即声明、创建和使用要一气呵成！</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">MyInterface</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Test</span><span class="hljs-params">()</span></span>;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Anonymous</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> age = <span class="hljs-number">18</span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Work</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">int</span> id = <span class="hljs-number">110</span>;<br><br>        <span class="hljs-comment">//声明定义一个匿名类</span><br>        MyInterface work = <span class="hljs-keyword">new</span> MyInterface() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Test</span><span class="hljs-params">()</span> </span>&#123;<br>                System.out.println(Anonymous.<span class="hljs-keyword">this</span>.name);<br>                System.out.println(Anonymous.age);<span class="hljs-comment">//静态变量</span><br>                System.out.println(id);<br>            &#125;<br>        &#125;;<br><br>        <span class="hljs-comment">//调用匿名类的方法</span><br>        work.Test();<br>    &#125;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        Anonymous ano = <span class="hljs-keyword">new</span> Anonymous();<br>        ano.Work();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>注意：</p>
+<ol>
+<li> 匿名内部类除了依托的类或接口之外,不能指定继承或者实现其他类或接口，同时也不能被其他类所继承,因为没有名字。</li>
+<li>匿名内部中,不能写出其构造器，因为没有名字。</li>
+<li>匿名内部中,除了重写上面的方法外，一般不会再写其他独有的方法，因为从外部不能直接调用到。</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/math-base/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【置顶】数学基础知识、常用公式总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/java_01_base/">
+                        <span class="hidden-mobile">Java基础(一) —— 变量、运算符、流程控制与数组</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+
+  
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
