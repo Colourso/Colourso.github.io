@@ -1,0 +1,680 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>Java公共库 —— Guava - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java公共库 —— Guava">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-20 13:18" pubdate>
+        2021年7月20日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      883 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      19
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java公共库 —— Guava</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年9月28日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p><strong>概览</strong>：Guava字符串相关</p>
+<a id="more"></a>
+
+<blockquote>
+<p>预警！仅用于本人快速自学，不过欢迎指正。</p>
+</blockquote>
+<h2 id="Guava-Strings"><a href="#Guava-Strings" class="headerlink" title="Guava Strings"></a>Guava Strings</h2><ul>
+<li>Strings.isNullOrEmpty(str)：判断是否是null或者为空串</li>
+<li>Strings.nullToEmpty(str)：将一个null转换成空串</li>
+<li>commonPrefix(a,b)：比较两个字符串的公共前缀</li>
+<li>commonSuffix(a,b)：比较获取两个字符串的公共后缀</li>
+<li>padStart(str,len,’’)：将字符加到str前面，最终长度扩展为len。</li>
+<li>padEnd(str,len,’’):添加到后面</li>
+<li>repeat(str,times)：重复str，times次数</li>
+</ul>
+<h3 id="Guava-Ints"><a href="#Guava-Ints" class="headerlink" title="Guava Ints"></a>Guava Ints</h3><ul>
+<li>Ints.compare(a,b)：比较两个int型的大小，a&gt;b返回1，等于返回0.</li>
+<li>Ints.contains(int[],a)：判断数组中包不包含数字a</li>
+<li>max min 求最大值、最小值</li>
+<li>Ints.asList()：可将数组转换为一个List<Integer>类型。<ul>
+<li>而JDK中的Arrays.asList()则可能会出错，并且返回的List内部是一个数组。</li>
+<li>Ints.asList()最终返回的是一个不可变的list，没有重写add方法，所以不能有add(a)的操作，否则会抛出异常。</li>
+</ul>
+</Integer></li>
+</ul>
+<h3 id="Guava-Joiner"><a href="#Guava-Joiner" class="headerlink" title="Guava Joiner"></a>Guava Joiner</h3><ul>
+<li>提供了简单的操作能将列表或者数组的元素使用某些固定的分隔符串接</li>
+<li>默认是不支持列表中有null的，最好使用skipNulls()方法过滤掉。</li>
+<li>或者使用useForNulls()方法将null替换掉</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;Integer&gt; l = Lists.newArrayList(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);<br>System.out.println(Joiner.on(<span class="hljs-string">&#x27;|&#x27;</span>).join(l)); <span class="hljs-comment">// 1|2|3</span><br><br>List&lt;String&gt; strings = Lists.newArrayList(<span class="hljs-string">&quot;1&quot;</span>,<span class="hljs-string">&quot;3&quot;</span>,<span class="hljs-string">&quot;5&quot;</span>,<span class="hljs-keyword">null</span>);<br>System.out.println(Joiner.on(<span class="hljs-string">&quot;(-_-)&quot;</span>).skipNulls().join(strings));<br><span class="hljs-comment">// 1(-_-)3(-_-)5</span><br><br>System.out.println(Joiner.on(<span class="hljs-string">&quot;(-_-)&quot;</span>).useForNull(<span class="hljs-string">&quot;9&quot;</span>).join(strings));<br><span class="hljs-comment">// 1(-_-)3(-_-)5(-_-)9</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><p>也支持Map的Joiner操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java">String host = <span class="hljs-string">&quot;www.baidu.com&quot;</span>;<br>Map&lt;String,String&gt; param = Maps.newHashMap();<br>param.put(<span class="hljs-string">&quot;name&quot;</span>,<span class="hljs-string">&quot;cc&quot;</span>);<br>param.put(<span class="hljs-string">&quot;id&quot;</span>,<span class="hljs-string">&quot;123&quot;</span>);<br><br>String query = Joiner.on(<span class="hljs-string">&quot;&amp;&quot;</span>).withKeyValueSeparator(<span class="hljs-string">&quot;=&quot;</span>).join(param);<br>System.out.println(host + <span class="hljs-string">&quot;?&quot;</span> + query);<span class="hljs-comment">// www.baidu.com?name=cc&amp;id=123</span><br></code></pre></td></tr></table></figure>
+<h3 id="Guava-spliter"><a href="#Guava-spliter" class="headerlink" title="Guava spliter"></a>Guava spliter</h3></li>
+<li><p>JDK的split方法不会保留最后一个元素分割之后的那个null。</p>
+</li>
+<li><p>Guava的spliter可以自由的保留或者过滤Null。</p>
+</li>
+<li><p>还可以解析出map</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java">String str = <span class="hljs-string">&quot;, a, b ,&quot;</span>;<br>String result[] = str.split(<span class="hljs-string">&quot;[,]&quot;</span>);<br>System.out.println(Arrays.toString(result));    <span class="hljs-comment">// [,  a,  b ]</span><br><br>List&lt;String&gt; guavaList = Splitter.on(<span class="hljs-string">&quot;,&quot;</span>).splitToList(str);<br>System.out.println(guavaList);  <span class="hljs-comment">// [,  a,  b , ]</span><br><span class="hljs-keyword">for</span>(String s : guavaList)&#123;<br>    System.out.print(s.length() + <span class="hljs-string">&quot; &quot;</span>); <span class="hljs-comment">// 0 2 3 0</span><br>&#125;<br>System.out.println();<br><br><span class="hljs-comment">// 去除空格</span><br>List&lt;String&gt; guavaList1 = Splitter.on(<span class="hljs-string">&quot;,&quot;</span>).trimResults().splitToList(str);<br>System.out.println(guavaList1); <span class="hljs-comment">// [, a, b, ]</span><br><span class="hljs-keyword">for</span>(String s : guavaList1)&#123;<br>    System.out.print(s.length() + <span class="hljs-string">&quot; &quot;</span>); <span class="hljs-comment">// 0 1 1 0</span><br>&#125;<br><br><span class="hljs-comment">// 过滤null</span><br>List&lt;String&gt; guavaList2 = Splitter.on(<span class="hljs-string">&quot;,&quot;</span>).trimResults()<br>            .omitEmptyStrings().splitToList(str);<br>System.out.println(guavaList2); <span class="hljs-comment">// [a, b]</span><br><br><span class="hljs-comment">// 提取map</span><br>String queryStr = <span class="hljs-string">&quot;a=1&amp;b=2&quot;</span>;<br>Map&lt;String,String&gt; maps = Splitter.on(<span class="hljs-string">&quot;&amp;&quot;</span>).withKeyValueSeparator(<span class="hljs-string">&quot;=&quot;</span>).split(queryStr);<br>System.out.println(maps); <span class="hljs-comment">// &#123;a=1, b=2&#125;</span><br></code></pre></td></tr></table></figure>
+<h3 id="Guava-Objects"><a href="#Guava-Objects" class="headerlink" title="Guava Objects"></a>Guava Objects</h3><ul>
+<li>equal：可以比较两个为空的值</li>
+<li>hashCode：接受可变参数个参数</li>
+<li>MoreObjects.firstNonNull：</li>
+<li>JacksonSUpport.toJson()：方法</li>
+</ul>
+<h3 id="Guava-CharMatcher"><a href="#Guava-CharMatcher" class="headerlink" title="Guava CharMatcher"></a>Guava CharMatcher</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">String str = <span class="hljs-string">&quot;1234abcd&quot;</span>;<br>String str1 = <span class="hljs-string">&quot;1a2b3c4d&quot;</span>;<br>CharMatcher charMatcher = CharMatcher.anyOf(<span class="hljs-string">&quot;abcd&quot;</span>);<br>System.out.println(str + <span class="hljs-string">&quot; -- &quot;</span> + charMatcher.retainFrom(str)); <span class="hljs-comment">// 1234abcd -- abcd</span><br>System.out.println(str1 + <span class="hljs-string">&quot; -- &quot;</span> + charMatcher.retainFrom(str1));<span class="hljs-comment">// 1a2b3c4d -- abcd</span><br>System.out.println(str + <span class="hljs-string">&quot; -- &quot;</span> + charMatcher.removeFrom(str));<span class="hljs-comment">// 1234abcd -- 1234</span><br>System.out.println(str1 + <span class="hljs-string">&quot; -- &quot;</span> + charMatcher.removeFrom(str));<span class="hljs-comment">// 1a2b3c4d -- 1234</span><br><br>CharMatcher charMatcher1 = CharMatcher.anyOf(<span class="hljs-string">&quot;abcd&quot;</span>).or(CharMatcher.is(<span class="hljs-string">&#x27;2&#x27;</span>));<br>System.out.println(str + <span class="hljs-string">&quot; -- &quot;</span> + charMatcher1.retainFrom(str)); <span class="hljs-comment">// 1234abcd -- 2abcd</span><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="Guava-Preconditions"><a href="#Guava-Preconditions" class="headerlink" title="Guava Preconditions"></a>Guava Preconditions</h3><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Preconditions</span>.</span></span>check<span class="hljs-constructor">NotNull(<span class="hljs-params">ret</span>,<span class="hljs-string">&quot;ret不能为空&quot;</span>)</span>;<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="Guava-Optional"><a href="#Guava-Optional" class="headerlink" title="Guava Optional"></a>Guava Optional</h3><p>用法1：</p>
+<ul>
+<li>作为方法的返回值，显式告知调用方法可能为不存在。</li>
+<li>Optional<String> process();//调用方将明确知道返回值可能不存在</String></li>
+</ul>
+<p>用法2：</p>
+<ul>
+<li>设置默认值</li>
+<li>Integer a = Optional.fromNullable(b).or(0);//如果b为null就将a设置为默认值</li>
+</ul>
+<h3 id="Predicate"><a href="#Predicate" class="headerlink" title="Predicate"></a>Predicate</h3><ul>
+<li>函数式接口，用于判断是否满足条件，常用于过滤</li>
+<li></li>
+</ul>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>String中的intern方法有什么作用？ <br><span class="hljs-symbol">2 </span>对比一下Guava的Interners。<br></code></pre></td></tr></table></figure>
+
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/java_05_collection/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java基础（五）—— 集合</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/java_03_general/">
+                        <span class="hidden-mobile">Java基础（三）—— Java常用类</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+
+  
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

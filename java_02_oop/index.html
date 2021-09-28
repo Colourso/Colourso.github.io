@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.2k 字
+      3.9k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      88
+      64
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年6月22日 晚上
+                  本文最后更新于：2021年9月28日 晚上
                 
               </p>
             
@@ -494,57 +494,6 @@
 <ul>
 <li>不允许创建一个接口的实例，但允许定义接口类型的引用变量，该引用变量指向了实现了接口的类的实例。</li>
 </ul>
-<hr>
-<h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><p>即在一个类的内部定义一个类。例如类A中定义一个类B，则成B为A的内部类。</p>
-<h3 id="成员内部类"><a href="#成员内部类" class="headerlink" title="成员内部类"></a>成员内部类</h3><ul>
-<li>这个成员内部类中不能写静态属性和方法！</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Outer</span></span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> id;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Out</span><span class="hljs-params">()</span></span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;out&quot;</span>);<br>    &#125;<br>    <br>    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Inner</span></span>&#123;<br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> id = <span class="hljs-number">183</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">In</span><span class="hljs-params">()</span></span>&#123;<br>            System.out.println(<span class="hljs-string">&quot;out id : &quot;</span> + (Outer.<span class="hljs-keyword">this</span>.id+<span class="hljs-number">1</span>));<br>            System.out.println(<span class="hljs-string">&quot;in  id : &quot;</span> + id);<br>            Out();<br>        &#125;<br>    &#125;<br>&#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OutIn</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        <span class="hljs-comment">//实例化内部类！</span><br><br>        Outer ou = <span class="hljs-keyword">new</span> Outer();<br>        Outer.Inner inn = ou.<span class="hljs-function">new <span class="hljs-title">Inner</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//暂不理解为什么折磨写</span><br>        inn.In();<span class="hljs-comment">//内部类实例调用！</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<ul>
-<li>内部类可以访问外部类的属性和方法，包括私有的。</li>
-<li>内部类能够访问外部类的原因在于：在通过外部类对象来访问内部类对象时，外部类对象会将自己的引用传递给内部类，内部类需要通过<code>Outer.this</code>来调用外部类的属性和方法。</li>
-</ul>
-<h3 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h3><p>被static修饰的内部类。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Outer</span></span>&#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> id;<br><br>    <span class="hljs-comment">//外部类的普通方法</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Test0</span><span class="hljs-params">()</span></span>&#123;<br>        StaticInner inner = <span class="hljs-keyword">new</span> StaticInner();<br>        inner.age = <span class="hljs-number">5</span>;<br>        <span class="hljs-keyword">this</span>.age = <span class="hljs-number">6</span>;<br>    &#125;<br><br>    <span class="hljs-comment">//静态内部类</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StaticInner</span></span>&#123;<br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age;<br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> id;<br><br>        <span class="hljs-comment">//静态内部类的普通方法</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Test1</span><span class="hljs-params">()</span></span>&#123;<br>            System.out.println(age);<br>            System.out.println(id);<br>            System.out.println(Outer.id);<br>            <span class="hljs-comment">//System.out.println(Outer.this.age); 错误</span><br>            <span class="hljs-comment">//System.out.println(Outer.age); 错误</span><br>        &#125;<br><br>        <span class="hljs-comment">//静态内部类的静态方法</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Test2</span><span class="hljs-params">()</span></span>&#123;<br>            System.out.println(id);<br>            System.out.println(Outer.id);<br>            <span class="hljs-comment">//静态方法不能够访问非静态属性和方法！</span><br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Inners</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        Outer.StaticInner inner = <span class="hljs-keyword">new</span> Outer.StaticInner();	<span class="hljs-comment">//直接初始化，不需要外部类对象</span><br>        inner.Test1();<br>        inner.Test2();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<ul>
-<li>静态内部类不同于成员内部类，静态内部类中<strong>没有指向外部类对象的引用</strong>。</li>
-<li>静态内部类中可以声明静态方法和静态变量，但是非静态内部类中就不可以声明静态方法和静态变量。</li>
-</ul>
-<h3 id="局部内部类"><a href="#局部内部类" class="headerlink" title="局部内部类"></a>局部内部类</h3><p>是在一个方法的内部声明的类。</p>
-<ul>
-<li>局部内部类可以访问外部类的成员变量以及方法。</li>
-<li>局部内部类中如果要访问该内部类所在<strong>方法中的局部变量</strong>,那么这个局部变量就<strong>必须是final修饰的</strong>。<ul>
-<li>不过从Java8开始，只要局部变量没有发生过改变，也是不会报错的~</li>
-<li>final修饰变量：变为常量，会在常量池中放着，逆向思维想这个问题，如果不使用final修饰，当局部内部类被实例化后，方法弹栈，局部变量随着跟着消失，这个时候局部内部类对象再想去调用该局部变量，就会报错，因为该局部变量已经没了，当局部变量用final修饰后，就会将其加入常量池中，即使方法弹栈了，该局部变量还在常量池中呆着，局部内部类也就是够调用。所以局部内部类想要调用局部变量时，需要使用final修饰，不使用，编译通不过。</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Outer1</span></span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> age = <span class="hljs-number">100</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Test</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-comment">//final int id = 101;</span><br>        <span class="hljs-keyword">int</span> id = <span class="hljs-number">101</span>;<br><br>        <span class="hljs-comment">//局部内部类</span><br>        <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Inner</span></span>&#123;<br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Test1</span><span class="hljs-params">()</span></span>&#123;<br>                System.out.println(<span class="hljs-string">&quot;age:&quot;</span> + age + <span class="hljs-string">&quot; , id:&quot;</span> + id);<br>            &#125;<br>        &#125;<br>        Inner inner = <span class="hljs-keyword">new</span> Inner();<br>        inner.Test1();<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LocalClass</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        Outer1 ou = <span class="hljs-keyword">new</span> Outer1();<br>        ou.Test();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<ul>
-<li>不过实际上测试访问局部变量不加final并没有报错！</li>
-<li>局部内部类不能通过外部类对象直接实例化，而是在方法中实例化自己。</li>
-<li>局部内部类只能用于那个方法之中！相当于一个局部变量。</li>
-</ul>
-<h3 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h3><ul>
-<li>匿名对象：仅需要使用一次，可以直接<code>new Object().method()</code>调用完其对应方法即可。</li>
-<li>匿名内部类：也只需要用一次，仅当需要使用时 临时实现内部类。</li>
-</ul>
-<p>创建：</p>
-<ol>
-<li>匿名内部类需要依托其他类或者接口来创建。<ul>
-<li>如果依托于类，则创建出的匿名内部类就是这个类的子类</li>
-<li>依托于接口，则是这个接口的实现类</li>
-</ul>
-</li>
-<li>匿名内部类的声明必须是在使用<code>new 关键字</code>的时候。即声明、创建和使用要一气呵成！</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">MyInterface</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Test</span><span class="hljs-params">()</span></span>;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Anonymous</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> age = <span class="hljs-number">18</span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Work</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">int</span> id = <span class="hljs-number">110</span>;<br><br>        <span class="hljs-comment">//声明定义一个匿名类</span><br>        MyInterface work = <span class="hljs-keyword">new</span> MyInterface() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Test</span><span class="hljs-params">()</span> </span>&#123;<br>                System.out.println(Anonymous.<span class="hljs-keyword">this</span>.name);<br>                System.out.println(Anonymous.age);<span class="hljs-comment">//静态变量</span><br>                System.out.println(id);<br>            &#125;<br>        &#125;;<br><br>        <span class="hljs-comment">//调用匿名类的方法</span><br>        work.Test();<br>    &#125;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        Anonymous ano = <span class="hljs-keyword">new</span> Anonymous();<br>        ano.Work();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>注意：</p>
-<ol>
-<li> 匿名内部类除了依托的类或接口之外,不能指定继承或者实现其他类或接口，同时也不能被其他类所继承,因为没有名字。</li>
-<li>匿名内部中,不能写出其构造器，因为没有名字。</li>
-<li>匿名内部中,除了重写上面的方法外，一般不会再写其他独有的方法，因为从外部不能直接调用到。</li>
-</ol>
 
             </div>
             <hr>
@@ -586,7 +535,7 @@
                     
                     
                       <a href="/java_01_base/">
-                        <span class="hidden-mobile">Java基础(一) —— 变量、运算符、流程控制与数组</span>
+                        <span class="hidden-mobile">Java基础(一) —— 变量、运算符、流程控制、数组与泛型</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
