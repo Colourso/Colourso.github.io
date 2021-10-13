@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.3k 字
+      3.4k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      73
+      74
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年10月7日 凌晨
+                  本文最后更新于：2021年10月13日 凌晨
                 
               </p>
             
@@ -340,6 +340,11 @@
 <p><img src="/mybatis/result.png" srcset="/img/loading.gif"></p>
 <p><img src="/mybatis/enum.png" srcset="/img/loading.gif"></p>
 <p><img src="/mybatis/field.png" srcset="/img/loading.gif"></p>
+<hr>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="当查询结果为一个List但是却写成了一个单独的对象时会怎么样？"><a href="#当查询结果为一个List但是却写成了一个单独的对象时会怎么样？" class="headerlink" title="当查询结果为一个List但是却写成了一个单独的对象时会怎么样？"></a>当查询结果为一个List但是却写成了一个单独的对象时会怎么样？</h3><ul>
+<li>报异常</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.ibatis</span><span class="hljs-selector-class">.exceptions</span><span class="hljs-selector-class">.TooManyResultsException</span>: <span class="hljs-selector-tag">Expected</span> <span class="hljs-selector-tag">one</span> <span class="hljs-selector-tag">result</span> (<span class="hljs-selector-tag">or</span> <span class="hljs-selector-tag">null</span>) <span class="hljs-selector-tag">to</span> <span class="hljs-selector-tag">be</span> <span class="hljs-selector-tag">returned</span> <span class="hljs-selector-tag">by</span> <span class="hljs-selector-tag">selectOne</span>(), <span class="hljs-selector-tag">but</span> <span class="hljs-selector-tag">found</span>: 2<br><br>	<span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.ibatis</span><span class="hljs-selector-class">.session</span><span class="hljs-selector-class">.defaults</span><span class="hljs-selector-class">.DefaultSqlSession</span><span class="hljs-selector-class">.selectOne</span>(<span class="hljs-selector-tag">DefaultSqlSession</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:80)</span><br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
