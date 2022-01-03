@@ -1,0 +1,628 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>Github感兴趣项目收集 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Github感兴趣项目收集">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-04 00:30" pubdate>
+        2022年1月4日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      28
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Github感兴趣项目收集</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2022年1月4日 凌晨
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h2 id="版本管理"><a href="#版本管理" class="headerlink" title="版本管理"></a>版本管理</h2><p>发现连接：<a target="_blank" rel="noopener" href="https://m.okjike.com/originalPosts/61cd1c576f9f31001057c1d2?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0=">https://m.okjike.com/originalPosts/61cd1c576f9f31001057c1d2?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0%3D</a></p>
+<p>其实GitHub的创始人Tom Preston-Werner发明了一个通用的Semantic Versioning System. NPM有个有意思的小工具，也有解释<a target="_blank" rel="noopener" href="https://semver.npmjs.com/">https://semver.npmjs.com</a></p>
+<p>其实有一个算共识的东西，叫 SemVer，<a target="_blank" rel="noopener" href="https://semver.org/lang/zh-CN/%E3%80%82">https://semver.org/lang/zh-CN/。</a> 但是，许多时候只要保持一致即可，比如 Ulysses 喜欢猛加第一位，还有些厂喜欢直接年月然后小版本号 2021.12.xxx。</p>
+<h2 id="ai-克隆语音生成"><a href="#ai-克隆语音生成" class="headerlink" title="ai 克隆语音生成"></a>ai 克隆语音生成</h2><p><a target="_blank" rel="noopener" href="https://m.okjike.com/originalPosts/61c873b2c8cc600010afbe03?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0=">https://m.okjike.com/originalPosts/61c873b2c8cc600010afbe03?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0%3D</a></p>
+<h2 id="JustStation-——-基于Spring-Boot的Web框架"><a href="#JustStation-——-基于Spring-Boot的Web框架" class="headerlink" title="JustStation —— 基于Spring Boot的Web框架"></a>JustStation —— 基于Spring Boot的Web框架</h2><p><a target="_blank" rel="noopener" href="https://m.okjike.com/originalPosts/61c1a7a32e277c001000af34?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0=">https://m.okjike.com/originalPosts/61c1a7a32e277c001000af34?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0%3D</a></p>
+<p>这里直接说特点了，易于开发、拓展和维护，所有功能都是基于这三点设计的架构模式。<br>易用 - 在项目中大部分功能都可以通过注解的方式实现，包括了访问限制、权限判定、日志记录、参数校验（Validation)、脱敏、定时任务(非Scheduled)等。精简了注解的使用，不会出现复杂注解。该有的文档、注释也写了。<br>拓展 - 几乎所有功能都提供了handler作为底层的功能接口，并有一个内置实现。自定义只需要实现接口，并使用@Component或是必要的配合注解即可自动替换。类似于接口访问限制的注解也提供了Handler选择，允许不同接口使用不同策略。<br>维护 - 通过枚举类、接口、注解等方式，统一开发风格。对于特殊的功能，例如异常处理、定时任务这类分散的功能也使用了自定义注解和接口的方式进行统一管理。允许分散开发，通过相应的Server统一加载，甚至可以配置允许名单或是屏蔽名单来控制定时任务。</p>
+<p>功能的话，该有的应该七七八八都有，不过有些模块后续可能要做成三方依赖的形式。<br>不需要什么star或是fork，只希望大家能提提意见，非常感谢。<br>大家在其他开发中有什么痛点也可以告诉我，我试着在项目中解决。<br>github地址: <a target="_blank" rel="noopener" href="https://github.com/Verlif/JustStation">https://github.com/Verlif/JustStation</a><br>gitee地址: <a target="_blank" rel="noopener" href="https://gitee.com/Verlif/JustStation">https://gitee.com/Verlif/JustStation</a></p>
+<h2 id="how-lunch-a-dao"><a href="#how-lunch-a-dao" class="headerlink" title="how lunch a dao"></a>how lunch a dao</h2><p><a target="_blank" rel="noopener" href="https://m.okjike.com/originalPosts/61c4a40cffd1460010835deb?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0=">https://m.okjike.com/originalPosts/61c4a40cffd1460010835deb?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0%3D</a></p>
+<p><a target="_blank" rel="noopener" href="https://newsletter.banklesshq.com/p/how-to-launch-a-dao">https://newsletter.banklesshq.com/p/how-to-launch-a-dao</a></p>
+<h2 id="Tutorial"><a href="#Tutorial" class="headerlink" title="Tutorial"></a>Tutorial</h2><p><a target="_blank" rel="noopener" href="https://m.okjike.com/originalPosts/61c547942e277c001000c1d5?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIiwiZCI6MX0=">https://m.okjike.com/originalPosts/61c547942e277c001000c1d5?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIiwiZCI6MX0%3D</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.taniarascia.com/">https://www.taniarascia.com/</a></p>
+<h2 id="RunScape"><a href="#RunScape" class="headerlink" title="RunScape"></a>RunScape</h2><p><a target="_blank" rel="noopener" href="https://m.okjike.com/originalPosts/61bca79827ddc200109863ba?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIiwiZCI6MX0=">https://m.okjike.com/originalPosts/61bca79827ddc200109863ba?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIiwiZCI6MX0%3D</a></p>
+<p>RunScape是一款十几年历史的多人在线角色扮演游戏，在其中有一群从不和别人交流的默默打龙赚金币的玩家。他们不知为什么一直默默重复着这个游戏中可能是最枯燥无聊的任务。直到一次委内瑞拉的大停电，人们才发现这些“打金者”全都来自那里。原来因为当地经济崩溃法币（玻利瓦尔）变废纸，贫苦的国民意外发现了通过在这款游戏里打金变卖游戏装备可以养家糊口甚至赚到钱移民。同时也是这场大停电，在数以万计的委内瑞拉打金者消失之后，所有装备价格都暴涨，现实世界的灾难在虚拟世界里产生了真实的经济波动。除此之外，还有黑帮争夺地盘，普通玩家的围剿，甚至一度游戏公司扮演世界政府取缔了打金者导致他们不得不回到自己现实世界绝望贫困的生活。还有比这更加魔幻现实的元宇宙故事了么？<br>最后为什么是RunScape这款游戏呢？因为它历史之悠久，意味老到在很低端的设备也可以运行。</p>
+<h3 id="https-www-npr-org-2021-07-21-1018915121-video-gaming-the-system"><a href="#https-www-npr-org-2021-07-21-1018915121-video-gaming-the-system" class="headerlink" title="https://www.npr.org/2021/07/21/1018915121/video-gaming-the-system"></a><a target="_blank" rel="noopener" href="https://www.npr.org/2021/07/21/1018915121/video-gaming-the-system">https://www.npr.org/2021/07/21/1018915121/video-gaming-the-system</a></h3><h2 id="裁员"><a href="#裁员" class="headerlink" title="裁员"></a>裁员</h2><p>针对最近各大互联网公司疯狂裁员的现象，甩点自己的观点：<br>1、平庸且供不应求的时代已经结束了。<br>中国互联网过去20年都在井喷式的增长，不客气的说，因为高速增长的红利影响。行业内很多资质平庸，后劲也一般的同学，都在市场上获得了很高的溢价。哪怕在原公司做的不怎么样，但把自己扔出去找几家公司聊一聊，依然可以拿到薪资不错的offer。这其实不是一个好现象，会让很多同学对自身价值的评估出现过于乐观的误差。现在随着行业红利的消失，这波人现在开始出现危机。各家公司都在去肥增瘦，在降低企业总体的人员规模的同时，要提升人才厚度。所以，整个行业对人的能力要求，特别是学习能力和深度认知能力的要求，已经到了前所未有的高度。如果你没有意识到这一点，那你八成会面临一个比较危险的职业阶段；<br>2、从生产关系升级到生产力里升级<br>互联网行业发展到今天，我们能看到的本质，就是用信息连接两端。电商平台是连接卖家和买家；内容平台连接创作者和内容消费者；社交平台是连接用户和用户，出行平台连接司机和乘客。所以其实互联网一直在优化我们的生产关系，提升我们的连接效率。给我们带来的好处就是，我们可以轻易买到无穷无尽的商品；我们每天可以看到无穷无尽的优质内容；我们可以在任何时间，跟远在天边的任何人进行对话。<br>现在，生产关系的发展已经到天花板了。接下来就是生产力高速发展的时代了。高端制造业，硬核科技将会是未来10年中国经济发展的主赛道。我们将会看到有大量的企业进行数字化改革，会看到很多物美价廉，又有科技含量的中国制造成为老百姓的主流消费品；<br>看不到这一点的同学，是不可能在新时代的风口分到自己的口粮的。<br>3、内容+服务将会是所有行业的标准配置<br>未来，任何一个行业，任何一个企业，都要有自己生产内容和自建渠道的能力。通过自己的内容，把用户留在自己的抖音号、快手号、视频号、甚至于自己的app里，这样才能跟用户建立一个相对稳定的关系，才能在必要的时候有效触达到用户。<br>所以，如果你能习得优质内容的生产能力，那么恭喜你，未来社会里任何一个行业的任何一家公司，都会热切的拿着钞票等待着你的加盟。<br>不重视内容和渠道，不在内容上配置资源的企业，一定会被新时代所淘汰。</p>
+<h2 id="dapp开发"><a href="#dapp开发" class="headerlink" title="dapp开发"></a>dapp开发</h2><p><a target="_blank" rel="noopener" href="http://www.afox.cc/2021/study-note/dapp-explore/">http://www.afox.cc/2021/study-note/dapp-explore/</a></p>
+<h2 id="solidity"><a href="#solidity" class="headerlink" title="solidity"></a>solidity</h2><p><a target="_blank" rel="noopener" href="https://m.okjike.com/originalPosts/6199aafe0e50ed0010e87209?s=eyJ1IjoiIiwiZCI6MX0=">https://m.okjike.com/originalPosts/6199aafe0e50ed0010e87209?s=eyJ1IjoiIiwiZCI6MX0%3D</a></p>
+<h2 id="编程语言解释器"><a href="#编程语言解释器" class="headerlink" title="编程语言解释器"></a>编程语言解释器</h2><p><a target="_blank" rel="noopener" href="https://m.okjike.com/originalPosts/617f5f598fb0da00114c88fa?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIiwiZCI6MX0=">https://m.okjike.com/originalPosts/617f5f598fb0da00114c88fa?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIiwiZCI6MX0%3D</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.craftinginterpreters.com/">https://www.craftinginterpreters.com/</a></p>
+<h2 id="Java-全栈知识体系"><a href="#Java-全栈知识体系" class="headerlink" title="Java 全栈知识体系"></a>Java 全栈知识体系</h2><p><a target="_blank" rel="noopener" href="https://m.okjike.com/originalPosts/61975bfb7aeb2b001008df14?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0=https://m.okjike.com/originalPosts/61975bfb7aeb2b001008df14?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0=">https://m.okjike.com/originalPosts/61975bfb7aeb2b001008df14?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0%3Dhttps://m.okjike.com/originalPosts/61975bfb7aeb2b001008df14?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0%3D</a></p>
+<p><a target="_blank" rel="noopener" href="https://pdai.tech/">https://pdai.tech/</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/other/">other</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/other/">other</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/math-base/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【置顶】数学基础知识、常用公式总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/total-2021/">
+                        <span class="hidden-mobile">2021年度总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+
+  
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
