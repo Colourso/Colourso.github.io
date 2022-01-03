@@ -1,0 +1,652 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>Github感兴趣项目收集 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Github感兴趣项目收集">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-02 19:59" pubdate>
+        2022年1月2日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      29
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Github感兴趣项目收集</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2022年1月3日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h3 id="游戏开发教程"><a href="#游戏开发教程" class="headerlink" title="游戏开发教程"></a>游戏开发教程</h3><p>GitHub 上一份开源的游戏开发教程：Magic Tools，整理了游戏开发相关的工具、美术素材、项目源码、计算机图形学等资源。</p>
+<p>GitHub：github.com/ellisonleao/magictools<br>中文版：<a target="_blank" rel="noopener" href="http://t.cn/RqbFUfd">http://t.cn/RqbFUfd</a></p>
+<p>目前有中英文两个版本，中文版在原作基础上补充了国内开发者感兴趣的信息，并基于作者个人理解，对一些资源的描述 / 措辞做了少许改动。</p>
+<h3 id="即时通讯引擎"><a href="#即时通讯引擎" class="headerlink" title="即时通讯引擎"></a>即时通讯引擎</h3><p>GitHub 上一套开源的即时通讯引擎：Turms，为实时在线用户数为 100K~10M 应用而设计，配套有详细的开发文档。</p>
+<p>GitHub：github.com/turms-im/turms </p>
+<h3 id="Flutter-开发"><a href="#Flutter-开发" class="headerlink" title="Flutter 开发"></a>Flutter 开发</h3><p>Awesome Flutter Desktop，收录了一系列基于 Flutter 开发的组件包与开源项目，其中包括密码管理器、音乐播放器、翻译词典、漫画阅读器等应用。</p>
+<p>GitHub：github.com/leanflutter/awesome-flutter-desktop </p>
+<h3 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h3><p>一款开源的单词记忆与英语肌肉记忆锻炼软件：Qwerty Learner。</p>
+<p>主要将英语单词的记忆与键盘输入的肌肉记忆相结合，可在背诵单词的同时巩固肌肉记忆。</p>
+<p>此外，该软件还为程序员内置了计算机常用单词库与 API，方便大家练习工作中常用的单词、提高输入速度。</p>
+<p>GitHub：github.com/Kaiyiwing/qwerty-learner</p>
+<h3 id="信息学竞赛"><a href="#信息学竞赛" class="headerlink" title="信息学竞赛"></a>信息学竞赛</h3><p>一位开发者将其在 2013-2018 年期间的信息学竞赛课件在 GitHub 上开源了。</p>
+<p>这份课件覆盖了 TopCoder 题目选讲、CodeChef 题目选讲、趣题选讲、网络流模型与例题、NOIp 图论、数据结构及应用等内容。</p>
+<p>作者胡泽聪为清华大学本科生，现于卡内基梅隆大学攻读硕士学位，在本科期间曾经担任过授课讲师。这份资源便是他任讲师期间所创作的课件素材，感兴趣的同学可以学习一下。</p>
+<p>GitHub：github.com/huzecong/oi-slides</p>
+<h3 id="语音合成工具箱"><a href="#语音合成工具箱" class="headerlink" title="语音合成工具箱"></a>语音合成工具箱</h3><p>GitHub 上一款开源的语音合成工具箱：TTSkit，支持文本转语音，可在线配置参数，并拥有多种音色选择。</p>
+<p>GitHub：github.com/KuangDD/ttskit </p>
+<h3 id="AI-知识库"><a href="#AI-知识库" class="headerlink" title="AI 知识库"></a>AI 知识库</h3><p>GitHub 上一个 AI 知识库，AiLearning-Theory-Applying。</p>
+<p>帮助开发者快速上手 AI 理论及应用实战：基础知识、机器学习、深度学习、自然语言处理 BERT，含大量注释及数据集，力求每一位能看懂并复现。</p>
+<p>GitHub：github.com/ben1234560/AiLearning-Theory-Applying </p>
+<h3 id="Java-知识库：《互联网公司常用框架源码赏析》"><a href="#Java-知识库：《互联网公司常用框架源码赏析》" class="headerlink" title="Java 知识库：《互联网公司常用框架源码赏析》"></a>Java 知识库：《互联网公司常用框架源码赏析》</h3><p>GitHub 上一个 Java 知识库：《互联网公司常用框架源码赏析》。项目致力于从源码层面，剖析和挖掘互联网行业主流技术的底层实现原理。</p>
+<p>目前开放了 Spring 全家桶、Mybatis、Netty、Dubbo 框架，及 Redis、Tomcat 中间件等框架源码解析内容。</p>
+<p>GitHub：github.com/doocs/source-code-hunter </p>
+<h3 id="名校公开课程评价网"><a href="#名校公开课程评价网" class="headerlink" title="名校公开课程评价网"></a>名校公开课程评价网</h3><p>名校公开课程评价网，由多个 GitHub 开发者共同参与维护的一个开源项目。</p>
+<p>主要针对各大高校计算机课程在学习难度、课程规划、进阶资源等方面，做出整理与总结。其中包含数据库系统设计、数据结构与算法、计算机网络、机器学习等多个技术领域。</p>
+<p>GitHub：github.com/conanhujinming/comments-for-awesome-courses</p>
+<h3 id="项目管理软件"><a href="#项目管理软件" class="headerlink" title="项目管理软件"></a>项目管理软件</h3><p>分享 GitHub 上一款可用于个人或小型团队的项目管理软件：MasterPlan，创作灵感主要来自于作者独立开发游戏时的遇到的一系列问题。</p>
+<p>该软件的核心目的，在于打造一个轻量级的，具备核心的，专注服务于独立开发者与小型团队的管理工具。</p>
+<p>此工具基于 Go 语言编写并开源，感兴趣的同学可自行编译运行。</p>
+<p>GitHub：<a target="_blank" rel="noopener" href="http://t.cn/A6GoZjt3">http://t.cn/A6GoZjt3</a></p>
+<h3 id="可视化交互数据图"><a href="#可视化交互数据图" class="headerlink" title="可视化交互数据图"></a>可视化交互数据图</h3><p>最近在 Hacker News 上看到个比较实用的开源项目：vega-lite，它提供了一种交互式图形语法，让用户仅需通过几行简单的 JSON 配置，便能生成各种可视化交互数据图。</p>
+<p>借助这种方式，可大幅减少开发者制作可视化交互图形的工作量。</p>
+<p>官网：vega.github.io/vega-lite<br>GitHub：<a target="_blank" rel="noopener" href="http://t.cn/A6G7ZNto">http://t.cn/A6G7ZNto</a> ​​​</p>
+<h3 id="开源的游戏引擎"><a href="#开源的游戏引擎" class="headerlink" title="开源的游戏引擎"></a>开源的游戏引擎</h3><p>分享一个近期在 GitHub 上开源的游戏引擎：apolune，曾被用于 Lost Astronaut（失落的阿波罗）项目的开发，整体架构由 OpenGL，WinAPI，OpenAL 等多项技术，共 1400 多个文件组件。</p>
+<p>据作者透露，该游戏框架历时十多年时间进行开发，其技术已被应用到了真实游戏的开发场景上。</p>
+<p>GitHub：<a target="_blank" rel="noopener" href="http://t.cn/A6Gq02XO">http://t.cn/A6Gq02XO</a></p>
+<h3 id="生成手绘风格的画像"><a href="#生成手绘风格的画像" class="headerlink" title="生成手绘风格的画像"></a>生成手绘风格的画像</h3><p>最近看到 GitHub 项目 U^2-Net 的一种有趣应用，可借助 AI 技术为人物肖像生成手绘风格的画像。</p>
+<p>教程及原理：<a target="_blank" rel="noopener" href="http://t.cn/A6GEoCpG">http://t.cn/A6GEoCpG</a><br>GitHub：<a target="_blank" rel="noopener" href="http://t.cn/A6AKsTrZ">http://t.cn/A6AKsTrZ</a> ​​​</p>
+<h3 id="API-网关"><a href="#API-网关" class="headerlink" title="API 网关"></a>API 网关</h3><p>GitHub 上一个可应用于所有微服务场景的 API 网关解决方案：Apache Shenyu，具备可扩展、高性能、响应式等特点。</p>
+<p>提供了诸如熔断、重写、重定向和路由监控等插件；支持 HTTP、RESTFul、WebSocket 等代理；拥有热插拔、集群部署、A/B 测试和灰度发布等功能。</p>
+<p>GitHub：github.com/apache/incubator-shenyu</p>
+<h3 id="卡通头像生成器"><a href="#卡通头像生成器" class="headerlink" title="卡通头像生成器"></a>卡通头像生成器</h3><p>GitHub 上一个开源的卡通头像生成器：Vue Color Avatar，纯前端实现，拥有各类头像搭配组件。随机生成头像时，有一定概率会触发彩蛋。</p>
+<p>GitHub：github.com/Codennnn/vue-color-avatar </p>
+<h3 id="前端-UI-组件"><a href="#前端-UI-组件" class="headerlink" title="前端 UI 组件"></a>前端 UI 组件</h3><p>在 GitHub 上发现一个看起来很可爱的前端 UI 组件库：DoodleCSS，满满的卡通手绘风格。支持 Web 按钮、下拉菜单、文本框、复选框等多种 UI 组件。</p>
+<p>GitHub：github.com/chr15m/DoodleCSS </p>
+<h3 id="游戏开发平台"><a href="#游戏开发平台" class="headerlink" title="游戏开发平台"></a>游戏开发平台</h3><p>推荐 GitHub 上一个非常实用的游戏开发平台：microStudio，集搜索、开发、学习、体验、交流等功能于一身。</p>
+<p>平台的「Explore」功能，可以搜索与体验你感兴趣的小游戏；「Create」功能附带一个可在线运行的游戏代码编辑器；「Tutorials」则让你能在线学习游戏开发。</p>
+<p>网站游戏相关的资源相当丰富，建议大家收藏学习。</p>
+<p>GitHub：github.com/pmgl/microstudio<br>地址：<a target="_blank" rel="noopener" href="http://t.cn/A6xYw820">http://t.cn/A6xYw820</a></p>
+<h3 id="Matplotlib-扩展"><a href="#Matplotlib-扩展" class="headerlink" title="Matplotlib 扩展"></a>Matplotlib 扩展</h3><p>matplotx，收录了多个实用的 Matplotlib 扩展，可以满足多种数据可视化的绘图需求。</p>
+<p>GitHub：github.com/nschloe/matplotx </p>
+<h3 id="开源技术书籍"><a href="#开源技术书籍" class="headerlink" title="开源技术书籍"></a>开源技术书籍</h3><p>GitHub 上的开源技术书籍：《现代 CPU 性能分析与调优》。</p>
+<p>此书是一本 170 页的指南，结合了多个不同行业的专家知识，讲解 CPU 微体系结构、性能分析技巧，以及相关的工具与建议参考等内容。</p>
+<p>GitHub：github.com/dendibakh/perf-book/ </p>
+<h3 id="NumPy"><a href="#NumPy" class="headerlink" title="NumPy"></a>NumPy</h3><p>国外一位名为 Lev Maximov 的工程师写的：《图解 NumPy：可视化指南》，通过插图的方式，详细分析并讲解了 NumPy 向量、矩阵、3D 及高维数组的应用。</p>
+<p>地址：<a target="_blank" rel="noopener" href="https://betterprogramming.pub/numpy-illustrated-the-visual-guide-to-numpy-3b1d4976de1d">https://betterprogramming.pub/numpy-illustrated-the-visual-guide-to-numpy-3b1d4976de1d</a></p>
+<p>想要进一步练习 NumPy 技术的，可以看下 GitHub 上《100 numpy exercises》这个开源项目，里面包含了 100 多道 NumPy 练习题与答案。</p>
+<p>GitHub：github.com/rougier/numpy-100</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/total-2021/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2021年度总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/maven/">
+                        <span class="hidden-mobile">Maven学习与使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+
+  
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

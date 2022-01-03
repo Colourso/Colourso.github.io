@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.1k 字
+      2.3k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      40
+      44
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年9月29日 凌晨
+                  本文最后更新于：2021年10月13日 上午
                 
               </p>
             
@@ -370,6 +370,12 @@
 <li>修饰方法名：同步方法</li>
 <li>修饰静态方法：静态同步方法</li>
 </ul>
+<p>实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TicketTask</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Runnable</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> num = <span class="hljs-number">10</span>;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">while</span> (num &gt; <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-comment">/* 需要一个对象，放置this */</span><br>            <span class="hljs-keyword">synchronized</span> (<span class="hljs-keyword">this</span>) &#123;<br>                <span class="hljs-keyword">if</span> (num &gt; <span class="hljs-number">0</span>) &#123;<br>                    <span class="hljs-comment">/* 再一次的判断，放置出现0号票和-1号票 */</span><br>                    System.out.println(num + <span class="hljs-string">&quot;号票&quot;</span>);<br>                    num--;<br>                &#125;<br>            &#125;<br><br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>&#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        TicketTask task1 = <span class="hljs-keyword">new</span> TicketTask();<br>        <br>        <span class="hljs-comment">/* 将一个卖票任务传递给三个线程 */</span><br>        Thread t1 = <span class="hljs-keyword">new</span> Thread(task1);<br>        Thread t2 = <span class="hljs-keyword">new</span> Thread(task1);<br>        Thread t3 = <span class="hljs-keyword">new</span> Thread(task1);<br><br>        t1.start();<br>        t2.start();<br>        t3.start();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>同步代码块封装成同步方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TicketTask</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Runnable</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> num = <span class="hljs-number">10</span>;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">while</span> (num &gt; <span class="hljs-number">0</span>) &#123;<br>            sellTicket();<br>            &#125;<br>        &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sellTicket</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">if</span> (num &gt; <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-comment">/* 再一次的判断，放置出现0号票和-1号票 */</span><br>            System.out.println(num + <span class="hljs-string">&quot;号票&quot;</span>);<br>            num--;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
 <ul>
 <li>一般不要把while循环放入到同步代码块，这意味这可能某个线程就执行完了全部的while循环的代码</li>
 <li>同步代码块内外双判断！<ul>
