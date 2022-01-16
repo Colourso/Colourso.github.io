@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Colourso">
   <meta name="keywords" content="">
-  <title>Github感兴趣项目收集 - Colourso</title>
+  <title>Spring 入门 - Colourso</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -174,7 +174,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Github感兴趣项目收集">
+            <span class="h2" id="subtitle" title="Spring 入门">
               
             </span>
 
@@ -184,8 +184,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-01-04 00:30" pubdate>
-        2022年1月4日 凌晨
+      <time datetime="2022-01-16 16:50" pubdate>
+        2022年1月16日 下午
       </time>
     </span>
   
@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.8k 字
+      948 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      28
+      20
        分钟
     </span>
   
@@ -244,35 +244,82 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Github感兴趣项目收集</h1>
+            <h1 style="display: none">Spring 入门</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年1月4日 凌晨
+                  本文最后更新于：2022年1月16日 晚上
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="版本管理"><a href="#版本管理" class="headerlink" title="版本管理"></a>版本管理</h2><p>发现连接：<a target="_blank" rel="noopener" href="https://m.okjike.com/originalPosts/61cd1c576f9f31001057c1d2?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0=">https://m.okjike.com/originalPosts/61cd1c576f9f31001057c1d2?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0%3D</a></p>
-<p>其实GitHub的创始人Tom Preston-Werner发明了一个通用的Semantic Versioning System. NPM有个有意思的小工具，也有解释<a target="_blank" rel="noopener" href="https://semver.npmjs.com/">https://semver.npmjs.com</a></p>
-<p>其实有一个算共识的东西，叫 SemVer，<a target="_blank" rel="noopener" href="https://semver.org/lang/zh-CN/%E3%80%82">https://semver.org/lang/zh-CN/。</a> 但是，许多时候只要保持一致即可，比如 Ulysses 喜欢猛加第一位，还有些厂喜欢直接年月然后小版本号 2021.12.xxx。</p>
-<h2 id="ai-克隆语音生成"><a href="#ai-克隆语音生成" class="headerlink" title="ai 克隆语音生成"></a>ai 克隆语音生成</h2><p><a target="_blank" rel="noopener" href="https://m.okjike.com/originalPosts/61c873b2c8cc600010afbe03?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0=">https://m.okjike.com/originalPosts/61c873b2c8cc600010afbe03?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0%3D</a></p>
-<h2 id="JustStation-——-基于Spring-Boot的Web框架"><a href="#JustStation-——-基于Spring-Boot的Web框架" class="headerlink" title="JustStation —— 基于Spring Boot的Web框架"></a>JustStation —— 基于Spring Boot的Web框架</h2><p><a target="_blank" rel="noopener" href="https://m.okjike.com/originalPosts/61c1a7a32e277c001000af34?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0=">https://m.okjike.com/originalPosts/61c1a7a32e277c001000af34?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0%3D</a></p>
-<p>这里直接说特点了，易于开发、拓展和维护，所有功能都是基于这三点设计的架构模式。<br>易用 - 在项目中大部分功能都可以通过注解的方式实现，包括了访问限制、权限判定、日志记录、参数校验（Validation)、脱敏、定时任务(非Scheduled)等。精简了注解的使用，不会出现复杂注解。该有的文档、注释也写了。<br>拓展 - 几乎所有功能都提供了handler作为底层的功能接口，并有一个内置实现。自定义只需要实现接口，并使用@Component或是必要的配合注解即可自动替换。类似于接口访问限制的注解也提供了Handler选择，允许不同接口使用不同策略。<br>维护 - 通过枚举类、接口、注解等方式，统一开发风格。对于特殊的功能，例如异常处理、定时任务这类分散的功能也使用了自定义注解和接口的方式进行统一管理。允许分散开发，通过相应的Server统一加载，甚至可以配置允许名单或是屏蔽名单来控制定时任务。</p>
-<p>功能的话，该有的应该七七八八都有，不过有些模块后续可能要做成三方依赖的形式。<br>不需要什么star或是fork，只希望大家能提提意见，非常感谢。<br>大家在其他开发中有什么痛点也可以告诉我，我试着在项目中解决。<br>github地址: <a target="_blank" rel="noopener" href="https://github.com/Verlif/JustStation">https://github.com/Verlif/JustStation</a><br>gitee地址: <a target="_blank" rel="noopener" href="https://gitee.com/Verlif/JustStation">https://gitee.com/Verlif/JustStation</a></p>
-<h2 id="how-lunch-a-dao"><a href="#how-lunch-a-dao" class="headerlink" title="how lunch a dao"></a>how lunch a dao</h2><p><a target="_blank" rel="noopener" href="https://m.okjike.com/originalPosts/61c4a40cffd1460010835deb?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0=">https://m.okjike.com/originalPosts/61c4a40cffd1460010835deb?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0%3D</a></p>
-<p><a target="_blank" rel="noopener" href="https://newsletter.banklesshq.com/p/how-to-launch-a-dao">https://newsletter.banklesshq.com/p/how-to-launch-a-dao</a></p>
-<h2 id="Tutorial"><a href="#Tutorial" class="headerlink" title="Tutorial"></a>Tutorial</h2><p><a target="_blank" rel="noopener" href="https://m.okjike.com/originalPosts/61c547942e277c001000c1d5?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIiwiZCI6MX0=">https://m.okjike.com/originalPosts/61c547942e277c001000c1d5?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIiwiZCI6MX0%3D</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.taniarascia.com/">https://www.taniarascia.com/</a></p>
-<h2 id="RunScape"><a href="#RunScape" class="headerlink" title="RunScape"></a>RunScape</h2><p><a target="_blank" rel="noopener" href="https://m.okjike.com/originalPosts/61bca79827ddc200109863ba?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIiwiZCI6MX0=">https://m.okjike.com/originalPosts/61bca79827ddc200109863ba?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIiwiZCI6MX0%3D</a></p>
-<p>RunScape是一款十几年历史的多人在线角色扮演游戏，在其中有一群从不和别人交流的默默打龙赚金币的玩家。他们不知为什么一直默默重复着这个游戏中可能是最枯燥无聊的任务。直到一次委内瑞拉的大停电，人们才发现这些“打金者”全都来自那里。原来因为当地经济崩溃法币（玻利瓦尔）变废纸，贫苦的国民意外发现了通过在这款游戏里打金变卖游戏装备可以养家糊口甚至赚到钱移民。同时也是这场大停电，在数以万计的委内瑞拉打金者消失之后，所有装备价格都暴涨，现实世界的灾难在虚拟世界里产生了真实的经济波动。除此之外，还有黑帮争夺地盘，普通玩家的围剿，甚至一度游戏公司扮演世界政府取缔了打金者导致他们不得不回到自己现实世界绝望贫困的生活。还有比这更加魔幻现实的元宇宙故事了么？<br>最后为什么是RunScape这款游戏呢？因为它历史之悠久，意味老到在很低端的设备也可以运行。</p>
-<h3 id="https-www-npr-org-2021-07-21-1018915121-video-gaming-the-system"><a href="#https-www-npr-org-2021-07-21-1018915121-video-gaming-the-system" class="headerlink" title="https://www.npr.org/2021/07/21/1018915121/video-gaming-the-system"></a><a target="_blank" rel="noopener" href="https://www.npr.org/2021/07/21/1018915121/video-gaming-the-system">https://www.npr.org/2021/07/21/1018915121/video-gaming-the-system</a></h3><h2 id="裁员"><a href="#裁员" class="headerlink" title="裁员"></a>裁员</h2><p>针对最近各大互联网公司疯狂裁员的现象，甩点自己的观点：<br>1、平庸且供不应求的时代已经结束了。<br>中国互联网过去20年都在井喷式的增长，不客气的说，因为高速增长的红利影响。行业内很多资质平庸，后劲也一般的同学，都在市场上获得了很高的溢价。哪怕在原公司做的不怎么样，但把自己扔出去找几家公司聊一聊，依然可以拿到薪资不错的offer。这其实不是一个好现象，会让很多同学对自身价值的评估出现过于乐观的误差。现在随着行业红利的消失，这波人现在开始出现危机。各家公司都在去肥增瘦，在降低企业总体的人员规模的同时，要提升人才厚度。所以，整个行业对人的能力要求，特别是学习能力和深度认知能力的要求，已经到了前所未有的高度。如果你没有意识到这一点，那你八成会面临一个比较危险的职业阶段；<br>2、从生产关系升级到生产力里升级<br>互联网行业发展到今天，我们能看到的本质，就是用信息连接两端。电商平台是连接卖家和买家；内容平台连接创作者和内容消费者；社交平台是连接用户和用户，出行平台连接司机和乘客。所以其实互联网一直在优化我们的生产关系，提升我们的连接效率。给我们带来的好处就是，我们可以轻易买到无穷无尽的商品；我们每天可以看到无穷无尽的优质内容；我们可以在任何时间，跟远在天边的任何人进行对话。<br>现在，生产关系的发展已经到天花板了。接下来就是生产力高速发展的时代了。高端制造业，硬核科技将会是未来10年中国经济发展的主赛道。我们将会看到有大量的企业进行数字化改革，会看到很多物美价廉，又有科技含量的中国制造成为老百姓的主流消费品；<br>看不到这一点的同学，是不可能在新时代的风口分到自己的口粮的。<br>3、内容+服务将会是所有行业的标准配置<br>未来，任何一个行业，任何一个企业，都要有自己生产内容和自建渠道的能力。通过自己的内容，把用户留在自己的抖音号、快手号、视频号、甚至于自己的app里，这样才能跟用户建立一个相对稳定的关系，才能在必要的时候有效触达到用户。<br>所以，如果你能习得优质内容的生产能力，那么恭喜你，未来社会里任何一个行业的任何一家公司，都会热切的拿着钞票等待着你的加盟。<br>不重视内容和渠道，不在内容上配置资源的企业，一定会被新时代所淘汰。</p>
-<h2 id="dapp开发"><a href="#dapp开发" class="headerlink" title="dapp开发"></a>dapp开发</h2><p><a target="_blank" rel="noopener" href="http://www.afox.cc/2021/study-note/dapp-explore/">http://www.afox.cc/2021/study-note/dapp-explore/</a></p>
-<h2 id="solidity"><a href="#solidity" class="headerlink" title="solidity"></a>solidity</h2><p><a target="_blank" rel="noopener" href="https://m.okjike.com/originalPosts/6199aafe0e50ed0010e87209?s=eyJ1IjoiIiwiZCI6MX0=">https://m.okjike.com/originalPosts/6199aafe0e50ed0010e87209?s=eyJ1IjoiIiwiZCI6MX0%3D</a></p>
-<h2 id="编程语言解释器"><a href="#编程语言解释器" class="headerlink" title="编程语言解释器"></a>编程语言解释器</h2><p><a target="_blank" rel="noopener" href="https://m.okjike.com/originalPosts/617f5f598fb0da00114c88fa?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIiwiZCI6MX0=">https://m.okjike.com/originalPosts/617f5f598fb0da00114c88fa?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIiwiZCI6MX0%3D</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.craftinginterpreters.com/">https://www.craftinginterpreters.com/</a></p>
-<h2 id="Java-全栈知识体系"><a href="#Java-全栈知识体系" class="headerlink" title="Java 全栈知识体系"></a>Java 全栈知识体系</h2><p><a target="_blank" rel="noopener" href="https://m.okjike.com/originalPosts/61975bfb7aeb2b001008df14?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0=https://m.okjike.com/originalPosts/61975bfb7aeb2b001008df14?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0=">https://m.okjike.com/originalPosts/61975bfb7aeb2b001008df14?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0%3Dhttps://m.okjike.com/originalPosts/61975bfb7aeb2b001008df14?s=eyJ1IjoiNWZjY2U4NWEwNDRkYmUwMDE3NTRlOGVmIn0%3D</a></p>
-<p><a target="_blank" rel="noopener" href="https://pdai.tech/">https://pdai.tech/</a></p>
+              <p>Spring入门</p>
+<a id="more"></a>
+
+<p>来偿还债务了，因为自己的懒惰和脑袋的短路而犯的错、延误的东西，自己再来弥补。</p>
+<hr>
+<h2 id="Spring的HelloWorld"><a href="#Spring的HelloWorld" class="headerlink" title="Spring的HelloWorld"></a>Spring的HelloWorld</h2><p>1.新建maven项目</p>
+<p>2.pom引入spring的配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-context<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>5.3.9<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>3.编写一个接口</p>
+<p>4.在resources目录下新建spring的配置文件，<code>applicationContext.xml</code>，配置文件可以随意命名，但是建议采用通用的名称。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">beans</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/beans&quot;</span></span><br><span class="hljs-tag">       <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span><br><span class="hljs-tag">       <span class="hljs-attr">xmlns:p</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/p&quot;</span></span><br><span class="hljs-tag">       <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span><br>        <br>    <span class="hljs-comment">&lt;!-- class写对应类的路径 --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;userDao&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;top.colourso.impl.UserDaoImpl&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br>    <br><span class="hljs-tag">&lt;/<span class="hljs-name">beans</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>5.编写主类，读取配置文件来获取spring管理的对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>&#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Logger logger = LoggerFactory.getLogger(Main.class);<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        ApplicationContext context = <span class="hljs-keyword">new</span> ClassPathXmlApplicationContext(<span class="hljs-string">&quot;applicationContext.xml&quot;</span>);<br><br>        <span class="hljs-comment">// 内部参数未beanId的名字</span><br>        UserDaoImpl userDao = (UserDaoImpl) context.getBean(<span class="hljs-string">&quot;userDao&quot;</span>);<br><br>        userDao.doing();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>6.最终结果</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css">17<span class="hljs-selector-pseudo">:00</span><span class="hljs-selector-pseudo">:08.546</span> <span class="hljs-selector-attr">[main]</span> <span class="hljs-selector-tag">DEBUG</span> <span class="hljs-selector-tag">o</span><span class="hljs-selector-class">.s</span><span class="hljs-selector-class">.c</span><span class="hljs-selector-class">.s</span><span class="hljs-selector-class">.ClassPathXmlApplicationContext</span> <span class="hljs-selector-tag">-</span> <span class="hljs-selector-tag">Refreshing</span> <span class="hljs-selector-tag">org</span><span class="hljs-selector-class">.springframework</span><span class="hljs-selector-class">.context</span><span class="hljs-selector-class">.support</span><span class="hljs-selector-class">.ClassPathXmlApplicationContext</span><span class="hljs-keyword">@39a054a5</span><br>17:00:08.825 [main] DEBUG o.s.b.f.xml.XmlBeanDefinitionReader - Loaded 1 bean definitions from class path resource [applicationContext.xml]<br>17:00:08.859 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean &#x27;userDao&#x27;<br>17<span class="hljs-selector-pseudo">:00</span><span class="hljs-selector-pseudo">:08.904</span> <span class="hljs-selector-attr">[main]</span> <span class="hljs-selector-tag">INFO</span>  <span class="hljs-selector-tag">top</span><span class="hljs-selector-class">.colourso</span><span class="hljs-selector-class">.impl</span><span class="hljs-selector-class">.UserDaoImpl</span> <span class="hljs-selector-tag">-</span> <span class="hljs-selector-tag">doing</span>...<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="Spring的配置文件"><a href="#Spring的配置文件" class="headerlink" title="Spring的配置文件"></a>Spring的配置文件</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;bean <span class="hljs-attribute">id</span>=<span class="hljs-string">&quot;userDao&quot;</span> <span class="hljs-attribute">class</span>=<span class="hljs-string">&quot;top.colourso.impl.UserDaoImpl&quot;</span>&gt;&lt;/bean&gt;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>id</code>：唯一标识，不能重复</li>
+<li><code>class</code>：类的全限定名，上述使用了类的无参构造来创建对象，若无无参构造则无法创建成功。<ul>
+<li>将类的构造函数设置为私有可以，为什么？</li>
+<li>无无参构造就会报错，<code>org.springframework.beans.factory.BeanCreationException: Error creating bean with name &#39;userDao&#39; </code></li>
+</ul>
+</li>
+<li><code>scope</code>：表示对象的作用范围，<ul>
+<li><code>singleton</code>：默认值，单例</li>
+<li><code>prototype</code>：多例</li>
+<li>request，session，global session做为了解,用于web项目</li>
+</ul>
+</li>
+</ul>
+<h3 id="prototype配置"><a href="#prototype配置" class="headerlink" title="prototype配置"></a>prototype配置</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span></span>&#123;<br>        logger.info(<span class="hljs-string">&quot;测试不同配置下的两个bean是否相同&quot;</span>);<br><br>        ApplicationContext context = <span class="hljs-keyword">new</span> ClassPathXmlApplicationContext(<span class="hljs-string">&quot;applicationContext.xml&quot;</span>);<br>        UserDaoImpl userDao1= (UserDaoImpl) context.getBean(<span class="hljs-string">&quot;userDao&quot;</span>);<br><br>        UserDaoImpl userDao2= (UserDaoImpl) context.getBean(<span class="hljs-string">&quot;userDao&quot;</span>);<br><br>        logger.info(<span class="hljs-string">&quot;prototype: 1:&#123;&#125;&quot;</span>,userDao1);<br>        logger.info(<span class="hljs-string">&quot;prototype: 2:&#123;&#125;&quot;</span>,userDao2);<br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>结果:</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-attribute">17</span>:<span class="hljs-number">36</span>:<span class="hljs-number">24.942</span> [main] INFO  top.colourso.Main - 测试不同配置下的两个bean是否相同<br><span class="hljs-number">17</span>:<span class="hljs-number">36</span>:<span class="hljs-number">25.034</span> [main] DEBUG o.s.c.s.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext<span class="hljs-variable">@1c6b6478</span><br><span class="hljs-number">17</span>:<span class="hljs-number">36</span>:<span class="hljs-number">25.178</span> [main] DEBUG o.s.b.f.xml.XmlBeanDefinitionReader - Loaded <span class="hljs-number">1</span> bean definitions from class path resource [applicationContext.xml]<br><span class="hljs-number">17</span>:<span class="hljs-number">36</span>:<span class="hljs-number">25.247</span> [main] INFO  top.colourso.Main - <span class="hljs-attribute">prototype</span>: <span class="hljs-number">1</span>:top.colourso.impl.UserDaoImpl<span class="hljs-variable">@ed9d034</span><br><span class="hljs-number">17</span>:<span class="hljs-number">36</span>:<span class="hljs-number">25.248</span> [main] INFO  top.colourso.Main - <span class="hljs-attribute">prototype</span>: <span class="hljs-number">2</span>:top.colourso.impl.UserDaoImpl<span class="hljs-variable">@4eb7f003</span><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="bean的创建时间对比"><a href="#bean的创建时间对比" class="headerlink" title="bean的创建时间对比"></a>bean的创建时间对比</h3><ul>
+<li><code>singleton</code><ul>
+<li>实例化一个对象</li>
+<li>当Spring的核心文件被加载时，实例化配置的Bean实例</li>
+<li>生命周期：创建容器时创建对象，当应用卸载时，销毁容器时，对象销毁</li>
+</ul>
+</li>
+<li><code>prototype</code><ul>
+<li>实例化多个对象</li>
+<li>调用getBean()时实例化</li>
+<li>生命周期：当使用对象时创建，当对象长时间不用时，Java垃圾回收期回收</li>
+</ul>
+</li>
+</ul>
+<h3 id="bean的生命周期配置"><a href="#bean的生命周期配置" class="headerlink" title="bean的生命周期配置"></a>bean的生命周期配置</h3><p>可以指定对应的bean初始化和销毁的行为</p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ocaml">&lt;bean id=<span class="hljs-string">&quot;userDao&quot;</span> <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;top.colourso.impl.UserDaoImpl&quot;</span> init-<span class="hljs-keyword">method</span>=<span class="hljs-string">&quot;init&quot;</span><br> destroy-<span class="hljs-keyword">method</span>=<span class="hljs-string">&quot;destory&quot;</span>&gt;<br> &lt;/bean&gt;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>init-method</code>: 指定对应的初始化方法名</li>
+<li><code>destroy-method</code>：指定销毁钱的方法名</li>
+</ul>
+<h3 id="bean的创建方法"><a href="#bean的创建方法" class="headerlink" title="bean的创建方法"></a>bean的创建方法</h3><ul>
+<li><p>无参构造</p>
+</li>
+<li><p>工厂静态方法创建</p>
+<ul>
+<li>```<br><bean id="userDao" class="com.itheima.factory.StaticFactory" factory-method="getUserDao"></bean><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br>  - `factory-method`指定一个工厂类的静态方法<br><br>- 工厂实例方法创建<br><br>  - ```<br>    &lt;bean <span class="hljs-attribute">id</span>=<span class="hljs-string">&quot;factory&quot;</span> <span class="hljs-attribute">class</span>=<span class="hljs-string">&quot;com.itheima.factory.DynamicFactory&quot;</span>&gt;&lt;/bean&gt;<br>    &lt;bean <span class="hljs-attribute">id</span>=<span class="hljs-string">&quot;userDao&quot;</span> <span class="hljs-attribute">factory-bean</span>=<span class="hljs-string">&quot;factory&quot;</span> <span class="hljs-attribute">factory-method</span>=<span class="hljs-string">&quot;getUserDao&quot;</span>/&gt;<br></code></pre></td></tr></table></figure></li>
+<li>要指定两个bean,工厂bean交给spring管理</li>
+</ul>
+</li>
+</ul>
 
             </div>
             <hr>
@@ -282,7 +329,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/other/">other</a>
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
                     
                   </div>
                 
@@ -290,7 +337,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/other/">other</a>
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Spring/">Spring</a>
                     
                   </div>
                 
@@ -303,9 +352,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/java-12-spring-01/">
+                      <a href="/math-base/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Spring 入门</span>
+                        <span class="hidden-mobile">【置顶】数学基础知识、常用公式总结</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -313,8 +362,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/total-2021/">
-                        <span class="hidden-mobile">2021年度总结</span>
+                      <a href="/other-collect/">
+                        <span class="hidden-mobile">Github感兴趣项目收集</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
