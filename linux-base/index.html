@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.9k 字
+      2.5k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      31
+      41
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年1月10日 下午
+                  本文最后更新于：2022年6月30日 晚上
                 
               </p>
             
@@ -336,8 +336,12 @@
 </ul>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-built_in">find</span> [dir] -maxdepth/mindepth <span class="hljs-number">3</span><br>dir <span class="hljs-comment">-- 表示查找的目录</span><br>maxdepth <span class="hljs-number">3</span> <span class="hljs-comment">-- 表示最多搜索三层目录</span><br>mindepth <span class="hljs-number">3</span> <span class="hljs-comment">-- 表示搜索目录从第三层开始更大的搜索</span><br></code></pre></td></tr></table></figure>
 <p><img src="/linux-base/finddepth2.png" srcset="/img/loading.gif"></p>
-<h3 id="grep指令-–-查找文件里的内容"><a href="#grep指令-–-查找文件里的内容" class="headerlink" title="grep指令 – 查找文件里的内容"></a>grep指令 – 查找文件里的内容</h3><figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs excel">grep -r <span class="hljs-string">&quot;查找的内容&quot;</span> [dir] -<span class="hljs-built_in">n</span><br>-r 如果查询的范围内有目录就加上<br>dir 表示查找的目录<br>-<span class="hljs-built_in">n</span>  会显示找出的文件的内容在对应文件的第几行<br></code></pre></td></tr></table></figure>
-
+<h2 id="文本日志查找"><a href="#文本日志查找" class="headerlink" title="文本日志查找"></a>文本日志查找</h2><h3 id="grep指令-–-查找文件里的内容"><a href="#grep指令-–-查找文件里的内容" class="headerlink" title="grep指令 – 查找文件里的内容"></a>grep指令 – 查找文件里的内容</h3><figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs excel">grep -r <span class="hljs-string">&quot;查找的内容&quot;</span> [dir] -<span class="hljs-built_in">n</span><br>-r 如果查询的范围内有目录就加上<br>dir 表示查找的目录<br>-<span class="hljs-built_in">n</span>  会显示找出的文件的内容在对应文件的第几行<br></code></pre></td></tr></table></figure>
+<h3 id="less指令-查看大文件的内容"><a href="#less指令-查看大文件的内容" class="headerlink" title="less指令 - 查看大文件的内容"></a>less指令 - 查看大文件的内容</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">less</span> [参数] 文件 <br></code></pre></td></tr></table></figure>
+<p>我一般都是直接less xx.log文件</p>
+<p>打开之后的命令：</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs excel">G - 移动到最后一行<br>g - 移动到第一行<br>q / ZZ - 退出 less 命令<br>/字符串：向下搜索“字符串”的功能<br>?字符串：向上搜索“字符串”的功能<br><span class="hljs-built_in">n</span>：重复前一个搜索（与 / 或 ? 有关）<br><span class="hljs-built_in">N</span>：反向重复前一个搜索（与 / 或 ? 有关）<br><span class="hljs-symbol">F:</span> 就会有类似 tail -f 的效果，读取写入文件的最新内容， 按 ctrl+C 停止。<br></code></pre></td></tr></table></figure>
+<p>同类型的还有More指令</p>
 <h2 id="压缩文件"><a href="#压缩文件" class="headerlink" title="压缩文件"></a>压缩文件</h2><p>Linux常见的压缩格式是  <code>.gz</code> 、 <code>.bzip2</code> 。</p>
 <p><code>.gz</code> 是 gzip程序压缩的文件， <code>.bzip2</code>  是bzip2程序压缩的文件。</p>
 <p>直接使用这两个程序可以进行压缩，但是功能不够强大（不能压缩目录）。</p>
@@ -348,6 +352,22 @@
 <p><img src="/linux-base/rar.png" srcset="/img/loading.gif"></p>
 <h3 id="zip-unzip命令"><a href="#zip-unzip命令" class="headerlink" title="zip/unzip命令"></a>zip/unzip命令</h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs stata">压缩<br>	<span class="hljs-keyword">zip</span> 压缩包名(不用指定后缀) 压缩内容<br>	<span class="hljs-keyword">zip</span> <span class="hljs-keyword">test</span> <span class="hljs-keyword">test</span>.txt<br>	如果压缩的内容包括目录，后面接 -r<br>解压缩<br>	unzip 压缩包名<br>	unzip <span class="hljs-keyword">test</span>.<span class="hljs-keyword">zip</span><br>	解压至指定目录，后面接-<span class="hljs-keyword">d</span> 指定目录<br></code></pre></td></tr></table></figure>
 <p><img src="/linux-base/zip.png" srcset="/img/loading.gif"></p>
+<h2 id="查看系统、进程状态命令"><a href="#查看系统、进程状态命令" class="headerlink" title="查看系统、进程状态命令"></a>查看系统、进程状态命令</h2><h3 id="uname命令"><a href="#uname命令" class="headerlink" title="uname命令"></a>uname命令</h3><p>显示系统的重要信息，例如内核名称、内核版本</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">uname -a</span><br></code></pre></td></tr></table></figure>
+<h3 id="ps命令"><a href="#ps命令" class="headerlink" title="ps命令"></a>ps命令</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">ps</span> -aux <span class="hljs-comment"># 显示所有包含其他使用者的进程</span><br></code></pre></td></tr></table></figure>
+<p>-aux输出格式：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-attr">USER</span> <span class="hljs-string">PID %CPU %MEM VSZ RSS TTY STAT START TIME COMMAND</span><br><br><span class="hljs-attr">USER</span>: <span class="hljs-string">行程拥有者</span><br><span class="hljs-attr">PID</span>: <span class="hljs-string">pid</span><br><span class="hljs-meta">%CPU</span>: <span class="hljs-string">占用的 CPU 使用率</span><br><span class="hljs-meta">%MEM</span>: <span class="hljs-string">占用的记忆体使用率</span><br><span class="hljs-attr">VSZ</span>: <span class="hljs-string">占用的虚拟记忆体大小</span><br><span class="hljs-attr">RSS</span>: <span class="hljs-string">占用的记忆体大小</span><br><span class="hljs-attr">TTY</span>: <span class="hljs-string">终端的次要装置号码 (minor device number of tty)</span><br><span class="hljs-attr">STAT</span>: <span class="hljs-string">该行程的状态:</span><br>	<span class="hljs-attr">D</span>: <span class="hljs-string">无法中断的休眠状态 (通常 IO 的进程)</span><br>	<span class="hljs-attr">R</span>: <span class="hljs-string">正在执行中</span><br>	<span class="hljs-attr">S</span>: <span class="hljs-string">静止状态</span><br>	<span class="hljs-attr">T</span>: <span class="hljs-string">暂停执行</span><br>	<span class="hljs-attr">Z</span>: <span class="hljs-string">不存在但暂时无法消除</span><br>	<span class="hljs-attr">W</span>: <span class="hljs-string">没有足够的记忆体分页可分配</span><br>	<span class="hljs-meta">&lt;</span>: <span class="hljs-string">高优先序的行程</span><br>	<span class="hljs-attr">N</span>: <span class="hljs-string">低优先序的行程</span><br>	<span class="hljs-attr">L</span>: <span class="hljs-string">有记忆体分页分配并锁在记忆体内 (实时系统或捱A I/O)</span><br><span class="hljs-attr">START</span>: <span class="hljs-string">行程开始时间</span><br><span class="hljs-attr">TIME</span>: <span class="hljs-string">执行的时间</span><br><span class="hljs-attr">COMMAND</span>:<span class="hljs-string">所执行的指令</span><br></code></pre></td></tr></table></figure>
+<p>来源：<a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-ps.html">Linux ps 命令 | 菜鸟教程 (runoob.com)</a></p>
+<h3 id="top命令"><a href="#top命令" class="headerlink" title="top命令"></a>top命令</h3><p>top命令会默认按照CPU的占用情况，显示占用量较大的进程。</p>
+<p>top命令可以看到总体的系统运行状态和cpu的使用率 。</p>
+<p>%us：表示用户空间程序的cpu使用率（没有通过nice调度）</p>
+<p>%sy：表示系统空间的cpu使用率，主要是内核程序。</p>
+<p>%ni：表示用户空间且通过nice调度过的程序的cpu使用率。</p>
+<p>%id：空闲cpu</p>
+<p>%wa：cpu运行时在等待io的时间</p>
+<p>%hi：cpu处理硬中断的数量</p>
+<p>%si：cpu处理软中断的数量</p>
+<p>%st：被虚拟机偷走的cpu</p>
 
             </div>
             <hr>

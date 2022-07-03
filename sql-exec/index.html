@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      1.5k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      24
+      29
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年10月14日 凌晨
+                  本文最后更新于：2022年7月1日 凌晨
                 
               </p>
             
@@ -360,6 +360,22 @@
 <ul>
 <li>t1 是子查询的结果集的名字</li>
 </ul>
+<hr>
+<h2 id="牛客网SQL大厂面试真题"><a href="#牛客网SQL大厂面试真题" class="headerlink" title="牛客网SQL大厂面试真题"></a>牛客网SQL大厂面试真题</h2><p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/exam/oj?page=1&amp;tab=SQL%E7%AF%87&amp;topicId=268">https://www.nowcoder.com/exam/oj?page=1&amp;tab=SQL篇&amp;topicId=268</a></p>
+<h3 id="1-各视频的平均完播率"><a href="#1-各视频的平均完播率" class="headerlink" title="1.各视频的平均完播率"></a>1.各视频的平均完播率</h3><p>两张表的关联查询</p>
+<p>思路：完播率 = count{（结束 - 开始）&gt;=视频总时长} / 总次数</p>
+<p>先查询平均播放时长</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> video_id,<span class="hljs-built_in">sum</span>(if(end_time <span class="hljs-operator">-</span> start_time <span class="hljs-operator">&gt;=</span> b.duration ,<span class="hljs-number">1</span> ,<span class="hljs-number">0</span>))<span class="hljs-operator">/</span><span class="hljs-built_in">count</span>(start_time)<br><span class="hljs-keyword">from</span> tb_user_video_log <br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> video_id<br></code></pre></td></tr></table></figure>
+<p>关联表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> video_id,<span class="hljs-built_in">sum</span>(if(a.end_time <span class="hljs-operator">-</span> a.start_time <span class="hljs-operator">&gt;=</span> b.duration ,<span class="hljs-number">1</span> ,<span class="hljs-number">0</span>))<span class="hljs-operator">/</span><span class="hljs-built_in">count</span>(a.start_time)<br><span class="hljs-keyword">from</span> tb_user_video_log<br><span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> tb_video_info b<br><span class="hljs-keyword">on</span> a.video_id <span class="hljs-operator">=</span> b.video_id<br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> a.video_id;<br></code></pre></td></tr></table></figure>
+<p>然后细节处理</p>
+<ul>
+<li>保留三位</li>
+<li>2021年数据</li>
+<li>排序、列重命名</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> video_id,round(<span class="hljs-built_in">sum</span>(if(a.end_time <span class="hljs-operator">-</span> a.start_time <span class="hljs-operator">&gt;=</span> b.duration ,<span class="hljs-number">1</span> ,<span class="hljs-number">0</span>))<span class="hljs-operator">/</span><span class="hljs-built_in">count</span>(a.start_time), <span class="hljs-number">3</span>) <span class="hljs-keyword">as</span> avg_comp_play_rate<br><span class="hljs-keyword">from</span> tb_user_video_log a<br><span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> tb_video_info b<br><span class="hljs-keyword">on</span> a.video_id <span class="hljs-operator">=</span> b.video_id<br><span class="hljs-keyword">where</span> <span class="hljs-keyword">year</span>(a.start_time) <span class="hljs-operator">=</span> <span class="hljs-number">2021</span><br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> a.video_id<br><span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> avg_comp_play_rate <span class="hljs-keyword">desc</span>;<br></code></pre></td></tr></table></figure>
+<h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">if</span><span class="hljs-params">(bool,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>)</span></span> -- 判断<br><span class="hljs-function"><span class="hljs-title">sum</span><span class="hljs-params">()</span></span> -- 取总和<br><span class="hljs-function"><span class="hljs-title">round</span><span class="hljs-params">(num,<span class="hljs-number">3</span>)</span></span> -- 取三位<br><span class="hljs-function"><span class="hljs-title">year</span><span class="hljs-params">(a.start_time)</span></span> - 取年份<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
