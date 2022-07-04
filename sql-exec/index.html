@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.5k 字
+      1.7k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      29
+      33
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年7月1日 凌晨
+                  本文最后更新于：2022年7月3日 晚上
                 
               </p>
             
@@ -376,6 +376,24 @@
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> video_id,round(<span class="hljs-built_in">sum</span>(if(a.end_time <span class="hljs-operator">-</span> a.start_time <span class="hljs-operator">&gt;=</span> b.duration ,<span class="hljs-number">1</span> ,<span class="hljs-number">0</span>))<span class="hljs-operator">/</span><span class="hljs-built_in">count</span>(a.start_time), <span class="hljs-number">3</span>) <span class="hljs-keyword">as</span> avg_comp_play_rate<br><span class="hljs-keyword">from</span> tb_user_video_log a<br><span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> tb_video_info b<br><span class="hljs-keyword">on</span> a.video_id <span class="hljs-operator">=</span> b.video_id<br><span class="hljs-keyword">where</span> <span class="hljs-keyword">year</span>(a.start_time) <span class="hljs-operator">=</span> <span class="hljs-number">2021</span><br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> a.video_id<br><span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> avg_comp_play_rate <span class="hljs-keyword">desc</span>;<br></code></pre></td></tr></table></figure>
 <h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">if</span><span class="hljs-params">(bool,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>)</span></span> -- 判断<br><span class="hljs-function"><span class="hljs-title">sum</span><span class="hljs-params">()</span></span> -- 取总和<br><span class="hljs-function"><span class="hljs-title">round</span><span class="hljs-params">(num,<span class="hljs-number">3</span>)</span></span> -- 取三位<br><span class="hljs-function"><span class="hljs-title">year</span><span class="hljs-params">(a.start_time)</span></span> - 取年份<br></code></pre></td></tr></table></figure>
+<h3 id="2-平均播放进度大于60-的视频类别"><a href="#2-平均播放进度大于60-的视频类别" class="headerlink" title="2.平均播放进度大于60%的视频类别"></a>2.平均播放进度大于60%的视频类别</h3><p><strong>播放进度：</strong></p>
+<p>如果播放时间超过视频时间，都认为100%</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-constructor">IF(<span class="hljs-params">time</span> &gt; <span class="hljs-params">d</span>,1,<span class="hljs-params">time</span> <span class="hljs-operator">/</span> <span class="hljs-params">d</span>)</span> *<span class="hljs-number">100</span><br></code></pre></td></tr></table></figure>
+<p><strong>完播率60%</strong></p>
+<p>使用having子句</p>
+<ul>
+<li>having子句用于分组之后的查询，不分组也可以用</li>
+<li>但是要求对应的列必须是在结果集中的</li>
+<li>having子句可以使用聚合函数，但是where子句不可以</li>
+</ul>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-keyword">group</span> <span class="hljs-title">by</span> <span class="hljs-keyword">tag</span><br>having t &gt; <span class="hljs-number">60</span><br></code></pre></td></tr></table></figure>
+<p>百分比与两位小数</p>
+<ul>
+<li>百分比可以附加%号来完成</li>
+<li>round(str,num)控制几位小数</li>
+</ul>
+<p>最终答案</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> tag,CONCAT(avg_play_bai,<span class="hljs-string">&#x27;%&#x27;</span>) <span class="hljs-keyword">as</span> avg_play_progress<br><span class="hljs-keyword">from</span><br>( <span class="hljs-keyword">select</span> tag,<br>ROUND(<br><span class="hljs-built_in">AVG</span>(IF(TIMESTAMPDIFF(<span class="hljs-keyword">SECOND</span>,start_time,end_time) <span class="hljs-operator">&gt;=</span> b.duration,<span class="hljs-number">1</span>,<br>   TIMESTAMPDIFF(<span class="hljs-keyword">SECOND</span>,start_time,end_time)<span class="hljs-operator">/</span>b.duration) <span class="hljs-operator">*</span><span class="hljs-number">100</span>)<br>    ,<span class="hljs-number">2</span>) <span class="hljs-keyword">as</span> avg_play_bai<br><span class="hljs-keyword">from</span> tb_user_video_log a<br><span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> tb_video_info b<br><span class="hljs-keyword">on</span> a.video_id <span class="hljs-operator">=</span> b.video_id<br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> b.tag<br><span class="hljs-keyword">HAVING</span> avg_play_bai <span class="hljs-operator">&gt;</span> <span class="hljs-number">60</span><br><span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">by</span> avg_play_bai <span class="hljs-keyword">desc</span><br>) <span class="hljs-keyword">as</span> t<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
