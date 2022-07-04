@@ -1,0 +1,767 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>Kafka生产者与消费者 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Kafka生产者与消费者">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-07-04 21:00" pubdate>
+        2022年7月4日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      47
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Kafka生产者与消费者</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2022年7月5日 凌晨
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p><strong>概览</strong>：Kafka</p>
+<a id="more"></a>
+
+<blockquote>
+<p>预警！仅用于本人快速自学，不过欢迎指正。</p>
+</blockquote>
+<h2 id="Kafka生产者"><a href="#Kafka生产者" class="headerlink" title="Kafka生产者"></a>Kafka生产者</h2><h3 id="发送消息"><a href="#发送消息" class="headerlink" title="发送消息"></a>发送消息</h3><p>在消息发送的过程中，涉及到了两个线程——main 线程和 Sender 线程。</p>
+<p>在 main 线程中创建了一个<strong>双端队列</strong> RecordAccumulator。</p>
+<ul>
+<li>RecordAccumulator 缓冲区总大小，默认 32m。</li>
+<li>batch.size：缓冲区一批数据最大值，默认 16k。适当增加该值，可以提高吞吐量</li>
+<li>linger.ms：如果数据迟迟未达到 batch.size，sender 等待 linger.time之后就会发送数据。单位 ms，默认值是 0ms，表示没<br>有延迟。生产环境建议该值大小为 5-100ms 之间</li>
+</ul>
+<p>main 线程将消息发送给 RecordAccumulator，Sender 线程不断从 RecordAccumulator 中拉取消息发送到 Kafka Broker。</p>
+<p><img src="/kafka_01/send.png" srcset="/img/loading.gif"></p>
+<ul>
+<li>如果消息发送失败会自动重试，不需要人为干扰。</li>
+<li>acks：<ul>
+<li>0：生产者发送过来的数据，不需要等数据落盘应答。</li>
+<li>1：生产者发送过来的数据，Leader 收到数据后应答。</li>
+<li>-1（all）：生产者发送过来的数据，Leader+和 isr 队列里面的所有节点收齐数据后应答。默认值是-1，-1 和all 是等价的。</li>
+</ul>
+</li>
+<li>retries：当消息发送出现错误的时候，系统会重发消息。retries<br>表示重试次数。默认是 int 最大值</li>
+</ul>
+<h3 id="生产者分区-partition"><a href="#生产者分区-partition" class="headerlink" title="生产者分区 partition"></a>生产者分区 partition</h3><ol>
+<li>便于合理使用存储资源，每个partition在一个Broker上存储，可以把海量数据按照分区切割存储在多个Broker，合理分区可以达到<strong>负载均衡</strong>的效果。</li>
+<li>提高并行度</li>
+</ol>
+<p><strong>默认分区策略</strong>：</p>
+<ol>
+<li>指明partition的情况下，直接将指明的值作为partition值；例如partition=0，所有数据写入分区0</li>
+<li>没有指明partition值但有key的情况下，将key的hash值与topic的partition数进行取余得到partition值；例如：key1的hash值=5， key2的hash值=6 ，topic的partition数=2，那么key1 对应的value1写入1号分区，key2对应的value2写入0号分区。</li>
+<li>既没有partition值又没有key值的情况下，Kafka采用Sticky Partition（黏性分区器），会随机选择一个分区，并尽可能一直使用该分区，待该分区的batch已满或者已完成，Kafka再随机一个分区进行使用（和上一次的分区不同）。</li>
+</ol>
+<p><strong>自定义分区</strong>：</p>
+<p>例如，要把一个表的数据都发送给一个分区，可以使用表名字作为key。</p>
+<p>或者做类似过滤操作，过滤字符串。</p>
+<h3 id="生产者-提升吞吐量"><a href="#生产者-提升吞吐量" class="headerlink" title="生产者 - 提升吞吐量"></a>生产者 - 提升吞吐量</h3><ol>
+<li>增加批次大小batch.size</li>
+<li>修改等待时长，稍微增加，linger.ms</li>
+<li>压缩，compression.type</li>
+<li>修改缓冲区大小，扩大缓冲区，buffer.memory</li>
+</ol>
+<h3 id="生产者-数据可靠性"><a href="#生产者-数据可靠性" class="headerlink" title="生产者 - 数据可靠性"></a>生产者 - 数据可靠性</h3><p>acks机制</p>
+<ul>
+<li>0：生产者发送过来的数据，不需要等数据落盘应答。<ul>
+<li>很容易丢数据，但是效率最高</li>
+</ul>
+</li>
+<li>1：生产者发送过来的数据，Leader 收到数据后应答。<ul>
+<li>当应答完成之后，还没开始同步副本的时候，leader节点挂掉就会丢数</li>
+<li>常用于传输普通日志，允许丢失个别数据</li>
+</ul>
+</li>
+<li>-1（all）：生产者发送过来的数据，Leader+和 isr 队列里面的所有节点收齐数据后应答。默认值是-1，-1 和all 是等价的。<ul>
+<li>ISR队列：这是和Leader<strong>保持同步</strong>的Follwer+Leader的集合！<strong>注意包含leader</strong></li>
+<li>如果Follwer长时间没有和Leader通信或者同步数据，就会被移除。</li>
+<li>但是如果分区副本为1个，或者ISR的最小副本数量为1时，就和ack=1一样了，也会丢数。</li>
+</ul>
+</li>
+</ul>
+<p>数据完全可靠的条件：ACK = -1 + 分区副本 &gt;= 2 + ISR队列应答的最小副本数 &gt;= 2</p>
+<h3 id="生产者-数据去重"><a href="#生产者-数据去重" class="headerlink" title="生产者 - 数据去重"></a>生产者 - 数据去重</h3><p>数据传递语义</p>
+<ul>
+<li>At Least Once：ACK级别设置为-1 + 分区副本大于等于2 + ISR里应答的最小副本数量大于等于2<ul>
+<li>能<strong>保证数据不丢</strong>，但不保证不重</li>
+</ul>
+</li>
+<li>At Most Once：ACK级别设置为0<ul>
+<li>能<strong>保证数据不重</strong>，但不保证不丢</li>
+</ul>
+</li>
+<li>Exactly Once<ul>
+<li>要求保证不丢不重，使用幂等性和事务保证</li>
+</ul>
+</li>
+</ul>
+<h4 id="幂等性"><a href="#幂等性" class="headerlink" title="幂等性"></a>幂等性</h4><p>幂等性就是指Producer不论向Broker发送多少次重复数据，Broker端都<strong>只会持久化一条</strong>，保证了不重复。</p>
+<p><strong>精确一次（Exactly Once） = 幂等性 + 至少一次（ ack=-1 + 分区副本数&gt;=2 + ISR最小副本数量&gt;=2） 。</strong></p>
+<p>重复数据的判断标准：具有**&lt;ProducerID, Partition, SeqNumber&gt;**相同主键的消息提交时，Broker只会持久化一条。</p>
+<p>其中ProducerID是Kafka<strong>每次重启都会分配一个新</strong>的；Partition 表示分区号；Sequence Number是单调自增的。</p>
+<p>所以幂等性只能保证的是在<strong>单分区单会话内不重复</strong>。</p>
+<p><strong>使用</strong>：开启参数 enable.idempotence 默认为 true，false 关闭。</p>
+<h4 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h4><p><img src="/kafka_01/tr.png" srcset="/img/loading.gif"></p>
+<p>使用事务：</p>
+<ol>
+<li>必须开启幂等性</li>
+<li>必须设置事务id，这个是开发者自定义的。</li>
+</ol>
+<p>参考链接：</p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1562878">https://cloud.tencent.com/developer/article/1562878</a></p>
+<h3 id="生产者-数据有序"><a href="#生产者-数据有序" class="headerlink" title="生产者 - 数据有序"></a>生产者 - 数据有序</h3><p>多分区保证有序比较困难，分区与分区之间无序。</p>
+<p>单分区内有序：</p>
+<p>kafka在1.x版本之前保证数据单分区有序，条件如下：max.in.flight.requests.per.connection=1（不需要考虑是否开启幂等性）。</p>
+<p>kafka在1.x及以后版本保证数据单分区有序，条件如下：</p>
+<p>未开启幂等性<br>max.in.flight.requests.per.connection需要设置为1。</p>
+<p>开启幂等性<br>max.in.flight.requests.per.connection需要设置小于等于5。<br>原因说明：因为在kafka1.x以后，启用幂等后<strong>，kafka服务端会缓存producer发来的最近5个request的元数据，故无论如何，都可以保证最近5个request的数据都是有序的</strong>。</p>
+<h2 id="Broker-副本"><a href="#Broker-副本" class="headerlink" title="Broker - 副本"></a>Broker - 副本</h2><p>（1）Kafka 副本作用：<strong>提高数据可靠性。</strong> </p>
+<p>（2）Kafka 默认副本 1 个(即leader)，<strong>生产环境一般配置为 2 个</strong>，保证数据可靠性；太多副本会 增加磁盘存储空间，增加网络上数据传输，降低效率。 </p>
+<p>（3）Kafka 中副本分为：<strong>Leader 和 Follower</strong>。Kafka 生产者只会把数据发往 Leader， 然后 Follower 找 Leader 进行同步数据。 </p>
+<p>（4）Kafka 分区中的所有副本统称为 AR（Assigned Repllicas）。</p>
+<h2 id="消费者"><a href="#消费者" class="headerlink" title="消费者"></a>消费者</h2><h3 id="消费方式"><a href="#消费方式" class="headerlink" title="消费方式"></a>消费方式</h3><p>常见的消费者消费方式有两种，<strong>pull 拉</strong>，<strong>push 推</strong></p>
+<p>Kafka采取的是主动的pull拉的方式，<strong>主动拉取</strong></p>
+<p>缺点：如果kafka没有数据，消费者可能陷入循环之中，一直返回空数据。</p>
+<h3 id="Kafka消费者组"><a href="#Kafka消费者组" class="headerlink" title="Kafka消费者组"></a>Kafka消费者组</h3><p>Consumer Group（CG）：消费者组，由多个consumer组成。形成一个消费者组的条件，是所有消费者的<strong>groupid相同</strong>。 </p>
+<ul>
+<li><p>消费者组内每个消费者负责消费不同分区的数据，<strong>一个分区只能由一个组内消费者消费</strong>。</p>
+</li>
+<li><p>消费者组之间互不影响。所有的消费者都属于某个消费者组，即消费者组是逻辑上的一个订阅者。</p>
+</li>
+</ul>
+<p>两个独立的消费者，都可以消费同一个主题的分区数据。</p>
+<p>eg: 一个主题，4个broker（节点），每个节点一个分区</p>
+<ul>
+<li>1个消费者，则全部消费</li>
+<li>2个消费者，则前两个分区第一个消费者，后两个分区第二个消费者</li>
+<li>4个消费者，每个分区一个消费者</li>
+<li>5个消费者，超出主题分区数量的，消费者就会闲置，不会接受任何消息</li>
+</ul>
+<p>如果向消费组中添加更多的消费者，超过主题分区数量，则有一部分消费者就会闲置，不会接收任何消息。</p>
+<h3 id="消费者总体工作流程"><a href="#消费者总体工作流程" class="headerlink" title="消费者总体工作流程"></a>消费者总体工作流程</h3><p><img src="/kafka_01/consumer.png" srcset="/img/loading.gif"></p>
+<h3 id="消费者组初始化"><a href="#消费者组初始化" class="headerlink" title="消费者组初始化"></a>消费者组初始化</h3><p><strong>coordinator</strong>：<strong>辅助实现消费者组的初始化和分区的分配</strong>。 coordinator节点选择 = groupid的hashcode值 % 50（ __consumer_offsets的分区数量） __</p>
+<p>例如： groupid的hashcode值 = 1，1% 50 = 1，那么 consumer_offsets 主题的1号分区，在哪个broker上，就选择这个节点的coordinator 作为这个消费者组的老大。消费者组下的所有的消费者提交offset的时候就往这个分区去提交offset。</p>
+<ol>
+<li>每个consumer都发送joinGroup请求到<strong>coordinator</strong></li>
+<li><strong>coordinator</strong>选择一个consumer作为leader</li>
+<li>把要消费的topic情况发送给consumer的leader</li>
+<li>leader会负责只当消费方案</li>
+<li>leader把消费方案发给<strong>coordinator</strong></li>
+<li><strong>coordinator</strong>把消费方案下发给各个consumer</li>
+<li>每个消费者会和<strong>coordinator</strong>保持心跳（默认3s），一旦超时（45s），该消费者会被移除，并且触发再平衡；或者消费者处理消息时间过长(5分钟)，也会触发再平衡。</li>
+</ol>
+<h3 id="消费者组消费"><a href="#消费者组消费" class="headerlink" title="消费者组消费"></a>消费者组消费</h3><p><img src="/kafka_01/groupconsumer.png" srcset="/img/loading.gif"></p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
+<li>enable.auto.commit：默认值为 true，消费者会自动周期性地向服务器提交偏移量。</li>
+<li>auto.offset.reset：当 Kafka 中没有初始偏移量或当前偏移量在服务器中不存在（如，数据被删除了），该如何处理？ earliest：自动重置偏移量到最早的偏移量。 <strong>latest：默认，自动重置偏移量为最新的偏移量</strong>。 none：如果消费组原来的（previous）偏移量不存在，则向消费者抛异常。 anything：向消费者抛异常。</li>
+</ul>
+<h3 id="分区分配-再平衡"><a href="#分区分配-再平衡" class="headerlink" title="分区分配 + 再平衡"></a>分区分配 + 再平衡</h3><p>Kafka 默认的分区分配策略就是 <strong>Range + CooperativeSticky</strong></p>
+<h4 id="range策略"><a href="#range策略" class="headerlink" title="range策略"></a>range策略</h4><p>Range 是对每个 topic 而言的。<br>首先对同一个 topic 里面的分区按照序号进行排序，并对消费者按照字母顺序进行排序。<br>假如现在有 7 个分区，3 个消费者，排序后的分区将会是0,1,2,3,4,5,6；消费者排序完之后将会是C0,C1,C2。</p>
+<p>桶过 partitions数/consumer数 来决定每个消费者应该消费几个分区。如果除不尽，那么前面几个消费者将会多消费 1 个分区。</p>
+<p>注意：如果只是针对 1 个 topic 而言，C0消费者多消费1个分区影响不是很大。但是如果有 N 多个 topic，那么针对每个 topic，消费者 C0都将多消费 1 个分区，topic越多，C0消费的分区会比其他消费者明显多消费 N 个分区。<br><strong>容易产生数据倾斜！</strong></p>
+<h4 id="roundRobin策略"><a href="#roundRobin策略" class="headerlink" title="roundRobin策略"></a>roundRobin策略</h4><p>RoundRobin 针对集群中所有Topic而言。<br>RoundRobin 轮询分区策略，是把所有的 partition 和所有的consumer 都列出来，然后按照 hashcode 进行排序，最后通过轮询算法来分配 partition 给到各个消费者。</p>
+<h4 id="Sticky-以及再平衡"><a href="#Sticky-以及再平衡" class="headerlink" title="Sticky 以及再平衡"></a>Sticky 以及再平衡</h4><p>粘性分区定义：可以理解为分配的结果带有“粘性的”。即在执行一次新的分配之前，考虑上一次分配的结果，尽量少的调整分配的变动，可以节省大量的开销。<br>粘性分区是 Kafka 从 0.11.x 版本开始引入这种分配策略，首先会尽量均衡的放置分区到消费者上面，在出现同一消费者组内消费者出现问题的时候，会尽量保持原有分配的分区不变化。</p>
+<h3 id="offset"><a href="#offset" class="headerlink" title="offset"></a>offset</h3><p>Kafka0.9版本之前， consumer默认将offset 保存在Zookeeper。</p>
+<p>从0.9版本开始，consumer默认将offset保存在Kafka一个内置的topic中，该topic为<strong>__consumer_offsets</strong></p>
+<p>__consumer_offsets 主题里面采用 key 和 value 的方式存储数据。key 是 <strong>group.id+topic+分区号</strong>，value 就是当前 offset 的值。每隔一段时间，kafka 内部会对这个 topic 进行compact，也就是每个 group.id+topic+分区号就保留最新数据。</p>
+<p><strong>提交offset</strong>：</p>
+<p>自动提交</p>
+<p>手动同步提交：提交offset之后等待提交成功</p>
+<p>手动异步提交</p>
+<p><strong>指定offset进行消费</strong>：</p>
+<p>auto.offset.reset = earliest | latest | none 默认是 latest。</p>
+<p><strong>当 Kafka 中没有初始偏移量</strong>（消费者组第一次消费）或服务器上不再存在当前偏移量时（例如该数据已被删除），该怎么办？</p>
+<p>（1）<strong>earliest：自动将偏移量重置为最早的偏移量</strong>，–from-beginning。</p>
+<p>（2）latest（默认值）：自动将偏移量重置为最新偏移量。</p>
+<p>如果有偏移量的话：<code>group.id + topic + 分区号</code>  就能找到对应的偏移量然后开始消费。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/MQ/">MQ</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Kafka/">Kafka</a>
+                    
+                      <a class="hover-with-bg" href="/tags/MQ/">MQ</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/gather-blog/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【置顶】博客导航</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/jvm_01/">
+                        <span class="hidden-mobile">JVM内存结构</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+
+  
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
