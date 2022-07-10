@@ -1,0 +1,733 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>MySQL索引 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="MySQL索引">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-09-07 13:18" pubdate>
+        2021年9月7日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      40
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">MySQL索引</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2022年7月10日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p><strong>概览</strong>：MySQL索引</p>
+<a id="more"></a>
+
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>索引是一种帮助存储引擎快速搜索数据的数据结构</p>
+<p>类似于新华字段的拼音和部首索引。</p>
+<h2 id="索引的作用"><a href="#索引的作用" class="headerlink" title="索引的作用"></a>索引的作用</h2><h2 id="索引的分类"><a href="#索引的分类" class="headerlink" title="索引的分类"></a>索引的分类</h2><h2 id="索引失效"><a href="#索引失效" class="headerlink" title="索引失效"></a>索引失效</h2><ol>
+<li><p>对索引使用了左模糊匹配，就是<code>like &#39;%xx&#39;</code></p>
+</li>
+<li><p>对索引使用了函数或者进行了表达式计算，mysql 8.0之后有了函数索引。</p>
+</li>
+<li><p>对索引使用了<strong>隐式转换</strong>类型，例如字段是字符型但是输入了整型</p>
+</li>
+<li><p>联合索引不是最左匹配的时候</p>
+</li>
+<li><p>where语句中的or前面是索引但是后面不是的时候，也不走索引</p>
+</li>
+<li><p>where子句使用了&lt;&gt; 或者 != 一般不走索引</p>
+</li>
+<li><p>not in或者not exist一般不走索引</p>
+</li>
+<li><p>部分范围查询不走索引</p>
+<blockquote>
+<p>eg: select * from detail where expire_time &lt; ‘2022-07-10’ &amp;&amp; expire_time &gt; ‘2022-05-10’</p>
+<p>原因：这里要取的是整行信息，expire_time 索引无法取到对应的信息。</p>
+<p>虽然expire_time在索引中顺序存放，但是对应的数据不一定按照顺序存放，回表查询的时候数据是无序的 – 变成了磁盘上的离散读操作。</p>
+<p>如果当访问的数据占整个表的数据超过一定比例的时候，优化器会尝试通过聚集索引来查找数据， —— 顺序读远远快于离散读。</p>
+</blockquote>
+<blockquote>
+<p>数据量太大导致的统计数据不真实或者表没分析 —— 不走索引</p>
+<p>说明：数据库会定时对表进行分析，如果表过大导致分析计划没有及时跑完，或者由于其他原因导致统计数据不真实，这样会导致CBO计算走索引花费不准确的情况，可能会导致不走索引而使用全表扫描。这也是为什么当表的数据量达到一定级别的时候，我们建议进行分表分库，因为表数据量过大，可能导致表分析过程没有执行完成。</p>
+<p><strong>这个是真的吗？</strong>？？？？？</p>
+<p>[索引失效的几种情况 - 彼岸-花已开 - 博客园 (cnblogs.com)](<a target="_blank" rel="noopener" href="https://www.cnblogs.com/szw906689771/p/14719186.html#:~:text=%E8%AF%B4%E6%98%8E%EF%BC%9A%E5%8D%95%E6%AC%A1%E6%9F%A5%E8%AF%A2%E5%A6%82%E6%9E%9C%E6%9F%A5%E5%87%BA%E8%A1%A8%E7%9A%84%E5%A4%A7%E9%83%A8%E5%88%86%E6%95%B0%E6%8D%AE%EF%BC%8C%E8%BF%99%E4%BC%9A%E5%AF%BC%E8%87%B4%E7%BC%96%E8%AF%91%E5%99%A8%E8%AE%A4%E4%B8%BA%E5%85%A8%E8%A1%A8%E6%89%AB%E6%8F%8F%E6%80%A7%E8%83%BD%E6%AF%94%E8%B5%B0%E7%B4%A2%E5%BC%95%E6%9B%B4%E5%A5%BD%EF%BC%8C%E4%BB%8E%E8%80%8C%E5%AF%BC%E8%87%B4%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E3%80%82,%E4%B8%80%E8%88%AC%E5%8D%95%E6%AC%A1%E6%9F%A5%E8%AF%A2%E6%95%B0%E9%87%8F%E5%A4%A7%E6%A6%82%E5%8D%A0%E5%A4%A7%E8%A1%A8%E7%9A%8430%%E4%BB%A5%E4%B8%8A%E7%B4%A2%E5%BC%95%E4%BC%9A%E5%A4%B1%E6%95%88%E3%80%82">https://www.cnblogs.com/szw906689771/p/14719186.html#:~:text=说明：单次查询如果查出表的大部分数据，这会导致编译器认为全表扫描性能比走索引更好，从而导致索引失效。,一般单次查询数量大概占大表的30%以上索引会失效。</a> 2.索引本身失效)</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="explain详解"><a href="#explain详解" class="headerlink" title="explain详解"></a>explain详解</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql&gt; explain select * from actor;<br>+----+-------------+-------+------+---------------+------+---------+------+------+-------+<br>| id | select_type | table | type | possible_keys | key  | key_len | ref  | rows | Extra |<br>+----+-------------+-------+------+---------------+------+---------+------+------+-------+<br>|  1 | SIMPLE      | actor | ALL  | NULL          | NULL | NULL    | NULL |    2 | NULL  |<br>+----+-------------+-------+------+---------------+------+---------+------+------+-------+<br></code></pre></td></tr></table></figure>
+<ol>
+<li>id：有几个select就有几个id，并且id顺序和查询顺序相同</li>
+<li>select_type：表示是简单查询还是复杂查询，简单是SIMPLE</li>
+<li>table：查询表名</li>
+<li>type：表示关联类型或者访问类型，这就是MySQL决定如何查找表中的行。<ul>
+<li>**<code>NULL</code>**：mysql在优化阶段分解查询语句，在执行阶段用不着访问表或者索引，eg：求索引列中的最小值。</li>
+<li>**<code>const, system</code>**：mysql能对查询的某部分进行优化并将其转化成一个常量，用于 primary key 或 unique key 的所有列与常数比较时，所以表最多有一个匹配行，读取1次，速度比较快。</li>
+<li>eq_ref：primary key 或 unique key 索引的所有部分被连接使用 ，最多只会返回一条符合条件的记录</li>
+<li>**<code>ref</code>**：相比<code>eq_ref</code>，不使用唯一索引，而是使用普通索引或者唯一性索引的部分前缀，索引要和某个值相比较，可能会找到多个符合条件的行。</li>
+<li><code>ref_or_null</code>：类似<code>ref</code>，但是可以搜索值为NULL的行。</li>
+<li><code>index_merge</code>：表示使用了索引合并的优化方法。 例如下表：id是主键，tenant_id是普通索引。or 的时候没有用 primary key，而是使用了 primary key(id) 和 tenant_id 索引</li>
+<li>**<code>range</code>**：范围扫描通常出现在 in(), between ,&gt; ,&lt;, &gt;= 等操作中。使用一个索引来检索给定范围的行。</li>
+<li>**<code>index</code>**：和ALL一样，不同就是mysql只需扫描索引树，这通常比ALL快一些。</li>
+<li><strong>ALL</strong>：即全表扫描，意味着mysql需要从头到尾去查找所需要的行。通常情况下这需要增加索引来进行优化了</li>
+</ul>
+</li>
+<li>possible_keys：可能使用哪些索引</li>
+<li>key：实际使用的索引</li>
+<li><strong>key_len：mysql在索引里使用的字节数</strong><ul>
+<li>字符串 <ul>
+<li>char(n)：n字节长度</li>
+<li>varchar(n)：2字节存储字符串长度，如果是utf-8，则长度 3n + 2</li>
+</ul>
+</li>
+<li>数值类型 <ul>
+<li>tinyint：1字节</li>
+<li>smallint：2字节</li>
+<li>int：4字节</li>
+<li>bigint：8字节　　</li>
+</ul>
+</li>
+<li>时间类型　 <ul>
+<li>date：3字节</li>
+<li>timestamp：4字节</li>
+<li>datetime：8字节</li>
+</ul>
+</li>
+<li>如果字段允许为 NULL，需要1字节记录是否为 NULL</li>
+<li>索引最大长度是768字节，当字符串过长时，mysql会做一个类似左前缀索引的处理，将前半部分的字符提取出来做索引</li>
+</ul>
+</li>
+<li>ref：这一列显示了在key列记录的索引中，表查找值所用到的列或常量，常见的有：const（常量），func，NULL，字段名（例：film.id）。</li>
+<li>rows：这一列是mysql<strong>估计要读取并检测的行数</strong>，注意这个不是结果集里的行数。</li>
+<li>Extra：展示额外信息<ul>
+<li><strong><code>distinct</code></strong>: 一旦mysql找到了与行相联合匹配的行，就不再搜索了</li>
+<li>**<code>Using index</code>**：这发生在对表的请求列都是同一索引的部分的时候，返回的列数据只使用了索引中的信息，而没有再去访问表中的行记录。是性能高的表现。</li>
+<li>**<code>Using where</code>**：mysql服务器将在存储引擎检索行后再进行过滤。就是先读取整行数据，再按 where 条件进行检查，符合就留下，不符合就丢弃。</li>
+<li>**<code>Using temporary</code>**：mysql需要创建一张临时表来处理查询。出现这种情况一般是要进行优化的，首先是想到用索引来优化。</li>
+<li>**<code>Using filesort</code>**：mysql 会对结果使用一个外部索引排序，而不是按索引次序从表里读取行。此时mysql会根据联接类型浏览所有符合条件的记录，并保存排序关键字和行指针，然后排序关键字并按顺序检索行信息。这种情况下一般也是要考虑使用索引来优化的。</li>
+</ul>
+</li>
+</ol>
+<p>参考连接：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1093229">mysql explain详解 - 腾讯云开发者社区-腾讯云 (tencent.com)</a></p>
+<h2 id="探究联合索引"><a href="#探究联合索引" class="headerlink" title="探究联合索引"></a>探究联合索引</h2><p>一个案例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> `test_abc` (<br>  `id` <span class="hljs-type">int</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> AUTO_INCREMENT,<br>  `a` <span class="hljs-type">varchar</span>(<span class="hljs-number">255</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>  `b` <span class="hljs-type">varchar</span>(<span class="hljs-number">255</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>  `c` <span class="hljs-type">varchar</span>(<span class="hljs-number">255</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,<br>  <span class="hljs-keyword">PRIMARY</span> <span class="hljs-keyword">KEY</span> (`id`),<br>  KEY `idx_a_b_c` (`a`,`b`,`c`),<br>  KEY `idx_a_c_b` (`a`,`c`,`b`)<br>) ENGINE<span class="hljs-operator">=</span>InnoDB AUTO_INCREMENT<span class="hljs-operator">=</span><span class="hljs-number">6</span> <span class="hljs-keyword">DEFAULT</span> CHARSET<span class="hljs-operator">=</span>utf8mb4 <span class="hljs-keyword">COLLATE</span><span class="hljs-operator">=</span>utf8mb4_0900_ai_ci<br></code></pre></td></tr></table></figure>
+<p>表中有1k条数据，使用随机数插入得到的。</p>
+<p>语句一：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">from</span> test_abc<br><span class="hljs-keyword">where</span> a<span class="hljs-operator">=</span> <span class="hljs-string">&#x27;1&#x27;</span> <span class="hljs-keyword">and</span> b <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;2&#x27;</span> <span class="hljs-keyword">and</span> c<span class="hljs-operator">=</span><span class="hljs-string">&#x27;3&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>毫无疑问使用了索引idx_a_b_c，key_len = 3066,ref中里三个const</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">-------------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">-------------</span>+<br>| id | select_type | table    | partitions | type | possible_keys       | key       | key_len | ref               | rows | filtered | Extra       |<br>+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">-------------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">-------------</span>+<br>|  1 | SIMPLE      | test_abc | NULL       | ref  | idx_a_b_c,idx_a_c_b | idx_a_b_c | 3066    | const,const,const |    1 |   100.00 | Using index |<br>+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">-------------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">-------------</span>+<br></code></pre></td></tr></table></figure>
+<p>语句二：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">from</span> test_abc<br><span class="hljs-keyword">where</span> a<span class="hljs-operator">=</span> <span class="hljs-string">&#x27;1&#x27;</span> <span class="hljs-keyword">and</span> c<span class="hljs-operator">=</span><span class="hljs-string">&#x27;3&#x27;</span> <span class="hljs-keyword">and</span> b <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;2&#x27;</span>;<br></code></pre></td></tr></table></figure>
+<p>还是使用了三个索引，并且key_len=3066，这里不知道为什么没有使用idx_a_c_b这个索引。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">-------------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">-------------</span>+<br>| id | select_type | table    | partitions | type | possible_keys       | key       | key_len | ref               | rows | filtered | Extra       |<br>+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">-------------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">-------------</span>+<br>|  1 | SIMPLE      | test_abc | NULL       | ref  | idx_a_b_c,idx_a_c_b | idx_a_b_c | 3066    | const,const,const |    1 |   100.00 | Using index |<br>+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">-------------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">-------------</span>+<br></code></pre></td></tr></table></figure>
+<p>语句三</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">from</span> test_abc<br><span class="hljs-keyword">where</span> a<span class="hljs-operator">=</span> <span class="hljs-string">&#x27;1&#x27;</span> <span class="hljs-keyword">and</span> b <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;2&#x27;</span>;<br></code></pre></td></tr></table></figure>
+<p>使用了索引的一部分，key_len = 2044，<code>Using index</code>不需要回表查询。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">-------------</span>+<br>| id | select_type | table    | partitions | type | possible_keys       | key       | key_len | ref         | rows | filtered | Extra       |<br>+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">-------------</span>+<br>|  1 | SIMPLE      | test_abc | NULL       | ref  | idx_a_b_c,idx_a_c_b | idx_a_b_c | 2044    | const,const |    1 |   100.00 | Using index |<br>+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">-------------</span>+<br></code></pre></td></tr></table></figure>
+<p>语句四</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">from</span> test_abc<br><span class="hljs-keyword">where</span> a<span class="hljs-operator">=</span> <span class="hljs-string">&#x27;1&#x27;</span>;<br></code></pre></td></tr></table></figure>
+<p>仍然可以使用索引</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">-------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">-------------</span>+<br>| id | select_type | table    | partitions | type | possible_keys       | key       | key_len | ref   | rows | filtered | Extra       |<br>+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">-------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">-------------</span>+<br>|  1 | SIMPLE      | test_abc | NULL       | ref  | idx_a_b_c,idx_a_c_b | idx_a_b_c | 1022    | const |    5 |   100.00 | Using index |<br>+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">-------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">-------------</span>+<br></code></pre></td></tr></table></figure>
+<p>语句五：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">from</span> test_abc<br><span class="hljs-keyword">where</span> b <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;223&#x27;</span> <span class="hljs-keyword">and</span> c<span class="hljs-operator">=</span> <span class="hljs-string">&#x27;55&#x27;</span>;<br></code></pre></td></tr></table></figure>
+<p>按理来说应该不会使用索引的</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">-------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">--------------------------</span>+<br>| id | select_type | table    | partitions | type  | possible_keys       | key       | key_len | ref  | rows | filtered | Extra                    |<br>+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">-------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">--------------------------</span>+<br>|  1 | SIMPLE      | test_abc | NULL       | index | idx_a_b_c,idx_a_c_b | idx_a_b_c | 3066    | NULL | 1010 |     1.00 | Using where; Using index |<br>+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">-------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">--------------------------</span>+<br></code></pre></td></tr></table></figure>
+<p>语句六</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">from</span> test_abc<br><span class="hljs-keyword">where</span> a<span class="hljs-operator">=</span> <span class="hljs-string">&#x27;1&#x27;</span> <span class="hljs-keyword">and</span> b <span class="hljs-operator">&gt;</span> <span class="hljs-string">&#x27;2&#x27;</span> <span class="hljs-keyword">and</span> c <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;3&#x27;</span> <br></code></pre></td></tr></table></figure>
+<p>按照最左匹配原则使用了索引<code>idx_a_b_c</code>，从索引长度来看b也使用了索引</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">-------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">--------------------------</span>+<br>| id | select_type | table    | partitions | type  | possible_keys       | key       | key_len | ref  | rows | filtered | Extra                    |<br>+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">-------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">--------------------------</span>+<br>|  1 | SIMPLE      | test_abc | NULL       | range | idx_a_b_c,idx_a_c_b | idx_a_b_c | 2044    | NULL |    4 |    10.00 | Using where; Using index |<br>+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">-------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">--------------------------</span>+<br></code></pre></td></tr></table></figure>
+<p>语句七</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">from</span> test_abc<br>FORCE INDEX (idx_a_c_b)<br><span class="hljs-keyword">where</span> a<span class="hljs-operator">=</span> <span class="hljs-string">&#x27;1&#x27;</span> <span class="hljs-keyword">and</span> c <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;3&#x27;</span> <span class="hljs-keyword">and</span> b <span class="hljs-operator">&gt;</span> <span class="hljs-string">&#x27;2&#x27;</span>;<br></code></pre></td></tr></table></figure>
+<p>按照最左匹配原则使用了索引<code>idx_a_c_b</code></p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">-------</span>+<span class="hljs-params">---------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">--------------------------</span>+<br>| id | select_type | table    | partitions | type  | possible_keys | key       | key_len | ref  | rows | filtered | Extra                    |<br>+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">-------</span>+<span class="hljs-params">---------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">--------------------------</span>+<br>|  1 | SIMPLE      | test_abc | NULL       | range | idx_a_c_b     | idx_a_c_b | 3066    | NULL |    3 |   100.00 | Using where; Using index |<br>+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">-------</span>+<span class="hljs-params">---------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">--------------------------</span>+<br></code></pre></td></tr></table></figure>
+<p>语句八</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">from</span> test_abc<br><span class="hljs-keyword">where</span> a<span class="hljs-operator">&gt;</span><span class="hljs-string">&#x27;500&#x27;</span> <span class="hljs-keyword">and</span> b <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;2&#x27;</span> <span class="hljs-keyword">and</span> c <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;3&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>使用索引：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">-------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">--------------------------</span>+<br>| id | select_type | table    | partitions | type  | possible_keys       | key       | key_len | ref  | rows | filtered | Extra                    |<br>+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">-------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">--------------------------</span>+<br>|  1 | SIMPLE      | test_abc | NULL       | range | idx_a_b_c,idx_a_c_b | idx_a_b_c | 1022    | NULL |  559 |     1.00 | Using where; Using index |<br>+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">-------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">--------------------------</span>+<br></code></pre></td></tr></table></figure>
+<p><strong>核心：对比语句6、7、8，最左匹配原则，对于范围查询的那一项也是有效的。</strong></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/SQL/">SQL</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/SQL/">SQL</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/java_08_thread1/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java基础（八）—— 线程与异步</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/sql-exec/">
+                        <span class="hidden-mobile">SQL练习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+
+  
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

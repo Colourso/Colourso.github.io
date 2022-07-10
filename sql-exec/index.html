@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.2k 字
+      2.5k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      43
+      49
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年7月5日 上午
+                  本文最后更新于：2022年7月10日 晚上
                 
               </p>
             
@@ -422,6 +422,26 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-built_in">sum</span>(<span class="hljs-built_in">sum</span>(<span class="hljs-keyword">case</span> <span class="hljs-keyword">when</span> if_follow<span class="hljs-operator">=</span><span class="hljs-number">1</span> <span class="hljs-keyword">then</span> <span class="hljs-number">1</span><br>    <span class="hljs-keyword">when</span> if_follow<span class="hljs-operator">=</span><span class="hljs-number">2</span> <span class="hljs-keyword">then</span> <span class="hljs-number">-1</span><br>    <span class="hljs-keyword">else</span> <span class="hljs-number">0</span><br>    <span class="hljs-keyword">end</span>))<br><span class="hljs-keyword">over</span> (<br><span class="hljs-keyword">partition</span> <span class="hljs-keyword">by</span> author<br><span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> <span class="hljs-keyword">month</span> <span class="hljs-keyword">asc</span><br>)<br></code></pre></td></tr></table></figure>
 <p>最终结果</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> author,<br>    date_format(start_time,<span class="hljs-string">&#x27;%Y-%m&#x27;</span>) <span class="hljs-keyword">as</span> <span class="hljs-keyword">month</span>,<br>    round(<span class="hljs-built_in">sum</span>(<span class="hljs-keyword">case</span> <span class="hljs-keyword">when</span> if_follow<span class="hljs-operator">=</span><span class="hljs-number">1</span> <span class="hljs-keyword">then</span> <span class="hljs-number">1</span><br>       <span class="hljs-keyword">when</span> if_follow<span class="hljs-operator">=</span><span class="hljs-number">2</span> <span class="hljs-keyword">then</span> <span class="hljs-number">-1</span><br>       <span class="hljs-keyword">else</span> <span class="hljs-number">0</span> <span class="hljs-keyword">end</span>) <span class="hljs-operator">/</span> <span class="hljs-built_in">count</span>(author),<span class="hljs-number">3</span>) <span class="hljs-keyword">as</span> fans_growth_rate,<br>     <span class="hljs-built_in">sum</span>(<span class="hljs-built_in">sum</span>(<span class="hljs-keyword">case</span> <span class="hljs-keyword">when</span> if_follow<span class="hljs-operator">=</span><span class="hljs-number">1</span> <span class="hljs-keyword">then</span> <span class="hljs-number">1</span><br>       <span class="hljs-keyword">when</span> if_follow<span class="hljs-operator">=</span><span class="hljs-number">2</span> <span class="hljs-keyword">then</span> <span class="hljs-number">-1</span><br>       <span class="hljs-keyword">else</span> <span class="hljs-number">0</span> <span class="hljs-keyword">end</span>)) <span class="hljs-keyword">over</span> (<span class="hljs-keyword">partition</span> <span class="hljs-keyword">by</span> author <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> date_format(start_time,<span class="hljs-string">&#x27;%Y-%m&#x27;</span>) ) <span class="hljs-keyword">as</span> total_fans<br>     <br><span class="hljs-keyword">from</span> tb_user_video_log a<br><span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> tb_video_info b<br><span class="hljs-keyword">on</span> a.video_id <span class="hljs-operator">=</span> b.video_id<br><span class="hljs-keyword">where</span> <span class="hljs-keyword">year</span>(start_time)<span class="hljs-operator">=</span><span class="hljs-number">2021</span><br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> author,<span class="hljs-keyword">month</span><br><span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> author,total_fans<br></code></pre></td></tr></table></figure>
+<h3 id="5-月总刷题数和日均刷题数"><a href="#5-月总刷题数和日均刷题数" class="headerlink" title="5.月总刷题数和日均刷题数"></a>5.月总刷题数和日均刷题数</h3><p>按照月进行汇总与排序。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> data_format(submit_time,&quot;%Y%m&quot;) <span class="hljs-keyword">as</span> submit_month<br><span class="hljs-keyword">from</span> t<br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> submit_month<br><span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> submit_month<br></code></pre></td></tr></table></figure>
+<p>求月中的日均刷题数</p>
+<p>要具体到每个月的天数，使用last_day(date)函数可以获取参数日期的最后一天，day(last_day(date))就能获取到一个月的天数。</p>
+<p>with rollup的使用</p>
+<p>需求：group by 求得了学生的平均分数</p>
+<p>现在要求<strong>总的平均分数</strong>。使用with rollup即可，会在 group by 之后，对聚合函数进行分组求和</p>
+<ul>
+<li>order by不能在这个中使用。</li>
+</ul>
+<p>这样会产生新的一行，但是这样的话，submit_month列值会为空，这是使用<strong>coalesce（exp1,exo2,…,expn）</strong>，当前面的都为空时，才会返回expn。</p>
+<p>所以最后结果时</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql"> <span class="hljs-keyword">select</span> <span class="hljs-built_in">COALESCE</span>(date_format(submit_time,<span class="hljs-string">&#x27;%Y%m&#x27;</span>),&quot;2021汇总&quot;) <span class="hljs-keyword">as</span> submit_month,<br>    <span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>) <span class="hljs-keyword">as</span> month_q_cnt ,<br>    round(<span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>) <span class="hljs-operator">/</span> <span class="hljs-keyword">day</span>(last_day(submit_time)),<span class="hljs-number">3</span>) <span class="hljs-keyword">as</span> avg_day_q_cnt<br><span class="hljs-keyword">from</span> practice_record<br><span class="hljs-keyword">where</span> <span class="hljs-keyword">year</span>(submit_time) <span class="hljs-operator">=</span> <span class="hljs-number">2021</span><br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> date_format(submit_time,<span class="hljs-string">&#x27;%Y%m&#x27;</span>) <span class="hljs-keyword">WITH</span> <span class="hljs-keyword">ROLLUP</span><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="date-format日期格式化"><a href="#date-format日期格式化" class="headerlink" title="date_format日期格式化"></a>date_format日期格式化</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wcp88888888/article/details/6178812">Mysql 中使用DATE_FORMAT函数按月、周统计数据_wcp88888888的博客-CSDN博客</a></p>
+<p>求一个交易表里的每周的交易成功的次数以及平均值</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> date_formate(trans_time,&quot;%Y%v&quot;) <span class="hljs-keyword">as</span> week<span class="hljs-operator">-</span>n,<br>		<span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>) <span class="hljs-keyword">as</span> succ_count<br><span class="hljs-keyword">from</span> order_trade<br><span class="hljs-keyword">where</span> order_status <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;SUCCESS&#x27;</span> <span class="hljs-keyword">and</span> transtime <span class="hljs-operator">&lt;</span> <span class="hljs-string">&#x27;2022-07-10&#x27;</span><br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> channel_id,date_formate(trans_time,&quot;%Y%v&quot;);<br></code></pre></td></tr></table></figure>
+
+
 
             </div>
             <hr>
@@ -452,9 +472,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/java_08_thread1/">
+                      <a href="/mysql-index/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Java基础（八）—— 线程与异步</span>
+                        <span class="hidden-mobile">MySQL索引</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
