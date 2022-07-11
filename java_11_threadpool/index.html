@@ -1,0 +1,667 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>Java基础（十一）—— 线程池 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java基础（十一）—— 线程池">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-07-10 23:18" pubdate>
+        2022年7月10日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java基础（十一）—— 线程池</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2022年7月12日 凌晨
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p><strong>概览</strong>：Java线程池</p>
+<a id="more"></a>
+
+<h2 id="execute与submit的区别"><a href="#execute与submit的区别" class="headerlink" title="execute与submit的区别"></a>execute与submit的区别</h2><p>execute只能提交runnable类型任务，无返回值</p>
+<p>submit可以提交runnable以及callable类型任务，有返回值Future&lt;&gt;</p>
+<table>
+<thead>
+<tr>
+<th>返回</th>
+<th>使用</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Futere&lt;?&gt;</td>
+<td>submit(runnable);</td>
+<td></td>
+</tr>
+<tr>
+<td>Future<T></T></td>
+<td>submit(runnable,T);//T可以是任意对象，eg”任务完成”</td>
+<td></td>
+</tr>
+<tr>
+<td>Future<T></T></td>
+<td>submit(callable);</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="callable任务的阻塞获取与定时获取"><a href="#callable任务的阻塞获取与定时获取" class="headerlink" title="callable任务的阻塞获取与定时获取"></a>callable任务的阻塞获取与定时获取</h2><p>对于返回的Futute&lt;&gt;</p>
+<ul>
+<li>get()：阻塞式的，直到等到结果</li>
+<li>get(long,TimeUnit)：定时获取，超过时间就抛出异常。</li>
+</ul>
+<h2 id="任务取消-cancle"><a href="#任务取消-cancle" class="headerlink" title="任务取消 - cancle"></a>任务取消 - cancle</h2><p>任务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ResultTask</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Callable</span>&lt;<span class="hljs-title">Integer</span>&gt; </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">call</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>+<span class="hljs-number">1</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="1-取消未执行的任务"><a href="#1-取消未执行的任务" class="headerlink" title="1.取消未执行的任务"></a>1.取消未执行的任务</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyThreadPoolTest</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        ExecutorService threadPool = Executors.newSingleThreadExecutor();<br>        ResultTask task1 = <span class="hljs-keyword">new</span> ResultTask();<br>        ResultTask task2 = <span class="hljs-keyword">new</span> ResultTask();<br><br>        Future&lt;Integer&gt; future1 = threadPool.submit(task1);<br>        Future&lt;Integer&gt; future2 = threadPool.submit(task2);<br><br>        <span class="hljs-comment">// 向只有一个线程的下称池提交两个任务，第二个任务就会存放任务队列中暂不执行</span><br>        System.out.println(<span class="hljs-string">&quot;任务是否完成&quot;</span>+ future2.isDone());<br>        <span class="hljs-comment">//  取消任务</span><br>        <span class="hljs-keyword">boolean</span> isCancle = future2.cancel(<span class="hljs-keyword">false</span>);<br>        System.out.println(<span class="hljs-string">&quot;任务是否取消成功&quot;</span> + isCancle);<br>        System.out.println(<span class="hljs-string">&quot;任务是否取消成功&quot;</span> + future2.isCancelled());<br><br>        <span class="hljs-comment">// 获取任务结果</span><br>        <span class="hljs-keyword">try</span> &#123;<br>            Integer integer = future2.get();<br>            System.out.println(<span class="hljs-string">&quot;任务2结果&quot;</span> + integer);<br>        &#125; <span class="hljs-keyword">catch</span> (InterruptedException | ExecutionException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            threadPool.shutdown();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>结果：<strong>任务取消成功，future获取不到结果出现异常！</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs css">任务是否完成<span class="hljs-selector-tag">false</span><br>任务是否取消成功<span class="hljs-selector-tag">true</span><br>任务是否取消成功<span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">Exception</span> <span class="hljs-selector-tag">in</span> <span class="hljs-selector-tag">thread</span> &quot;<span class="hljs-selector-tag">main</span>&quot; <span class="hljs-selector-tag">java</span><span class="hljs-selector-class">.util</span><span class="hljs-selector-class">.concurrent</span><span class="hljs-selector-class">.CancellationException</span><br>	<span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">java</span><span class="hljs-selector-class">.util</span><span class="hljs-selector-class">.concurrent</span><span class="hljs-selector-class">.FutureTask</span><span class="hljs-selector-class">.report</span>(<span class="hljs-selector-tag">FutureTask</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:121)</span><br>	<span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">java</span><span class="hljs-selector-class">.util</span><span class="hljs-selector-class">.concurrent</span><span class="hljs-selector-class">.FutureTask</span><span class="hljs-selector-class">.get</span>(<span class="hljs-selector-tag">FutureTask</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:192)</span><br>	<span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">threads</span><span class="hljs-selector-class">.MyThreadPoolTest</span><span class="hljs-selector-class">.main</span>(<span class="hljs-selector-tag">MyThreadPoolTest</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:29)</span><br></code></pre></td></tr></table></figure>
+<h3 id="2-取消已经执行完成的任务"><a href="#2-取消已经执行完成的任务" class="headerlink" title="2.取消已经执行完成的任务"></a>2.取消已经执行完成的任务</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyThreadPoolTest</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        ExecutorService threadPool = Executors.newSingleThreadExecutor();<br>        ResultTask task1 = <span class="hljs-keyword">new</span> ResultTask();<br><br>        Future&lt;Integer&gt; future1 = threadPool.submit(task1);<br>        <span class="hljs-comment">// 获取任务结果</span><br>        <span class="hljs-keyword">try</span> &#123;<br>            Integer integer = future1.get();<br>            System.out.println(<span class="hljs-string">&quot;任务1结果&quot;</span> + integer);<br>            System.out.println(<span class="hljs-string">&quot;任务是否完成&quot;</span>+ future1.isDone());<br>            <span class="hljs-comment">//  取消任务</span><br>            <span class="hljs-keyword">boolean</span> isCancle = future1.cancel(<span class="hljs-keyword">false</span>);<br>            System.out.println(<span class="hljs-string">&quot;任务是否取消成功&quot;</span> + isCancle);<br>            System.out.println(<span class="hljs-string">&quot;任务是否取消成功&quot;</span> + future1.isCancelled());<br>        &#125; <span class="hljs-keyword">catch</span> (InterruptedException | ExecutionException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            threadPool.shutdown();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>结果：<strong>已经完成的任务是无法取消的。</strong></p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs actionscript">任务<span class="hljs-number">1</span>结果<span class="hljs-number">2</span><br>任务是否完成<span class="hljs-literal">true</span><br>任务是否取消成功<span class="hljs-literal">false</span><br>任务是否取消成功<span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
+<h3 id="3-取消正在执行的任务"><a href="#3-取消正在执行的任务" class="headerlink" title="3.取消正在执行的任务"></a>3.取消正在执行的任务</h3><ul>
+<li>cancle(boolean)：函数参数，true表示尝试中断正在运行的线程：调用interrupt()</li>
+</ul>
+<p>任务改动：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ResultTask</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Callable</span>&lt;<span class="hljs-title">Integer</span>&gt; </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Integer <span class="hljs-title">call</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br>        <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;<br>        <span class="hljs-comment">// 线程没被中断时递增</span><br>        <span class="hljs-keyword">while</span>(!Thread.interrupted())&#123;<br>            i++;<br>        &#125;<br>        System.out.println(i);<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>+<span class="hljs-number">1</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>false的情况</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyThreadPoolTest</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        ExecutorService threadPool = Executors.newSingleThreadExecutor();<br>        ResultTask task1 = <span class="hljs-keyword">new</span> ResultTask();<br><br>        Future&lt;Integer&gt; future1 = threadPool.submit(task1);<br>        System.out.println(<span class="hljs-string">&quot;任务是否完成&quot;</span>+ future1.isDone());<br>        <span class="hljs-comment">//  取消任务</span><br>        <span class="hljs-keyword">boolean</span> isCancle = future1.cancel(<span class="hljs-keyword">false</span>);<br>        System.out.println(<span class="hljs-string">&quot;任务是否取消成功&quot;</span> + isCancle);<br>        System.out.println(<span class="hljs-string">&quot;任务是否取消成功&quot;</span> + future1.isCancelled());<br>        <span class="hljs-comment">// 获取任务结果</span><br>        <span class="hljs-keyword">try</span> &#123;<br>            Integer integer = future1.get();<br>            System.out.println(<span class="hljs-string">&quot;任务1结果&quot;</span> + integer);<br>        &#125; <span class="hljs-keyword">catch</span> (InterruptedException | ExecutionException e) &#123;<br>            e.printStackTrace();<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            threadPool.shutdown();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>结果：false时，任务显示取消成功，调用get()会触发异常，但是实际上任务还是会执行完。</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css">任务是否完成<span class="hljs-selector-tag">false</span><br>任务是否取消成功<span class="hljs-selector-tag">true</span><br>任务是否取消成功<span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">Exception</span> <span class="hljs-selector-tag">in</span> <span class="hljs-selector-tag">thread</span> &quot;<span class="hljs-selector-tag">main</span>&quot; <span class="hljs-selector-tag">java</span><span class="hljs-selector-class">.util</span><span class="hljs-selector-class">.concurrent</span><span class="hljs-selector-class">.CancellationException</span><br>	<span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">java</span><span class="hljs-selector-class">.util</span><span class="hljs-selector-class">.concurrent</span><span class="hljs-selector-class">.FutureTask</span><span class="hljs-selector-class">.report</span>(<span class="hljs-selector-tag">FutureTask</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:121)</span><br>	<span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">java</span><span class="hljs-selector-class">.util</span><span class="hljs-selector-class">.concurrent</span><span class="hljs-selector-class">.FutureTask</span><span class="hljs-selector-class">.get</span>(<span class="hljs-selector-tag">FutureTask</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:192)</span><br>	<span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">threads</span><span class="hljs-selector-class">.MyThreadPoolTest</span><span class="hljs-selector-class">.main</span>(<span class="hljs-selector-tag">MyThreadPoolTest</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:24)</span><br>程序没有结束运行<br></code></pre></td></tr></table></figure>
+<p><strong>将传参改为true</strong></p>
+<p><strong>执行结果：true时，任务显示取消成功，调用get()会触发异常，但是实际上任务是否继续执行取决于是否响应中断。</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs css">任务是否完成<span class="hljs-selector-tag">false</span><br>任务是否取消成功<span class="hljs-selector-tag">true</span><br>249<br>任务是否取消成功<span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">Exception</span> <span class="hljs-selector-tag">in</span> <span class="hljs-selector-tag">thread</span> &quot;<span class="hljs-selector-tag">main</span>&quot; <span class="hljs-selector-tag">java</span><span class="hljs-selector-class">.util</span><span class="hljs-selector-class">.concurrent</span><span class="hljs-selector-class">.CancellationException</span><br>	<span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">java</span><span class="hljs-selector-class">.util</span><span class="hljs-selector-class">.concurrent</span><span class="hljs-selector-class">.FutureTask</span><span class="hljs-selector-class">.report</span>(<span class="hljs-selector-tag">FutureTask</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:121)</span><br>	<span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">java</span><span class="hljs-selector-class">.util</span><span class="hljs-selector-class">.concurrent</span><span class="hljs-selector-class">.FutureTask</span><span class="hljs-selector-class">.get</span>(<span class="hljs-selector-tag">FutureTask</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:192)</span><br>	<span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">threads</span><span class="hljs-selector-class">.MyThreadPoolTest</span><span class="hljs-selector-class">.main</span>(<span class="hljs-selector-tag">MyThreadPoolTest</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:24)</span><br>程序自动结束运行<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="线程池执行任务流程"><a href="#线程池执行任务流程" class="headerlink" title="线程池执行任务流程"></a>线程池执行任务流程</h2><p><img src="/java_11_threadpool/exec.png" srcset="/img/loading.gif"></p>
+<p>源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">execute</span><span class="hljs-params">(Runnable command)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (command == <span class="hljs-keyword">null</span>)<br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> NullPointerException();<br>    <span class="hljs-keyword">int</span> c = ctl.get();<br>    <span class="hljs-comment">// 如果核心线程数没有满的时候，添加核心线程并执行任务</span><br>    <span class="hljs-keyword">if</span> (workerCountOf(c) &lt; corePoolSize) &#123;<br>        <span class="hljs-comment">// 成功时则返回</span><br>        <span class="hljs-keyword">if</span> (addWorker(command, <span class="hljs-keyword">true</span>))<br>            <span class="hljs-keyword">return</span>;<br>        c = ctl.get();<br>    &#125;<br>    <br>    <span class="hljs-comment">// 线程池还在运行并且能添加进任务队列时</span><br>    <span class="hljs-keyword">if</span> (isRunning(c) &amp;&amp; workQueue.offer(command)) &#123;<br>        <span class="hljs-keyword">int</span> recheck = ctl.get();<br>        <span class="hljs-comment">// 再次判断，如果不再运行就从队列中移除任务，拒绝任务</span><br>        <span class="hljs-keyword">if</span> (! isRunning(recheck) &amp;&amp; remove(command))<br>            reject(command);<br>        <span class="hljs-comment">// 如果线程池中没有可用线程时，创建一个非核心线程</span><br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (workerCountOf(recheck) == <span class="hljs-number">0</span>)<br>            addWorker(<span class="hljs-keyword">null</span>, <span class="hljs-keyword">false</span>);<br>    &#125;<br>    <span class="hljs-comment">// 线程池已满，尝试添加非核心线程执行任务</span><br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!addWorker(command, <span class="hljs-keyword">false</span>))<br>        reject(command);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="待续"><a href="#待续" class="headerlink" title="待续"></a>待续</h2>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/gather-blog/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【置顶】博客导航</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/mysql-index/">
+                        <span class="hidden-mobile">MySQL索引</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+
+  
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

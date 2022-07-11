@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.5k 字
+      2.8k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      49
+      54
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年7月10日 晚上
+                  本文最后更新于：2022年7月11日 上午
                 
               </p>
             
@@ -435,8 +435,22 @@
 <p>这样会产生新的一行，但是这样的话，submit_month列值会为空，这是使用<strong>coalesce（exp1,exo2,…,expn）</strong>，当前面的都为空时，才会返回expn。</p>
 <p>所以最后结果时</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql"> <span class="hljs-keyword">select</span> <span class="hljs-built_in">COALESCE</span>(date_format(submit_time,<span class="hljs-string">&#x27;%Y%m&#x27;</span>),&quot;2021汇总&quot;) <span class="hljs-keyword">as</span> submit_month,<br>    <span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>) <span class="hljs-keyword">as</span> month_q_cnt ,<br>    round(<span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>) <span class="hljs-operator">/</span> <span class="hljs-keyword">day</span>(last_day(submit_time)),<span class="hljs-number">3</span>) <span class="hljs-keyword">as</span> avg_day_q_cnt<br><span class="hljs-keyword">from</span> practice_record<br><span class="hljs-keyword">where</span> <span class="hljs-keyword">year</span>(submit_time) <span class="hljs-operator">=</span> <span class="hljs-number">2021</span><br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> date_format(submit_time,<span class="hljs-string">&#x27;%Y%m&#x27;</span>) <span class="hljs-keyword">WITH</span> <span class="hljs-keyword">ROLLUP</span><br></code></pre></td></tr></table></figure>
-
-
+<h3 id="6-每类试卷得分前3名"><a href="#6-每类试卷得分前3名" class="headerlink" title="6.每类试卷得分前3名"></a>6.每类试卷得分前3名</h3><p>按类型划分，且一个学生可能会有多个考试记录</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-keyword">group</span> <span class="hljs-title">by</span> <span class="hljs-keyword">tag</span>,uid<br></code></pre></td></tr></table></figure>
+<p>求得前三名排序: 使用开窗函数 row_number() over()</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-built_in">row_number</span>() <span class="hljs-keyword">over</span>(<span class="hljs-keyword">partition</span> <span class="hljs-keyword">by</span> tag <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> <span class="hljs-built_in">max</span>(score) <span class="hljs-keyword">desc</span>,<span class="hljs-built_in">min</span>(score) <span class="hljs-keyword">desc</span>,uid <span class="hljs-keyword">desc</span>)<br></code></pre></td></tr></table></figure>
+<ul>
+<li>row_number 可以标出对应的序列</li>
+<li>partition by 将结果按照tag进行分组</li>
+<li>order by 将结果进行排序,先最高分排序，最高分相同按照最低分排序，否则按照uid排序</li>
+</ul>
+<p>最终每个取前3名</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> tid,uid,ranking<br><span class="hljs-keyword">from</span> (<br><span class="hljs-keyword">select</span> a.tag <span class="hljs-keyword">as</span> tid,uid,<br><span class="hljs-built_in">row_number</span>() <span class="hljs-keyword">over</span>(<span class="hljs-keyword">partition</span> <span class="hljs-keyword">by</span> a.tag <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> <span class="hljs-built_in">max</span>(b.score) <span class="hljs-keyword">desc</span>,<span class="hljs-built_in">min</span>(b.score) <span class="hljs-keyword">desc</span>,b.uid <span class="hljs-keyword">desc</span>) <span class="hljs-keyword">as</span> ranking<br><span class="hljs-keyword">from</span> examination_info a<br><span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> exam_record b<br><span class="hljs-keyword">on</span> a.exam_id <span class="hljs-operator">=</span> b.exam_id<br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> a.tag,b.uid<br>) t<br><span class="hljs-keyword">where</span> ranking <span class="hljs-operator">&lt;=</span> <span class="hljs-number">3</span>;<br></code></pre></td></tr></table></figure>
+<h3 id="常见的窗口函数排序"><a href="#常见的窗口函数排序" class="headerlink" title="常见的窗口函数排序"></a>常见的窗口函数排序</h3><ul>
+<li>rank() over() 1 2 2 4 4 6 (计数排名，跳过相同的几个，eg.没有3没有5)</li>
+<li>row_number() over() 1 2 3 4 5 6 (赋予唯一排名)</li>
+<li>dense_rank() over() 1 2 2 3 3 4 (不跳过排名，可以理解为对类别进行计数)</li>
+</ul>
 <h2 id="date-format日期格式化"><a href="#date-format日期格式化" class="headerlink" title="date_format日期格式化"></a>date_format日期格式化</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wcp88888888/article/details/6178812">Mysql 中使用DATE_FORMAT函数按月、周统计数据_wcp88888888的博客-CSDN博客</a></p>
 <p>求一个交易表里的每周的交易成功的次数以及平均值</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> date_formate(trans_time,&quot;%Y%v&quot;) <span class="hljs-keyword">as</span> week<span class="hljs-operator">-</span>n,<br>		<span class="hljs-built_in">count</span>(<span class="hljs-operator">*</span>) <span class="hljs-keyword">as</span> succ_count<br><span class="hljs-keyword">from</span> order_trade<br><span class="hljs-keyword">where</span> order_status <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;SUCCESS&#x27;</span> <span class="hljs-keyword">and</span> transtime <span class="hljs-operator">&lt;</span> <span class="hljs-string">&#x27;2022-07-10&#x27;</span><br><span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> channel_id,date_formate(trans_time,&quot;%Y%v&quot;);<br></code></pre></td></tr></table></figure>
@@ -472,9 +486,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/mysql-index/">
+                      <a href="/java_08_thread1/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">MySQL索引</span>
+                        <span class="hidden-mobile">Java基础（八）—— 线程与异步</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
