@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      858 字
+      1k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      18
+      22
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年7月13日 凌晨
+                  本文最后更新于：2022年7月13日 下午
                 
               </p>
             
@@ -292,6 +292,14 @@
 <p>客户端调用</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br>    PreparationList preparationList = <span class="hljs-keyword">new</span> PreparationList();<br>    preparationList.setWashHair(<span class="hljs-keyword">true</span>);<br>    preparationList.setHaveBreakfast(<span class="hljs-keyword">true</span>);<br><br>    Study study = <span class="hljs-keyword">new</span> Study();<br>    StudyPrepareFilter washHairFilter = <span class="hljs-keyword">new</span> WashHairFilter();<br>    StudyPrepareFilter haveBreakfastFilter = <span class="hljs-keyword">new</span> HaveBreakfastFilter();<br><br>    FilterChain filterChain = <span class="hljs-keyword">new</span> FilterChain(study);<br>    filterChain.addFilter(washHairFilter);<br>    filterChain.addFilter(haveBreakfastFilter);<br><br>    filterChain.doFilter(preparationList, filterChain);<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>FilterChain可以作为spring bean来注入。</p>
+<p>核心概览：</p>
+<ol>
+<li><code>FilterChain</code>表示责任链，内部有一个list对象来存储各个<code>filter</code>，list的先后顺序就是执行的先后顺序。</li>
+</ol>
+<h2 id="结合Spring来使用"><a href="#结合Spring来使用" class="headerlink" title="结合Spring来使用"></a>结合Spring来使用</h2><p>自定义排序注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> org.springframework.core.Ordered;<br><br><span class="hljs-meta">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="hljs-meta">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="hljs-meta">@Documented</span><br><span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> FilterOrder &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 越小优先级越高</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">value</span><span class="hljs-params">()</span> <span class="hljs-keyword">default</span> Ordered.LOWEST_PRECEDENCE</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>任务列表增加</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FilterChain</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">InitializingBean</span> </span>&#123;<br><br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> List&lt;Filter&gt; filterList;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doFilter</span><span class="hljs-params">(BanCallBackContext context)</span> </span>&#123;<br>        <span class="hljs-keyword">for</span> (Filter filter : filterList) &#123;<br>            <span class="hljs-keyword">if</span> (!filter.<span class="hljs-keyword">do</span>(context)) &#123;<br>                <span class="hljs-keyword">return</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br><br><br>    <span class="hljs-comment">// 填充到filterList中，按照标写的顺序执行</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">afterPropertiesSet</span><span class="hljs-params">()</span> </span>&#123;<br>        filterList = filterList.stream()<br>                .sorted(Comparator.comparingInt(filter -&gt; filter.getClass().getAnnotation(FilterOrder.class).value())<br>                        .thenComparing(filter -&gt; filter.getClass().getSimpleName()))<br>                .collect(Collectors.toList());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
@@ -322,9 +330,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/gather-blog/">
+                      <a href="/jvm_02_jmm/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【置顶】博客导航</span>
+                        <span class="hidden-mobile">Java内存模型 与 多线程</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

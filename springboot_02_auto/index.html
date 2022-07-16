@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年7月5日 晚上
+                  本文最后更新于：2022年7月15日 下午
                 
               </p>
             
@@ -280,19 +280,38 @@
 <ul>
 <li><p>引入的默认依赖是可以不些版本的，有默认的版本</p>
 <ul>
-<li><p>可以修改默认版本，在pom文件中修改覆盖即可。</p>
-</li>
-<li><pre><code class="xml">&lt;properties&gt;
-    &lt;mysql.version&gt;5.1.43&lt;/mysql.version&gt;
-&lt;/properties&gt;
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><br><span class="hljs-bullet">-</span> 普通的依赖是需要指定版本的。<br><br><span class="hljs-section">## SpringBoot自动配置特性</span><br><br><span class="hljs-bullet">-</span> 会自动引入对应的依赖，配置好属性。<br><br>例如：springMVC会自动配置好web常见的问题：字符编码问题<br><br><span class="hljs-bullet">-</span> 默认的包结构：默认会将<span class="hljs-code">`MainApplication`</span>所在包以及其下面的所有的子包组件扫描进去，无需包扫描配置<br><span class="hljs-bullet">  -</span> 改变扫描：<span class="hljs-code">`@SpringBootApplication(scanBasePackages=&quot;com.lun&quot;)`</span><br><span class="hljs-bullet">-</span> 各种配置都有默认值<br><span class="hljs-bullet">  -</span> 默认配置都最终映射到了某个类上，xxxProperties<br><span class="hljs-bullet">  -</span> 配置文件的值最终会绑定每个类上，这个类会在容器中创建对象。<br><span class="hljs-bullet">-</span> 按需加载自动配置项<br><span class="hljs-bullet">  -</span> @Conditional注解<br><span class="hljs-bullet">  -</span> 引入了哪个场景，哪个场景的自动配置才会开启。<br><span class="hljs-bullet">  -</span> SpringBoot所有的自动配置功能都在 spring-boot-autoconfigure 包里面<br><br><span class="hljs-section">## SpringBoot重要注解</span><br><br><span class="hljs-section">### 1.@SpringBootApplication</span><br><br>这个注解相当于三个注解<br><br><span class="hljs-code">```java</span><br><span class="hljs-code">@SpringBootConfiguration</span><br><span class="hljs-code">@EnableAutoConfiguration</span><br><span class="hljs-code">@ComponentScan(</span><br><span class="hljs-code">    excludeFilters = &#123;@Filter(</span><br><span class="hljs-code">    type = FilterType.CUSTOM,</span><br><span class="hljs-code">    classes = &#123;TypeExcludeFilter.class&#125;</span><br><span class="hljs-code">), @Filter(</span><br><span class="hljs-code">    type = FilterType.CUSTOM,</span><br><span class="hljs-code">    classes = &#123;AutoConfigurationExcludeFilter.class&#125;</span><br><span class="hljs-code">)&#125;</span><br></code></pre></td></tr></table></figure>
-### 2.@Configuration与@Bean
-</code></pre>
-</li>
+<li>可以修改默认版本，在pom文件中修改覆盖即可。</li>
 </ul>
 </li>
 </ul>
-<p><code>@Configuration</code>这个注解的作用是告诉SpringBoot这个类是一个配置类，当然这个配置类本身也是一个组件。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">mysql.version</span>&gt;</span>5.1.43<span class="hljs-tag">&lt;/<span class="hljs-name">mysql.version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>普通的依赖是需要指定版本的。</li>
+</ul>
+<h2 id="SpringBoot自动配置特性"><a href="#SpringBoot自动配置特性" class="headerlink" title="SpringBoot自动配置特性"></a>SpringBoot自动配置特性</h2><ul>
+<li>会自动引入对应的依赖，配置好属性。</li>
+</ul>
+<p>例如：springMVC会自动配置好web常见的问题：字符编码问题</p>
+<ul>
+<li>默认的包结构：默认会将<code>MainApplication</code>所在包以及其下面的所有的子包组件扫描进去，无需包扫描配置<ul>
+<li>改变扫描：<code>@SpringBootApplication(scanBasePackages=&quot;com.lun&quot;)</code></li>
+</ul>
+</li>
+<li>各种配置都有默认值<ul>
+<li>默认配置都最终映射到了某个类上，xxxProperties</li>
+<li>配置文件的值最终会绑定每个类上，这个类会在容器中创建对象。</li>
+</ul>
+</li>
+<li>按需加载自动配置项<ul>
+<li>@Conditional注解</li>
+<li>引入了哪个场景，哪个场景的自动配置才会开启。</li>
+<li>SpringBoot所有的自动配置功能都在 spring-boot-autoconfigure 包里面</li>
+</ul>
+</li>
+</ul>
+<h2 id="SpringBoot重要注解"><a href="#SpringBoot重要注解" class="headerlink" title="SpringBoot重要注解"></a>SpringBoot重要注解</h2><h3 id="1-SpringBootApplication"><a href="#1-SpringBootApplication" class="headerlink" title="1.@SpringBootApplication"></a>1.@SpringBootApplication</h3><p>这个注解相当于三个注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootConfiguration</span><br><span class="hljs-meta">@EnableAutoConfiguration</span><br><span class="hljs-meta">@ComponentScan(</span><br><span class="hljs-meta">    excludeFilters = &#123;@Filter(</span><br><span class="hljs-meta">    type = FilterType.CUSTOM,</span><br><span class="hljs-meta">    classes = &#123;TypeExcludeFilter.class&#125;</span><br><span class="hljs-meta">), @Filter(</span><br><span class="hljs-meta">    type = FilterType.CUSTOM,</span><br><span class="hljs-meta">    classes = &#123;AutoConfigurationExcludeFilter.class&#125;</span><br><span class="hljs-meta">)&#125;</span><br></code></pre></td></tr></table></figure>
+<h3 id="2-Configuration与-Bean"><a href="#2-Configuration与-Bean" class="headerlink" title="2.@Configuration与@Bean"></a>2.@Configuration与@Bean</h3><p><code>@Configuration</code>这个注解的作用是告诉SpringBoot这个类是一个配置类，当然这个配置类本身也是一个组件。</p>
 <ul>
 <li>属性：<code>proxyBeanMethods</code>：代理bean的方法<ul>
 <li><pre><code> Full(proxyBeanMethods = true)（保证每个@Bean方法被调用多少次返回的组件都是**单实例的**）（默认）</code></pre>

@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.2k 字
+      2.3k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      40
+      41
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年7月11日 下午
+                  本文最后更新于：2022年7月14日 下午
                 
               </p>
             
@@ -378,6 +378,10 @@
 <p>使用索引：</p>
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">-------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">--------------------------</span>+<br>| id | select_type | table    | partitions | type  | possible_keys       | key       | key_len | ref  | rows | filtered | Extra                    |<br>+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">-------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">--------------------------</span>+<br>|  1 | SIMPLE      | test_abc | NULL       | range | idx_a_b_c,idx_a_c_b | idx_a_b_c | 1022    | NULL |  559 |     1.00 | Using where; Using index |<br>+<span class="hljs-params">----</span>+<span class="hljs-params">-------------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">------------</span>+<span class="hljs-params">-------</span>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">------</span>+<span class="hljs-params">----------</span>+<span class="hljs-params">--------------------------</span>+<br></code></pre></td></tr></table></figure>
 <p><strong>核心：对比语句6、7、8，最左匹配原则，对于范围查询的那一项也是有效的。</strong></p>
+<h2 id="全文索引-Full-Text-Search"><a href="#全文索引-Full-Text-Search" class="headerlink" title="全文索引 - Full-Text Search"></a>全文索引 - Full-Text Search</h2><p>全文索引是将存储于数据库的整本书或整篇文章中的任意内容信息查找出来的技术，它可以根据需要获得全文中有关章、节、段、词等信息，也可以进行各种统计和分析。</p>
+<blockquote>
+<p>仅作了解</p>
+</blockquote>
 
             </div>
             <hr>
@@ -418,8 +422,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/mysql-other/">
-                        <span class="hidden-mobile">MySQL其他</span>
+                      <a href="/mysql-log/">
+                        <span class="hidden-mobile">MySQL日志</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
