@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.1k 字
+      2.2k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      32
+      33
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年7月14日 下午
+                  本文最后更新于：2022年7月19日 下午
                 
               </p>
             
@@ -305,7 +305,7 @@
 <p><strong>volatile 修饰的变量，可以禁用指令重排</strong>。</p>
 <ul>
 <li>JVM 会在不影响正确性的前提下，可以调整语句的执行顺序。</li>
-<li>单例模式的 double-lock-check防止指令重排，使用volatile</li>
+<li>单例模式的 double-check-lock防止指令重排，使用volatile</li>
 </ul>
 <p><code>INSTANCE = new Singleton() </code>对应的字节码，指令重排可能导致 4，7位置互换，从而导致错误</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">0: new #2 // class cn/itcast/jvm/t4/Singleton 生成引用地址<br><span class="hljs-number">3</span>: dup		<span class="hljs-comment">// 复制一份</span><br>4: invokespecial #3 // Method &quot;&lt;init&gt;&quot;:()V<br>7: putstatic #4 // Field<br></code></pre></td></tr></table></figure>
@@ -355,7 +355,10 @@
 </li>
 </ul>
 <hr>
-<h2 id="CAS-乐观锁机制"><a href="#CAS-乐观锁机制" class="headerlink" title="CAS - 乐观锁机制"></a>CAS - 乐观锁机制</h2><p>参考链接：<a target="_blank" rel="noopener" href="https://www.nowcoder.com/discuss/969820?channel=666&source_id=feed_index_nctrack&trackId=undefined">面试官问我什么是JMM_资源分享_牛客网 (nowcoder.com)</a></p>
+<h2 id="CAS-乐观锁机制"><a href="#CAS-乐观锁机制" class="headerlink" title="CAS - 乐观锁机制"></a>CAS - 乐观锁机制</h2><p>compare and set</p>
+<p>使用Unsafe来直接操作内存</p>
+<p>三个参数，内存地址，期望原值，修改值。</p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://www.nowcoder.com/discuss/969820?channel=666&source_id=feed_index_nctrack&trackId=undefined">面试官问我什么是JMM_资源分享_牛客网 (nowcoder.com)</a></p>
 <hr>
 <h2 id="Java对象头"><a href="#Java对象头" class="headerlink" title="Java对象头"></a>Java对象头</h2><p>在HotSpot虚拟机中，对象在内存中的布局分为三部分：</p>
 <ul>

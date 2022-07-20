@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Colourso">
   <meta name="keywords" content="">
-  <title>JVM内存结构 - Colourso</title>
+  <title>JVM运行时内存区域 - Colourso</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -174,7 +174,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="JVM内存结构">
+            <span class="h2" id="subtitle" title="JVM运行时内存区域">
               
             </span>
 
@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      721 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17
+      10
        分钟
     </span>
   
@@ -244,11 +244,11 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">JVM内存结构</h1>
+            <h1 style="display: none">JVM运行时内存区域</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年7月4日 晚上
+                  本文最后更新于：2022年7月20日 下午
                 
               </p>
             
@@ -259,62 +259,44 @@
 <blockquote>
 <p>预警！仅用于本人快速自学，不过欢迎指正。</p>
 </blockquote>
-<h2 id="JVM内存结构概览"><a href="#JVM内存结构概览" class="headerlink" title="JVM内存结构概览"></a>JVM内存结构概览</h2><p><img src="/jvm_01/jvm_base.png" srcset="/img/loading.gif"></p>
-<p>1.程序计数器</p>
-<p>作用：记住下一条jvm指令的执行地址。</p>
+<h2 id="JVM内存结构概览"><a href="#JVM内存结构概览" class="headerlink" title="JVM内存结构概览"></a>JVM内存结构概览</h2><p><img src="/jvm_01_runtime/jvm_base.png" srcset="/img/loading.gif"></p>
+<h3 id="1-程序计数器"><a href="#1-程序计数器" class="headerlink" title="1.程序计数器"></a>1.程序计数器</h3><p>作用：记住下一条jvm指令的执行地址。</p>
+<blockquote>
+<p>java方法，记录虚拟机字节码指令地址，本地方法，值应当为空</p>
+</blockquote>
 <p>线程私有的，不会存在内存溢出问题</p>
-<p>2.虚拟机栈</p>
-<p>每个线程运行时需要的内存，称为虚拟机栈</p>
-<p>每个栈由多个栈帧组成，对应着每个方法调用时所占用的内存</p>
+<h3 id="2-虚拟机栈"><a href="#2-虚拟机栈" class="headerlink" title="2.虚拟机栈"></a>2.虚拟机栈</h3><p>每个线程运行时需要的内存，称为虚拟机栈</p>
+<blockquote>
+<p>java方法执行的线程内存模型</p>
+</blockquote>
+<p>每个栈由多个栈帧组成，对应着每个方法调用时所占用的内存。</p>
+<p>包含局部变量表： –&gt; 存放了编译期间可知的Java基本数据类型和<strong>对象引用</strong>（一个指向对象的指针）。</p>
 <p>垃圾回收不涉及栈内存：方法调用完成之后就会释放。</p>
-<p>3.本地方法栈</p>
-<p>native方法</p>
+<h3 id="3-本地方法栈"><a href="#3-本地方法栈" class="headerlink" title="3.本地方法栈"></a>3.本地方法栈</h3><p>native方法</p>
 <p>给本地方法运行提供内存空间</p>
-<p>4.堆</p>
-<p>通过new关键字创建的对象，都会使用堆内存。</p>
+<h3 id="4-堆"><a href="#4-堆" class="headerlink" title="4.堆"></a>4.堆</h3><p>通过new关键字创建的对象，都会使用堆内存。</p>
 <p>堆是线程共享的，堆中的对象需要考虑线程安全问题。</p>
+<blockquote>
+<p>此外，堆中可以划分出多个线程私有的分配缓冲区：TLAB，这个可以提升对象分配的效率</p>
+</blockquote>
 <p>堆是有垃圾回收机制的。</p>
 <p>class对象、static静态变量都是放在堆中的。</p>
-<p>5.方法区-线程共享的</p>
-<p>方法区存放类的结构、属性、方法、方法的代码等。</p>
+<p>堆大小可扩展：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs diff"><span class="hljs-deletion">-Xmx </span><br><span class="hljs-deletion">-Xms</span><br></code></pre></td></tr></table></figure>
+<h3 id="5-方法区"><a href="#5-方法区" class="headerlink" title="5.方法区"></a>5.方法区</h3><p>存储已经被<strong>虚拟机加载的类型信息、常量、静态变量、即时编译器编译后的代码缓存等数据</strong>。</p>
 <p>jvm启动时被创建</p>
 <p>JDK1.6的时候，方法区存放于永久代（堆中），运行时常量池还有String Table也放在永久代中。</p>
 <p>JDK1.8中，方法区由<strong>元空间</strong>实现，存放于<strong>本地内存</strong>中，运行时常量池也在元空间之中。而StringTable在堆中</p>
-<p>5.1运行时常量池</p>
+<h4 id="5-1运行时常量池"><a href="#5-1运行时常量池" class="headerlink" title="5.1运行时常量池"></a>5.1运行时常量池</h4><p>这是方法区的一部分</p>
 <p><strong>常量池</strong>是一张<strong>常量表</strong>，虚拟机指令根据这个找到要执行的类名、方法名、参数类型、字面量。eg: 方法名字System.out.println()</p>
 <p>运行时常量池是  .class文件中的，当类被加载的时候，<strong>常量池信息就会放在运行时常量池</strong>，并把里面的符号地址变为真实地址。</p>
+<p>具备动态性：运行期间也可以将新的常量放入池中，eg:String的intern方法。</p>
 <p>6.直接内存</p>
 <p>常用于NIO操作，用于数据缓冲区</p>
 <p>分配回收成本比较高，但是读写性能高</p>
 <p>不受jvm内存回收管理</p>
 <hr>
-<h2 id="类的生命周期"><a href="#类的生命周期" class="headerlink" title="类的生命周期"></a>类的生命周期</h2><p>指一个class文件从加载到卸载的全过程。</p>
-<h3 id="1加载"><a href="#1加载" class="headerlink" title="1加载"></a>1加载</h3><p>找到需要加载的类并把类的信息<strong>加载到方法区</strong>中，然后在堆中实例化一个<strong>Class对象</strong>，作为方法区中这个类的信息的入口。</p>
-<p>！注意：加载和链接并不是先后执行的，而是交叉执行的。但是这两个阶段总的开始时间和完成时间总是固定的：加载阶段总是在连接阶段之前开始，连接阶段总是在加载阶段完成之后完成。</p>
-<h3 id="2链接"><a href="#2链接" class="headerlink" title="2链接"></a>2链接</h3><p>2.1验证</p>
-<p>验证字节码是否合法</p>
-<p>2.2准备</p>
-<p>为类的静态变量分配内存并<strong>设置为默认值</strong>。而对于非静态变量则不会分配内存。</p>
-<p>而如果有final修饰的值并且程序中给了常量，基本数据类型和string类型会直接赋值，其他引用类型还需要在初始化阶段赋值。</p>
-<p>2.3解析</p>
-<p>把常量池中的符号引用转换为直接引用。</p>
-<h3 id="3初始化"><a href="#3初始化" class="headerlink" title="3初始化"></a>3初始化</h3><p>如果一个类被<strong>直接引用</strong>，就会触发类的初始化。在java中，直接引用的情况有：</p>
-<ul>
-<li>通过new关键字实例化对象、读取或设置类的静态变量、调用类的静态方法。</li>
-<li>通过反射方式执行以上三种行为。</li>
-<li>初始化子类的时候，会触发父类的初始化。</li>
-<li>作为程序入口直接运行时（也就是直接调用main方法）</li>
-</ul>
-<p>类的初始化过程是这样的：<strong>按照顺序自上而下运行类中的变量赋值语句和静态语句，如果有父类，则首先按照顺序运行父类中的变量赋值语句和静态语句。</strong></p>
-<p><strong>在类的初始化阶段，只会初始化与类相关的静态赋值语句和静态语句，也就是有static关键字修饰的信息，而没有static修饰的赋值语句和执行语句在实例化对象的时候才会运行。</strong></p>
-<h3 id="4使用"><a href="#4使用" class="headerlink" title="4使用"></a>4使用</h3><h3 id="5卸载"><a href="#5卸载" class="headerlink" title="5卸载"></a>5卸载</h3><p>在类使用完之后，如果满足下面的情况，类就会被卸载：</p>
-<ul>
-<li>该类所有的实例都已经被回收，也就是java堆中不存在该类的任何实例。</li>
-<li>加载该类的ClassLoader已经被回收。</li>
-<li>该类对应的java.lang.Class对象没有任何地方被引用，无法在任何地方通过反射访问该类的方法。</li>
-</ul>
-<p>如果以上三个条件全部满足，jvm就会在方法区垃圾回收的时候对类进行卸载，类的卸载过程其实就是在方法区中清空类信息，java类的整个生命周期就结束了。</p>
-<p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhengzhb/article/details/7517213">详解java类的生命周期_割韭韭的博客-CSDN博客_java生命周期</a></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>Java虚拟机的多线程是通过线程轮流切换、分配处理器执行时间的方式来实现的，在任何一个确定的时刻，一个处理器（对多核处理器来说是一个内核）都只会执行一条线程中的指令。</p>
 
             </div>
             <hr>

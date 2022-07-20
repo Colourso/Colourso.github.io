@@ -1,0 +1,722 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>JVM GC - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="JVM GC">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-07-20 16:09" pubdate>
+        2022年7月20日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      32
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JVM GC</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2022年7月20日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p><strong>概览</strong>：JVM GC</p>
+<a id="more"></a>
+
+<blockquote>
+<p>预警！仅用于本人快速自学，不过欢迎指正。</p>
+</blockquote>
+<h2 id="内存区域与垃圾回收"><a href="#内存区域与垃圾回收" class="headerlink" title="内存区域与垃圾回收"></a>内存区域与垃圾回收</h2><p>Java运行时内存区域：程序计数器、虚拟机栈、本地方法栈、堆和方法区。</p>
+<ul>
+<li>程序计数器、虚拟机栈、本地方法栈这三者线程私有，与线程的生命周期相同。栈中的栈帧随着方法的进入和退出而入栈出栈，<strong>每一个栈中分配多少内存基本上是在类结构确定下来时就已知了，这几个区域分配回收具有确定性</strong>。</li>
+<li>但是堆和方法区，具有不确定性：一个接口的多个实现类需要的内存可能不一样，一个方法所执行的不同条件分支所需要的内存也可能不一样，只有运行期间，才能知道。这一部分是需要垃圾回收所重点关注的。</li>
+</ul>
+<h2 id="对象是否存活"><a href="#对象是否存活" class="headerlink" title="对象是否存活"></a>对象是否存活</h2><p>1.引用计数法，缺陷：循环引用问题</p>
+<h3 id="可达性分析算法"><a href="#可达性分析算法" class="headerlink" title="可达性分析算法"></a>可达性分析算法</h3><p>实现：找到一系列的GC Roots节点，作为起始节点，沿着引用关系搜索，搜索所走过的路径称为引用路径，如何一个对象到GC Roots之间没有引用路径，那就说明对象不再被使用。</p>
+<h3 id="JVM-GC-Roots对象"><a href="#JVM-GC-Roots对象" class="headerlink" title="JVM GC Roots对象"></a>JVM GC Roots对象</h3><ul>
+<li>虚拟机栈中的引用对象，eg：方法参数、局部变量、临时变量</li>
+<li>方法区中的静态属性引用，例如Java中的引用类型静态变量</li>
+<li>方法区常量引用的对象，例如字符串常量池的引用</li>
+<li>java虚拟机内部的引用，例如系统类加载器</li>
+<li>被同步锁持有的对象</li>
+<li>本地方法栈中JNI引用的对象</li>
+<li>等</li>
+</ul>
+<h3 id="四大引用"><a href="#四大引用" class="headerlink" title="四大引用"></a>四大引用</h3><p>强、软、弱、虚</p>
+<ul>
+<li>强：传统引用</li>
+<li>软：SoftReference，系统将要发生内存溢出前进行标记回收</li>
+<li>弱：WeakReference，关联对象存活到下次垃圾回收</li>
+<li>虚：PhantomReference，目的：在关联对象被回收时获得通知</li>
+</ul>
+<blockquote>
+<p>直接内存的回收，Cleaner 继承了 PhantomReference虚引用。</p>
+</blockquote>
+<h3 id="方法区的回收"><a href="#方法区的回收" class="headerlink" title="方法区的回收"></a>方法区的回收</h3><p>虚拟机规范中不强制。</p>
+<p>方法区回收内容：<strong>废弃的常量</strong>和<strong>不再使用的类型</strong>。</p>
+<p>类型不再使用的条件：</p>
+<ol>
+<li>该类的所有实例都已经被回收。堆中不存在该类和派生子类。</li>
+<li>类的加载器被回收。——最好是类加载器可替换的场景，否则难以达到。</li>
+<li>Class对象没有任何对象引用。</li>
+</ol>
+<p>在大量使用反射、动态代理、CGLib等字节码框架这类频繁自定义类加载器的场景，通常都需要Java虚拟机具备类型卸载的能力。</p>
+<h2 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h2><h3 id="分代收集"><a href="#分代收集" class="headerlink" title="分代收集"></a>分代收集</h3><p><strong>经验法则一：绝大多数对象朝生夕灭。</strong></p>
+<p><strong>经验法则二：活过多次垃圾回收的对象更容易存活。</strong></p>
+<p>由经验法则引发出的设计原则：堆应该划分不同的区域，回收对象按照年龄分配到不同区域存储。</p>
+<p>由此有了新生代和老年代，新生代中每次回收都有大批对象死去，而存活的对象会逐步晋升到老年代之中。</p>
+<p>划分区域之后，垃圾收集器可以每次只收集某一部分的垃圾，但是有一个问题：例如，只想回收新生代的垃圾，但是有可能老年代引用了新生代，这样的话回收也必须扫描老年代进行可达性分析。</p>
+<p><strong>经验法则三：跨代引用相对于同代引用来说占比极少。</strong></p>
+<p>根据这条法则，在新生代创建一个全局的数据结构——记忆集，标识出老年代的哪一块内存存在跨代引用，当发生新生代的MinorGC时，只扫描有跨代引用的区域。</p>
+<h3 id="标记-清除"><a href="#标记-清除" class="headerlink" title="标记-清除"></a>标记-清除</h3><p>两阶段：</p>
+<ol>
+<li>标记出所有需要回收的对象（或者标记存活对象）</li>
+<li>统一回收所有被标记的对象</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>执行效率不稳定，标记和清除随着对象数量增长而效率降低</li>
+<li>内存空间碎片化问题，会产生大量内存碎片</li>
+</ol>
+<h3 id="标记-复制"><a href="#标记-复制" class="headerlink" title="标记-复制"></a>标记-复制</h3><p>将可用内存分为容量相等的两块，每次只使用其中的一块，当一块用完时，将还存活的对象移动到另一块，再把已经使用过的清理掉。</p>
+<p>优点：实现简单，不用考虑空间碎片。</p>
+<p>缺点：空间浪费，在对象存活率较高的时候会进行太多的内存复制，老年代最好不要使用。</p>
+<p>目前，主流虚拟机都使用它来回收新生代。</p>
+<p>HotSpot虚拟机将新生代分为Eden区、Survivor From区、Survivor To区，8 :1:1。</p>
+<p>当Survivor 区不足够容纳一次MinorGC时，使用老年代来分配担保。</p>
+<h3 id="标记-整理"><a href="#标记-整理" class="headerlink" title="标记-整理"></a>标记-整理</h3><p>针对老年代的垃圾回收，提出的算法。</p>
+<ol>
+<li>标记存活对象</li>
+<li>将所有存活的对象向内存的一端移动，然后清理掉边界意外的内存。</li>
+</ol>
+<p>问题：移动存活对象 —— 需要更新引用，必须全程暂停用户程序才能够使用， —— 称为 Stop The World。</p>
+<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><p>垃圾收集不可知、 不可控</p>
+<h3 id="1-serial-收集器-与-serial-old"><a href="#1-serial-收集器-与-serial-old" class="headerlink" title="1. serial 收集器 与 serial-old"></a>1. serial 收集器 与 serial-old</h3><p>单线程收集器， —— 进行垃圾收集的时候，必须暂停其他工作线程，直到收集结束。</p>
+<ul>
+<li>新生代采取<strong>复制</strong>算法，暂停所有线程</li>
+<li>老年代采取<strong>标记-整理</strong>算法，暂停所有线程</li>
+</ul>
+<p>适用场景：客户端模式下，单核处理器或者处理器核心比较少。</p>
+<h3 id="2-ParNew"><a href="#2-ParNew" class="headerlink" title="2. ParNew"></a>2. ParNew</h3><p>serial收集器的多线程版本，GC时多线程进行处理。</p>
+<h3 id="3-Parallel-Scavenge收集器-与-Parallel-old"><a href="#3-Parallel-Scavenge收集器-与-Parallel-old" class="headerlink" title="3. Parallel Scavenge收集器 与 Parallel -old"></a>3. Parallel Scavenge收集器 与 Parallel -old</h3><p>新生代收集器，基于<strong>标记-复制</strong>算法，并行的多线程收集器。</p>
+<ul>
+<li>可控制吞吐量：控制用户代码时间 与 处理器总时间比值。</li>
+</ul>
+<p>老年代收集器，支持多线程并发收集，基于标记-整理</p>
+<h3 id="4-CMS收集器"><a href="#4-CMS收集器" class="headerlink" title="4.CMS收集器"></a>4.CMS收集器</h3><p>CMS —- Concurrent Mark Sweep</p>
+<p>目的：获取最短回收停顿时间。</p>
+<p>采用：<strong>标记-清除算法</strong>。</p>
+<p><strong>运行过程</strong></p>
+<ol>
+<li>初始标记，STW，<strong>快速</strong>标记GC Roots关联的直接对象</li>
+<li>并发标记，从<code>GC Roots关联的直接对象</code>查找对象图中的垃圾，耗时时间长，但是GC线程与用户线程并发执行。</li>
+<li>重新标记，STW，修正并发标记期间，标记变动的那一部分，耗时短。</li>
+<li>并发清除，清理删除标记阶段已经死亡的对象，GC线程与用户线程并发执行</li>
+</ol>
+<p><strong>缺点</strong></p>
+<ol>
+<li><p>在并发阶段会占用处理器的一部分资源，导致应用程序变慢，降低总吞吐量。</p>
+</li>
+<li><p>无法处理浮动垃圾，可能会引起Full GC 和 STW。</p>
+<blockquote>
+<p>浮动垃圾：在并发标记与并发清除期间产生的新垃圾这一次GC中不能回收，称之为浮动垃圾。为了确保有足够的空间，CMS不能在快满的时候进行收集，而是达到了一定比例就需要收集。如果预留的空间无法满足程序分配，就会出现并发失败现象，这是只能使用STW，然后Serial-old收集器来进行老年代垃圾回收，这样的停顿时间会很长。</p>
+</blockquote>
+</li>
+<li><p>基于标记-清除垃圾算法，会产生大量内存碎片。</p>
+</li>
+</ol>
+<h3 id="5-G1收集器"><a href="#5-G1收集器" class="headerlink" title="5. G1收集器"></a>5. G1收集器</h3><p>G1 —- Garbage First收集器</p>
+<p>里程碑式的垃圾收集器 —— 局部收集、基于Region的内存布局。</p>
+<p>前面的收集器：分代思想来做处理。</p>
+<p>G1: 面向堆内存的任何部分来组成回收集，虽保留新生代、老年代的概念，但区域不再固定，而是集合。</p>
+<p>将Java堆分成大小相等的独立区域Region,此外还有区域专门存储大对象 —— 超过Region一半的区域。</p>
+<h3 id="其他：新生代-老年代比例划分"><a href="#其他：新生代-老年代比例划分" class="headerlink" title="其他：新生代-老年代比例划分"></a>其他：新生代-老年代比例划分</h3><p>默认的，新生代 ( Young ) 与老年代 ( Old ) 的比例的值为 1:2 ( 该值可以通过参数 –XX:NewRatio 来指定 )，即：<strong>新生代 ( Young ) = 1/3 的堆空间大小</strong>。<strong>老年代 ( Old ) = 2/3 的堆空间大小</strong>。其中，新生代 ( Young ) 被细分为 Eden 和 两个 Survivor 区域，这两个 Survivor 区域分别被命名为 from 和 to，以示区分。<br>默认的，<strong>Eden : from : to = 8 : 1 : 1</strong> ( 可以通过参数 –XX:SurvivorRatio 来设定 )，即： Eden = 8/10 的新生代空间大小，from = to = 1/10 的新生代空间大小。</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/liuqing576598117/p/10277053.html">JVM老年代和新生代的比例 - 一中晴哥威武 - 博客园 (cnblogs.com)</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JVM/">JVM</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/java_13_nio/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JavaNIO</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/jvm_03_classload/">
+                        <span class="hidden-mobile">Java 类与生命周期</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+
+  
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
