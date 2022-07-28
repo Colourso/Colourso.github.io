@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.2k 字
+      2.5k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      32
+      37
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年7月20日 晚上
+                  本文最后更新于：2022年7月28日 下午
                 
               </p>
             
@@ -365,6 +365,25 @@
 <p>将Java堆分成大小相等的独立区域Region,此外还有区域专门存储大对象 —— 超过Region一半的区域。</p>
 <h3 id="其他：新生代-老年代比例划分"><a href="#其他：新生代-老年代比例划分" class="headerlink" title="其他：新生代-老年代比例划分"></a>其他：新生代-老年代比例划分</h3><p>默认的，新生代 ( Young ) 与老年代 ( Old ) 的比例的值为 1:2 ( 该值可以通过参数 –XX:NewRatio 来指定 )，即：<strong>新生代 ( Young ) = 1/3 的堆空间大小</strong>。<strong>老年代 ( Old ) = 2/3 的堆空间大小</strong>。其中，新生代 ( Young ) 被细分为 Eden 和 两个 Survivor 区域，这两个 Survivor 区域分别被命名为 from 和 to，以示区分。<br>默认的，<strong>Eden : from : to = 8 : 1 : 1</strong> ( 可以通过参数 –XX:SurvivorRatio 来设定 )，即： Eden = 8/10 的新生代空间大小，from = to = 1/10 的新生代空间大小。</p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/liuqing576598117/p/10277053.html">JVM老年代和新生代的比例 - 一中晴哥威武 - 博客园 (cnblogs.com)</a></p>
+<h3 id="其他：G1收集器的适用场景？"><a href="#其他：G1收集器的适用场景？" class="headerlink" title="其他：G1收集器的适用场景？"></a>其他：G1收集器的适用场景？</h3><ol>
+<li><p>面向服务端应用，针对具有大内存、多处理器的机器。</p>
+</li>
+<li><p>最主要的应用是需要低 GC 延迟，并具有大堆的应用程序提供解决方案。</p>
+</li>
+</ol>
+<p>如：在堆大小约 6GB 或更大时，可预测的暂停时间可以低于 0.5秒；（G1 通过每次只清理一部分而不是全部的 Region 的增量式清理来保证每次 GC 停顿时间不会过长）。</p>
+<ol start="3">
+<li><p>用来替换掉 JDK1.5 中的 CMS 收集器，在下面的情况时，使用 G1 可能比 CMS 好。</p>
+<ol>
+<li>超过 50% 的 Java 堆被活动数据占用</li>
+<li>对象分配频率或年代提升频率变化很大</li>
+<li>GC停顿时间过长（长于0.5至1秒）</li>
+</ol>
+</li>
+<li><p>HotSpot 垃圾收集器里，除了 G1 以外，其他的垃圾收集器使用内置的 JVM 线程执行 GC 的多线程操作，而 G1 GC 可以采用应用线程承担后台运行的 GC 工作，即当 JVM 的 GC 线程处理速度慢时，系统会调用应用程序线程帮助加速垃圾回收过程。</p>
+</li>
+</ol>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/chengqiuming/article/details/119271564">https://blog.csdn.net/chengqiuming/article/details/119271564</a></p>
 
             </div>
             <hr>

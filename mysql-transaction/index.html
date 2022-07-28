@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Colourso">
   <meta name="keywords" content="">
-  <title>MySQL事务与隔离级别 - Colourso</title>
+  <title>MySQL事务特性与隔离级别以及事务分类 - Colourso</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -174,7 +174,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="MySQL事务与隔离级别">
+            <span class="h2" id="subtitle" title="MySQL事务特性与隔离级别以及事务分类">
               
             </span>
 
@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      518 字
+      772 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      11
        分钟
     </span>
   
@@ -244,11 +244,11 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">MySQL事务与隔离级别</h1>
+            <h1 style="display: none">MySQL事务特性与隔离级别以及事务分类</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年7月14日 下午
+                  本文最后更新于：2022年7月24日 晚上
                 
               </p>
             
@@ -256,14 +256,27 @@
               <p><strong>概览</strong>：MySQL事务</p>
 <a id="more"></a>
 
-
-
-<h2 id="RR级别的问题？这个会发生吗？"><a href="#RR级别的问题？这个会发生吗？" class="headerlink" title="RR级别的问题？这个会发生吗？"></a>RR级别的问题？这个会发生吗？</h2><p>现在假设一个抽奖活动项目，如果两个用户同时抽奖，而且同时中奖。两者都进入了中奖的事务。A事务扣减了奖品数量，B也执行了扣减数量。假设奖品数量是N，如果是可重复读，那么，如果两个事务并行进行，那么不论A有没有提交，B读到的数量都是N，执行后为N-1，而事务A也是N-1，这样不就有问题了吗？我们期望的是N-2。<br>那么实际上会出现这样的问题吗？<br>可以了解一下：<code>快照读</code>、<code>当前读</code></p>
+<h2 id="事务四大特性-ACID"><a href="#事务四大特性-ACID" class="headerlink" title="事务四大特性 ACID"></a>事务四大特性 ACID</h2><h2 id="数据库隔离级别"><a href="#数据库隔离级别" class="headerlink" title="数据库隔离级别"></a>数据库隔离级别</h2><h2 id="事务的分类"><a href="#事务的分类" class="headerlink" title="事务的分类"></a>事务的分类</h2><p>事务分类：</p>
+<ol>
+<li>扁平事务</li>
+<li>带有保存点的扁平事务</li>
+<li>链事务</li>
+<li>嵌套事务</li>
+<li>分布式事务</li>
+</ol>
+<h3 id="1-扁平事务"><a href="#1-扁平事务" class="headerlink" title="1.扁平事务"></a>1.扁平事务</h3><p>最简单的一种事务，也是生产环境中最频繁的事务。</p>
+<p>扁平的意思：所有的操作都处于同一层次之中，期间的操作是原子的，要么都执行，要么都回滚。</p>
+<p>缺点：不能提交或者回滚<strong>事务的某一部分</strong>，或者想要分步骤提交事务时，都是不支持的。</p>
+<h3 id="2-带有保存点的扁平事务"><a href="#2-带有保存点的扁平事务" class="headerlink" title="2.带有保存点的扁平事务"></a>2.带有保存点的扁平事务</h3><p>允许在事务执行过程中回滚到同一个事务中的较早的一个状态。</p>
+<p>因为某些事务在执行过程中出现错误，但是这不一定会导致所有的操作都无效，放弃整个事务的开销就有点大了。</p>
+<p>使用保存点来记录事务的某个状态，发生错误的时候</p>
+<h3 id="3-链事务"><a href="#3-链事务" class="headerlink" title="3.链事务"></a>3.链事务</h3><h2 id="快照读与当前读"><a href="#快照读与当前读" class="headerlink" title="快照读与当前读"></a>快照读与当前读</h2><p>现在假设一个抽奖活动项目，如果两个用户同时抽奖，而且同时中奖。两者都进入了中奖的事务。A事务扣减了奖品数量，B也执行了扣减数量。假设奖品数量是N，如果是可重复读，那么，如果两个事务并行进行，那么不论A有没有提交，B读到的数量都是N，执行后为N-1，而事务A也是N-1，这样不就有问题了吗？我们期望的是N-2。<br>那么实际上会出现这样的问题吗？<br>可以了解一下：<code>快照读</code>、<code>当前读</code></p>
 <p>在事务中，执行普通select查询之后，<strong>会创建快照</strong>，后面再执行相同的select语句时，查询的其实是前面生成的快照。这也就是为什么会有可重复读。</p>
 <p>如果执行下列语句的话</p>
 <p>select * from table where ? lock in share mode;<br>select * from table where ? <code>for update</code>;<br>insert into table values (…);<br>update table set ? where ?;<br>delete from table where ?;</p>
 <p>会执行当前读，获取最新数据。回到前面的问题，如果事务B执行N-1操作，会触发当前读，读取事务A提交后的数据，也就是N-1，在此基础上执行-1操作，最终N变成N-2。</p>
-<p>这种场景下会遇到另一个问题：并发更新<br>上面解决了事务A已经提交的额情况。但如果事务A更新奖品数量后但还未提交呢？此时事务B执行当前读拿到的也是N啊。了解数据库锁机制的话，就不会有这种困惑了。事务A提交前，会一直持有排他锁（具体是行锁还是表锁，要看查询条件有没有走索引），此时事务B更新是会阻塞的。也就是说，只有事务A提交，或回滚之后，事务B才能获得排它锁，从而进行更新奖品的操作。</p>
+<p>这种场景下会遇到另一个问题：并发更新</p>
+<p>上面解决了事务A已经提交的额情况。但如果事务A更新奖品数量后但还未提交呢？此时事务B执行当前读拿到的也是N啊。了解数据库锁机制的话，就不会有这种困惑了。事务A提交前，会一直持有排他锁（具体是行锁还是表锁，要看查询条件有没有走索引），此时事务B更新是会阻塞的。也就是说，只有事务A提交，或回滚之后，事务B才能获得排它锁，从而进行更新奖品的操作。</p>
 <p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/gu_wen_jie/article/details/88540918">https://blog.csdn.net/gu_wen_jie/article/details/88540918</a></p>
 
             </div>

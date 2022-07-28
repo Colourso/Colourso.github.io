@@ -1,0 +1,730 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>InnoDB引擎 内存概览 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="InnoDB引擎 内存概览">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-07-24 09:34" pubdate>
+        2022年7月24日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      33
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">InnoDB引擎 内存概览</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2022年7月24日 下午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p><strong>概览</strong>：InnoDB引擎</p>
+<a id="more"></a>
+
+<h2 id="InnoDB特点"><a href="#InnoDB特点" class="headerlink" title="InnoDB特点"></a>InnoDB特点</h2><ol>
+<li>行锁设计</li>
+<li>支持MVCC</li>
+<li>支持外键</li>
+<li>提供一致性非锁定读</li>
+</ol>
+<h2 id="InnoDB-内存"><a href="#InnoDB-内存" class="headerlink" title="InnoDB 内存"></a>InnoDB 内存</h2><p>InnoDB内存分类：</p>
+<ol>
+<li>缓冲池</li>
+<li>重做日志缓冲</li>
+<li>额外内存池</li>
+</ol>
+<p>InnoDB存储引擎基于磁盘存储，由于CPU速度与磁盘速度之间的鸿沟，需要使用<strong>缓冲池技术</strong>来提高数据库的整体性能。</p>
+<p>缓冲池其实就是一块<strong>内存区域</strong>，通过内存速度来弥补磁盘速度较慢对数据库的影响。</p>
+<p>整体操作：</p>
+<ul>
+<li>数据库读取页，将磁盘中的页放到缓冲池，下一次再读相同页时，首先判断该页是否在缓存中，若在，命中缓存，否则读取磁盘。</li>
+<li>数据库修改页，先修改在缓存中的页，然后再以一定的频率写回磁盘。 —— 使用<strong>Checkpoint机制</strong>刷回。</li>
+</ul>
+<p>缓存池中的数据：</p>
+<ul>
+<li>索引页</li>
+<li>数据页</li>
+<li>undo页</li>
+<li>插入缓冲（insert buffer）</li>
+<li>自适应哈希索引</li>
+<li>锁信息等</li>
+</ul>
+<p>InnoDB还允许<strong>多个缓冲池实例</strong>，每个页根据哈希值分配到不同的缓冲池实例中 —— 减少数据库内部资源竞争，增加数据库并发处理能力。</p>
+<h3 id="重做日志缓冲-redo-log-buffer"><a href="#重做日志缓冲-redo-log-buffer" class="headerlink" title="重做日志缓冲 redo log buffer"></a>重做日志缓冲 redo log buffer</h3><p>先将重做日志信息放入缓冲区，在按照一定的频率刷到重做日志文件中。</p>
+<p>一般情况下，<strong>重做日志缓冲区不大</strong>，8MB，因为<strong>每一秒</strong>都会将重做日志缓冲刷新到文件。</p>
+<p>刷新场景：</p>
+<ol>
+<li>Master Thread每一秒刷新，</li>
+<li>每个事务提交时会刷新，</li>
+<li>当重做日志缓冲池剩余空间小于一半时，也刷新</li>
+</ol>
+<h2 id="InnoDB内存-——-LRU、Free-List、Flush-List"><a href="#InnoDB内存-——-LRU、Free-List、Flush-List" class="headerlink" title="InnoDB内存 —— LRU、Free List、Flush List"></a>InnoDB内存 —— LRU、Free List、Flush List</h2><p>LRU —— Latest Recent Used，最近最少使用。</p>
+<p><strong>缓冲池使用LRU来管理，最频繁使用的再LRU List的前端，最少使用的在LRU List的尾端，当缓存池放不下时，首先释放尾端数据。</strong></p>
+<h3 id="LRU优化"><a href="#LRU优化" class="headerlink" title="LRU优化"></a>LRU优化</h3><p>InnoDB在LRU列表中加入了midpoint位置，新读取到的页，不是放在LRU列表的首部，而是放在LRU列表的midpoint位置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">参数 innodb_old_blocks_pct<br></code></pre></td></tr></table></figure>
+<p>默认位于距离首部长度5/8的位置。</p>
+<p>InnoDB存储引擎，把midpoint之后的列表称为old列表，之前的列表称为new列表 —— 存储活跃的热点数据。</p>
+<blockquote>
+<p><strong>为什么要做这样的优化呢？</strong></p>
+<p>对于某些sql，它会做索引或者数据的扫描操作，会加载很多的页，但是这些页可能并非会被频繁使用，如果页放到了LRU首部，会把很多真正的热点数据移除，影响性能。</p>
+</blockquote>
+<p>那么就还需要一个机制，来讲那个数据放入热点数据中</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">innodb_old_blocks_time</span><br></code></pre></td></tr></table></figure>
+<p>这个用来表示当前页读取到midpoint位置之后需要过多久才会加入到LRU列表前端。</p>
+<h3 id="Free-List"><a href="#Free-List" class="headerlink" title="Free List"></a>Free List</h3><p>表示当前还<strong>空闲着的缓冲池的页</strong>的集合。</p>
+<p>当Free List不为空时，使用其中的空闲页；当没有空闲页的时候，新增页面需要使用LRU来淘汰替换。</p>
+<p>但是并不是所有申请的页都会放到LRU列表中，类似自适应哈希索引、Lock信息等时不需要使用LRU维护的。</p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lijuncheng963375877/article/details/124011204">https://blog.csdn.net/lijuncheng963375877/article/details/124011204</a></p>
+<h3 id="Flush-List"><a href="#Flush-List" class="headerlink" title="Flush List"></a>Flush List</h3><p>LRU列表中被修改的页称为脏页，即缓冲池中的数据和磁盘中的数据不一致。</p>
+<p>Flush List列表中的页就是脏页，使用Checkpoint机制来将页刷回磁盘。</p>
+<p>这里的脏页既在LRU中，又在Flush List中。</p>
+<h2 id="Checkpoint技术"><a href="#Checkpoint技术" class="headerlink" title="Checkpoint技术"></a>Checkpoint技术</h2><p>回顾：</p>
+<ol>
+<li>引入缓冲池技术来协调CPU与磁盘之间速度不一致的问题。数据更新操作都是先在缓冲池中完成的，数据修改后就是脏页，需要刷回磁盘。</li>
+<li>一修改就刷新磁盘这样的开销也是很大的，例如修改总是在某几页中。此外如果刷盘的过程中磁盘宕机，数据就丢失无法恢复，由此引入了Write Ahead Log策略，<strong>先写重做日志，再刷盘</strong>。</li>
+</ol>
+<p>对于重做日志和刷盘来说，要考虑几个点：</p>
+<ol>
+<li>对于重做日志，我怎么知道数据库的哪一部分数据还没有更新呢？</li>
+<li>缓冲池不够用时？脏页如何处理？</li>
+<li>如果重做日志不可用了？怎么处理？</li>
+</ol>
+<p>引入checkpoint，它表示在其之前的页一定都刷回了磁盘，宕机发生时，只对checkpoint及其之后的页做恢复，这样可<strong>缩短恢复时间</strong>。</p>
+<p>当缓冲池不够用的时候，LRU会溢出最近最少使用的页面，若页面为脏页，则需要强制执行checkpoint，将脏页刷回磁盘。</p>
+<blockquote>
+<p>脏页的修改数据都是存放在redo log中的，如果脏页不再管理了，那么对应的redo log中的数据应该刷到磁盘，下一次读取的时候就是最新的数据了。</p>
+</blockquote>
+<p>那么什么时候会出现重做日志不可用呢？</p>
+<p>设计上，重做日志是循环使用的，而不是无限增大的，如果出现了重做日志写了一圈写到了checkpoint的位置，并且还需要继续写的情况时，这是重做日志就不可用了。</p>
+<p>做法：先强制checkpoint技术，刷新页，再继续使用重做日志。</p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/69da2c9939d2">https://www.jianshu.com/p/69da2c9939d2</a></p>
+<h3 id="Async-sync-Flush-Checkpoint-——-解决重做日志不可用"><a href="#Async-sync-Flush-Checkpoint-——-解决重做日志不可用" class="headerlink" title="Async/sync Flush Checkpoint —— 解决重做日志不可用"></a>Async/sync Flush Checkpoint —— 解决重做日志不可用</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment"># 计算未刷盘的数据量</span><br><span class="hljs-attr">checkpoint_age</span> = 已经写入的重做日志位置LSN - 已经刷盘的chechpoint_lsn<br></code></pre></td></tr></table></figure>
+<p>两个标志位</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">async_water_mark</span> = <span class="hljs-number">0</span>.<span class="hljs-number">75</span> * total_redo_log_file_size<br><span class="hljs-attribute">sync_water_mark</span> = <span class="hljs-number">0</span>.<span class="hljs-number">9</span> * total_redo_log_file_size<br></code></pre></td></tr></table></figure>
+<ul>
+<li>checkpoint_age &lt; async_water_mark，不需要刷盘</li>
+<li>async_water_mark &lt;= checkpoint_age &lt; sync_water_mark, 刷盘，使其满足第一个条件位置</li>
+<li>sync_water_mark &gt; checkpoint_age ，一般很少发生，触发Sync Flush操作，使其满足第一个条件。</li>
+</ul>
+<p>使用这种方式，保证了重做日志循环使用的可能性。</p>
+<h2 id="InnoDB其他优点-——-插入缓冲"><a href="#InnoDB其他优点-——-插入缓冲" class="headerlink" title="InnoDB其他优点 —— 插入缓冲"></a>InnoDB其他优点 —— 插入缓冲</h2><p>Insert Buffer是一种提高非主键索引、非唯一索引的数据的索引插入、更新性能的设计。</p>
+<p>InnoDB存储引擎的索引使用了B+树，索引可分为聚簇索引和非聚簇索引两类。</p>
+<p>新插入行时，一般是按照主键递增的顺序做的插入，对于<strong>聚簇索引</strong>来说，一般是顺序的，<strong>不涉及随机读</strong>。</p>
+<p>但是对于表的其他字段，可能会产生一些<strong>非聚簇的、非唯一的索引</strong>，对于这种索引的叶子节点插入不是顺序的了，而是需要离散的访问非聚集索引页，这是<strong>随机读</strong>的过程。</p>
+<p>Insert Buffer设计：对于非聚簇索引的插入或者更新操作，不是每一次直接插入到索引页中，而是：</p>
+<ol>
+<li>先判断非聚集索引页在缓冲池吗？在的话直接更新</li>
+<li>不再的话，先放入Insert Buffer之中</li>
+<li>再以一定的频率和情况将Insert Buffer中的数据和二级索引叶子节点合并。</li>
+</ol>
+<p>适用条件：非聚簇索引、非唯一索引。</p>
+<blockquote>
+<p>为什么是非唯一索引？</p>
+<p>因为插入缓冲中时，引擎并不去查找索引页来判断插入的记录的唯一性，如果要验证唯一性，就需要离散读，那就没必要使用这个了。</p>
+</blockquote>
+<p>缺点：当大量数据都使用了Insert Buffer时候，若发生了宕机，则恢复的时候可能需要很长时间。</p>
+<p>InnoDB 1.0.x之后，引入了Change Buffer，可看作Insert Buffer的升级版。</p>
+<h2 id="InnoDB其他优点-——-两次写-double-write"><a href="#InnoDB其他优点-——-两次写-double-write" class="headerlink" title="InnoDB其他优点 —— 两次写 double write"></a>InnoDB其他优点 —— 两次写 double write</h2><p>数据库宕机的时候，可能引擎正在写入某个页到磁盘中，但是只写了一部分，这种称为<strong>部分写失效</strong>。</p>
+<p>发生写失效，可以使用重做日志来恢复吗？</p>
+<ul>
+<li>重做日志记录的是对<strong>一个页的物理操作</strong>，eg,偏移量800的地方，写’aaaa’</li>
+<li>如果页发生了损坏，那么重做日志就没有意义了。</li>
+<li>即，<strong>重做前，需要一个页的副本，写失效时，先通过页副本还原，再写重做日志。</strong></li>
+</ul>
+<p>实现：</p>
+<p>doublewrite由两部分组成：</p>
+<ol>
+<li>内存中的doublewrite buffer, 2MB</li>
+<li>物理磁盘上共享表空间中的连续128页（一页=16KB），也就是2个区，大小也2MB</li>
+</ol>
+<p>对缓冲池脏页刷新时，并不直接写磁盘，而是先将脏页复制到内存中的doublewrite buffer，然后将doublewrite buffer分成2份，每次1MB顺序写入共享表的物理磁盘，最后马上同步磁盘。</p>
+<p>未完待续…</p>
+<p>参考书籍：《MySQL技术内幕 —— InnoDB存储引擎》</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/SQL/">SQL</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/SQL/">SQL</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/gather-blog/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【置顶】博客导航</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/sys_design_01/">
+                        <span class="hidden-mobile">系统设计 —— 设计一个稳定的健康码系统</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+
+  
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
