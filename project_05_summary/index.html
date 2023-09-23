@@ -1,0 +1,753 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.jpg">
+  <link rel="icon" type="image/png" href="/img/colourso-logo.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Colourso">
+  <meta name="keywords" content="">
+  <title>Spring项目开发简单总结 - Colourso</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"colourso.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz","app_key":"VxW97jqxtcjGJrb9AWmPKqrK","server_url":"https://mtnfjgph.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Colourso</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/collection/">
+                <i class="iconfont icon-note"></i>
+                collection
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/myline/">
+                <i class="iconfont icon-note"></i>
+                myline
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://s2.ax1x.com/2020/02/27/3wrCM4.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Spring项目开发简单总结">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-09-09 16:50" pubdate>
+        2021年9月9日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      54
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Spring项目开发简单总结</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2023年9月23日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p>项目开发简单总结</p>
+<a id="more"></a>
+
+<h3 id="1-统一结果集封装"><a href="#1-统一结果集封装" class="headerlink" title="1.统一结果集封装"></a>1.统一结果集封装</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Result</span>&lt;<span class="hljs-title">T</span>&gt; </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> code;<br>    <span class="hljs-keyword">private</span> String msg;<br>    <span class="hljs-keyword">private</span> T data;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>给前端返回的结果都是通过如上的对象进行封装，统一json格式。</p>
+<p>成功结果：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">200</span>,<br>    <span class="hljs-attr">&quot;msg&quot;</span>: <span class="hljs-string">&quot;操作成功&quot;</span>,<br>    <span class="hljs-attr">&quot;data&quot;</span>: <span class="hljs-literal">null</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>失败结果：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">403</span>,<br>    <span class="hljs-attr">&quot;msg&quot;</span>: <span class="hljs-string">&quot;参数不合法&quot;</span>,<br>    <span class="hljs-attr">&quot;data&quot;</span>: <span class="hljs-string">&quot;2不存在！&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>结果形如：</p>
+<p><img src="/project_05_summary/result.jpg" srcset="/img/loading.gif"></p>
+<p>既然统一结果集封装，那么状态码也应当统一，通过构造枚举类来统一状态码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">ResultCodeEnum</span> </span>&#123;<br><br>    SUCCESS(<span class="hljs-number">200</span>, <span class="hljs-string">&quot;操作成功&quot;</span>), <br>    DATABASE_ERROR(<span class="hljs-number">402</span>, <span class="hljs-string">&quot;数据库错误，请稍后再试&quot;</span>),<br>    DATABASE_OPERATION_ERROR(<span class="hljs-number">402</span>, <span class="hljs-string">&quot;数据库操作失败，请稍后再试&quot;</span>), <br>    PARAMETER_ERROR(<span class="hljs-number">403</span>, <span class="hljs-string">&quot;参数不合法&quot;</span>), USERNAME_EXIST_ERROR(<span class="hljs-number">404</span>, <span class="hljs-string">&quot;用户名已存在&quot;</span>),<br>    ID_WRONGFUL_ERROR(<span class="hljs-number">405</span>, <span class="hljs-string">&quot;id不合法&quot;</span>);<br><br>    <span class="hljs-keyword">private</span> Integer code;<br>    <span class="hljs-keyword">private</span> String msg;<br><br>    ResultCodeEnum(Integer code, String msg) &#123;<br>        <span class="hljs-keyword">this</span>.code = code;<br>        <span class="hljs-keyword">this</span>.msg = msg;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>返回结果集应当会被频繁调用，可以构造工厂方法提供工具类方便程序员使用。</p>
+<h3 id="2-lombok的使用"><a href="#2-lombok的使用" class="headerlink" title="2.lombok的使用"></a>2.lombok的使用</h3><p>虽然导师不推荐使用lombok，因为<strong>“它会降低可读性、破坏封装性”</strong>。</p>
+<p>但是使用起来还是挺舒服的，在项目中主要用到的地方在于实体类和Dto之中，用于生成getter、setter方法、toString方法、无参构造等常见的模板方法，以及需要打日志的地方使用@Slf4j类引入日志对象。</p>
+<ul>
+<li>在需要打日志的类上添加注解<code>@Slf4j</code>，然后再需要的地方直接使用log对象来打日志即可。</li>
+</ul>
+<h3 id="3-参数校验–javax-validation-constraints"><a href="#3-参数校验–javax-validation-constraints" class="headerlink" title="3.参数校验–javax.validation.constraints"></a>3.参数校验–javax.validation.constraints</h3><p>这是基于注解的参数校验方式，比以往的在controller层或者service层做参数校验简单方便。</p>
+<p>使用这个注解之后，可以将参数检验的时机放在前端的传递的参数复制给后端的过程中。</p>
+<p>controller层：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@PostMapping(&quot;/detail&quot;)</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> Result&lt;Object&gt; <span class="hljs-title">detailDocumentByVersion</span><span class="hljs-params">(<span class="hljs-meta">@Validated</span> <span class="hljs-meta">@RequestBody</span> DocCodeVersionDto docCodeVersionDto)</span> </span>&#123;&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>只有当传递JSON数据格式的时候才能确保可以校验，故应当加<code>@RequestBody</code>注解来接受，同时要使用<code>@Validated</code>注解来使用。</li>
+</ul>
+<p>对应的Dto</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DocCodeVersionDto</span> </span>&#123;<br><br>    <span class="hljs-meta">@NotBlank(message = &quot;xxx不能为空&quot;)</span><br>    <span class="hljs-meta">@Size(max = 100,message = &quot;xxx过长，100字符以内&quot;)</span><br>    <span class="hljs-keyword">private</span> String docCode;<br><br>    <span class="hljs-meta">@NotBlank(message = &quot;版本字段不能为空&quot;)</span><br>    <span class="hljs-meta">@Pattern(regexp = &quot;^((?!0+\\.0+\\.0+).)*$&quot;,message = &quot;版本格式不合理，不能是0.0.0&quot;)</span><br>    <span class="hljs-meta">@Pattern(regexp = &quot;^(\\d+\\.)&#123;2&#125;(\\d+)$&quot;,message = &quot;版本不符合规则，应当x.x.x格式&quot;)</span><br>    <span class="hljs-keyword">private</span> String docVersion;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>@NotBlank</code>：非空，也不能是空格，否则会报<code>MethodArgumentNotValidException</code>异常，附带message中的信息。</li>
+<li><code>@Size</code>：可以指定min、max来进行限定接受的长度。</li>
+<li><code>@Pattern</code>：可以指定应当要匹配的正则表达式。</li>
+</ul>
+<p>然后仅仅有参数校验是不够的，当参数校验发生问题的时候，会有异常然后返回bad request的结果。</p>
+<p><img src="/project_05_summary/badrequest.png" srcset="/img/loading.gif"></p>
+<p>观察返回就可以发现，这和上面的统一结果集封装想要的结果不一样，一种常见的作法就是捕获异常，然后进行异常处理。</p>
+<h3 id="4-全局异常处理"><a href="#4-全局异常处理" class="headerlink" title="4.全局异常处理"></a>4.全局异常处理</h3><p>全局异常处理就是为了应对上面的这种情况而作的，全局捕获对应的异常，然后再统一封装结果集，返回给前端。</p>
+<p>对于上面的异常<code>MethodArgumentNotValidException</code>，创建出一个方法对应捕获即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestControllerAdvice</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GlobalExceptionHandler</span> </span>&#123;<br>    <br>    <span class="hljs-meta">@ExceptionHandler(value = MethodArgumentNotValidException.class)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Result&lt;Object&gt; <span class="hljs-title">inValidMethodArgsException</span><span class="hljs-params">(MethodArgumentNotValidException e)</span> </span>&#123;<br>        String errMessage = e.getBindingResult().getAllErrors().get(<span class="hljs-number">0</span>).getDefaultMessage();<br>        <span class="hljs-keyword">return</span> ResultUtil.getErrorResult(ResultCodeEnum.PARAMETER_ERROR, errMessage);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>@RestControllerAdvice</code>注解用于开启全局的异常捕获，然后再使用注解<code>@ExceptionHandler</code>定义要捕获的异常类型。</li>
+<li><code>getDefaultMessage()</code>是获取自定义的异常提示信息，拿到这个异常信息可能需要摸索，可以通过调试的时候翻找来确认信息存储的字段。</li>
+</ul>
+<p>除了因为参数校验而产生的异常，这里还可以捕获在程序中使用断言语句<code>Assert</code>而产生的异常。</p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/47aeeba6414c">https://www.jianshu.com/p/47aeeba6414c</a></p>
+<h3 id="5-Controller层"><a href="#5-Controller层" class="headerlink" title="5.Controller层"></a>5.Controller层</h3><p>注解：<code>@RestController</code>，相当于<code>@RespomseBody</code>+<code>@Controller</code>两者的结合，这样默认返回的都是json数据。</p>
+<p>而仅仅使用<code>@Controller</code>注解则返回的是对应的页面。</p>
+<p>注解：<code>@RequestMapping</code>用于地址映射，可以放在类名或者方法名之上。</p>
+<p><code>@PostMapping</code>实际就是<code>@RequestMapping(method=RequestMethod.POST)</code>.</p>
+<h4 id="接受json参数"><a href="#接受json参数" class="headerlink" title="接受json参数"></a>接受json参数</h4><ul>
+<li>使用<code>@RequestBody</code>注解来接受JSON参数</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@PostMapping(&quot;/detail&quot;)</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> Result&lt;Object&gt; <span class="hljs-title">detailDocumentByVersion</span><span class="hljs-params">(<span class="hljs-meta">@Validated</span> <span class="hljs-meta">@RequestBody</span> DocCodeVersionDto docCodeVersionDto)</span> </span>&#123;&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="接受form参数"><a href="#接受form参数" class="headerlink" title="接受form参数"></a>接受form参数</h4><ul>
+<li>使用<code>@RequestParam</code>注解来标明待接受的参数的参数名称，是否必要以及默认值。</li>
+<li>在对应的PostMan接口测试的时候，from的提交应当选择<code>Body</code>中的<code>x-www-form-urlencoded</code>，然后填写对应的数据。</li>
+</ul>
+<p><img src="/project_05_summary/postman-from.png" srcset="/img/loading.gif"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@PostMapping(&quot;/updateOrderList&quot;)</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> Result&lt;Object&gt; <span class="hljs-title">listByLatestUpdate</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam(value = &quot;pageNumber&quot;, required = false, defaultValue = &quot;1&quot;)</span> <span class="hljs-keyword">int</span> pageNumber,</span></span><br><span class="hljs-function"><span class="hljs-params">                                         <span class="hljs-meta">@RequestParam(value = &quot;pageSize&quot;, required = false, defaultValue = &quot;15&quot;)</span> <span class="hljs-keyword">int</span> pageSize)</span> </span>&#123;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="接受get参数"><a href="#接受get参数" class="headerlink" title="接受get参数"></a>接受get参数</h4><ul>
+<li>同样使用注解<code>@RequestParam</code>指名参数名称即可，最终url会扩展成<code>?xx1=1&amp;xx2=2</code>的样子</li>
+</ul>
+<p><img src="/project_05_summary/postman-get.png" srcset="/img/loading.gif"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/detail&quot;)</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> Result&lt;Object&gt; <span class="hljs-title">detailDocumentByCode</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam(value = &quot;docCode&quot;)</span> String docCode)</span> </span>&#123;&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="6-Dao层"><a href="#6-Dao层" class="headerlink" title="6.Dao层"></a>6.Dao层</h3><h4 id="resultType和resultMap"><a href="#resultType和resultMap" class="headerlink" title="resultType和resultMap"></a>resultType和resultMap</h4><p>因为数据库字段命名规范是小写下划线分割，而java实体类则是驼峰式，所以这就涉及到了映射的问题，直接使用resultType就会导致映射不上去，这时要么使用<code>AS</code>语法起别名，要么使用resultMap方式。</p>
+<h4 id="根据时间倒序"><a href="#根据时间倒序" class="headerlink" title="根据时间倒序"></a>根据时间倒序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT *<br>FROM &#96;table_name&#96;<br>ORDER BY &#96;change_time&#96; DESC<br></code></pre></td></tr></table></figure>
+<h4 id="模糊搜索"><a href="#模糊搜索" class="headerlink" title="模糊搜索"></a>模糊搜索</h4><p>即使用<code>LIKE</code>语句，再要搜索的内容前后加<code>%</code>符号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs mysql">&lt;select id&#x3D;&quot;queryLike&quot; parameterType&#x3D;&quot;java.lang.String&quot; resultMap&#x3D;&quot;DocumentEntity&quot;&gt;<br>	SELECT *<br>	FROM &#96;table_name&#96;<br>	WHERE (<br>	&#96;doc_code&#96; LIKE CONCAT(&#39;%&#39;,#&#123;content&#125;,&#39;%&#39;)<br>	OR<br>	&#96;doc_name&#96; LIKE CONCAT(&#39;%&#39;,#&#123;content&#125;,&#39;%&#39;)<br>	)<br>&lt;&#x2F;select&gt;<br></code></pre></td></tr></table></figure>
+<h4 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h4><p>本次使用PageHelper插件来进行分页查询。</p>
+<p>application.properties配置：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment"># 分页插件配置</span><br><span class="hljs-attr">pagehelper.helperDialect</span>=mysql<br><span class="hljs-attr">pagehelper.reasonable</span>=<span class="hljs-literal">true</span><br><span class="hljs-attr">pagehelper.supportMethodsArguments</span>=<span class="hljs-literal">true</span><br><span class="hljs-attr">pagehelper.params</span>=count=countSql<br><span class="hljs-attr">mybatis.configuration.map-underscore-to-camel-case</span>=<span class="hljs-literal">true</span><br><span class="hljs-attr">mybatis.type-aliases-package</span>=com/xxx/xxx/xx/entity<br></code></pre></td></tr></table></figure>
+<p>使用也比较简单：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">PageHelper.startPage(pageNumber, pageSize);	<span class="hljs-comment">// 1. startPage</span><br>List&lt;IndexDocVO&gt; docList = documentDao.selectLatestUpdate();	<span class="hljs-comment">// 2.Dao查询</span><br><span class="hljs-keyword">return</span> ResultUtil.getSuccessfulResult(ResultCodeEnum.SUCCESS, <span class="hljs-keyword">new</span> PageInfo&lt;&gt;(docList));	<span class="hljs-comment">// 3.使用PageInfo&lt;&gt;包装</span><br></code></pre></td></tr></table></figure>
+<p>startPage是在查询语句之前进行配置，同时要求查询的SQL语句中不能有分号<code>;</code>的存在。</p>
+<p>分页具体返回的结果（封装在结果集之中）：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">200</span>,<br>    <span class="hljs-attr">&quot;msg&quot;</span>: <span class="hljs-string">&quot;操作成功&quot;</span>,<br>    <span class="hljs-attr">&quot;data&quot;</span>: &#123;<br>        <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">17</span>,<br>        <span class="hljs-attr">&quot;list&quot;</span>: [<br>            &#123;<br>                <span class="hljs-attr">&quot;docName&quot;</span>: <span class="hljs-string">&quot;xxx档&quot;</span><br>            &#125;,<br>            &#123;<br>                <span class="hljs-attr">&quot;docName&quot;</span>: <span class="hljs-string">&quot;xxxx0&quot;</span><br>            &#125;,<br>            &#123;<br>                <span class="hljs-attr">&quot;docName&quot;</span>: <span class="hljs-string">&quot;xxx6&quot;</span><br>            &#125;,<br>            &#123;<br>                <span class="hljs-attr">&quot;docName&quot;</span>: <span class="hljs-string">&quot;xxxxx5&quot;</span><br>            &#125;,<br>            &#123;<br>                <span class="hljs-attr">&quot;docName&quot;</span>: <span class="hljs-string">&quot;xxxxx&quot;</span><br>            &#125;,<br>            &#123;<br>                <span class="hljs-attr">&quot;docName&quot;</span>: <span class="hljs-string">&quot;xxxxx&quot;</span><br>            &#125;,<br>            &#123;<br>                <span class="hljs-attr">&quot;docName&quot;</span>: <span class="hljs-string">&quot;xxxx&quot;</span><br>            &#125;,<br>            &#123;<br>                <span class="hljs-attr">&quot;docName&quot;</span>: <span class="hljs-string">&quot;xxxx&quot;</span><br>            &#125;,<br>            &#123;<br>                <span class="hljs-attr">&quot;docName&quot;</span>: <span class="hljs-string">&quot;xxxxx&quot;</span>,<br>            &#125;,<br>            &#123;<br>                <span class="hljs-attr">&quot;docName&quot;</span>: <span class="hljs-string">&quot;qq&quot;</span><br>            &#125;<br>        ],<br>        <span class="hljs-attr">&quot;pageNum&quot;</span>: <span class="hljs-number">1</span>,<br>        <span class="hljs-attr">&quot;pageSize&quot;</span>: <span class="hljs-number">10</span>,<br>        <span class="hljs-attr">&quot;size&quot;</span>: <span class="hljs-number">10</span>,<br>        <span class="hljs-attr">&quot;startRow&quot;</span>: <span class="hljs-number">1</span>,<br>        <span class="hljs-attr">&quot;endRow&quot;</span>: <span class="hljs-number">10</span>,<br>        <span class="hljs-attr">&quot;pages&quot;</span>: <span class="hljs-number">2</span>,<br>        <span class="hljs-attr">&quot;prePage&quot;</span>: <span class="hljs-number">0</span>,<br>        <span class="hljs-attr">&quot;nextPage&quot;</span>: <span class="hljs-number">2</span>,<br>        <span class="hljs-attr">&quot;isFirstPage&quot;</span>: <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">&quot;isLastPage&quot;</span>: <span class="hljs-literal">false</span>,<br>        <span class="hljs-attr">&quot;hasPreviousPage&quot;</span>: <span class="hljs-literal">false</span>,<br>        <span class="hljs-attr">&quot;hasNextPage&quot;</span>: <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">&quot;navigatePages&quot;</span>: <span class="hljs-number">8</span>,<br>        <span class="hljs-attr">&quot;navigatepageNums&quot;</span>: [<br>            <span class="hljs-number">1</span>,<br>            <span class="hljs-number">2</span><br>        ],<br>        <span class="hljs-attr">&quot;navigateFirstPage&quot;</span>: <span class="hljs-number">1</span>,<br>        <span class="hljs-attr">&quot;navigateLastPage&quot;</span>: <span class="hljs-number">2</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="7-Service层"><a href="#7-Service层" class="headerlink" title="7.Service层"></a>7.Service层</h3><h4 id="dao层异常处理"><a href="#dao层异常处理" class="headerlink" title="dao层异常处理"></a>dao层异常处理</h4><p>service层主要是在调用dao层的方法，而dao层主要是数据库查询语句，难免会发生错误，所以关于dao的调用都需要使用<code>try...catch&#123;&#125;</code>语句进行包裹。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> Result&lt;Object&gt; <span class="hljs-title">selectLatestUpdate</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>        PageHelper.startPage(pageNumber, pageSize);<br>        List&lt;IndexDocVO&gt; docList = documentDao.selectLatestUpdate();<br>        <span class="hljs-keyword">return</span> ResultUtil.getSuccessfulResult(ResultCodeEnum.SUCCESS, <span class="hljs-keyword">new</span> PageInfo&lt;&gt;(docList));<br>    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>        log.error(<span class="hljs-string">&quot;[DocumentServiceImpl]: selectLatestUpdate(): An exception occurred while querying the database! pageNumber:&#123;&#125;, pageSize:&#123;&#125;.&quot;</span>, pageNumber, pageSize, e);<br>        <span class="hljs-keyword">return</span> ResultUtil.getErrorResult(ResultCodeEnum.DATABASE_ERROR);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>如果不进行异常捕获，那么就会使得整个程序崩掉。</p>
+<h4 id="事务回滚"><a href="#事务回滚" class="headerlink" title="事务回滚"></a>事务回滚</h4><p>当要进行多个数据库操作时，其中一个出现了问题，那么就需要将所有的数据库操作进行回滚。</p>
+<p>在本次项目中，关于两张表查询修改的模块是需要进行事务处理的，事务回滚触发的条件就是发生异常</p>
+<p>事务注解，添加在方法之上：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Transactional(rollbackFor = Exception.class)</span><br></code></pre></td></tr></table></figure>
+<p>但是经过了上面的<code>try...catch&#123;&#125;</code>异常捕获之后，事务回滚就会失效，这是应当在`catch``语句中添加一行代码，使得事务可以捕获到异常。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Transactional(rollbackFor = Exception.class)</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> Result&lt;Object&gt; <span class="hljs-title">updateDocument</span><span class="hljs-params">(EditDocDto editDocDto)</span> </span>&#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>        <span class="hljs-comment">// 更新多张表</span><br>    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();<span class="hljs-comment">// 关键代码</span><br>        <span class="hljs-keyword">return</span> ResultUtil.getErrorResult(ResultCodeEnum.DATABASE_ERROR);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="8-Entity与Dto和Vo"><a href="#8-Entity与Dto和Vo" class="headerlink" title="8.Entity与Dto和Vo"></a>8.Entity与Dto和Vo</h3><p>Entity是与数据库表相对应的实体，一个属性对应数据库表的一列。</p>
+<p>Dto(Data Transfer Object)：数据传输对象，个人理解就是用于传输必要的字段而非整个Entity对象，这样也能隐藏部分表结构。</p>
+<p>Vo(View object)：显示层对象，主要用于后端向前端展示数据用。</p>
+<h3 id="9-日志规范"><a href="#9-日志规范" class="headerlink" title="9.日志规范"></a>9.日志规范</h3><p>本次中最主要的日志都写在了Service层。</p>
+<blockquote>
+<p>1.日志需要有辨识度，建议日志原因+变量名+变量值，例如log.info(“日志原因是xx校验不通过，变量名:{}.”, 变量值)；</p>
+<p>2.日志需要打印出来的核心变量初始化必须在局部域以外完成，例如 if else，try catch</p>
+<p>3.每个单独的分支或者所有分支之前必须有log，尤其是return的情况</p>
+</blockquote>
+<p>主要的变量信息还是要有的。</p>
+<p>如果要打印对象各个参数的信息，只要这和对象有<code>toString()</code>方法，那就直接打印对象即可。</p>
+<p>在<code>catch</code>语句中的log要打印出对应的错误日志，这里捕获的异常<code>e</code>是不需要使用占位符的，直接附加到日志的最后即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">log.error(<span class="hljs-string">&quot;[DocumentServiceImpl]: updateDocument(): An exception occurred while querying the database! editDocDto:&#123;&#125;&quot;</span>, editDocDto, e);<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="10-跨域"><a href="#10-跨域" class="headerlink" title="10.跨域"></a>10.跨域</h3><p>CORS disable</p>
+<p>在开发中往往会出现，前端页面在一台服务器上，而后端提供的接口又在其他服务器上，从前端获取接口数据的时候就会出现跨域问题。</p>
+<p>同一服务器的不同端口之间访问也会出现跨域问题。</p>
+<p>解决方式1：</p>
+<p>设置响应头<code>Access-Control-Allow-Origin</code>为<code>*</code>，表示接受任何域名的访问。</p>
+<p>解决方式2：josnp(JSON with Padding)</p>
+<p>一个现象就是，通过href或者src请求的js脚本、css样式表、图片和视频文件是不存在跨域问题的，而通过Ajax请求的数据才存在跨域问题。</p>
+<p>jsonp就是利用<code>script</code>标签的src属性不受同源策略限制，向不同域发http请求，得到一段可以执行的js，这段js将响应数据作为参数调用回调函数。</p>
+<p>jsonp就是在一端包装一个函数，另一端通过<code>script</code>标签引入之后再使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">?callback=xxxfun<br></code></pre></td></tr></table></figure>
+<p>还可以使用Nginx做反向代理来解决跨域的问题。</p>
+<h3 id="11-正则表达式"><a href="#11-正则表达式" class="headerlink" title="11.正则表达式"></a>11.正则表达式</h3><h4 id="表达式1：x-x-x版本匹配"><a href="#表达式1：x-x-x版本匹配" class="headerlink" title="表达式1：x.x.x版本匹配"></a>表达式1：x.x.x版本匹配</h4><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs taggerscript">^(<span class="hljs-symbol">\d</span>+<span class="hljs-symbol">\.</span>)&#123;2&#125;(<span class="hljs-symbol">\d</span>+)$<br></code></pre></td></tr></table></figure>
+<p><code>^$</code>这个表示全字符匹配</p>
+<h4 id="表达式2：0-0-0版本的不匹配"><a href="#表达式2：0-0-0版本的不匹配" class="headerlink" title="表达式2：0.0.0版本的不匹配"></a>表达式2：0.0.0版本的不匹配</h4><p>为什么是不匹配呢？因为采用的是<code>javax.validation.constraints.Pattern</code>注解，这个注解的作用是，当字段不匹配<code>regexp</code>时就会出发异常，所以这里想要的效果是不匹配。</p>
+<p>最初的版本是：</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs taggerscript">^((?!0+<span class="hljs-symbol">\.</span>0+<span class="hljs-symbol">\.</span>0+).)*$<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>^$</code>这个表示全字符匹配</li>
+<li><code>(?!exp)</code>是一种<strong>零宽断言</strong>，它表示某个位置之后不能匹配表达式exp。</li>
+<li>上述的正则可以匹配:</li>
+</ul>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1</span><br><span class="hljs-attribute">7</span><br><span class="hljs-attribute">17</span><br><span class="hljs-attribute">1111hello1234556</span><br><span class="hljs-attribute">11</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+<p>但是无法匹配：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">10</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span><br><span class="hljs-attribute">100</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+<p>变更：</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs taggerscript">^((?!^0+<span class="hljs-symbol">\.</span>0+<span class="hljs-symbol">\.</span>0+).)*$<br></code></pre></td></tr></table></figure>
+<ul>
+<li>增加了一个符号<code>^</code>，这个符号限定开头。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/macq/p/6597366.html">https://www.cnblogs.com/macq/p/6597366.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ytc6/p/8478989.html">正则表达式中^的用法</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Spring/">Spring</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/maven/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Maven学习与使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/java_08_Thread/">
+                        <span class="hidden-mobile">Java基础（八）—— 线程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "MtnFjgPHU4QgDov26Ttd39aS-gzGzoHsz",
+          app_key: "VxW97jqxtcjGJrb9AWmPKqrK",
+          placeholder: "期待您的发言",
+          path: window.location.pathname,
+          avatar: "wavatar",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: true,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div>
+    由<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>强力驱动
+  <i class="iconfont icon-love"></i>
+  主题：<a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+  <br>
+
+<span>已经陪伴<a href="https://www.colourso.top" target="_blank" rel="nofollow noopener"><b>Colourso</b></a>：</span><span id="timeDate">25</span>天<span id="times">03 小时 08 分 10 秒</span>
+  <br>
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+
+  
+
+
+<!-- 网站运行时间的设置 -->
+<script src="/js/HidenMath.js"></script>
+<script>
+  var now = new Date();
+  function createtime() {
+    var grt = new Date("10/01/2018 12:30:00");//此处修改你的建站时间或者网站上线时间
+    now.setTime(now.getTime() + 250);
+    days = (now - grt) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+    hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+    if (String(hnum).length == 1) { hnum = "0" + hnum; } minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+    mnum = Math.floor(minutes); if (String(mnum).length == 1) { mnum = "0" + mnum; }
+    seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+    snum = Math.round(seconds); if (String(snum).length == 1) { snum = "0" + snum; }
+    document.getElementById("timeDate").innerHTML = dnum;
+    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+  }
+  setInterval("createtime()", 250);
+</script>
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
